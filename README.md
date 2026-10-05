@@ -1,6 +1,6 @@
 # Prefix Cache research source snapshot
 
-本仓库与 majic-mk/PageShare 并列，是独立的私有仓库，代码直接保存到默认 main。
+本仓库与 majic-mk/PageShare 并列，是独立的公共仓库，代码直接保存到默认 main。
 
 - prefix_io_v1/：服务器当前项目源码、作者 py-kvcache/vLLM 副本、历史增量修改、测试、配置、脚本、交接文档与本轮报告。原服务器项目根目录在此目录对应。
 - workspace/：本地研究工作区的已跟踪源码、未提交源码修改、补充测试与 Prefix I/O 开发候选快照，保留原路径。
@@ -33,4 +33,4 @@
 
 git clone https://github.com/majic-mk/prefix-cache.git
 
-需要该私有仓库的读取权限。进入 prefix_io_v1 后按 docs/prefix_io_v1/04_CODEX_EXECUTION.md 与已有阶段文档阅读；模型和执行器沿用作者实现。
+浏览源码和克隆无需登录。SOURCE_EXPORT_INFO.json 保留首次上传时的私有状态，当前仓库已公开。进入 prefix_io_v1 后按 docs/prefix_io_v1/04_CODEX_EXECUTION.md 与已有阶段文档阅读；模型和执行器沿用作者实现。

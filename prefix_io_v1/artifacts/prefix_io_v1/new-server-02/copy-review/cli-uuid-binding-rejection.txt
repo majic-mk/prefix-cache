@@ -1,0 +1,4 @@
+usage: qualify_author_copy.py [-h] --library LIBRARY
+                              (--abi-only | --gpu-uuid GPU_UUID)
+                              [--output OUTPUT]
+qualify_author_copy.py: error: external runner must bind CUDA_VISIBLE_DEVICES to exactly --gpu-uuid

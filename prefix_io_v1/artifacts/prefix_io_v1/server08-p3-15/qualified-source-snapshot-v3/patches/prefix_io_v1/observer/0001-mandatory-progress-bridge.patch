@@ -1,0 +1,164 @@
+diff --git a/py_kvcache/reactor.py b/py_kvcache/reactor.py
+--- a/py_kvcache/reactor.py
++++ b/py_kvcache/reactor.py
+@@ -82,6 +82,21 @@
+     compute_event: Any = None
+ 
+ 
++@dataclass(frozen=True)
++class _MandatoryWait:
++    # Identity is local to one reactor instance; integer job IDs alone can recur.
++    token: object
++    futures: frozenset[Future[int]]
++
++
++@dataclass
++class _ProgressState:
++    run_id: str
++    token: object = field(default_factory=object)
++    # Scheduling signal only: native jobs, slots, queues and Futures retain ownership.
++    required: set[Future[int]] = field(default_factory=set)
++
++
+ @dataclass
+ class _PreloadRequest:
+     block_hashes: list[bytes]
+@@ -173,7 +188,12 @@
+         layout: ParsedKvLayout,
+         break_even: BreakEvenThresholds | None = None,
+         storage_block_tokens: int = 0,
++        progress_run_id: str | None = None,
+     ) -> None:
++        if progress_run_id is not None and (
++            type(progress_run_id) is not str or not progress_run_id.strip()
++        ):
++            raise ValueError("progress_run_id must be a nonempty string or None")
+         if not TORCH_COPY_AVAILABLE:
+             raise RuntimeError("vLLM and torch are required for the I/O reactor")
+         self.config = config
+@@ -306,6 +326,10 @@
+             else None
+         )
+ 
++        # None keeps ordinary deployment disabled; no parent signal refs are created.
++        self._prefix_progress = (
++            _ProgressState(progress_run_id) if progress_run_id is not None else None
++        )
+         self._worker = threading.Thread(target=self._run, name="py-kvcache-reactor", daemon=True)
+         self._worker.start()
+         logger.info(
+@@ -323,6 +347,34 @@
+                     job.future.set_exception(RuntimeError("reactor is shut down"))
+                 return
+             self._incoming.put(job)
++
++    @property
++    def progress_bridge_enabled(self) -> bool:
++        return getattr(self, "_prefix_progress", None) is not None
++
++    def request_mandatory(self, futures: list[Future[int]]) -> bool:
++        state = getattr(self, "_prefix_progress", None)
++        if state is None:
++            return False
++        if any(not isinstance(future, Future) for future in futures):
++            raise TypeError("mandatory signals must refer to existing parent Futures")
++        requested = frozenset(futures)
++        if not requested:
++            return False
++        with self._submit_lock:
++            if self._closed:
++                return False
++            # Reuse the native incoming channel. FIFO puts accepted jobs before waits.
++            self._incoming.put(_MandatoryWait(state.token, requested))
++        return True
++
++    def is_mandatory(self, future: Future[int]) -> bool:
++        state = getattr(self, "_prefix_progress", None)
++        if state is None:
++            return False
++        if threading.get_ident() != self._worker.ident:
++            raise RuntimeError("mandatory membership is reactor-owner state")
++        return future in state.required
+ 
+     def enqueue_preload(
+         self,
+@@ -614,6 +666,11 @@
+                     except BaseException:
+                         pass
+ 
++        state = getattr(self, "_prefix_progress", None)
++        if state is not None:
++            # Drop signal references on fatal termination, not native I/O ownership.
++            state.required.clear()
++
+     def _drain_incoming(self, *, block: bool) -> None:
+         if block:
+             try:
+@@ -629,7 +686,18 @@
+             self._intake(item)
+ 
+     def _intake(self, item: Any) -> None:
++        state = getattr(self, "_prefix_progress", None)
++        if isinstance(item, _MandatoryWait):
++            if state is not None and item.token is state.token:
++                # Unknown, drained and prior-run Futures cannot acquire urgency.
++                state.required.update(
++                    job.future for job in self._active if job.future in item.futures
++                )
++            return
+         if item is self._STOP:
++            if state is not None:
++                # No future scheduler epoch is needed to drain accepted work.
++                state.required.update(job.future for job in self._active)
+             self._stop = True
+             unclaimed = self._preload_cached_total
+             if unclaimed:
+@@ -2042,6 +2110,10 @@
+                 job.next_file_index >= job.total_files or job.failed is not None
+             )
+             if drained and job.future_set:
++                state = getattr(self, "_prefix_progress", None)
++                if state is not None:
++                    # A failed Future can settle before other I/O drains.
++                    state.required.discard(job.future)
+                 removed = True
+                 continue
+             remaining.append(job)
+@@ -2081,6 +2153,7 @@
+         layout: ParsedKvLayout,
+         break_even: BreakEvenThresholds | None = None,
+         storage_block_tokens: int = 0,
++        progress_run_id: str | None = None,
+     ) -> None:
+         self.layout = layout
+         self.reactor = IoReactor(
+@@ -2089,7 +2162,15 @@
+             layout=layout,
+             break_even=break_even,
+             storage_block_tokens=storage_block_tokens,
+-        )
++            progress_run_id=progress_run_id,
++        )
++
++    @property
++    def progress_bridge_enabled(self) -> bool:
++        return self.reactor.progress_bridge_enabled
++
++    def request_mandatory(self, futures: list[Future[int]]) -> bool:
++        return self.reactor.request_mandatory(futures)
+ 
+     def submit_store(
+         self,
+diff --git a/py_kvcache/vllm.py b/py_kvcache/vllm.py
+--- a/py_kvcache/vllm.py
++++ b/py_kvcache/vllm.py
+@@ -546,6 +546,9 @@
+             active[0] for job_id in job_ids if (active := self._active.get(job_id)) is not None
+         ]
+         if futures:
++            if getattr(self.coordinator, "progress_bridge_enabled", False) is True:
++                # Publish before blocking; the independent reactor consumes the signal.
++                self.coordinator.request_mandatory(futures)
+             futures_wait(futures)
+         add_event(
+             "py_kvcache.handler.wait",

@@ -1,0 +1,214 @@
+{
+  "schema_version": 2,
+  "scope": "SERVER09_P4_FULL_STEP_COLLECTOR_CPU_CONTRACT",
+  "status": "CPU_SCALAR_FRAME_ADAPTER_IMPLEMENTED_RUNTIME_NOT_INSTALLED",
+  "original_project_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "original_source_refs": [
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_p4_calibration_startup.py",
+      "bytes": 6181,
+      "sha256": "ac2ffddd6bfa238553cb641331910dace4fd0d47066a606697919a11e22b6cdd"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "bytes": 21990,
+      "sha256": "7d31cce851ca2334fedbe6b66c4e2d9bfff19e8768bafaa52f68e414518d77e2"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/AGENTS.md",
+      "bytes": 3879,
+      "sha256": "0a2ea921cc33a55e1f89bd8cdbad9f6a57feafe0798ecdd12a905f5a069722d3"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/vllm/v1/worker/gpu_model_runner.py",
+      "bytes": 329690,
+      "sha256": "61828af13a5f523c9683df560374d75bc1df93254a9ac4a449c95447100e9075"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/vllm/v1/engine/core.py",
+      "bytes": 92611,
+      "sha256": "e9e522b559d1c79fd3e2943bbb42203180d8341823834fa3e202912b7e48945d"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/vllm/v1/worker/gpu_worker.py",
+      "bytes": 49164,
+      "sha256": "bcbdfba6d0846f4151551c39140b370cba33a1af6401e0a2362f5be1de3cfd3b"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/vllm/config/vllm.py",
+      "bytes": 99170,
+      "sha256": "23ed05ff149f36dba4701076fed1ebb882e2c3693dfc0aa83ed17f05250c4af7"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_paired_measurement_verifier.py",
+      "bytes": 48136,
+      "sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_gpu_step_observation.py",
+      "bytes": 11977,
+      "sha256": "2dbd58eb095413520c5818cf5bb982ae6ca584933fc9b6db567eef41b29ca690"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_native_window_journal.py",
+      "bytes": 9647,
+      "sha256": "3a9ded39846cccf88ee9aceed2e16b86d8a7bbe953adfea3ba1a302b2c5aa8c3"
+    }
+  ],
+  "source_provenance": "SHA-256 and file bytes measured read-only on cloned server09 using .venv/bin/python -I -S with CUDA_VISIBLE_DEVICES empty; no torch/vLLM import",
+  "reused_paths": {
+    "executor": "original GPUModelRunner.execute_model followed by original sample_tokens",
+    "input_geometry": "actual input_batch CPU fields after original _prepare_inputs",
+    "io": "original TransferCoordinator/handler and owner StageAccounting/NativeWindowJournal",
+    "verifier": "existing p4_paired_measurement_verifier.py schema version 2; remains unmodified"
+  },
+  "resolved_engine_requirements": {
+    "async_scheduling": false,
+    "speculative_config": null,
+    "tensor_parallel_size": 1,
+    "pipeline_parallel_size": 1,
+    "data_parallel_size": 1,
+    "generation_runner": true
+  },
+  "discovered_config_gap": "Historical ENGINE omits async_scheduling. Author VllmConfig sets None to True when the executor supports it. A new GPU calibration plan must explicitly freeze async_scheduling=False and audit the resolved runtime; old source locks and receipts remain untouched.",
+  "hook_plan": [
+    {
+      "original_method": "GPUModelRunner.execute_model",
+      "position": "entry before original execution",
+      "planned_action": "begin(native _profile_step, host monotonic start); eventual real GPU start event",
+      "status": "not_installed"
+    },
+    {
+      "original_method": "GPUModelRunner._prepare_inputs",
+      "position": "after original method returns",
+      "planned_action": "capture immutable actual CPU request/context/token geometry only",
+      "status": "not_installed"
+    },
+    {
+      "original_method": "GPUModelRunner.execute_model",
+      "position": "after original method returns None",
+      "planned_action": "keep scalar frame open for original sampling; no completion claim",
+      "status": "not_installed"
+    },
+    {
+      "original_method": "GPUModelRunner.sample_tokens",
+      "position": "after original synchronous ModelRunnerOutput returns",
+      "planned_action": "copy actual CPU sampled token IDs and close full original execute/sample interval; eventual real GPU end event",
+      "status": "not_installed"
+    },
+    {
+      "original_method": "original handler.shutdown",
+      "position": "only after actual accepted I/O completion, worker join and backend closure",
+      "planned_action": "validate full run/native source binding, all four physical accepted/completed counters and no remaining owners; reconcile independent frontend outputs",
+      "status": "not_installed"
+    }
+  ],
+  "cpu_implemented": [
+    "bounded immutable prepared/closed frames",
+    "original execute None does not complete sampling",
+    "continuous native ordinals and actual per-request context growth",
+    "real CPU token ID cohort/index checks and full independent output reconstruction",
+    "explicit post-prepare sync/non-spec/single-TP-PP-DP domain",
+    "no unknown context rounding or bucketing",
+    "full original native drain evidence shape and physical totals",
+    "off returns before reading runtime objects",
+    "observer data retains no runner/scheduler/output/Future/tensor objects",
+    "genuine cold-prefill pre_context=0 retained in complete frames",
+    "explicit separation of pre-computed context from computed-plus-scheduled input sequence length",
+    "partial cold prefill cannot invent a token before completing the prompt"
+  ],
+  "finite_limits": {
+    "steps": 4096,
+    "requests": 128,
+    "full_output_tokens": 262144,
+    "planned_calibration_output_tokens_per_request": 128
+  },
+  "unsupported_rejected": [
+    "async or unknown resolved async setting",
+    "speculative/dummy/pooling/distributed work",
+    "mixed prefill/decode or mixed exact contexts",
+    "crossing-prompt or multi-token decode",
+    "execute direct-return paths outside this planned normal generation domain",
+    "missing sampled IDs, hidden steps, skipped ordinals, context replay",
+    "closure inferred from Future.done or one empty queue",
+    "negative or boolean pre-context, fabricated tokens before partial prefill completes"
+  ],
+  "gpu_missing": [
+    "separate versioned full-trace verifier context migration for genuine zero cold-prefill pre-context; old v2 source and measurements must remain frozen",
+    "real installed thin hook on original runner",
+    "real original source/ABI/runtime context qualification",
+    "real full execute/sample GPU event pairs and valid source-bound timing contract",
+    "actual selected and unselected per-step existing/new native I/O from complete owner events",
+    "complete native I/O window coverage and drain collected during original runtime",
+    "independent frontend/native request binding and full actual 128-token outputs",
+    "balanced AB/BA calibration, frozen step offsets and independent validation prefix/trace split",
+    "reuse of v2 verifier for full trace exact projection and unchanged qualified cost-cell loader"
+  ],
+  "native_single_stage_scope": {
+    "supported_candidates": [
+      "original SSD-only preload",
+      "original H2D load from retained staging"
+    ],
+    "unqualified": [
+      "D2H-alone",
+      "SSD-write-alone"
+    ],
+    "reason": "Original native store couples D2H and SSD write. This adapter does not isolate or invent either cost cell."
+  },
+  "timing": {
+    "intended_scope": "full_decode_step",
+    "gpu_elapsed_ns": null,
+    "event_recorder_implemented": false,
+    "event_recorder_installed": false,
+    "host_clock_use": "ordering and run membership only; no replacement of GPU elapsed duration",
+    "native_gpu_cross_clock_attribution_qualified": false
+  },
+  "tests": {
+    "command_after_root_upload": "CUDA_VISIBLE_DEVICES='' PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -I -S <append-new collector directory>/test_p4_full_step_frame_adapter.py",
+    "local_cpu_result": {
+      "tests": 26,
+      "passed": 26,
+      "failed": 0,
+      "runtime_seconds": 0.009
+    },
+    "server_cpu_result": null,
+    "origin": "cpu_fixture",
+    "local_command": "PYTHONDONTWRITEBYTECODE=1 python -I -S artifacts/prefix_io_v1_server09_candidates/collector/test_p4_full_step_frame_adapter.py",
+    "cpu_cold_run_count_semantics": "An ordinary total of 128 output tokens comprises one token sampled after completed prefill plus 127 pure-decode forwards. A completed prefill followed by 128 pure-decode forwards actually yields 129 sampled tokens and must not be truncated/relabelled as 128."
+  },
+  "runtime_hook_status": "not_installed",
+  "GPU_collector_implemented": false,
+  "GPU_collector_verified": false,
+  "GPU_runs_performed": 0,
+  "gpu_initialized": false,
+  "model_loaded": false,
+  "downloaded_bytes": 0,
+  "budget_reserved_seconds": 0,
+  "accepted_native_IO_performed": 0,
+  "production_qualified": false,
+  "effect_verified": false,
+  "P4_complete": false,
+  "P5_allowed": false,
+  "context_semantics": {
+    "context_basis": "pre_computed_tokens",
+    "pre_context": "actual input_batch.num_computed_tokens_cpu after original _prepare_inputs; zero is valid for cold prefill",
+    "context_length": "the same prior computed-token context as the existing capture_prepared_forward load signature; never replaced by post-input sequence length",
+    "input_seq_lens_from_cpu_inputs": "separate per-request scalar tuple computed from actual prior computed tokens plus actual scheduled input tokens; this is the author optimistic_seq_lens/GPU seq_lens formula, not a renamed cache-cost context dimension",
+    "author_source_lines": {
+      "optimistic_cpu_seq_lens": [
+        1997,
+        2006
+      ],
+      "gpu_seq_lens_formula": [
+        2100,
+        2105
+      ]
+    },
+    "decode_domain": "pre_context>=prompt_tokens>=1 and exactly one scheduled token per active request",
+    "prefill_domain": "0<=pre_context<prompt_tokens and scheduled input does not cross prompt; partial prefill emits no sampled token",
+    "original_v2_legacy_context_rule": "p4_paired_measurement_verifier._valid_load requires context_length>=1 for every complete-trace row; capture_prepared_forward places prior computed context in load_signature[7]",
+    "cold_full_trace_v2_compatible": false,
+    "required_before_gpu_full_trace_cost": "Append a separately versioned full-trace context contract/verifier and qualification binding that accepts actual pre-context zero only on explicit prefill rows, preserves all original steps and keeps the prior-context cost feature unchanged. Do not omit the first frame or substitute computed+scheduled, 1, or a bucket.",
+    "v3_contract_or_loader_implemented": false
+  }
+}

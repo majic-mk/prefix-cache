@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_CPU_KV_BYTE_STRUCTURE_AND_CONTENT_CANDIDATE_ONLY",
+  "implementation_refs": [
+    {
+      "path": "g3_kv_byte_evidence.py",
+      "bytes": 16751,
+      "sha256": "ceee25a71ed7fb47d75a87ca15d4b842d8a5f145558a3b4a6f40c693111b97f0"
+    },
+    {
+      "path": "test_g3_kv_byte_evidence.py",
+      "bytes": 18741,
+      "sha256": "73370e58746ecb101bd6a89aaa93f219682d8986929deafd4b2111fc9ea4807c"
+    }
+  ],
+  "source_contract": {
+    "whole_G2_source_lock": {
+      "bytes": 899396,
+      "sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b"
+    },
+    "source_count": 4,
+    "source_guard": "Exact lock and transfer/reactor/liburing_file/author kv_offload base bytes read and SHA checked at beginning and end of every verification; no source modules imported.",
+    "source_refs": [
+      {
+        "path": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/transfer.py",
+        "bytes": 12061,
+        "sha256": "1dcc5f4370e3db694d34924038a8fdd5a2eb12cf7f04ba81072dc969f275c1ba"
+      },
+      {
+        "path": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+        "bytes": 169906,
+        "sha256": "2b0ac1e8e68f82adb42ade03b74b49843eabe55361a00f0ac1f7a738ac423e18"
+      },
+      {
+        "path": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/liburing_file.py",
+        "bytes": 15244,
+        "sha256": "6a8995ca6e5f49ae470e8c49dbf3d98caf2d09dd091cb6f08f9e892c051414f5"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/v1/kv_offload/base.py",
+        "bytes": 15330,
+        "sha256": "204d682bf61d3a2c1bbbe8ca1ecfd6fe6b10eca32b2600c39118403db6aae1d2"
+      }
+    ]
+  },
+  "supported_subset": {
+    "files": [
+      1,
+      8
+    ],
+    "layers": [
+      1,
+      64
+    ],
+    "factor": [
+      1,
+      32
+    ],
+    "max_logical_bytes_per_file": 33554432,
+    "max_total_capture_bytes": 536870912,
+    "group_count": 1,
+    "dtype": "int8",
+    "element_size": 1,
+    "ndim": 2,
+    "layout": "Contiguous canonical pages only; layer-major then storage-local block, with page stride equal to page bytes. Source and consumer GPU block IDs may differ while storage-local position must match.",
+    "partial_skip": "Rejected; first_block_index must equal zero and each file has exactly factor pages.",
+    "alignment": 4096,
+    "logical_vs_physical": "Pinned original allocate_staging_buffer requires logical storage_block_bytes divisible by 4096. Supported SSD physical bytes therefore equal logical bytes and outer padding is zero. Unaligned layout or an extra padding tail is rejected; no invented padding policy."
+  },
+  "content_checks": [
+    "Five producer/D2H/SSD-write/SSD-read/restored capture SHA declarations recomputed from actual immutable fixture bytes.",
+    "Producer pages match D2H layer-major slices; both SSD captures match D2H; restored pages match producer local block correspondence.",
+    "Prefix/token block hash is only an association key and is not conflated with payload SHA. Original OffloadKey hash plus four-byte big-endian group zero required."
+  ],
+  "association_and_order": "Exact CPU stage records require run, store/load job pair, file index, key and block IDs; unique positive sequence with producer capture -> D2H completed -> SSD write completed -> SSD capture -> SSD read completed -> H2D completed -> consumer capture -> model compute. CPU-declared completion bits are fixture assertions and never native proof. Additionally all files must have their consumer restore capture before any consumer model compute; per-file order alone is insufficient.",
+  "authority_boundary": {
+    "accepted_input": "Exact CPUFixtureBundle dataclasses only; origin/native/qualified receipt arguments unsupported. Unknown object types are rejected before reading owner attributes.",
+    "returned_input_retention": "No raw payload, tensor, owner, Future, input bundle or source path object returned; only immutable scalar summaries and fixed source refs.",
+    "missing_runtime_provenance": [
+      "Actual CUDA tensors, shape and raw page capture identity",
+      "Original D2H/H2D event completion and staging provenance",
+      "Actual SSD path and completed write/read physical payload provenance",
+      "Consumer restore capture before original model compute",
+      "Live original owner/job registration and actual capture installer"
+    ],
+    "GPU_operations": 0,
+    "native_capture_installer_present": false,
+    "GPU_verified": false,
+    "production_qualified": false,
+    "effect_verified": false,
+    "real_byte_qualification": false,
+    "P4_method_effect_verified": false
+  },
+  "changes_to_original_engine": "None. No synchronization, transfer_async, get_finished, shutdown, hook installation, policy activation, model change, GPU scope creation, permission or ledger changes.",
+  "actual_CPU_validation": {
+    "distinct_tests": 32,
+    "first_attempt": {
+      "tests": 31,
+      "passed": 29,
+      "errors": 2,
+      "reason": "Scalar-only test AST included a __future__ import with restricted builtins lacking __import__. Test harness repaired to compile the unchanged pinned scalar AST with annotations compiler flag. Module and original sources unchanged.",
+      "log_ref": {
+        "path": "CPU_BYTE_RUN_01.log",
+        "bytes": 6385,
+        "sha256": "afb2ae24d0b0df6c966d3aa4a5d1f1b9e008f507d06a374e5d754af36b0f1fde"
+      },
+      "result_ref": {
+        "path": "CPU_BYTE_RUN_01_RESULT.json",
+        "bytes": 736,
+        "sha256": "ae0e8b15cd6b88ed3f5833360d80db5055654007e84bbdae3321406f6cc88ff3"
+      }
+    },
+    "no_test_count_accumulation": true,
+    "prior_pass_before_global_gate": {
+      "tests": 31,
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "unittest_seconds": 0.222,
+      "process_wall_seconds": 0.3440000000409782,
+      "log_ref": {
+        "path": "CPU_BYTE_RUN_02.log",
+        "bytes": 4535,
+        "sha256": "f791a9abb9b3ec5d63a9e750c77eed6a101710650566e60dea7b98b6b2e4f534"
+      },
+      "result_ref": {
+        "path": "CPU_BYTE_RUN_02_RESULT.json",
+        "bytes": 735,
+        "sha256": "b7d4319fefecd38cf82110f8e36db494d11d79aae32a25985304c4d376b9f4a2"
+      },
+      "status": "HISTORICAL_31_TESTS_BEFORE_GLOBAL_BEFORE_COMPUTE_GATE"
+    },
+    "final_attempt": {
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "unittest_seconds": 0.225,
+      "process_wall_seconds": 0.35899999999674037,
+      "log_ref": {
+        "path": "CPU_BYTE_RUN_03.log",
+        "bytes": 4674,
+        "sha256": "4d73a9b0211362bc8d66fc282c1576d6d73bfdbd4a9c2ee181c1a605cb43d82c"
+      },
+      "result_ref": {
+        "path": "CPU_BYTE_RUN_03_RESULT.json",
+        "bytes": 736,
+        "sha256": "3bae00f319993a346d676e58c6dccf856eaa4107efdfd3cbf137506378ae48a9"
+      }
+    }
+  },
+  "server_CPU_command": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S artifacts/prefix_io_v1/server09-g3-production-kv-io-20261002/test_g3_kv_byte_evidence.py --source-root /root/autodl-tmp/prefix-io-v1-handoff/project --lock /root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261002/gpu-source-lock-candidate.json",
+  "next_stage": "Independent CPU boundary review and actual server stdlib replay. Future native byte capture must be implemented, source-bound and separately GPU-authorized before any real byte qualification; this candidate does not supply that authority.",
+  "bounded_repair": {
+    "reason": "Original CPU fixture validation only required per-file capture before its model compute. Actual historical-source counterexample accepted file0 compute sequence8 before file1 H2D14/capture15.",
+    "minimal_change": "Require maximum of all consumer capture sequences below minimum of all consumer compute sequences; fixtures become phase-major and one necessary negative test added. No layout/GPU/native scope change.",
+    "counterexample_ref": {
+      "path": "CPU_BYTE_GLOBAL_COUNTEREXAMPLE_OLD.json",
+      "bytes": 624,
+      "sha256": "2a85bbe10cd66ba4510e24ef323dd581ccddd3ab2a5b56d60d96b6a09b370ccb"
+    },
+    "historical_five_file_refs": {
+      "path": "historical-byte-before-global-before-compute/HISTORICAL_SOURCE_REFS.json",
+      "bytes": 916,
+      "sha256": "e45f6cff881b297643f1505929a65a6bfca083d6011f6a0ac0576306f7f05858"
+    }
+  }
+}

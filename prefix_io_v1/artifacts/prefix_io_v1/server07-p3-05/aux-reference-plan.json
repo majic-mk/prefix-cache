@@ -1,0 +1,48 @@
+{
+  "scope": "Same-budget calibration references on explicitly authorized auxiliary filesystem; not performance",
+  "gpu_uuid": "GPU-f8744916-1693-fa6a-93b6-7f503c03459c",
+  "domain": 16384,
+  "kv_budget_bytes": 2147483648,
+  "staging_budget_bytes": 1073741824,
+  "reps": 3,
+  "sizes": [
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "native_label": "server07-p3-aux-native-ref-01",
+  "external_groups": [
+    {
+      "label": "server07-p3-aux-long-ref-01",
+      "sizes": [
+        2048,
+        4096
+      ],
+      "storage": "aux-calibration-long",
+      "storage_path": "/root/prefix-io-v1-validation/storage/calibration-long"
+    },
+    {
+      "label": "server07-p3-aux-8k-ref-01",
+      "sizes": [
+        8192
+      ],
+      "storage": "aux-calibration-8k",
+      "storage_path": "/root/prefix-io-v1-validation/storage/calibration-8k"
+    },
+    {
+      "label": "server07-p3-aux-16k-ref-01",
+      "sizes": [
+        16384
+      ],
+      "storage": "aux-calibration-16k",
+      "storage_path": "/root/prefix-io-v1-validation/storage/calibration-16k"
+    }
+  ],
+  "run_details": {
+    "server07-p3-aux-native-ref-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-native-ref-01/details",
+    "server07-p3-aux-long-ref-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-long-ref-01/details",
+    "server07-p3-aux-8k-ref-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-8k-ref-01/details",
+    "server07-p3-aux-16k-ref-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-16k-ref-01/details"
+  }
+}

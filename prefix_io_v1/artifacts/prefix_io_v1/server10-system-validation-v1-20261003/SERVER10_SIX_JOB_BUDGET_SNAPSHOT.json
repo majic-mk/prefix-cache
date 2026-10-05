@@ -1,0 +1,11 @@
+{
+  "stage": "six_basic_GPU_jobs",
+  "actual_gpu_jobs": 6,
+  "new_gpu_seconds": 635.2429783456028,
+  "cumulative_gpu_seconds": 18444.38334597787,
+  "remaining_gpu_seconds": 10355.616654022131,
+  "limit_seconds": 28800,
+  "active_reservation": null,
+  "free_bytes": 10847002624,
+  "performance_claim": false
+}

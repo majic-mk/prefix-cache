@@ -1,0 +1,5 @@
+{
+  "stdout": "{\"status\": \"ACTUAL_V3_CONFIG_BOUND\", \"plan_ref\": {\"path\": \"artifacts/prefix_io_v1/server12-strong-gpu-system-verification-20261005/raw02/BOUND_PLAN.json\", \"bytes\": 166513, \"sha256\": \"5d43a6c1e7862b2e3d8b4f115e8c49af95cb57331f56a698848ceabdf54515b6\"}, \"config_ref\": {\"path\": \"artifacts/prefix_io_v1/server12-strong-gpu-system-verification-20261005/raw02/CONFIG.json\", \"bytes\": 2600, \"sha256\": \"80348cc061f990ba533b570f21edc6c30d634a259d0cb6383d2833ea35db1916\"}, \"current_model_execution_started\": false}\n",
+  "stderr": "",
+  "exit": 0
+}

@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "status": "CPU_REFERENCE_PREPARATION_COMPLETE_CURRENT_DRIVER_ASSET_MOUNT_BLOCKED",
+  "files": [
+    {
+      "path": "g3_reference_plan.py",
+      "bytes": 19355,
+      "sha256": "600d1cf449c964339c4515de3e2f4a6fe9dbf21c715acf164f102c90eedce017"
+    },
+    {
+      "path": "test_g3_reference_plan.py",
+      "bytes": 19111,
+      "sha256": "e83dd27f0d81048647ec80d3cd60754644909becc05351315c510d9a446dd783"
+    },
+    {
+      "path": "g3_reference_runtime.py",
+      "bytes": 14377,
+      "sha256": "4adc621057fde015e4483d2140601c1d8f68936c1e2b4dd2f828f3c04ef50ab3"
+    },
+    {
+      "path": "test_g3_reference_runtime.py",
+      "bytes": 22212,
+      "sha256": "cb306f6400d4d215d900fa786327b709f98c79c2547289b2fc40b0223ab62e3b"
+    },
+    {
+      "path": "g3_reference_result.py",
+      "bytes": 18442,
+      "sha256": "46efa7026f66da7b44bb0d10df96b5a4f6aaef3e0f7b0073654144ca604415a8"
+    },
+    {
+      "path": "test_g3_reference_result_v2.py",
+      "bytes": 16381,
+      "sha256": "93739091daa2df804cfef0d32538626022528d11e3b20b13f7de1caefaf57b18"
+    },
+    {
+      "path": "run_g3_reference_pilot.py",
+      "bytes": 22725,
+      "sha256": "1bd502be997fd1a784ab49aa0262d45dabeca2374a53312d4c96dbdc504ea7a6"
+    },
+    {
+      "path": "test_run_g3_reference_pilot.py",
+      "bytes": 23471,
+      "sha256": "46da5498ec0d6226b68d07cee29449ee73fc6a46ee28057828a14d6ea27beddd"
+    },
+    {
+      "path": "G3_REFERENCE_INPUT_MANIFEST.json",
+      "bytes": 9730,
+      "sha256": "d601114bd93fb99643bc0c9c5be8c5ab2fa83deec95ecc1e366ed48d00b8af24"
+    },
+    {
+      "path": "G3_REFERENCE_ANALYZER_PLAN.json",
+      "bytes": 1088,
+      "sha256": "bb5af64613ceddee50234bdecee23c2c0677a7300d71c6b16f2849c0272a22ea"
+    },
+    {
+      "path": "G3_REFERENCE_MODEL_CONTEXT.json",
+      "bytes": 11739,
+      "sha256": "4d7c1e882ea37df024a7a89b80477eb1aa81938bae84fa2ac22a24ddb8d98c7f"
+    },
+    {
+      "path": "G3_REFERENCE_CPU_PLAN.json",
+      "bytes": 10087,
+      "sha256": "0a2ee806685fb1783e10014c155659598e1fb2820ad78cab0e9cc59bb1569578"
+    },
+    {
+      "path": "gpu-source-lock-reference-v1.json",
+      "bytes": 910072,
+      "sha256": "8443f45dd4dd6c1c64595199051f5e88449268af347bcbd836c927b754eabe30"
+    },
+    {
+      "path": "G3_REFERENCE_SCOPE_TEMPLATE_NOT_AUTHORIZED.json",
+      "bytes": 6027,
+      "sha256": "88b98eba1b1576b5e555f9ebde19ba40881a19f7cf284e825b7001cad4088dec"
+    },
+    {
+      "path": "REFERENCE_SERVER_CPU_PLAN_01.json",
+      "bytes": 2048,
+      "sha256": "188767cb58d1429f5ecf8ed8f5e3fbb156b6631b94e355980af6b22552164e77"
+    },
+    {
+      "path": "REFERENCE_SERVER_CPU_PLAN_02.json",
+      "bytes": 4528,
+      "sha256": "4a19b1cfea73deb9d19fa254ea2fd6523db27da68f99795b24bf0e1ba5ba91ba"
+    },
+    {
+      "path": "REFERENCE_SERVER_CPU_RUNTIME_01.json",
+      "bytes": 2581,
+      "sha256": "dad00696da173adf36dcad01956bdd178f980395d3e55258a3fe0e7922a486bc"
+    },
+    {
+      "path": "REFERENCE_SERVER_CPU_RESULT_01.json",
+      "bytes": 627474,
+      "sha256": "86317e80c18c8dd65d53eb57b2c2c5176363c877080ab6386f6e597e0004f981"
+    },
+    {
+      "path": "REFERENCE_SERVER_CPU_RESULT_02.json",
+      "bytes": 4748,
+      "sha256": "718ae4430538ca36d3acedaa2030bc39b21993a23cd740164a2f45266d09caca"
+    },
+    {
+      "path": "REFERENCE_SERVER_CLI_TESTS_01.json",
+      "bytes": 3297,
+      "sha256": "6f19cdb05ce12ff893ba97c299a6ff0992ddf226acd3e7ae94737dea86aafba2"
+    },
+    {
+      "path": "REFERENCE_SERVER_FULL_PREFLIGHT_01.json",
+      "bytes": 887,
+      "sha256": "fbbe1b5e071bff69c87fa6dda1862f70636dc66335efd428efcdb451defed5b8"
+    },
+    {
+      "path": "REFERENCE_SERVER_NO_HUMAN_LAUNCH_01.json",
+      "bytes": 890,
+      "sha256": "638bb07355961b5c61b8c68ecd66217e1b8c2a2a8d426187edd4e37cd2fc3b6f"
+    },
+    {
+      "path": "REFERENCE_SERVER_NO_HUMAN_EXECUTE_01.json",
+      "bytes": 893,
+      "sha256": "56f50f952660d6d88708b165ddeca994c64a39675ff437668449d54a5ed2ac86"
+    },
+    {
+      "path": "REFERENCE_SERVER_OLD_SCOPE_REFUSAL_01.json",
+      "bytes": 1050,
+      "sha256": "423b7aed85436fc18619cd75cd64807b355a98cc12e3e52a76242770897fdf7f"
+    },
+    {
+      "path": "REFERENCE_ACTUAL_ANALYZER_IMPORT_CPU_01.json",
+      "bytes": 516,
+      "sha256": "dd5b6fd3dd034ff3cdfa689535b88289b02a128ccb190b8dba2aba7258e97fe1"
+    },
+    {
+      "path": "REFERENCE_ACTUAL_FULL_CPU_SOURCE_INPUT_AND_ENVIRONMENT_AUDIT.json",
+      "bytes": 2914,
+      "sha256": "f36a6177926b9838cc01a66284ccdf6a167a0d37608deb5c71c87838fe46bc87"
+    },
+    {
+      "path": "test_g3_reference_result.py",
+      "bytes": 16301,
+      "sha256": "13f9be987466b407f34f54dff955008f94c88c6cbf9b999a993a0c0cf13a95b7"
+    },
+    {
+      "path": "REFERENCE_RUNTIME_RESULT_INTERFACE_READONLY_REVIEW.json",
+      "bytes": 4481,
+      "sha256": "0978d942d32d400d6aec365804955101d37c12dd0540d9cee9706ffdccaadb6e"
+    },
+    {
+      "path": "INDEPENDENT_REFERENCE_CLI_READONLY_REVIEW.json",
+      "bytes": 5630,
+      "sha256": "bcb9c61121efac88cd07ee85169651b0ffa571b611c4f31fe8ce84724d978a68"
+    },
+    {
+      "path": "REFERENCE_RESULT_CPU_FINAL_FREEZE.json",
+      "bytes": 10165,
+      "sha256": "e98db60607b318711582d2b648369fa5470f05b4219d9267c1432869d49df53a"
+    },
+    {
+      "path": "REFERENCE_LOCAL_PRIOR_DELIVERIES_UNCHANGED.json",
+      "bytes": 934,
+      "sha256": "457c23bbeaed18b4c13a17d30e712702731c2f621030706b7d06205a7a08fdb3"
+    },
+    {
+      "path": "REFERENCE_LOCAL_FREEZE_RECEIPT.json",
+      "bytes": 3641,
+      "sha256": "bc9b0606b89f5a4f2ceeb1e8e6354d68f67be23b6ad51d70b2bcf9cb43fb90e1"
+    },
+    {
+      "path": "REFERENCE_CPU_FINAL_STATUS_AND_NEXT_ALLOWED_STAGE.json",
+      "bytes": 2117,
+      "sha256": "ff1b109a27b0e7a805aa190b66b47ecd63133678feb97cc32d056ccad6c55df5"
+    },
+    {
+      "path": "SERVER09_G3_REFERENCE_CPU_REPORT.md",
+      "bytes": 5675,
+      "sha256": "d5fff6cbeec3054b893329d8bcab26b8fd7735b761356ac598cd9f11292c351b"
+    },
+    {
+      "path": "REFERENCE_CPU_REMOTE_COMMAND_TRANSCRIPT.json",
+      "bytes": 83730,
+      "sha256": "8fc029b472e4ef6751396a1f0fecbfdd1522b77f6831783863db6b6f4de33f7a"
+    }
+  ],
+  "file_count": 35,
+  "total_bytes": 1889317,
+  "source_lock_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-reference-v1.json",
+    "bytes": 910072,
+    "sha256": "8443f45dd4dd6c1c64595199051f5e88449268af347bcbd836c927b754eabe30"
+  },
+  "full_source_reference_count": 4088,
+  "CPU_tests_passed": 85,
+  "new_GPU_authorization_created": false,
+  "actual_gpu_runs_this_package": 0,
+  "numerical_reference_verified": false,
+  "performance_claim": false
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "strong_native_trace_run_v1",
+  "phase": "development",
+  "arm": "U",
+  "mode": "off",
+  "run_id": "server12-public-development-uoff01",
+  "source_lock_ref": {
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/PRERENT_SOURCE_LOCK_V14.json",
+    "bytes": 1164001,
+    "sha256": "427c796365d31a5ff7a725f2bfa52641a74a9c609b67fda918fa23834af343b4"
+  },
+  "source_proof_ref": {
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/PRERENT_SOURCE_PROOF_V14.json",
+    "bytes": 1558,
+    "sha256": "e5392891a83f60c436e708aac85ebcca99717a52a185183ef573692c3b2cf8fd"
+  },
+  "pair_config_ref": {
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_DEVELOPMENT_U_I_CONFIG_01.json",
+    "bytes": 8946,
+    "sha256": "b2df43c34f5f194d448eb596e8edea0392d5005ced7b76f40ab62edbb6de4596"
+  },
+  "workload_ref": {
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_ORIGINAL_MANIFEST_01.json",
+    "bytes": 113401,
+    "sha256": "01bb329d696f61bc9363aaaff553dd380ce457a9f01713f0991562aa92c8d340"
+  },
+  "permissions_ref": {
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/live-off01/EFFECTIVE_GPU_PERMISSION.json",
+    "bytes": 677,
+    "sha256": "ea2848a46776a196878f0cf665ca2284225861e3e46b919c8b2c100905b7e35f"
+  },
+  "gpu_uuid": "GPU-b2de2c25-cdc7-a350-267f-56e7763a287f",
+  "seconds_limit": 300,
+  "storage_reserve_bytes": 134217728,
+  "storage_floor_bytes": 8589934592,
+  "output_relative": "experiments/prefix_io_v1/runs/server12-public-development-uoff01/details",
+  "runner_ref": {
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/strong_trace_runner_v4.py",
+    "bytes": 53339,
+    "sha256": "0519543ab496d54a11ce2b7bff08e69d77d8127976121dddfea2563bef337091"
+  },
+  "runtime_ref": {
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/native_runtime_v4.py",
+    "bytes": 55468,
+    "sha256": "ce7c22bba2027626fcabbea4df52d94aaea6b1fdf3d5d2b673e879c1680a60bd"
+  },
+  "off_qualification_ref": null,
+  "activation_ref": {
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_DEVELOPMENT_ACTIVATION_01.json",
+    "bytes": 3297,
+    "sha256": "10787cc36ebad4bc8b5ba6d8b97972548bb4389fd3c440c39cbf0cdd2aa0bb7d"
+  },
+  "formal_trace_binding_ref": {
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_DEVELOPMENT_BINDING_01.json",
+    "bytes": 2469,
+    "sha256": "1c5bfa373eb271c328f36dde0c8081cc2779d29d91c5993cfaf366dce22abf39"
+  },
+  "formal_peer_closed_ref": null
+}

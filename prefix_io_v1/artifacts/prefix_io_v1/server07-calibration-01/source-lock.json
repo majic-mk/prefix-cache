@@ -1,0 +1,18 @@
+{
+  "sources": {
+    "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py": "b2b222ecc93180e5c8892094ebb6a89a695b3f3948ebaf29898b9e911f46bf28",
+    "experiments/prefix_io_v1/scripts/export_native_aio_costs.py": "19f6911e78d59eacc148a36f48004f887946d9a655f1be53d2c3a40628787b49",
+    "tests/prefix_io_v1_calibration/test_trace_identity.py": "2121feb8e77df28d73712f283cdf390a0ad915af1396506656796776f5ea69d1",
+    "tests/prefix_io_v1_native_costs/test_export_rejections.py": "2dfd5c70c2c5258dbf7ef36bb61fe90003359cd7e26c4aabc17d7adffd50e038"
+  },
+  "upstream": {
+    "py-kvcache": {
+      "head": "3abba7a502d553f6e7e2e58b92086487e3395d7e",
+      "status": " M py_kvcache/fs_config.py\n M py_kvcache/reactor.py\n M py_kvcache/staging.py\n M py_kvcache/transfer.py\n M tests/test_planner_manager.py\n?? py_kvcache/linux_aio.py\n"
+    },
+    "vllm": {
+      "head": "817a7e3124f817cd6e549581d3e5483207a753a4",
+      "status": " M vllm/platforms/cuda.py\n"
+    }
+  }
+}

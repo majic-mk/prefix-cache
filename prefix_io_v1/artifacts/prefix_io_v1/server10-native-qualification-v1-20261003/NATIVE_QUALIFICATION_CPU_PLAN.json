@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "status": "CPU_NATIVE_CONFIGURATION_NOT_GPU_RESULT",
+  "gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+  "original_entry_ref": {
+    "path": "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+    "bytes": 29692,
+    "sha256": "5d9604fc07d80495a49febfcd488cb2601f74a2bef107261c8e623a4d0a1c77d"
+  },
+  "original_guard_ref": {
+    "path": "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "bytes": 13013,
+    "sha256": "3527b6218d3e6c5781de550ce1c7cdebfd354e37d80f41693010201a3586929a"
+  },
+  "baseline_source_lock": {
+    "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/gpu-source-lock-server10-reference.json",
+    "bytes": 914772,
+    "sha256": "ae3bf8437a41c4c531bf211689b4f7f68af7f8dd558a42914f2eef733988aa54"
+  },
+  "qualification_context": {
+    "native": "third_party/work/py-kvcache-p4-02-cpu",
+    "control": "third_party/work/prefix-io-p4-02-cpu/src",
+    "author": "third_party/work/vllm-author-p4-02-cpu",
+    "compiled_binary": "third_party/work/vllm-author-build/vllm",
+    "storage_reserve_bytes": 134217728,
+    "seconds_limit": 180,
+    "staging_budget_bytes": 16777216,
+    "staging_iodepth": 1,
+    "new_executor": false,
+    "model_loaded": false
+  },
+  "permitted_run_names": {
+    "off": "server10-p4-native-off-01",
+    "shadow": "server10-p4-native-shadow-01"
+  },
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "maximum_jobs": 2,
+  "maximum_total_reserve_seconds": 400,
+  "retries": 0,
+  "shared_storage_reserve_per_job_bytes": 134217728,
+  "PRIMARY_floor_bytes": 8589934592,
+  "cumulative_GPU_budget_seconds": 28800,
+  "GPU_budget_reset": false,
+  "commands": {
+    "off": [
+      ".venv/bin/python",
+      "-B",
+      "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+      "--mode",
+      "off",
+      "--name",
+      "server10-p4-native-off-01",
+      "--scope-record",
+      "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/GPU_STAGE_AUTHORIZATION.json",
+      "--source-lock",
+      "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/gpu-source-lock-native-qualification.json",
+      "--permissions-path",
+      "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+      "--launch"
+    ],
+    "shadow": [
+      ".venv/bin/python",
+      "-B",
+      "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+      "--mode",
+      "shadow",
+      "--name",
+      "server10-p4-native-shadow-01",
+      "--scope-record",
+      "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/GPU_STAGE_AUTHORIZATION.json",
+      "--source-lock",
+      "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/gpu-source-lock-native-qualification.json",
+      "--permissions-path",
+      "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+      "--launch"
+    ]
+  },
+  "outer_operator_must_enforce_names_count_order_and_success": true,
+  "original_scope_parser_enforces_names_count_order": false,
+  "off_required_before_shadow": [
+    "guard exit/child exit zero",
+    "no timeout/error",
+    "OS session fully drained",
+    "PASS_REAL_GPU_P4_NATIVE_OFF",
+    "exact_content true",
+    "real_cuda and real_linux_aio true",
+    "all four native phases closed, drained, balanced and admitted parents retired"
+  ],
+  "model_loaded": false,
+  "full_P4_complete": false,
+  "effect_verified": false,
+  "GPU_operations": 0
+}

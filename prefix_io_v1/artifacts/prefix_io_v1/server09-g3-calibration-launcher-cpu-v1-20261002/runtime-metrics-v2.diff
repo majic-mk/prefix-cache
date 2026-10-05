@@ -1,0 +1,103 @@
+--- historical-runtime-metrics-v2
++++ runtime-metrics-v2
+@@ -30,6 +30,13 @@
+ MODES = ("cold", "populate", "paired")
+ STAGES = ("ssd_read", "ssd_write", "h2d", "d2h")
+ MODEL_NAME = "Qwen/Qwen2.5-7B-Instruct"
++METRICS_SOURCE = "third_party/work/vllm-author-p4-02-cpu/vllm/distributed/kv_transfer/kv_connector/v1/offloading/metrics.py"
++METRICS_MODULE = "vllm.distributed.kv_transfer.kv_connector.v1.offloading.metrics"
++METRICS_REF = dict(path=METRICS_SOURCE, bytes=6195,
++    sha256="5ab3c65af3c0f78b0696bcc60c68ecfe51332c6d5f6684bb2cfa0e0ea9677d73")
++STATS_COMPAT_SOURCE = "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-actual-20261002/metrics-common-fix-cpu/compat_offloading_stats_dict.py"
++STATS_COMPAT_REF = dict(path=STATS_COMPAT_SOURCE, bytes=9744,
++    sha256="7204b0fb3f784f58e5c8cc396810ba52a40769a168980c7e8e0ed210e19bb007")
+ 
+ 
+ def require(ok, reason):
+@@ -94,6 +101,8 @@
+     """Read sources/assets only; never configure caches or import backends."""
+     root = Path(root).resolve(strict=True)
+     for rel, expected in PINNED.items(): checked_source(root, refs, rel, expected)
++    checked_source(root, refs, METRICS_SOURCE, (METRICS_REF["bytes"], METRICS_REF["sha256"]))
++    checked_source(root, refs, STATS_COMPAT_SOURCE, (STATS_COMPAT_REF["bytes"], STATS_COMPAT_REF["sha256"]))
+     common = load_source(root, refs, COMMON)
+     try:
+         # Existing pure-CPU checks verify actual CUDA13 inventory/tool bytes and
+@@ -115,7 +124,7 @@
+     require(set(witness) == expected and type(witness["schema_version"]) is int and witness["schema_version"] == 1,
+             "exact parent guard witness")
+     require(witness["purpose"] == PURPOSE and witness["gpu_uuid"] == GPU_UUID and
+-            witness["label"] == "server09-g3-calibration-"+mode+"-01", "new pilot identity")
++            witness["label"] == "server09-g3-calibration-"+mode+"-02", "new pilot identity")
+     require(witness["authorized_scope_verified"] is True and witness["active_reservation_verified"] is True,
+             "parent must verify human scope and active original reservation")
+     require(type(witness["seconds_limit"]) is int and witness["seconds_limit"] == 300 and
+@@ -322,14 +331,16 @@
+     original_base=dict(ROOT=base.ROOT,AUTHOR_ROOT=base.AUTHOR_ROOT,ENGINE=base.ENGINE,
+         configure_runtime_environment=base.configure_runtime_environment)
+     aliases={}; old_path=list(sys.path); old_argv=sys.argv; old_cwd=Path.cwd()
+-    old_environment=dict(os.environ); finder=None; probe=None; acquire=None
++    old_environment=dict(os.environ); finder=None; probe=None; acquire=None; stats_compat=None; stats_handle=None
+     taps=ScalarTaps(out); receipt=dict(origin="source_bound_runtime",purpose=PURPOSE,mode=mode,
+         guard_witness=scalar_copy(guard_witness),framework_import_attempted=False,
+         GPU_initialization_attempted=False,original_exit_code=None,common_environment={},
+         source_lock_sha256=guard_witness["source_lock_sha256"],scope_sha256=guard_witness["scope_sha256"],
+         process_identity=dict(pid=os.getpid(),sid=os.getsid(0)),
+         cost_qualified=False,production_qualified=False,performance_claim=False,
+-        raw_calibration_only=True,curves=None,load_planner="off",GPU_elapsed_ns=None)
++        raw_calibration_only=True,curves=None,load_planner="off",GPU_elapsed_ns=None,
++        common_stats_dictionary_fix=dict(installed=False,restored=False,
++            original_metrics_ref=METRICS_REF,helper_ref=STATS_COMPAT_REF,witness=None))
+     def register(name,module):
+         aliases[name]=(name in sys.modules,sys.modules.get(name)); sys.modules[name]=module
+     try:
+@@ -360,7 +371,7 @@
+         storage_module.permission=permission
+         receipt["effective_storage_permission_ref"]=scalar_copy(permit_ref)
+         def configure():
+-            nonlocal finder,probe
++            nonlocal finder,probe,stats_compat,stats_handle
+             receipt["common_environment"]["caches"]=common.configure_process_caches(out,base)
+             sdk=common.prepare_process_sdk(root,refs,out); receipt["common_environment"]["SDK"]=sdk
+             receipt["common_environment"]["Ninja"]=common.prepare_process_ninja(root,refs,out,sdk)
+@@ -376,6 +387,13 @@
+             utilities=importlib.import_module("vllm.utils.import_utils")
+             probe=optional.install_capability_probe(utilities,finder,root,refs)
+             loader.require(loader.normalize_uuid(torch.cuda.get_device_properties(0).uuid)==loader.normalize_uuid(GPU_UUID),"actual GPU UUID")
++            # Common interface repair: preserve the original producer call and
++            # every byte/time metric; no transfer/executor/logging change.
++            checked_source(root,refs,METRICS_SOURCE,(METRICS_REF["bytes"],METRICS_REF["sha256"]))
++            metrics=importlib.import_module(METRICS_MODULE)
++            stats_compat=load_source(root,refs,STATS_COMPAT_SOURCE)
++            stats_handle=stats_compat.install_stats_dict_compat(metrics,Path(metrics.__file__))
++            receipt["common_stats_dictionary_fix"]["installed"]=True
+             # Source-code binding before installing the bounded diagnostic tap.
+             dummy=object.__new__(vllm.LLM)
+             original_method(dummy,"generate",root,refs)
+@@ -428,6 +446,17 @@
+         return_code=code
+     finally:
+         taps.restore()
++        if stats_handle is not None:
++            try:
++                stats_handle.detach()
++                stats_witness=stats_handle.witness()
++                receipt["common_stats_dictionary_fix"]["witness"]=scalar_copy(stats_witness)
++                receipt["common_stats_dictionary_fix"]["restored"]=(stats_witness["installed"] is False)
++            except BaseException as error:
++                taps.fault(error)
++                receipt["common_stats_dictionary_fix"]["restored"]=False
++        if stats_compat is not None:
++            sys.modules.pop(stats_compat.__name__,None)
+         receipt["requests"]=scalar_copy(taps.requests)
+         receipt["native_post_shutdown"]=scalar_copy(taps.tails)
+         receipt["observer_fault_types"]=list(taps.failures)
+@@ -468,7 +497,7 @@
+             sys.modules.pop(base.__name__,None);sys.modules.pop(common.__name__,None)
+             sys.path[:]=old_path;sys.argv=old_argv;os.chdir(old_cwd)
+             os.environ.clear();os.environ.update(old_environment)
+-            receipt["common_helpers_restored"]=all(taps.restorations) and receipt.get("optional_probe_restored") is True and receipt.get("storage_permission_restored") is True
++            receipt["common_helpers_restored"]=all(taps.restorations) and receipt.get("optional_probe_restored") is True and receipt.get("storage_permission_restored") is True and receipt["common_stats_dictionary_fix"]["installed"] is True and receipt["common_stats_dictionary_fix"]["restored"] is True
+             receipt["observer_fault_types"]=list(taps.failures)
+             with (out/"calibration-runtime-result.json").open("x",encoding="utf-8") as stream:
+                 json.dump(scalar_copy(receipt),stream,indent=2,allow_nan=False);stream.write("\n")

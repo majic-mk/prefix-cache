@@ -1,0 +1,132 @@
+{
+  "unix": 1790699183.9594133,
+  "scope": "P3 mixed native model start-budget integration; single-trial descriptive comparison, not full per-stage caps or research efficacy",
+  "runs": [
+    {
+      "label": "server07-p3-10-start-mixed-off",
+      "mode": "off",
+      "depth": 8,
+      "probe": false,
+      "command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "--label",
+        "server07-p3-10-start-mixed-off",
+        "--seconds",
+        "240",
+        "--",
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_concurrent_pilot.py",
+        "--output",
+        "/root/prefix-io-v1-validation/runs/server07-p3-10-start-mixed-off/details",
+        "--model-dir",
+        "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--curves",
+        "artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json",
+        "--manifest",
+        "artifacts/prefix_io_v1/server07-p3-06/d8/mixed_readwrite-manifest.json",
+        "--storage-source",
+        "/root/prefix-io-v1-validation/storage/heldout-long",
+        "--qualification",
+        "artifacts/prefix_io_v1/server07-p3-06/d8/permit.json",
+        "--start-budget-config",
+        "artifacts/prefix_io_v1/server07-p3-09/off-model-config.json"
+      ]
+    },
+    {
+      "label": "server07-p3-10-start-mixed-fixed",
+      "mode": "fixed",
+      "depth": 8,
+      "probe": false,
+      "command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "--label",
+        "server07-p3-10-start-mixed-fixed",
+        "--seconds",
+        "240",
+        "--",
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_concurrent_pilot.py",
+        "--output",
+        "/root/prefix-io-v1-validation/runs/server07-p3-10-start-mixed-fixed/details",
+        "--model-dir",
+        "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--curves",
+        "artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json",
+        "--manifest",
+        "artifacts/prefix_io_v1/server07-p3-06/d8/mixed_readwrite-manifest.json",
+        "--storage-source",
+        "/root/prefix-io-v1-validation/storage/heldout-long",
+        "--qualification",
+        "artifacts/prefix_io_v1/server07-p3-06/d8/permit.json",
+        "--start-budget-config",
+        "artifacts/prefix_io_v1/server07-p3-09/fixed-model-config.json"
+      ]
+    },
+    {
+      "label": "server07-p3-10-start-mixed-pressure",
+      "mode": "pressure",
+      "depth": 8,
+      "probe": false,
+      "command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "--label",
+        "server07-p3-10-start-mixed-pressure",
+        "--seconds",
+        "240",
+        "--",
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_concurrent_pilot.py",
+        "--output",
+        "/root/prefix-io-v1-validation/runs/server07-p3-10-start-mixed-pressure/details",
+        "--model-dir",
+        "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--curves",
+        "artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json",
+        "--manifest",
+        "artifacts/prefix_io_v1/server07-p3-06/d8/mixed_readwrite-manifest.json",
+        "--storage-source",
+        "/root/prefix-io-v1-validation/storage/heldout-long",
+        "--qualification",
+        "artifacts/prefix_io_v1/server07-p3-06/d8/permit.json",
+        "--start-budget-config",
+        "artifacts/prefix_io_v1/server07-p3-09/pressure-model-config.json"
+      ]
+    }
+  ],
+  "maximum_launches": 3,
+  "total_reserved_gpu_seconds": 780,
+  "per_run_seconds": 240,
+  "order": [
+    "off",
+    "fixed",
+    "pressure"
+  ],
+  "workload": "Previously frozen depth8 mixed_readwrite n16257+128, max_num_seqs=2, 2GiB KV, 1GiB staging; same author LoadPlanner/admission, preload, fusion and source corpus",
+  "candidates": "Reuse exact P309 off/fixed/pressure candidates and 13-case real GPU qualification; no retuning based on four recurrence runs",
+  "mandatory": "Native parent future drains, progress overrides and accepted continuations retained",
+  "numeric_gate": "10 full128-token outputs per mode must exactly match frozen cold/GPU-hot references and mixed off result; stop on mismatch, no tolerance relaxation",
+  "stop": [
+    "After three launches; no repeat searching for favorable timing",
+    "Stop on numeric, accounting, quota, storage, source-preservation or drain failure"
+  ],
+  "limitations": [
+    "One run per arm, fixed order, no CI or formal goodput",
+    "Fixed/pressure here limit file-chain starts; full stage byte/inflight caps absent",
+    "Passive stage accounting adds work to enabled arms; this screen does not isolate its overhead from quota effects",
+    "Cannot combine start budget and flush-cause observer; ordinary wait counters remain"
+  ],
+  "storage": {
+    "per_run_reservation_bytes": 3221225472,
+    "primary_transient_reserve_bytes": 8388608
+  },
+  "native_reference": "/root/prefix-io-v1-validation/runs/server07-p3-c2-fullref-01/details"
+}

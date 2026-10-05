@@ -1,0 +1,503 @@
+--- before/docs/prefix_io_v1/CAPABILITY_MATRIX.md
++++ after/docs/prefix_io_v1/CAPABILITY_MATRIX.md
+@@ -112,3 +112,7 @@
+ ## P3 统一预算与长请求集成增量
+ 
+ 详见 [SERVER07_P3_UNIFORM_REPORT.md](SERVER07_P3_UNIFORM_REPORT.md)。24 个缓存参考比较零容差通过；生成单独的标定候选表并完成两次原始准入下的长请求集成诊断，每次 6 请求/768 token。实际 CUDA 复制与计算有约 1.016 ms 重叠，pending flush 等待仍为零。候选仅用于标定集成，独立数据与强简单基线未完成；P3 继续，joint 关闭。
++
++## P3 辅助存储与独立长前缀验证（2026-09-29）
++
++授权辅助根通过真实 O_DIRECT AIO 读回与额度检查。新存储 24 项标定缓存参考、独立长内容 6 项缓存参考、12 个完整 128-token 服务输出均通过严格比较。16256-token 独立成本预测在原定 25% 内通过；不覆盖旧 2K 失败、不授予全域资格。普通策略仍未接线，max_num_seqs=1，P3 未完成。详见 [本轮报告](SERVER07_P3_AUXILIARY_REPORT.md)。
+--- before/docs/prefix_io_v1/LIFECYCLE_REPORT.md
++++ after/docs/prefix_io_v1/LIFECYCLE_REPORT.md
+@@ -49,3 +49,7 @@
+ 真实 CUDA/AIO 的 pending producer → D2H → SSD → H2D 字节往返、零普通额度测试门下 mandatory wait、双 parent shutdown、短读 FAILED_DRAINING 后排空均已验证（progress-05）。诊断零额度不是生产调度器。
+ 原生 allocator/connector 同 owner 诊断见 native_owner.py：按 generation 区分块，ref_cnt=0、非 null、free queue 链接、无 pending fence、全部已观察 parent 经原生确认后才记录 reusable。13 次后续原生重分配证实该有限样本可复用；不是归还显存。活跃引用观测 1424；本流 fenced-free 观测 0，不证明真实阻塞存在。
+ reactor 只能报告 staging、copy、I/O、parent；GPU reusable 仍为 null。生产 owner freshness/epoch/控制器适配尚未实现，joint 保持关闭。未观察到的资源或未来阶段成本仍是未知，不填零。
++
++## P3 独立长请求的生命周期证据（2026-09-29）
++
++两次连续 cohort 各 6 请求/768 token，原异步执行器和原 LoadPlanner；无逐请求重置/人为暂停。每轮 SSD 实读 4777443328B、实写 19267584B；3048 个来源文件哈希不变，关闭时 accepted=completed=reaped、全部在途/待确认计数为零，进程会话已排空。pending_flush_wait 与前台 staging 失败均为 0，仅限 max_num_seqs=1。本轮不提供新的生产 owner/freshness 或并发释放阻塞证据，不改变早先 mandatory/failed-draining 有界资格。详见 server07-p3-05/long-service-result.json 与本轮报告。
+--- before/docs/prefix_io_v1/PATCH_MAP.md
++++ after/docs/prefix_io_v1/PATCH_MAP.md
+@@ -89,3 +89,7 @@
+ ## P3 统一预算与长请求集成增量
+ 
+ 详见 [SERVER07_P3_UNIFORM_REPORT.md](SERVER07_P3_UNIFORM_REPORT.md)。24 个缓存参考比较零容差通过；生成单独的标定候选表并完成两次原始准入下的长请求集成诊断，每次 6 请求/768 token。实际 CUDA 复制与计算有约 1.016 ms 重叠，pending flush 等待仍为零。候选仅用于标定集成，独立数据与强简单基线未完成；P3 继续，joint 关闭。
++
++## P3 辅助存储与独立验证增量（2026-09-29）
++
++config.py 增加向后兼容的可选辅助存储权限对象；新增 experiment_storage/probe_auxiliary_storage/copy_calibration_to_aux 及边界测试。采集与离线分析器支持显式 run_details/storage_path。新增 prepare_long_heldout_validation、long_validation_contract、run_long_native_reference、qualify_long_validation、analyze_long_validation；run_long_calibration_replay 增加 opt-in 资格检查，默认标定分支保持。新增内容为实验设施，没有缓存引擎/模型/reactor 新补丁。29 个 P2 锁定文件仅 config.py 改变；旧候选和失败结果哈希不变。精确差异、新增源文件及 SHA 见 server07-p3-05/existing-files.patch、source-lock.json。
+--- before/experiments/prefix_io_v1/configs/permissions.yaml
++++ after/experiments/prefix_io_v1/configs/permissions.yaml
+@@ -19,3 +19,9 @@
+ - GPU-f8744916-1693-fa6a-93b6-7f503c03459c
+ approved_experiment_root: /root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs
+ approved_dependency_root: /root/autodl-tmp/prefix-io-v1-handoff/project
++# Explicit user approval: system disk dedicated to bounded validation data.
++approved_auxiliary_storage:
++  root: /root/prefix-io-v1-validation
++  max_bytes: 21474836480
++  minimum_free_bytes: 8589934592
++  authorization_record: experiments/prefix_io_v1/configs/authorizations/system_disk_validation_20260929.json
+--- before/experiments/prefix_io_v1/execution_state.json
++++ after/experiments/prefix_io_v1/execution_state.json
+@@ -1,6 +1,6 @@
+ {
+   "schema_version": 1,
+-  "status": "P3_heldout_numeric_pass_cost_prediction_failed_full_P3_pending",
++  "status": "P3_independent_long_validation_pass_full_P3_pending",
+   "phases": [
+     {
+       "id": "P0",
+@@ -120,7 +120,7 @@
+       ],
+       "has_gpu_subtasks": true,
+       "gpu_subtasks_require_explicit_permission": true,
+-      "status": "in_progress_heldout_numeric_pass_cost_prediction_failed",
++      "status": "in_progress_independent_long_validation_pass_strong_baselines_pending",
+       "expected_outputs": [
+         "calibration-manifest.json",
+         "PILOT_PROBLEM_REPORT.md"
+@@ -139,7 +139,11 @@
+         "docs/prefix_io_v1/SERVER07_P3_HELDOUT_REPORT.md",
+         "artifacts/prefix_io_v1/server07-p3-04/heldout-reference-result.json",
+         "artifacts/prefix_io_v1/server07-p3-04/heldout-cost-result.json",
+-        "artifacts/prefix_io_v1/server07-p3-04/drift-result.json"
++        "artifacts/prefix_io_v1/server07-p3-04/drift-result.json",
++        "docs/prefix_io_v1/SERVER07_P3_AUXILIARY_REPORT.md",
++        "artifacts/prefix_io_v1/server07-p3-05/long-validation-permit.json",
++        "artifacts/prefix_io_v1/server07-p3-05/long-cost-result.json",
++        "artifacts/prefix_io_v1/server07-p3-05/long-service-result.json"
+       ],
+       "test_evidence": [
+         "artifacts/prefix_io_v1/server07-p3-01/final-cpu-tests.xml",
+@@ -147,7 +151,8 @@
+         "experiments/prefix_io_v1/runs/server07-p3-16k-paired-01/details/result.json",
+         "artifacts/prefix_io_v1/server07-p3-02/cpu-tests.xml",
+         "artifacts/prefix_io_v1/server07-p3-03/final-cpu-verified.xml",
+-        "artifacts/prefix_io_v1/server07-p3-04/final-cpu.xml"
++        "artifacts/prefix_io_v1/server07-p3-04/final-cpu.xml",
++        "artifacts/prefix_io_v1/server07-p3-05/final-cpu.xml"
+       ],
+       "full_stage_complete": false
+     },
+@@ -217,16 +222,16 @@
+       "test_evidence": []
+     }
+   ],
+-  "gpu_hours_consumed": 1.3588350050689446,
++  "gpu_hours_consumed": 1.8377330061369057,
+   "model_download_gib": 18.088890912011266,
+   "current_server": "connect.westd.seetacloud.com:38819",
+   "current_server_blockers": [
+     "original io_uring path: setup EPERM; authorized AIO route GPU functional checks pass"
+   ],
+   "latest_cpu_test_evidence": [
+-    "artifacts/prefix_io_v1/server07-p3-04/final-cpu.xml"
++    "artifacts/prefix_io_v1/server07-p3-05/final-cpu.xml"
+   ],
+-  "latest_cpu_passed": 89,
++  "latest_cpu_passed": 143,
+   "latest_cpu_skipped": 0,
+   "gpu_permission_status": "explicit_new_server_07_grant_verified_current_UUID_budget_preserved",
+   "gpu_basic_qualification": {
+@@ -266,7 +271,7 @@
+     "gpu_physical_release_witness": false,
+     "cost_curves": true
+   },
+-  "latest_delivery_report": "docs/prefix_io_v1/SERVER07_P3_HELDOUT_REPORT.md",
++  "latest_delivery_report": "docs/prefix_io_v1/SERVER07_P3_AUXILIARY_REPORT.md",
+   "model_preparation": {
+     "status": "VERIFIED_LOCAL_FILES",
+     "model_id": "Qwen/Qwen2.5-7B-Instruct",
+@@ -289,7 +294,7 @@
+     "evidence": "artifacts/prefix_io_v1/new-server-01/review-fix/cpu-regression-after.xml",
+     "rerun_this_delivery": false
+   },
+-  "latest_cpu_scope": "89 CPU pilot/native-cost tests; intermediate counts not additive",
++  "latest_cpu_scope": "143 CPU config/pilot/native-cost tests; intermediate counts not additive",
+   "latest_additional_cpu_tests_new_server_03": {
+     "suites": {
+       "resume-review/first.xml": {
+@@ -390,9 +395,9 @@
+     ]
+   },
+   "current_remaining_work": [
+-    "P3 cost table prediction gate failed on held-out 2K staging; preserve old frozen table, diagnose variability without retuning validation results",
+-    "Long-prefix independent content/development needs more authorized storage headroom; system-disk dedicated-root proposal pending",
+-    "Strong simple baselines fixed/pressure and production owner/freshness bridge remain incomplete; no P4 entry or joint benefit claim"
++    "P3 higher-concurrency and normal mixed hit/miss development traces, with configuration-specific numerical and cost validation",
++    "Preserve previous 2K held-out cost failure; current 16256-token pass does not validate the full domain",
++    "Strong fixed/pressure baselines and production owner/freshness and ordinary quota integration remain incomplete; P4 gate remains closed"
+   ],
+   "p2_native_qualification": {
+     "worktree": "third_party/work/py-kvcache-p2-aio",
+@@ -511,5 +516,28 @@
+       "final-cpu.xml",
+       "final-health.json"
+     ]
++  },
++  "p3_auxiliary_long_validation": {
++    "gpu_executed": true,
++    "successful_model_runs": 22,
++    "budgeted_launches": 23,
++    "pre_model_failures": 1,
++    "cpu_passed": 143,
++    "cpu_skipped": 0,
++    "auxiliary_root": "/root/prefix-io-v1-validation",
++    "max_auxiliary_bytes": 21474836480,
++    "minimum_filesystem_free_bytes": 8589934592,
++    "cached_reference_comparisons": 30,
++    "full_128_token_reference_comparisons": 12,
++    "actual_service_token_events": 1536,
++    "heldout_prefix_tokens": 16256,
++    "independent_content_cost_gate": "passed_25_percent_frozen_threshold",
++    "max_num_seqs": 1,
++    "ordinary_quotas_installed": false,
++    "full_P3_complete": false,
++    "new_gpu_seconds": 1724.0328038446605,
++    "evidence": "artifacts/prefix_io_v1/server07-p3-05/long-service-result.json",
++    "cost_evidence": "artifacts/prefix_io_v1/server07-p3-05/long-cost-result.json",
++    "authorization": "experiments/prefix_io_v1/configs/authorizations/system_disk_validation_20260929.json"
+   }
+-}+}
+--- before/experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py
++++ after/experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py
+@@ -95,19 +95,23 @@
+     base.require(not args.diagnostic_logprobs or args.native_hot_diagnostic,"logprob diagnostic requires native hot diagnostic")
+     base.require(not args.native_hot_diagnostic or args.mode=="cold","native hot diagnostic requires external cache disabled")
+     out=args.output_dir.resolve(); storage=args.storage.resolve()
+-    for p in [out,storage]:
+-        base.require(p.is_relative_to(base.ROOT/"experiments/prefix_io_v1/runs"),"path outside runs")
++    from experiment_storage import authorized_path,preflight
++    for p in [out,storage]:authorized_path(p)
+     base.require(args.mode!="planned" or args.curves,"planned mode requires measured curves")
+     sizes=[int(x) for x in args.sizes.split(",")]
+     base.require(all(16<=n<=args.domain and n%16==0 for n in sizes) and 1<=args.reps<=8,"unbounded acquisition")
+     base.require(args.domain==1024 or args.mode!="planned","extended domain is acquisition only; export/qualification required")
+-    base.require(shutil.disk_usage(base.ROOT).free>=8*1024**3,"cost acquisition disk guard")
++    from heldout_manifest import disk_requirement
++    estimate=disk_requirement(sizes,args.reps,args.mode=="populate")
++    reserve=estimate["required_free_bytes"]-estimate["floor_bytes"]
++    storage_preflight=preflight(storage,reserve)
++    output_preflight=preflight(out,64*1024**2)
+     prompt_rows=None;prompt_identity=None;disk_contract=None
+     if args.prompt_manifest:
+         from heldout_manifest import load_manifest,check_disk
+         base.require(args.mode!="planned","heldout acquisition does not install planner")
+         prompt_rows,prompt_identity=load_manifest(args.prompt_manifest,sizes,args.reps)
+-        disk_contract=check_disk(shutil.disk_usage(base.ROOT).free,sizes,args.reps,args.mode=="populate")
++        disk_contract=storage_preflight
+     def selected_prompt(n,rep):
+         return prompt(n,rep) if prompt_rows is None else list(prompt_rows[(n,rep)])
+     if args.mode=="populate":storage.mkdir(parents=True,exist_ok=False)
+@@ -125,7 +129,8 @@
+     report=dict(status="FAILED",mode=args.mode,performance_claim=False,full_P1_pass=False,
+         scope="native TTFT cost acquisition; resets are diagnostic only",rows=[],native_hot_diagnostic=args.native_hot_diagnostic,
+         cached_reference_logprobs=args.cached_reference_logprobs,
+-        prompt_manifest=prompt_identity,disk_contract=disk_contract)
++        prompt_manifest=prompt_identity,disk_contract=disk_contract,
++        storage_preflight=storage_preflight,output_preflight=output_preflight)
+     llm=None
+     try:
+         model,identity=base.validate_local_model(args.model_dir,args.model_plan)
+@@ -257,6 +262,10 @@
+                 llm.llm_engine.engine_core.shutdown(timeout=15)
+                 report["engine_shutdown"]="completed"
+             except Exception as exc:report.update(status="FAILED",shutdown_error=str(exc))
++        try:
++            report["storage_after"]=preflight(storage,0)
++            report["output_after"]=preflight(out,0)
++        except Exception as exc:report.update(status="FAILED",storage_budget_error=str(exc))
+         base.write_new_json(out/"result.json",report)
+     print(json.dumps({k:v for k,v in report.items() if k!="rows"},indent=2))
+     return 0 if report["status"].startswith("PASSED") else 1
+--- before/experiments/prefix_io_v1/scripts/analyze_cached_references.py
++++ after/experiments/prefix_io_v1/scripts/analyze_cached_references.py
+@@ -1,6 +1,7 @@
+ """Offline, exact cached-shape numeric diagnosis; never emits runtime curves."""
+ import argparse, hashlib, json, math
+ from pathlib import Path
++from experiment_storage import details_path,authorized_path
+ from analyze_repeated_native_costs import check_drains, require
+ 
+ def canonical_top5(row):
+@@ -44,7 +45,7 @@
+ def analyze(root,plan_path):
+     plan=json.loads(plan_path.read_text());sources=[]
+     def load(label):
+-        folder=root/"experiments/prefix_io_v1/runs"/label/"details"
++        folder=details_path(root,label,plan)
+         p=folder/"result.json";c=folder/"frozen-config.json"
+         sources.append(dict(label=label,result_sha256=hashlib.sha256(p.read_bytes()).hexdigest(),
+                             config_sha256=hashlib.sha256(c.read_bytes()).hexdigest()))
+@@ -85,7 +86,7 @@
+         require({k:v for k,v in ec["engine"].items() if k!="kv_transfer_config"}==
+                 {k:v for k,v in nc["engine"].items() if k!="kv_transfer_config"},"engine mismatch")
+         connector=ec["engine"]["kv_transfer_config"]["kv_connector_extra_config"].copy()
+-        require(connector.pop("shared_storage_path")==str(root/"experiments/prefix_io_v1/runs"/group["storage"]),
++        require(connector.pop("shared_storage_path")==str(authorized_path(group.get("storage_path",root/"experiments/prefix_io_v1/runs"/group["storage"]),root)[0]),
+                 "storage provenance mismatch")
+         require(connector["staging_mem"]*1024**3==plan["staging_budget_bytes"],"staging budget mismatch")
+         connectors.append(connector)
+--- before/experiments/prefix_io_v1/scripts/analyze_long_replay.py
++++ after/experiments/prefix_io_v1/scripts/analyze_long_replay.py
+@@ -31,9 +31,9 @@
+             raise ValueError("missing actual per-token events")
+     return sum(len(row["engine_token_timestamps"]) for row in rows)
+ 
+-def summarize(folder):
++def summarize(folder,*,independent=False):
+     path=folder/"result.json";r=json.loads(path.read_text())
+-    if r["status"]!="PASSED_NATIVE_LONG_CALIBRATION_REPLAY":
++    if r["status"]!=("PASSED_NATIVE_LONG_INDEPENDENT_VALIDATION" if independent else "PASSED_NATIVE_LONG_CALIBRATION_REPLAY"):
+         raise ValueError("replay failed")
+     events=json.loads((folder/"native-cohort.trace.json").read_text())["traceEvents"]
+     counter=collections.Counter(e["name"] for e in events)
+@@ -51,7 +51,7 @@
+         planner_decision_event_count_note="Repeated planning events, not unique transfers or requests",
+         source_preservation=r["source_preservation"],result_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+         artificial_delay=False,cache_resets=r["cache_resets"],formal_performance_claim=False,
+-        independent_content_validation=False)
++        independent_content_validation=independent)
+     cuda_path=folder/"native-cohort.trace.json.cuda.json"
+     if cuda_path.exists():
+         raw=json.loads(cuda_path.read_text());ce=raw["traceEvents"]
+--- before/experiments/prefix_io_v1/scripts/export_uniform_calibration_candidate.py
++++ after/experiments/prefix_io_v1/scripts/export_uniform_calibration_candidate.py
+@@ -1,6 +1,7 @@
+ """Export a separately gated calibration candidate; the original exporter stays strict."""
+ import argparse, hashlib, json, math, statistics
+ from pathlib import Path
++from experiment_storage import details_path
+ from analyze_cached_references import analyze as analyze_references, validate_external_row
+ from analyze_repeated_native_costs import check_drains, require
+ from export_native_aio_costs import Pchip, load_curves, build_cost_tables
+@@ -28,7 +29,7 @@
+     saved=json.loads((root/plan["reference_result"]).read_text())
+     require(reference==saved,"numeric reference evidence changed")
+     rp=json.loads(reference_plan.read_text())
+-    ref_dir=root/"experiments/prefix_io_v1/runs"/rp["native_label"]/"details"
++    ref_dir=details_path(root,rp["native_label"],rp)
+     rc=json.loads((ref_dir/"frozen-config.json").read_text())
+     rr=json.loads((ref_dir/"result.json").read_text())
+     refs={(r["prefix_tokens"],r["rep"],r["kind"]):r for r in rr["rows"]}
+@@ -37,7 +38,7 @@
+             "plan/reference mismatch")
+     expected_extra={}
+     for g in rp["external_groups"]:
+-        c=json.loads((root/"experiments/prefix_io_v1/runs"/g["label"]/"details/frozen-config.json").read_text())
++        c=json.loads((details_path(root,g["label"],rp)/"frozen-config.json").read_text())
+         expected_extra[g["storage"]]=c["engine"]["kv_transfer_config"]
+     samples={kind:{n:[] for n in plan["sizes"]} for kind in ("f","g_ssd","g_mem")}
+     sources=[];seen_labels=set();counts={kind:{n:0 for n in plan["sizes"]} for kind in samples}
+@@ -45,7 +46,7 @@
+     for job in plan["jobs"]:
+         label=job["label"];require(label not in seen_labels,"duplicate acquisition")
+         seen_labels.add(label)
+-        folder=root/"experiments/prefix_io_v1/runs"/label/"details"
++        folder=details_path(root,label,plan)
+         report=json.loads((folder/"result.json").read_text());c=json.loads((folder/"frozen-config.json").read_text())
+         require(report["mode"]==job["mode"] and report["status"]=="PASSED_NATIVE_"+job["mode"].upper()+"_ACQUISITION","acquisition failed")
+         require(not report.get("native_hot_diagnostic") and not report.get("cached_reference_logprobs"),"diagnostic latency excluded")
+--- before/experiments/prefix_io_v1/scripts/run_long_calibration_replay.py
++++ after/experiments/prefix_io_v1/scripts/run_long_calibration_replay.py
+@@ -1,6 +1,7 @@
+ """Native long-prefix calibration-family replay, never formal development/evaluation."""
+ import argparse,dataclasses,hashlib,json,os,shutil,time,traceback
+ from pathlib import Path
++from experiment_storage import authorized_path,preflight
+ import native_gpu_prefix_smoke as base
+ from run_p3_native_pilot import worker_probe
+ from long_calibration_contract import validate
+@@ -29,11 +30,11 @@
+     return dict(native_trace_exists=Path(path).is_file(),
+                 cuda_trace_exists=Path(path+".cuda.json").is_file())
+ 
+-def clone_private_storage(source,target):
++def clone_private_storage(source,target,expected_files=3072):
+     source=source.resolve();runs=base.ROOT/"experiments/prefix_io_v1/runs"
+-    base.require(source.is_relative_to(runs) and source.is_dir(),"unsafe/missing storage source")
++    authorized_path(source);base.require(source.is_dir(),"unsafe/missing storage source")
+     files=sorted(source.rglob("*.bin"))
+-    base.require(len(files)==3072,"16K source inventory changed")
++    base.require(len(files)==expected_files,"source inventory changed")
+     target.mkdir(parents=True,exist_ok=False);manifest=[]
+     for p in files:
+         base.require(not p.is_symlink() and p.resolve().is_relative_to(source) and
+@@ -55,15 +56,41 @@
+     for name in ["output","model-dir","model-plan","curves","manifest","storage-source"]:
+         ap.add_argument("--"+name,type=Path,required=True)
+     ap.add_argument("--cuda-timeline",action="store_true")
++    ap.add_argument("--validation-qualification",type=Path)
++    ap.add_argument("--validation-prompts",type=Path)
+     a=ap.parse_args();out=a.output.resolve();source=a.storage_source.resolve()
+-    base.require(out.is_relative_to(base.ROOT/"experiments/prefix_io_v1/runs"),"unsafe output")
++    authorized_path(out)
+     manifest=json.loads(a.manifest.read_text());candidate=json.loads(a.curves.read_text())
+-    engine_config=validate(manifest,candidate,os.environ.get("CUDA_VISIBLE_DEVICES"))
+-    base.require(source==base.ROOT/"experiments/prefix_io_v1/runs/server07-p3-16k-storage-01","unregistered storage source")
+-    base.require(shutil.disk_usage(base.ROOT).free>=8*1024**3+(1024 if a.cuda_timeline else 128)*1024**2,"reserve 1 GiB for CUDA trace or 128 MiB for unprofiled suffix files")
++    independent=a.validation_qualification is not None
++    base.require(independent==(a.validation_prompts is not None),"qualification and prompts required together")
++    if independent:
++        from long_validation_contract import validate as validate_independent
++        from validate_heldout_costs import costs as revalidate_costs
++        q=json.loads(a.validation_qualification.read_text())
++        base.require(q["curves_sha256"]==hashlib.sha256(a.curves.read_bytes()).hexdigest(),"qualified curve changed")
++        base.require(q["prompt_manifest_sha256"]==hashlib.sha256(a.validation_prompts.read_bytes()).hexdigest(),"qualified prompts changed")
++        cost_plan_path=base.ROOT/q["cost_plan"]
++        cost_plan=json.loads(cost_plan_path.read_text())
++        base.require(q["cost_plan_sha256"]==hashlib.sha256(cost_plan_path.read_bytes()).hexdigest(),"qualified plan changed")
++        base.require(cost_plan["maximum_absolute_relative_median_error"]==.25 and
++                     cost_plan["prompt_manifest_sha256"]==q["prompt_manifest_sha256"],"qualification threshold/prompt mismatch")
++        reference_plan=json.loads((base.ROOT/cost_plan["reference_plan"]).read_text())
++        base.require(Path(reference_plan["external_groups"][0]["storage_path"]).resolve()==source,"qualified storage mismatch")
++        proof_path=base.ROOT/q["cost_result"]
++        base.require(q["cost_result_sha256"]==hashlib.sha256(proof_path.read_bytes()).hexdigest(),"qualification result changed")
++        proof=revalidate_costs(base.ROOT,base.ROOT/q["cost_plan"])
++        base.require(proof==json.loads(proof_path.read_text()) and proof["status"]=="PASSED_HELDOUT_POINT_PREDICTION","independent cost gate failed")
++        engine_config=validate_independent(manifest,candidate,q,json.loads(a.validation_prompts.read_text()),os.environ.get("CUDA_VISIBLE_DEVICES"))
++        base.require(source==Path(q["storage_source"]).resolve(),"unregistered validation storage source")
++        expected_files=3048
++    else:
++        engine_config=validate(manifest,candidate,os.environ.get("CUDA_VISIBLE_DEVICES"))
++        base.require(source==base.ROOT/"experiments/prefix_io_v1/runs/server07-p3-16k-storage-01","unregistered storage source")
++        expected_files=3072
++    disk_contract=preflight(out,(1024 if a.cuda_timeline else 128)*1024**2)
+     out.mkdir(parents=True,exist_ok=False);(out/"driver-source.py").write_text(Path(__file__).read_text())
+     (out/"probe-source.py").write_text((Path(__file__).parent/"run_p3_native_pilot.py").read_text())
+-    inventory=clone_private_storage(source,out/"storage")
++    inventory=clone_private_storage(source,out/"storage",expected_files)
+     base.write_new_json(out/"storage-source-manifest.json",inventory)
+     base.configure_runtime_environment();os.environ["PYTHONHASHSEED"]="0"
+     base.require(os.environ.get("HF_HUB_OFFLINE")=="1" and os.environ.get("TRANSFORMERS_OFFLINE")=="1","offline wrapper")
+@@ -74,6 +101,11 @@
+         curves_sha256=hashlib.sha256(a.curves.read_bytes()).hexdigest(),
+         initial_cache="published SSD corpus via hardlinks; new engine GPU/staging cold; private suffix writes",
+         source_shared_physical_bytes=sum(r["bytes"] for r in inventory))
++    report["disk_contract"]=disk_contract
++    if independent:
++        report.update(scope="Independent-content continuous decode validation diagnostic; not formal development/evaluation",
++            independent_content_validation=True,validation_qualification=q)
++        (out/"validation-contract-source.py").write_text((Path(__file__).parent/"long_validation_contract.py").read_text())
+     llm=None;installed=False;tracing=False;trace_path=out/"native-cohort.trace.json"
+     try:
+         model,identity=base.validate_local_model(a.model_dir,a.model_plan)
+@@ -106,9 +138,10 @@
+                 item=requests[cursor];rid="long-"+str(item["request_id"]);sent=time.monotonic()
+                 internal=engine.add_request(rid,{"prompt_token_ids":item["prompt_token_ids"]},SamplingParams(**sampling))
+                 timelines[rid]=TokenTimeline()
+-                records[rid]=dict(request_id=rid,internal_request_id=internal,calibration_family=item["calibration_family"],
++                records[rid]=dict(request_id=rid,internal_request_id=internal,calibration_family=item.get("calibration_family"),
+                     scheduled_arrival_seconds=item["scheduled_time"],actual_send_seconds=sent-start,
+                     client_queue_seconds=sent-start-item["scheduled_time"],prompt_tokens=len(item["prompt_token_ids"]))
++                if independent:records[rid]["validation_family"]=item["validation_family"]
+                 cursor+=1
+             if not engine.has_unfinished_requests():
+                 if cursor<len(requests):time.sleep(min(.002,max(0,requests[cursor]["scheduled_time"]-(time.monotonic()-start))))
+@@ -139,7 +172,7 @@
+         base.require(report["cohort_read_bytes"]>0,"no actual SSD read")
+         report["trace_stop"]=llm.collective_rpc(worker_trace,timeout=90,args=("stop",str(trace_path),a.cuda_timeline))[0]
+         tracing=False
+-        report["status"]="PASSED_NATIVE_LONG_CALIBRATION_REPLAY"
++        report["status"]="PASSED_NATIVE_LONG_INDEPENDENT_VALIDATION" if independent else "PASSED_NATIVE_LONG_CALIBRATION_REPLAY"
+     except BaseException as e:
+         report.update(error=str(e),traceback=traceback.format_exc())
+     finally:
+@@ -151,6 +184,8 @@
+             except BaseException as e:report.update(status="FAILED",shutdown_error=str(e))
+         try:report["source_preservation"]=verify_source(source,inventory)
+         except BaseException as e:report.update(status="FAILED",source_verification_error=str(e))
++        try:report["storage_after"]=preflight(out,0)
++        except BaseException as e:report.update(status="FAILED",storage_budget_error=str(e))
+         base.write_new_json(out/"result.json",report)
+     print(json.dumps({k:v for k,v in report.items() if k not in ("rows","probe","final_probe","warmup_drain","cohort_probe_start")},indent=2))
+     return 0 if report["status"].startswith("PASSED") else 1
+--- before/experiments/prefix_io_v1/scripts/validate_heldout_costs.py
++++ after/experiments/prefix_io_v1/scripts/validate_heldout_costs.py
+@@ -1,6 +1,7 @@
+ """Held-out content checks against a frozen curve; never refits or installs it."""
+ import argparse,hashlib,json,math,statistics
+ from pathlib import Path
++from experiment_storage import details_path
+ from heldout_manifest import load_manifest
+ from analyze_cached_references import analyze as analyze_cached
+ from analyze_repeated_native_costs import check_drains,require
+@@ -15,7 +16,7 @@
+     require(identity["sha256"]==plan["prompt_manifest_sha256"],"manifest changed")
+     result=analyze_cached(root,plan_path)
+     for label in [plan["native_label"],*[g["label"] for g in plan["external_groups"]]]:
+-        folder=root/"experiments/prefix_io_v1/runs"/label/"details"
++        folder=details_path(root,label,plan)
+         config=json.loads((folder/"frozen-config.json").read_text())
+         report=json.loads((folder/"result.json").read_text())
+         require(config["prompt_manifest"]==report["prompt_manifest"]==identity,"manifest identity mismatch")
+@@ -24,7 +25,8 @@
+             require(row["prompt_token_ids"]==rows[(row["prefix_tokens"],row["rep"])],"run prompt mismatch")
+     result.update(independent_content_validation=True,manifest=identity,
+         validation_domain=plan["sizes"],formal_evaluation=False,
+-        limitations="Three independent document families at one length; one warmup, two measured. No full-vocabulary or long-prefix generalization claim.")
++        limitations=("Three independent document families at the frozen length; one warmup, two measured. No full-vocabulary or unmeasured-length generalization claim." if "run_details" in plan else
++                     "Three independent document families at one length; one warmup, two measured. No full-vocabulary or long-prefix generalization claim."))
+     return result
+ 
+ def prediction_check(predicted,samples,tolerance):
+@@ -45,11 +47,11 @@
+     rp=json.loads((root/plan["reference_plan"]).read_text())
+     rr=reference(root,root/plan["reference_plan"])
+     require(rr["status"]=="PASSED_EXACT_CACHED_REFERENCE" and rr==json.loads((root/plan["reference_result"]).read_text()),"numeric gate failed/changed")
+-    folder=root/"experiments/prefix_io_v1/runs"/rp["native_label"]/"details"
++    folder=details_path(root,rp["native_label"],rp)
+     nc=json.loads((folder/"frozen-config.json").read_text())
+     nr=json.loads((folder/"result.json").read_text())
+     refs={(r["prefix_tokens"],r["rep"],r["kind"]):r for r in nr["rows"]}
+-    ec=json.loads((root/"experiments/prefix_io_v1/runs"/rp["external_groups"][0]["label"]/"details/frozen-config.json").read_text())
++    ec=json.loads((details_path(root,rp["external_groups"][0]["label"],rp)/"frozen-config.json").read_text())
+     engine_without_connector=lambda e:{k:v for k,v in e.items() if k!="kv_transfer_config"}
+     require(engine_without_connector(nc["engine"])==engine_without_connector(curve["provenance"]["engine"]),"candidate budget/config mismatch")
+     require(nc["model"]==curve["provenance"]["model"] and nc["gpu_uuid"]==curve["provenance"]["gpu_uuid"],"candidate identity mismatch")
+@@ -61,7 +63,7 @@
+     session_counts={k:0 for k in samples};sources=[];seen=set();checked_rows=0;session_medians=[]
+     for job in plan["jobs"]:
+         label=job["label"];require(label not in seen,"duplicate engine session");seen.add(label)
+-        f=root/"experiments/prefix_io_v1/runs"/label/"details"
++        f=details_path(root,label,plan)
+         c=json.loads((f/"frozen-config.json").read_text());report=json.loads((f/"result.json").read_text())
+         require(report["status"]=="PASSED_NATIVE_"+job["mode"].upper()+"_ACQUISITION","acquisition failed")
+         require(not report["native_hot_diagnostic"] and not report["cached_reference_logprobs"],"diagnostic cost forbidden")
+@@ -104,7 +106,7 @@
+         candidate_sha256=digest(curve_path),plan_sha256=digest(plan_path),
+         independent_content_validation=True,full_domain_validated=False,
+         runtime_curve_updated=False,formal_performance_claim=False,
+-        limitations="Two measured content families and two engine sessions per path at 2048 tokens only. No confidence interval or long-context qualification.")
++        limitations="Two measured content families and two engine sessions per path at the frozen point only. No confidence interval or full-domain qualification.")
+ if __name__=="__main__":
+     p=argparse.ArgumentParser();p.add_argument("--plan",type=Path,required=True);p.add_argument("--out",type=Path,required=True)
+     p.add_argument("--reference-only",action="store_true");a=p.parse_args()
+--- before/src/prefix_io_control/config.py
++++ after/src/prefix_io_control/config.py
+@@ -130,8 +130,21 @@
+  "allow_shared_data_deletion", "allow_gpu_runs", "allow_model_downloads")
+ PERMISSION_ROOTS = ("approved_experiment_root", "approved_dependency_root")
+ def validate_permissions(raw: dict) -> dict:
++    optional = {"approved_auxiliary_storage"} if "approved_auxiliary_storage" in raw else set()
+     _keys(raw, set(PERMISSION_BOOLS) | set(PERMISSION_ROOTS) |
+-          {"schema_version", "max_gpu_hours", "max_model_download_gib", "approved_gpu_ids"}, "permissions")
++          {"schema_version", "max_gpu_hours", "max_model_download_gib", "approved_gpu_ids"} | optional, "permissions")
++    if optional:
++        aux = raw["approved_auxiliary_storage"]
++        _keys(aux, ("root", "max_bytes", "minimum_free_bytes", "authorization_record"), "auxiliary storage")
++        if type(aux["root"]) is not str or not Path(aux["root"]).is_absolute() or len(Path(aux["root"]).parts) < 3:
++            raise ConfigError("auxiliary storage root must be a dedicated absolute directory")
++        for key in ("max_bytes", "minimum_free_bytes"):
++            _positive(aux[key], key, integer=True)
++        if aux["max_bytes"] > 20 * 1024**3 or aux["minimum_free_bytes"] < 8 * 1024**3:
++            raise ConfigError("auxiliary storage exceeds the user-approved 20 GiB / 8 GiB contract")
++        record = aux["authorization_record"]
++        if type(record) is not str or not record or Path(record).is_absolute() or ".." in Path(record).parts:
++            raise ConfigError("authorization record must be project relative")
+     _fixed(raw["schema_version"], 1, "schema_version")
+     for key in PERMISSION_BOOLS:
+         if type(raw[key]) is not bool:

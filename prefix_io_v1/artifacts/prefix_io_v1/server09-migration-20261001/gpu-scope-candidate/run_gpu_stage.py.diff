@@ -1,0 +1,87 @@
+--- a/experiments/prefix_io_v1/scripts/run_gpu_stage.py
++++ b/experiments/prefix_io_v1/scripts/run_gpu_stage.py
+@@ -6,6 +6,7 @@
+ """
+ import argparse
+ import fcntl
++import hashlib
+ import json
+ import math
+ import os
+@@ -21,6 +22,41 @@
+ TERM_GRACE_SECONDS = 15.0
+ KILL_GRACE_SECONDS = 5.0
+ RESERVE_SECONDS = 20
++PERMISSION = "experiments/prefix_io_v1/configs/permissions.yaml"
++
++def permission_source(root,relative=PERMISSION):
++    if (not isinstance(relative,str) or not relative or "\\" in relative
++            or Path(relative).is_absolute()
++            or any(part in ("",".","..") for part in relative.split("/"))):
++        raise RuntimeError("project-relative POSIX permission path required")
++    path=root/relative
++    cursor=path
++    while cursor!=root:
++        if cursor.is_symlink():
++            raise RuntimeError("permission path symlink rejected")
++        cursor=cursor.parent
++    try:
++        path.resolve().relative_to(root.resolve())
++    except ValueError:
++        raise RuntimeError("permission path outside project")
++    raw=path.read_bytes()
++    permission=yaml.safe_load(raw.decode())
++    if relative!=PERMISSION:
++        # A new device-specific G1 grant cannot enlarge the original contract.
++        base=yaml.safe_load((root/PERMISSION).read_text())
++        if positive_number(permission["max_gpu_hours"],"max_gpu_hours")>positive_number(base["max_gpu_hours"],"base max_gpu_hours"):
++            raise RuntimeError("effective GPU budget exceeds base contract")
++        for key in ("approved_experiment_root","approved_dependency_root"):
++            if permission.get(key)!=base.get(key):
++                raise RuntimeError("effective permission root differs from base: "+key)
++        for key in ("allow_model_downloads","allow_driver_or_system_changes",
++                    "allow_shared_data_deletion","allow_payment","allow_new_cloud_rental"):
++            if permission.get(key) is not False:
++                raise RuntimeError("effective G1 scope prohibits "+key)
++        if permission.get("approved_auxiliary_storage") is not None:
++            raise RuntimeError("effective G1 scope is PRIMARY-only")
++    return permission,dict(path=relative,bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())
++
+ 
+ 
+ class Interrupted(BaseException):
+@@ -106,6 +142,7 @@
+     p = argparse.ArgumentParser()
+     p.add_argument("--label", required=True)
+     p.add_argument("--seconds", type=int, required=True)
++    p.add_argument("--permissions-path",default=PERMISSION)
+     p.add_argument("command", nargs=argparse.REMAINDER)
+     a = p.parse_args()
+     root = Path(__file__).resolve().parents[3]
+@@ -114,7 +151,7 @@
+     command = a.command[1:] if a.command[:1] == ["--"] else a.command
+     if not command or not 1 <= a.seconds <= 3600:
+         p.error("command and per-job seconds 1..3600 required")
+-    permission = yaml.safe_load((root / "experiments/prefix_io_v1/configs/permissions.yaml").read_text())
++    permission,permission_ref = permission_source(root,a.permissions_path)
+     if permission["allow_gpu_runs"] is not True:
+         raise RuntimeError("GPU operation not authorized")
+     hours = positive_number(permission["max_gpu_hours"], "max_gpu_hours")
+@@ -149,6 +186,8 @@
+                        "started_unix": started, "gpu_uuid": approved[0],
+                        "seconds_limit": a.seconds, "reserved_seconds": a.seconds + RESERVE_SECONDS,
+                        "runner_pid": os.getpid(), "process_group": None, "session_id": None, "evidence": str(run)}
++        if a.permissions_path != PERMISSION:
++            reservation["permissions"] = permission_ref
+         budget["active_reservation"] = reservation
+         atomic_json(ledger, budget)  # Commit before any child can acquire resources.
+         proc = None
+@@ -224,6 +263,8 @@
+                  "interrupted_signal": interrupted_signal, "error": error,
+                  "evidence": str(run), "gpu_job_attempted": proc is not None,
+                  "reservation_id": reservation["id"], "session_id": proc.pid if proc is not None else None, **cleanup}
++        if a.permissions_path != PERMISSION:
++            event["permissions"] = permission_ref
+         budget["gpu_wall_seconds"] = used + elapsed
+         budget["events"].append(event)
+         if cleanup["session_drained"]:

@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "mode": "smoke",
+  "protocol_path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server11_candidates\\notification_v5_cpu_gate\\CPU_COMPARISON_PROTOCOL.json",
+  "protocol_sha256": "6c00cf687f4903988a363e18a178ccca413076ced81920271bf9c962abde1218",
+  "protocol": {
+    "schema_version": 1,
+    "name": "notification_v5_cpu_comparison_v1",
+    "status": "preregister_before_scored_runs",
+    "scope": "synthetic_CPU_engineering_only",
+    "gpu_runs_allowed_by_this_protocol": 0,
+    "baseline": "C4_active_polling",
+    "candidate": "V5_thin_notification_same_policy_and_native_progress",
+    "complete_original_run_and_pump_required": true,
+    "real_queue_and_independent_producer_required": true,
+    "physical_io_cuda_interfaces": "explicit_CPU_fixtures_only",
+    "source_and_fixture_manifest_required": true,
+    "profiler_in_scored_runs": false,
+    "original_max_wait_ns": 100000000,
+    "original_sample_max_age_ns": 100000000,
+    "single_file_bytes": 917504,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB",
+      "BA"
+    ],
+    "warmup_order_per_scenario": [
+      "A",
+      "B",
+      "B",
+      "A",
+      "A",
+      "B",
+      "B",
+      "A"
+    ],
+    "main": {
+      "name": "step_end_40ms",
+      "external_step_ns": 40000000,
+      "pairs": 12
+    },
+    "sensitivity": [
+      {
+        "name": "step_end_20ms",
+        "external_step_ns": 20000000,
+        "pairs": 6
+      },
+      {
+        "name": "step_end_80ms",
+        "external_step_ns": 80000000,
+        "pairs": 6
+      }
+    ],
+    "functional_scenarios": [
+      {
+        "name": "mandatory_20ms",
+        "event_ns": 20000000,
+        "external_step_ns": 80000000,
+        "pairs": 6
+      },
+      {
+        "name": "stop_20ms",
+        "event_ns": 20000000,
+        "external_step_ns": 80000000,
+        "pairs": 6
+      },
+      {
+        "name": "original_deadline_100ms",
+        "event_ns": 100000000,
+        "external_step_ns": 120000000,
+        "pairs": 6
+      }
+    ],
+    "watchdog_ns": 2000000000,
+    "record_thread_cpu": [
+      "worker",
+      "producer",
+      "worker_plus_producer"
+    ],
+    "record_wall_and_latency": [
+      "wall",
+      "producer_lateness",
+      "enqueue_to_intake",
+      "enqueue_to_original_progress",
+      "STOP_to_join",
+      "original_deadline_to_progress"
+    ],
+    "record_counts": [
+      "pump",
+      "native_stages",
+      "collect",
+      "preview",
+      "live_borrow",
+      "freshness_check",
+      "physical_resource_check",
+      "defer",
+      "reserve",
+      "release",
+      "simulated_submit",
+      "simulated_complete",
+      "retire",
+      "control_enqueue",
+      "control_intake"
+    ],
+    "functional_gate": {
+      "all_cases_required": true,
+      "lost_wake_allowed": 0,
+      "duplicate_completion_allowed": 0,
+      "early_release_allowed": 0,
+      "deadline_extension_allowed": false,
+      "race_suite_required": true
+    },
+    "cpu_gate": {
+      "main_worker_paired_median_delta_must_be_negative": true,
+      "main_worker_plus_producer_paired_median_delta_must_be_negative": true,
+      "main_worker_plus_producer_negative_pairs_minimum": 9,
+      "main_first_and_last_six_pair_medians_must_be_negative": true,
+      "sensitivity_worker_plus_producer_paired_median_delta_must_be_nonpositive": true
+    },
+    "latency_gate": {
+      "main_wall_paired_median_increment_limit_ns": 25000000,
+      "mandatory_enqueue_to_progress_paired_median_increment_limit_ns": 25000000,
+      "STOP_enqueue_to_progress_paired_median_increment_limit_ns": 25000000,
+      "deadline_median_lateness_limit_ns": 50000000,
+      "early_deadline_progress_allowed": false,
+      "throttle_samples_excluded": false,
+      "main_unthrottled_pairs_minimum_if_CPU_quota": 9,
+      "other_unthrottled_pairs_minimum_if_CPU_quota": 4,
+      "unreadable_throttle_counters_if_CPU_quota": "unknown_no_latency_qualification",
+      "insufficient_unthrottled_evidence": "resource_limited_no_upgrade"
+    },
+    "on_functional_failure": "stop_scored_runs_preserve_all_evidence",
+    "on_cpu_or_latency_failure": "retain_off_stop_candidate",
+    "on_pass": "CPU_mechanism_only_no_GPU_or_research_efficacy_qualification",
+    "forbidden_inference": [
+      "GPU_gain",
+      "real_bottleneck_schedulability",
+      "D_J_release_credit",
+      "P4_complete",
+      "paper_readiness",
+      "service_SLO"
+    ],
+    "adaptive_reruns_or_threshold_changes": false
+  },
+  "candidate_manifest": {
+    "A": {
+      "root": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server11_candidates\\p4_single_file_candidate_v4",
+      "reactor": "96bfd88dcee7f9c7996518ffe762b87be5ad81ef11d598329d41145e2b01fd87",
+      "collector": "b8249e9a59a65aa13d452ba24f8fa255ca90ec290f3f1924db883b1fa550a1ce"
+    },
+    "B": {
+      "root": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server11_candidates\\p4_single_file_candidate_v5_cpu",
+      "reactor": "a2390db63df27366f60dce6b81e0affa0c1272727a3b6b60e86bff367e23db47",
+      "collector": "bcb58a9c812c2f7dc846013348cdca2de3a641e8c8a0515b4d7307e0fc8676bf"
+    }
+  },
+  "script_sha256": "125e03e6e0ff9acdd2f84082c53ae5c67016c01afe783cf00cf87af0c5eb6a41",
+  "python": "3.12.14 (main, Aug 14 2026, 15:40:22) [MSC v.1944 64 bit (AMD64)]",
+  "argv": [
+    "artifacts/prefix_io_v1_server11_candidates/notification_v5_cpu_benchmark/cpu_full_pump_compare.py",
+    "--mode",
+    "smoke",
+    "--baseline-root",
+    "artifacts/prefix_io_v1_server11_candidates/p4_single_file_candidate_v4",
+    "--candidate-root",
+    "artifacts/prefix_io_v1_server11_candidates/p4_single_file_candidate_v5_cpu",
+    "--protocol",
+    "artifacts/prefix_io_v1_server11_candidates/notification_v5_cpu_gate/CPU_COMPARISON_PROTOCOL.json",
+    "--output-dir",
+    "artifacts/prefix_io_v1_server11_candidates/notification_v5_cpu_benchmark/smoke_dev/suite01"
+  ],
+  "GPU_runs": 0,
+  "scored": false,
+  "premeasurement_settle_ns": 200000000,
+  "synthetic_backend_completion_delay_ns": 1000000
+}

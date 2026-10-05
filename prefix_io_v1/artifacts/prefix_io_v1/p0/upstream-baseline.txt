@@ -1,0 +1,58 @@
+................................s...................sssss............... [ 26%]
+........................................................................ [ 53%]
+......sss....................FF......................................... [ 80%]
+.....................................................                    [100%]
+=================================== FAILURES ===================================
+_______ StagingBufferAlignmentTest.test_all_slots_are_direct_io_aligned ________
+
+self = <tests.test_py_kvcache_ntensor.StagingBufferAlignmentTest testMethod=test_all_slots_are_direct_io_aligned>
+
+    def test_all_slots_are_direct_io_aligned(self):
+        layout = ParsedKvLayout(
+            gpu_tensors=[None],
+            bytes_per_kernel_block=[DIRECT_IO_ALIGNMENT],
+            storage_block_size_factor=1,
+            pin_memory=False,
+        )
+>       real_empty = transfer.torch.empty
+                     ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: type object 'Any' has no attribute 'empty'
+
+third_party/upstream/py-kvcache/tests/test_py_kvcache_ntensor.py:65: AttributeError
+________ StagingBufferAlignmentTest.test_rejects_unaligned_slot_stride _________
+
+self = <tests.test_py_kvcache_ntensor.StagingBufferAlignmentTest testMethod=test_rejects_unaligned_slot_stride>
+
+    def test_rejects_unaligned_slot_stride(self):
+        layout = ParsedKvLayout(
+            gpu_tensors=[None],
+            bytes_per_kernel_block=[DIRECT_IO_ALIGNMENT - 1],
+            storage_block_size_factor=1,
+            pin_memory=False,
+        )
+    
+        with self.assertRaisesRegex(ValueError, "not divisible"):
+>           layout.allocate_staging_buffer(slot_count=1)
+
+third_party/upstream/py-kvcache/tests/test_py_kvcache_ntensor.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def allocate_staging_buffer(self, slot_count: int) -> Any:
+        if not TORCH_COPY_AVAILABLE:
+>           raise RuntimeError("vLLM and torch are required for GPU copy support")
+E           RuntimeError: vLLM and torch are required for GPU copy support
+
+third_party/upstream/py-kvcache/py_kvcache/transfer.py:157: RuntimeError
+=========================== short test summary info ============================
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_cost_model.py:53: scipy not installed
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_e2e_kvcache.py:179: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_e2e_kvcache.py:170: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_e2e_kvcache.py:197: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_e2e_kvcache.py:331: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_e2e_kvcache.py:323: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_py_kvcache_async_open.py:58: io_uring unavailable: [Errno 1] io_uring_setup(depth=16) failed
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_py_kvcache_async_open.py:84: io_uring unavailable: [Errno 1] io_uring_setup(depth=8) failed
+SKIPPED [1] third_party/upstream/py-kvcache/tests/test_py_kvcache_async_open.py:131: io_uring unavailable: [Errno 1] io_uring_setup(depth=16) failed
+FAILED third_party/upstream/py-kvcache/tests/test_py_kvcache_ntensor.py::StagingBufferAlignmentTest::test_all_slots_are_direct_io_aligned
+FAILED third_party/upstream/py-kvcache/tests/test_py_kvcache_ntensor.py::StagingBufferAlignmentTest::test_rejects_unaligned_slot_stride
+2 failed, 258 passed, 9 skipped in 3.54s

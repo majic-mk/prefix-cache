@@ -1,0 +1,477 @@
+{
+  "schema_version": 1,
+  "status": "CPU_OPTIONAL_CAPABILITY_PROBE_CANDIDATE_NO_NEW04_HUMAN_SCOPE",
+  "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+  "canonical_delivery_directory": "artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001",
+  "source_only_files": [
+    {
+      "path": "run_g2_normal_model_lifecycle.py",
+      "bytes": 43354,
+      "sha256": "bad66233db2a6952e4e8cf2ef3804aadc056e4ef9595ba9b6245c1dc3b9d1535"
+    },
+    {
+      "path": "g2_worker_observation.py",
+      "bytes": 13090,
+      "sha256": "096f2fffe91de7132f45997be51fecceec57d65fdf86caab6f8bbe5c71748f7b"
+    },
+    {
+      "path": "test_g2_normal_model_lifecycle.py",
+      "bytes": 33739,
+      "sha256": "236b787a8603ef0eb748928d7d3154d7fc5ac34aa4fe25551e23fe83dcaf1a4f"
+    },
+    {
+      "path": "test_g2_worker_observation.py",
+      "bytes": 19179,
+      "sha256": "104a4ebfbbf24fdac5991bfcd56e7d28e3cd95f53cc58a86d3ac1191b9909f22"
+    }
+  ],
+  "actual_new_GPU_runs_in_this_subtask": 0,
+  "actual_remote_writes_in_this_subtask": 0,
+  "actual_framework_imports_in_this_subtask": 0,
+  "actual_compiler_executions_in_this_subtask": 0,
+  "live_runtime_hook_installed": false,
+  "GPU_collector_verified": false,
+  "production_qualified": false,
+  "effect_verified": false,
+  "fixed_qualification_context": {
+    "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+    "model_relative": "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "model_plan_relative": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "normal_outputs_per_request": 128,
+    "request_phases_per_job": [
+      "cold",
+      "repeat"
+    ],
+    "total_requests_across_two_jobs": 4,
+    "total_outputs_across_two_jobs": 512,
+    "expected_cached_tokens": [
+      0,
+      112
+    ],
+    "prompt_token_ids": [
+      1000,
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      1011,
+      1012,
+      1013,
+      1014,
+      1015,
+      1016,
+      1017,
+      1018,
+      1019,
+      1020,
+      1021,
+      1022,
+      1023,
+      1024,
+      1025,
+      1026,
+      1027,
+      1028,
+      1029,
+      1030,
+      1031,
+      1032,
+      1033,
+      1034,
+      1035,
+      1036,
+      1037,
+      1038,
+      1039,
+      1040,
+      1041,
+      1042,
+      1043,
+      1044,
+      1045,
+      1046,
+      1047,
+      1048,
+      1049,
+      1050,
+      1051,
+      1052,
+      1053,
+      1054,
+      1055,
+      1056,
+      1057,
+      1058,
+      1059,
+      1060,
+      1061,
+      1062,
+      1063,
+      1064,
+      1065,
+      1066,
+      1067,
+      1068,
+      1069,
+      1070,
+      1071,
+      1072,
+      1073,
+      1074,
+      1075,
+      1076,
+      1077,
+      1078,
+      1079,
+      1080,
+      1081,
+      1082,
+      1083,
+      1084,
+      1085,
+      1086,
+      1087,
+      1088,
+      1089,
+      1090,
+      1091,
+      1092,
+      1093,
+      1094,
+      1095,
+      1096,
+      1097,
+      1098,
+      1099,
+      1100,
+      1101,
+      1102,
+      1103,
+      1104,
+      1105,
+      1106,
+      1107,
+      1108,
+      1109,
+      1110,
+      1111,
+      1112,
+      1113,
+      1114,
+      1115,
+      1116,
+      1117,
+      1118,
+      1119,
+      1120,
+      1121,
+      1122,
+      1123,
+      1124,
+      1125,
+      1126,
+      1127
+    ],
+    "sampling": {
+      "temperature": 0.0,
+      "seed": 0,
+      "max_tokens": 128,
+      "min_tokens": 128,
+      "ignore_eos": true,
+      "detokenize": false
+    },
+    "engine_source": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "engine_overrides": {
+      "async_scheduling": false
+    },
+    "scalar_source": "artifacts/prefix_io_v1/server09-runtime-connector-20261001/p4_runtime_scalar_connector.py",
+    "frame_source": "artifacts/prefix_io_v1/server09-migration-20261001/collector-candidate/p4_full_step_frame_adapter.py",
+    "author": "third_party/work/vllm-author-p4-02-cpu",
+    "new_executor": false,
+    "native_io": "none",
+    "strategies": "off",
+    "current_stream_event_diagnostics_only": true,
+    "cross_clock_mapping_verified": false,
+    "production_qualified": false,
+    "performance_claim": false,
+    "seconds_limit": 300,
+    "storage_reserve_bytes": 134217728,
+    "storage_floor_bytes": 8589934592,
+    "multiprocessing": false,
+    "maximum_steps_per_request": 4096,
+    "additional_process_cache_keys": {
+      "FLASHINFER_WORKSPACE_BASE": "flashinfer-workspace",
+      "CUDA_CACHE_PATH": "cuda-driver",
+      "TORCH_EXTENSIONS_DIR": "torch-extensions"
+    },
+    "sdk_toolchain": {
+      "purpose": "EXISTING_INSTALLED_CUDA13_LAYOUT_ONLY",
+      "enabled_in_both_modes": true,
+      "source_refs": [
+        {
+          "path": "artifacts/prefix_io_v1/server09-cuda13-toolchain-v2-20261001/cuda13_sdk_overlay.py",
+          "bytes": 16929,
+          "sha256": "ed846361788e9bdde853e6e0aa16e361329e3f2dffbfbe2c4f396acf9e9d1ecf"
+        },
+        {
+          "path": "artifacts/prefix_io_v1/server09-cuda13-toolchain-v2-20261001/CUDA13_SDK_CPU_PLAN.json",
+          "bytes": 10025,
+          "sha256": "8044db267791d5f217e3dd9c478375787aa73a74d53d19117f6bcebbc1f0a659"
+        },
+        {
+          "path": "artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CUDA13_SOURCE_INVENTORY.json",
+          "bytes": 692329,
+          "sha256": "2ed079701c53d3e37005cf33432937e6c442f06cad16c5aded06efffcc7c36e0"
+        },
+        {
+          "path": "artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CPU_COMPILE_LINK_RESULT.json",
+          "bytes": 5589,
+          "sha256": "3c3f9b092aea3ca89e07f31530a2ae3b38ab65cf0a8868821031f1d7f8d14e3f"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/flashinfer/compilation_context.py",
+          "bytes": 3909,
+          "sha256": "e55c7f58a83810590e18686954527cc62735a6e91c3fa67286a5e7f00afc9be5"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/flashinfer/jit/cpp_ext.py",
+          "bytes": 12445,
+          "sha256": "9d20f28baed969411220456b140a2786a081a2b7195d2433a70daec3c8ae7403"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/flashinfer/jit/utils.py",
+          "bytes": 2644,
+          "sha256": "a32b738a91bafbe392c69e10fd11533ff98adbecbba9d769a19f2c5e920f5f31"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/torch/version.py",
+          "bytes": 317,
+          "sha256": "323d35171ef1184f1d7db3bbd1f3d3e227e0e826be8fd52200778346e17c873f"
+        }
+      ],
+      "CPU_only_inventory_preflight_required": true,
+      "GPU_model_or_JIT_runtime_qualified": false,
+      "original_arch_checks_preserved": true,
+      "no_JIT_bypass": true,
+      "environment_keys": [
+        "CUDA_HOME",
+        "CUDA_PATH",
+        "FLASHINFER_NVCC",
+        "CUDACXX",
+        "PATH",
+        "LD_LIBRARY_PATH"
+      ],
+      "stubs_on_runtime_library_path": false
+    },
+    "build_tool": {
+      "purpose": "EXISTING_PINNED_NINJA_PRIVATE_PATH_ONLY",
+      "enabled_in_both_modes": true,
+      "source_ref": {
+        "path": ".venv/bin/ninja",
+        "bytes": 370448,
+        "sha256": "08639e194fffa7f08b259fc4abfa4803aff66b64de52549cee42ec527d55cea6"
+      },
+      "exact_regular_ELF_executable_required": true,
+      "no_whole_virtualenv_bin_PATH": true,
+      "CUDA13_bin_remains_first": true,
+      "GPU_model_or_JIT_runtime_qualified": false
+    }
+  },
+  "permitted_future_run_names": {
+    "off": "server09-g2-normal-off-03",
+    "shadow": "server09-g2-normal-shadow-03"
+  },
+  "old_frozen_sources_unchanged": [
+    {
+      "path": "run_g2_normal_model_lifecycle.py",
+      "bytes": 40249,
+      "sha256": "931ec0d122ac1e688f3ec55d721b4f930cb5aad5342ae1c8821d3c73ab5a76eb",
+      "directory": "g2_normal_worker_cuda13"
+    },
+    {
+      "path": "g2_worker_observation.py",
+      "bytes": 13090,
+      "sha256": "096f2fffe91de7132f45997be51fecceec57d65fdf86caab6f8bbe5c71748f7b",
+      "directory": "g2_normal_worker_cuda13"
+    },
+    {
+      "path": "G2_NORMAL_MODEL_CPU_PLAN.json",
+      "bytes": 14023,
+      "sha256": "f027df4fc433e80c3f1d2a6c1cd35d61a084feef083b0b402dc315ed4fb398de",
+      "directory": "g2_normal_worker_cuda13"
+    },
+    {
+      "path": "test_g2_normal_model_lifecycle.py",
+      "bytes": 27887,
+      "sha256": "938df2ccfd0f7fdb789efb003fae695aad643cffa5631ff04f6e19cc3056bb41",
+      "directory": "g2_normal_worker_cuda13"
+    },
+    {
+      "path": "test_g2_worker_observation.py",
+      "bytes": 19179,
+      "sha256": "104a4ebfbbf24fdac5991bfcd56e7d28e3cd95f53cc58a86d3ac1191b9909f22",
+      "directory": "g2_normal_worker_cuda13"
+    }
+  ],
+  "minimal_delta": [
+    "New DEST and fixed off03/shadow03 only; old normal/CUDA13 entries and failed off01/off02 evidence remain unchanged",
+    "New exact typed Ninja ref .venv/bin/ninja370448B SHA08639e194fffa7f08b259fc4abfa4803aff66b64de52549cee42ec527d55cea6 in context and required source list",
+    "Read-only source gate verifies complete SHA/size plus regular non-symlink executable ELF target; no cache/env/compiler/framework/GPU operation",
+    "Only after original scope/source/permission/offline model/current active argv SID UUID300+20 gates, configure_process_caches and SDKoverlay, exclusively create new runtime-cache/build-tools/bin and a single existing-target ninja link before framework imports",
+    "PATH remains SDKbin first then private build-tools/bin then unchanged original OS tail; rejects whole virtualenv bin and PATH drift; save plain source/link/PATH metadata only",
+    "Worker source, original executor, numerical settings, native exactPrefix, strategies off and native_io none unchanged; do not modify SDK V2 or any prior lock/scope/ledger"
+  ],
+  "guard_context": {
+    "new_human_scope_required": true,
+    "old_scope_or_G1_not_reusable": true,
+    "CPU_template_authorizes_GPU": false,
+    "child_seconds": 300,
+    "termination_reserve_seconds": 20,
+    "maximum_jobs": 2,
+    "maximum_total_planned_reserve_seconds": 640,
+    "cumulative_existing_hours_limit": 8,
+    "budget_reset": false,
+    "new_PRIMARY_reserve_bytes": 134217728,
+    "PRIMARY_floor_bytes": 8589934592,
+    "scope_typed_temperature": 0.0
+  },
+  "root_actual_prior_CPU_SDK_proof": {
+    "server_V2_tests": "12/12 PASS0.085s/0skip",
+    "actual_assets": "1934regular/217111529bytes complete read/hash PASS; overlay_createdFalse/framework0/compiler0/GPU0",
+    "sdk_helper": {
+      "path": "artifacts/prefix_io_v1/server09-cuda13-toolchain-v2-20261001/cuda13_sdk_overlay.py",
+      "bytes": 16929,
+      "sha256": "ed846361788e9bdde853e6e0aa16e361329e3f2dffbfbe2c4f396acf9e9d1ecf"
+    },
+    "old_compiler_proof_is_not_GPU_qualification": true
+  },
+  "native_boundary": {
+    "executor": "Original author LLM/SamplingParams/add_request/has_unfinished_requests/step/EngineCore.shutdown",
+    "engine": "Same original native_gpu_prefix_smoke.ENGINE bf16/native exactPrefix/KV64MiB/TRITON_ATTN/eager; only explicit async_schedulingFalse unchanged from prior candidate",
+    "requests": "Each job cold+repeat, each128 full IDs, expectedcached0/112; total4requests/512 IDs; allarrays persisted before observation export",
+    "native_io": "none",
+    "native_drain": "not_applicable",
+    "research_strategies": "off",
+    "GPU_event": "Query-only currentstream diagnostics no host-clock mapping/cost/SSD/effect qualification",
+    "original_shutdown": "Only original EngineCore.shutdown(timeout15); no alternate executor/drain/allzero IO inference"
+  },
+  "tests": {
+    "local": "51 defined:50 PASS +1 explicit Linux-only skip; worker22/22=0.150s,lifecycle28PASS+1skip=0.152s",
+    "replayed_existing_48": true,
+    "distinct_new_tests": 3,
+    "new_ninja_cases": [
+      "Exact source/size/SHA/executable/ELF gate drift refuses without dirs/env/framework",
+      "Linux exclusive single link/private PATH SDK first and OS tail unchanged, reuse/pathdrift refused",
+      "Exact guarded original first three AST statements cache->SDK->Ninja; same Ninja fault before any framework import/attempt flags"
+    ],
+    "skip_reason": "Windows lacks actual Linux symlink privilege; actual server must run all51 with zero skips",
+    "server_commands": [
+      "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/test_g2_worker_observation.py --source-root \"$PWD\" --scalar-source artifacts/prefix_io_v1/server09-runtime-connector-20261001/p4_runtime_scalar_connector.py --frame-source artifacts/prefix_io_v1/server09-migration-20261001/collector-candidate/p4_full_step_frame_adapter.py",
+      "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/test_g2_normal_model_lifecycle.py --source-root \"$PWD\""
+    ],
+    "source_only_preflight": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/run_g2_normal_model_lifecycle.py --project \"$PWD\" --preflight --source-lock artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/gpu-source-lock-candidate.json"
+  },
+  "full_source_lock": {
+    "status": "Pending root new append-only4040 candidate assembly + real source/model/SDK/Ninja CPUpreflight; old locks unchanged",
+    "required": "Old4035 refs preserved exactly plus new runner/worker/plan,Ninja1 and old4035 lockself1; SDK assets still independently complete verified by frozen helper",
+    "active_human_scope_outside_files_to_avoid_cycles": true
+  },
+  "future_commands": {
+    "off_first": ".venv/bin/python -B artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/run_g2_normal_model_lifecycle.py --project \"$PWD\" --mode off --name server09-g2-normal-off-04 --source-lock artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/gpu-source-lock-candidate.json --scope-record artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/GPU_STAGE_AUTHORIZATION.json --launch",
+    "shadow_only_after_successful_drained_off": ".venv/bin/python -B artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/run_g2_normal_model_lifecycle.py --project \"$PWD\" --mode shadow --name server09-g2-normal-shadow-04 --source-lock artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/gpu-source-lock-candidate.json --scope-record artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/GPU_STAGE_AUTHORIZATION.json --launch",
+    "discipline": "New frozen source and separate actual human G2 scope required. off04 first; on failure preserve evidence and block shadow04/no retry. Only passed normal output+original shutdown+session drain permits shadow04. Not a performance experiment."
+  },
+  "next_allowed_stage": "Independent helper/runner review + actual CPU tests/full source/model/SDK/Ninja/optional absence preflight + budget/storage closure; then new explicit exact GPU scope, never reuse off03/shadow03 scope.",
+  "root_actual_previous_attempt": {
+    "name": "server09-g2-normal-off-03",
+    "guard_elapsed_seconds": 131.6455060718581,
+    "success": false,
+    "failure": "ModuleNotFoundError: vllm.third_party.deep_gemm has no exact locked binary fallback",
+    "four_weight_shards_loaded": true,
+    "sampling_JIT_generated_ELF_objects_and_shared_library": true,
+    "completed_phases": [],
+    "original_shutdown_proven": false,
+    "OS_session_drained": true,
+    "shadow03_not_run": true,
+    "GPU_model_or_full_output_qualified": false,
+    "retry_old_attempt": false
+  },
+  "root_actual_CPU_Ninja_proof": {
+    "reported_by_parent": "actual server CPU evidence",
+    "version": "1.13.2.git.kitware.jobserver-pipe-1",
+    "original_off02_build_ninja": {
+      "bytes": 5049,
+      "sha256": "ef69f2b7ad3570fbc9ba42de3eed9e1c7def990915b077a5bb17ad5516e930ee"
+    },
+    "command": "Ninja -j1 -v; rewrite output directory only to new server09-ninja-cpu-20261001/sampling-build",
+    "result": "PASS: three CUDA120f compiles plus c++ shared link",
+    "elapsed_seconds": 96.23423069156706,
+    "sampling_so": {
+      "bytes": 13184480,
+      "sha256": "89a017e07ff41d9e3afceb6b550f8e09eed94528319bf781f2165c2f0fadd858"
+    },
+    "shared_object_loaded": false,
+    "framework_imports": 0,
+    "GPU_operations": 0,
+    "ledger_unchanged": true,
+    "hardpinned_into_new_runtime": false,
+    "GPU_kernel_or_full_model_qualification": false
+  },
+  "new_optional_query_common_fix": {
+    "helper_source": {
+      "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-optional-probe-20261001/optional_capability_probe.py",
+      "bytes": 13541,
+      "sha256": "1ee89966390d1e18b33689ac640ed717575fba8a63ae215895a19295668bfc9b"
+    },
+    "original_sources": [
+      {
+        "path": "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+        "bytes": 29692,
+        "sha256": "5d9604fc07d80495a49febfcd488cb2601f74a2bef107261c8e623a4d0a1c77d"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/third_party/__init__.py",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/utils/import_utils.py",
+        "bytes": 14589,
+        "sha256": "f14b07131a4d49955150016dbfa34f7d8d5f586b1545a1173e0d4f904578b18b"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/utils/deep_gemm.py",
+        "bytes": 19901,
+        "sha256": "99e316620e3cdda2db7d9fd7a4ae5968e9c9ef98d7399d62a2c4a5c506627854"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/model_executor/warmup/deep_gemm_warmup.py",
+        "bytes": 13044,
+        "sha256": "b05db0127b19fc38da78e96c74df279e2cd53e0c262e9a7cad53486cf21f3414"
+      }
+    ],
+    "optional_fullname": "vllm.third_party.deep_gemm",
+    "original_finder_unchanged": true,
+    "author_files_unchanged": true,
+    "original_cached_function_first": true,
+    "exact_error_name_message_and_original_three_frame_code_identity_required": true,
+    "physical_absence_and_sole_parent_and_standard_PathFinder_recheck": true,
+    "other_errors_propagated": true,
+    "external_deep_gemm_query_unchanged": true,
+    "required_module_imports_unchanged": true,
+    "reversible_in_both_modes": true,
+    "framework_or_driver_or_system_modifications": false,
+    "research_strategy": false
+  },
+  "source_lock_binding": {
+    "status": "Pending root4045 exact append-only assembly and actual server CPU preflight",
+    "required": "All previous4040 references exact order/value preserved; add new runner/worker/plan/helper and prior4040 lockself",
+    "active_human_scope_outside_files_to_avoid_cycles": true
+  }
+}

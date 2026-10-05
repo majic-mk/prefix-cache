@@ -1,0 +1,124 @@
+--- a/third_party/work/py-kvcache-p3-quota-cpu/py_kvcache/reactor.py
++++ b/third_party/work/py-kvcache-p3-quota-cpu/py_kvcache/reactor.py
+@@ -191,6 +191,7 @@
+         progress_run_id: str | None = None,
+         observation_sink: Any = None,
+         start_budget: Any = None,
++        stage_accounting: Any = None,
+     ) -> None:
+         if progress_run_id is not None and (
+             type(progress_run_id) is not str or not progress_run_id.strip()
+@@ -198,6 +199,11 @@
+             raise ValueError("progress_run_id must be a nonempty string or None")
+         if observation_sink is not None and not callable(observation_sink):
+             raise TypeError("observation_sink must be callable or None")
++        if stage_accounting is not None:
++            from prefix_io_control.stage_accounting import StageAccounting
++            if not isinstance(stage_accounting, StageAccounting):
++                raise TypeError('stage_accounting must be StageAccounting or None')
++            stage_accounting.bind()
+         if start_budget is not None:
+             from prefix_io_control.start_budget import StartBudget
+             if not isinstance(start_budget, StartBudget):
+@@ -349,6 +355,7 @@
+             _ProgressState(progress_run_id) if progress_run_id is not None else None
+         )
+         self._prefix_start_budget = start_budget
++        self._prefix_stage_accounting = stage_accounting
+         self._observation_sink = observation_sink
+         self._observation_failures = 0
+         self._worker = threading.Thread(target=self._run, name="py-kvcache-reactor", daemon=True)
+@@ -914,6 +921,7 @@
+             if not copy.end_event.query():
+                 continue
+             self._pending_copies.remove(copy)
++            self._prefix_stage('completed', 'd2h' if copy.is_store else 'h2d', id(copy.end_event))
+             duration_ns = int(copy.start_event.elapsed_time(copy.end_event) * 1_000_000)
+             if copy.is_store:
+                 assert copy.job is not None
+@@ -974,6 +982,7 @@
+             self._file_terminal(job, ok=False, exc=exc)
+             self._release_store_inflight(job.block_hashes[copy.file_index], ok=False)
+             return
++        self._prefix_stage('accepted', 'ssd_write', user_data, len(io_view))
+         self._inflight[user_data] = _RingOp(
+             job=job,
+             file_index=copy.file_index,
+@@ -995,6 +1004,8 @@
+             if op is None:
+                 continue
+             kind = op.op_kind
++            if kind in ('read', 'write'):
++                self._prefix_stage('completed', 'ssd_' + kind, user_data, result)
+             if kind == "read":
+                 self._data_inflight -= 1
+                 self._on_read_complete(op, result)
+@@ -1422,6 +1433,27 @@
+             self._staging_cache.unpin(cache_slot)
+             self._file_terminal(job, ok=False, exc=exc)
+ 
++    def _prefix_stage(self, event, stage, key, value=None):
++        accounting = getattr(self, "_prefix_stage_accounting", None)
++        if accounting is None or not accounting.valid:
++            return
++        try:
++            if event == "accepted":
++                accounting.accepted(stage, key, value)
++            else:
++                accounting.completed(stage, key, value)
++        except Exception as exc:
++            accounting.invalidate(type(exc).__name__ + ": " + str(exc))
++
++    def _prefix_stage_copy(self, stage, end_event, sizes, count):
++        accounting = getattr(self, "_prefix_stage_accounting", None)
++        if accounting is None or not accounting.valid:
++            return
++        try:
++            accounting.accepted(stage, id(end_event), int(sizes[:count].sum()))
++        except Exception as exc:
++            accounting.invalidate(type(exc).__name__ + ": " + str(exc))
++
+     def _prefix_allow_start(self, kind, job=None):
+         budget = getattr(self, "_prefix_start_budget", None)
+         if budget is None:
+@@ -1893,6 +1925,7 @@
+                 assert ready.job is not None
+                 self._file_terminal(ready.job, ok=False, exc=exc)
+             return
++        self._prefix_stage('accepted', 'ssd_read', user_data, len(io_view))
+         self._data_inflight += 1
+         self._inflight[user_data] = _RingOp(
+             job=ready.job,
+@@ -2109,6 +2142,7 @@
+                 self._settle_load_slot(rc.job, rc.file_index, rc.slot_index, rc.shared, rc.cache)
+                 self._file_terminal(rc.job, ok=False, exc=exc)
+             return True
++        self._prefix_stage_copy('h2d', end_event, sizes, offset)
+         self._pending_copies.append(
+             _CopyOp(
+                 job=None,
+@@ -2162,6 +2196,8 @@
+                     self._batch_size_tensors[slot_index][:offset],
+                 )
+             end_event.record(stream)
++        self._prefix_stage_copy('d2h' if is_store else 'h2d', end_event,
++                                self._batch_sizes[slot_index], offset if mapping_len > 0 else 0)
+         return _CopyOp(
+             job=job,
+             file_index=file_index,
+@@ -2254,6 +2290,7 @@
+         progress_run_id: str | None = None,
+         observation_sink: Any = None,
+         start_budget: Any = None,
++        stage_accounting: Any = None,
+     ) -> None:
+         self.layout = layout
+         self.reactor = IoReactor(
+@@ -2265,6 +2302,7 @@
+             progress_run_id=progress_run_id,
+             observation_sink=observation_sink,
+             start_budget=start_budget,
++            stage_accounting=stage_accounting,
+         )
+ 
+     @property

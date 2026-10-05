@@ -1,0 +1,14 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-I",
+    "-S",
+    "-c",
+    "import pathlib,json,hashlib\nd=pathlib.Path(\"artifacts/prefix_io_v1/server11-p4-single-file-runtime-v2-20261003\");mode=\"shadow\"\np=d/('CONFIG_'+mode+'.json');raw=p.read_bytes();reference=dict(path=p.as_posix(),bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest());scope=json.loads((d/('SCOPE_'+mode+'.json')).read_bytes());assert scope['config_ref']==reference\nfor phase in ['BEFORE','AFTER']:\n v=json.loads((d/('SOURCE_'+mode+'_'+phase+'.json')).read_bytes());assert v['config_ref']==reference and not v['failed']\nresult=dict(status='PASS_INDEPENDENT_ARM_CONFIG_BEFORE_AFTER_BINDING',mode=mode,config_ref=reference,GPU_operations=0)\nwith (d/('CONFIG_BINDING_CHECK_'+mode+'.json')).open('x') as f:json.dump(result,f,indent=2)\nprint(json.dumps(result))"
+  ],
+  "exit": 0,
+  "wall_seconds": 0.06406887341290712,
+  "stdout_path": "artifacts/prefix_io_v1/server11-p4-single-file-runtime-v2-20261003/CONFIG_CHECK_shadow_STDOUT.log",
+  "stderr_path": "artifacts/prefix_io_v1/server11-p4-single-file-runtime-v2-20261003/CONFIG_CHECK_shadow_STDERR.log"
+}

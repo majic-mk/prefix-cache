@@ -1,0 +1,19 @@
+{
+  "root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "label": "server12-c5-native-common-cost-gpu01",
+  "gpu_uuid": "GPU-a67d2f38-8e1b-29c3-7e5b-375e1410f8ac",
+  "purpose": "CURRENT_CONTEXT_NATIVE_FULL_STEP_SSD_READ_DIAGNOSTIC_ONLY",
+  "seconds_limit": 1200,
+  "reserved_seconds": 1220,
+  "active_ledger": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+  "storage": "experiments/prefix_io_v1/runs/server11-native-cost-01-private-storage",
+  "out": "experiments/prefix_io_v1/runs/server12-c5-native-common-cost-gpu01/details",
+  "source_lock": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/SITE_SOURCE_LOCK.json",
+  "input_manifest": "artifacts/prefix_io_v1/server11-native-cost-v1-20261003/SSD_INPUT_MANIFEST.json",
+  "collector_relative": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/native_full_step_collector.py",
+  "gpu_entry_binding_ref": {
+    "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/GPU_ENTRY_BINDING.json",
+    "bytes": 1474,
+    "sha256": "2c30ac31e6e0f3deda689e1583b6bd2369792a4492a8d153350966927ed0aec5"
+  }
+}

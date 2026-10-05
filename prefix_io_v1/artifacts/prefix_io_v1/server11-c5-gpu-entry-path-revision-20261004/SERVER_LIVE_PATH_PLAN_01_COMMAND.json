@@ -1,0 +1,20 @@
+{
+  "CUDA_VISIBLE_DEVICES": "",
+  "argv": [
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python",
+    "-B",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/prepare_and_verify_native_cost.py",
+    "--prepare",
+    "--project",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "--source-lock",
+    "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/SITE_SOURCE_LOCK.json",
+    "--config",
+    "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/NATIVE_COST_CONFIG.json",
+    "--plan",
+    "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/NATIVE_COST_PLAN.json",
+    "--plan-ref",
+    "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/PLAN_REFERENCE.json"
+  ],
+  "cwd": "/root/autodl-tmp/prefix-io-v1-handoff/project"
+}

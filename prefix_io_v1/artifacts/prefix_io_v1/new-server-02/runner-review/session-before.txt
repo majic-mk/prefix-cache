@@ -1,0 +1,26 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_nested_process_group_is_drained_with_session _______________
+
+sandbox = (PosixPath('/tmp/pytest-of-root/pytest-12/test_nested_process_group_is_d0'), PosixPath('/tmp/pytest-of-root/pytest-12/...xPath('/tmp/pytest-of-root/pytest-12/test_nested_process_group_is_d0/experiments/prefix_io_v1/gpu-budget-ledger.json'))
+
+    def test_nested_process_group_is_drained_with_session(sandbox):
+        childpid = sandbox[0] / "nested-pgid.pid"
+        nested_code = "import os,time;os.setpgrp();time.sleep(60)"
+        code = ("import subprocess,sys,time,os; "
+                f"p=subprocess.Popen([sys.executable,'-c',{nested_code!r}]); "
+                "time.sleep(.1); "
+                f"open({str(childpid)!r},'w').write(str(p.pid)); "
+                "assert os.getpgid(p.pid)==p.pid; assert os.getsid(p.pid)==os.getsid(0)")
+        try:
+            result, budget = run(sandbox, code)
+            pid = int(childpid.read_text())
+>           assert result.returncode == 70, result.stderr
+E           AssertionError: 
+E           assert 0 == 70
+E            +  where 0 = CompletedProcess(args=['/root/autodl-tmp/prefix-io-v1-handoff/project/.venv-prefix/bin/python', '/tmp/pytest-of-root/p...n  "group_members_before_cleanup": [],\n  "group_members_after_cleanup": [],\n  "group_drained": true\n}\n', stderr='').returncode
+
+artifacts/prefix_io_v1/new-server-02/runner-review/session_proof.py:289: AssertionError
+=========================== short test summary info ============================
+FAILED artifacts/prefix_io_v1/new-server-02/runner-review/session_proof.py::test_nested_process_group_is_drained_with_session
+1 failed, 20 deselected in 0.37s

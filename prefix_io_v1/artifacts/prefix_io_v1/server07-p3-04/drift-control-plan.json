@@ -1,0 +1,18 @@
+{
+  "reason": "Post-hoc variability diagnosis after held-out staging median exceeded the preregistered 25% bound",
+  "scope": "Two fresh engines on original 2K calibration families, same domain and budgets; no refit, no threshold change, no promotion even if these runs pass",
+  "sizes": [
+    2048
+  ],
+  "reps": 3,
+  "domain": 16384,
+  "storage": "server07-p3-long-storage-01",
+  "native_reference": "server07-p3-uniform-native-ref-01",
+  "candidate": "artifacts/prefix_io_v1/server07-p3-03/calibration-candidate/curves-v2.json",
+  "labels": [
+    "server07-p3-2k-drift-control-01",
+    "server07-p3-2k-drift-control-02"
+  ],
+  "original_heldout_result": "artifacts/prefix_io_v1/server07-p3-04/heldout-cost-result.json",
+  "decision": "Keep held-out failure; use controls only to describe time variability, not prove content causality"
+}

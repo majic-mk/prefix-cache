@@ -1,0 +1,7 @@
+{
+  "status": "FAILED_FIXTURE_SHADOWED_LOAD_METHOD",
+  "failed": 8,
+  "passed": 42,
+  "negative_cases_are_not_trusted_due_to_fixture_shadowing": true,
+  "gpu_runs": 0
+}

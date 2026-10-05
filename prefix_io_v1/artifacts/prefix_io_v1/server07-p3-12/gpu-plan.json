@@ -1,0 +1,19 @@
+{
+  "label": "server07-p3-12-order-primitive-01",
+  "output": "/root/prefix-io-v1-validation/runs/server07-p3-12-order-primitive-01/details",
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "--label",
+    "server07-p3-12-order-primitive-01",
+    "--seconds",
+    "120",
+    "--",
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/qualify_store_order_gpu.py",
+    "--output",
+    "/root/prefix-io-v1-validation/runs/server07-p3-12-order-primitive-01/details"
+  ],
+  "reservation_bytes": 134217728,
+  "scope": "real CUDA/AIO ordering+exact bytes+shared preload+drain; no model performance"
+}

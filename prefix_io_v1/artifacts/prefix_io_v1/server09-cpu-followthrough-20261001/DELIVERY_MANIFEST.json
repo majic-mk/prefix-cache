@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_CPU_EVIDENCE_ONLY",
+  "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-cpu-followthrough-20261001",
+  "actual_GPU_runs_in_this_CPU_phase": 0,
+  "production_qualified": false,
+  "effect_verified": false,
+  "files": [
+    {
+      "path": "ACTUAL_CPU_COMMANDS.json",
+      "bytes": 81701,
+      "sha256": "546809e421d659748ffcce79e24da89e9282d81bf309d5114a49758bad29b29b"
+    },
+    {
+      "path": "ACTUAL_G2_SOURCE_LOCK_VERIFICATION.json",
+      "bytes": 3955,
+      "sha256": "f69879a99da7efbb0cc9b636383e99e96ed603957d273bd24a9086a475244b99"
+    },
+    {
+      "path": "ACTUAL_NORMAL_RUNTIME_INTERFACE_SOURCE_REFS.json",
+      "bytes": 1787,
+      "sha256": "fe89455719ee2cc8b6e9b43f622cff3c64fd71c791151ed84313e4292832dfb8"
+    },
+    {
+      "path": "CANDIDATE_DELIVERY_MANIFESTS.json",
+      "bytes": 4546,
+      "sha256": "f7e36c69faf7a20737b9e61e1d45e8d28e0065e191b4ce4652d56ae4bd3338fd"
+    },
+    {
+      "path": "NEXT_ALLOWED_STAGE.json",
+      "bytes": 2915,
+      "sha256": "d84ead717aad1cd3d4768236afdaab701eef487a9c70452a01b2b6800c8634b9"
+    },
+    {
+      "path": "POST_CPU_BUDGET_AND_CANONICAL_SOURCE_CLOSURE.json",
+      "bytes": 3276,
+      "sha256": "4fb6ab642aca824fb3fb26cc9b7cdba1794aa17b6f96606e8ccdd56acebbbcea"
+    },
+    {
+      "path": "SERVER09_CPU_FOLLOWTHROUGH_REPORT.md",
+      "bytes": 10208,
+      "sha256": "f679da11e4cbde07091040b918f51ee7255f5a5763e0186c586912fd40a3bf97"
+    },
+    {
+      "path": "STORAGE_RESERVE_ESTIMATE_READONLY.json",
+      "bytes": 3025,
+      "sha256": "cc5de19e2a5c0619539029f48cb6f10db82e89543b112339d432fd0f8211007e"
+    }
+  ]
+}

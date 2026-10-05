@@ -1,0 +1,10 @@
+{
+  "status": "PASS_INDEPENDENT_ARM_CONFIG_BEFORE_AFTER_BINDING",
+  "mode": "shadow",
+  "config_ref": {
+    "path": "artifacts/prefix_io_v1/server11-p4-single-file-runtime-v3-20261003/CONFIG_shadow.json",
+    "bytes": 1486,
+    "sha256": "12eabb8d56586ecd721ee97de325f6d4bad6513d15fed37d8a81a83b7aafb465"
+  },
+  "GPU_operations": 0
+}

@@ -1,0 +1,18 @@
+--- a/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py
++++ b/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py
+@@ -90,6 +90,7 @@
+         self.single_file_shadow = True
+         self.single_file_previews = self.single_file_deferrals = 0
+         self.single_file_blocked_attempts = 0
++        self.single_file_observation_reuses = 0
+         self.single_file_reasons = {}
+         self._last_single_file_step = None
+         self.single_file_decisions = []
+@@ -443,6 +444,7 @@
+                 shadow=self.single_file_shadow, previews=self.single_file_previews,
+                 proposed_deferrals=self.single_file_deferrals,
+                 actual_blocked_attempts=self.single_file_blocked_attempts,
++                observation_reuses=self.single_file_observation_reuses,
+                 reason_counts=tuple(sorted(self.single_file_reasons.items())),
+                 actual_decisions=tuple(dict(row) for row in self.single_file_decisions),
+                 evidence_binding_sha256=(self.policy.single_file.binding_ref.sha256

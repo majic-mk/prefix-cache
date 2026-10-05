@@ -1,0 +1,17 @@
+{
+  "low_contention": {
+    "path": "experiments/prefix_io_v1/manifests/p3-development-01/low_contention.json",
+    "sha256": "3ef3b7a65d87cb8f4d1cb88c885137ec29e1eebdfebe0aedf420e803d9d0a5d9",
+    "requests": 12
+  },
+  "mixed_pressure": {
+    "path": "experiments/prefix_io_v1/manifests/p3-development-01/mixed_pressure.json",
+    "sha256": "2f697d3914fc3e95e6ea33068ee8dbf0e8a47f6fcfb47c0669c7d6917c5d8748",
+    "requests": 24
+  },
+  "low_reuse_pressure": {
+    "path": "experiments/prefix_io_v1/manifests/p3-development-01/low_reuse_pressure.json",
+    "sha256": "b1e1a7c12df2881f54c0c0ddce9370e90a3e7d006445af5f562aa03a841c57f3",
+    "requests": 24
+  }
+}

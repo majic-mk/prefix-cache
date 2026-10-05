@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_PATCH_SPLIT_PLAN_NOT_APPLIED",
+  "created_utc": "2026-09-30T08:59:35.162038+00:00",
+  "source_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "source_boundary": {
+    "base_native_tree": "third_party/work/py-kvcache-p3-shadow-cpu",
+    "final_native_tree": "third_party/work/py-kvcache-p3-15-cpu",
+    "seed_receipt": "artifacts/prefix_io_v1/server08-p3-15/native-worktree-seed.json",
+    "author_head": "3abba7a502d553f6e7e2e58b92086487e3395d7e",
+    "native_python_file_count": 31,
+    "native_python_changed_files": [
+      {
+        "relative_path": "py_kvcache/reactor.py",
+        "base_sha256": "0f8646fe193da3403199c917b76d324fcd75e7e0de4048663214af07749c4bb4",
+        "final_sha256": "1ff5f78a0b65c77ce43710aa5f34a512cdb6b3ee77e6c1138663d6df1a2d610b",
+        "base_bytes": 102131,
+        "final_bytes": 133695
+      },
+      {
+        "relative_path": "py_kvcache/vllm.py",
+        "base_sha256": "36aa0c3b54664976095ff5949c311fcb8ff85d280038f8aabf8d7e152ead7054",
+        "final_sha256": "e88732f3165f8421263f6c3bc78448e225cccb8ee3a7cdef690d78dee0a08f3d",
+        "base_bytes": 30867,
+        "final_bytes": 31471
+      }
+    ],
+    "native_python_unchanged_files": [
+      {
+        "relative_path": "py_kvcache/__init__.py",
+        "base_sha256": "27a469e4bd7ea7ae62ca91486307a2a3b4bb2906b140917ca63b1e7b5de08813",
+        "final_sha256": "27a469e4bd7ea7ae62ca91486307a2a3b4bb2906b140917ca63b1e7b5de08813",
+        "base_bytes": 986,
+        "final_bytes": 986
+      },
+      {
+        "relative_path": "py_kvcache/_pchip.py",
+        "base_sha256": "d3f186b52ae296181ae3e547cb8516ba1538a20062bb76152c6042b13ff5d397",
+        "final_sha256": "d3f186b52ae296181ae3e547cb8516ba1538a20062bb76152c6042b13ff5d397",
+        "base_bytes": 2681,
+        "final_bytes": 2681
+      },
+      {
+        "relative_path": "py_kvcache/break_even.py",
+        "base_sha256": "2419c9470df0e43558ccc729aa3927ebd4d1381e00276d4caaa57b3cf19c42a6",
+        "final_sha256": "2419c9470df0e43558ccc729aa3927ebd4d1381e00276d4caaa57b3cf19c42a6",
+        "base_bytes": 9567,
+        "final_bytes": 9567
+      },
+      {
+        "relative_path": "py_kvcache/cost_model.py",
+        "base_sha256": "e85922054fe96dce5c0221f1cc17cc3f1b2d7addd7eae452cabad305fc412397",
+        "final_sha256": "e85922054fe96dce5c0221f1cc17cc3f1b2d7addd7eae452cabad305fc412397",
+        "base_bytes": 4014,
+        "final_bytes": 4014
+      },
+      {
+        "relative_path": "py_kvcache/file_mapper.py",
+        "base_sha256": "165239153b9bf1b475992358683a8d43849d74f0e841326704e1c419abda72dc",
+        "final_sha256": "165239153b9bf1b475992358683a8d43849d74f0e841326704e1c419abda72dc",
+        "base_bytes": 1681,
+        "final_bytes": 1681
+      },
+      {
+        "relative_path": "py_kvcache/fs_config.py",
+        "base_sha256": "7a2429d15f6d6009da5f7965ba6b15279a9ef25b348cadd29927f61b9c488698",
+        "final_sha256": "7a2429d15f6d6009da5f7965ba6b15279a9ef25b348cadd29927f61b9c488698",
+        "base_bytes": 9057,
+        "final_bytes": 9057
+      },
+      {
+        "relative_path": "py_kvcache/liburing_file.py",
+        "base_sha256": "6a8995ca6e5f49ae470e8c49dbf3d98caf2d09dd091cb6f08f9e892c051414f5",
+        "final_sha256": "6a8995ca6e5f49ae470e8c49dbf3d98caf2d09dd091cb6f08f9e892c051414f5",
+        "base_bytes": 15244,
+        "final_bytes": 15244
+      },
+      {
+        "relative_path": "py_kvcache/linux_aio.py",
+        "base_sha256": "0a987479722c7d6b520b99c9b283febb55c5145fc17c5623b8b1151c4f45a6d7",
+        "final_sha256": "0a987479722c7d6b520b99c9b283febb55c5145fc17c5623b8b1151c4f45a6d7",
+        "base_bytes": 17646,
+        "final_bytes": 17646
+      },
+      {
+        "relative_path": "py_kvcache/load_planner.py",
+        "base_sha256": "92581e373d7e5c0903520417fb0ce80141f2f65506bf16c7ecbde94ab1ca5fe2",
+        "final_sha256": "92581e373d7e5c0903520417fb0ce80141f2f65506bf16c7ecbde94ab1ca5fe2",
+        "base_bytes": 18325,
+        "final_bytes": 18325
+      },
+      {
+        "relative_path": "py_kvcache/profiling.py",
+        "base_sha256": "b6025d8afb9256be2a2d35df01e4bf96f3926a2948ecc88a32c2c63336b333d3",
+        "final_sha256": "b6025d8afb9256be2a2d35df01e4bf96f3926a2948ecc88a32c2c63336b333d3",
+        "base_bytes": 970,
+        "final_bytes": 970
+      },
+      {
+        "relative_path": "py_kvcache/staging.py",
+        "base_sha256": "18d2b634b894fec32d7abbf767132afbd4fc5ec66fef738ffef724f3e95e615b",
+        "final_sha256": "18d2b634b894fec32d7abbf767132afbd4fc5ec66fef738ffef724f3e95e615b",
+        "base_bytes": 2674,
+        "final_bytes": 2674
+      },
+      {
+        "relative_path": "py_kvcache/staging_cache.py",
+        "base_sha256": "8089266102cedce0f1eb641e7751fa4df672692951a26ec54e7da81c420b4f1b",
+        "final_sha256": "8089266102cedce0f1eb641e7751fa4df672692951a26ec54e7da81c420b4f1b",
+        "base_bytes": 7556,
+        "final_bytes": 7556
+      },
+      {
+        "relative_path": "py_kvcache/transfer.py",
+        "base_sha256": "1dcc5f4370e3db694d34924038a8fdd5a2eb12cf7f04ba81072dc969f275c1ba",
+        "final_sha256": "1dcc5f4370e3db694d34924038a8fdd5a2eb12cf7f04ba81072dc969f275c1ba",
+        "base_bytes": 12061,
+        "final_bytes": 12061
+      },
+      {
+        "relative_path": "tests/__init__.py",
+        "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "final_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "base_bytes": 0,
+        "final_bytes": 0
+      },
+      {
+        "relative_path": "tests/test_break_even.py",
+        "base_sha256": "c94b2dc35ff334fc4d9d2db00131b0758adde2f24730a0a679b5dddb0f9ddae4",
+        "final_sha256": "c94b2dc35ff334fc4d9d2db00131b0758adde2f24730a0a679b5dddb0f9ddae4",
+        "base_bytes": 13372,
+        "final_bytes": 13372
+      },
+      {
+        "relative_path": "tests/test_cost_model.py",
+        "base_sha256": "87b8c81d9922529d5e8fe009c15e8be59e7b25f26240e7c32733bedfdda7cf8b",
+        "final_sha256": "87b8c81d9922529d5e8fe009c15e8be59e7b25f26240e7c32733bedfdda7cf8b",
+        "base_bytes": 10642,
+        "final_bytes": 10642
+      },
+      {
+        "relative_path": "tests/test_e2e_kvcache.py",
+        "base_sha256": "ca398167b82c20267c3836088eb50d5e05ce38999b73414184d92537b412b1d8",
+        "final_sha256": "ca398167b82c20267c3836088eb50d5e05ce38999b73414184d92537b412b1d8",
+        "base_bytes": 11594,
+        "final_bytes": 11594
+      },
+      {
+        "relative_path": "tests/test_fs_layout.py",
+        "base_sha256": "10dd8ead816b59733e40f87238d958d57643332fa065431229596efd6ecf9466",
+        "final_sha256": "10dd8ead816b59733e40f87238d958d57643332fa065431229596efd6ecf9466",
+        "base_bytes": 8494,
+        "final_bytes": 8494
+      },
+      {
+        "relative_path": "tests/test_load_planner.py",
+        "base_sha256": "78390041c1d5d2de4f7a8da6d067bf6fca580c0d39e7f0c6a990a0efe6e30c19",
+        "final_sha256": "78390041c1d5d2de4f7a8da6d067bf6fca580c0d39e7f0c6a990a0efe6e30c19",
+        "base_bytes": 30925,
+        "final_bytes": 30925
+      },
+      {
+        "relative_path": "tests/test_planner_manager.py",
+        "base_sha256": "f1cbcdf6a10d40f3b8e91b20f192288b2069852df54f1ba90450dcfb0517116e",
+        "final_sha256": "f1cbcdf6a10d40f3b8e91b20f192288b2069852df54f1ba90450dcfb0517116e",
+        "base_bytes": 20649,
+        "final_bytes": 20649
+      },
+      {
+        "relative_path": "tests/test_py_kvcache_async_open.py",
+        "base_sha256": "d9caf9364f9c2e5425ffcdbcf21ed6bd9910e0056938b8c9e87d6c27483144c3",
+        "final_sha256": "d9caf9364f9c2e5425ffcdbcf21ed6bd9910e0056938b8c9e87d6c27483144c3",
+        "base_bytes": 6406,
+        "final_bytes": 6406
+      },
+      {
+        "relative_path": "tests/test_py_kvcache_copy_batch.py",
+        "base_sha256": "5c78c5458152f06580e06bcc067b564a52cfb95c2c77eeb9dd5e4e15285fa408",
+        "final_sha256": "5c78c5458152f06580e06bcc067b564a52cfb95c2c77eeb9dd5e4e15285fa408",
+        "base_bytes": 8727,
+        "final_bytes": 8727
+      },
+      {
+        "relative_path": "tests/test_py_kvcache_lookup_cache.py",
+        "base_sha256": "e05c4c4c194b2633bcf12da429a66183c91dba4c0f6aa8bf1da2f3dad16e3b20",
+        "final_sha256": "e05c4c4c194b2633bcf12da429a66183c91dba4c0f6aa8bf1da2f3dad16e3b20",
+        "base_bytes": 8069,
+        "final_bytes": 8069
+      },
+      {
+        "relative_path": "tests/test_py_kvcache_ntensor.py",
+        "base_sha256": "f04017c754cd7079a54e4a71c1e6085edb6db7b2d7bc28f7f7cd173b3143d10c",
+        "final_sha256": "f04017c754cd7079a54e4a71c1e6085edb6db7b2d7bc28f7f7cd173b3143d10c",
+        "base_bytes": 7900,
+        "final_bytes": 7900
+      },
+      {
+        "relative_path": "tests/test_py_kvcache_preload_handler.py",
+        "base_sha256": "3cdc25ae53ded51007a1518db4f753976b7576aceea9de89bc14f0d4afc38927",
+        "final_sha256": "3cdc25ae53ded51007a1518db4f753976b7576aceea9de89bc14f0d4afc38927",
+        "base_bytes": 4284,
+        "final_bytes": 4284
+      },
+      {
+        "relative_path": "tests/test_py_kvcache_preload_reactor.py",
+        "base_sha256": "fac1051cbf47371c29849d1d3e5fcc937531a188783afd2534348bdbaed031e6",
+        "final_sha256": "fac1051cbf47371c29849d1d3e5fcc937531a188783afd2534348bdbaed031e6",
+        "base_bytes": 36131,
+        "final_bytes": 36131
+      },
+      {
+        "relative_path": "tests/test_py_kvcache_shared_preload.py",
+        "base_sha256": "a24f5059b767325e94e5bcf0558239be930687790f38c8a99c50319b012aa045",
+        "final_sha256": "a24f5059b767325e94e5bcf0558239be930687790f38c8a99c50319b012aa045",
+        "base_bytes": 14188,
+        "final_bytes": 14188
+      },
+      {
+        "relative_path": "tests/test_staging_cache.py",
+        "base_sha256": "a2574dda4fab661092d05ba9332f93277240a29f8fd21c94fe083f509a264dd4",
+        "final_sha256": "a2574dda4fab661092d05ba9332f93277240a29f8fd21c94fe083f509a264dd4",
+        "base_bytes": 4611,
+        "final_bytes": 4611
+      },
+      {
+        "relative_path": "tests/test_vllm_compat.py",
+        "base_sha256": "9a73c5cca1977b8f8f5509fc564fafe469eca7e21bc739eb00158ac01a77e742",
+        "final_sha256": "9a73c5cca1977b8f8f5509fc564fafe469eca7e21bc739eb00158ac01a77e742",
+        "base_bytes": 1636,
+        "final_bytes": 1636
+      }
+    ],
+    "virtual_common_intermediate_files": {
+      "third_party/work/py-kvcache-p3-15-cpu/py_kvcache/reactor.py": {
+        "common_intermediate_sha256": "1ff5f78a0b65c77ce43710aa5f34a512cdb6b3ee77e6c1138663d6df1a2d610b",
+        "common_intermediate_bytes": 133695,
+        "final_sha256": "1ff5f78a0b65c77ce43710aa5f34a512cdb6b3ee77e6c1138663d6df1a2d610b"
+      },
+      "third_party/work/py-kvcache-p3-15-cpu/py_kvcache/vllm.py": {
+        "common_intermediate_sha256": "31dd0fdf201bfe44d169ff3c0ee2b66a28107322c03428a7eaed5fa77d273db3",
+        "common_intermediate_bytes": 31453,
+        "final_sha256": "e88732f3165f8421263f6c3bc78448e225cccb8ee3a7cdef690d78dee0a08f3d"
+      }
+    },
+    "locked_source_modified": false,
+    "old_tree_or_seed_modified": false
+  },
+  "patch_sequence": [
+    {
+      "order": 1,
+      "path": "artifacts/prefix_io_v1/server08-p3-15/p315-common-native.patch",
+      "sha256": "68046b5c12af4ea8f09d44928d0d22470ec5b515720ed2cd53b4620a1170569e",
+      "bytes": 59306,
+      "category": "common native fixes and generic thin control bridge",
+      "native_targets": [
+        "third_party/work/py-kvcache-p3-15-cpu/py_kvcache/reactor.py",
+        "third_party/work/py-kvcache-p3-15-cpu/py_kvcache/vllm.py"
+      ],
+      "safe_intermediate": {
+        "source_generated_in_memory_only": true,
+        "applied": false,
+        "imports_executed": false,
+        "runtime_qualified_as_separate_split_tree": false,
+        "no_top_level_research_module_import_in_reactor": true,
+        "research_controller_import": "constructor-local, guarded by dispatch_controller is not None",
+        "factory": "retains existing order_options parser/builder; handler changes are retained",
+        "defaults": {
+          "max_accepted_parents": null,
+          "dispatch_controller": null
+        },
+        "common_parent_bound_configuration": "direct IoReactor/TransferCoordinator keyword; requires progress_run_id when non-None",
+        "new_factory_parent_key_supported_at_this_step": false,
+        "no_policy_modules_required_on_default_or_explicit_common_only_paths": true,
+        "do_not_pass_a_research_controller_until_second_patch": true
+      }
+    },
+    {
+      "order": 2,
+      "path": "artifacts/prefix_io_v1/server08-p3-15/p315-research-policy.patch",
+      "sha256": "d0d2e8aabcdb4a67995f55ec4f5a705edab56a664399dab8f5a6fc791d492fcb",
+      "bytes": 34593,
+      "category": "optional P3 policy, mixed configuration adapter, factory selection and experiment-only driver",
+      "new_sources": [
+        {
+          "path": "src/prefix_io_control/simple_stage_policy.py",
+          "base": "absent_in_prepared_split_base",
+          "sha256": "8a2dc9586f5e1fe5257f988e44466284d10e0e46a8cee46f876a8febe5caf1a5",
+          "bytes": 21557
+        },
+        {
+          "path": "src/prefix_io_control/simple_stage_options.py",
+          "base": "absent_in_prepared_split_base",
+          "sha256": "63fe6a27087ec604e82f47bd15a4e72eb3f475304203006fd9b5718f5a90a8dd",
+          "bytes": 5445
+        },
+        {
+          "path": "experiments/prefix_io_v1/scripts/simple_stage_worker_probe.py",
+          "base": "absent_in_prepared_split_base",
+          "sha256": "d0de6a647738dcf9f390673ef25d1cd1c0aad5892701ec35695754950bf80eb9",
+          "bytes": 2475
+        }
+      ],
+      "factory_change": "only parser/builder selection in py_kvcache/vllm.py; handler/native correctness retained",
+      "driver": {
+        "path": "experiments/prefix_io_v1/scripts/run_concurrent_pilot.py",
+        "base_snapshot": "artifacts/prefix_io_v1/server08-p3-15/driver-before.py",
+        "base_sha256": "ceab1b04aa6337bcc9efe98dbba0f4816e9bdedcd37ae5566d39e96c1bbbe52f",
+        "final_sha256": "747bb8e6caab4b1e386eb404f62348f61ac124de975f41ba7246e2cd984375d8",
+        "optional_cli": "--simple-stage-config"
+      },
+      "prepared_base_preconditions": [
+        "native targets initially match locked P313 bytes from seed receipt",
+        "research new_sources are absent in prepared split base",
+        "driver initially matches saved driver-before.py",
+        "existing shared dispatch_budget/dispatch_shadow/stage_accounting/order_options modules remain available",
+        "current running/frozen project is already final and must not be patched in place"
+      ]
+    }
+  ],
+  "common_correctness_and_contracts": [
+    {
+      "functions": [
+        "_init_parent_admission",
+        "submit_job",
+        "_retire_accepted_parent",
+        "_intake",
+        "_decline_load",
+        "_file_terminal",
+        "_finish_jobs"
+      ],
+      "purpose": "accepted-parent ownership includes original incoming, active and failed draining; synchronous bounded backpressure on original intake; retire before callback after whole-parent physical finish/decline",
+      "limits": "hard bound defaults None, no second job queue; fatal status wakes producers without false zero; owner reentrant full cap rejects only unaccepted candidate"
+    },
+    {
+      "functions": [
+        "_sync_copy_failure",
+        "_freeze_native_drain_unknown",
+        "_drain_native_before_fatal_failure",
+        "_cleanup_after_verified_fatal_drain",
+        "_fail_everything",
+        "_flush_copy_batch",
+        "_launch_swap_blocks",
+        "_on_store_copy_done"
+      ],
+      "purpose": "exception-only real stream/AIO drain proof before releasing GPU/staging/FD owners or publishing failed whole-parent Future",
+      "limits": "unknown freezes original owners/Futures until process/context teardown; normal transfer remains asynchronous; accepted siblings must drain"
+    },
+    {
+      "functions": [
+        "_prefix_stage",
+        "_prefix_stage_copy",
+        "_prefix_stage_unknown",
+        "_drain_cuda_copies"
+      ],
+      "purpose": "compact actual API-return acceptance before event recording; preserve known accepted facts and sticky unknown accounting on partial/event faults",
+      "limits": "backend partial throw has unknown execution volume, never fabricated accepted or completed byte count; event failure does not prove zero DMA"
+    },
+    {
+      "functions": [
+        "request_owner_snapshot",
+        "inspect_snapshot",
+        "_capture_owner_snapshot",
+        "parent_admission_snapshot",
+        "raise_if_native_fatal"
+      ],
+      "purpose": "bounded owner metadata observation through existing incoming control messages; explicit unknown/free/owner state",
+      "limits": "snapshot is not a drain witness; post-shutdown snapshots do not invent free slots or release credit"
+    },
+    {
+      "file": "third_party/work/py-kvcache-p3-15-cpu/py_kvcache/vllm.py",
+      "functions": [
+        "_check_native_fatal",
+        "transfer_async",
+        "get_finished",
+        "wait",
+        "shutdown"
+      ],
+      "purpose": "do not remove handler GPU-source/target protections while physical drain unknown; fatal-aware waits preserve native ownership"
+    }
+  ],
+  "thin_control_bridge_kept_in_common_patch": {
+    "contribution_label": "generic control adapter and observation hooks, not an independent correctness or efficacy contribution",
+    "optional_constructor_keyword": "dispatch_controller=None",
+    "functions": [
+      "_prefix_stage_decide",
+      "_prefix_stage_settle",
+      "_prefix_stage_retire",
+      "_prefix_stage_completion_unknown",
+      "_prefix_clean_reclaimable_bytes",
+      "_prefix_ready_read_decision"
+    ],
+    "disabled_behavior": "None returns before optional owner clock/state/byte aggregation; original native dispatch positions and call signatures are retained",
+    "state": "true four-stage owned inflight, owner/run identity, actual admitted-parent count or None, bounded clean-reclaimable capacity or None",
+    "unissued_safe_defer": [
+      "ordinary D2H after original physical eligibility but before index/queue mutation and backend API",
+      "ordinary ready SSD read keeps original ready deque, FD and parent owner"
+    ],
+    "continuations": [
+      "H2D consumes already accepted read/staging ownership",
+      "SSD write consumes already accepted D2H/staging ownership"
+    ],
+    "continuation_contract": "policy cannot impose a fresh performance epoch wait; mandatory/mandatory_support/shutdown/age use existing factual progress and actual fused byte charge",
+    "ownership_limits": [
+      "no resource or Future retained by policy",
+      "no new backend queue",
+      "no grants generated by native bridge",
+      "no transfer_async=False fake postponement",
+      "no change to native physical safety checks"
+    ]
+  },
+  "research_strategy_only": {
+    "policy_module": "src/prefix_io_control/simple_stage_policy.py",
+    "configuration_and_factory_adapter": "src/prefix_io_control/simple_stage_options.py",
+    "allowed_modes": [
+      "off",
+      "shadow",
+      "fixed",
+      "pressure"
+    ],
+    "performance_rules": [
+      "finite four-stage cumulative and inflight op/byte caps",
+      "shared SSD op/byte caps",
+      "shared D2H/H2D copy byte caps",
+      "frozen owner epoch candidates",
+      "pressure reserve only from known bounded native clean capacity",
+      "bounded keys and diagnostic records",
+      "bounded age fallback plus mandatory/continuation allowance with full charge"
+    ],
+    "excluded": [
+      "P4 joint strategy",
+      "new dependency scheduler",
+      "new cache engine",
+      "new model executor",
+      "new resource queue",
+      "unbounded candidate enumeration",
+      "GPU resource release inferred from Future.done"
+    ],
+    "configuration_boundary": {
+      "common_key": "prefix_io_parent_admission",
+      "common_fields": [
+        "schema_version",
+        "run_id",
+        "max_accepted_parents"
+      ],
+      "common_parser_and_builder_lines": {
+        "parse_simple_options": [
+          25,
+          49
+        ],
+        "build_simple_kwargs": [
+          77,
+          85
+        ]
+      },
+      "research_key": "prefix_io_stage_policy",
+      "off_form": {
+        "mode": "off"
+      },
+      "mixed_file_assignment": "second patch carries the configuration adapter, but its admission validation/StageAccounting installation are common plumbing, not research policy",
+      "all_comparison_arms_common_cap": 64,
+      "common_fixes_remain_when_policy_off": true,
+      "off_new_controller_created": false,
+      "off_native_path": "original transfer scheduling with common ownership/drain/accounting corrections retained",
+      "literal_bytewise_old_unsafe_error_path_reversion_claimed": false
+    }
+  },
+  "existing_evidence_not_reexecuted": {
+    "cpu": {
+      "receipt": "artifacts/prefix_io_v1/server08-p3-15/cpu-qualification.json",
+      "status": "PASS_CPU_SIMPLE_STAGE",
+      "current_native_passed": 1183,
+      "unique_passed": 1194,
+      "historical_fault_cases": 8,
+      "legacy_model_guard_cases": 3,
+      "failed": 0,
+      "skipped": 16,
+      "cuda_initialized": false
+    },
+    "real_gpu_fault": {
+      "receipt": "artifacts/prefix_io_v1/server08-p3-15/native-fault-summary.json",
+      "status": "PASS_REAL_GPU_NATIVE_FAULT_DRAIN",
+      "real_cases": 4,
+      "synthetic_failure_injection": true,
+      "genuine_driver_fault_tested": false
+    },
+    "isolated_cpu_overhead": {
+      "receipt": "artifacts/prefix_io_v1/server08-p3-15/isolated-cpu-overhead.json",
+      "status": "PASS_CPU_ISOLATED_MICROBENCHMARK",
+      "end_to_end_cpu_decomposition": false
+    },
+    "these_results_qualify_final_source_not_separate_virtual_common_intermediate": true
+  },
+  "next_allowed_validation_when_root_announces_gpu_idle": [
+    "prepare an isolated split base matching manifests, preserving old qualified tree/seed and running final tree",
+    "apply/check common patch only in isolated scratch tree; CPU import with research modules absent, common native/fatal/drain/admission tests and author normal-path tests",
+    "apply/check research patch second; verify final file hashes exactly match currently qualified source; policy off/fixed/pressure tests and same common contracts",
+    "publish roundtrip evidence with commands/hashes and any limitations; do not infer new GPU efficacy from static split"
+  ],
+  "this_action": {
+    "static_reads_only": true,
+    "new_artifact_files_only": [
+      "patch-boundary-plan.json",
+      "p315-common-native.patch",
+      "p315-research-policy.patch"
+    ],
+    "patch_applied": false,
+    "cpu_tests_run": false,
+    "gpu_operations": 0,
+    "cache_payloads_read": false,
+    "heavy_io": false
+  }
+}

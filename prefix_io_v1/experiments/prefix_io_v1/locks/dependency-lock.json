@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "status": "bounded_author_AIO_native_baseline_verified_research_release_and_policy_pending",
+  "compatibility_verified": false,
+  "gpu_verified": false,
+  "repositories": {
+    "py-kvcache": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/upstream/py-kvcache",
+      "commit": "3abba7a502d553f6e7e2e58b92086487e3395d7e",
+      "dirty": "",
+      "installed": true,
+      "url": "https://github.com/atlarge-research/py-kvcache",
+      "installed_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache"
+    },
+    "vllm-author": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/upstream/vllm-author",
+      "commit": "817a7e3124f817cd6e549581d3e5483207a753a4",
+      "dirty": "",
+      "installed": true,
+      "url": "https://github.com/t348575/vllm",
+      "installed_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-build"
+    },
+    "kvcache-experiments": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/upstream/kvcache-experiments",
+      "commit": "0e023a84a21246b9bbc06266fa8070397eccbdc9",
+      "dirty": "",
+      "installed": false,
+      "url": "https://github.com/t348575/kvcache-experiments"
+    },
+    "simple-profiler": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/upstream/simple-profiler",
+      "commit": "ec0d563bf68856df83c5824ac579700ec076b9e2",
+      "dirty": "",
+      "installed": true,
+      "url": "https://github.com/t348575/simple-profiler",
+      "installed_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/upstream/simple-profiler/python"
+    }
+  },
+  "user_project_head": "cc7898b1ba59d89ce7fdbb186ded21880f1adf08",
+  "original_vllm_candidate": "d6eadf416bb5234047760bf55d532f2f038cf697",
+  "vllm_selection_reason": "author with_profiling contains existing planned-defer API and call sites",
+  "liburing_version": null,
+  "liburing_implementation": "raw io_uring syscalls via ctypes",
+  "common_patches": [
+    {
+      "path": "patches/prefix_io_v1/common/0001-cpu-torch-import.patch",
+      "sha256": "6178460f607905d932fc20e2695e2e1c641553322372357235cd856947c11e3f",
+      "applies_to_original": true,
+      "reversible": true
+    },
+    {
+      "path": "patches/prefix_io_v1/common/0002-staging-backing-budget.patch",
+      "sha256": "00ad1086faf09c9b2328cbee2998d022df324c32ce9abb80f2e2bc7a6f557e45",
+      "applies_to_original": true,
+      "reversible": true
+    }
+  ],
+  "observer_patches": [
+    {
+      "path": "patches/prefix_io_v1/observer/0001-mandatory-progress-bridge.patch",
+      "sha256": "fa78bea558c181d69d683f257c3e3861f96e587c5e2e63dd38c23486fd0c0e69",
+      "apply_after": "common patches in listed order",
+      "cpu_verified": true,
+      "real_backend_verified": false,
+      "default_enabled": false,
+      "worktree": "third_party/work/py-kvcache-progress",
+      "branch": "codex/prefix-io-v1-progress-cpu",
+      "reversible": true
+    },
+    {
+      "path": "patches/prefix_io_v1/observer/0002-bounded-snapshot-hook.patch",
+      "sha256": "99884ff106c04a2abf8f1554518deb0ec481561418a2261c78a23dd61a5bb476",
+      "apply_after": "common patches and observer/0001 in listed order",
+      "cpu_verified": true,
+      "real_backend_verified": false,
+      "default_enabled": false,
+      "worktree": "third_party/work/py-kvcache-observer",
+      "branch": "codex/prefix-io-v1-observer-cpu",
+      "reversible": true
+    }
+  ],
+  "policy_patches": [],
+  "cpu_preparation_modules": [
+    "config.py",
+    "preflight.py",
+    "observation.py",
+    "dependencies.py",
+    "bridge.py",
+    "publication.py"
+  ],
+  "live_policy_installed": false,
+  "release_capabilities": {
+    "independent_source_safe_ack": false,
+    "source_fence_release_scope": "all_parent_jobs_and_native_active_refs",
+    "mandatory_progress_bridge_verified": false,
+    "native_layerwise_consume_verified": false,
+    "mandatory_bridge_cpu_verified": true,
+    "gpu_release_owner_adapter_implemented": false,
+    "immediate_reuse_requires_native_owner_confirmation": true,
+    "observation_publication_cpu_verified": true,
+    "observation_end_to_end_verified": false
+  },
+  "gpu_hours_consumed": 0.3248175622481439,
+  "model_download_gib": 18.088890912011266,
+  "current_server_audit": "experiments/prefix_io_v1/locks/environment.json",
+  "runtime_dependency_environment": {
+    "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv",
+    "status": "built_author_source_and_adapters_installed",
+    "evidence": "artifacts/prefix_io_v1/new-server-02/source-and-build-verification.json",
+    "gpu_verified": false,
+    "basic_cuda_verified": true,
+    "toolchain_lock": "artifacts/prefix_io_v1/new-server-02/runtime-build-freeze.txt",
+    "author_byte_copy_verified": true,
+    "author_import_api_verified": true,
+    "gpu_platform_uuid_verified": true,
+    "cache_end_to_end_verified": false,
+    "hash_lock": "artifacts/prefix_io_v1/new-server-02/runtime-build-hashed.txt",
+    "hash_lock_sha256": "ae3e456822d4e7dc0c3d4794867bb640a641a869d5293270d4d72c4e450f0fa0",
+    "final_installed_inventory": "artifacts/prefix_io_v1/new-server-02/runtime-installed-final.txt",
+    "build_source_lock": "artifacts/prefix_io_v1/new-server-02/build-source-lock.json",
+    "native_C_sha256": "e30616d12f903169493f73c28e707540be17916e89794a9214b141d6e4769b94",
+    "native_model_verified": true,
+    "native_GPU_Prefix_verified": true,
+    "native_GPU_Prefix_evidence": "experiments/prefix_io_v1/runs/native-prefix-04/details/smoke-result.json",
+    "actual_KV_tensor_backing_bytes": 66977792,
+    "actual_KV_dtype": "torch.bfloat16",
+    "jit_environment_evidence": "artifacts/prefix_io_v1/new-server-03/native-prefix-04-launch.json"
+  },
+  "project_correctness_patches": [
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/review-fix.patch",
+      "sha256": "b56dd275b40d32496a46290c136a31dc21ce33a30a8e5e8b61398b7c28e8db58",
+      "purpose": "invalidate previous snapshot on owner guard failure",
+      "cpu_verified": true,
+      "real_backend_verified": false
+    }
+  ],
+  "current_gpu_permission_evidence": "artifacts/prefix_io_v1/new-server-02/authorization.json",
+  "vllm_common_patches": [
+    {
+      "path": "patches/prefix_io_v1/common/vllm-author/0001-full-gpu-uuid.patch",
+      "sha256": "661805f65fde5ed80f8f81faf963ac103ac4bda00238268a10d90ba7d1227ac5",
+      "applies_to": "817a7e3124f817cd6e549581d3e5483207a753a4",
+      "reversible": true,
+      "applies_to_all_experiment_arms": true,
+      "cpu_verified": true,
+      "real_gpu_platform_metadata_verified": true,
+      "evidence": "artifacts/prefix_io_v1/new-server-02/platform-fix/verification.json"
+    }
+  ],
+  "model_lock": {
+    "id": "Qwen/Qwen2.5-7B-Instruct",
+    "provider": "modelscope",
+    "source": "https://modelscope.cn",
+    "revision": "16c174980d8a1492910551634b4969e69cdc2444",
+    "revision_namespace": "modelscope_git_commit",
+    "hf_commit_equivalence_claimed": false,
+    "manifest": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "manifest_sha256": "9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017",
+    "local_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "verified_local_weights": true,
+    "status": "VERIFIED_LOCAL_FILES_AND_NATIVE_GPU_PREFIX_SMOKE",
+    "complete_file_count": 11,
+    "complete_file_bytes": 15242788168,
+    "files": [
+      {
+        "path": "config.json",
+        "bytes": 663,
+        "hash_algorithm": "sha256",
+        "hash": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=config.json"
+      },
+      {
+        "path": "generation_config.json",
+        "bytes": 243,
+        "hash_algorithm": "sha256",
+        "hash": "3a8f9087e486054c8a4a08dae2e5a3ba62e23da212b5b8c08bc42cb983c3459f",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=generation_config.json"
+      },
+      {
+        "path": "merges.txt",
+        "bytes": 1671839,
+        "hash_algorithm": "sha256",
+        "hash": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=merges.txt"
+      },
+      {
+        "path": "model-00001-of-00004.safetensors",
+        "bytes": 3945441440,
+        "hash_algorithm": "sha256",
+        "hash": "a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=model-00001-of-00004.safetensors"
+      },
+      {
+        "path": "model-00002-of-00004.safetensors",
+        "bytes": 3864726352,
+        "hash_algorithm": "sha256",
+        "hash": "f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=model-00002-of-00004.safetensors"
+      },
+      {
+        "path": "model-00003-of-00004.safetensors",
+        "bytes": 3864726424,
+        "hash_algorithm": "sha256",
+        "hash": "8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=model-00003-of-00004.safetensors"
+      },
+      {
+        "path": "model-00004-of-00004.safetensors",
+        "bytes": 3556377672,
+        "hash_algorithm": "sha256",
+        "hash": "1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=model-00004-of-00004.safetensors"
+      },
+      {
+        "path": "model.safetensors.index.json",
+        "bytes": 27752,
+        "hash_algorithm": "sha256",
+        "hash": "624bf7c47cd12468fdc16e38a47cf4f19e0415b859a223ba3c027eed2f0e1028",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=model.safetensors.index.json"
+      },
+      {
+        "path": "tokenizer.json",
+        "bytes": 7031645,
+        "hash_algorithm": "sha256",
+        "hash": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=tokenizer.json"
+      },
+      {
+        "path": "tokenizer_config.json",
+        "bytes": 7305,
+        "hash_algorithm": "sha256",
+        "hash": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=tokenizer_config.json"
+      },
+      {
+        "path": "vocab.json",
+        "bytes": 2776833,
+        "hash_algorithm": "sha256",
+        "hash": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+        "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=vocab.json"
+      }
+    ],
+    "evidence": "artifacts/prefix_io_v1/new-server-03/model-completion-accounting.json"
+  },
+  "model_download_accounting": "conservative charged bytes / GiB; includes failure reserves",
+  "model_payload_received_bytes": 15242868376,
+  "full_qualification_scope": "Bounded P1 native AIO model connector/staging/SSD/costs/planner verified on server07. Broad compatibility/GPU flags remain false: mandatory release witness, observation overhead and research policies not qualified.",
+  "server07_scoped_qualification": {
+    "environment": "experiments/prefix_io_v1/locks/server07-gpu-environment.json",
+    "components_gpu_verified": true,
+    "production_kv_byte_roundtrip_verified": true,
+    "full_P1_qualified": true,
+    "evidence": "artifacts/prefix_io_v1/server07-calibration-01/qualification-summary.json",
+    "bounded_scope": "Qwen BF16; 16-1024 calibration; 16/128/512 natural planner integration; no extrapolation or formal service performance"
+  },
+  "server07_calibration_lock": "artifacts/prefix_io_v1/server07-calibration-01/source-lock.json"
+}

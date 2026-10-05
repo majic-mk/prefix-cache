@@ -1,0 +1,22 @@
+[
+  {
+    "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_paired_measurement_verifier.py",
+    "bytes": 29479,
+    "sha256": "860876ae2d6c6a0bceee52b07c1681f5c0a11b71822f58b775e5e638406f8b3f"
+  },
+  {
+    "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_verified_cost_loader.py",
+    "bytes": 2686,
+    "sha256": "23fddf7c159ff2bdcb98c000ad18f90c804183f0a5af9bf08be24ac3b54d368d"
+  },
+  {
+    "path": "tests/prefix_io_v1_p4_measurements/test_semantic_verifier.py",
+    "bytes": 28994,
+    "sha256": "bd62a0952ba8e018e7abbe8637fcbc77db4d0332da85a18c916627f31d4dc5bb"
+  },
+  {
+    "path": "tests/prefix_io_v1_p4_measurements/run_cpu_guard.py",
+    "bytes": 984,
+    "sha256": "499917a8ec76b9d074b93ea52218b937e8228e7fa585409726c0e6de08743199"
+  }
+]

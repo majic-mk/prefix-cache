@@ -1,0 +1,72 @@
+{
+  "status": "CPU_FAST_FAILURE_FIX_VERIFIED_GPU_ENV_STILL_BLOCKED",
+  "created_utc": "2026-10-02T03:13:57.286302+00:00",
+  "files": [
+    {
+      "path": "g3_fast_reference_preflight.py",
+      "bytes": 10275,
+      "sha256": "d950102fd569059bf2447196fc6072339f445eea86c2079859d9558914746a76"
+    },
+    {
+      "path": "test_g3_fast_reference_preflight.py",
+      "bytes": 18334,
+      "sha256": "7cb1f28008633a7d78a55b5508ae82f4f75625b609efeec9b84fe8d54be01d8c"
+    },
+    {
+      "path": "analyze_readonly_latency.py",
+      "bytes": 9266,
+      "sha256": "c09f0f5a38c8bba07ffc19c2b07b9a37395fb62e38d9331705e612ab43c98cd2"
+    },
+    {
+      "path": "READONLY_REFERENCE_LATENCY_DIAGNOSTIC.json",
+      "bytes": 21279,
+      "sha256": "53238a53771e9aef5ee849d188f6b7550daf5dc02de5557d82c254c35c29af38"
+    },
+    {
+      "path": "INDEPENDENT_FAST_PREFLIGHT_BOUNDARY_REVIEW.json",
+      "bytes": 4564,
+      "sha256": "c94cb6d1893575331c38cd3818b1f7fd8d01e0c3eb13468b51b67f52007c5858"
+    },
+    {
+      "path": "ACTUAL_SERVER_FAST_PREFLIGHT_BENCHMARK.json",
+      "bytes": 8269,
+      "sha256": "139f971f23579c27c459ce31030808aebfaee8e9ea489406879406d40c4daa12"
+    },
+    {
+      "path": "ACTUAL_SERVER_FAST_PREFLIGHT_CPU_TESTS.json",
+      "bytes": 3501,
+      "sha256": "c333164fb1616bc1aadf67623b1a2f7335519d7a56d0ecde552116b11986a461"
+    },
+    {
+      "path": "NEXT_ALLOWED_FAST_CPU_COMMAND.json",
+      "bytes": 1173,
+      "sha256": "f466a03330f1c9ae7e64f9b41d4010c5aee9c4df6bfef8144f0a03cb30a6dee1"
+    },
+    {
+      "path": "SERVER09_SLOW_PREPARATION_FIX_REPORT.md",
+      "bytes": 4211,
+      "sha256": "11ff30dfccd48d82517620166268d744d84512c284a24d1e215239eb1c465d42"
+    },
+    {
+      "path": "ACTUAL_CPU_COMMAND_TRANSCRIPT.json",
+      "bytes": 10024,
+      "sha256": "c0121899d28c424cce49ecd9e3c5c180671b73b210dfc7cb8d78d76b2edfb527"
+    }
+  ],
+  "file_count": 10,
+  "total_bytes": 90896,
+  "original_gpu_source_lock_sha256": "8443f45dd4dd6c1c64595199051f5e88449268af347bcbd836c927b754eabe30",
+  "original_gpu_package_changed": false,
+  "pending_gpu_authorization_proposal_changed": false,
+  "new_gpu_authorization": false,
+  "actual_gpu_runs": 0,
+  "actual_gpu_initializations": 0,
+  "actual_gpu_metadata_queries": 0,
+  "benchmark_scope": "CPU environment failure detection only; no GPU performance claim",
+  "server_tests": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0
+  },
+  "remaining_gpu_blocker": "Frozen libcuda.so.595.71.05 asset is zero bytes"
+}

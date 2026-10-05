@@ -1,0 +1,111 @@
+diff --git a/py_kvcache/reactor.py b/py_kvcache/reactor.py
+index 3ee8d2c..a3488a9 100644
+--- a/py_kvcache/reactor.py
++++ b/py_kvcache/reactor.py
+@@ -196,6 +196,13 @@ class IoReactor:
+             min_slots=min_slots,
+         )
+         self.staging_buffer = layout.allocate_staging_buffer(slot_count)
++        self.actual_staging_bytes = self.staging_buffer.untyped_storage().nbytes()
++        self.staging_budget_bytes = int(config.staging_mem * (1 << 30))
++        if self.actual_staging_bytes > self.staging_budget_bytes:
++            raise ValueError(
++                f"actual staging backing {self.actual_staging_bytes} exceeds "
++                f"budget {self.staging_budget_bytes}"
++            )
+         self._staging_base_ptr = self.staging_buffer.data_ptr()
+         self.staging_pool = StagingPool(slot_count=slot_count)
+         if slot_count <= min_slots:
+diff --git a/py_kvcache/staging.py b/py_kvcache/staging.py
+index 9d18ac0..4b00145 100644
+--- a/py_kvcache/staging.py
++++ b/py_kvcache/staging.py
+@@ -1,6 +1,7 @@
+ from __future__ import annotations
+ 
+ from dataclasses import dataclass
++import math
+ 
+ 
+ @dataclass(frozen=True)
+@@ -25,8 +26,27 @@ class StagingPool:
+         io_size: int,
+         min_slots: int = 1,
+     ) -> int:
++        if isinstance(staging_mem_gib, bool) or not isinstance(staging_mem_gib, (int, float)):
++            raise ValueError("staging_mem_gib must be finite and positive")
++        if not math.isfinite(staging_mem_gib) or staging_mem_gib <= 0:
++            raise ValueError("staging_mem_gib must be finite and positive")
++        if type(io_size) is not int or io_size <= 0:
++            raise ValueError("io_size must be a positive integer")
++        if type(min_slots) is not int or min_slots <= 0:
++            raise ValueError("min_slots must be a positive integer")
++        # ParsedKvLayout.allocate_staging_buffer retains an aligned view of a
++        # backing allocation with DIRECT_IO_ALIGNMENT - 1 additional bytes.
++        from .liburing_file import DIRECT_IO_ALIGNMENT
++        overhead = DIRECT_IO_ALIGNMENT - 1
+         staging_bytes = int(staging_mem_gib * (1 << 30))
+-        return max(max(1, min_slots), max(1, staging_bytes // io_size))
++        required = min_slots * io_size + overhead
++        if required > staging_bytes:
++            raise ValueError(
++                f"staging budget {staging_bytes} bytes cannot fit minimum "
++                f"{min_slots} slots: backing requires {required} bytes; "
++                "freeze a larger budget or lower iodepth"
++            )
++        return (staging_bytes - overhead) // io_size
+ 
+     @property
+     def free_count(self) -> int:
+diff --git a/py_kvcache/transfer.py b/py_kvcache/transfer.py
+index ae032f7..78dfa03 100644
+--- a/py_kvcache/transfer.py
++++ b/py_kvcache/transfer.py
+@@ -10,12 +10,17 @@ from .profiling import add_event, now_ns
+ 
+ try:
+     import torch
++    TORCH_AVAILABLE = True
++except ImportError:
++    torch = Any
++    TORCH_AVAILABLE = False
++
++try:
+     from vllm import _custom_ops as ops
+     from vllm.utils.platform_utils import is_pin_memory_available
+ 
+     TORCH_COPY_AVAILABLE = True
+ except Exception:
+-    torch = Any
+     ops = None
+     TORCH_COPY_AVAILABLE = False
+ 
+@@ -153,8 +158,12 @@ class ParsedKvLayout:
+         )
+ 
+     def allocate_staging_buffer(self, slot_count: int) -> Any:
+-        if not TORCH_COPY_AVAILABLE:
+-            raise RuntimeError("vLLM and torch are required for GPU copy support")
++        # CPU storage/alignment tests do not require vLLM copy kernels.
++        # Reactor creation and canonical GPU layout still check TORCH_COPY_AVAILABLE.
++        if not TORCH_AVAILABLE:
++            raise RuntimeError("torch is required for CPU staging allocation")
++        if type(slot_count) is not int or slot_count <= 0:
++            raise ValueError("slot_count must be a positive integer")
+ 
+         slot_bytes = self.storage_block_bytes
+         if slot_bytes % DIRECT_IO_ALIGNMENT != 0:
+diff --git a/tests/test_planner_manager.py b/tests/test_planner_manager.py
+index 7c3c151..244b539 100644
+--- a/tests/test_planner_manager.py
++++ b/tests/test_planner_manager.py
+@@ -490,7 +490,8 @@ class SpecConfigValidationTest(unittest.TestCase):
+         spec = self._build(gpu_block_size=16, block_size_factor=4)
+         self.assertEqual(spec.storage_block_tokens, 64)
+         self.assertEqual(spec._planner._tables.block_tokens, 64)
+-        self.assertEqual(spec._planner._max_preload_slots, 112)
++        # One slot is reserved for the retained alignment backing overhead.
++        self.assertEqual(spec._planner._max_preload_slots, 111)
+ 
+     def test_planner_off_by_default_skips_all_validation(self) -> None:
+         vllm_config = self._vllm_config()

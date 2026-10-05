@@ -1,0 +1,77 @@
+{
+  "actual_GPU_operations": 0,
+  "files": [
+    {
+      "bytes": 24963,
+      "path": "build_native_runtime_v3.py",
+      "sha256": "2d0df760ff0751e9bf1f747b5013c6a3458a1c688af308f0cf56645c2ef5c2c8"
+    },
+    {
+      "bytes": 1538,
+      "path": "FORMAL_RUNTIME_CPU_REVIEW.json",
+      "sha256": "1a4043fac320a84533fddf438e1cd10b0f89d4705ca87d57c0ca860d0e0fa64e"
+    },
+    {
+      "bytes": 1584,
+      "path": "FORMAL_RUNTIME_CPU_REVIEW_02.json",
+      "sha256": "26b1985e409ba76399b035ee1b11c36079dd32946b0646429e079b0cdb4e0807"
+    },
+    {
+      "bytes": 675,
+      "path": "LOCAL_CPU_TEST_RESULT.json",
+      "sha256": "9553585ff837c92b724d984c872b4a354b142090e82080f04455023df8d1b49e"
+    },
+    {
+      "bytes": 675,
+      "path": "LOCAL_CPU_TEST_RESULT_02.json",
+      "sha256": "eabf97bb45d87d39b3d1d689924ad1c2b714c8e7fc6176d8e67a563e4aa10d2a"
+    },
+    {
+      "bytes": 2457,
+      "path": "LOCAL_CPU_TEST_STDERR.log",
+      "sha256": "7fe8efe76128a2282388a7afb5beccab5ae1f364fe47d82622a49270d7473e32"
+    },
+    {
+      "bytes": 2805,
+      "path": "LOCAL_CPU_TEST_STDERR_02.log",
+      "sha256": "bcea2cab8993ac9dbd602deaaf9e863606c1263be9bdea1f00bdfbb4aff7c80e"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CPU_TEST_STDOUT.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CPU_TEST_STDOUT_02.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 55315,
+      "path": "native_runtime_v3.py",
+      "sha256": "d01111157fff769234f0d463a80931a2cb918a8f32aad2a3c06614c8a3f2676d"
+    },
+    {
+      "bytes": 2436,
+      "path": "README.md",
+      "sha256": "cadb11b3bf6d3eb339912e26e6c7627817ea777364b40add766f2f11e42b6b90"
+    },
+    {
+      "bytes": 4763,
+      "path": "run_cpu_tests_and_manifest.py",
+      "sha256": "13c50f00d57074c6d2d9a0ae8bfa90507225199f3044aed09daf1312424ab716"
+    },
+    {
+      "bytes": 1563,
+      "path": "SOURCE_MANIFEST.json",
+      "sha256": "3c9b4b6c0b467c4cfe27a0d3fe802e512bb77c493a1624c5ae4ffc69112371f3"
+    },
+    {
+      "bytes": 19187,
+      "path": "test_formal_runtime_cpu.py",
+      "sha256": "5e79e3aa9a1bffef7f46eafa6eb2d12b01b2b6d47baa0db129d1d5c28f58ddfb"
+    }
+  ],
+  "gpu_eligible": false,
+  "schema": "formal_runtime_v3_local_source_manifest_v1"
+}

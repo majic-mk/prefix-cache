@@ -1,0 +1,29 @@
+test_all_rows_full_r1_can_be_eligible (test_provenance_reference.PlanRulesTest.test_all_rows_full_r1_can_be_eligible) ... ok
+test_birth_request_cannot_read_own_new_source (test_provenance_reference.PlanRulesTest.test_birth_request_cannot_read_own_new_source) ... ok
+test_complete_mismatch (test_provenance_reference.PlanRulesTest.test_complete_mismatch) ... ok
+test_corrupt_origin_rejected (test_provenance_reference.PlanRulesTest.test_corrupt_origin_rejected) ... ok
+test_cross_request_second_generation_not_published (test_provenance_reference.PlanRulesTest.test_cross_request_second_generation_not_published) ... ok
+test_duplicate_rejected (test_provenance_reference.PlanRulesTest.test_duplicate_rejected) ... ok
+test_exact_only_rejects_mixed (test_provenance_reference.PlanRulesTest.test_exact_only_rejects_mixed) ... ok
+test_exact_prefix_proof (test_provenance_reference.PlanRulesTest.test_exact_prefix_proof) ... ok
+test_exact_target (test_provenance_reference.PlanRulesTest.test_exact_target) ... ok
+test_failure_not_novel_context (test_provenance_reference.PlanRulesTest.test_failure_not_novel_context) ... ok
+test_future_and_partial_publication_invisible (test_provenance_reference.PlanRulesTest.test_future_and_partial_publication_invisible) ... ok
+test_incomplete_capture_or_budget_rejected (test_provenance_reference.PlanRulesTest.test_incomplete_capture_or_budget_rejected) ... ok
+test_indirect_full_segment_cannot_wash_rank (test_provenance_reference.PlanRulesTest.test_indirect_full_segment_cannot_wash_rank) ... ok
+test_invalid_counts_and_geometry_fail_closed (test_provenance_reference.PlanRulesTest.test_invalid_counts_and_geometry_fail_closed) ... ok
+test_missing_or_duplicate_layer_not_full (test_provenance_reference.PlanRulesTest.test_missing_or_duplicate_layer_not_full) ... ok
+test_mixed_target_allowed (test_provenance_reference.PlanRulesTest.test_mixed_target_allowed) ... ok
+test_nan_inf_rejected (test_provenance_reference.PlanRulesTest.test_nan_inf_rejected) ... ok
+test_nine_approximate_predecessors (test_provenance_reference.PlanRulesTest.test_nine_approximate_predecessors) ... ok
+test_overlap_requires_split (test_provenance_reference.PlanRulesTest.test_overlap_requires_split) ... ok
+test_partial_then_r1_not_full (test_provenance_reference.PlanRulesTest.test_partial_then_r1_not_full) ... ok
+test_pool_miss_cannot_hide_existing_object (test_provenance_reference.PlanRulesTest.test_pool_miss_cannot_hide_existing_object) ... ok
+test_same_request_full_chain_does_not_increment (test_provenance_reference.PlanRulesTest.test_same_request_full_chain_does_not_increment) ... ok
+test_suffix_does_not_taint (test_provenance_reference.PlanRulesTest.test_suffix_does_not_taint) ... ok
+test_unknown_remains_unknown (test_provenance_reference.PlanRulesTest.test_unknown_remains_unknown) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.001s
+
+OK

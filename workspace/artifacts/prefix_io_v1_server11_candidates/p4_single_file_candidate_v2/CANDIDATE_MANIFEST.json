@@ -1,0 +1,78 @@
+{
+  "scope": "p4_single_file_cpu_candidate_v2",
+  "gpu_operations": 0,
+  "generic_production_qualified": false,
+  "cpu_tests_passed": 151,
+  "files": [
+    {
+      "path": "native_full_step_collector.py",
+      "bytes": 17073,
+      "sha256": "b8249e9a59a65aa13d452ba24f8fa255ca90ec290f3f1924db883b1fa550a1ce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5872,
+      "sha256": "0515196cd870b50846c76efc20465bbcc8b7301cdf3742c1e2abffe63cdde987"
+    },
+    {
+      "path": "run_original_cpu_regression.py",
+      "bytes": 2640,
+      "sha256": "8d85612477f10b59c00621e85f996b6e0622bbea6d4ba0f87769dd49268d40e2"
+    },
+    {
+      "path": "single_file_runtime_binding.py",
+      "bytes": 10790,
+      "sha256": "8b66b3aba1c936b85f4d82fe73c568650b712acf250aae454823cd35da060d60"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py",
+      "bytes": 24302,
+      "sha256": "1ac46c7cfd8503b72c1a8568c5563e9541b16d2b6e7fa76e056a1b232ec4b262"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_policy.py",
+      "bytes": 24976,
+      "sha256": "bce19c96c7651f69ebb91a515ea3e9e3d6855636b4bd4aa84e60fb2fbc10d673"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_single_file_receipt.py",
+      "bytes": 13946,
+      "sha256": "bf0c53181c81ac6c7817a9181a5234e2ce841c3c5c0699ccce3daa28ed1e21dc"
+    },
+    {
+      "path": "source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "bytes": 172524,
+      "sha256": "7cb3db49f7a4d0d1a4ce034350f1780ecb5c18dc1da9d5c1cd187e0357325fdb"
+    },
+    {
+      "path": "test_empty_p4_window.py",
+      "bytes": 8220,
+      "sha256": "c59d7b5e05b7de66cb9f7a13b2c1e9b6797c586b5e73dc6dff9a9c0e6abd37e3"
+    },
+    {
+      "path": "test_reactor_single_file.py",
+      "bytes": 12384,
+      "sha256": "d7387e98bcceb5568eae9827fad3ff2dacc7b2d9bf0a5901322a63eb32cf02a8"
+    },
+    {
+      "path": "test_single_file_policy.py",
+      "bytes": 10312,
+      "sha256": "ec61e8c381604e1ee9c7d387a8a8006231af92b9520767276f0d82fd0e633d45"
+    },
+    {
+      "path": "test_single_file_receipt.py",
+      "bytes": 8137,
+      "sha256": "ecb1d9a2e77e74f21be30ecde449f278672598ec9121607d968214d850f63d72"
+    },
+    {
+      "path": "test_single_file_runtime_binding.py",
+      "bytes": 5226,
+      "sha256": "24c9640f17815b0f5d7f5183e2ff8981902cb1def95e5cbe031e42a88108e47b"
+    },
+    {
+      "path": "V2_CHANGE_NOTES.md",
+      "bytes": 2028,
+      "sha256": "fddf9432b415eaacabdc9507a486f4c666349aa7c9b0a10a4f57cd41e17b0b46"
+    }
+  ]
+}

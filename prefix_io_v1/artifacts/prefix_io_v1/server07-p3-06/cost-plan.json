@@ -1,0 +1,41 @@
+{
+  "scope": "Frozen previous curve prediction under max_num_seqs=2; unloaded point only; no active-concurrency prediction claim",
+  "reference_plan": "artifacts/prefix_io_v1/server07-p3-06/reference-plan.json",
+  "reference_result": "artifacts/prefix_io_v1/server07-p3-06/reference-result.json",
+  "prompt_manifest": "artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json",
+  "prompt_manifest_sha256": "a8a5f10a7f4596a2cb57fff9ba373c4f6a6c20a9398f44d6fed1ccddb76c0195",
+  "candidate": "artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json",
+  "candidate_sha256": "13ea532044c2dcb5cb213ba17e885c274177704f71ac8b9f5ef134a5381f0e86",
+  "maximum_absolute_relative_median_error": 0.25,
+  "error_denominator": "frozen new candidate prediction",
+  "used_for_fit": false,
+  "formal_evaluation": false,
+  "storage": "aux-heldout-long",
+  "jobs": [
+    {
+      "label": "server07-p3-c2-cold-cost-01",
+      "mode": "cold"
+    },
+    {
+      "label": "server07-p3-c2-paired-cost-01",
+      "mode": "paired"
+    },
+    {
+      "label": "server07-p3-c2-paired-cost-02",
+      "mode": "paired"
+    },
+    {
+      "label": "server07-p3-c2-cold-cost-02",
+      "mode": "cold"
+    }
+  ],
+  "run_details": {
+    "server07-p3-c2-cold-cost-01": "/root/prefix-io-v1-validation/runs/server07-p3-c2-cold-cost-01/details",
+    "server07-p3-c2-paired-cost-01": "/root/prefix-io-v1-validation/runs/server07-p3-c2-paired-cost-01/details",
+    "server07-p3-c2-paired-cost-02": "/root/prefix-io-v1-validation/runs/server07-p3-c2-paired-cost-02/details",
+    "server07-p3-c2-cold-cost-02": "/root/prefix-io-v1-validation/runs/server07-p3-c2-cold-cost-02/details"
+  },
+  "engine_delta": {
+    "max_num_seqs": 2
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "CUDA_VISIBLE_DEVICES": "",
+  "argv": [
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python",
+    "-B",
+    "-I",
+    "-S",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/source_inputs/prepare_model_geometry_cpu.py",
+    "--project-root",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project"
+  ],
+  "cwd": "/root/autodl-tmp/prefix-io-v1-handoff/project"
+}

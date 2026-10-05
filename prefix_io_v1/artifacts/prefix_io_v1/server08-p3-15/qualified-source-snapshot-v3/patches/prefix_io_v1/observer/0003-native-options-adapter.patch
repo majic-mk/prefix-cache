@@ -1,0 +1,27 @@
+--- a/py_kvcache/vllm.py
++++ b/py_kvcache/vllm.py
+@@ -625,6 +625,11 @@
+     def __init__(self, vllm_config: VllmConfig, kv_cache_config: KVCacheConfig):
+         super().__init__(vllm_config, kv_cache_config)
+ 
++        # Project-owned optional P2 observer adapter; absent/off keeps native path.
++        self._prefix_io_options = None
++        if any(str(key).startswith("prefix_io_") for key in self.extra_config):
++            from prefix_io_control.native_options import parse_options
++            self._prefix_io_options = parse_options(self.extra_config)
+         self.shared_file_config = SharedFileConfig.from_extra_config(self.extra_config)
+         self._manager: SharedStorageOffloadingManager | None = None
+         self._handler: NoopSharedStorageOffloadingHandler | None = None
+@@ -764,7 +769,12 @@
+                 storage_block_size=storage_block_size,
+                 kv_caches=kv_caches,
+             )
++            observer_kwargs = {}
++            if self._prefix_io_options is not None:
++                from prefix_io_control.native_options import build_observer_kwargs
++                observer_kwargs = build_observer_kwargs(self._prefix_io_options)
+             coordinator = TransferCoordinator(
++                **observer_kwargs,
+                 config=self.shared_file_config,
+                 file_mapper=self.file_mapper,
+                 layout=layout,

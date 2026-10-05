@@ -1,0 +1,67 @@
+{
+  "allow_cpu_tests": true,
+  "allow_driver_or_system_changes": false,
+  "allow_gpu_runs": true,
+  "allow_model_downloads": false,
+  "allow_new_cloud_rental": false,
+  "allow_payment": false,
+  "allow_project_local_edits": true,
+  "allow_public_source_read": true,
+  "allow_remote_push": false,
+  "allow_shared_data_deletion": false,
+  "approved_auxiliary_storage": null,
+  "approved_dependency_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "approved_experiment_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+  "approved_gpu_ids": [
+    "GPU-a67d2f38-8e1b-29c3-7e5b-375e1410f8ac"
+  ],
+  "max_gpu_hours": 8,
+  "max_model_download_gib": 20,
+  "metadata_helper_ref": {
+    "bytes": 15157,
+    "path": "artifacts/prefix_io_v1/server12-c5-native-gpu-delivery-20261004/normal_runtime_authority.py",
+    "sha256": "aea9c62d08d3b585f195e6d7fe2b4c7b95b4a4c11ac677a4c99a20b1796ac50b"
+  },
+  "normal_mode_binding": {
+    "binding_ref": {
+      "bytes": 7542,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-native-cpu-20261004/NORMAL_RUNTIME_BINDING.json",
+      "sha256": "fb2d54f3fbac769051cea5ed1c05a3b3c7901ea4fb6738ea0cee367559cb091e"
+    },
+    "config_ref": {
+      "bytes": 1419,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-native-cpu-20261004/CONFIG_off.json",
+      "sha256": "160d32c44f995f3dcc6cd029d1f75b9af037dc4b7e8c34257cd58b856fe6f0b2"
+    },
+    "context_ref": {
+      "bytes": 3757,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-native-cpu-20261004/LIVE_CONTEXT_off.json",
+      "sha256": "b4c1a11761883f296b320337e579fc026773de29c19498ecaeb6c880f2ad8fc4"
+    },
+    "gpu_uuid": "GPU-a67d2f38-8e1b-29c3-7e5b-375e1410f8ac",
+    "human_grant_ref": {
+      "bytes": 2053,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-native-cpu-20261004/HUMAN_GPU_GRANT_off.json",
+      "sha256": "6d8704118db80838d53d3b1e211c252fbb000a664f33f4ffb252cfadbb59df8d"
+    },
+    "label": "server12-c5-native-normal-off01",
+    "max_attempts": 1,
+    "max_processes": 1,
+    "mode": "off",
+    "previous_qualification_ref": null,
+    "reserved_seconds": 320,
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "seconds_limit": 300,
+    "source_lock_ref": {
+      "bytes": 1115334,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-native-cpu-20261004/COMMON_SOURCE_LOCK.json",
+      "sha256": "aaa67309fab4c6dc7fe07853a31c3a99cdef727408da9fab604201bf95416d4d"
+    }
+  },
+  "project_authorization_amendment_ref": {
+    "bytes": 1114,
+    "path": "artifacts/prefix_io_v1/server12-c5-native-gpu-delivery-20261004/PROJECT_GPU_AUTHORIZATION_AMENDMENT.json",
+    "sha256": "8acab9a6d1e67d8c5237f2ff1736cff6e9248c7d359c944e80648c7cba5895ec"
+  },
+  "schema_version": 1
+}

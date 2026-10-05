@@ -1,0 +1,29 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_signal_between_os_spawn_and_handle_assignment_cleans_real_child _____
+
+sandbox = (PosixPath('/tmp/pytest-of-root/pytest-10/test_signal_between_os_spawn_a0'), PosixPath('/tmp/pytest-of-root/pytest-10/...xPath('/tmp/pytest-of-root/pytest-10/test_signal_between_os_spawn_a0/experiments/prefix_io_v1/gpu-budget-ledger.json'))
+
+    def test_signal_between_os_spawn_and_handle_assignment_cleans_real_child(sandbox):
+        pidfile = sandbox[0] / "spawn-race.pid"
+        injected = f"""
+    _ORIGINAL_POPEN = subprocess.Popen
+    def _interrupt_before_assignment(*args, **kwargs):
+        child = _ORIGINAL_POPEN(*args, **kwargs)
+        Path({str(pidfile)!r}).write_text(str(child.pid))
+        os.kill(os.getpid(), signal.SIGTERM)
+        return child
+    subprocess.Popen = _interrupt_before_assignment
+    """
+        sandbox[1].write_text(sandbox[1].read_text().replace('if __name__ == "__main__":', injected + '\nif __name__ == "__main__":'))
+        try:
+            result, budget = run(sandbox, "import time;time.sleep(60)")
+            assert result.returncode == 143, result.stderr
+            event = budget["events"][-1]
+>           assert event["gpu_job_attempted"] is True
+E           assert False is True
+
+artifacts/prefix_io_v1/new-server-02/runner-review/launch_race_proof.py:268: AssertionError
+=========================== short test summary info ============================
+FAILED artifacts/prefix_io_v1/new-server-02/runner-review/launch_race_proof.py::test_signal_between_os_spawn_and_handle_assignment_cleans_real_child
+1 failed, 18 deselected in 0.45s

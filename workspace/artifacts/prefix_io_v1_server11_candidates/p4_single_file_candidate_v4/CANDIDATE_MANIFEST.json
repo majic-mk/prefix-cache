@@ -1,0 +1,114 @@
+{
+  "scope": "p4_single_file_candidate_v4",
+  "gpu_operations": 0,
+  "generic_production_qualified": false,
+  "server_candidate_cpu_tests_passed": 197,
+  "server_native_cpu_integration_tests_passed": 547,
+  "native_integration_junit_warnings": 3,
+  "common_fix": "Existing Queue wait ignores retained ownership only; _has_work and native STOP unchanged",
+  "compact_observation_fix": "Immutable derived snapshot memo; every original policy/state/deferral check retained",
+  "calibration": "Requires actual C4 v6 six-window receipt; v5 never migrated",
+  "previous_candidate_manifest_sha256": "499a0a587f9e480a6e7670570520e743f6ef38c4c38d6bd666993b49bdfb12bb",
+  "files": [
+    {
+      "path": "ENRICHED_CHANGE_NOTES.md",
+      "bytes": 1832,
+      "sha256": "2034d706f2e0abc8f0c6d1a80bdc84f1f553f060e628c4fd437e77b3da8b6910"
+    },
+    {
+      "path": "IDLE_CHANGE_NOTES.md",
+      "bytes": 3485,
+      "sha256": "6a1e212c2d600115dc940e3cca0b3452f441562492540128212dfb4294bc24e2"
+    },
+    {
+      "path": "native_full_step_collector.py",
+      "bytes": 17073,
+      "sha256": "b8249e9a59a65aa13d452ba24f8fa255ca90ec290f3f1924db883b1fa550a1ce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5872,
+      "sha256": "0515196cd870b50846c76efc20465bbcc8b7301cdf3742c1e2abffe63cdde987"
+    },
+    {
+      "path": "run_original_cpu_regression.py",
+      "bytes": 2640,
+      "sha256": "8d85612477f10b59c00621e85f996b6e0622bbea6d4ba0f87769dd49268d40e2"
+    },
+    {
+      "path": "single_file_runtime_binding.py",
+      "bytes": 10790,
+      "sha256": "8b66b3aba1c936b85f4d82fe73c568650b712acf250aae454823cd35da060d60"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py",
+      "bytes": 25553,
+      "sha256": "6bec5dd57e25cfc2c0e62540742a781d656ba528cb6c8057cd2402197db93e1a"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_policy.py",
+      "bytes": 24976,
+      "sha256": "bce19c96c7651f69ebb91a515ea3e9e3d6855636b4bd4aa84e60fb2fbc10d673"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_single_file_receipt.py",
+      "bytes": 14761,
+      "sha256": "11312ab7a6f5c7823e77b22cf17c93bd255438af7f886568e693f76fc5b9825d"
+    },
+    {
+      "path": "source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "bytes": 178979,
+      "sha256": "96bfd88dcee7f9c7996518ffe762b87be5ad81ef11d598329d41145e2b01fd87"
+    },
+    {
+      "path": "test_empty_p4_window.py",
+      "bytes": 8483,
+      "sha256": "c2b12ac9bc42140a9b9033dee26dc11d1c7d0c9fc3f78a28b0f033cc6a63cf1c"
+    },
+    {
+      "path": "test_enriched_snapshot_reuse.py",
+      "bytes": 10728,
+      "sha256": "68f3c1143bd6d36b7b6b8bfca2792a75b57af2da270b8dc0a33c073806214201"
+    },
+    {
+      "path": "test_reactor_single_file.py",
+      "bytes": 12384,
+      "sha256": "d7387e98bcceb5568eae9827fad3ff2dacc7b2d9bf0a5901322a63eb32cf02a8"
+    },
+    {
+      "path": "test_retained_idle_wait.py",
+      "bytes": 15943,
+      "sha256": "aa7c372d70cb5d52bb1a259b9f211d17fc213bcbb382826787915f2eb5773462"
+    },
+    {
+      "path": "test_single_file_policy.py",
+      "bytes": 10312,
+      "sha256": "ec61e8c381604e1ee9c7d387a8a8006231af92b9520767276f0d82fd0e633d45"
+    },
+    {
+      "path": "test_single_file_receipt.py",
+      "bytes": 10389,
+      "sha256": "102f45a1363ae7266fad3f1f72f3c09833b10e839dbfb71797f709ba8cf4735c"
+    },
+    {
+      "path": "test_single_file_retry_observation.py",
+      "bytes": 12888,
+      "sha256": "a24eb1c3d9aadb6e491ad0bfa3f6b123d349ec58a8fb3952fa06f4806e306c71"
+    },
+    {
+      "path": "test_single_file_runtime_binding.py",
+      "bytes": 5226,
+      "sha256": "24c9640f17815b0f5d7f5183e2ff8981902cb1def95e5cbe031e42a88108e47b"
+    },
+    {
+      "path": "V2_CHANGE_NOTES.md",
+      "bytes": 2028,
+      "sha256": "fddf9432b415eaacabdc9507a486f4c666349aa7c9b0a10a4f57cd41e17b0b46"
+    },
+    {
+      "path": "V3_CHANGE_NOTES.md",
+      "bytes": 2740,
+      "sha256": "492d70ba34635237d3893aee15b7795e42734e230d0400da15fa4a000fb85a39"
+    }
+  ]
+}

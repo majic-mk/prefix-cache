@@ -1,0 +1,21 @@
+{
+  "actual_native_execution_verified": false,
+  "candidate_artifact": "server11-p4-notification-candidate-v5-cpu-20261003",
+  "cpu_timing_qualification": false,
+  "event_origin": "SYNTHETIC_CPU_METADATA",
+  "gpu_jobs_created": 0,
+  "gpu_launch_allowed": false,
+  "gpu_qualified": false,
+  "inherited_test_files_executed": false,
+  "job_namespace": "server11-c5-notification-{off,shadow,on}-preparation01",
+  "local_cpu_tests": null,
+  "new_native_cost_receipt": null,
+  "old_c4_v6_receipt_reusable": false,
+  "performance_claim": false,
+  "permission_scope_created": false,
+  "runner": "run_cpu_preparation.py",
+  "server_cpu_tests": null,
+  "source_scope": "new directory only; original C5/C4/v4/v6/author unmodified",
+  "status": "CPU_PREPARATION_ONLY_GPU_BLOCKED",
+  "test_entry": "test_notification_runtime_preparation.py"
+}

@@ -1,0 +1,65 @@
+# 项目自定义实验合同。正式运行前需生成单独冻结版本。
+schema_version: 1
+status: draft_not_authorized_for_gpu
+models:
+  primary:
+    id: Qwen/Qwen2.5-7B-Instruct
+    revision: null
+    tokenizer_revision: null
+  secondary:
+    id: mistralai/Mistral-7B-Instruct-v0.3
+    revision: null
+    tokenizer_revision: null
+model_dtype: bfloat16
+kv_dtype: bfloat16
+single_gpu: true
+single_kv_cache_group_required: true
+single_model_at_a_time: true
+attention_backend: null
+cuda_graph_mode: null
+max_model_len: null
+actual_gpu_kv_pool_bytes: null
+actual_staging_pool_bytes: null
+ssd_scope: enough_capacity_for_full_fixed_trace_no_eviction_claim
+ssd_capacity_budget_bytes: null
+ssd_min_free_bytes: null
+cache_root: null
+namespace_id: null
+upstream:
+  load_planner: "on"
+  staging_cache: null
+  enable_preload: true
+  preload_share_staging: true
+  preload_lookahead_requests: null
+  iodepth: null
+  open_lookahead: null
+  sync_on_store: false
+  # 具体字段仅经锁定版本解析器验证后转成真实参数。
+traces:
+  calibration_manifest: null
+  development_manifest: null
+  evaluation_manifest: null
+  split_by_prefix_family: true
+  no_per_request_cache_reset: true
+  arrival_mode: open_loop
+  initial_cache_state: null
+metrics:
+  ttft_limit_ms: null
+  request_itl_percentile: 0.95
+  request_itl_limit_ms: null
+  token_timestamp_source: null
+  main_cohort_requires_two_or_more_output_tokens: true
+  count_failed_and_timed_out_requests: true
+  include_accepted_io_drain_in_main_duration: true
+  report_client_chunk_gaps_separately: true
+  report_controller_overhead: true
+statistics:
+  pairing: same_trace_same_seed
+  policy_order_randomized: true
+  group_bootstrap_unit: trace_or_conversation
+  formal_seed_count_target: 5
+  confidence_level: 0.95
+internal_gates:
+  goodput_gain_target_fraction: 0.10
+  low_contention_regression_target_fraction: 0.02
+  targets_are_not_promised_results: true

@@ -1,0 +1,259 @@
+--- a/py_kvcache/reactor.py
++++ b/py_kvcache/reactor.py
+@@ -193,6 +193,7 @@
+         start_budget: Any = None,
+         stage_accounting: Any = None,
+         store_order: Any = None,
++        dispatch_shadow: Any = None,
+     ) -> None:
+         if progress_run_id is not None and (
+             type(progress_run_id) is not str or not progress_run_id.strip()
+@@ -200,6 +201,16 @@
+             raise ValueError("progress_run_id must be a nonempty string or None")
+         if observation_sink is not None and not callable(observation_sink):
+             raise TypeError("observation_sink must be callable or None")
++        if dispatch_shadow is not None:
++            from prefix_io_control.dispatch_shadow import DispatchShadow
++            if not isinstance(dispatch_shadow, DispatchShadow):
++                raise TypeError("dispatch_shadow must be DispatchShadow or None")
++            if progress_run_id is None or dispatch_shadow.run_id != progress_run_id:
++                raise ValueError("dispatch shadow requires the same native progress identity")
++            if stage_accounting is None:
++                raise ValueError("dispatch shadow requires passive native stage accounting")
++            if start_budget is not None or store_order is not None:
++                raise ValueError("dispatch shadow qualification excludes other P3 policies")
+         if stage_accounting is not None:
+             from prefix_io_control.stage_accounting import StageAccounting
+             if not isinstance(stage_accounting, StageAccounting):
+@@ -221,6 +232,8 @@
+             if start_budget is not None:
+                 raise ValueError("P3 order qualification excludes start allowances")
+             store_order.bind()
++        if dispatch_shadow is not None:
++            dispatch_shadow.bind()
+         if not TORCH_COPY_AVAILABLE:
+             raise RuntimeError("vLLM and torch are required for the I/O reactor")
+         self.config = config
+@@ -367,6 +380,7 @@
+         self._prefix_start_budget = start_budget
+         self._prefix_stage_accounting = stage_accounting
+         self._prefix_store_order = store_order
++        self._prefix_dispatch_shadow = dispatch_shadow
+         self._observation_sink = observation_sink
+         self._observation_failures = 0
+         self._worker = threading.Thread(target=self._run, name="py-kvcache-reactor", daemon=True)
+@@ -979,6 +993,9 @@
+             return
+         user_data = self._new_user_data()
+         start_ns = now_ns()
++        shadow_attempt = self._prefix_shadow_begin(
++            "ssd_write", len(io_view), job, continuation=True
++        )
+         try:
+             self.file_store.queue_write(
+                 self.ring,
+@@ -987,12 +1004,14 @@
+                 io_array=io_view,
+             )
+         except BaseException as exc:
++            self._prefix_shadow_settle(shadow_attempt, "uncertain", exc)
+             self._data_inflight -= 1
+             self.file_store.cleanup_temp(fd=fd, temp_path=temp_path)
+             self.staging_pool.release(copy.slot_index)
+             self._file_terminal(job, ok=False, exc=exc)
+             self._release_store_inflight(job.block_hashes[copy.file_index], ok=False)
+             return
++        self._prefix_shadow_settle(shadow_attempt, "accepted")
+         self._prefix_stage('accepted', 'ssd_write', user_data, len(io_view))
+         self._inflight[user_data] = _RingOp(
+             job=job,
+@@ -1465,6 +1484,74 @@
+         except Exception as exc:
+             accounting.invalidate(type(exc).__name__ + ": " + str(exc))
+ 
++    def _prefix_shadow_begin(self, stage, nbytes, job=None, *, continuation=False):
++        shadow = getattr(self, "_prefix_dispatch_shadow", None)
++        if shadow is None or shadow.mode != "shadow" or shadow.faulted:
++            return None  # Off: no clock, snapshot, ticket, or policy import.
++        try:
++            from prefix_io_control.dispatch_budget import Amount, STAGES
++            from prefix_io_control.dispatch_shadow import ShadowState
++            accounting = self._prefix_stage_accounting
++            captured = time.monotonic_ns()
++            inflight = None
++            if accounting.valid:
++                accounting._owner()
++                inflight = tuple(
++                    Amount(accounting.stats[name]["inflight_ops"],
++                           accounting.stats[name]["inflight_bytes"])
++                    for name in STAGES
++                )
++            sample = ShadowState(
++                shadow.run_id, captured, inflight=inflight,
++                free_staging_bytes=None, accepted_parents=None,
++                # Called only immediately before an existing native API after its
++                # original slot, FD, mapping and stream dependency path.
++                native_issue_safe=True,
++            )
++            progress = (
++                "shutdown" if self._stop else
++                "mandatory" if job is not None and self.is_mandatory(job.future) else
++                "continuation" if continuation else None
++            )
++            return shadow.begin(stage, nbytes, sample, now_ns=captured, progress=progress)
++        except Exception as exc:
++            shadow.fail(type(exc).__name__ + ": " + str(exc))
++            return None  # Optional observation cannot block native dispatch.
++
++    def _prefix_shadow_copy_begin(self, stage, sizes, count, job=None, *, continuation=False):
++        shadow = getattr(self, "_prefix_dispatch_shadow", None)
++        if shadow is None or shadow.mode != "shadow" or shadow.faulted:
++            return None  # Never evaluate copy sizes on the original off path.
++        try:
++            return self._prefix_shadow_begin(
++                stage, int(sizes[:count].sum()), job, continuation=continuation
++            )
++        except Exception as exc:
++            shadow.fail(type(exc).__name__ + ": " + str(exc))
++            return None
++
++    def _prefix_shadow_settle(self, attempt, outcome, exc=None):
++        if attempt is None:
++            return
++        shadow = self._prefix_dispatch_shadow
++        try:
++            if outcome == "accepted":
++                shadow.accepted(attempt)
++            else:
++                # A backend exception is not evidence of pre-acceptance rejection.
++                shadow.uncertain(attempt, type(exc).__name__ + ": " + str(exc))
++        except Exception as audit_exc:
++            shadow.fail(type(audit_exc).__name__ + ": " + str(audit_exc))
++
++    def _prefix_shadow_completion_unknown(self, stage, attempt, exc):
++        if attempt is None:
++            return
++        shadow = self._prefix_dispatch_shadow
++        try:
++            shadow.mark_completion_unknown(stage, type(exc).__name__ + ": " + str(exc))
++        except Exception as audit_exc:
++            shadow.fail(type(audit_exc).__name__ + ": " + str(audit_exc))
++
+     def _prefix_allow_start(self, kind, job=None):
+         budget = getattr(self, "_prefix_start_budget", None)
+         if budget is None:
+@@ -1904,6 +1991,9 @@
+         preload_info = ready.preload_info
+         user_data = self._new_user_data()
+         start_ns = now_ns()
++        shadow_attempt = self._prefix_shadow_begin(
++            "ssd_read", len(io_view), ready.job, continuation=True
++        )
+         try:
+             self.file_store.queue_read(
+                 self.ring,
+@@ -1912,6 +2002,7 @@
+                 io_array=io_view,
+             )
+         except BaseException as exc:
++            self._prefix_shadow_settle(shadow_attempt, "uncertain", exc)
+             self._async_close(ready.fd)
+             self.staging_pool.release(slot_index)
+             if ready.preload_hash is not None:
+@@ -1946,6 +2037,7 @@
+                 assert ready.job is not None
+                 self._file_terminal(ready.job, ok=False, exc=exc)
+             return
++        self._prefix_shadow_settle(shadow_attempt, "accepted")
+         self._prefix_stage('accepted', 'ssd_read', user_data, len(io_view))
+         self._data_inflight += 1
+         self._inflight[user_data] = _RingOp(
+@@ -2138,6 +2230,8 @@
+         start_ns = now_ns()
+         start_event = torch.cuda.Event(enable_timing=True)
+         end_event = torch.cuda.Event(enable_timing=True)
++        shadow_attempt = None
++        shadow_accepted = False
+         try:
+             with torch.cuda.stream(self._copy_stream):
+                 start_event.record(self._copy_stream)
+@@ -2152,13 +2246,22 @@
+                         sizes,
+                         offset,
+                     )
++                shadow_attempt = self._prefix_shadow_copy_begin(
++                    "h2d", sizes, offset, continuation=True
++                )
+                 ops.swap_blocks_batch(
+                     self._fused_src_t[:offset],
+                     self._fused_dst_t[:offset],
+                     self._fused_sizes_t[:offset],
+                 )
++                self._prefix_shadow_settle(shadow_attempt, "accepted")
++                shadow_accepted = True
+                 end_event.record(self._copy_stream)
+         except BaseException as exc:
++            if shadow_accepted:
++                self._prefix_shadow_completion_unknown("h2d", shadow_attempt, exc)
++            else:
++                self._prefix_shadow_settle(shadow_attempt, "uncertain", exc)
+             for rc in ready:
+                 self._settle_load_slot(rc.job, rc.file_index, rc.slot_index, rc.shared, rc.cache)
+                 self._file_terminal(rc.job, ok=False, exc=exc)
+@@ -2195,6 +2298,7 @@
+         start_event = torch.cuda.Event(enable_timing=True)
+         end_event = torch.cuda.Event(enable_timing=True)
+         start_ns = now_ns()
++        shadow_attempt = None
+         with torch.cuda.stream(stream):
+             if is_store and job.compute_event is not None:
+                 stream.wait_event(job.compute_event)
+@@ -2211,12 +2315,27 @@
+                     self._batch_sizes[slot_index],
+                     0,
+                 )
+-                ops.swap_blocks_batch(
+-                    self._batch_src_tensors[slot_index][:offset],
+-                    self._batch_dst_tensors[slot_index][:offset],
+-                    self._batch_size_tensors[slot_index][:offset],
++                shadow_attempt = self._prefix_shadow_copy_begin(
++                    "d2h" if is_store else "h2d", self._batch_sizes[slot_index],
++                    offset, job, continuation=not is_store
+                 )
+-            end_event.record(stream)
++                try:
++                    ops.swap_blocks_batch(
++                        self._batch_src_tensors[slot_index][:offset],
++                        self._batch_dst_tensors[slot_index][:offset],
++                        self._batch_size_tensors[slot_index][:offset],
++                    )
++                except BaseException as exc:
++                    self._prefix_shadow_settle(shadow_attempt, "uncertain", exc)
++                    raise
++                self._prefix_shadow_settle(shadow_attempt, "accepted")
++            try:
++                end_event.record(stream)
++            except BaseException as exc:
++                self._prefix_shadow_completion_unknown(
++                    "d2h" if is_store else "h2d", shadow_attempt, exc
++                )
++                raise
+         self._prefix_stage_copy('d2h' if is_store else 'h2d', end_event,
+                                 self._batch_sizes[slot_index], offset if mapping_len > 0 else 0)
+         return _CopyOp(
+@@ -2313,6 +2432,7 @@
+         start_budget: Any = None,
+         stage_accounting: Any = None,
+         store_order: Any = None,
++        dispatch_shadow: Any = None,
+     ) -> None:
+         self.layout = layout
+         self.reactor = IoReactor(
+@@ -2326,6 +2446,7 @@
+             start_budget=start_budget,
+             stage_accounting=stage_accounting,
+             store_order=store_order,
++            dispatch_shadow=dispatch_shadow,
+         )
+ 
+     @property

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_CPU_KV_BYTE_STRUCTURE_AND_CONTENT_CANDIDATE_ONLY",
+  "implementation_refs": [
+    {
+      "path": "g3_kv_byte_evidence.py",
+      "bytes": 16291,
+      "sha256": "42023d758156743536eed2db53b530c19e365bb356beda51022ef4b7e56345ac"
+    },
+    {
+      "path": "test_g3_kv_byte_evidence.py",
+      "bytes": 18147,
+      "sha256": "d5ccbd52d308661420b088e8b2f73bb311437b9ee1cb139b947a33f319b2347a"
+    }
+  ],
+  "source_contract": {
+    "whole_G2_source_lock": {
+      "bytes": 899396,
+      "sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b"
+    },
+    "source_count": 4,
+    "source_guard": "Exact lock and transfer/reactor/liburing_file/author kv_offload base bytes read and SHA checked at beginning and end of every verification; no source modules imported."
+  },
+  "supported_subset": {
+    "files": [
+      1,
+      8
+    ],
+    "layers": [
+      1,
+      64
+    ],
+    "factor": [
+      1,
+      32
+    ],
+    "max_logical_bytes_per_file": 33554432,
+    "max_total_capture_bytes": 536870912,
+    "group_count": 1,
+    "dtype": "int8",
+    "element_size": 1,
+    "ndim": 2,
+    "layout": "Contiguous canonical pages only; layer-major then storage-local block, with page stride equal to page bytes. Source and consumer GPU block IDs may differ while storage-local position must match.",
+    "partial_skip": "Rejected; first_block_index must equal zero and each file has exactly factor pages.",
+    "alignment": 4096,
+    "logical_vs_physical": "Pinned original allocate_staging_buffer requires logical storage_block_bytes divisible by 4096. Supported SSD physical bytes therefore equal logical bytes and outer padding is zero. Unaligned layout or an extra padding tail is rejected; no invented padding policy."
+  },
+  "content_checks": [
+    "Five producer/D2H/SSD-write/SSD-read/restored capture SHA declarations recomputed from actual immutable fixture bytes.",
+    "Producer pages match D2H layer-major slices; both SSD captures match D2H; restored pages match producer local block correspondence.",
+    "Prefix/token block hash is only an association key and is not conflated with payload SHA. Original OffloadKey hash plus four-byte big-endian group zero required."
+  ],
+  "association_and_order": "Exact CPU stage records require run, store/load job pair, file index, key and block IDs; unique positive sequence with producer capture -> D2H completed -> SSD write completed -> SSD capture -> SSD read completed -> H2D completed -> consumer capture -> model compute. CPU-declared completion bits are fixture assertions and never native proof.",
+  "authority_boundary": {
+    "accepted_input": "Exact CPUFixtureBundle dataclasses only; origin/native/qualified receipt arguments unsupported. Unknown object types are rejected before reading owner attributes.",
+    "returned_input_retention": "No raw payload, tensor, owner, Future, input bundle or source path object returned; only immutable scalar summaries and fixed source refs.",
+    "missing_runtime_provenance": [
+      "Actual CUDA tensors, shape and raw page capture identity",
+      "Original D2H/H2D event completion and staging provenance",
+      "Actual SSD path and completed write/read physical payload provenance",
+      "Consumer restore capture before original model compute",
+      "Live original owner/job registration and actual capture installer"
+    ],
+    "GPU_operations": 0,
+    "native_capture_installer_present": false,
+    "GPU_verified": false,
+    "production_qualified": false,
+    "effect_verified": false,
+    "real_byte_qualification": false,
+    "P4_method_effect_verified": false
+  },
+  "changes_to_original_engine": "None. No synchronization, transfer_async, get_finished, shutdown, hook installation, policy activation, model change, GPU scope creation, permission or ledger changes.",
+  "actual_CPU_validation": {
+    "distinct_tests": 31,
+    "first_attempt": {
+      "tests": 31,
+      "passed": 29,
+      "errors": 2,
+      "reason": "Scalar-only test AST included a __future__ import with restricted builtins lacking __import__. Test harness repaired to compile the unchanged pinned scalar AST with annotations compiler flag. Module and original sources unchanged.",
+      "log_ref": {
+        "path": "CPU_BYTE_RUN_01.log",
+        "bytes": 6385,
+        "sha256": "afb2ae24d0b0df6c966d3aa4a5d1f1b9e008f507d06a374e5d754af36b0f1fde"
+      },
+      "result_ref": {
+        "path": "CPU_BYTE_RUN_01_RESULT.json",
+        "bytes": 736,
+        "sha256": "ae0e8b15cd6b88ed3f5833360d80db5055654007e84bbdae3321406f6cc88ff3"
+      }
+    },
+    "final_attempt": {
+      "tests": 31,
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "unittest_seconds": 0.222,
+      "process_wall_seconds": 0.3440000000409782,
+      "log_ref": {
+        "path": "CPU_BYTE_RUN_02.log",
+        "bytes": 4535,
+        "sha256": "f791a9abb9b3ec5d63a9e750c77eed6a101710650566e60dea7b98b6b2e4f534"
+      },
+      "result_ref": {
+        "path": "CPU_BYTE_RUN_02_RESULT.json",
+        "bytes": 735,
+        "sha256": "b7d4319fefecd38cf82110f8e36db494d11d79aae32a25985304c4d376b9f4a2"
+      }
+    },
+    "no_test_count_accumulation": true
+  },
+  "server_CPU_command": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S artifacts/prefix_io_v1/server09-g3-production-kv-io-20261002/test_g3_kv_byte_evidence.py --source-root /root/autodl-tmp/prefix-io-v1-handoff/project --lock /root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261002/gpu-source-lock-candidate.json",
+  "next_stage": "Independent CPU boundary review and actual server stdlib replay. Future native byte capture must be implemented, source-bound and separately GPU-authorized before any real byte qualification; this candidate does not supply that authority."
+}

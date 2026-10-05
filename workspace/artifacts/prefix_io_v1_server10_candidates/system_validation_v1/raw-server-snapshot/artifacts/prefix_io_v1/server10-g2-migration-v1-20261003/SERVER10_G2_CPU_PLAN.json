@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "status": "CPU_ONLY_NEW_MACHINE_G2_PLAN",
+  "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+  "original_runtime_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261002/run_g2_normal_model_lifecycle.py",
+    "bytes": 46746,
+    "sha256": "82cea015522596a89a89eb1ea0245f9ea111c942b74456cd87288507aec54422"
+  },
+  "configuration": {
+    "schema_version": 1,
+    "gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+    "job_names": {
+      "off": "server10-g2-normal-off-01",
+      "shadow": "server10-g2-normal-shadow-01"
+    },
+    "permissions_ref": {
+      "path": "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+      "bytes": 685,
+      "sha256": "aa54897390dd18c71f4578d45c87b74a3d26a3c63daea2660bf752c41be3be50"
+    },
+    "sdk_inventory_ref": {
+      "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CUDA13_SOURCE_INVENTORY.json",
+      "bytes": 692329,
+      "sha256": "0e7cc1df1d8d7aed7271841d6e9f1e4188785f40ad4c74b4c6c78f670b7794b6"
+    },
+    "sdk_proof_ref": {
+      "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CPU_COMPILE_LINK_RESULT.json",
+      "bytes": 5588,
+      "sha256": "ef7a7482cc1cae539e2425d6aefc82ea8160e398ab7d8b14926f76537e614a25"
+    },
+    "source_lock": "artifacts/prefix_io_v1/server10-g2-migration-v1-20261003/gpu-source-lock-server10-g2.json",
+    "scope_record": "artifacts/prefix_io_v1/server10-g2-migration-v1-20261003/SERVER10_G2_AUTHORIZED_SCOPE.json"
+  },
+  "qualification_context": {
+    "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+    "model_relative": "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "model_plan_relative": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "normal_outputs_per_request": 128,
+    "request_phases_per_job": [
+      "cold",
+      "repeat"
+    ],
+    "total_requests_across_two_jobs": 4,
+    "total_outputs_across_two_jobs": 512,
+    "expected_cached_tokens": [
+      0,
+      112
+    ],
+    "prompt_token_ids": [
+      1000,
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      1011,
+      1012,
+      1013,
+      1014,
+      1015,
+      1016,
+      1017,
+      1018,
+      1019,
+      1020,
+      1021,
+      1022,
+      1023,
+      1024,
+      1025,
+      1026,
+      1027,
+      1028,
+      1029,
+      1030,
+      1031,
+      1032,
+      1033,
+      1034,
+      1035,
+      1036,
+      1037,
+      1038,
+      1039,
+      1040,
+      1041,
+      1042,
+      1043,
+      1044,
+      1045,
+      1046,
+      1047,
+      1048,
+      1049,
+      1050,
+      1051,
+      1052,
+      1053,
+      1054,
+      1055,
+      1056,
+      1057,
+      1058,
+      1059,
+      1060,
+      1061,
+      1062,
+      1063,
+      1064,
+      1065,
+      1066,
+      1067,
+      1068,
+      1069,
+      1070,
+      1071,
+      1072,
+      1073,
+      1074,
+      1075,
+      1076,
+      1077,
+      1078,
+      1079,
+      1080,
+      1081,
+      1082,
+      1083,
+      1084,
+      1085,
+      1086,
+      1087,
+      1088,
+      1089,
+      1090,
+      1091,
+      1092,
+      1093,
+      1094,
+      1095,
+      1096,
+      1097,
+      1098,
+      1099,
+      1100,
+      1101,
+      1102,
+      1103,
+      1104,
+      1105,
+      1106,
+      1107,
+      1108,
+      1109,
+      1110,
+      1111,
+      1112,
+      1113,
+      1114,
+      1115,
+      1116,
+      1117,
+      1118,
+      1119,
+      1120,
+      1121,
+      1122,
+      1123,
+      1124,
+      1125,
+      1126,
+      1127
+    ],
+    "sampling": {
+      "temperature": 0.0,
+      "seed": 0,
+      "max_tokens": 128,
+      "min_tokens": 128,
+      "ignore_eos": true,
+      "detokenize": false
+    },
+    "engine_source": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "engine_overrides": {
+      "async_scheduling": false
+    },
+    "scalar_source": "artifacts/prefix_io_v1/server09-runtime-connector-20261001/p4_runtime_scalar_connector.py",
+    "frame_source": "artifacts/prefix_io_v1/server09-migration-20261001/collector-candidate/p4_full_step_frame_adapter.py",
+    "author": "third_party/work/vllm-author-p4-02-cpu",
+    "new_executor": false,
+    "native_io": "none",
+    "strategies": "off",
+    "current_stream_event_diagnostics_only": true,
+    "cross_clock_mapping_verified": false,
+    "production_qualified": false,
+    "performance_claim": false,
+    "seconds_limit": 300,
+    "storage_reserve_bytes": 134217728,
+    "storage_floor_bytes": 8589934592,
+    "multiprocessing": false,
+    "maximum_steps_per_request": 4096,
+    "additional_process_cache_keys": {
+      "FLASHINFER_WORKSPACE_BASE": "flashinfer-workspace",
+      "CUDA_CACHE_PATH": "cuda-driver",
+      "TORCH_EXTENSIONS_DIR": "torch-extensions"
+    },
+    "sdk_toolchain": {
+      "purpose": "EXISTING_INSTALLED_CUDA13_LAYOUT_ONLY",
+      "enabled_in_both_modes": true,
+      "source_refs": [
+        {
+          "path": "artifacts/prefix_io_v1/server09-cuda13-toolchain-v2-20261001/cuda13_sdk_overlay.py",
+          "bytes": 16929,
+          "sha256": "ed846361788e9bdde853e6e0aa16e361329e3f2dffbfbe2c4f396acf9e9d1ecf"
+        },
+        {
+          "path": "artifacts/prefix_io_v1/server09-cuda13-toolchain-v2-20261001/CUDA13_SDK_CPU_PLAN.json",
+          "bytes": 10025,
+          "sha256": "8044db267791d5f217e3dd9c478375787aa73a74d53d19117f6bcebbc1f0a659"
+        },
+        {
+          "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CUDA13_SOURCE_INVENTORY.json",
+          "bytes": 692329,
+          "sha256": "0e7cc1df1d8d7aed7271841d6e9f1e4188785f40ad4c74b4c6c78f670b7794b6"
+        },
+        {
+          "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CPU_COMPILE_LINK_RESULT.json",
+          "bytes": 5588,
+          "sha256": "ef7a7482cc1cae539e2425d6aefc82ea8160e398ab7d8b14926f76537e614a25"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/flashinfer/compilation_context.py",
+          "bytes": 3909,
+          "sha256": "e55c7f58a83810590e18686954527cc62735a6e91c3fa67286a5e7f00afc9be5"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/flashinfer/jit/cpp_ext.py",
+          "bytes": 12445,
+          "sha256": "9d20f28baed969411220456b140a2786a081a2b7195d2433a70daec3c8ae7403"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/flashinfer/jit/utils.py",
+          "bytes": 2644,
+          "sha256": "a32b738a91bafbe392c69e10fd11533ff98adbecbba9d769a19f2c5e920f5f31"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/torch/version.py",
+          "bytes": 317,
+          "sha256": "323d35171ef1184f1d7db3bbd1f3d3e227e0e826be8fd52200778346e17c873f"
+        }
+      ],
+      "CPU_only_inventory_preflight_required": true,
+      "GPU_model_or_JIT_runtime_qualified": false,
+      "original_arch_checks_preserved": true,
+      "no_JIT_bypass": true,
+      "environment_keys": [
+        "CUDA_HOME",
+        "CUDA_PATH",
+        "FLASHINFER_NVCC",
+        "CUDACXX",
+        "PATH",
+        "LD_LIBRARY_PATH"
+      ],
+      "stubs_on_runtime_library_path": false
+    },
+    "build_tool": {
+      "purpose": "EXISTING_PINNED_NINJA_PRIVATE_PATH_ONLY",
+      "enabled_in_both_modes": true,
+      "source_ref": {
+        "path": ".venv/bin/ninja",
+        "bytes": 370448,
+        "sha256": "08639e194fffa7f08b259fc4abfa4803aff66b64de52549cee42ec527d55cea6"
+      },
+      "exact_regular_ELF_executable_required": true,
+      "no_whole_virtualenv_bin_PATH": true,
+      "CUDA13_bin_remains_first": true,
+      "GPU_model_or_JIT_runtime_qualified": false
+    },
+    "optional_capability_probe": {
+      "purpose": "ONE_PHYSICALLY_ABSENT_OPTIONAL_QUERY_ONLY",
+      "enabled_in_both_modes": true,
+      "optional_fullname": "vllm.third_party.deep_gemm",
+      "source_refs": [
+        {
+          "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261002/optional_capability_probe.py",
+          "bytes": 13805,
+          "sha256": "48138660e3ac43e1ea7b342a2727772e8745ed0f59c355c50f10616584a956d3"
+        },
+        {
+          "path": "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+          "bytes": 29692,
+          "sha256": "5d9604fc07d80495a49febfcd488cb2601f74a2bef107261c8e623a4d0a1c77d"
+        },
+        {
+          "path": "third_party/work/vllm-author-p4-02-cpu/vllm/third_party/__init__.py",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "third_party/work/vllm-author-p4-02-cpu/vllm/utils/import_utils.py",
+          "bytes": 14589,
+          "sha256": "f14b07131a4d49955150016dbfa34f7d8d5f586b1545a1173e0d4f904578b18b"
+        },
+        {
+          "path": "third_party/work/vllm-author-p4-02-cpu/vllm/utils/deep_gemm.py",
+          "bytes": 19901,
+          "sha256": "99e316620e3cdda2db7d9fd7a4ae5968e9c9ef98d7399d62a2c4a5c506627854"
+        },
+        {
+          "path": "third_party/work/vllm-author-p4-02-cpu/vllm/model_executor/warmup/deep_gemm_warmup.py",
+          "bytes": 13044,
+          "sha256": "b05db0127b19fc38da78e96c74df279e2cd53e0c262e9a7cad53486cf21f3414"
+        }
+      ],
+      "original_finder_unchanged": true,
+      "author_files_unchanged": true,
+      "original_cached_query_first": true,
+      "matched_original_exception_origin_required": true,
+      "absent_optional_is_unavailable": true,
+      "required_imports_unchanged": true,
+      "reversible_process_only": true,
+      "GPU_model_or_full_output_qualified": false
+    }
+  },
+  "maximum_jobs": 2,
+  "seconds_limit_per_job": 300,
+  "reserved_seconds_per_job": 320,
+  "off_success_and_original_shutdown_and_session_drain_before_shadow": true,
+  "reuse_reference_scope": false,
+  "full_model_source_verified": false,
+  "performance_claim": false,
+  "GPU_runs": 0
+}

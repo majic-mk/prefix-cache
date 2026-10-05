@@ -1,0 +1,106 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____ test_failed_owner_guard_invalidates_previous_snapshot[wrong_thread] ______
+
+guard = 'wrong_thread'
+
+    @pytest.mark.parametrize("guard", ["wrong_thread", "different_reactor", "missing_worker"])
+    def test_failed_owner_guard_invalidates_previous_snapshot(guard):
+        # Constant sampling time proves the checks also apply inside an interval.
+        pub = SnapshotPublisher(run_id="r", interval_ns=100, clock=lambda: 10)
+        reactor = fixture()
+        pub(reactor)
+        snapshot = pub._latest
+        reader_args = dict(run_id="r", now_ns=snapshot.monotonic_ns + 1, max_age_ns=2)
+        assert pub.latest(**reader_args) is snapshot
+        worker = reactor._worker
+        target = reactor
+        if guard == "wrong_thread":
+            worker.ident = -1
+            error = RuntimeError
+        elif guard == "different_reactor":
+            target = fixture()
+            error = RuntimeError
+        else:
+            del reactor._worker
+            error = AttributeError
+        with pytest.raises(error):
+            pub(target)
+        # A fresh timestamp cannot make an invalidated observation usable.
+>       assert pub.latest(**reader_args) is None
+E       AssertionError: assert ReactorSnapshot(run_id='r', epoch=1, monotonic_ns=6327682556446461, actual_staging_bytes=65535, free_slots=2, active_p...e, ssd_read_ops=1, ssd_write_ops=1, h2d_inflight_bytes=4096, d2h_inflight_bytes=0, gpu_immediately_reusable_bytes=None) is None
+E        +  where ReactorSnapshot(run_id='r', epoch=1, monotonic_ns=6327682556446461, actual_staging_bytes=65535, free_slots=2, active_p...e, ssd_read_ops=1, ssd_write_ops=1, h2d_inflight_bytes=4096, d2h_inflight_bytes=0, gpu_immediately_reusable_bytes=None) = latest(**{'run_id': 'r', 'now_ns': 6327682556446462, 'max_age_ns': 2})
+E        +    where latest = <prefix_io_control.publication.SnapshotPublisher object at 0x7f135e5ee7e0>.latest
+
+tests/prefix_io_v1_observer/test_publication.py:267: AssertionError
+___ test_failed_owner_guard_invalidates_previous_snapshot[different_reactor] ___
+
+guard = 'different_reactor'
+
+    @pytest.mark.parametrize("guard", ["wrong_thread", "different_reactor", "missing_worker"])
+    def test_failed_owner_guard_invalidates_previous_snapshot(guard):
+        # Constant sampling time proves the checks also apply inside an interval.
+        pub = SnapshotPublisher(run_id="r", interval_ns=100, clock=lambda: 10)
+        reactor = fixture()
+        pub(reactor)
+        snapshot = pub._latest
+        reader_args = dict(run_id="r", now_ns=snapshot.monotonic_ns + 1, max_age_ns=2)
+        assert pub.latest(**reader_args) is snapshot
+        worker = reactor._worker
+        target = reactor
+        if guard == "wrong_thread":
+            worker.ident = -1
+            error = RuntimeError
+        elif guard == "different_reactor":
+            target = fixture()
+            error = RuntimeError
+        else:
+            del reactor._worker
+            error = AttributeError
+        with pytest.raises(error):
+            pub(target)
+        # A fresh timestamp cannot make an invalidated observation usable.
+>       assert pub.latest(**reader_args) is None
+E       AssertionError: assert ReactorSnapshot(run_id='r', epoch=1, monotonic_ns=6327682565638060, actual_staging_bytes=65535, free_slots=2, active_p...e, ssd_read_ops=1, ssd_write_ops=1, h2d_inflight_bytes=4096, d2h_inflight_bytes=0, gpu_immediately_reusable_bytes=None) is None
+E        +  where ReactorSnapshot(run_id='r', epoch=1, monotonic_ns=6327682565638060, actual_staging_bytes=65535, free_slots=2, active_p...e, ssd_read_ops=1, ssd_write_ops=1, h2d_inflight_bytes=4096, d2h_inflight_bytes=0, gpu_immediately_reusable_bytes=None) = latest(**{'run_id': 'r', 'now_ns': 6327682565638061, 'max_age_ns': 2})
+E        +    where latest = <prefix_io_control.publication.SnapshotPublisher object at 0x7f135e333a70>.latest
+
+tests/prefix_io_v1_observer/test_publication.py:267: AssertionError
+____ test_failed_owner_guard_invalidates_previous_snapshot[missing_worker] _____
+
+guard = 'missing_worker'
+
+    @pytest.mark.parametrize("guard", ["wrong_thread", "different_reactor", "missing_worker"])
+    def test_failed_owner_guard_invalidates_previous_snapshot(guard):
+        # Constant sampling time proves the checks also apply inside an interval.
+        pub = SnapshotPublisher(run_id="r", interval_ns=100, clock=lambda: 10)
+        reactor = fixture()
+        pub(reactor)
+        snapshot = pub._latest
+        reader_args = dict(run_id="r", now_ns=snapshot.monotonic_ns + 1, max_age_ns=2)
+        assert pub.latest(**reader_args) is snapshot
+        worker = reactor._worker
+        target = reactor
+        if guard == "wrong_thread":
+            worker.ident = -1
+            error = RuntimeError
+        elif guard == "different_reactor":
+            target = fixture()
+            error = RuntimeError
+        else:
+            del reactor._worker
+            error = AttributeError
+        with pytest.raises(error):
+            pub(target)
+        # A fresh timestamp cannot make an invalidated observation usable.
+>       assert pub.latest(**reader_args) is None
+E       AssertionError: assert ReactorSnapshot(run_id='r', epoch=1, monotonic_ns=6327682570951836, actual_staging_bytes=65535, free_slots=2, active_p...e, ssd_read_ops=1, ssd_write_ops=1, h2d_inflight_bytes=4096, d2h_inflight_bytes=0, gpu_immediately_reusable_bytes=None) is None
+E        +  where ReactorSnapshot(run_id='r', epoch=1, monotonic_ns=6327682570951836, actual_staging_bytes=65535, free_slots=2, active_p...e, ssd_read_ops=1, ssd_write_ops=1, h2d_inflight_bytes=4096, d2h_inflight_bytes=0, gpu_immediately_reusable_bytes=None) = latest(**{'run_id': 'r', 'now_ns': 6327682570951837, 'max_age_ns': 2})
+E        +    where latest = <prefix_io_control.publication.SnapshotPublisher object at 0x7f135e36d2e0>.latest
+
+tests/prefix_io_v1_observer/test_publication.py:267: AssertionError
+=========================== short test summary info ============================
+FAILED tests/prefix_io_v1_observer/test_publication.py::test_failed_owner_guard_invalidates_previous_snapshot[wrong_thread]
+FAILED tests/prefix_io_v1_observer/test_publication.py::test_failed_owner_guard_invalidates_previous_snapshot[different_reactor]
+FAILED tests/prefix_io_v1_observer/test_publication.py::test_failed_owner_guard_invalidates_previous_snapshot[missing_worker]
+3 failed, 34 deselected in 1.26s

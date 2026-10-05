@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "user_message": "允许，继续",
+  "approved_scope": "Prior concrete system-disk proposal approved",
+  "root": "/root/prefix-io-v1-validation",
+  "max_bytes": 21474836480,
+  "minimum_free_bytes": 8589934592,
+  "server": "connect.westd.seetacloud.com:38819",
+  "gpu_uuid": "GPU-f8744916-1693-fa6a-93b6-7f503c03459c",
+  "proposal": "artifacts/prefix_io_v1/server07-p3-04/system-disk-proposal.json",
+  "max_gpu_hours_unchanged": 8,
+  "max_model_download_gib_unchanged": 20,
+  "allow_driver_or_system_changes": false,
+  "allow_shared_data_deletion": false
+}

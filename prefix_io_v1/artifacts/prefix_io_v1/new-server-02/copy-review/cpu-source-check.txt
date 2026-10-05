@@ -1,0 +1,1 @@
+{"syntax": "passed", "no_vllm_import": "passed", "module_import_without_torch": "passed", "byte_plan": "passed", "bounds_negative_cases": 5, "gpu_operations": 0, "abi_op_executions": 0}

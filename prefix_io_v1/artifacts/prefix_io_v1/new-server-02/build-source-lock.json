@@ -1,0 +1,44 @@
+{
+  "cutlass-src": {
+    "commit": "da5e086dab31d63815acafdac9a9c5893b1c69e2",
+    "submodules": [],
+    "submodule_status_exit": 0
+  },
+  "deepgemm-src": {
+    "commit": "891d57b4db1071624b5c8fa0d1e51cb317fa709f",
+    "submodules": [
+      " f3fde58372d33e9a5650ba7b80fc48b3b49d40c8 third-party/cutlass (v4.2.1)",
+      " 553ec11ec06fbe0beebfbb45f9dc3c9eabd83d28 third-party/fmt (11.2.0-57-g553ec11e)"
+    ],
+    "submodule_status_exit": 0
+  },
+  "flashmla-src": {
+    "commit": "a6ec2ba7bd0a7dff98b3f4d3e6b52b159c48d78b",
+    "submodules": [
+      " 147f5673d0c1c3dcf66f78d677fd647e4a020219 csrc/cutlass (v4.3.0-56-g147f5673)"
+    ],
+    "submodule_status_exit": 0
+  },
+  "qutlass-src": {
+    "commit": "830d2c4537c7396e14a02a46fbddd18b5d107c65",
+    "submodules": [
+      " b2dd65dc864e09688245b316ac46c4a6cd07e15c third_party/cutlass (v4.1.0-31-gb2dd65dc)"
+    ],
+    "submodule_status_exit": 0
+  },
+  "triton_kernels-src": {
+    "commit": "0add68262ab0a2e33b84524346cb27cbb2787356",
+    "submodules": [],
+    "submodule_status_exit": 0
+  },
+  "vllm-flash-attn-src": {
+    "commit": "bce29425653ec0fbc579d329883030e832d15ada",
+    "submodules": [
+      " 13f6d635653bd5ffbfcac8577f1ef09590c23d78 csrc/composable_kernel (therock-7.10-151-g13f6d6356)",
+      " 62750a2b75c802660e4894434dc55e839f322277 csrc/cutlass (v3.8.0-9-g62750a2b)",
+      " b4b75165fbd2456dfd0f074c5b2ef91bc87d97e5 third_party/aiter (v0.1.12.post1~112)",
+      " eb033ef2089e00f821930c04ef7c589da073f1c8 third_party/aiter/3rdparty/composable_kernel (therock-7.10-567-geb033ef20)"
+    ],
+    "submodule_status_exit": 0
+  }
+}

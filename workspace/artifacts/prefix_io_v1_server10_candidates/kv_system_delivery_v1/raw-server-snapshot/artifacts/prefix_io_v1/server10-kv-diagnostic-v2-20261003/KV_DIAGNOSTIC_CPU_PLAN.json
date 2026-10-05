@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "status": "NOT_AUTHORIZED_CPU_PLAN",
+  "purpose": "ACTUAL_PRODUCTION_KV_BYTE_DIAGNOSTIC_ONLY",
+  "qualification_context": {
+    "purpose": "ACTUAL_PRODUCTION_KV_BYTE_DIAGNOSTIC_ONLY",
+    "project_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "model_relative": "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "model_plan_relative": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "model_alias": "Qwen/Qwen2.5-7B-Instruct",
+    "gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+    "acquisition_source": {
+      "path": "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    "engine_source": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "acquisition_domain": 1024,
+    "sizes": [
+      128
+    ],
+    "reps": 3,
+    "max_num_seqs": 1,
+    "iodepth": 4,
+    "prompt_tokens_per_main_request": 129,
+    "reusable_prefix_tokens": 128,
+    "outputs_per_request": 1,
+    "requests_by_mode": {
+      "populate": 9,
+      "paired": 6
+    },
+    "total_requests": 15,
+    "total_outputs": 15,
+    "warmup_rep": 0,
+    "measured_samples_per_point_per_route": 2,
+    "engine_overrides": {
+      "async_scheduling": false,
+      "max_model_len": 1040,
+      "max_num_batched_tokens": 1040,
+      "kv_cache_memory_bytes": 268435456,
+      "prefix_caching_hash_algo": "sha256",
+      "disable_log_stats": false
+    },
+    "sampling": {
+      "temperature": 0.0,
+      "seed": 0,
+      "max_tokens": 1,
+      "min_tokens": 1,
+      "ignore_eos": true,
+      "detokenize": false
+    },
+    "connector": {
+      "io_backend": "linux_aio",
+      "sync_on_store": false,
+      "staging_mem": 0.125,
+      "enable_preload": true,
+      "preload_share_staging": true,
+      "preload_lookahead_requests": 1,
+      "staging_cache": "lru",
+      "load_planner": "off",
+      "prefix_cache_break_even_path": null
+    },
+    "shared_storage_relative": "experiments/prefix_io_v1/runs/server10-kv-byte-02-private-storage",
+    "strategies": "off",
+    "common_stats_schema_fix": "original producer dataclass -> lossless dictionary; common to all strategy modes",
+    "asynchronous_author_io_preserved": true,
+    "new_executor": false,
+    "reset_scope": "original calibration GPU-only resets; reset_connector=False",
+    "timing_scope": "original metrics.first_token_latency wall-clock TTFT; not GPU event cost",
+    "curve_output": false,
+    "cost_qualified": false,
+    "production_qualified": false,
+    "performance_claim": false,
+    "budget_reset": false,
+    "cumulative_gpu_budget_seconds": 28800,
+    "seconds_limit_per_job": 300,
+    "guard_reserve_seconds_per_job": 20,
+    "total_reserved_seconds": 640,
+    "storage_reserve_bytes_per_job": 536870912,
+    "total_storage_reserve_bytes": 1073741824,
+    "storage_floor_bytes": 8589934592,
+    "existing_assets_only": true,
+    "no_download": true,
+    "no_system_or_author_changes": true,
+    "no_data_deletion": true,
+    "actual_production_KV_byte_capture": true,
+    "latency_fit_allowed": false,
+    "request_id_mapping_rule": "original external_req_id plus hyphen plus exactly8 lowercase hexadecimal random_uuid characters",
+    "request_id_mapping_source_refs": [
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/v1/engine/input_processor.py",
+        "bytes": 20351,
+        "sha256": "f3a1c74f59d767a20c9b3eb8f7d2d854b740924b40656e66636f2c9b4ec4764e"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/utils/__init__.py",
+        "bytes": 1599,
+        "sha256": "406ee82e2630f5c5e4c3aa6d12d34bb4555463fc66084079b283e41e32f284e2"
+      }
+    ]
+  },
+  "baseline_source_lock": {
+    "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/gpu-source-lock-server10-reference.json",
+    "bytes": 914772,
+    "sha256": "ae3bf8437a41c4c531bf211689b4f7f68af7f8dd558a42914f2eef733988aa54"
+  },
+  "new_source_refs": [
+    {
+      "path": "artifacts/prefix_io_v1/server10-kv-diagnostic-v2-20261003/KV_DIAGNOSTIC_CONFIG.json",
+      "bytes": 2692,
+      "sha256": "d53cd22a3ebd021a1079291b9234dbfdd767d763f1c4ec7582253dea63e1fc36"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-kv-capture-v1-20261003/production_kv_capture.py",
+      "bytes": 33422,
+      "sha256": "a9091d288015c3afb3344553ec0f1ba7c3f373e60d13716cda21f3fb12a2a9dd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-kv-capture-v1-20261003/test_production_kv_capture.py",
+      "bytes": 12576,
+      "sha256": "de4841c9a8d42df1081ea2a1ef6c14a44f8caa83ee19d64143e79b1a66340162"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-kv-diagnostic-v2-20261003/run_server10_kv_diagnostic_v2.py",
+      "bytes": 27990,
+      "sha256": "7b195c955cee91bcebfc935e97a1a96bfbd6853943b5bdbd0b1d4c5e7b722b9a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-kv-diagnostic-v2-20261003/prepare_server10_kv_diagnostic_v2.py",
+      "bytes": 6881,
+      "sha256": "8e5f0844da5f90a7116d82409aceb88eef506f45472989877777fa7f62ac746c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-kv-diagnostic-v2-20261003/test_server10_kv_diagnostic_v2.py",
+      "bytes": 16011,
+      "sha256": "ccbf89912897947df83dc339d25a4ceabeca1eff651238c33b17ec18d27532d1"
+    }
+  ],
+  "source_bytes_verified": false,
+  "authorizes_gpu": false,
+  "jobs": [
+    {
+      "mode": "populate",
+      "label": "server10-kv-byte-populate-02",
+      "original_argv": [
+        "--mode",
+        "populate",
+        "--domain",
+        "1024",
+        "--sizes",
+        "128",
+        "--reps",
+        "3",
+        "--max-num-seqs",
+        "1",
+        "--iodepth",
+        "4",
+        "--model-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--storage",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server10-kv-byte-02-private-storage",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server10-kv-byte-populate-02/details/acquisition"
+      ],
+      "requests": 9,
+      "output_tokens_per_request": 1,
+      "seconds_limit": 300,
+      "guard_reserve_seconds": 20,
+      "retries": 0,
+      "requires_prior_success_original_shutdown_and_OS_drain": false
+    },
+    {
+      "mode": "paired",
+      "label": "server10-kv-byte-paired-02",
+      "original_argv": [
+        "--mode",
+        "paired",
+        "--domain",
+        "1024",
+        "--sizes",
+        "128",
+        "--reps",
+        "3",
+        "--max-num-seqs",
+        "1",
+        "--iodepth",
+        "4",
+        "--model-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--storage",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server10-kv-byte-02-private-storage",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server10-kv-byte-paired-02/details/acquisition"
+      ],
+      "requests": 6,
+      "output_tokens_per_request": 1,
+      "seconds_limit": 300,
+      "guard_reserve_seconds": 20,
+      "retries": 0,
+      "requires_prior_success_original_shutdown_and_OS_drain": true
+    }
+  ]
+}

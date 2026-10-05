@@ -1,0 +1,24 @@
+{
+  "schema": "posthoc_record_of_already_executed_local_CPU_command_v1",
+  "original_execution_tool": "exec_command",
+  "original_execution_chunk_id": "f05d2a",
+  "cwd": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2",
+  "argv": [
+    "C:/Users/mamengkui/AppData/Roaming/uv/python/cpython-3.12.14-windows-x86_64-none/python.exe",
+    "-B",
+    "-I",
+    "-S",
+    "-c",
+    "import pathlib,types,sys,importlib.util,json\nbase=pathlib.Path(\"artifacts/prefix_io_v1_server07_p3/third_party/work/py-kvcache-p2-aio/py_kvcache\")\npkg=types.ModuleType(\"py_kvcache\");pkg.__path__=[str(base.resolve())];sys.modules[\"py_kvcache\"]=pkg\ndef load(name,p):\n sp=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(sp);sys.modules[name]=m;sp.loader.exec_module(m);return m\nbe=load(\"py_kvcache.break_even\",base/\"break_even.py\")\ncm=load(\"py_kvcache.cost_model\",base/\"cost_model.py\")\nlp=load(\"py_kvcache.load_planner\",pathlib.Path(\"artifacts/prefix_io_v1_server11_candidates/notification_v5_native_cost_preparation_cpu/common_candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/load_planner.py\"))\ncurve=pathlib.Path(\"artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/source_inputs/ORIGINAL_PLANNER_CURVES_V2.json\")\ncurves=be.load_curves(str(curve),model_name=\"Qwen/Qwen2.5-7B-Instruct\",kv_dtype=\"auto\")\ntables=cm.build_cost_tables(curves,block_tokens=16,max_model_len=1024)\nk=lp.CandidateCostInput(0,\"K\",768,0,())\na=lambda pos:lp.CandidateCostInput(pos,\"A\",768,48,tuple(i.to_bytes(8,\"big\") for i in range(48)))\nprint(\"STATIC_CPU_FIXTURE_ONLY_NO_ACTUAL_IO\")\nf=tables.recompute_s(48);g=tables.load_ssd_s(48);m=tables.load_mem_s(48);s=tables.service_s_of(48)\nprint(json.dumps(dict(f768_s=f,gSSD768_s=g,gMem768_s=m,service768_s=s,second_recompute_s=2*f,slack_s=2*f-g),sort_keys=True))\nfor candidates,old in [([a(0)],[]),([k,a(1)],[]),([k,a(1)],[1]),([k,a(1)],[4])]:\n p=lp.LoadPlanner(tables,max_preload_slots=142,defer_tolerance=1,time_source=lambda:1.)\n res=p.plan(candidates,outstanding_load_blocks=old)\n print(json.dumps(dict(candidate_names=[c.req_id for c in candidates],fixture_outstanding_load_blocks=old,results={key:dict(decision=value.decision.name,preload_blocks=value.preload_blocks)for key,value in res.items()}),sort_keys=True))\n"
+  ],
+  "powershell_command": "& 'C:/Users/mamengkui/AppData/Roaming/uv/python/cpython-3.12.14-windows-x86_64-none/python.exe' -B -I -S -c 'import pathlib,types,sys,importlib.util,json\nbase=pathlib.Path(\"artifacts/prefix_io_v1_server07_p3/third_party/work/py-kvcache-p2-aio/py_kvcache\")\npkg=types.ModuleType(\"py_kvcache\");pkg.__path__=[str(base.resolve())];sys.modules[\"py_kvcache\"]=pkg\ndef load(name,p):\n sp=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(sp);sys.modules[name]=m;sp.loader.exec_module(m);return m\nbe=load(\"py_kvcache.break_even\",base/\"break_even.py\")\ncm=load(\"py_kvcache.cost_model\",base/\"cost_model.py\")\nlp=load(\"py_kvcache.load_planner\",pathlib.Path(\"artifacts/prefix_io_v1_server11_candidates/notification_v5_native_cost_preparation_cpu/common_candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/load_planner.py\"))\ncurve=pathlib.Path(\"artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/source_inputs/ORIGINAL_PLANNER_CURVES_V2.json\")\ncurves=be.load_curves(str(curve),model_name=\"Qwen/Qwen2.5-7B-Instruct\",kv_dtype=\"auto\")\ntables=cm.build_cost_tables(curves,block_tokens=16,max_model_len=1024)\nk=lp.CandidateCostInput(0,\"K\",768,0,())\na=lambda pos:lp.CandidateCostInput(pos,\"A\",768,48,tuple(i.to_bytes(8,\"big\") for i in range(48)))\nprint(\"STATIC_CPU_FIXTURE_ONLY_NO_ACTUAL_IO\")\nf=tables.recompute_s(48);g=tables.load_ssd_s(48);m=tables.load_mem_s(48);s=tables.service_s_of(48)\nprint(json.dumps(dict(f768_s=f,gSSD768_s=g,gMem768_s=m,service768_s=s,second_recompute_s=2*f,slack_s=2*f-g),sort_keys=True))\nfor candidates,old in [([a(0)],[]),([k,a(1)],[]),([k,a(1)],[1]),([k,a(1)],[4])]:\n p=lp.LoadPlanner(tables,max_preload_slots=142,defer_tolerance=1,time_source=lambda:1.)\n res=p.plan(candidates,outstanding_load_blocks=old)\n print(json.dumps(dict(candidate_names=[c.req_id for c in candidates],fixture_outstanding_load_blocks=old,results={key:dict(decision=value.decision.name,preload_blocks=value.preload_blocks)for key,value in res.items()}),sort_keys=True))\n'",
+  "execution_source_ref": {
+    "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server13_candidates\\u_i_bounded_comparison_20261005\\CPU_PLANNER_V2_ACTUAL_REPLAY_SOURCE_01.py",
+    "bytes": 1913,
+    "sha256": "4e849d06252f808ec402b5c2515ca2d3110c833911257168205494270e0c7dd5"
+  },
+  "GPU_operations": 0,
+  "SSH_operations": 0,
+  "source_saved_after_execution": true,
+  "no_reexecution_to_create_this_record": true
+}

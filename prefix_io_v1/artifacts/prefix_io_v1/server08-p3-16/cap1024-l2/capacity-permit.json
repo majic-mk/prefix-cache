@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "status": "PASSED_CAPACITY_UNLOADED_POINT_GATE",
+  "capacity_domain_id": "cap1024-l2",
+  "capacity_domain": {
+    "capacity_domain_id": "cap1024-l2",
+    "staging_bytes": 1073741824,
+    "staging_mem_gib": 1.0,
+    "preload_lookahead_requests": 2,
+    "io_depth": 8,
+    "slot_count": 1170,
+    "cache_preload_ceiling_slots": 1162
+  },
+  "engine_delta": {
+    "max_num_seqs": 2
+  },
+  "connector_delta": {
+    "iodepth": 8,
+    "staging_mem": 1.0,
+    "preload_lookahead_requests": 2
+  },
+  "runtime_scope": "Exact finite capacity C2/d8 unloaded point gate; bounded mixed development screen only. Loaded prediction, unseen content, formal goodput and global-optimum claims remain unqualified.",
+  "maximum_absolute_relative_median_error": 0.25,
+  "cost_plan": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cost-plan.json",
+  "cost_plan_sha256": "8a2e68d93e30116ce7583807f97b20cc9bfed05208176c518ee440468c6b31c0",
+  "cost_result": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cost-result.json",
+  "cost_result_sha256": "ad3888319be01ecaafd98764a657e831b794d1e8d3b72c2406810fc789d05914",
+  "candidate_sha256": "fd05683418e851d5130ba2ab646e9e33cbb0ea490584787dca3d019abff6d451",
+  "manifests": {
+    "mixed_readwrite": {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed_readwrite-manifest.json",
+      "sha256": "f3edda04106e537b9cb7731b94ce0844d29c0a02cfcfa0170a8a45cf7afc09ec"
+    }
+  },
+  "reference_plan_sha256": "a0ed879d12e467dbfb3ecaa3b1449b752e34a3e2b8360cf0edf5c80ce5a83a36",
+  "reference_result_sha256": "abe52473da18753bb18705c744d5d6718687c336839f8d46194364c7b1806328",
+  "capacity_source_hashes": {
+    "acquisition": "c4f50f7cea3fefa85ce952210c13241ebcb2861fb1abc707a88ddf015f0e6bf3",
+    "contract": "49a33366092bf116a6a3b07ee2053c67602418c2f94c375fc58840c50f68934b"
+  },
+  "guarded_gpu_receipts": [
+    {
+      "label": "server08-p3-16-cap1024-l2-native-ref",
+      "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-native-ref/result.json",
+      "sha256": "5517aa0401adb9b95ca2210a2b39a0ba11b44e7885415d19c7278680e5548763"
+    },
+    {
+      "label": "server08-p3-16-cap1024-l2-cached-ref",
+      "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cached-ref/result.json",
+      "sha256": "0bfd0258a79928d9b7a92ab1646b9d6fbfc3d43cc35aaeee03a11e7b27fc2a8e"
+    },
+    {
+      "label": "server08-p3-16-cap1024-l2-cold-01",
+      "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cold-01/result.json",
+      "sha256": "cec70b935f26b9c9a529fc88f5afbcc4f9e954c2e6cdda4c2e3ec896e86b4526"
+    },
+    {
+      "label": "server08-p3-16-cap1024-l2-paired-01",
+      "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-paired-01/result.json",
+      "sha256": "1b881c4bf4ded68c278912d16d9087609d60eb831204f1545ec16b7828895304"
+    },
+    {
+      "label": "server08-p3-16-cap1024-l2-paired-02",
+      "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-paired-02/result.json",
+      "sha256": "09a413ce3633cfb7f17542f98a88c0947d1f50fa7235e6deb7fe7739808f9a30"
+    },
+    {
+      "label": "server08-p3-16-cap1024-l2-cold-02",
+      "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cold-02/result.json",
+      "sha256": "55eb9b92ab5719c7197b24e551710a375a0db4615a99711afd5aa3a242f1773a"
+    }
+  ],
+  "ordinary_quotas_installed": false,
+  "formal_goodput": false
+}

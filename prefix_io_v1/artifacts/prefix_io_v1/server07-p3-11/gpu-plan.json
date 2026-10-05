@@ -1,0 +1,19 @@
+{
+  "label": "server07-p3-11-readiness-01",
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "--label",
+    "server07-p3-11-readiness-01",
+    "--seconds",
+    "120",
+    "--",
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/qualify_store_readiness_gpu.py",
+    "--output",
+    "/root/prefix-io-v1-validation/runs/server07-p3-11-readiness-01/details"
+  ],
+  "output": "/root/prefix-io-v1-validation/runs/server07-p3-11-readiness-01/details",
+  "maximum_seconds": 120,
+  "purpose": "passive observer native byte and drain correctness only"
+}

@@ -1,0 +1,1652 @@
+--- /dev/null
++++ b/src/prefix_io_control/dispatch_shadow.py
+@@ -0,0 +1,358 @@
++"""Resource-free shadow audit of API acceptance; this module installs no adapter.
++
++An audit attempt is one synchronous observation, never a work permit.  Native
++dispatch always proceeds.  API-returned acceptance consumes epoch allowance
++even when the preview would defer.  A CUDA exception may have issued work:
++uncertain is neither rejected nor proof of zero execution or physical drain.
++"""
++from collections import deque
++from dataclasses import dataclass
++from threading import get_ident
++
++from .dispatch_budget import (
++    Amount, DispatchBudget, Permit, PROGRESS, STAGES, ZERO, integer, vector,
++)
++
++
++def _run_id(value):
++    if type(value) is not str or not value.strip() or len(value) > 128:
++        raise ValueError("bounded nonempty run identity required")
++
++
++@dataclass(frozen=True)
++class ShadowState:
++    """Owner-observed fields; None means unavailable, never zero capacity.
++
++    accepted_parents includes native accepted incoming/active/draining jobs if
++    actually supported.  This audit NEVER evaluates or enforces parent intake.
++    native_issue_safe is a provenance-bearing observation of original checks,
++    not permission from this object to perform an operation.
++    """
++    run_id: str
++    captured_ns: int
++    inflight: tuple[Amount, ...] | None = None
++    free_staging_bytes: int | None = None
++    accepted_parents: int | None = None
++    native_issue_safe: bool | None = None
++
++    def __post_init__(self):
++        _run_id(self.run_id)
++        integer(self.captured_ns, "captured_ns")
++        if self.inflight is not None:
++            vector(self.inflight)
++        for name in ("free_staging_bytes", "accepted_parents"):
++            value = getattr(self, name)
++            if value is not None:
++                integer(value, name)
++        if self.native_issue_safe is not None and type(self.native_issue_safe) is not bool:
++            raise ValueError("native safety must be explicit boolean or unknown")
++
++
++@dataclass(frozen=True)
++class ShadowAttempt:
++    """Bounded values only: no Future, job, FD, Event or staging ownership."""
++    stage: str
++    nbytes: int
++    started_ns: int
++    permit: Permit | None
++    verdict: str
++    performance_reasons: tuple[str, ...]
++    native_reasons: tuple[str, ...]
++    unknown_fields: tuple[str, ...]
++    progress: str | None
++
++    @property
++    def epoch(self):
++        return self.permit.epoch if self.permit is not None else None
++
++
++class DispatchShadow:
++    """Single-owner, off/shadow acceptance audit.  It never calls a backend.
++
++    Current-epoch attempts always receive an AUDIT ticket, including hypothetical
++    defer/unknown.  Backend-returned acceptance charges it once.  Completion has
++    no refund API.  Without a current epoch, the global acceptance totals remain
++    observable but cannot be attributed to an epoch.
++
++    Rejected requires a caller-proven pre-acceptance failure.  An uncertain
++    exception permanently marks this audit incomplete for the run; a new epoch
++    does not establish drain or recover unknown physical usage.
++    """
++    def __init__(self, run_id, *, mode="off", max_records=96):
++        _run_id(run_id)
++        if mode not in ("off", "shadow"):
++            raise ValueError("only off and shadow are qualified")
++        if type(max_records) is not int or not 1 <= max_records <= 96:
++            raise ValueError("bounded audit history must be 1..96")
++        self.run_id = run_id
++        self.mode = mode
++        self.bound = False
++        self.owner = None
++        self.faulted = False
++        self.error = None
++        self.completion_unknown_ops = 0
++        self.completion_unknown_stages = {}
++        self.last_now = None
++        self.grant = None
++        self.used = list(ZERO)
++        self.pending = None
++        self.records = deque(maxlen=max_records)
++        self.overwritten_records = 0
++        self.accepted_totals = {stage: Amount() for stage in STAGES}
++        self.rejected_ops = 0
++        self.uncertain_ops = 0
++        self.uncertain_requested_bytes = 0
++        self.shadow_overruns = 0
++        self.accepted_without_epoch_ops = 0
++        self.accepted_without_epoch_bytes = 0
++
++    def bind(self):
++        """Exclusive reactor binding; no owner thread is claimed here."""
++        if self.bound:
++            raise ValueError("shadow audit already belongs to a reactor")
++        self.bound = True
++
++    def fail(self, reason):
++        """Optional audit faults never alter native dispatch or ownership."""
++        self.faulted = True
++        self.error = str(reason)[:160]
++
++    def _owner(self):
++        if not self.bound:
++            raise RuntimeError("shadow audit must be explicitly bound")
++        ident = get_ident()
++        if self.owner is None:
++            self.owner = ident
++        if self.owner != ident:
++            raise RuntimeError("shadow audit must stay on its owner thread")
++
++    def _time(self, now_ns):
++        self._owner()
++        integer(now_ns, "clock")
++        if self.last_now is not None and now_ns < self.last_now:
++            raise ValueError("monotonic clock regressed")
++        self.last_now = now_ns
++
++    def publish(self, grant, *, now_ns):
++        if self.mode == "off" or self.faulted:
++            return False
++        self._time(now_ns)
++        if type(grant) is not DispatchBudget or grant.run_id != self.run_id:
++            raise ValueError("wrong shadow grant identity")
++        if not grant.issued_ns <= now_ns < grant.expires_ns:
++            raise ValueError("new grant must be current")
++        old = self.grant
++        if old is not None and grant.epoch == old.epoch:
++            if grant != old:
++                raise ValueError("same epoch cannot change or replenish allowance")
++            return False
++        if self.pending is not None:
++            raise RuntimeError("settle the immediate audit attempt before a new epoch")
++        if old is not None and (grant.epoch <= old.epoch or grant.issued_ns < old.expires_ns):
++            raise ValueError("epochs must advance without overlap")
++        self.grant = grant
++        self.used = list(ZERO)
++        return True
++
++    def _preview(self, stage, nbytes, sample, now_ns, staging_bytes_needed, progress):
++        g = self.grant
++        current = g is not None and g.issued_ns <= now_ns < g.expires_ns
++        unknown = []
++        perf = []
++        native = []
++        if not current:
++            unknown.append("current_grant")
++        fresh = (sample is not None and current and
++                 0 <= now_ns - sample.captured_ns <= g.sample_max_age_ns)
++        if sample is None:
++            unknown.append("native_state")
++        elif not fresh:
++            unknown.append("fresh_native_state")
++        inflight = sample.inflight if fresh else None
++        free = sample.free_staging_bytes if fresh else None
++        parents = sample.accepted_parents if fresh else None
++        safe = sample.native_issue_safe if fresh else None
++        for name, value in (("inflight", inflight), ("free_staging_bytes", free),
++                            ("accepted_parents", parents), ("native_issue_safe", safe)):
++            if value is None:
++                unknown.append(name)
++        if self.uncertain_ops:
++            unknown.append("prior_acceptance_uncertain")
++        if self.completion_unknown_ops:
++            unknown.append("prior_completion_unknown")
++        if safe is False or (free is not None and staging_bytes_needed > free):
++            native.append("native_capacity_or_dependency")
++        if current:
++            i = STAGES.index(stage)
++            used = self.used[i]
++            cap = g.cumulative[i]
++            for name, value, bound in (
++                    ("stage_epoch_ops", used.ops + 1, cap.ops),
++                    ("stage_epoch_bytes", used.nbytes + nbytes, cap.nbytes)):
++                if value > bound:
++                    perf.append(name)
++            if inflight is not None:
++                active = inflight[i]
++                simultaneous = g.inflight[i]
++                for name, value, bound in (
++                        ("stage_inflight_ops", active.ops + 1, simultaneous.ops),
++                        ("stage_inflight_bytes", active.nbytes + nbytes, simultaneous.nbytes)):
++                    if value > bound:
++                        perf.append(name)
++            if i < 2:
++                for prefix, amounts, bound in (
++                        ("shared_ssd_epoch", self.used[:2], g.shared_ssd_cumulative),
++                        ("shared_ssd_inflight", inflight[:2] if inflight is not None else None,
++                         g.shared_ssd_inflight)):
++                    if amounts is not None:
++                        if sum(a.ops for a in amounts) + 1 > bound.ops:
++                            perf.append(prefix + "_ops")
++                        if sum(a.nbytes for a in amounts) + nbytes > bound.nbytes:
++                            perf.append(prefix + "_bytes")
++            else:
++                if sum(a.nbytes for a in self.used[2:]) + nbytes > g.shared_copy_cumulative_bytes:
++                    perf.append("shared_copy_epoch_bytes")
++                if (inflight is not None and
++                        sum(a.nbytes for a in inflight[2:]) + nbytes > g.shared_copy_inflight_bytes):
++                    perf.append("shared_copy_inflight_bytes")
++            if (staging_bytes_needed and free is not None and
++                    free - staging_bytes_needed < g.reserve_staging_bytes):
++                perf.append("staging_reserve")
++        # Factual mandatory/continuation tags never implement an override.
++        verdict = ("unknown" if unknown else "would_defer" if native or perf else "would_issue")
++        return current, verdict, tuple(perf), tuple(native), tuple(unknown)
++
++    def begin(self, stage, nbytes, sample=None, *, now_ns,
++              staging_bytes_needed=0, progress=None):
++        if self.mode == "off" or self.faulted:
++            return None
++        self._time(now_ns)
++        if stage not in STAGES:
++            raise ValueError("unknown physical stage")
++        integer(nbytes, "physical bytes", 1)
++        integer(staging_bytes_needed, "required staging")
++        if progress is not None and progress not in PROGRESS:
++            raise ValueError("unknown factual progress label")
++        if sample is not None and (type(sample) is not ShadowState or sample.run_id != self.run_id):
++            raise ValueError("wrong shadow sample identity")
++        if self.pending is not None:
++            raise RuntimeError("one immediate native audit attempt at a time")
++        current, verdict, perf, native, unknown = self._preview(
++            stage, nbytes, sample, now_ns, staging_bytes_needed, progress)
++        # An audit ticket does not authorize native work and does not enforce caps.
++        permit = Permit(self.grant.epoch, stage, nbytes, "shadow_audit") if current else None
++        attempt = ShadowAttempt(stage, nbytes, now_ns, permit, verdict,
++                                perf, native, unknown, progress)
++        self.pending = attempt
++        return attempt
++
++    def settle(self, attempt, *, outcome, reason=""):
++        """Immediately after the native call. Never wait for completion here.
++
++        accepted: API returned successfully (may only have queued work).
++        rejected: caller proved failure occurred before THIS work was accepted.
++        uncertain: an exception might have partially launched/accepted THIS work.
++        """
++        if self.mode == "off":
++            if attempt is not None:
++                raise ValueError("off mode cannot settle a shadow attempt")
++            return False
++        self._owner()
++        if self.pending is None or self.pending is not attempt:
++            raise ValueError("stale, foreign or duplicate audit attempt")
++        if outcome not in ("accepted", "rejected", "uncertain"):
++            raise ValueError("explicit accepted/rejected/uncertain outcome required")
++        if type(reason) is not str:
++            raise ValueError("bounded text reason required")
++        self.pending = None
++        if outcome == "accepted":
++            old = self.accepted_totals[attempt.stage]
++            self.accepted_totals[attempt.stage] = Amount(old.ops + 1, old.nbytes + attempt.nbytes)
++            if attempt.permit is not None:
++                i = STAGES.index(attempt.stage)
++                old = self.used[i]
++                self.used[i] = Amount(old.ops + 1, old.nbytes + attempt.nbytes)
++            else:
++                self.accepted_without_epoch_ops += 1
++                self.accepted_without_epoch_bytes += attempt.nbytes
++            self.shadow_overruns += int(bool(attempt.performance_reasons))
++        elif outcome == "rejected":
++            self.rejected_ops += 1
++        else:
++            self.uncertain_ops += 1
++            # Requested payload of ambiguous calls, NOT actual executed bytes.
++            self.uncertain_requested_bytes += attempt.nbytes
++        if len(self.records) == self.records.maxlen:
++            self.overwritten_records += 1
++        self.records.append(dict(
++            stage=attempt.stage, requested_bytes=attempt.nbytes,
++            started_ns=attempt.started_ns, epoch=attempt.epoch,
++            verdict=attempt.verdict, performance_reasons=attempt.performance_reasons,
++            native_reasons=attempt.native_reasons, unknown_fields=attempt.unknown_fields,
++            progress=attempt.progress, outcome=outcome, reason=reason[:160]))
++        return True
++
++    def accepted(self, attempt):
++        return False if attempt is None else self.settle(attempt, outcome="accepted")
++
++    def rejected(self, attempt, reason=""):
++        return False if attempt is None else self.settle(attempt, outcome="rejected", reason=reason)
++
++    def uncertain(self, attempt, reason=""):
++        return False if attempt is None else self.settle(attempt, outcome="uncertain", reason=reason)
++
++    def mark_completion_unknown(self, stage, reason=""):
++        """API returned, but an end-event/physical completion witness failed.
++
++        This cannot refund accepted bytes or mean physical work has drained.
++        The caller retains all native error/resource handling.
++        """
++        if self.mode == "off":
++            return False
++        self._owner()
++        if stage not in STAGES or type(reason) is not str:
++            raise ValueError("known stage and bounded text reason required")
++        self.completion_unknown_ops += 1
++        self.completion_unknown_stages[stage] = reason[:160]
++        return True
++
++    def snapshot(self, *, native_shutdown=False):
++        """Owner read, or caller-proven native shutdown read.
++
++        native_shutdown is an explicit CALLER precondition that no owner can
++        mutate this object. It does not prove DMA drain or release any resource.
++        This resource-free audit cannot independently inspect a native worker.
++        Complete flags describe audit attempt CLASSIFICATION completeness only;
++        they never establish native DMA completion, physical drain or reuse.
++        """
++        if type(native_shutdown) is not bool:
++            raise ValueError("explicit native shutdown precondition required")
++        if self.mode != "off" and not native_shutdown:
++            self._owner()
++        return dict(
++            run_id=self.run_id, mode=self.mode, bound=self.bound,
++            faulted=self.faulted, error=self.error,
++            completion_unknown_ops=self.completion_unknown_ops,
++            completion_unknown_stages=dict(self.completion_unknown_stages),
++            completion_accounting_complete=(self.completion_unknown_ops == 0 and
++                self.uncertain_ops == 0 and not self.faulted and self.pending is None),
++            native_shutdown_read=native_shutdown,
++            epoch=self.grant.epoch if self.grant is not None else None,
++            used={s: dict(ops=a.ops, bytes=a.nbytes) for s, a in zip(STAGES, self.used)},
++            observed_api_accepted={s: dict(ops=a.ops, bytes=a.nbytes) for s, a in self.accepted_totals.items()},
++            rejected_ops=self.rejected_ops, uncertain_ops=self.uncertain_ops,
++            uncertain_requested_bytes=self.uncertain_requested_bytes,
++            uncertain_bytes_are_requested_not_executed=True,
++            acceptance_accounting_complete=(self.uncertain_ops == 0 and
++                not self.faulted and self.pending is None),
++            complete_flags_scope="audit classifications only; not DMA completion or drain",
++            epoch_totals_are_lower_bounds=self.uncertain_ops > 0 or self.faulted,
++            shadow_overruns=self.shadow_overruns,
++            accepted_without_epoch_ops=self.accepted_without_epoch_ops,
++            accepted_without_epoch_bytes=self.accepted_without_epoch_bytes,
++            pending_attempt=self.pending is not None,
++            records=list(self.records), overwritten_records=self.overwritten_records,
++            native_adapter_installed_by_this_module=False, byte_caps_enforced=False,
++            parent_cap_enforced=False, progress_override_enforced=False,
++            physical_drain_inferred=False, resource_release_inferred=False,
++            gpu_qualified=False)
+--- /dev/null
++++ b/tests/prefix_io_v1_dispatch_shadow/test_contract.py
+@@ -0,0 +1,433 @@
++"""CPU-only acceptance contract tests; no native/CUDA API is executed."""
++from concurrent.futures import ThreadPoolExecutor
++from dataclasses import FrozenInstanceError, fields, replace
++
++import pytest
++
++from prefix_io_control.dispatch_budget import Amount, DispatchBudget, STAGES, ZERO
++from prefix_io_control.dispatch_shadow import DispatchShadow, ShadowAttempt, ShadowState
++from prefix_io_control.stage_accounting import StageAccounting
++
++
++def grant(**changes):
++    value = DispatchBudget("r", 0, 0, 100, (Amount(2, 8192),) * 4,
++                           (Amount(2, 8192),) * 4, Amount(3, 12288),
++                           Amount(3, 12288), 12288, 12288, 4096, 2, 10)
++    return replace(value, **changes)
++
++
++def state(**changes):
++    return replace(ShadowState("r", 0, ZERO, 16384, 1, True), **changes)
++
++
++def audit(g=None, **kwargs):
++    x = DispatchShadow("r", mode="shadow", **kwargs)
++    x.bind()
++    x.publish(g or grant(), now_ns=0)
++    return x
++
++
++def accepted(x, stage="h2d", nbytes=4096, sample=None, **kwargs):
++    attempt = x.begin(stage, nbytes, sample or state(), now_ns=kwargs.pop("now_ns", 0), **kwargs)
++    assert x.accepted(attempt)
++    return attempt
++
++
++def test_off_does_not_validate_inputs_take_owner_or_create_attempt():
++    x = DispatchShadow("r")
++    assert x.publish(object(), now_ns=object()) is False
++    assert x.begin(object(), object(), object(), now_ns=object()) is None
++    assert x.accepted(None) is False
++    assert x.mark_completion_unknown(object(), object()) is False
++    assert x.owner is None and x.pending is None
++    assert x.snapshot()["records"] == []
++
++
++def test_bind_is_exclusive_and_does_not_take_owner():
++    x = DispatchShadow("r", mode="shadow")
++    x.bind()
++    assert x.bound and x.owner is None
++    with pytest.raises(ValueError):
++        x.bind()
++
++
++def test_unbound_shadow_cannot_publish_or_begin():
++    x = DispatchShadow("r", mode="shadow")
++    with pytest.raises(RuntimeError):
++        x.publish(grant(), now_ns=0)
++    with pytest.raises(RuntimeError):
++        x.begin("h2d", 1, state(), now_ns=0)
++
++
++def test_would_defer_acceptance_still_consumes_epoch_credit():
++    x = audit(grant(cumulative=ZERO))
++    a = accepted(x)
++    assert a.verdict == "would_defer" and a.permit is not None
++    assert "stage_epoch_bytes" in a.performance_reasons
++    assert x.snapshot()["used"]["h2d"] == dict(ops=1, bytes=4096)
++    assert x.snapshot()["shadow_overruns"] == 1
++    b = x.begin("h2d", 4096, state(), now_ns=0)
++    assert b.verdict == "would_defer"
++    x.accepted(b)
++    assert x.snapshot()["used"]["h2d"] == dict(ops=2, bytes=8192)
++
++
++def test_cumulative_credit_is_not_refunded_by_native_completion_or_new_pump():
++    x = audit()
++    a = StageAccounting()
++    a.bind()
++    accepted(x)
++    a.accepted("h2d", 1, 4096)
++    a.completed("h2d", 1, -5)
++    accepted(x)
++    assert a.snapshot()["stages"]["h2d"]["inflight_bytes"] == 0
++    assert x.publish(grant(), now_ns=0) is False
++    ticket = x.begin("h2d", 1, state(), now_ns=0)
++    assert ticket.verdict == "would_defer"
++    assert "stage_epoch_ops" in ticket.performance_reasons
++    x.rejected(ticket, "proved before acceptance")
++    assert x.snapshot()["used"]["h2d"]["bytes"] == 8192
++
++
++def test_new_nonoverlapping_epoch_resets_only_epoch_usage():
++    x = audit()
++    accepted(x)
++    x.publish(grant(epoch=1, issued_ns=100, expires_ns=200), now_ns=100)
++    assert x.snapshot()["used"]["h2d"] == dict(ops=0, bytes=0)
++    assert x.snapshot()["observed_api_accepted"]["h2d"] == dict(ops=1, bytes=4096)
++    ticket = accepted(x, sample=state(captured_ns=100), now_ns=100)
++    assert ticket.epoch == 1
++
++
++def test_rejected_before_acceptance_does_not_consume_allowance():
++    x = audit()
++    ticket = x.begin("ssd_write", 4096, state(), now_ns=0)
++    assert x.rejected(ticket, "validated before enqueue")
++    report = x.snapshot()
++    assert report["used"]["ssd_write"] == dict(ops=0, bytes=0)
++    assert report["observed_api_accepted"]["ssd_write"]["ops"] == 0
++    assert report["rejected_ops"] == 1 and report["uncertain_ops"] == 0
++
++
++def test_uncertain_api_exception_is_not_rejected_or_zero_execution():
++    x = audit()
++    ticket = x.begin("d2h", 4096, state(), now_ns=0)
++    x.uncertain(ticket, "kernel API raised; partial launch possible")
++    report = x.snapshot()
++    assert report["rejected_ops"] == 0 and report["uncertain_ops"] == 1
++    assert report["uncertain_requested_bytes"] == 4096
++    assert report["acceptance_accounting_complete"] is False
++    assert report["completion_accounting_complete"] is False
++    assert report["epoch_totals_are_lower_bounds"] is True
++    assert report["physical_drain_inferred"] is False
++    following = x.begin("h2d", 1, state(), now_ns=0)
++    assert following.verdict == "unknown"
++    assert "prior_acceptance_uncertain" in following.unknown_fields
++    x.accepted(following)
++
++
++def test_new_epoch_does_not_repair_prior_uncertain_execution():
++    x = audit()
++    x.uncertain(x.begin("d2h", 4096, state(), now_ns=0))
++    x.publish(grant(epoch=1, issued_ns=100, expires_ns=200), now_ns=100)
++    ticket = x.begin("h2d", 1, state(captured_ns=100), now_ns=100)
++    assert ticket.verdict == "unknown"
++    x.accepted(ticket)
++    assert x.snapshot()["acceptance_accounting_complete"] is False
++
++
++def test_event_record_failure_after_api_return_does_not_refund_acceptance():
++    x = audit()
++    accepted(x, stage="d2h")
++    x.mark_completion_unknown("d2h", "end event record failed after API returned")
++    report = x.snapshot()
++    assert report["used"]["d2h"] == dict(ops=1, bytes=4096)
++    assert report["completion_unknown_ops"] == 1
++    assert report["completion_accounting_complete"] is False
++    assert report["rejected_ops"] == report["uncertain_ops"] == 0
++    ticket = x.begin("ssd_write", 4096, state(), now_ns=0)
++    assert "prior_completion_unknown" in ticket.unknown_fields
++    x.accepted(ticket)
++
++
++def test_no_grant_records_actual_acceptance_without_fabricating_epoch():
++    x = DispatchShadow("r", mode="shadow")
++    x.bind()
++    ticket = x.begin("ssd_read", 4096, state(), now_ns=0)
++    assert ticket.verdict == "unknown" and ticket.permit is None and ticket.epoch is None
++    x.accepted(ticket)
++    report = x.snapshot()
++    assert report["epoch"] is None
++    assert report["accepted_without_epoch_ops"] == 1
++    assert report["observed_api_accepted"]["ssd_read"]["bytes"] == 4096
++
++
++def test_expired_grant_does_not_charge_expired_or_future_epoch():
++    x = audit()
++    ticket = x.begin("ssd_read", 4096, state(captured_ns=100), now_ns=100)
++    assert ticket.permit is None and "current_grant" in ticket.unknown_fields
++    x.accepted(ticket)
++    x.publish(grant(epoch=1, issued_ns=100, expires_ns=200), now_ns=100)
++    assert x.snapshot()["used"]["ssd_read"]["bytes"] == 0
++    assert x.snapshot()["accepted_without_epoch_bytes"] == 4096
++
++
++def test_call_returning_after_expiry_charged_to_issuing_epoch():
++    x = audit()
++    ticket = x.begin("h2d", 4096, state(captured_ns=99), now_ns=99)
++    # A backend may return later; settle has no clock/expiry refund.
++    x.accepted(ticket)
++    assert x.snapshot()["used"]["h2d"]["bytes"] == 4096
++    assert x.snapshot()["records"][-1]["epoch"] == 0
++    x.publish(grant(epoch=1, issued_ns=100, expires_ns=200), now_ns=100)
++
++
++def test_unknown_fields_remain_none_and_do_not_become_zero_capacity():
++    x = audit()
++    sample = state(free_staging_bytes=None, accepted_parents=None)
++    ticket = x.begin("ssd_read", 4096, sample, now_ns=0, staging_bytes_needed=4096)
++    assert sample.free_staging_bytes is None and sample.accepted_parents is None
++    assert ticket.verdict == "unknown"
++    assert set(ticket.unknown_fields) == {"free_staging_bytes", "accepted_parents"}
++    assert ticket.native_reasons == ()
++    assert "staging_reserve" not in ticket.performance_reasons
++    x.accepted(ticket)
++    assert x.snapshot()["parent_cap_enforced"] is False
++
++
++def test_unknown_inflight_still_reports_known_cumulative_overage():
++    x = audit(grant(cumulative=ZERO))
++    ticket = x.begin("d2h", 4096, state(inflight=None), now_ns=0)
++    assert ticket.verdict == "unknown" and "inflight" in ticket.unknown_fields
++    assert "stage_epoch_bytes" in ticket.performance_reasons
++    assert "stage_inflight_bytes" not in ticket.performance_reasons
++    x.accepted(ticket)
++    assert x.snapshot()["used"]["d2h"]["bytes"] == 4096
++
++
++def test_stale_and_future_samples_are_unknown_not_native_permissions():
++    for sample in (state(), state(captured_ns=12)):
++        x = audit()
++        ticket = x.begin("h2d", 4096, sample, now_ns=11)
++        assert ticket.verdict == "unknown" and "fresh_native_state" in ticket.unknown_fields
++        x.accepted(ticket)
++        assert x.snapshot()["observed_api_accepted"]["h2d"]["bytes"] == 4096
++
++
++def test_wrong_run_grant_and_sample_rejected():
++    x = audit()
++    with pytest.raises(ValueError):
++        x.publish(grant(run_id="wrong"), now_ns=0)
++    with pytest.raises(ValueError):
++        x.begin("h2d", 1, state(run_id="wrong"), now_ns=0)
++    assert x.pending is None
++
++
++def test_wrong_owner_rejected_but_explicit_shutdown_read_allowed():
++    x = audit()
++    with ThreadPoolExecutor(1) as pool:
++        with pytest.raises(RuntimeError):
++            pool.submit(x.begin, "h2d", 1, state(), now_ns=0).result()
++        with pytest.raises(RuntimeError):
++            pool.submit(x.snapshot).result()
++        report = pool.submit(x.snapshot, native_shutdown=True).result()
++    assert report["native_shutdown_read"] is True
++    assert report["physical_drain_inferred"] is False
++
++
++def test_clock_regression_rejected():
++    x = audit()
++    ticket = accepted(x, sample=state(captured_ns=10), now_ns=10)
++    with pytest.raises(ValueError):
++        x.begin("h2d", 1, state(), now_ns=9)
++    assert ticket.epoch == 0 and x.pending is None
++
++
++def test_same_epoch_republication_does_not_refill_and_cannot_mutate():
++    x = audit()
++    accepted(x)
++    assert x.publish(grant(), now_ns=0) is False
++    for mutation in (grant(cumulative=ZERO), grant(expires_ns=99)):
++        with pytest.raises(ValueError):
++            x.publish(mutation, now_ns=0)
++    assert x.snapshot()["used"]["h2d"]["bytes"] == 4096
++
++
++def test_overlapping_or_regressing_epochs_and_stale_grants_rejected():
++    x = audit()
++    for value, now in ((grant(epoch=1, issued_ns=50, expires_ns=150), 50),
++                       (grant(epoch=0, issued_ns=100, expires_ns=200), 100),
++                       (grant(epoch=1, issued_ns=100, expires_ns=200), 200)):
++        with pytest.raises(ValueError):
++            x.publish(value, now_ns=now)
++    assert x.snapshot()["epoch"] == 0
++
++
++def test_one_immediate_attempt_and_no_grant_replacement_while_pending():
++    x = audit()
++    ticket = x.begin("h2d", 4096, state(), now_ns=0)
++    with pytest.raises(RuntimeError):
++        x.begin("d2h", 4096, state(), now_ns=0)
++    with pytest.raises(RuntimeError):
++        x.publish(grant(epoch=1, issued_ns=100, expires_ns=200), now_ns=100)
++    x.accepted(ticket)
++    x.publish(grant(epoch=1, issued_ns=100, expires_ns=200), now_ns=100)
++
++
++def test_forged_foreign_and_duplicate_attempts_rejected():
++    x = audit()
++    ticket = x.begin("h2d", 1, state(), now_ns=0)
++    with pytest.raises(ValueError):
++        x.accepted(replace(ticket))
++    other = audit()
++    foreign = other.begin("h2d", 1, state(), now_ns=0)
++    with pytest.raises(ValueError):
++        x.accepted(foreign)
++    x.accepted(ticket)
++    with pytest.raises(ValueError):
++        x.accepted(ticket)
++    other.rejected(foreign, "test pre-acceptance cancellation")
++
++
++def test_fused_h2d_one_operation_charges_all_actual_destinations():
++    x = audit()
++    accepted(x, stage="ssd_read", nbytes=4096)
++    accepted(x, stage="h2d", nbytes=8192)
++    report = x.snapshot()
++    assert report["used"]["ssd_read"] == dict(ops=1, bytes=4096)
++    assert report["used"]["h2d"] == dict(ops=1, bytes=8192)
++    ticket = x.begin("h2d", 1, state(), now_ns=0)
++    assert "stage_epoch_bytes" in ticket.performance_reasons
++    x.accepted(ticket)
++
++
++def test_shared_read_write_allowance_not_duplicated_by_direction():
++    x = audit(grant(shared_ssd_cumulative=Amount(1, 4096)))
++    accepted(x, stage="ssd_read")
++    ticket = x.begin("ssd_write", 4096, state(), now_ns=0)
++    assert ticket.verdict == "would_defer"
++    assert "shared_ssd_epoch_ops" in ticket.performance_reasons
++    assert "shared_ssd_epoch_bytes" in ticket.performance_reasons
++    x.accepted(ticket)
++    assert x.snapshot()["used"]["ssd_write"]["bytes"] == 4096
++
++
++def test_shared_copy_inflight_uses_both_directions_without_native_device_counter():
++    x = audit(grant(shared_copy_inflight_bytes=4096))
++    sample = state(inflight=(Amount(), Amount(), Amount(1, 4096), Amount()))
++    ticket = x.begin("d2h", 1, sample, now_ns=0)
++    assert "shared_copy_inflight_bytes" in ticket.performance_reasons
++    x.accepted(ticket)
++    assert x.snapshot()["used"]["d2h"]["bytes"] == 1
++
++
++def test_staging_capacity_and_reserve_remain_separate_observations():
++    x = audit()
++    ticket = x.begin("ssd_read", 4096, state(free_staging_bytes=4096),
++                     now_ns=0, staging_bytes_needed=4096)
++    assert ticket.native_reasons == () and "staging_reserve" in ticket.performance_reasons
++    x.accepted(ticket)
++    ticket = x.begin("d2h", 4096, state(free_staging_bytes=0),
++                     now_ns=0, staging_bytes_needed=4096)
++    assert "native_capacity_or_dependency" in ticket.native_reasons
++    x.accepted(ticket)
++    assert x.snapshot()["byte_caps_enforced"] is False
++
++
++def test_parent_count_is_observed_but_intake_is_not_evaluated():
++    x = audit()
++    ticket = x.begin("ssd_write", 1, state(accepted_parents=1000), now_ns=0)
++    assert ticket.verdict == "would_issue"
++    assert not any("parent" in reason for reason in ticket.performance_reasons)
++    x.accepted(ticket)
++    assert x.snapshot()["parent_cap_enforced"] is False
++
++
++def test_continuation_is_only_factual_tag_and_not_a_quota_override():
++    x = audit(grant(cumulative=ZERO))
++    ticket = x.begin("ssd_write", 4096, state(), now_ns=0, progress="continuation")
++    assert ticket.verdict == "would_defer" and ticket.progress == "continuation"
++    x.accepted(ticket)
++    report = x.snapshot()
++    assert report["shadow_overruns"] == 1
++    assert report["progress_override_enforced"] is False
++
++
++def test_fail_disables_future_observation_without_erasing_accepted_evidence():
++    x = audit()
++    accepted(x)
++    x.fail("optional observer broke " * 20)
++    assert x.begin(object(), object(), object(), now_ns=object()) is None
++    assert x.publish(object(), now_ns=object()) is False
++    report = x.snapshot()
++    assert report["faulted"] and len(report["error"]) <= 160
++    assert report["used"]["h2d"]["bytes"] == 4096
++    assert report["acceptance_accounting_complete"] is False
++    assert report["completion_accounting_complete"] is False
++
++
++def test_fault_during_immediate_call_can_still_settle_existing_attempt():
++    x = audit()
++    ticket = x.begin("h2d", 4096, state(), now_ns=0)
++    x.fail("unrelated audit diagnostics failed")
++    x.accepted(ticket)
++    assert x.snapshot()["pending_attempt"] is False
++    assert x.snapshot()["used"]["h2d"]["bytes"] == 4096
++
++
++def test_history_and_reason_are_bounded_and_attempt_has_values_only():
++    x = audit(max_records=2)
++    for _ in range(3):
++        ticket = x.begin("ssd_read", 1, state(), now_ns=0)
++        x.rejected(ticket, "r" * 500)
++    report = x.snapshot()
++    assert len(report["records"]) == 2 and report["overwritten_records"] == 1
++    assert len(report["records"][-1]["reason"]) == 160
++    assert {f.name for f in fields(ShadowAttempt)} == {
++        "stage", "nbytes", "started_ns", "permit", "verdict", "performance_reasons",
++        "native_reasons", "unknown_fields", "progress"}
++    assert not hasattr(x, "complete") and not hasattr(x, "queue")
++
++
++def test_strict_value_types_and_only_off_shadow_modes():
++    for kwargs in (dict(mode="fixed"), dict(mode="pressure"), dict(max_records=True),
++                   dict(max_records=0), dict(max_records=97)):
++        with pytest.raises(ValueError):
++            DispatchShadow("r", **kwargs)
++    for mutation in (dict(free_staging_bytes=True), dict(accepted_parents=-1),
++                     dict(native_issue_safe=1), dict(inflight=list(ZERO)), dict(captured_ns=True)):
++        with pytest.raises(ValueError):
++            state(**mutation)
++    x = audit()
++    for value in (0, -1, True, 1.5, None):
++        with pytest.raises(ValueError):
++            x.begin("h2d", value, state(), now_ns=0)
++    with pytest.raises(ValueError):
++        x.begin("unknown", 1, state(), now_ns=0)
++    with pytest.raises(ValueError):
++        x.begin("h2d", 1, state(), now_ns=0, progress="invented")
++    with pytest.raises(FrozenInstanceError):
++        state().free_staging_bytes = 0
++    ticket = x.begin("h2d", 1, state(), now_ns=0)
++    with pytest.raises(ValueError):
++        x.settle(ticket, outcome=True)
++    with pytest.raises(ValueError):
++        x.settle(ticket, outcome="accepted", reason=object())
++    x.accepted(ticket)
++
++
++def test_pending_audit_is_incomplete_and_settle_does_not_prove_dma_drain():
++    x = audit()
++    ticket = x.begin("h2d", 4096, state(), now_ns=0)
++    report = x.snapshot()
++    assert report["pending_attempt"]
++    assert report["acceptance_accounting_complete"] is False
++    assert report["completion_accounting_complete"] is False
++    x.accepted(ticket)
++    report = x.snapshot()
++    assert report["acceptance_accounting_complete"] is True
++    assert report["completion_accounting_complete"] is True
++    assert report["physical_drain_inferred"] is False
++    assert report["resource_release_inferred"] is False
++    assert report["complete_flags_scope"] == "audit classifications only; not DMA completion or drain"
++    assert report["native_adapter_installed_by_this_module"] is False
+--- /dev/null
++++ b/tests/prefix_io_v1_dispatch_shadow/test_native_bridge.py
+@@ -0,0 +1,421 @@
++"""Native acceptance boundary audit with fake CUDA/file APIs; no GPU metrics."""
++import ast
++from pathlib import Path
++from types import SimpleNamespace as NS
++from unittest.mock import Mock
++
++import pytest
++from py_kvcache import reactor as mod
++from py_kvcache.reactor import IoReactor, TransferCoordinator
++from prefix_io_control.dispatch_budget import DispatchBudget, ZERO, Amount, STAGES
++from prefix_io_control.dispatch_shadow import DispatchShadow
++from prefix_io_control.stage_accounting import StageAccounting
++from tests.prefix_io_v1_start_budget._fixture import rig, eventually
++from tests.prefix_io_v1_start_budget.test_stage_accounting import attach as attach_accounting
++
++
++class ZeroAllowance(DispatchShadow):
++    """Fixture-only epoch publication on the actual reactor owner thread."""
++    def __init__(self, run_id, *, mode="shadow", publish_grant=True):
++        super().__init__(run_id, mode=mode)
++        self.publish_grant = publish_grant
++        self.samples = []
++
++    def begin(self, stage, nbytes, sample=None, *, now_ns, **kwargs):
++        if self.publish_grant and self.grant is None:
++            grant = DispatchBudget(
++                self.run_id, 0, now_ns, now_ns + 1_000_000_000, ZERO, ZERO,
++                Amount(), Amount(), 0, 0, 0, 1, 1000
++            )
++            self.publish(grant, now_ns=now_ns)
++        self.samples.append((stage, sample))
++        return super().begin(stage, nbytes, sample, now_ns=now_ns, **kwargs)
++
++
++def attach(x, *, mode="shadow", publish_grant=True):
++    accounting = attach_accounting(x)
++    shadow = ZeroAllowance("cpu-run", mode=mode, publish_grant=publish_grant)
++    shadow.bind()
++    x.r._prefix_dispatch_shadow = shadow
++    # P3 policies are qualified independently; fixture does not mix start allowances.
++    x.r._prefix_start_budget = None
++    return accounting, shadow
++
++
++def snapshot(shadow):
++    return shadow.snapshot(native_shutdown=True)
++
++
++def test_zero_allowance_never_blocks_four_native_physical_stages(monkeypatch):
++    with rig(monkeypatch, enabled=False) as x:
++        accounting, shadow = attach(x)
++        store = x.submit(files=1)
++        x.start()
++        assert store.result(timeout=2) == 4096
++        load = x.load()
++        assert load.result(timeout=2) == 4096
++        x.stop()
++        s = snapshot(shadow)
++        assert not s["faulted"] and s["shadow_overruns"] == 4
++        assert not s["pending_attempt"] and s["uncertain_ops"] == 0
++        for stage in STAGES:
++            assert s["observed_api_accepted"][stage] == dict(ops=1, bytes=4096)
++            assert s["used"][stage] == dict(ops=1, bytes=4096)
++        assert accounting.valid and not accounting.records
++        assert not s["byte_caps_enforced"] and not s["parent_cap_enforced"]
++        assert not s["resource_release_inferred"] and not s["physical_drain_inferred"]
++
++
++def test_samples_keep_unavailable_capacity_unknown_and_use_actual_inflight(monkeypatch):
++    with rig(monkeypatch, enabled=False) as x:
++        accounting, shadow = attach(x)
++        x.copy_ready.clear()
++        future = x.submit(files=2)
++        x.start()
++        eventually(lambda: accounting.stats["d2h"]["inflight_ops"] == 2)
++        d2h = [sample for stage, sample in shadow.samples if stage == "d2h"]
++        assert [sample.inflight[3] for sample in d2h] == [Amount(), Amount(1, 4096)]
++        assert all(sample.free_staging_bytes is None and sample.accepted_parents is None
++                   and sample.native_issue_safe is True for sample in d2h)
++        x.copy_ready.set()
++        assert future.result(timeout=2) == 8192
++        x.stop()
++        for record in snapshot(shadow)["records"]:
++            assert "free_staging_bytes" in record["unknown_fields"]
++            assert "accepted_parents" in record["unknown_fields"]
++
++
++def test_invalid_passive_accounting_is_unknown_not_fabricated_zero(monkeypatch):
++    with rig(monkeypatch, enabled=False) as x:
++        accounting, shadow = attach(x)
++        accounting.invalidate("fixture unavailable")
++        future = x.submit(files=1)
++        x.start()
++        assert future.result(timeout=2) == 4096
++        x.stop()
++        assert not shadow.faulted
++        assert all(sample.inflight is None for _, sample in shadow.samples)
++        assert all("inflight" in record["unknown_fields"] for record in snapshot(shadow)["records"])
++
++
++def test_no_current_grant_still_records_native_acceptance(monkeypatch):
++    with rig(monkeypatch, enabled=False) as x:
++        _, shadow = attach(x, publish_grant=False)
++        future = x.submit(files=1)
++        x.start()
++        assert future.result(timeout=2) == 4096
++        x.stop()
++        s = snapshot(shadow)
++        assert s["epoch"] is None
++        assert s["accepted_without_epoch_ops"] == 2
++        assert s["accepted_without_epoch_bytes"] == 8192
++        assert all("current_grant" in record["unknown_fields"] for record in s["records"])
++
++
++def test_shared_read_once_and_fused_physical_destinations_charged_together(monkeypatch):
++    with rig(monkeypatch, enabled=False, share=True) as x:
++        _, shadow = attach(x)
++        x.r.ring.auto = False
++        x.preload([b"shared"])
++        x.start()
++        eventually(lambda: x.opens == 1)
++        one = x.load(job_id=20, hashes=[b"shared"])
++        two = x.load(job_id=21, hashes=[b"shared"])
++        eventually(lambda: len(x.r._preload_waiters.get(b"shared", ())) == 2)
++        x.r.ring.auto = True
++        assert one.result(timeout=2) == two.result(timeout=2) == 4096
++        x.stop()
++        s = snapshot(shadow)
++        assert s["observed_api_accepted"]["ssd_read"] == dict(ops=1, bytes=4096)
++        assert s["observed_api_accepted"]["h2d"] == dict(ops=1, bytes=8192)
++        assert x.reads == 1 and x.h2d_launches == [dict(entries=2, bytes=8192)]
++
++
++def test_copy_audit_charges_actual_partial_mapping(monkeypatch):
++    with rig(monkeypatch, enabled=False) as x:
++        _, shadow = attach(x)
++        original = x.r._fill_swap_ptrs
++        def partial(*args):
++            count = original(*args)
++            args[5][:count] = 1024
++            return count
++        x.r._fill_swap_ptrs = partial
++        future = x.load()
++        x.start()
++        assert future.result(timeout=2) == 4096
++        x.stop()
++        s = snapshot(shadow)
++        assert s["observed_api_accepted"]["ssd_read"]["bytes"] == 4096
++        assert s["observed_api_accepted"]["h2d"]["bytes"] == 1024
++
++
++@pytest.mark.parametrize("stage", ["ssd_read", "ssd_write"])
++def test_backend_exception_is_uncertain_and_native_error_unchanged(monkeypatch, stage):
++    with rig(monkeypatch, enabled=False) as x:
++        _, shadow = attach(x)
++        native_error = IOError("fixture queue failure")
++        setattr(x.r.file_store, "queue_read" if stage == "ssd_read" else "queue_write",
++                Mock(side_effect=native_error))
++        future = x.load() if stage == "ssd_read" else x.submit(files=1)
++        x.start()
++        with pytest.raises(IOError) as caught:
++            future.result(timeout=2)
++        assert caught.value is native_error
++        x.stop()
++        s = snapshot(shadow)
++        assert s["uncertain_ops"] == 1 and s["rejected_ops"] == 0
++        assert s["uncertain_requested_bytes"] == 4096
++        assert s["observed_api_accepted"][stage]["ops"] == 0
++        assert not s["acceptance_accounting_complete"] and s["epoch_totals_are_lower_bounds"]
++        assert len(x.r.staging_pool.releases) == 1
++
++
++@pytest.mark.parametrize("stage", ["ssd_read", "ssd_write"])
++def test_short_cqe_does_not_refund_successfully_accepted_bytes(monkeypatch, stage):
++    with rig(monkeypatch, enabled=False) as x:
++        accounting, shadow = attach(x)
++        x.r.ring.results[2 if stage == "ssd_read" else 1] = 4095
++        future = x.load() if stage == "ssd_read" else x.submit(files=1)
++        x.start()
++        with pytest.raises(IOError):
++            future.result(timeout=2)
++        x.stop()
++        s = snapshot(shadow)
++        assert s["used"][stage] == dict(ops=1, bytes=4096)
++        assert s["observed_api_accepted"][stage] == dict(ops=1, bytes=4096)
++        assert s["uncertain_ops"] == s["rejected_ops"] == 0
++        assert accounting.stats[stage]["failed_ops"] == 1
++
++
++@pytest.mark.parametrize("is_store", [False, True])
++def test_cuda_backend_exception_is_uncertain_not_zero_execution(monkeypatch, is_store):
++    with rig(monkeypatch, enabled=False) as x:
++        _, shadow = attach(x)
++        native_error = RuntimeError("fixture ambiguous CUDA launch")
++        monkeypatch.setattr(mod, "ops", NS(swap_blocks_batch=Mock(side_effect=native_error)))
++        future = x.submit(files=1) if is_store else x.load()
++        x.start()
++        with pytest.raises(RuntimeError) as caught:
++            future.result(timeout=2)
++        assert caught.value is native_error
++        x.stop()
++        s = snapshot(shadow)
++        stage = "d2h" if is_store else "h2d"
++        assert s["observed_api_accepted"][stage]["ops"] == 0
++        assert s["uncertain_ops"] == 1 and s["uncertain_requested_bytes"] == 4096
++        assert s["rejected_ops"] == 0 and not s["physical_drain_inferred"]
++
++
++@pytest.mark.parametrize("is_store", [False, True])
++def test_api_acceptance_precedes_failed_end_event_and_is_never_refunded(monkeypatch, is_store):
++    with rig(monkeypatch, enabled=False) as x:
++        _, shadow = attach(x)
++        native_error = RuntimeError("fixture end-event failure")
++        original_event = mod.torch.cuda.Event
++        count = [0]
++        def event(**kwargs):
++            count[0] += 1
++            obj = original_event(**kwargs)
++            # submit_store first records a separate compute event.
++            end_number = 3 if is_store else 2
++            if count[0] == end_number:
++                obj.record = Mock(side_effect=native_error)
++            return obj
++        monkeypatch.setattr(mod.torch.cuda, "Event", event)
++        future = x.submit(files=1) if is_store else x.load()
++        x.start()
++        with pytest.raises(RuntimeError) as caught:
++            future.result(timeout=2)
++        assert caught.value is native_error
++        x.stop()
++        s = snapshot(shadow)
++        stage = "d2h" if is_store else "h2d"
++        assert s["observed_api_accepted"][stage] == dict(ops=1, bytes=4096)
++        assert s["used"][stage] == dict(ops=1, bytes=4096)
++        assert s["completion_unknown_ops"] == 1 and stage in s["completion_unknown_stages"]
++        assert not s["completion_accounting_complete"]
++        assert s["uncertain_ops"] == 0 and s["rejected_ops"] == 0
++        assert not s["physical_drain_inferred"] and not s["resource_release_inferred"]
++
++
++@pytest.mark.parametrize("fault", ["owner", "begin", "settle"])
++def test_optional_shadow_fault_preserves_native_parent_completion(monkeypatch, fault):
++    with rig(monkeypatch, enabled=False) as x:
++        _, shadow = attach(x)
++        if fault == "owner":
++            shadow.owner = -1
++        elif fault == "begin":
++            shadow.begin = Mock(side_effect=ValueError("fixture audit"))
++        else:
++            shadow.accepted = Mock(side_effect=ValueError("fixture audit settle"))
++        future = x.submit(files=2)
++        x.start()
++        assert future.result(timeout=2) == 8192
++        load = x.load()
++        assert load.result(timeout=2) == 4096
++        x.stop()
++        assert shadow.faulted and len(x.r.staging_pool.releases) == 3
++        assert not snapshot(shadow)["acceptance_accounting_complete"]
++
++
++def test_progress_tags_are_facts_and_never_override_zero_allowance(monkeypatch):
++    with rig(monkeypatch, enabled=False) as x:
++        _, shadow = attach(x)
++        future = x.submit(files=1)
++        x.coordinator.request_mandatory([future])
++        x.start()
++        assert future.result(timeout=2) == 4096
++        load = x.load()
++        assert load.result(timeout=2) == 4096
++        x.stop()
++        records = snapshot(shadow)["records"]
++        assert records[0]["stage"] == "d2h" and records[0]["progress"] == "mandatory"
++        assert records[1]["stage"] == "ssd_write" and records[1]["progress"] == "mandatory"
++        assert [record["progress"] for record in records[2:]] == ["continuation", "continuation"]
++        assert all(record["performance_reasons"] for record in records)
++        assert not snapshot(shadow)["progress_override_enforced"]
++
++
++def test_duplicate_cqe_and_shutdown_keep_one_native_parent_completion(monkeypatch):
++    with rig(monkeypatch, enabled=False) as x:
++        accounting, shadow = attach(x)
++        x.r.ring.duplicate = True
++        one = x.submit(files=2, job_id=7)
++        two = x.submit(files=2, job_id=8)
++        done = []
++        one.add_done_callback(lambda _: done.append(7))
++        two.add_done_callback(lambda _: done.append(8))
++        x.start()
++        x.stop()
++        assert one.result() == two.result() == 8192
++        assert sorted(done) == [7, 8] and len(x.r.staging_pool.releases) == 4
++        s = snapshot(shadow)
++        assert s["observed_api_accepted"]["d2h"] == dict(ops=4, bytes=16384)
++        assert s["observed_api_accepted"]["ssd_write"] == dict(ops=4, bytes=16384)
++        assert accounting.valid and not accounting.records
++
++
++@pytest.mark.parametrize("mode", [None, "off"])
++def test_off_copy_audit_does_not_read_clock_or_sizes(monkeypatch, mode):
++    reactor = IoReactor.__new__(IoReactor)
++    if mode is not None:
++        reactor._prefix_dispatch_shadow = DispatchShadow("r", mode=mode)
++    clock = Mock(side_effect=AssertionError("off clock"))
++    monkeypatch.setattr(mod.time, "monotonic_ns", clock)
++    class Sizes:
++        def __getitem__(self, _):
++            raise AssertionError("off copy sizes")
++    assert reactor._prefix_shadow_copy_begin("h2d", Sizes(), 99) is None
++    assert reactor._prefix_shadow_begin("ssd_read", 4096) is None
++    clock.assert_not_called()
++
++
++@pytest.mark.parametrize("mode", [None, "off"])
++def test_native_off_completes_without_entering_shadow_module(monkeypatch, mode):
++    with rig(monkeypatch, enabled=False) as x:
++        if mode is not None:
++            attach(x, mode=mode)
++        monkeypatch.setattr(DispatchShadow, "begin", Mock(side_effect=AssertionError("off begin")))
++        monkeypatch.setattr(mod.time, "monotonic_ns", Mock(side_effect=AssertionError("off clock")))
++        future = x.submit(files=1)
++        x.start()
++        assert future.result(timeout=2) == 4096
++        load = x.load()
++        assert load.result(timeout=2) == 4096
++        x.stop()
++
++
++@pytest.mark.parametrize("bad", ["type", "no_progress", "identity", "no_accounting",
++                                "bad_accounting", "reuse", "start", "order"])
++def test_constructor_rejects_before_native_resources(monkeypatch, bad):
++    from prefix_io_control.start_budget import StartBudget, StartBudgetConfig
++    from prefix_io_control.store_order import MandatoryStoreOrder
++    shadow = object() if bad == "type" else DispatchShadow("r", mode="shadow")
++    if bad == "reuse":
++        shadow.bind()
++    kwargs = dict(dispatch_shadow=shadow, progress_run_id="r", stage_accounting=StageAccounting())
++    if bad == "no_progress":
++        kwargs["progress_run_id"] = None
++    if bad == "identity":
++        kwargs["progress_run_id"] = "other"
++    if bad == "no_accounting":
++        kwargs["stage_accounting"] = None
++    if bad == "bad_accounting":
++        kwargs["stage_accounting"] = object()
++    if bad == "start":
++        kwargs["start_budget"] = StartBudget(StartBudgetConfig("fixed", 100, 1, 100))
++    if bad == "order":
++        kwargs["store_order"] = MandatoryStoreOrder()
++    resources = Mock(side_effect=AssertionError("native resources"))
++    monkeypatch.setattr(mod, "DirectIoFileStore", resources)
++    with pytest.raises((TypeError, ValueError)):
++        IoReactor(config=None, file_mapper=None, layout=None, **kwargs)
++    resources.assert_not_called()
++
++
++def test_coordinator_forwards_shadow_without_owning_native_work(monkeypatch):
++    shadow = DispatchShadow("r", mode="shadow")
++    accounting = StageAccounting()
++    constructor = Mock(return_value=object())
++    monkeypatch.setattr(mod, "IoReactor", constructor)
++    coordinator = TransferCoordinator(
++        config=None, file_mapper=None, layout=None, progress_run_id="r",
++        stage_accounting=accounting, dispatch_shadow=shadow
++    )
++    assert coordinator.reactor is constructor.return_value
++    assert constructor.call_args.kwargs["dispatch_shadow"] is shadow
++    assert constructor.call_args.kwargs["stage_accounting"] is accounting
++    assert not shadow.bound and shadow.owner is None
++
++
++def test_native_ast_recovers_seed_after_removing_optional_shadow_hooks():
++    root = Path(__file__).resolve().parents[2]
++    before = ast.parse((root / "artifacts/prefix_io_v1/server08-p3-13/before/shadow-seed/py_kvcache/reactor.py").read_text())
++    after = ast.parse((root / "third_party/work/py-kvcache-p3-shadow-cpu/py_kvcache/reactor.py").read_text())
++
++    def shadow_name(node):
++        return any(isinstance(value, ast.Name) and value.id in
++                   ("dispatch_shadow", "shadow_attempt", "shadow_accepted") for value in ast.walk(node))
++
++    class Strip(ast.NodeTransformer):
++        def visit_FunctionDef(self, node):
++            if node.name.startswith("_prefix_shadow"):
++                return None
++            pairs = [(arg, default) for arg, default in zip(node.args.kwonlyargs, node.args.kw_defaults)
++                     if arg.arg != "dispatch_shadow"]
++            node.args.kwonlyargs = [arg for arg, _ in pairs]
++            node.args.kw_defaults = [default for _, default in pairs]
++            return self.generic_visit(node)
++
++        def visit_If(self, node):
++            if shadow_name(node.test):
++                return None
++            return self.generic_visit(node)
++
++        def visit_Assign(self, node):
++            if any(shadow_name(target) or isinstance(target, ast.Attribute) and
++                   target.attr == "_prefix_dispatch_shadow" for target in node.targets):
++                return None
++            return self.generic_visit(node)
++
++        def visit_Expr(self, node):
++            if isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Attribute) and (
++                    node.value.func.attr.startswith("_prefix_shadow") or
++                    isinstance(node.value.func.value, ast.Name) and node.value.func.value.id == "dispatch_shadow"):
++                return None
++            return self.generic_visit(node)
++
++        def visit_Call(self, node):
++            node.keywords = [keyword for keyword in node.keywords if keyword.arg != "dispatch_shadow"]
++            return self.generic_visit(node)
++
++        def visit_Try(self, node):
++            node = self.generic_visit(node)
++            # Optional audit wrappers only re-raise the original backend/event error.
++            if (len(node.handlers) == 1 and len(node.handlers[0].body) == 1
++                    and isinstance(node.handlers[0].body[0], ast.Raise)
++                    and not node.orelse and not node.finalbody):
++                return node.body
++            return node
++
++    assert ast.dump(Strip().visit(after)) == ast.dump(before)
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/run_shadow_cpu_qualification.py
+@@ -0,0 +1,70 @@
++"""Qualify shadow native paths and old model guards in separate CPU processes."""
++import argparse,json,os,re,subprocess,time
++from pathlib import Path
++from experiment_storage import ROOT,preflight
++from run_gpu_stage import cleanup_session
++
++RESERVATION=640*1024**2
++LEGACY_TESTS=[
++ "tests/prefix_io_v1_store_order/test_model_order.py::test_worker_model_boundary_uses_actual_native_order[off]",
++ "tests/prefix_io_v1_store_order/test_model_order.py::test_worker_model_boundary_uses_actual_native_order[pressure]",
++ "tests/prefix_io_v1_store_order/test_model_order.py::test_worker_will_not_treat_native_fallback_as_success"]
++def plan(label):
++    if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,80}",label):
++        raise ValueError("simple unique label required")
++    out=ROOT/"experiments/prefix_io_v1/runs"/label/"cpu-evidence"
++    if out.exists():raise FileExistsError("append-only CPU evidence")
++    disk=preflight(out,RESERVATION)
++    shadow=ROOT/"third_party/work/py-kvcache-p3-shadow-cpu"
++    old=ROOT/"third_party/work/py-kvcache-p3-order-cpu"
++    suites=["tests/prefix_io_v1/test_config.py","tests/prefix_io_v1_pilot",
++        "tests/prefix_io_v1_native_costs","tests/prefix_io_v1_progress",
++        "tests/prefix_io_v1_observer","tests/prefix_io_v1_aio",
++        "tests/prefix_io_v1_start_budget","tests/prefix_io_v1_store_order",
++        "tests/prefix_io_v1_dispatch_shadow",str(shadow/"tests")]
++    base=[str(ROOT/".venv/bin/python"),str(ROOT/"experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py"),
++        "-q","--import-mode=importlib"]
++    rows=[]
++    for name,work,tests,options in [
++        ("shadow",shadow,suites,["--ignore="+str(shadow/"tests/test_e2e_kvcache.py")]+
++            ["--deselect="+test for test in LEGACY_TESTS]),
++        ("legacy-model-guard",old,LEGACY_TESTS,[])]:
++        env=dict(CUDA_VISIBLE_DEVICES="",HF_HUB_OFFLINE="1",TRANSFORMERS_OFFLINE="1",
++            PYTHONDONTWRITEBYTECODE="1",
++            PYTHONPATH=":".join(map(str,[work,ROOT/"src",ROOT/"experiments/prefix_io_v1/scripts"])),
++            AIO_CPU_GPU_GUARD_PATH=str(out/(name+"-cuda-guard.json")))
++        cmd=base+tests+options+["--basetemp",str(out/(name+"-pytest-tmp")),
++            "--junitxml",str(out/(name+"-cpu.xml"))]
++        rows.append(dict(name=name,worktree=str(work),command=cmd,environment_delta=env,maximum_seconds=180))
++    return dict(output=str(out),disk=disk,processes=rows,gpu_runs=0,
++        legacy_tests_routed_to_their_frozen_worktree=LEGACY_TESTS,
++        legacy_model_runtime_guard_unchanged=True,scope="CPU only; CUDA initialization forbidden")
++
++def main():
++    ap=argparse.ArgumentParser();ap.add_argument("--label",required=True);ap.add_argument("--dry-run",action="store_true")
++    a=ap.parse_args();p=plan(a.label)
++    if a.dry_run:print(json.dumps(dict(p,executed=False),indent=2));return 0
++    out=Path(p["output"]);out.mkdir(parents=True,exist_ok=False)
++    (out/"plan.json").write_text(json.dumps(p,indent=2))
++    results=[]
++    for row in p["processes"]:
++        proc=None;code=1;error=None;cleanup=None;start=time.monotonic()
++        env=os.environ.copy();env.update(row["environment_delta"])
++        try:
++            with (out/(row["name"]+"-process.log")).open("wb") as log:
++                proc=subprocess.Popen(row["command"],cwd=ROOT,env=env,stdout=log,
++                    stderr=subprocess.STDOUT,start_new_session=True)
++                code=proc.wait(timeout=row["maximum_seconds"])
++        except BaseException as exc:error=type(exc).__name__+": "+str(exc)
++        finally:
++            if proc is not None:
++                cleanup=cleanup_session(proc)
++                if not cleanup["session_drained"] or cleanup.get("session_members_before_cleanup"):code=1
++            results.append(dict(name=row["name"],exit=code,error=error,cleanup=cleanup,
++                seconds=time.monotonic()-start,executed=proc is not None,gpu_runs=0))
++    result=dict(exit=int(any(x["exit"]!=0 for x in results)),processes=results,gpu_runs=0)
++    try:result["storage_after"]=preflight(out,0)
++    except Exception as exc:result.update(exit=1,storage_error=str(exc))
++    (out/"result.json").write_text(json.dumps(result,indent=2))
++    print(json.dumps(result,indent=2));return result["exit"]
++if __name__=="__main__":raise SystemExit(main())
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/qualify_dispatch_shadow_gpu.py
+@@ -0,0 +1,141 @@
++"""Real CUDA/Linux-AIO four-stage acceptance shadow; never blocks native work."""
++import argparse,hashlib,inspect,json,time,traceback
++from pathlib import Path
++from experiment_storage import ROOT,preflight
++from prefix_io_control.dispatch_shadow import DispatchShadow
++from prefix_io_control.dispatch_budget import DispatchBudget,Amount,ZERO,STAGES
++from prefix_io_control.stage_accounting import StageAccounting
++
++SOURCES=[
++ "src/prefix_io_control/dispatch_shadow.py","src/prefix_io_control/dispatch_budget.py",
++ "third_party/work/py-kvcache-p3-shadow-cpu/py_kvcache/reactor.py",
++ "third_party/work/py-kvcache-p3-shadow-cpu/py_kvcache/vllm.py"]
++def require(ok,message):
++    if not ok:raise RuntimeError(message)
++
++class ZeroAudit(DispatchShadow):
++    """Qualification-only owner publisher, frozen zero ordinary allowances.
++    This deliberately demonstrates accepted work exceeds the audit preview.
++    It is not a scheduler feed and does not claim complete hard-cap integration.
++    """
++    def begin(self,*args,now_ns,**kwargs):
++        if self.mode=="shadow" and (self.grant is None or now_ns>=self.grant.expires_ns):
++            epoch=0 if self.grant is None else self.grant.epoch+1
++            self.publish(DispatchBudget(self.run_id,epoch,now_ns,now_ns+60_000_000_000,
++                ZERO,ZERO,Amount(),Amount(),0,0,0,1,1_000_000_000),now_ns=now_ns)
++        return super().begin(*args,now_ns=now_ns,**kwargs)
++
++def qualify(out):
++    import torch
++    import py_kvcache.reactor as native
++    from py_kvcache.reactor import TransferCoordinator
++    from py_kvcache.vllm import NoopSharedStorageOffloadingHandler,SharedStorageLoadStoreSpec
++    from py_kvcache.fs_config import SharedFileConfig
++    from py_kvcache.file_mapper import FileMapper
++    from py_kvcache.transfer import ParsedKvLayout
++    from vllm.v1.kv_offload.base import CanonicalKVCaches,CanonicalKVCacheTensor,CanonicalKVCacheRef,GPULoadStoreSpec
++    require(Path(native.__file__).resolve().is_relative_to(ROOT/"third_party/work/py-kvcache-p3-shadow-cpu"),"wrong shadow worktree")
++    require(torch.cuda.device_count()==1,"single bound GPU required")
++    torch.manual_seed(313)
++    tensors=[torch.randint(-128,128,(130,32768),device="cuda",dtype=torch.int8) for _ in range(4)]
++    original=[t[:65].cpu().clone() for t in tensors]
++    caches=CanonicalKVCaches([CanonicalKVCacheTensor(t,page_size_bytes=32768) for t in tensors],
++        [[CanonicalKVCacheRef(tensor_idx=i,page_size_bytes=32768) for i in range(4)]])
++    layout=ParsedKvLayout.from_canonical_kv_caches(gpu_block_size=16,storage_block_size=16,kv_caches=caches)
++    results=[];handlers=[]
++    def create(mode,phase):
++        directory=out/mode/"files";directory.mkdir(parents=True,exist_ok=True)
++        mapper=FileMapper(root_dir=str(directory),model_name="p313-shadow",gpu_block_size=16,
++            gpu_blocks_per_file=1,tp_size=1,pp_size=1,pcp_size=1,rank=0,dtype="bfloat16")
++        raw=dict(mode=mode,run_id=mode+"-"+phase,allowance="zero; audit only",native_deferral=False)
++        shadow=ZeroAudit(raw["run_id"],mode=mode)
++        kw=dict(progress_run_id=raw["run_id"],dispatch_shadow=shadow,stage_accounting=StageAccounting())
++        c=TransferCoordinator(config=SharedFileConfig(root_dir=str(directory),iodepth=1,staging_mem=16/1024,
++            enable_preload=True,preload_share_staging=True,io_backend="linux_aio"),
++            file_mapper=mapper,layout=layout,storage_block_tokens=16,**kw)
++        h=NoopSharedStorageOffloadingHandler(coordinator=c);handlers.append(h)
++        require(c.reactor.staging_buffer.is_pinned(),"unpinned staging")
++        return h,mapper,raw
++    def close(h,mode,phase,raw):
++        h.shutdown();r=h.coordinator.reactor
++        require(not r._worker.is_alive() and not r._active and not r._inflight and not r._pending_copies,"native resources not drained")
++        aio=r.ring.snapshot()
++        require(aio["closed"] and aio["drained"] and aio["outstanding"]==0,"AIO not drained")
++        a=r._prefix_stage_accounting.snapshot()
++        require(a["valid"] and a["outstanding_records"]==0,"stage accounting incomplete")
++        require(all(v["failed_ops"]==0 and v["accepted_bytes"]==v["transferred_bytes"] and v["inflight_bytes"]==0 for v in a["stages"].values()),"stage byte imbalance")
++        shadow=r._prefix_dispatch_shadow.snapshot(native_shutdown=True)
++        require(not shadow["faulted"] and not shadow["pending_attempt"],"shadow audit faulted")
++        require(shadow["uncertain_ops"]==0 and shadow["completion_unknown_ops"]==0,"ambiguous API acceptance or completion")
++        if mode=="shadow":
++            for stage in STAGES:
++                expected=a["stages"][stage]
++                observed=shadow["observed_api_accepted"][stage]
++                require(observed["bytes"]==expected["accepted_bytes"] and observed["ops"]==expected["accepted_ops"],"shadow differs from physical native acceptance")
++            total=sum(x["ops"] for x in shadow["observed_api_accepted"].values())
++            require(shadow["shadow_overruns"]==total and shadow["accepted_without_epoch_ops"]==0,"zero allowance observations missing")
++            require(all("free_staging_bytes" in x["unknown_fields"] and "accepted_parents" in x["unknown_fields"] for x in shadow["records"]),"unknown capacity was invented")
++        else:
++            require(shadow["epoch"] is None and not shadow["records"] and all(x["ops"]==0 for x in shadow["observed_api_accepted"].values()),"off mode performed audit work")
++        require(r.actual_staging_bytes<=r.staging_budget_bytes,"staging over budget")
++        record=dict(mode=mode,phase=phase,config=raw,accounting=a,dispatch_shadow=shadow,aio=aio,native_adapter_installed=True,
++                    actual_staging_bytes=r.actual_staging_bytes,staging_budget_bytes=r.staging_budget_bytes)
++        results.append(record);return record
++    try:
++        for mode in ("off","shadow"):
++            for t,s in zip(tensors,original):t[:65].copy_(s)
++            torch.cuda.synchronize()
++            hashes=[hashlib.sha256((mode+"-"+str(i)).encode()).digest() for i in range(65)]
++            h,mapper,raw=create(mode,"store")
++            large=SharedStorageLoadStoreSpec(hashes[:64]);small=SharedStorageLoadStoreSpec(hashes[64:])
++            require(h.transfer_async(1,(GPULoadStoreSpec(list(range(64)),[64],[0]),large),req_id="large"),"large store rejected")
++            require(h.transfer_async(2,(GPULoadStoreSpec([64],[1],[0]),small),req_id="small"),"small store rejected")
++            a=h._active[1][0];b=h._active[2][0];completion=[]
++            a.add_done_callback(lambda f:completion.append(1));b.add_done_callback(lambda f:completion.append(2))
++            h.wait({2})
++            require(b.result()==layout.storage_block_bytes,"small parent wrong bytes")
++
++            h.wait({1});require(a.result()==64*layout.storage_block_bytes,"large parent wrong bytes")
++            r=close(h,mode,"store",raw);r["parent_completion_order"]=completion
++            require(completion==[1,2],"shadow changed original native completion order")
++            require(all(Path(mapper.get_file_name(b)).stat().st_size==layout.storage_block_bytes for b in hashes),"native files unpublished")
++            for phase in ("restore","shared"):
++                for t in tensors:t.zero_()
++                torch.cuda.synchronize()
++                h,_,raw=create(mode,phase);disk=SharedStorageLoadStoreSpec(hashes)
++                if phase=="restore":
++                    require(h.transfer_async(3,(disk,GPULoadStoreSpec(list(range(65)),[65],[0])),req_id="restore"),"restore rejected")
++                    f=h._active[3][0];h.wait({3});require(f.result()==65*layout.storage_block_bytes,"restore parent bytes")
++                else:
++                    for jid,name,offset in [(3,"A",0),(4,"B",65)]:
++                        require(h.preload_async(name,disk,req_id=name),"preload rejected")
++                    for jid,name,offset in [(3,"A",0),(4,"B",65)]:
++                        require(h.load_from_preload_async(jid,name,disk,GPULoadStoreSpec(list(range(offset,offset+65)),[65],[0]),req_id=name),"shared consumer rejected")
++                    fs=[h._active[j][0] for j in (3,4)];h.wait({3,4})
++                    require(all(f.result()==65*layout.storage_block_bytes for f in fs),"shared parent bytes")
++                torch.cuda.synchronize()
++                require(all(torch.equal(t[:65].cpu(),s) for t,s in zip(tensors,original)),"exact restore mismatch")
++                if phase=="shared":require(all(torch.equal(t[65:].cpu(),s) for t,s in zip(tensors,original)),"shared second destination mismatch")
++                r=close(h,mode,phase,raw)
++                require(r["accounting"]["stages"]["ssd_read"]["accepted_bytes"]==65*layout.storage_block_bytes,"disk shared read duplication or bypass")
++                require(r["accounting"]["stages"]["h2d"]["accepted_bytes"]==(2 if phase=="shared" else 1)*65*layout.storage_block_bytes,"physical H2D byte mismatch")
++        return dict(status="PASS_REAL_GPU_DISPATCH_SHADOW",gpu_byte_exact=True,cases=results,
++            native_module=native.__file__,source_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in SOURCES},
++            artificial_device_delay=False,ordinary_start_quota=False,full_stage_caps=False,model_performance_claim=False,default_off=True,shadow_never_defers=True)
++    finally:
++        for h in handlers:h.shutdown()
++
++def main():
++    ap=argparse.ArgumentParser();ap.add_argument("--output",type=Path,required=True);a=ap.parse_args()
++    require(not a.output.exists(),"append-only evidence")
++    before=preflight(a.output,128*1024**2);a.output.mkdir(parents=True,exist_ok=False)
++    (a.output/"preflight.json").write_text(json.dumps(before,indent=2));started=time.monotonic()
++    try:r=qualify(a.output);code=0
++    except BaseException as exc:r=dict(status="FAIL",error=repr(exc),traceback=traceback.format_exc());code=1
++    r["seconds"]=time.monotonic()-started
++    try:r["storage_after"]=preflight(a.output,0)
++    except Exception as exc:r.update(status="FAIL",storage_error=str(exc));code=1
++    (a.output/"result.json").write_text(json.dumps(r,indent=2))
++    print(json.dumps(dict(status=r["status"],output=str(a.output),exit=code)))
++    return code
++if __name__=="__main__":raise SystemExit(main())
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/package_dispatch_shadow_delivery.py
+@@ -0,0 +1,211 @@
++"""Package P313 delivery on approved PRIMARY storage; never include payloads.
++
++Run only after final source/version locks, report and patches exist. The original
++failed CPU evidence is included alongside the final qualified matrix.
++"""
++import hashlib
++import json
++import time
++import zipfile
++from pathlib import Path
++
++from experiment_storage import ROOT, permission, preflight
++
++OUT = ROOT / "artifacts/prefix_io_v1/server08-p3-13"
++AUX = Path("/root/prefix-io-v1-validation")
++PRIMARY = ROOT / "experiments/prefix_io_v1/runs"
++DESTINATION = PRIMARY / "deliveries/server08-p3-dispatch-shadow.zip"
++RESERVATION_BYTES = 256 * 1024**2
++PACKAGE_SCRIPT = "experiments/prefix_io_v1/scripts/package_dispatch_shadow_delivery.py"
++EXCLUDED_DELIVERY_NAMES = {
++    "delivery-manifest.json", "delivery-receipt.json",
++    "delivery-local-verification.json", "delivery-final-check.json",
++}
++PAYLOAD_SUFFIXES = {".bin", ".safetensors", ".pt", ".pth", ".ckpt", ".zip"}
++
++
++def sha(path):
++    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
++
++
++def project_path(value):
++    path = Path(value)
++    return path if path.is_absolute() else ROOT / path
++
++
++def assert_idle(ledger_path):
++    ledger = json.loads(ledger_path.read_text())
++    assert ledger["active_reservation"] is None, "GPU budget must be idle before packaging"
++    return ledger
++
++
++def main():
++    ledger_path = ROOT / "experiments/prefix_io_v1/gpu-budget-ledger.json"
++    assert_idle(ledger_path)
++    ledger_digest = sha(ledger_path)
++    authorized = permission(ROOT)
++    assert Path(authorized["approved_experiment_root"]) == PRIMARY
++    assert DESTINATION.is_relative_to(PRIMARY)
++    assert not DESTINATION.exists(), "delivery ZIP is append-only"
++    storage_before = preflight(DESTINATION, RESERVATION_BYTES)
++    assert Path(storage_before["root"]) == PRIMARY
++    assert storage_before["reserved_new_bytes"] == RESERVATION_BYTES
++
++    lock_path = OUT / "source-lock.json"
++    version_path = OUT / "version-lock.json"
++    lock = json.loads(lock_path.read_text())
++    assert type(lock) is dict and lock, "final source lock is required"
++    version = json.loads(version_path.read_text())
++    if version.get("source_lock_files") is not None:
++        assert version["source_lock_files"] == len(lock)
++    if version.get("source_lock_sha256") is not None:
++        assert version["source_lock_sha256"] == sha(lock_path)
++    for value, digest in lock.items():
++        path = project_path(value)
++        assert type(digest) is str and len(digest) == 64
++        assert path.is_file() and not path.is_symlink(), str(path)
++        assert sha(path) == digest, "source lock mismatch: " + str(path)
++    own_digest = sha(ROOT / PACKAGE_SCRIPT)
++    lock[PACKAGE_SCRIPT] = own_digest
++    lock_path.write_text(json.dumps(lock, indent=2), encoding="utf-8")
++    version.update(source_lock_files=len(lock), source_lock_sha256=sha(lock_path))
++    version_path.write_text(json.dumps(version, indent=2), encoding="utf-8")
++
++    files = {}
++
++    def add(value):
++        path = project_path(value)
++        assert path.is_file() and not path.is_symlink(), str(path)
++        assert path.suffix.lower() not in PAYLOAD_SUFFIXES, "payload prohibited: " + str(path)
++        assert "models" not in path.parts and "__pycache__" not in path.parts, str(path)
++        if path.is_relative_to(ROOT):
++            evidence_root = ROOT
++            name = path.relative_to(ROOT).as_posix()
++        elif path.is_relative_to(AUX):
++            evidence_root = AUX
++            name = "auxiliary/" + path.relative_to(AUX).as_posix()
++        else:
++            raise ValueError("outside delivery evidence roots: " + str(path))
++        # Prevent a parent-directory symlink from redirecting locked evidence.
++        cursor = path.parent
++        while cursor != evidence_root:
++            assert not cursor.is_symlink(), "redirected evidence directory: " + str(cursor)
++            assert cursor != cursor.parent
++            cursor = cursor.parent
++        assert not evidence_root.is_symlink()
++        if name in files:
++            assert files[name] == path, "ambiguous archive name: " + name
++        files[name] = path
++
++    def add_top(directory):
++        directory = project_path(directory)
++        assert directory.is_dir() and not directory.is_symlink(), str(directory)
++        for path in sorted(directory.iterdir()):
++            if path.is_file():
++                add(path)
++
++    for value, digest in lock.items():
++        path = project_path(value)
++        assert sha(path) == digest, "source changed during packaging: " + str(path)
++        add(path)
++
++    for directory, pattern in [
++        ("docs/prefix_io_v1", "*.md"),
++        ("docs/prefix_io_v1/templates", "*"),
++        ("experiments/prefix_io_v1/locks", "*.json"),
++        ("patches/prefix_io_v1", "*.patch"),
++        ("src/prefix_io_control", "*.py"),
++        ("experiments/prefix_io_v1/scripts", "*.py"),
++    ]:
++        for path in sorted((ROOT / directory).rglob(pattern)):
++            if path.is_file() and "__pycache__" not in path.parts:
++                add(path)
++    for directory in sorted((ROOT / "tests").glob("prefix_io_v1*")):
++        if directory.is_dir():
++            for path in sorted(directory.rglob("*.py")):
++                if "__pycache__" not in path.parts:
++                    add(path)
++    for value in [
++        "experiments/prefix_io_v1/execution_state.json",
++        "experiments/prefix_io_v1/gpu-budget-ledger.json",
++        "experiments/prefix_io_v1/configs/permissions.yaml",
++        "REPRODUCE_SERVER08_P3_DISPATCH_SHADOW.md",
++    ]:
++        add(value)
++
++    for plan_name in ("gpu-plan.json", "native-reference-plan.json", "shadow-gpu-plan.json"):
++        entry = json.loads((OUT / plan_name).read_text())
++        command = entry["command"]
++        assert "--output" in command, plan_name
++        folder = project_path(command[command.index("--output") + 1])
++        assert folder == project_path(entry["output"]), "frozen output differs from argv"
++        add_top(folder)
++        run_root = PRIMARY / entry["label"]
++        for name in ("process.log", "result.json"):
++            add(run_root / name)
++
++    # Original failing session and final corrected session are both preserved.
++    for label in ("server08-p3-13-shadow-matrix", "server08-p3-13-shadow-matrix-02"):
++        run_root = PRIMARY / label
++        add_top(run_root)
++        add_top(run_root / "cpu-evidence")
++    add_top(AUX / "cpu-evidence/server08-p3-13-migration-matrix")
++    add(AUX / "runs/server07-p3-c2-fullref-01/details/result.json")
++    for name in ("published-source-clone-fullhash.json", "published-source-post-GPU-fullhash.json"):
++        evidence = json.loads((OUT / name).read_text())
++        add(evidence["source_manifest"])
++
++    for path in sorted(OUT.rglob("*")):
++        if path.is_file() and path.name not in EXCLUDED_DELIVERY_NAMES:
++            add(path)
++    assert_idle(ledger_path)
++    assert sha(ledger_path) == ledger_digest, "GPU budget changed while gathering evidence"
++
++    manifest = dict(
++        schema_version=1, created_unix=time.time(),
++        project_root=str(ROOT), auxiliary_root=str(AUX),
++        report="docs/prefix_io_v1/SERVER08_P3_DISPATCH_SHADOW_REPORT.md",
++        destination=str(DESTINATION), reservation_bytes=RESERVATION_BYTES,
++        notes=("Model weights and cache .bin payloads remain on server. Includes failed and final "
++               "CPU logs, real GPU correctness/reference outputs, locks, patches and provenance. "
++               "Completed labels and delivery commands are append-only; do not rerun them."),
++        files=[dict(path=name, server_path=str(path), bytes=path.stat().st_size, sha256=sha(path))
++               for name, path in sorted(files.items())],
++    )
++    manifest_path = OUT / "delivery-manifest.json"
++    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
++    DESTINATION.parent.mkdir(parents=True, exist_ok=True)
++    assert not DESTINATION.parent.is_symlink()
++    assert_idle(ledger_path)
++    assert sha(ledger_path) == ledger_digest
++    # Revalidate the same reservation immediately before creating the archive.
++    preflight(DESTINATION, RESERVATION_BYTES)
++    with zipfile.ZipFile(DESTINATION, "x", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
++        for name, path in sorted(files.items()):
++            archive.write(path, name)
++        archive.write(manifest_path, "delivery-manifest.json")
++    assert DESTINATION.stat().st_size <= RESERVATION_BYTES, "ZIP exceeded frozen reservation"
++    with zipfile.ZipFile(DESTINATION) as archive:
++        assert archive.testzip() is None
++        names = archive.namelist()
++        assert len(names) == len(files) + 1 and len(names) == len(set(names))
++        for item in manifest["files"]:
++            contents = archive.read(item["path"])
++            assert len(contents) == item["bytes"]
++            assert hashlib.sha256(contents).hexdigest() == item["sha256"], item["path"]
++        assert archive.read("delivery-manifest.json") == manifest_path.read_bytes()
++    assert_idle(ledger_path)
++    assert sha(ledger_path) == ledger_digest
++    receipt = dict(
++        path=str(DESTINATION), bytes=DESTINATION.stat().st_size, sha256=sha(DESTINATION),
++        manifest_files=len(files), source_lock_files=len(lock),
++        package_script_sha256=own_digest, zip_roundtrip_all_hashes_verified=True,
++        gpu_budget_idle=True, storage_before=storage_before,
++        storage_after=preflight(PRIMARY / "deliveries/next", 0),
++    )
++    (OUT / "delivery-receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
++    print(json.dumps(receipt, indent=2))
++
++
++if __name__ == "__main__":
++    main()

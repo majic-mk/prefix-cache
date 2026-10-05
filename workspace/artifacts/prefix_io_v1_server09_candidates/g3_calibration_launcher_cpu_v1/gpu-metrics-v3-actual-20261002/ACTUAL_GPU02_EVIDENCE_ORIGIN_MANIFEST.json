@@ -1,0 +1,406 @@
+{
+  "status": "READ_ONLY_SELECTED_ACTUAL_GPU02_EVIDENCE_ORIGINS",
+  "files": [
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/result.json",
+      "mirror_relative": "cold/result.json",
+      "bytes": 1388,
+      "sha256": "f2ad2563e5e55fb0872eee2ea007d1399d0909fe080a9581e01efcbbc27ae747"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/process.log",
+      "mirror_relative": "cold/process.log",
+      "bytes": 14029,
+      "sha256": "02612d27c9d4c0d74ee1ab56b7fe8bd8fecfe772d283f0f31b1a8e94d15beec4"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/calibration-runtime-result.json",
+      "mirror_relative": "cold/details/calibration-runtime-result.json",
+      "bytes": 25998,
+      "sha256": "2802a24acfd56224420746549dc8fa9c6e63705b43206d2adc4c74013fd0aed6"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/post-source-verification.json",
+      "mirror_relative": "cold/details/post-source-verification.json",
+      "bytes": 501,
+      "sha256": "7cd24bd7918279bf9dd5bc2995528f1b165109209dc4f2a4365ed02422b65358"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/original-generate-00.json",
+      "mirror_relative": "cold/details/original-generate-00.json",
+      "bytes": 899,
+      "sha256": "9e901485bd9a11b7f8dad2f5eae262fb667b91feca314d5825c80b8fab045219"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/original-generate-01.json",
+      "mirror_relative": "cold/details/original-generate-01.json",
+      "bytes": 899,
+      "sha256": "5baecad69b3aaadfedd6ef1b568e569b784d3ae3b4e73403355287f459c857a7"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/original-generate-02.json",
+      "mirror_relative": "cold/details/original-generate-02.json",
+      "bytes": 899,
+      "sha256": "369c89a4a7635e3e4eecc5acf3dd0f054be941e32f1a524e78e0f88c707f4bcb"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/acquisition/result.json",
+      "mirror_relative": "cold/details/acquisition/result.json",
+      "bytes": 10830,
+      "sha256": "8926cb41727d40863db113a842cc557ce3c962f09ab27379351ec834f3259fc0"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/acquisition/partial.json",
+      "mirror_relative": "cold/details/acquisition/partial.json",
+      "bytes": 10122,
+      "sha256": "36e957311bbd78c30a2c0839f2f543cf9ca2cbdf7df9bd1862326e4b73e69c1f"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/acquisition/frozen-config.json",
+      "mirror_relative": "cold/details/acquisition/frozen-config.json",
+      "bytes": 7120,
+      "sha256": "16262847134f3bf4318fcf6d036d1650446b983274c9cb6b660a004b01b87f9a"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/acquisition/driver-source.py",
+      "mirror_relative": "cold/details/acquisition/driver-source.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/acquisition/f-128-0.trace.json",
+      "mirror_relative": "cold/details/acquisition/f-128-0.trace.json",
+      "bytes": 1131,
+      "sha256": "279b64544d769d4e8cf0c682c1ac170626b07e9d1000923e301a5db0907e9652"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/acquisition/f-128-1.trace.json",
+      "mirror_relative": "cold/details/acquisition/f-128-1.trace.json",
+      "bytes": 1116,
+      "sha256": "a3e1b370c154446d4a5dac2ec2057a1a4f96cf37d9311025911bd4ff1a9799f1"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-cold-02/details/acquisition/f-128-2.trace.json",
+      "mirror_relative": "cold/details/acquisition/f-128-2.trace.json",
+      "bytes": 1118,
+      "sha256": "8700581de082229e0f0279c7f14bf685ce93b0f7a27ca58a6e836b3a9c4d4abd"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/result.json",
+      "mirror_relative": "populate/result.json",
+      "bytes": 1400,
+      "sha256": "70cf011d4df0530a515c8a7607a69ae250dcd31379d87acbebcb48b525919a87"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/process.log",
+      "mirror_relative": "populate/process.log",
+      "bytes": 19577,
+      "sha256": "6534e7462373f29759b9cc6d39e05926daab8bca84033edb0f395db6b45e84a5"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/calibration-runtime-result.json",
+      "mirror_relative": "populate/details/calibration-runtime-result.json",
+      "bytes": 38120,
+      "sha256": "bb13ce2add9787add5d80d170bc9e4b5c5e5990b67ee2ea4f3164ae5afca1b0c"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/post-source-verification.json",
+      "mirror_relative": "populate/details/post-source-verification.json",
+      "bytes": 505,
+      "sha256": "7c89bd15a9600de63ad328a1b0985e19d9b8bac8708d531c57e704995cef63b9"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/storage-publication.json",
+      "mirror_relative": "populate/details/storage-publication.json",
+      "bytes": 8051,
+      "sha256": "1707c51847e41fce2e5a46b4d84ee41490ad65fd84997c2b9077ae833c099efc"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-00.json",
+      "mirror_relative": "populate/details/original-generate-00.json",
+      "bytes": 899,
+      "sha256": "9e901485bd9a11b7f8dad2f5eae262fb667b91feca314d5825c80b8fab045219"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-01.json",
+      "mirror_relative": "populate/details/original-generate-01.json",
+      "bytes": 131,
+      "sha256": "5f77c58d72f29e5223e842f7d0d35423e88e70a0b46641370223238d739e2653"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-02.json",
+      "mirror_relative": "populate/details/original-generate-02.json",
+      "bytes": 901,
+      "sha256": "d45e663f1b099a1d3efccadd28840f8baa91d23b9c3edbdc8ab25be7efbc9ecc"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-03.json",
+      "mirror_relative": "populate/details/original-generate-03.json",
+      "bytes": 899,
+      "sha256": "2af16a02002f9ac54fbfbd24a2a3f2bda499bcc90c9cb61732e06c97296bd94b"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-04.json",
+      "mirror_relative": "populate/details/original-generate-04.json",
+      "bytes": 133,
+      "sha256": "b242695b5c21b1f5d78842a55918f2478beecd3512950b2b2aff2b2867a376bb"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-05.json",
+      "mirror_relative": "populate/details/original-generate-05.json",
+      "bytes": 901,
+      "sha256": "442624a0d47d9984bb6a26aec91d1133c86c4eb999aa1fcb852dd9eb36c1e2c9"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-06.json",
+      "mirror_relative": "populate/details/original-generate-06.json",
+      "bytes": 899,
+      "sha256": "57cd3cd0d68f17b9c5eb4f21ffe288f524cdeeadd94cc76f9949e5a451a2064d"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-07.json",
+      "mirror_relative": "populate/details/original-generate-07.json",
+      "bytes": 132,
+      "sha256": "b77103dd3ee1927e68ea105344fe7aed0b586ba64592c692e9bd683724fc0c28"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/original-generate-08.json",
+      "mirror_relative": "populate/details/original-generate-08.json",
+      "bytes": 901,
+      "sha256": "3e82a5555c8aa0d839bcd19eafd0be5efe5eca37f4d49b517b445edf793998c2"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/result.json",
+      "mirror_relative": "populate/details/acquisition/result.json",
+      "bytes": 27351,
+      "sha256": "1564606b8d48545505ecdb5a4b3f612d2ffb6755cc33cc0498482e908696257d"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/partial.json",
+      "mirror_relative": "populate/details/acquisition/partial.json",
+      "bytes": 25866,
+      "sha256": "23d761ce2e516f0b80cab6d7171d0ccaab36a11e299191a9fcbce8d9e236602c"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/frozen-config.json",
+      "mirror_relative": "populate/details/acquisition/frozen-config.json",
+      "bytes": 7808,
+      "sha256": "e16f2f01228812afac7f12f9c7a80f4789509e91044aca553c60ee0caf5db695"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/driver-source.py",
+      "mirror_relative": "populate/details/acquisition/driver-source.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/g_mem-128-0.trace.json",
+      "mirror_relative": "populate/details/acquisition/g_mem-128-0.trace.json",
+      "bytes": 5986,
+      "sha256": "da2167be2633d738ba9c997d3b9a78d288a4a58c5e3be712b9bcba8ae8d1e8a6"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/g_mem-128-1.trace.json",
+      "mirror_relative": "populate/details/acquisition/g_mem-128-1.trace.json",
+      "bytes": 5982,
+      "sha256": "4ee5411c9219634e5903ca486f28414e46ff0fd8b948716f6235060fc2af14c5"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/g_mem-128-2.trace.json",
+      "mirror_relative": "populate/details/acquisition/g_mem-128-2.trace.json",
+      "bytes": 5995,
+      "sha256": "999acc25f7b1bfe10a2def16017f5aec8b8019ab6215c9c1ab5f30cf8a7524aa"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/store-128-0.trace.json",
+      "mirror_relative": "populate/details/acquisition/store-128-0.trace.json",
+      "bytes": 7851,
+      "sha256": "a78ac4ce4b4c900437bc431fe3d19c4c0c5d17b4c837ef5ebeb869f9af03779b"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/store-128-1.trace.json",
+      "mirror_relative": "populate/details/acquisition/store-128-1.trace.json",
+      "bytes": 7796,
+      "sha256": "20223adb53144f6d2fe3a966c6919e949295b7ce4a6e9eff37d3302248174fa3"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-populate-02/details/acquisition/store-128-2.trace.json",
+      "mirror_relative": "populate/details/acquisition/store-128-2.trace.json",
+      "bytes": 7787,
+      "sha256": "2133b2fbe4da858839b725ed7873405d7f89bb765ca2e3eff226f97a19d2ef99"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/result.json",
+      "mirror_relative": "paired/result.json",
+      "bytes": 1393,
+      "sha256": "e61304d64f3fda4ebb024092bb36502cd9166509116b94a3d701a0cad1cf2397"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/process.log",
+      "mirror_relative": "paired/process.log",
+      "bytes": 19739,
+      "sha256": "d0095495300e1805d55a20db436901daeb8a24d71661a943f1d27f06a10be1df"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/calibration-runtime-result.json",
+      "mirror_relative": "paired/details/calibration-runtime-result.json",
+      "bytes": 36752,
+      "sha256": "e61e2ea7e06c3b5af7ff2f1840a22b799ef8e150f93ef822d308abf7eda56156"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/post-source-verification.json",
+      "mirror_relative": "paired/details/post-source-verification.json",
+      "bytes": 503,
+      "sha256": "4290d0957c2ae6abd7b3bc4350c60b6598387ff89bf69477c38f6ba6dd212195"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/original-generate-00.json",
+      "mirror_relative": "paired/details/original-generate-00.json",
+      "bytes": 901,
+      "sha256": "66c011cad5b8635e987be636e3555210f42c2d4bbd43d79200f8a56f2eea7a28"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/original-generate-01.json",
+      "mirror_relative": "paired/details/original-generate-01.json",
+      "bytes": 901,
+      "sha256": "5007fa4fb6b500bf2754ec3b4e795fe44290673c8cee58936b88fa180ffc556e"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/original-generate-02.json",
+      "mirror_relative": "paired/details/original-generate-02.json",
+      "bytes": 901,
+      "sha256": "1a4ef671b32b00085ad6abd231cb8267e19b3297593b1aac627536cca7ded49c"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/original-generate-03.json",
+      "mirror_relative": "paired/details/original-generate-03.json",
+      "bytes": 901,
+      "sha256": "3ae7514df2d66c4b8b4077e2917e2e9b5e3eb9e1a6b9d7ab20cd9ab6d5e274b4"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/original-generate-04.json",
+      "mirror_relative": "paired/details/original-generate-04.json",
+      "bytes": 901,
+      "sha256": "7477999c802601a7273889ca5afe651426b18b4f97af42b55b9bbdfa1e74668a"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/original-generate-05.json",
+      "mirror_relative": "paired/details/original-generate-05.json",
+      "bytes": 901,
+      "sha256": "84ca440888423f101dfcd8a88717f4041f95d79529619da9f0f0da5526b225b7"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/result.json",
+      "mirror_relative": "paired/details/acquisition/result.json",
+      "bytes": 28435,
+      "sha256": "c408a65a3a3cd63c322f062e7de25b7eadf1c86e6f986e6a597589defc890a14"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/partial.json",
+      "mirror_relative": "paired/details/acquisition/partial.json",
+      "bytes": 26952,
+      "sha256": "483de6eeac09e838f6b7ff334c18d645d3d2e7938885244d2dbac633fb0ae892"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/frozen-config.json",
+      "mirror_relative": "paired/details/acquisition/frozen-config.json",
+      "bytes": 7808,
+      "sha256": "e16f2f01228812afac7f12f9c7a80f4789509e91044aca553c60ee0caf5db695"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/driver-source.py",
+      "mirror_relative": "paired/details/acquisition/driver-source.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/g_mem-128-0.trace.json",
+      "mirror_relative": "paired/details/acquisition/g_mem-128-0.trace.json",
+      "bytes": 5995,
+      "sha256": "00029de63294877d7a2cf6264f6bac2efb479dfa09240b203a8d870cdad0bc51"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/g_mem-128-1.trace.json",
+      "mirror_relative": "paired/details/acquisition/g_mem-128-1.trace.json",
+      "bytes": 5987,
+      "sha256": "111743753e0f3ad156cb2c89e9fdc3457952a10836aa2aad3ab99ded2a1b9362"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/g_mem-128-2.trace.json",
+      "mirror_relative": "paired/details/acquisition/g_mem-128-2.trace.json",
+      "bytes": 5990,
+      "sha256": "32bc4be1b0aa8a8be484b2e75bccd0401d3ee853dd923b9a9df69c7e22f82307"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/g_ssd-128-0.trace.json",
+      "mirror_relative": "paired/details/acquisition/g_ssd-128-0.trace.json",
+      "bytes": 14231,
+      "sha256": "ab48b53a5832da853c732ebd766fa8d8270f6cd856ca93c3f0b1b08de46c40dd"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/g_ssd-128-1.trace.json",
+      "mirror_relative": "paired/details/acquisition/g_ssd-128-1.trace.json",
+      "bytes": 14288,
+      "sha256": "268be81a88b9bc906ccb41fc65a79964d5408bf0e4c423960b505e8c12617863"
+    },
+    {
+      "origin_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-paired-02/details/acquisition/g_ssd-128-2.trace.json",
+      "mirror_relative": "paired/details/acquisition/g_ssd-128-2.trace.json",
+      "bytes": 14798,
+      "sha256": "2aa9d931bb897b3639d82d4931b256af80b92d3dce7d32105406dda87b037631"
+    },
+    {
+      "origin_relative": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-metrics-v3-actual-20261002/cold-parent.log",
+      "mirror_relative": "cold-parent.log",
+      "bytes": 1388,
+      "sha256": "f2ad2563e5e55fb0872eee2ea007d1399d0909fe080a9581e01efcbbc27ae747"
+    },
+    {
+      "origin_relative": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-metrics-v3-actual-20261002/cold-parent-execution.json",
+      "mirror_relative": "cold-parent-execution.json",
+      "bytes": 2831,
+      "sha256": "c7500399de98a010ac550a50b6e749f90ed26c146cbcc27352702574532bc16f"
+    },
+    {
+      "origin_relative": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-metrics-v3-actual-20261002/populate-parent.log",
+      "mirror_relative": "populate-parent.log",
+      "bytes": 1400,
+      "sha256": "70cf011d4df0530a515c8a7607a69ae250dcd31379d87acbebcb48b525919a87"
+    },
+    {
+      "origin_relative": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-metrics-v3-actual-20261002/populate-parent-execution.json",
+      "mirror_relative": "populate-parent-execution.json",
+      "bytes": 4391,
+      "sha256": "8fc9c6a9e27f686acf2482dd756783dea82ef40eb7ccb74406885645b1d2c34c"
+    },
+    {
+      "origin_relative": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-metrics-v3-actual-20261002/paired-parent.log",
+      "mirror_relative": "paired-parent.log",
+      "bytes": 1393,
+      "sha256": "e61304d64f3fda4ebb024092bb36502cd9166509116b94a3d701a0cad1cf2397"
+    },
+    {
+      "origin_relative": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-metrics-v3-actual-20261002/paired-parent-execution.json",
+      "mirror_relative": "paired-parent-execution.json",
+      "bytes": 5928,
+      "sha256": "932910bf03a8131689f65e84f3a59ff075a81494ef6a60b13b977ef6a3734a63"
+    },
+    {
+      "origin_relative": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-metrics-v3-actual-20261002/ACTUAL_THREE_GPU_JOBS_AND_JOINT_CPU_RECHECK.json",
+      "mirror_relative": "ACTUAL_THREE_GPU_JOBS_AND_JOINT_CPU_RECHECK.json",
+      "bytes": 27077,
+      "sha256": "c86f523f1dbb19478e305aa133694151862e1802b7465a772e90197c2f0965ab"
+    },
+    {
+      "origin_relative": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-metrics-v3-actual-20261002/gpu-budget-ledger-after-three-jobs.json",
+      "mirror_relative": "gpu-budget-ledger-after-three-jobs.json",
+      "bytes": 354993,
+      "sha256": "be14eb7e34ccde501481777340ec3baf62e1f8511436614324ff976585ebf0f3"
+    }
+  ],
+  "total_files": 66,
+  "total_bytes": 896584,
+  "private_generated_compilation_caches_not_mirrored": true,
+  "all_original_data_preserved": true,
+  "GPU_operations": 0
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "actual_main_pair_CPU_analysis_execution_v1",
+  "GPU_operations": 0,
+  "SSH_operations": 0,
+  "new_tests_added": false,
+  "main_pair_execution": {
+    "tool_chunk_id": "41558f",
+    "exit": 0,
+    "entry_point": "source-only import analyze_dr_long_results.analyze_runs",
+    "project": ".",
+    "entries": "ACTUAL_MAIN_PAIR_RUN_INDEX_01.json",
+    "expected_gpu_uuid": "GPU-cb140ee8-a52e-93ba-38f7-e2fddfbb43b3",
+    "expected_common_domain_sha256": "e75c3adff856be6dd9993dc1990a4709b5ea00971a35557bdf5731ee377fcd75",
+    "clock_proof": "MONOTONIC_TOKEN_CLOCK_SOURCE_01.json",
+    "actual_U_validation_failure_reasons": [],
+    "actual_DR_validation_failure_reasons": [],
+    "saved_output": "ACTUAL_MAIN_PAIR_ANALYSIS_01.json"
+  },
+  "full_journal_read_execution": {
+    "tool_chunk_id": "93e0b6",
+    "exit": 0
+  },
+  "supplement_execution": {
+    "tool_chunk_id": "814a62",
+    "exit": 0,
+    "saved_output": "ACTUAL_MAIN_PAIR_MECHANISM_LATENCY_SUPPLEMENT_01.json",
+    "stdout": "{\"primary_method_slowdown_percent\": 16.985979884187795, \"means\": {\"ttft_seconds\": {\"U\": 11.183555545690547, \"F8_D_R\": 13.584381823833178, \"DR_minus_U\": 2.400826278142631, \"improvement_fraction\": -0.21467468626896224}, \"completion_seconds\": {\"U\": 15.511046887594352, \"F8_D_R\": 18.223070172439407, \"DR_minus_U\": 2.7120232848450545, \"improvement_fraction\": -0.17484463199025693}, \"per_request_ITLp95_seconds\": {\"U\": 0.06131421972066161, \"F8_D_R\": 0.09336753861978633, \"DR_minus_U\": 0.03205331889912472, \"improvement_fraction\": -0.5227713741633644}}, \"rows\": 10, \"choices\": 1314, \"actual_changes\": 0}\r\n"
+  },
+  "independent_CAL07_audit_execution": {
+    "tool_chunk_id": "247c25",
+    "exit": 0,
+    "saved_output": "ACTUAL_INDEPENDENT_CAL07_CPU_AUDIT_01.json",
+    "stdout": "{\"classification\": \"INDEPENDENT_SINGLE_FAMILY_DEVELOPMENT_CALIBRATION\", \"full_generated_tokens\": 1280, \"primary_response_seconds\": 13.128706948566286, \"sample_count\": 1, \"coverage\": \"VALID_CLOSED_BUT_COVERAGE_MISSING\", \"GPU_operations\": 0}\r\n"
+  },
+  "improvement_claim": false,
+  "effect_scope": "one current-domain adjacent U04 to F8+D_R01 pair, NOT_EXERCISED",
+  "reverse_GPU_pair_executed": false,
+  "refs": [
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/analyze_dr_long_results.py",
+      "bytes": 30832,
+      "sha256": "430a6fde7a2e81b4736e47143717e32563e5a3ff4e27a3decd6eb64232c56fbb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/ACTUAL_MAIN_PAIR_RUN_INDEX_01.json",
+      "bytes": 1743,
+      "sha256": "15e0e73e43cf1cb0cc51e240d71b63212fe40c31186f86d9fe34015260363106"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/ACTUAL_MAIN_PAIR_ANALYSIS_01.json",
+      "bytes": 25085,
+      "sha256": "5ddeba111c0cff95713fbd5ba557f50cc3aeba71f8147a4fde66e11748856ffb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/ACTUAL_MAIN_PAIR_MECHANISM_LATENCY_SUPPLEMENT_01.json",
+      "bytes": 20771,
+      "sha256": "260a71967c4a1d87cffcf5274a3a59fc0a38d51995a0a0ccbe66df89baacec78"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/ACTUAL_INDEPENDENT_CAL07_CPU_AUDIT_01.json",
+      "bytes": 6628,
+      "sha256": "fac00ba8f9ca105d10bdce5794904aeb320447242b5e6730ec0d836329838029"
+    }
+  ]
+}

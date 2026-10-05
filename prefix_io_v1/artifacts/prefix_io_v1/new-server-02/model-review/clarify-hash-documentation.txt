@@ -1,0 +1,1 @@
+Clarified Git blob NUL-byte hash prefix in review documentation.

@@ -1,0 +1,38 @@
+{
+  "files": {
+    "artifacts/prefix_io_v1/new-server-03/platform-probe/io_uring_setup_probe.py": {
+      "bytes": 5637,
+      "sha256": "97d75b973783d83c4c36a2701f3e6261b40bed775c9c52a25094ea33ecd27dc9"
+    },
+    "artifacts/prefix_io_v1/new-server-03/platform-probe/setup-probe.json": {
+      "bytes": 1115,
+      "sha256": "1b9f157253da5e1f421b11fe19743902e3d03301a573af0a15b6e943e883f259"
+    },
+    "artifacts/prefix_io_v1/new-server-03/platform-probe/README.md": {
+      "bytes": 3923,
+      "sha256": "f067499ce91f08186ca5102b7be3c890486a84afe71061dc58d38187668988f2"
+    },
+    "/usr/include/x86_64-linux-gnu/asm/unistd_64.h": {
+      "bytes": 9687,
+      "sha256": "9f1c975001d7cd39af3a2c14d518d80b0aaaab8bec3ad12b5e56419bdc8cafbe"
+    },
+    "/usr/include/linux/io_uring.h": {
+      "bytes": 9803,
+      "sha256": "15c35dc01c7eaed6e2b2777a126c27031f16e01c3b1e9f9a14ec4a32adfc2320"
+    },
+    "third_party/work/py-kvcache-observer/py_kvcache/liburing_file.py": {
+      "bytes": 15244,
+      "sha256": "6a8995ca6e5f49ae470e8c49dbf3d98caf2d09dd091cb6f08f9e892c051414f5"
+    }
+  },
+  "new_probe_executions": 1,
+  "setup_syscall_executions": 1,
+  "setup_errno": 1,
+  "setup_exit": 2,
+  "gpu_operations": 0,
+  "network_operations": 0,
+  "system_changes": 0,
+  "model_budget_ledger_changed": false,
+  "gate": "BLOCKED",
+  "root_cause_proven": false
+}

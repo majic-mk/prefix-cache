@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "status": "NOT_AUTHORIZED_CPU_REFERENCE_PLAN",
+  "purpose": "CURRENT_CONTEXT_CACHED_NUMERICAL_REFERENCE_ONLY",
+  "qualification_context": {
+    "purpose": "CURRENT_CONTEXT_CACHED_NUMERICAL_REFERENCE_ONLY",
+    "project_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "model_relative": "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "model_plan_relative": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "model_alias": "Qwen/Qwen2.5-7B-Instruct",
+    "gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+    "acquisition_source": {
+      "path": "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    "engine_source": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "acquisition_domain": 1024,
+    "sizes": [
+      128
+    ],
+    "reps": 3,
+    "max_num_seqs": 1,
+    "iodepth": 4,
+    "prompt_tokens_per_main_request": 129,
+    "reusable_prefix_tokens": 128,
+    "outputs_per_request": 1,
+    "requests_by_mode": {
+      "cold": 6,
+      "paired": 6
+    },
+    "total_requests": 12,
+    "total_outputs": 12,
+    "warmup_rep": 0,
+    "measured_samples_per_point_per_route": 2,
+    "engine_overrides": {
+      "async_scheduling": false,
+      "max_model_len": 1040,
+      "max_num_batched_tokens": 1040,
+      "kv_cache_memory_bytes": 268435456,
+      "prefix_caching_hash_algo": "sha256",
+      "disable_log_stats": false
+    },
+    "sampling": {
+      "temperature": 0.0,
+      "seed": 0,
+      "max_tokens": 1,
+      "min_tokens": 1,
+      "ignore_eos": true,
+      "detokenize": false,
+      "logprobs": 5
+    },
+    "connector": {
+      "io_backend": "linux_aio",
+      "sync_on_store": false,
+      "staging_mem": 0.125,
+      "enable_preload": true,
+      "preload_share_staging": true,
+      "preload_lookahead_requests": 1,
+      "staging_cache": "lru",
+      "load_planner": "off",
+      "prefix_cache_break_even_path": null
+    },
+    "shared_storage_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-02-private-storage",
+    "strategies": "off",
+    "common_stats_schema_fix": "original producer dataclass -> lossless dictionary; common to all strategy modes",
+    "asynchronous_author_io_preserved": true,
+    "new_executor": false,
+    "reset_scope": "original calibration GPU-only resets; reset_connector=False",
+    "timing_scope": "original diagnostic TTFT only; excluded from latency fitting",
+    "curve_output": false,
+    "cost_qualified": false,
+    "production_qualified": false,
+    "performance_claim": false,
+    "budget_reset": false,
+    "cumulative_gpu_budget_seconds": 28800,
+    "seconds_limit_per_job": 300,
+    "guard_reserve_seconds_per_job": 20,
+    "total_reserved_seconds": 640,
+    "storage_reserve_bytes_per_job": 1073741824,
+    "total_storage_reserve_bytes": 2147483648,
+    "storage_floor_bytes": 8589934592,
+    "existing_assets_only": true,
+    "no_download": true,
+    "no_system_or_author_changes": true,
+    "no_data_deletion": true,
+    "storage_by_mode": {
+      "cold": "experiments/prefix_io_v1/runs/server10-g3-reference-native-01-unused-storage",
+      "paired": "experiments/prefix_io_v1/runs/server09-g3-calibration-02-private-storage"
+    },
+    "diagnostic_flags": {
+      "cold": [
+        "--native-hot-diagnostic",
+        "--diagnostic-logprobs"
+      ],
+      "paired": [
+        "--cached-reference-logprobs"
+      ]
+    },
+    "reference_routes": {
+      "cold": [
+        "f",
+        "gpu_hot"
+      ],
+      "paired": [
+        "g_ssd",
+        "g_mem"
+      ]
+    },
+    "cold_external_connector_enabled": false,
+    "paired_existing_storage_required": true,
+    "paired_original_writes_permitted": true,
+    "deletes_existing_input": false,
+    "input_contract": "actual pre/post cache byte manifests; no inferred logical KV equivalence",
+    "analysis_contract": "frozen top-5 logprob analyzer plan; no curve or latency-effect qualification"
+  },
+  "baseline_source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-metrics-v3-final.json",
+    "bytes": 910009,
+    "sha256": "b8ad831c294d978e36a0b1a6343118516af5c55a6e0a9c4380ff6644ec91092b"
+  },
+  "migration_ancestor_source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-reference-v1.json",
+    "bytes": 910072,
+    "sha256": "8443f45dd4dd6c1c64595199051f5e88449268af347bcbd836c927b754eabe30"
+  },
+  "machine_migration": {
+    "source_gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+    "execution_gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+    "project_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "execution_driver_version": "580.95.05",
+    "execution_driver_path": "/usr/lib/x86_64-linux-gnu/libcuda.so.580.95.05",
+    "driver_assets_require_new_real_CPU_compile_link_proof": true,
+    "historical_evidence_modified": false,
+    "old_machine_timings_reused_for_fit": false,
+    "original_experiment_definition_preserved": true,
+    "budget_reset": false
+  },
+  "new_source_refs": [
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/run_server10_reference.py",
+      "bytes": 14507,
+      "sha256": "7db73e900c344a3f44e9dd60d8583125794e8291728d3adca3871267959c157d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/migration_contract.py",
+      "bytes": 20885,
+      "sha256": "1ab4f1a694f695f3736c8d9f1e417a6918f548800af4a4e99f3b7bf54d0e491d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/test_migration_contract.py",
+      "bytes": 14699,
+      "sha256": "93862687019baeee23845d9e2c7140c9bfb9b9965e8494c68556c1be126e456f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/server10_reference_runtime.py",
+      "bytes": 12079,
+      "sha256": "9b154ac69f2981f097810a5c824fb10e8f8cbbcce48d2fb0fba471e7c9a678c3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/test_server10_reference_runtime.py",
+      "bytes": 11719,
+      "sha256": "3dbe698aad4ec5376b7c2b67689950f2f1e8a659666f9c1b9eea3dee42afe0e2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/prepare_server10_reference.py",
+      "bytes": 6048,
+      "sha256": "65d2e8dee2c6d2189e10ff41dd44ec204e1c077330028052572e4fc7f10ef7ee"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-sdk-rebind-v1-20261003/rebind_cuda13_cpu.py",
+      "bytes": 9897,
+      "sha256": "b42efb1f362c94f2fac45ebe0be2072c03f5bbd4c1052a3180cf8a216e215abd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-sdk-rebind-v1-20261003/test_rebind_cuda13_cpu.py",
+      "bytes": 2090,
+      "sha256": "aeb80d37147f743c7ad80f1c25858507299f262a615bcadff6f00a0bda8a9661"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CUDA13_SOURCE_INVENTORY.json",
+      "bytes": 692329,
+      "sha256": "0e7cc1df1d8d7aed7271841d6e9f1e4188785f40ad4c74b4c6c78f670b7794b6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CPU_COMPILE_LINK_RESULT.json",
+      "bytes": 5588,
+      "sha256": "ef7a7482cc1cae539e2425d6aefc82ea8160e398ab7d8b14926f76537e614a25"
+    },
+    {
+      "path": "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+      "bytes": 685,
+      "sha256": "aa54897390dd18c71f4578d45c87b74a3d26a3c63daea2660bf752c41be3be50"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/MIGRATION_RUNTIME_CONFIG.json",
+      "bytes": 1063,
+      "sha256": "9aebb8021b144b3b19de30adcacaab9e92be06f3683c44539d3210ca097a4e72"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/G3_REFERENCE_MODEL_CONTEXT.json",
+      "bytes": 12123,
+      "sha256": "8b039fb3ce0b7a0a1a6e3452c3b2b4b4483900bbf3127d014331887046a9a45f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/G3_REFERENCE_ANALYZER_PLAN.json",
+      "bytes": 1088,
+      "sha256": "a2961ec5528c9ec686df19af05ed08a715cf4fa4b19028a03fc18b6d6b5f1bf5"
+    }
+  ],
+  "input_manifest_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/G3_REFERENCE_INPUT_MANIFEST.json",
+    "bytes": 9730,
+    "sha256": "d601114bd93fb99643bc0c9c5be8c5ab2fa83deec95ecc1e366ed48d00b8af24"
+  },
+  "analyzer_plan_ref": {
+    "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/G3_REFERENCE_ANALYZER_PLAN.json",
+    "bytes": 1088,
+    "sha256": "a2961ec5528c9ec686df19af05ed08a715cf4fa4b19028a03fc18b6d6b5f1bf5"
+  },
+  "source_bytes_verified": false,
+  "authorizes_gpu": false,
+  "production_qualified": false,
+  "jobs": [
+    {
+      "mode": "cold",
+      "label": "server10-g3-reference-native-01",
+      "original_argv": [
+        "--mode",
+        "cold",
+        "--domain",
+        "1024",
+        "--sizes",
+        "128",
+        "--reps",
+        "3",
+        "--max-num-seqs",
+        "1",
+        "--iodepth",
+        "4",
+        "--model-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--storage",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server10-g3-reference-native-01-unused-storage",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server10-g3-reference-native-01/details/acquisition",
+        "--native-hot-diagnostic",
+        "--diagnostic-logprobs"
+      ],
+      "requests": 6,
+      "output_tokens_per_request": 1,
+      "diagnostic_logprobs": 5,
+      "seconds_limit": 300,
+      "guard_reserve_seconds": 20,
+      "retries": 0,
+      "requires_prior_success_original_shutdown_and_OS_drain": false
+    },
+    {
+      "mode": "paired",
+      "label": "server10-g3-reference-paired-01",
+      "original_argv": [
+        "--mode",
+        "paired",
+        "--domain",
+        "1024",
+        "--sizes",
+        "128",
+        "--reps",
+        "3",
+        "--max-num-seqs",
+        "1",
+        "--iodepth",
+        "4",
+        "--model-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--storage",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-02-private-storage",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server10-g3-reference-paired-01/details/acquisition",
+        "--cached-reference-logprobs"
+      ],
+      "requests": 6,
+      "output_tokens_per_request": 1,
+      "diagnostic_logprobs": 5,
+      "seconds_limit": 300,
+      "guard_reserve_seconds": 20,
+      "retries": 0,
+      "requires_prior_success_original_shutdown_and_OS_drain": true
+    }
+  ]
+}

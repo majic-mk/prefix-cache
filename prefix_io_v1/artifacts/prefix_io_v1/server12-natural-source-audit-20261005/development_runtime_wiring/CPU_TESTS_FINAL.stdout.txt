@@ -1,0 +1,31 @@
+test_CPU_preflight_modules_import_no_model_or_native_backend (__main__.WiringTests.test_CPU_preflight_modules_import_no_model_or_native_backend) ... ok
+test_U_no_preview_budget_and_shadow_null_refused (__main__.WiringTests.test_U_no_preview_budget_and_shadow_null_refused) ... ok
+test_U_runtime_does_not_construct_optional_controller (__main__.WiringTests.test_U_runtime_does_not_construct_optional_controller) ... ok
+test_actual_runner_loads_scoped_development_module (__main__.WiringTests.test_actual_runner_loads_scoped_development_module) ... ok
+test_budget_extra_authority_flags_and_origin_refused (__main__.WiringTests.test_budget_extra_authority_flags_and_origin_refused) ... ok
+test_closed_peer_namespace_adapter_not_replaced (__main__.WiringTests.test_closed_peer_namespace_adapter_not_replaced) ... ok
+test_development_activation_retains_exact_original_issue_function (__main__.WiringTests.test_development_activation_retains_exact_original_issue_function) ... ok
+test_development_descriptor_effect_off_and_on_rejected (__main__.WiringTests.test_development_descriptor_effect_off_and_on_rejected) ... ok
+test_development_descriptor_on_and_qualification_rejected (__main__.WiringTests.test_development_descriptor_on_and_qualification_rejected) ... ok
+test_development_on_runtime_controller_rejected_before_loading (__main__.WiringTests.test_development_on_runtime_controller_rejected_before_loading) ... ok
+test_effect_original_descriptor_keeps_original_F_and_activation (__main__.WiringTests.test_effect_original_descriptor_keeps_original_F_and_activation) ... ok
+test_external_SLO_and_deadline_cannot_enter_adapter (__main__.WiringTests.test_external_SLO_and_deadline_cannot_enter_adapter) ... ok
+test_factory_activation_no_deadline_no_mock_reserve_no_ready (__main__.WiringTests.test_factory_activation_no_deadline_no_mock_reserve_no_ready) ... ok
+test_factory_binding_closes_real_bytes_but_does_not_declare_ready (__main__.WiringTests.test_factory_binding_closes_real_bytes_but_does_not_declare_ready) ... ok
+test_natural_input_mandatory_and_real_leaf_closure_kept (__main__.WiringTests.test_natural_input_mandatory_and_real_leaf_closure_kept) ... ok
+test_new_private_module_names_unique_even_if_clock_repeats (__main__.WiringTests.test_new_private_module_names_unique_even_if_clock_repeats) ... ok
+test_original_calibration_guard_rejects_GPU_boolean_fixture (__main__.WiringTests.test_original_calibration_guard_rejects_GPU_boolean_fixture) ... ok
+test_original_drive_guard_and_qualification_functions_AST_unchanged (__main__.WiringTests.test_original_drive_guard_and_qualification_functions_AST_unchanged) ... ok
+test_original_native_capture_rejects_old_host_elapsed_clock (__main__.WiringTests.test_original_native_capture_rejects_old_host_elapsed_clock) ... ok
+test_original_private_mock_cost_table_never_qualifies (__main__.WiringTests.test_original_private_mock_cost_table_never_qualifies) ... ok
+test_runner_detects_source_mutation_during_execution (__main__.WiringTests.test_runner_detects_source_mutation_during_execution) ... ok
+test_runtime_original_finally_and_effect_native_verifiers_AST_unchanged (__main__.WiringTests.test_runtime_original_finally_and_effect_native_verifiers_AST_unchanged) ... ok
+test_shadow_positive_engineering_setting_never_SLO_or_ordinary_I (__main__.WiringTests.test_shadow_positive_engineering_setting_never_SLO_or_ordinary_I) ... ok
+test_source_only_F_pure_loader_ignores_valid_malicious_pyc (__main__.WiringTests.test_source_only_F_pure_loader_ignores_valid_malicious_pyc) ... ok
+test_source_only_pure_loader_rejects_backend_import_before_execution (__main__.WiringTests.test_source_only_pure_loader_rejects_backend_import_before_execution) ... ok
+test_source_only_runner_ignores_valid_malicious_pyc (__main__.WiringTests.test_source_only_runner_ignores_valid_malicious_pyc) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 1.381s
+
+OK

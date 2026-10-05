@@ -1,0 +1,17 @@
+{
+  "native_reference": "server07-p3-aux-long-native-128-01",
+  "replays": [
+    "server07-p3-aux-long-replay-01",
+    "server07-p3-aux-long-replay-02"
+  ],
+  "prompt_manifest": "artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json",
+  "prompt_manifest_sha256": "a8a5f10a7f4596a2cb57fff9ba373c4f6a6c20a9398f44d6fed1ccddb76c0195",
+  "expected_tokens_per_request": 128,
+  "requests_per_replay": 6,
+  "output_acceptance": "exact full 128-token match to corresponding native GPU cached reference, all requests retained",
+  "run_details": {
+    "server07-p3-aux-long-native-128-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-long-native-128-01/details",
+    "server07-p3-aux-long-replay-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-long-replay-01/details",
+    "server07-p3-aux-long-replay-02": "/root/prefix-io-v1-validation/runs/server07-p3-aux-long-replay-02/details"
+  }
+}

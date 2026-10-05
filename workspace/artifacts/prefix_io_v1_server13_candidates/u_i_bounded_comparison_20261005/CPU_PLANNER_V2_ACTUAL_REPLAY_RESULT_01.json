@@ -1,0 +1,13 @@
+{
+  "schema": "already_observed_local_CPU_planner_fixture_result_v1",
+  "exit_code": 0,
+  "tool_wall_time_seconds": 0.3331744,
+  "output_original_token_count": 237,
+  "stdout": "STATIC_CPU_FIXTURE_ONLY_NO_ACTUAL_IO\r\n{\"f768_s\": 0.056635984763428716, \"gMem768_s\": 0.05029240825720001, \"gSSD768_s\": 0.11002541114508411, \"second_recompute_s\": 0.11327196952685743, \"service768_s\": 0.05973300288788411, \"slack_s\": 0.003246558381773318}\r\n{\"candidate_names\": [\"A\"], \"fixture_outstanding_load_blocks\": [], \"results\": {\"A\": {\"decision\": \"DECLINE\", \"preload_blocks\": 0}}}\r\n{\"candidate_names\": [\"K\", \"A\"], \"fixture_outstanding_load_blocks\": [], \"results\": {\"A\": {\"decision\": \"DEFER\", \"preload_blocks\": 48}, \"K\": {\"decision\": \"DECLINE\", \"preload_blocks\": 0}}}\r\n{\"candidate_names\": [\"K\", \"A\"], \"fixture_outstanding_load_blocks\": [1], \"results\": {\"A\": {\"decision\": \"DEFER\", \"preload_blocks\": 48}, \"K\": {\"decision\": \"DECLINE\", \"preload_blocks\": 0}}}\r\n{\"candidate_names\": [\"K\", \"A\"], \"fixture_outstanding_load_blocks\": [4], \"results\": {\"A\": {\"decision\": \"DECLINE\", \"preload_blocks\": 0}, \"K\": {\"decision\": \"DECLINE\", \"preload_blocks\": 0}}}\r\n",
+  "stderr_separately_captured": false,
+  "stderr": null,
+  "output_capture": "unified exec_command output; all observed lines equal source print statements; no separate stderr receipt",
+  "recorded_at_utc": "2026-10-05T10:13:43.938966+00:00",
+  "not_a_GPU_or_current_cost_receipt": true,
+  "tool_output_chunk_id": "f05d2a"
+}

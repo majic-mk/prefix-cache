@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "authorization_origin": "direct_human_reply",
+  "question": "是否授权补全 Ninja 路径后的 G2 验证：先 off03，通过后再 shadow03，最多 2 次；每次执行 300 秒加 20 秒收尾，总预留 640 秒，沿用原 8 小时预算（剩余约 3.37 小时）？每次 cold/repeat 各完整生成 128 tokens，只用现有 Qwen2.5-7B、CUDA 13 和 Ninja，PRIMARY 预留 128 MiB、保留 8 GiB 空间，不下载、不修改系统或驱动、不删除数据。\n\n服务器 51/51 CPU 测试、4,040 项冻结清单和两侧 34 文件交付核验已通过；真实采样器也已在 CPU 完成全部编译、链接，但生成库未加载，尚无正常模型输出。新源锁 SHA-256：7b8445363e985a7dc4bff08960b31ee4cc325e3d309322f7f4b15d5b0f8aa423。\n\n需要新授权，因为 off02 已因找不到 Ninja 失败，shadow02 的授权只在 off02 成功后有效；不能用于重试。新的私有 Ninja 路径接线改变了冻结代码和名称。本轮仍只验证完整输出与生命周期，不是性能提升实验。",
+  "verbatim_user_answer": "授权这 2 次 Ninja 修复版 G2 验证并继续",
+  "reply_observed_utc": "2026-10-01 15:13:25 UTC",
+  "question_item_id": "[\"request_user_input_async\",\"call_XysDBE9bprRcjx7pK1S0MAuR\",0]",
+  "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "allow_gpu_initialization": true,
+  "allow_gpu_runs": true,
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "permitted_run_names": {
+    "off": "server09-g2-normal-off-03",
+    "shadow": "server09-g2-normal-shadow-03"
+  },
+  "maximum_jobs": 2,
+  "maximum_total_planned_reserve_seconds": 640,
+  "seconds_limit_per_job": 300,
+  "guard_reserve_seconds_per_job": 20,
+  "source_lock_sha256": "7b8445363e985a7dc4bff08960b31ee4cc325e3d309322f7f4b15d5b0f8aa423",
+  "storage_reserve_bytes": 134217728,
+  "storage_floor_bytes": 8589934592,
+  "cumulative_gpu_budget_seconds": 28800,
+  "budget_reset": false,
+  "off_must_pass_before_shadow": true,
+  "new_executor": false,
+  "allow_model_downloads": false,
+  "allow_system_or_driver_modification": false,
+  "allow_data_deletion": false,
+  "CPU_sampler_so_reused": false,
+  "performance_claim": false
+}

@@ -1,0 +1,951 @@
+diff --git a/src/prefix_io_control/store_order.py b/src/prefix_io_control/store_order.py
+--- /dev/null
++++ b/src/prefix_io_control/store_order.py
+@@ -0,0 +1,61 @@
++"""P3 strong-simple-baseline experiment: bounded mandatory store precedence.
++
++Reorders existing parent references for one native store pass. Does not queue,
++submit, split, complete, reserve, release, query events, or grant ordinary credit.
++"""
++from itertools import chain,islice
++from threading import get_ident
++
++class MandatoryStoreOrder:
++    def __init__(self, *, candidate_parents=32):
++        if type(candidate_parents) is not int or candidate_parents != 32:
++            raise ValueError("P3 freezes the candidate window to 32 native parents")
++        self.candidate_parents=candidate_parents
++        self.bound=False
++        self.owner=None
++        self.faulted=False
++        self.error=None
++        self.calls=self.selected_parents=self.reordered_passes=self.truncated_windows=0
++
++    def bind(self):
++        if self.bound:
++            raise ValueError("store order already belongs to another reactor")
++        self.bound=True
++
++    def fail(self, reason):
++        self.faulted=True
++        self.error=str(reason)[:160]
++
++    def ordered(self, active, required):
++        if not self.bound:
++            raise RuntimeError("unbound store-order contract")
++        ident=get_ident()
++        if self.owner is None:self.owner=ident
++        if self.owner!=ident:
++            raise RuntimeError("store order must execute on the reactor owner")
++        if self.faulted or not required:
++            return active
++        self.calls+=1
++        self.truncated_windows+=int(len(active)>self.candidate_parents)
++        candidates=tuple(islice(active,self.candidate_parents))
++        selected=tuple(j for j in candidates if j.is_store and j.failed is None
++                       and not j.future_set and j.next_file_index<j.total_files
++                       and j.future in required)
++        if not selected:
++            return active
++        chosen={id(j) for j in selected}
++        self.selected_parents+=len(selected)
++        # This is an observed order change, not proof a selected file was issued.
++        first_native=next((j for j in candidates if j.is_store and j.failed is None
++                           and not j.future_set and j.next_file_index<j.total_files),None)
++        self.reordered_passes+=int(first_native is not selected[0])
++        # All unselected/native-outside-window jobs remain in the same pass.
++        # The generator is consumed immediately by the original native loop.
++        return chain(selected,(j for j in active if id(j) not in chosen))
++
++    def snapshot(self):
++        """Read after native shutdown; counts describe passes, not unique jobs."""
++        return dict(candidate_parents=self.candidate_parents,calls=self.calls,
++                    selected_parents=self.selected_parents,reordered_passes=self.reordered_passes,
++                    truncated_windows=self.truncated_windows,faulted=self.faulted,error=self.error,
++                    scope="bounded mandatory-first parent iteration; no quotas or release credit")
+diff --git a/src/prefix_io_control/order_options.py b/src/prefix_io_control/order_options.py
+--- /dev/null
++++ b/src/prefix_io_control/order_options.py
+@@ -0,0 +1,48 @@
++"""P3 store-order adapter; original start/observation parsers remain unchanged."""
++from dataclasses import dataclass
++from .start_options import parse_start_options,build_start_kwargs,KEY as START_KEY
++from .store_order import MandatoryStoreOrder
++
++KEY="prefix_io_store_order"
++
++@dataclass(frozen=True)
++class Options:
++    start: object
++    mode: str="off"
++    run_id: str|None=None
++
++def parse_order_options(extra):
++    base={k:v for k,v in extra.items() if k!=KEY}
++    if KEY not in extra:
++        return Options(parse_start_options(base))
++    raw=extra[KEY]
++    if type(raw) is not dict:
++        raise ValueError("store-order configuration must be a mapping")
++    if raw=={"mode":"off"}:
++        return Options(parse_start_options(base))
++    if set(raw)!={"schema_version","mode","run_id","candidate_parents"}:
++        raise ValueError("missing or unknown store-order fields")
++    if type(raw["schema_version"]) is not int or raw["schema_version"]!=1:
++        raise ValueError("unsupported store-order schema")
++    if raw["mode"]!="pressure":
++        raise ValueError("P3 store order only supports off/pressure")
++    if type(raw["candidate_parents"]) is not int or raw["candidate_parents"]!=32:
++        raise ValueError("candidate window is frozen at 32")
++    run_id=raw["run_id"]
++    if type(run_id) is not str or not run_id.strip() or len(run_id)>128:
++        raise ValueError("bounded nonempty run identity required")
++    start=parse_start_options(base)
++    if start.mode!="off":
++        raise ValueError("do not combine ordering with experimental start allowances")
++    if start.observation[0]=="shadow" and start.observation[1]!=run_id:
++        raise ValueError("observer and order run identity must match")
++    return Options(start,"pressure",run_id)
++
++def build_order_kwargs(options):
++    if type(options) is not Options:
++        raise TypeError("parsed immutable order options required")
++    kwargs=build_start_kwargs(options.start)
++    if options.mode=="off":
++        return kwargs
++    kwargs.update(progress_run_id=options.run_id,store_order=MandatoryStoreOrder())
++    return kwargs
+diff --git a/experiments/prefix_io_v1/scripts/qualify_store_order_gpu.py b/experiments/prefix_io_v1/scripts/qualify_store_order_gpu.py
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/qualify_store_order_gpu.py
+@@ -0,0 +1,120 @@
++"""Real CUDA/Linux-AIO mandatory-order qualification; no artificial device delays."""
++import argparse,hashlib,inspect,json,time,traceback
++from pathlib import Path
++from experiment_storage import ROOT,preflight
++from prefix_io_control.order_options import KEY,parse_order_options,build_order_kwargs
++from prefix_io_control.stage_accounting import StageAccounting
++
++SOURCES=[
++ "src/prefix_io_control/store_order.py","src/prefix_io_control/order_options.py",
++ "third_party/work/py-kvcache-p3-order-cpu/py_kvcache/reactor.py",
++ "third_party/work/py-kvcache-p3-order-cpu/py_kvcache/vllm.py"]
++def require(ok,message):
++    if not ok:raise RuntimeError(message)
++
++def qualify(out):
++    import torch
++    import py_kvcache.reactor as native
++    from py_kvcache.reactor import TransferCoordinator
++    from py_kvcache.vllm import NoopSharedStorageOffloadingHandler,SharedStorageLoadStoreSpec
++    from py_kvcache.fs_config import SharedFileConfig
++    from py_kvcache.file_mapper import FileMapper
++    from py_kvcache.transfer import ParsedKvLayout
++    from vllm.v1.kv_offload.base import CanonicalKVCaches,CanonicalKVCacheTensor,CanonicalKVCacheRef,GPULoadStoreSpec
++    require(Path(native.__file__).resolve().is_relative_to(ROOT/"third_party/work/py-kvcache-p3-order-cpu"),"wrong order worktree")
++    require(torch.cuda.device_count()==1,"single bound GPU required")
++    torch.manual_seed(312)
++    tensors=[torch.randint(-128,128,(130,32768),device="cuda",dtype=torch.int8) for _ in range(4)]
++    original=[t[:65].cpu().clone() for t in tensors]
++    caches=CanonicalKVCaches([CanonicalKVCacheTensor(t,page_size_bytes=32768) for t in tensors],
++        [[CanonicalKVCacheRef(tensor_idx=i,page_size_bytes=32768) for i in range(4)]])
++    layout=ParsedKvLayout.from_canonical_kv_caches(gpu_block_size=16,storage_block_size=16,kv_caches=caches)
++    results=[];handlers=[]
++    def create(mode,phase):
++        directory=out/mode/"files";directory.mkdir(parents=True,exist_ok=True)
++        mapper=FileMapper(root_dir=str(directory),model_name="p312-synthetic",gpu_block_size=16,
++            gpu_blocks_per_file=1,tp_size=1,pp_size=1,pcp_size=1,rank=0,dtype="bfloat16")
++        raw={"mode":"off"} if mode=="off" else dict(schema_version=1,mode="pressure",run_id=mode+"-"+phase,candidate_parents=32)
++        kw=build_order_kwargs(parse_order_options({KEY:raw}))
++        kw.setdefault("progress_run_id",mode+"-"+phase)
++        kw["stage_accounting"]=StageAccounting()
++        c=TransferCoordinator(config=SharedFileConfig(root_dir=str(directory),iodepth=1,staging_mem=16/1024,
++            enable_preload=True,preload_share_staging=True,io_backend="linux_aio"),
++            file_mapper=mapper,layout=layout,storage_block_tokens=16,**kw)
++        h=NoopSharedStorageOffloadingHandler(coordinator=c);handlers.append(h)
++        require(c.reactor.staging_buffer.is_pinned(),"unpinned staging")
++        return h,mapper,raw
++    def close(h,mode,phase,raw):
++        h.shutdown();r=h.coordinator.reactor
++        require(not r._worker.is_alive() and not r._active and not r._inflight and not r._pending_copies,"native resources not drained")
++        aio=r.ring.snapshot()
++        require(aio["closed"] and aio["drained"] and aio["outstanding"]==0,"AIO not drained")
++        a=r._prefix_stage_accounting.snapshot()
++        require(a["valid"] and a["outstanding_records"]==0,"stage accounting incomplete")
++        require(all(v["failed_ops"]==0 and v["accepted_bytes"]==v["transferred_bytes"] and v["inflight_bytes"]==0 for v in a["stages"].values()),"stage byte imbalance")
++        order=r._prefix_store_order.snapshot() if r._prefix_store_order else None
++        require(order is None or not order["faulted"],"order fallback occurred")
++        require(r.actual_staging_bytes<=r.staging_budget_bytes,"staging over budget")
++        record=dict(mode=mode,phase=phase,config=raw,accounting=a,order=order,aio=aio,
++                    actual_staging_bytes=r.actual_staging_bytes,staging_budget_bytes=r.staging_budget_bytes)
++        results.append(record);return record
++    try:
++        for mode in ("off","pressure"):
++            for t,s in zip(tensors,original):t[:65].copy_(s)
++            torch.cuda.synchronize()
++            hashes=[hashlib.sha256((mode+"-"+str(i)).encode()).digest() for i in range(65)]
++            h,mapper,raw=create(mode,"store")
++            large=SharedStorageLoadStoreSpec(hashes[:64]);small=SharedStorageLoadStoreSpec(hashes[64:])
++            require(h.transfer_async(1,(GPULoadStoreSpec(list(range(64)),[64],[0]),large),req_id="large"),"large store rejected")
++            require(h.transfer_async(2,(GPULoadStoreSpec([64],[1],[0]),small),req_id="small"),"small store rejected")
++            a=h._active[1][0];b=h._active[2][0];completion=[]
++            a.add_done_callback(lambda f:completion.append(1));b.add_done_callback(lambda f:completion.append(2))
++            h.wait({2})
++            require(b.result()==layout.storage_block_bytes,"small parent wrong bytes")
++            if mode=="pressure":
++                require(not a.done(),"mandatory small parent was not prioritized before large completion")
++            h.wait({1});require(a.result()==64*layout.storage_block_bytes,"large parent wrong bytes")
++            r=close(h,mode,"store",raw);r["parent_completion_order"]=completion
++            require(completion==([1,2] if mode=="off" else [2,1]),"unexpected native completion order")
++            if mode=="pressure":require(r["order"]["reordered_passes"]>0,"order branch unexercised")
++            require(all(Path(mapper.get_file_name(b)).stat().st_size==layout.storage_block_bytes for b in hashes),"native files unpublished")
++            for phase in ("restore","shared"):
++                for t in tensors:t.zero_()
++                torch.cuda.synchronize()
++                h,_,raw=create(mode,phase);disk=SharedStorageLoadStoreSpec(hashes)
++                if phase=="restore":
++                    require(h.transfer_async(3,(disk,GPULoadStoreSpec(list(range(65)),[65],[0])),req_id="restore"),"restore rejected")
++                    f=h._active[3][0];h.wait({3});require(f.result()==65*layout.storage_block_bytes,"restore parent bytes")
++                else:
++                    for jid,name,offset in [(3,"A",0),(4,"B",65)]:
++                        require(h.preload_async(name,disk,req_id=name),"preload rejected")
++                    for jid,name,offset in [(3,"A",0),(4,"B",65)]:
++                        require(h.load_from_preload_async(jid,name,disk,GPULoadStoreSpec(list(range(offset,offset+65)),[65],[0]),req_id=name),"shared consumer rejected")
++                    fs=[h._active[j][0] for j in (3,4)];h.wait({3,4})
++                    require(all(f.result()==65*layout.storage_block_bytes for f in fs),"shared parent bytes")
++                torch.cuda.synchronize()
++                require(all(torch.equal(t[:65].cpu(),s) for t,s in zip(tensors,original)),"exact restore mismatch")
++                if phase=="shared":require(all(torch.equal(t[65:].cpu(),s) for t,s in zip(tensors,original)),"shared second destination mismatch")
++                r=close(h,mode,phase,raw)
++                require(r["accounting"]["stages"]["ssd_read"]["accepted_bytes"]==65*layout.storage_block_bytes,"disk shared read duplication or bypass")
++                require(r["accounting"]["stages"]["h2d"]["accepted_bytes"]==(2 if phase=="shared" else 1)*65*layout.storage_block_bytes,"physical H2D byte mismatch")
++        return dict(status="PASS_REAL_GPU_STORE_ORDER",gpu_byte_exact=True,cases=results,
++            native_module=native.__file__,source_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in SOURCES},
++            artificial_device_delay=False,ordinary_start_quota=False,full_stage_caps=False,model_performance_claim=False)
++    finally:
++        for h in handlers:h.shutdown()
++
++def main():
++    ap=argparse.ArgumentParser();ap.add_argument("--output",type=Path,required=True);a=ap.parse_args()
++    require(not a.output.exists(),"append-only evidence")
++    before=preflight(a.output,128*1024**2);a.output.mkdir(parents=True,exist_ok=False)
++    (a.output/"preflight.json").write_text(json.dumps(before,indent=2));started=time.monotonic()
++    try:r=qualify(a.output);code=0
++    except BaseException as exc:r=dict(status="FAIL",error=repr(exc),traceback=traceback.format_exc());code=1
++    r["seconds"]=time.monotonic()-started
++    try:r["storage_after"]=preflight(a.output,0)
++    except Exception as exc:r.update(status="FAIL",storage_error=str(exc));code=1
++    (a.output/"result.json").write_text(json.dumps(r,indent=2))
++    print(json.dumps(dict(status=r["status"],output=str(a.output),exit=code)))
++    return code
++if __name__=="__main__":raise SystemExit(main())
+diff --git a/experiments/prefix_io_v1/scripts/run_order_cpu_qualification.py b/experiments/prefix_io_v1/scripts/run_order_cpu_qualification.py
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/run_order_cpu_qualification.py
+@@ -0,0 +1,52 @@
++"""Preflight the fixed CPU regression matrix in authorized auxiliary storage."""
++import argparse,json,os,re,subprocess,sys,time
++from pathlib import Path
++from experiment_storage import ROOT,preflight
++from run_gpu_stage import cleanup_session
++
++RESERVATION=640*1024**2  # Observed one-matrix scratch ~222 MiB plus headroom.
++def plan(label):
++    if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,80}",label):
++        raise ValueError("label must be a simple unique name")
++    out=Path("/root/prefix-io-v1-validation/cpu-evidence")/label
++    if out.exists():raise FileExistsError("CPU evidence labels are append-only")
++    disk=preflight(out,RESERVATION)
++    work=ROOT/"third_party/work/py-kvcache-p3-order-cpu"
++    suites=["tests/prefix_io_v1/test_config.py","tests/prefix_io_v1_pilot",
++        "tests/prefix_io_v1_native_costs","tests/prefix_io_v1_progress",
++        "tests/prefix_io_v1_observer","tests/prefix_io_v1_aio","tests/prefix_io_v1_start_budget","tests/prefix_io_v1_store_order",
++        str(work/"tests")]
++    cmd=[str(ROOT/".venv/bin/python"),str(ROOT/"experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py"),
++         "-q","--import-mode=importlib",*suites,"--ignore="+str(work/"tests/test_e2e_kvcache.py"),
++         "--basetemp",str(out/"pytest-tmp"),"--junitxml",str(out/"cpu.xml")]
++    env=dict(CUDA_VISIBLE_DEVICES="",HF_HUB_OFFLINE="1",TRANSFORMERS_OFFLINE="1",
++        PYTHONDONTWRITEBYTECODE="1",
++        PYTHONPATH=":".join(map(str,[work,ROOT/"src",ROOT/"experiments/prefix_io_v1/scripts"])),
++        AIO_CPU_GPU_GUARD_PATH=str(out/"cuda-guard.json"))
++    return dict(output=str(out),disk=disk,command=cmd,environment_delta=env,
++                gpu_runs=0,maximum_seconds=180,scope="CPU-only, CUDA initialization forbidden")
++
++def main():
++    ap=argparse.ArgumentParser();ap.add_argument("--label",required=True);ap.add_argument("--dry-run",action="store_true")
++    a=ap.parse_args();p=plan(a.label)
++    if a.dry_run:print(json.dumps(dict(p,executed=False),indent=2));return 0
++    out=Path(p["output"]);out.mkdir(parents=True,exist_ok=False)
++    (out/"plan.json").write_text(json.dumps(p,indent=2))
++    env=os.environ.copy();env.update(p["environment_delta"])
++    proc=None;code=1;error=None;cleanup=None;start=time.monotonic()
++    try:
++        with (out/"process.log").open("wb") as log:
++            proc=subprocess.Popen(p["command"],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
++            code=proc.wait(timeout=p["maximum_seconds"])
++    except BaseException as exc:error=type(exc).__name__+": "+str(exc)
++    finally:
++        if proc is not None:
++            cleanup=cleanup_session(proc)
++            if not cleanup["session_drained"] or cleanup.get("session_members_before_cleanup"):code=1
++        result=dict(exit=code,error=error,cleanup=cleanup,seconds=time.monotonic()-start,
++                    gpu_runs=0,executed=proc is not None)
++        try:result["storage_after"]=preflight(out,0)
++        except Exception as exc:result.update(exit=1,storage_error=str(exc));code=1
++        (out/"result.json").write_text(json.dumps(result,indent=2))
++    print(json.dumps(result,indent=2));return code
++if __name__=="__main__":raise SystemExit(main())
+diff --git a/experiments/prefix_io_v1/scripts/store_order_model_contract.py b/experiments/prefix_io_v1/scripts/store_order_model_contract.py
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/store_order_model_contract.py
+@@ -0,0 +1,54 @@
++"""Frozen P3 mandatory-order screen; no general research-policy authorization."""
++import hashlib,json
++from pathlib import Path
++from experiment_storage import ROOT
++
++SCOPE="P3_MANDATORY_STORE_ORDER_SIMPLE_BASELINE"
++NATIVE="third_party/work/py-kvcache-p3-order-cpu/py_kvcache"
++SOURCES=("src/prefix_io_control/store_order.py","src/prefix_io_control/order_options.py",
++         NATIVE+"/reactor.py",NATIVE+"/vllm.py")
++EVIDENCE="artifacts/prefix_io_v1/server07-p3-12/primitive-result.json"
++
++def require(ok,message):
++    if not ok:raise ValueError(message)
++
++def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
++
++def validate_config(path,root=ROOT):
++    data=json.loads(Path(path).read_text())
++    require(set(data)=={"schema_version","mode","candidate_parents","scope","qualification",
++                        "qualification_sha256","frozen_sources"},"unexpected config fields")
++    require(type(data["schema_version"]) is int and data["schema_version"]==1,"schema mismatch")
++    require(data["mode"] in ("off","pressure"),"unsupported order mode")
++    require(type(data["candidate_parents"]) is int and data["candidate_parents"]==32,"candidate window changed")
++    require(data["scope"]==SCOPE,"scope changed")
++    q=root/EVIDENCE
++    require(Path(data["qualification"]).resolve()==q.resolve(),"unexpected qualification path")
++    require(sha(q)==data["qualification_sha256"],"qualification digest changed")
++    report=json.loads(q.read_text())
++    require(report["status"]=="PASS_REAL_GPU_STORE_ORDER" and report["gpu_byte_exact"] is True,
++            "real GPU byte qualification missing")
++    cases=report["cases"]
++    require(len(cases)==6 and {(c["mode"],c["phase"]) for c in cases}==
++            {(m,p) for m in ("off","pressure") for p in ("store","restore","shared")},"incomplete primitive cases")
++    for c in cases:
++        a=c["aio"];account=c["accounting"]
++        require(a["closed"] and a["drained"] and a["fatal"] is None and
++                a["accepted"]==a["completed"]==a["reaped"] and
++                all(a[k]==0 for k in ("outstanding","pending","ready","unreaped")),"primitive AIO not drained")
++        require(account["valid"] and account["outstanding_records"]==0 and
++                all(s["failed_ops"]==0 and s["inflight_bytes"]==0 and
++                    s["accepted_bytes"]==s["transferred_bytes"] for s in account["stages"].values()),
++                "primitive accounting failed")
++        require(c["actual_staging_bytes"]<=c["staging_budget_bytes"],"primitive staging exceeded")
++        if c["mode"]=="pressure":require(c["order"] and not c["order"]["faulted"],"primitive order fault")
++    stores={c["mode"]:c for c in cases if c["phase"]=="store"}
++    require(stores["off"]["parent_completion_order"]==[1,2] and
++            stores["pressure"]["parent_completion_order"]==[2,1] and
++            stores["pressure"]["order"]["reordered_passes"]>0,"precedence not exercised")
++    require(set(data["frozen_sources"])==set(SOURCES) and
++            data["frozen_sources"]==report["source_sha256"],"qualification/source mismatch")
++    for rel,digest in data["frozen_sources"].items():
++        require(sha(root/rel)==digest,"qualified source changed: "+rel)
++    require(Path(report["native_module"]).resolve()==(root/NATIVE/"reactor.py").resolve(),"wrong qualified runtime")
++    return data
+diff --git a/experiments/prefix_io_v1/scripts/store_order_worker_probe.py b/experiments/prefix_io_v1/scripts/store_order_worker_probe.py
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/store_order_worker_probe.py
+@@ -0,0 +1,65 @@
++"""Enable the qualified P3 ordering only at a fully drained cohort boundary."""
++import inspect,os
++from pathlib import Path
++from store_readiness_worker_probe import worker_probe as original
++from store_order_model_contract import ROOT,NATIVE,validate_config,require
++from prefix_io_control.store_order import MandatoryStoreOrder
++
++def handlers():
++    from vllm.distributed.kv_transfer.kv_transfer_state import get_kv_transfer_group
++    return get_kv_transfer_group().connector_worker.worker.handlers
++
++def drained(r):
++    return not r._active and not r._pending_copies and not r._inflight
++
++def prepare(reactors,config):
++    require(bool(reactors),"no native reactors")
++    for r in reactors:
++        require(drained(r),"cohort ordering requires drained native work")
++        require(r.progress_bridge_enabled,"mandatory identity bridge missing")
++        require(getattr(r,"_prefix_start_budget",None) is None,"ordinary quota not qualified with order")
++        require(getattr(r,"_prefix_store_order",None) is None,"order already installed")
++        require(Path(inspect.getfile(type(r))).resolve()==(ROOT/NATIVE/"reactor.py").resolve(),"wrong native runtime")
++    orders=[]
++    for r in reactors:
++        order=None
++        if config["mode"]=="pressure":
++            order=MandatoryStoreOrder(candidate_parents=config["candidate_parents"]);order.bind()
++        orders.append((r,order))
++    return orders
++
++def finish_orders(entries,mode):
++    result=[]
++    for r,order in entries:
++        require(drained(r) and not r._worker.is_alive(),"order snapshot requires native shutdown")
++        require(r._prefix_store_order is order,"unexpected order replacement")
++        snapshot=order.snapshot() if order else None
++        require(snapshot is None or not snapshot["faulted"],"order fell back after fault")
++        require((mode=="off")== (snapshot is None),"mode/state mismatch")
++        result.append(dict(mode=mode,order=snapshot,drained=True,
++                           reactor_source=str(Path(inspect.getfile(type(r))).resolve())))
++    return result
++
++def worker_probe(worker,action,limits=None):
++    if action=="install":
++        config=validate_config(os.environ["PREFIX_IO_ORDER_MODEL_CONFIG"])
++        result=original(worker,action,limits)
++        worker._store_order_config=config
++        worker._store_order_entries=None
++        result["store_order_mode"]=config["mode"]
++        return result
++    if action=="start":
++        require(worker._store_order_entries is None,"cohort cannot start twice")
++        entries=prepare([h.coordinator.reactor for h in handlers()],worker._store_order_config)
++        result=original(worker,action,limits)
++        # No cohort request exists yet. Assign once while drained; native owner
++        # binds its thread identity on its first actual ordering call.
++        for r,order in entries:r._prefix_store_order=order
++        worker._store_order_entries=entries
++        result["store_order_mode"]=worker._store_order_config["mode"]
++        return result
++    result=original(worker,action,limits)
++    if action=="finish":
++        require(worker._store_order_entries is not None,"cohort ordering never started")
++        result["store_order_final"]=finish_orders(worker._store_order_entries,worker._store_order_config["mode"])
++    return result
+diff --git a/experiments/prefix_io_v1/scripts/run_store_order_pilot.py b/experiments/prefix_io_v1/scripts/run_store_order_pilot.py
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/run_store_order_pilot.py
+@@ -0,0 +1,57 @@
++"""Matched ordering screen around the unchanged P3 concurrent model driver."""
++import argparse,json,os,sys,traceback
++from pathlib import Path
++from store_order_model_contract import validate_config,sha,require
++import store_readiness_worker_probe as passive
++from store_order_worker_probe import worker_probe as ordered_probe
++import run_concurrent_pilot as native
++
++def validate_result(raw,mode):
++    require(raw["status"]=="PASSED_NATIVE_C2_DEVELOPMENT_REPLAY","native replay failed")
++    require(raw["engine_shutdown"]=="completed","engine shutdown failed")
++    require(raw["cohort_probe_start"]["store_order_mode"]==mode,"actual mode mismatch")
++    states=raw["final_probe"]["store_order_final"]
++    require(bool(states),"missing native order states")
++    for s in states:
++        require(s["mode"]==mode and s["drained"],"undrained or wrong order state")
++        if mode=="off":require(s["order"] is None,"off installed an order")
++        else:require(s["order"] is not None and not s["order"]["faulted"],"order fault")
++    return states
++
++def main():
++    ap=argparse.ArgumentParser()
++    ap.add_argument("--order-config",type=Path,required=True);ap.add_argument("--output",type=Path,required=True)
++    a,rest=ap.parse_known_args();config_path=a.order_config.resolve();out=a.output.resolve()
++    require("--flush-cause-probe" in rest and "--store-readiness-probe" in rest,"matched passive observations required")
++    require(not any(x.startswith("--start-budget-config") for x in rest),"quota/order combination not qualified")
++    require(not out.exists(),"append-only result required")
++    config=validate_config(config_path)
++    old_env=os.environ.get("PREFIX_IO_ORDER_MODEL_CONFIG");old_probe=passive.worker_probe
++    old_native=native.worker_probe;old_argv=sys.argv
++    report=dict(status="FAILED",actual_order_mode=config["mode"],scope=config["scope"],
++                config_path=str(config_path),config_sha256=sha(config_path),
++                qualification_sha256=config["qualification_sha256"],
++                ordinary_start_quota=False,full_stage_caps=False,research_joint_policy=False,
++                formal_performance_claim=False,underlying_policy_label="shadow refers to passive observation only")
++    code=1
++    try:
++        os.environ["PREFIX_IO_ORDER_MODEL_CONFIG"]=str(config_path)
++        passive.worker_probe=ordered_probe
++        sys.argv=[str(Path(native.__file__).resolve()),"--output",str(out),*rest]
++        code=native.main()
++        require(code==0,"native driver returned failure")
++        raw=json.loads((out/"result.json").read_text())
++        report["native_states"]=validate_result(raw,config["mode"])
++        report["raw_result_sha256"]=sha(out/"result.json")
++        report["status"]="PASS_REAL_MODEL_STORE_ORDER"
++    except BaseException as exc:
++        report.update(error=str(exc),traceback=traceback.format_exc());code=1
++    finally:
++        passive.worker_probe=old_probe;native.worker_probe=old_native;sys.argv=old_argv
++        if old_env is None:os.environ.pop("PREFIX_IO_ORDER_MODEL_CONFIG",None)
++        else:os.environ["PREFIX_IO_ORDER_MODEL_CONFIG"]=old_env
++        if out.exists():
++            with (out/"order-config.json").open("x") as f:json.dump(config,f,indent=2)
++            with (out/"order-result.json").open("x") as f:json.dump(report,f,indent=2)
++    print(json.dumps(report,indent=2));return code
++if __name__=="__main__":raise SystemExit(main())
+diff --git a/experiments/prefix_io_v1/scripts/analyze_store_order_model.py b/experiments/prefix_io_v1/scripts/analyze_store_order_model.py
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/analyze_store_order_model.py
+@@ -0,0 +1,82 @@
++"""Read all frozen ABBA arms, preserving failures and reporting descriptive effects."""
++import argparse,json,statistics
++from pathlib import Path
++from analyze_concurrent_pilot import summarize,digest,distribution
++from analyze_flush_diagnostic import match_batch
++from analyze_mixed_start_budget import validate_reference
++from run_store_order_pilot import validate_result
++from store_order_model_contract import require,SCOPE
++
++def comparisons(runs):
++    result={}
++    for key in ("cohort_seconds","response_seconds","tail_drain_seconds","pending_flush_wait_seconds",
++                "scheduled_ttft_mean_seconds","ttft_mean_seconds","itl_p95_seconds"):
++        arms={mode:[r[key] for r in runs if r["mode"]==mode] for mode in ("off","pressure")}
++        require(all(len(v)==2 for v in arms.values()),"two frozen repeats per arm required")
++        off=statistics.mean(arms["off"]);on=statistics.mean(arms["pressure"])
++        result[key]=dict(values=arms,off_mean=off,pressure_mean=on,
++            reduction_percent=(off-on)/off*100 if off else None,
++            pair_reduction_percent=[(a-b)/a*100 if a else None for a,b in
++                [(arms["off"][0],arms["pressure"][0]),(arms["off"][1],arms["pressure"][1])]],
++            inference="descriptive only; two repeats do not establish statistical significance")
++    return result
++
++def normalized_config(config):
++    from copy import deepcopy
++    c=deepcopy(config);extra=c["engine"]["kv_transfer_config"]["kv_connector_extra_config"]
++    extra.pop("shared_storage_path");extra.pop("prefix_io_observation_run_id")
++    return c
++
++def analyze(plan_path,completed):
++    plan=json.loads(Path(plan_path).read_text())
++    require(plan["scope"]==SCOPE and plan["run_order"]==["off","pressure","pressure","off"],"wrong fixed design")
++    require(1<=completed<=4,"bad completed count")
++    nr=json.loads((Path(plan["native_reference"])/"result.json").read_text())
++    require(nr["status"]=="PASSED_NATIVE_C2_FULL_REFERENCE","unqualified reference")
++    refs={(r["family"],r["kind"]):r["output_tokens"] for r in nr["rows"]}
++    rows=[];configs=[]
++    for entry in plan["runs"][:completed]:
++        folder=Path(entry["output"]);raw=json.loads((folder/"result.json").read_text())
++        outer=json.loads((folder/"order-result.json").read_text());mode=entry["actual_order_mode"]
++        require(outer["status"]=="PASS_REAL_MODEL_STORE_ORDER" and outer["actual_order_mode"]==mode,"outer qualification failed")
++        require(outer["raw_result_sha256"]==digest(folder/"result.json"),"raw result changed")
++        states=validate_result(raw,mode);exact=validate_reference(raw,refs)
++        row=summarize(folder,refs);row.pop("outputs")
++        require(row["native_reference_exact_count"]==exact==10,"token mismatch")
++        before=raw["cohort_probe_start"];after=raw["probe"]
++        read=raw["final_probe"]["store_readiness"]
++        require(bool(read) and all(not p["faulted"] for p in read),"readiness fault")
++        diag=after["flush_diagnostic"]
++        require(not diag["faulted"] and diag["errors"]==0 and diag["allocations"]>0,"flush observer fault")
++        batches=[r for r in diag["records"] if r["kind"]=="flush_batch"]
++        row.update(mode=mode,response_seconds=raw["response_seconds"],
++            pending_flush_wait_seconds=row["counters"]["pending_flush_wait_seconds"],
++            scheduled_ttft_mean_seconds=statistics.mean(r["scheduled_ttft_seconds"] for r in row["rows"]),
++            ttft_mean_seconds=statistics.mean(r["ttft_seconds"] for r in row["rows"]),
++            itl_p95_seconds=row["itl"]["p95"],order_states=states,
++            qualified_mode_receipt_sha256=digest(folder/"order-result.json"),
++            causal_waits=[match_batch(wait,batches) for wait in row["pending_wait_events"]],
++            readiness_summaries=[{k:v for k,v in p.items() if k!="records"} for p in read],
++            actual_raw_config_policy="shadow is observation mode; actual order is separately verified",
++            exact_reference_outputs=exact)
++        rows.append(row)
++        configs.append(normalized_config(json.loads((folder/"frozen-config.json").read_text())))
++    require(all(c==configs[0] for c in configs),"underlying frozen model configs differ")
++    complete=completed==4
++    return dict(status="PASS_STORE_ORDER_ABBA" if complete else "PARTIAL_STORE_ORDER_ABBA",
++        complete=complete,scope=SCOPE,runs=rows,comparison=comparisons(rows) if complete else None,
++        actual_requests=completed*10,actual_token_events=completed*1280,native_reference_exact_outputs=completed*10,
++        native_reference_sha256=digest(Path(plan["native_reference"])/"result.json"),
++        simple_priority_installed=True,full_stage_caps=False,ordinary_start_quota=False,
++        research_joint_efficacy_verified=False,full_P3_complete=False,formal_goodput=False,
++        limitation="Fixed mixed workload, depth 8, two instrumented repeats per arm. No confidence claim, no joint-policy result; CUDA device timeline absent. Ordering does not itself prove immediate GPU-memory release.")
++
++def main():
++    p=argparse.ArgumentParser();p.add_argument("--plan",type=Path,required=True)
++    p.add_argument("--completed",type=int,required=True);p.add_argument("--out",type=Path,required=True)
++    a=p.parse_args();result=analyze(a.plan,a.completed)
++    with a.out.open("x") as f:json.dump(result,f,indent=2)
++    print(json.dumps({k:v for k,v in result.items() if k!="runs"},indent=2))
++    print(json.dumps([{k:r[k] for k in ("label","mode","cohort_seconds","pending_flush_wait_seconds",
++           "response_seconds","tail_drain_seconds","ssd_read_bytes","ssd_write_bytes","order_states")} for r in result["runs"]],indent=2))
++if __name__=="__main__":main()
+diff --git a/tests/prefix_io_v1_store_order/test_store_order.py b/tests/prefix_io_v1_store_order/test_store_order.py
+--- /dev/null
++++ b/tests/prefix_io_v1_store_order/test_store_order.py
+@@ -0,0 +1,186 @@
++import ast,threading
++from pathlib import Path
++from types import SimpleNamespace as NS
++from unittest.mock import Mock
++import pytest
++from py_kvcache.reactor import IoReactor
++from prefix_io_control.store_order import MandatoryStoreOrder
++from prefix_io_control.order_options import KEY,parse_order_options,build_order_kwargs
++from tests.prefix_io_v1_start_budget._fixture import rig,eventually
++
++def attach(x):
++    order=MandatoryStoreOrder();order.bind();x.r._prefix_store_order=order
++    issued=[];native=x.r._schedule_store_copy
++    def record(job,index,slot):
++        issued.append((job.job_id,index));return native(job,index,slot)
++    x.r._schedule_store_copy=record
++    return order,issued
++
++@pytest.mark.parametrize("enabled",[False,True])
++def test_native_parent_order_and_one_completion_each(monkeypatch,enabled):
++    with rig(monkeypatch,enabled=False,slots=2,depth=1) as x:
++        order,issued=attach(x)
++        if not enabled:x.r._prefix_store_order=None
++        x.r.ring.auto=False
++        large=x.submit(files=4,job_id=7);small=x.submit(files=1,job_id=8)
++        assert x.coordinator.request_mandatory([small])
++        done=[];large.add_done_callback(lambda f:done.append(7));small.add_done_callback(lambda f:done.append(8))
++        x.start();eventually(lambda:x.writes==1)
++        assert issued==[(8 if enabled else 7,0)] and not large.done() and not small.done()
++        x.r.ring.permits.release()
++        if enabled:
++            eventually(small.done);assert not large.done()
++        x.r.ring.auto=True;x.stop()
++        assert large.result()==16384 and small.result()==4096
++        assert sorted(done)==[7,8] and len(x.r.staging_pool.releases)==5
++        assert len(issued)==len(set(issued))==5
++        if enabled:assert order.reordered_passes>0 and not order.faulted
++
++def test_existing_copy_and_write_continue_before_priority_issue(monkeypatch):
++    with rig(monkeypatch,enabled=False,slots=2,depth=1) as x:
++        order,issued=attach(x);x.copy_ready.clear();x.r.ring.auto=False
++        large=x.submit(files=3,job_id=7);x.start();eventually(lambda:len(issued)==1)
++        small=x.submit(files=1,job_id=8)
++        x.coordinator.request_mandatory([small]);eventually(lambda:small in x.r._prefix_progress.required)
++        assert issued==[(7,0)] and x.writes==0
++        x.copy_ready.set();eventually(lambda:x.writes==1)
++        assert not small.done() and not large.done()
++        x.r.ring.permits.release();eventually(lambda:x.writes==2)
++        assert issued[:2]==[(7,0),(8,0)] and not large.done()
++        x.r.ring.permits.release();eventually(small.done)
++        assert not large.done()
++        x.r.ring.auto=True;x.stop();assert large.result()==12288
++        assert len(x.r.staging_pool.releases)==4
++
++def test_order_cannot_bypass_staging_or_compute_event(monkeypatch):
++    with rig(monkeypatch,enabled=False,slots=1,depth=1) as x:
++        attach(x);held=x.r.staging_pool.try_reserve();x.compute_ready.clear()
++        f=x.submit(files=1);x.coordinator.request_mandatory([f]);x.start()
++        eventually(lambda:f in x.r._prefix_progress.required)
++        assert x.issued==0 and x.writes==0 and not f.done()
++        x.r.staging_pool.release(held.index);eventually(lambda:x.issued==1)
++        assert x.writes==0 and not f.done()
++        x.compute_ready.set();assert f.result(timeout=2)==4096;x.stop()
++
++def test_outside_window_remains_owned_and_eventually_finishes(monkeypatch):
++    with rig(monkeypatch,enabled=False,slots=2,depth=1) as x:
++        order,issued=attach(x);x.r.ring.auto=False
++        futures=[x.submit(files=1,job_id=i) for i in range(34)]
++        x.coordinator.request_mandatory([futures[-1]]);x.start();eventually(lambda:x.writes==1)
++        assert issued==[(0,0)] and order.truncated_windows>0
++        x.r.ring.auto=True;x.stop()
++        assert all(f.result()==4096 for f in futures)
++        assert len(issued)==len(set(issued))==34 and {j for j,i in issued}==set(range(34))
++
++def test_shared_preload_read_and_fused_consumers_preserved(monkeypatch):
++    with rig(monkeypatch,enabled=False,share=True) as x:
++        attach(x);x.r.ring.auto=False;x.preload([b"shared"]);x.start()
++        eventually(lambda:x.opens==1)
++        a=x.load(job_id=20,hashes=[b"shared"]);b=x.load(job_id=21,hashes=[b"shared"])
++        eventually(lambda:len(x.r._preload_waiters.get(b"shared",()))==2)
++        x.coordinator.request_mandatory([a,b]);x.r.ring.auto=True
++        assert a.result(timeout=2)==b.result(timeout=2)==4096;x.stop()
++        assert x.reads==1 and x.h2d_launches==[dict(entries=2,bytes=8192)]
++
++def test_short_write_keeps_native_error_and_releases_once(monkeypatch):
++    with rig(monkeypatch,enabled=False,slots=2,depth=1) as x:
++        attach(x);x.r.ring.results[1]=4095
++        f=x.submit(files=1);x.coordinator.request_mandatory([f]);x.start()
++        with pytest.raises(IOError):f.result(timeout=2)
++        x.stop();assert len(x.r.file_store.cleaned)==1 and not x.r.file_store.finished
++        assert len(x.r.staging_pool.releases)==1
++
++def test_duplicate_cqe_and_shutdown_preserve_all_accepted_parents(monkeypatch):
++    with rig(monkeypatch,enabled=False) as x:
++        attach(x);x.r.ring.duplicate=True
++        a=x.submit(files=2,job_id=7);b=x.submit(files=2,job_id=8)
++        x.coordinator.request_mandatory([b]);x.start();x.stop()
++        assert a.result()==b.result()==8192 and len(x.r.staging_pool.releases)==4
++
++@pytest.mark.parametrize("fault",["owner","exception"])
++def test_optional_order_fault_falls_back_without_false_success(monkeypatch,fault):
++    with rig(monkeypatch,enabled=False,depth=1) as x:
++        order,issued=attach(x)
++        if fault=="owner":order.owner=-1
++        else:order.ordered=Mock(side_effect=ValueError("injected"))
++        a=x.submit(files=2,job_id=7);b=x.submit(files=1,job_id=8)
++        x.coordinator.request_mandatory([b]);x.start()
++        assert a.result(timeout=2)==8192 and b.result(timeout=2)==4096;x.stop()
++        assert order.faulted and issued[0]==(7,0)
++
++def test_off_does_not_call_order_or_clock(monkeypatch):
++    with rig(monkeypatch,enabled=False) as x:
++        monkeypatch.setattr(MandatoryStoreOrder,"ordered",Mock(side_effect=AssertionError("off")))
++        monkeypatch.setattr("py_kvcache.reactor.time.monotonic_ns",Mock(side_effect=AssertionError("off clock")))
++        f=x.submit(files=2);x.start();assert f.result(timeout=2)==8192;x.stop()
++
++@pytest.mark.parametrize("bad",["type","no_progress","reuse","quota"])
++def test_constructor_rejects_before_native_resources(monkeypatch,bad):
++    from prefix_io_control.start_budget import StartBudget,StartBudgetConfig
++    obj=object() if bad=="type" else MandatoryStoreOrder()
++    if bad=="reuse":obj.bind()
++    ring=Mock(side_effect=AssertionError("resources allocated"))
++    monkeypatch.setattr("py_kvcache.reactor.LiburingRing",ring)
++    kw=dict(store_order=obj,progress_run_id=None if bad=="no_progress" else "r")
++    if bad=="quota":kw["start_budget"]=StartBudget(StartBudgetConfig("fixed",100,1,100))
++    with pytest.raises((ValueError,TypeError)):
++        IoReactor(config=None,file_mapper=None,layout=None,**kw)
++    ring.assert_not_called()
++
++def raw(**changes):
++    return {KEY:dict(schema_version=1,mode="pressure",run_id="r",candidate_parents=32,**changes)}
++
++def test_strict_adapter_off_has_no_new_runtime_state():
++    from prefix_io_control.start_options import parse_start_options,build_start_kwargs
++    assert build_order_kwargs(parse_order_options({}))==build_start_kwargs(parse_start_options({}))=={}
++    assert build_order_kwargs(parse_order_options({KEY:{"mode":"off"}}))=={}
++    x=build_order_kwargs(parse_order_options(raw()))
++    assert x["progress_run_id"]=="r" and isinstance(x["store_order"],MandatoryStoreOrder)
++    assert "start_budget" not in x and "stage_accounting" not in x
++
++@pytest.mark.parametrize("field,value",[
++    ("candidate_parents",True),("candidate_parents",64),("schema_version",True),
++    ("schema_version",2),("mode","joint"),("run_id",""),("run_id",4),("run_id","x"*129)])
++def test_adapter_invalid_fields(field,value):
++    data=raw();data[KEY][field]=value
++    with pytest.raises(ValueError):parse_order_options(data)
++
++def test_adapter_unknown_keys_identity_and_mixed_policies():
++    data=raw();data[KEY]["unexpected"]=1
++    with pytest.raises(ValueError):parse_order_options(data)
++    with pytest.raises(ValueError):parse_order_options({KEY:{"mode":"off","run_id":"r"}})
++    data=raw();data.update(prefix_io_observation_mode="shadow",prefix_io_observation_run_id="other")
++    with pytest.raises(ValueError):parse_order_options(data)
++    data=raw();data["prefix_io_start_budget"]=dict(schema_version=1,mode="shadow",run_id="r")
++    with pytest.raises(ValueError):parse_order_options(data)
++
++def test_native_ast_preserved_outside_order_bridge():
++    root=Path(__file__).resolve().parents[2]
++    before=ast.parse((root/"artifacts/prefix_io_v1/server07-p3-12/before/py_kvcache/reactor.py").read_text())
++    after=ast.parse((root/"third_party/work/py-kvcache-p3-order-cpu/py_kvcache/reactor.py").read_text())
++    class Strip(ast.NodeTransformer):
++        def visit_FunctionDef(self,n):
++            if n.name=="_prefix_ordered_stores":return None
++            pairs=[(a,d) for a,d in zip(n.args.kwonlyargs,n.args.kw_defaults) if a.arg!="store_order"]
++            n.args.kwonlyargs=[a for a,d in pairs];n.args.kw_defaults=[d for a,d in pairs]
++            return self.generic_visit(n)
++        def visit_If(self,n):
++            if any(isinstance(v,ast.Name) and v.id=="store_order" for v in ast.walk(n.test)):return None
++            return self.generic_visit(n)
++        def visit_Assign(self,n):
++            if any(isinstance(t,ast.Attribute) and t.attr=="_prefix_store_order" for t in n.targets):return None
++            return self.generic_visit(n)
++        def visit_Call(self,n):
++            if isinstance(n.func,ast.Attribute) and n.func.attr=="_prefix_ordered_stores":
++                return ast.Attribute(value=ast.Name(id="self",ctx=ast.Load()),attr="_active",ctx=ast.Load())
++            n.keywords=[k for k in n.keywords if k.arg!="store_order"]
++            return self.generic_visit(n)
++    assert ast.dump(Strip().visit(after))==ast.dump(before)
++
++def test_vllm_only_adapter_imports_changed():
++    root=Path(__file__).resolve().parents[2]
++    old=(root/"artifacts/prefix_io_v1/server07-p3-12/before/py_kvcache/vllm.py").read_text()
++    new=(root/"third_party/work/py-kvcache-p3-order-cpu/py_kvcache/vllm.py").read_text()
++    new=new.replace("prefix_io_control.order_options","prefix_io_control.start_options")
++    new=new.replace("parse_order_options","parse_start_options").replace("build_order_kwargs","build_start_kwargs")
++    assert new==old
+diff --git a/tests/prefix_io_v1_store_order/test_model_order.py b/tests/prefix_io_v1_store_order/test_model_order.py
+--- /dev/null
++++ b/tests/prefix_io_v1_store_order/test_model_order.py
+@@ -0,0 +1,115 @@
++import copy,json
++from pathlib import Path
++from types import SimpleNamespace as NS
++from unittest.mock import Mock
++import pytest
++import store_order_model_contract as contract
++import store_order_worker_probe as probe
++from run_store_order_pilot import validate_result
++from tests.prefix_io_v1_start_budget._fixture import rig,eventually
++
++@pytest.fixture
++def config_tree(tmp_path):
++    for rel in contract.SOURCES:
++        p=tmp_path/rel;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((contract.ROOT/rel).read_bytes())
++    report=json.loads((contract.ROOT/contract.EVIDENCE).read_text())
++    report["native_module"]=str(tmp_path/contract.NATIVE/"reactor.py")
++    q=tmp_path/contract.EVIDENCE;q.parent.mkdir(parents=True);q.write_text(json.dumps(report))
++    data=dict(schema_version=1,mode="pressure",candidate_parents=32,scope=contract.SCOPE,
++              qualification=str(q),qualification_sha256=contract.sha(q),frozen_sources=report["source_sha256"])
++    return tmp_path,q,data
++
++def checked(tree):
++    root,q,data=tree;p=root/"config.json";p.write_text(json.dumps(data))
++    return contract.validate_config(p,root=root)
++
++@pytest.mark.parametrize("mode",["off","pressure"])
++def test_qualified_contract(config_tree,mode):
++    config_tree[2]["mode"]=mode;assert checked(config_tree)["mode"]==mode
++
++@pytest.mark.parametrize("field,value",[
++    ("schema_version",True),("schema_version",2),("mode","joint"),
++    ("candidate_parents",True),("candidate_parents",64),("scope","production"),
++    ("qualification","/tmp/not-authorized"),("qualification_sha256","bad"),("new_field",1),
++    ("frozen_sources",{})])
++def test_contract_rejects_changes(config_tree,field,value):
++    config_tree[2][field]=value
++    with pytest.raises(ValueError):checked(config_tree)
++
++@pytest.mark.parametrize("fault",["source","status","exact","cases","completion","fault","drain","account","module"])
++def test_bad_primitive_receipt(config_tree,fault):
++    root,q,data=config_tree;report=json.loads(q.read_text())
++    if fault=="source":(root/contract.SOURCES[0]).write_text("changed")
++    elif fault=="status":report["status"]="CPU_PASS"
++    elif fault=="exact":report["gpu_byte_exact"]=False
++    elif fault=="cases":report["cases"].pop()
++    elif fault=="completion":report["cases"][3]["parent_completion_order"]=[1,2]
++    elif fault=="fault":report["cases"][3]["order"]["faulted"]=True
++    elif fault=="drain":report["cases"][0]["aio"]["outstanding"]=1
++    elif fault=="account":report["cases"][0]["accounting"]["outstanding_records"]=1
++    elif fault=="module":report["native_module"]="/wrong/runtime.py"
++    q.write_text(json.dumps(report));data["qualification_sha256"]=contract.sha(q)
++    with pytest.raises(ValueError):checked(config_tree)
++
++@pytest.mark.parametrize("mode",["off","pressure"])
++def test_worker_model_boundary_uses_actual_native_order(monkeypatch,mode):
++    with rig(monkeypatch,enabled=False,depth=1) as x:
++        worker=NS();config=dict(mode=mode,candidate_parents=32)
++        monkeypatch.setenv("PREFIX_IO_ORDER_MODEL_CONFIG","fixture")
++        monkeypatch.setattr(probe,"validate_config",lambda p:config)
++        monkeypatch.setattr(probe,"handlers",lambda:[NS(coordinator=x.coordinator)])
++        def original(worker,action,limits=None):
++            if action=="finish":x.stop()
++            return {}
++        monkeypatch.setattr(probe,"original",original)
++        assert probe.worker_probe(worker,"install")["store_order_mode"]==mode
++        assert probe.worker_probe(worker,"start")["store_order_mode"]==mode
++        with pytest.raises(ValueError):probe.worker_probe(worker,"start")
++        issued=[];native=x.r._schedule_store_copy
++        def record(j,i,s):issued.append(j.job_id);return native(j,i,s)
++        x.r._schedule_store_copy=record
++        large=x.submit(files=4,job_id=7);small=x.submit(files=1,job_id=8)
++        x.coordinator.request_mandatory([small]);x.start()
++        assert small.result(timeout=2)==4096 and large.result(timeout=2)==16384
++        result=probe.worker_probe(worker,"finish")["store_order_final"][0]
++        assert result["drained"] and result["mode"]==mode
++        assert issued[0]==(8 if mode=="pressure" else 7)
++        assert (result["order"] is None)==(mode=="off")
++
++@pytest.mark.parametrize("bad",["active","copies","io","quota","order","progress","runtime"])
++def test_worker_refuses_unsafe_activation(monkeypatch,bad):
++    with rig(monkeypatch,enabled=False) as x:
++        r=x.r
++        if bad=="active":r._active=[object()]
++        elif bad=="copies":r._pending_copies=[object()]
++        elif bad=="io":r._inflight={1:object()}
++        elif bad=="quota":r._prefix_start_budget=object()
++        elif bad=="order":r._prefix_store_order=object()
++        elif bad=="progress":r._prefix_progress=None
++        elif bad=="runtime":monkeypatch.setattr(probe.inspect,"getfile",lambda t:"/wrong/runtime.py")
++        try:
++            with pytest.raises(ValueError):probe.prepare([r],dict(mode="pressure",candidate_parents=32))
++        finally:
++            r._active=[];r._pending_copies=[];r._inflight={}
++            r._prefix_start_budget=None;r._prefix_store_order=None
++
++def test_worker_will_not_treat_native_fallback_as_success(monkeypatch):
++    with rig(monkeypatch,enabled=False) as x:
++        entries=probe.prepare([x.r],dict(mode="pressure",candidate_parents=32))
++        order=entries[0][1];x.r._prefix_store_order=order;x.start();x.stop()
++        order.fail("injected")
++        with pytest.raises(ValueError):probe.finish_orders(entries,"pressure")
++
++def test_report_checks_actual_mode_shutdown_and_state():
++    raw=dict(status="PASSED_NATIVE_C2_DEVELOPMENT_REPLAY",engine_shutdown="completed",
++        cohort_probe_start=dict(store_order_mode="off"),
++        final_probe=dict(store_order_final=[dict(mode="off",drained=True,order=None)]))
++    assert validate_result(raw,"off")
++    for mutate in [
++        lambda r:r.update(status="FAILED"),lambda r:r.update(engine_shutdown="failed"),
++        lambda r:r["cohort_probe_start"].update(store_order_mode="pressure"),
++        lambda r:r["final_probe"].update(store_order_final=[]),
++        lambda r:r["final_probe"]["store_order_final"][0].update(order=dict(faulted=False)),
++        lambda r:r["final_probe"]["store_order_final"][0].update(drained=False)]:
++        other=copy.deepcopy(raw);mutate(other)
++        with pytest.raises(ValueError):validate_result(other,"off")
+diff --git a/tests/prefix_io_v1_store_order/test_order_analysis.py b/tests/prefix_io_v1_store_order/test_order_analysis.py
+--- /dev/null
++++ b/tests/prefix_io_v1_store_order/test_order_analysis.py
+@@ -0,0 +1,67 @@
++import copy,json,sys
++from pathlib import Path
++import pytest
++import analyze_store_order_model as analysis
++import run_store_order_pilot as driver
++
++def test_abba_effect_uses_all_repeats_and_correct_sign():
++    metrics=("cohort_seconds","response_seconds","tail_drain_seconds","pending_flush_wait_seconds",
++             "scheduled_ttft_mean_seconds","ttft_mean_seconds","itl_p95_seconds")
++    rows=[dict(mode=m,**{k:v for k in metrics}) for m,v in
++          [("off",10),("pressure",9),("pressure",20),("off",12)]]
++    result=analysis.comparisons(rows)
++    assert result["cohort_seconds"]["off_mean"]==11
++    assert result["cohort_seconds"]["pressure_mean"]==14.5
++    assert result["cohort_seconds"]["reduction_percent"]<0
++    assert result["cohort_seconds"]["pair_reduction_percent"][0]>0
++    assert result["cohort_seconds"]["pair_reduction_percent"][1]<0
++    with pytest.raises(ValueError):analysis.comparisons(rows[:3])
++
++def test_only_run_specific_config_fields_are_removed():
++    raw=dict(engine=dict(kv_transfer_config=dict(kv_connector_extra_config=dict(
++        shared_storage_path="/a",prefix_io_observation_run_id="run-a",iodepth=8))),model="m")
++    other=copy.deepcopy(raw);extra=other["engine"]["kv_transfer_config"]["kv_connector_extra_config"]
++    extra.update(shared_storage_path="/b",prefix_io_observation_run_id="run-b")
++    assert analysis.normalized_config(raw)==analysis.normalized_config(other)
++    extra["iodepth"]=4
++    assert analysis.normalized_config(raw)!=analysis.normalized_config(other)
++    assert raw["engine"]["kv_transfer_config"]["kv_connector_extra_config"]["shared_storage_path"]=="/a"
++
++@pytest.mark.parametrize("bad",["missing_passive","quota"])
++def test_driver_rejects_unqualified_combinations_before_native(monkeypatch,tmp_path,bad):
++    args=["pilot","--order-config",str(tmp_path/"config"),"--output",str(tmp_path/"out")]
++    if bad=="quota":args+=["--flush-cause-probe","--store-readiness-probe","--start-budget-config=bad"]
++    monkeypatch.setattr(sys,"argv",args)
++    monkeypatch.setattr(driver.native,"main",lambda:pytest.fail("GPU driver must not launch"))
++    with pytest.raises(ValueError):driver.main()
++
++@pytest.mark.parametrize("native_failure",[False,True])
++def test_driver_delegates_unchanged_and_records_actual_mode(monkeypatch,tmp_path,native_failure):
++    config=tmp_path/"cfg.json";config.write_text("{}");out=tmp_path/"run"/"details"
++    parsed=dict(mode="off",scope="test",qualification_sha256="receipt")
++    monkeypatch.setattr(driver,"validate_config",lambda p:parsed)
++    old=driver.passive.worker_probe;old_native=driver.native.worker_probe
++    monkeypatch.setenv("PREFIX_IO_ORDER_MODEL_CONFIG","previous")
++    args=["pilot","--order-config",str(config),"--output",str(out),
++          "--flush-cause-probe","--store-readiness-probe","--model-dir","frozen-model"]
++    monkeypatch.setattr(sys,"argv",args)
++    def native():
++        import os
++        assert driver.passive.worker_probe is driver.ordered_probe
++        assert os.environ["PREFIX_IO_ORDER_MODEL_CONFIG"]==str(config)
++        assert sys.argv[1:]==["--output",str(out),*args[5:]]
++        out.mkdir(parents=True)
++        raw=dict(status="FAILED" if native_failure else "PASSED_NATIVE_C2_DEVELOPMENT_REPLAY",
++             engine_shutdown="completed",cohort_probe_start=dict(store_order_mode="off"),
++             final_probe=dict(store_order_final=[dict(mode="off",order=None,drained=True)]))
++        (out/"result.json").write_text(json.dumps(raw))
++        return int(native_failure)
++    monkeypatch.setattr(driver.native,"main",native)
++    assert driver.main()==int(native_failure)
++    receipt=json.loads((out/"order-result.json").read_text())
++    assert receipt["status"]==("FAILED" if native_failure else "PASS_REAL_MODEL_STORE_ORDER")
++    assert receipt["actual_order_mode"]=="off"
++    assert driver.passive.worker_probe is old and driver.native.worker_probe is old_native
++    assert sys.argv is args
++    import os
++    assert os.environ["PREFIX_IO_ORDER_MODEL_CONFIG"]=="previous"

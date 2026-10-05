@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "allow_project_local_edits": true,
+  "allow_cpu_tests": true,
+  "allow_public_source_read": true,
+  "allow_remote_push": false,
+  "allow_new_cloud_rental": false,
+  "allow_payment": false,
+  "allow_driver_or_system_changes": false,
+  "allow_shared_data_deletion": false,
+  "allow_gpu_runs": true,
+  "allow_model_downloads": false,
+  "max_gpu_hours": 8,
+  "max_model_download_gib": 20,
+  "approved_gpu_ids": [
+    "GPU-a67d2f38-8e1b-29c3-7e5b-375e1410f8ac"
+  ],
+  "approved_experiment_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+  "approved_dependency_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "approved_auxiliary_storage": null,
+  "gpu_entry_binding": {
+    "label": "server12-c5-native-common-cost-gpu01",
+    "revision_lock_ref": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/REVISION_SOURCE_LOCK.json",
+      "bytes": 1100072,
+      "sha256": "557ed20beae31b3d844cfa1db58a4538c8569d7264c9523cc350743e6e612fa5"
+    },
+    "context_ref": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/LIVE_BINDING_CONTEXT.json",
+      "bytes": 1618,
+      "sha256": "c03e7368b720039560c513b3eaba2328df761b347fd0f6998672af975ba01bde"
+    },
+    "human_grant_ref": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/HUMAN_GPU_GRANT.json",
+      "bytes": 3665,
+      "sha256": "e60cf1688f88495dbd94ec7399089adf09f7a02b0182c4a0e31eb649afe0f4b7"
+    },
+    "seconds_limit": 1200,
+    "reserved_seconds": 1220,
+    "max_attempts": 1,
+    "max_processes": 6
+  }
+}

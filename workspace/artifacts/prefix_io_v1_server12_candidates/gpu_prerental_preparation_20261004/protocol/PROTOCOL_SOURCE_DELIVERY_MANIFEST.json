@@ -1,0 +1,51 @@
+{
+  "GPU_operations": 0,
+  "files": [
+    {
+      "bytes": 98506,
+      "name": "CONTROLLED_P3_OFF_QUALIFICATION_WORKLOAD.json",
+      "sha256": "342e965f509c81ce4702b4f1ea42142aa2176630c4aa691c56a39ea92d0630b7"
+    },
+    {
+      "bytes": 3523,
+      "name": "LOCAL_PROTOCOL_CPU_TESTS_01.json",
+      "sha256": "18bdae59adfb0e15d28e4abf39a789d0ec03380f7502b9d79675861d5b6bee20"
+    },
+    {
+      "bytes": 3522,
+      "name": "LOCAL_PROTOCOL_CPU_TESTS_02.json",
+      "sha256": "48415665487a2ab0254faaeb71f4ffdd830d9f864e244f2a166bf383a10d7892"
+    },
+    {
+      "bytes": 5450,
+      "name": "LOCAL_PROTOCOL_CPU_TESTS_FINAL.json",
+      "sha256": "e9e9c30e9c2abecd4931aa562f6ab645dfc2ab1ab1e950171436d6d5accf32e6"
+    },
+    {
+      "bytes": 34760,
+      "name": "prerental_protocol.py",
+      "sha256": "7fbc544597c9abe334122d354e7494b590e810ab0682f1d2d155408cc4f618eb"
+    },
+    {
+      "bytes": 1740,
+      "name": "PRERENTAL_PROTOCOL_CPU_CONTRACT.json",
+      "sha256": "e28122b2ddf05fffa36312f06dd47d162d328d8a29d44b7a2d39d05d8f12bcb8"
+    },
+    {
+      "bytes": 7032,
+      "name": "PROTOCOL_PREPARATION_REPORT.md",
+      "sha256": "428a854d3f3487ac4931c09d743b6721f68a2301470ef94725e789856613bbb4"
+    },
+    {
+      "bytes": 21826,
+      "name": "test_prerental_protocol.py",
+      "sha256": "26a6251fe9b064f41c906f69cc34014a88f71c3c332e3507549f093f4a4326e2"
+    },
+    {
+      "bytes": 3211,
+      "name": "verify_prerental_cpu.py",
+      "sha256": "46b549fb142c0f23dc42e2f833b918cdd07a493195f775c73af0e5e84520ff94"
+    }
+  ],
+  "schema": "prerental_protocol_source_delivery_manifest_v1"
+}

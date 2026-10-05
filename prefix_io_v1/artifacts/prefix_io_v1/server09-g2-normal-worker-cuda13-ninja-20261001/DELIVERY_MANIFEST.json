@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_CPU_NINJA_PATH_PREPARATION_NO_NEW03_GPU_SCOPE",
+  "files": [
+    {
+      "path": "ACTUAL_SERVER_CPU_BUDGET_STORAGE_CLOSURE.json",
+      "bytes": 4186,
+      "sha256": "e2c5d69dbd960cd2a560cb2c56d4744d1adfd286fb5195ff0c14b24c5b411ffc"
+    },
+    {
+      "path": "ACTUAL_SERVER_CPU_COMPLETE_SOURCE_PREFLIGHT.json",
+      "bytes": 738,
+      "sha256": "d79118de54fc87683b6c55d094b694d14e9b153a7c71cb178fae383d872eaa30"
+    },
+    {
+      "path": "ACTUAL_SERVER_CPU_NORMAL_MODEL_TESTS.json",
+      "bytes": 9782,
+      "sha256": "b82813e609731a13f449004562e04a790bc9e95cd93bd6885f4f4b05119e1f71"
+    },
+    {
+      "path": "ACTUAL_SERVER_CPU_SOURCE_LOCK_ASSEMBLY.json",
+      "bytes": 2820,
+      "sha256": "e4bf88cc6eb25aed9ebcb013c8897dd4fd149ec43578894fd8980fd4e816fe77"
+    },
+    {
+      "path": "CPU_SOURCE_LOCK_PREPARATION_RESULT.json",
+      "bytes": 9747,
+      "sha256": "8b70fd8085659104e90a5a78d40d403430b4efc1853fcd8b1a60b4af4b8a752f"
+    },
+    {
+      "path": "G2_NORMAL_MODEL_CPU_PLAN.json",
+      "bytes": 16514,
+      "sha256": "19441c85dd70aa114d3cc58d81e63e8f3c61ef657a196753e7e3c036e434c610"
+    },
+    {
+      "path": "G2_SCOPE_NOT_AUTHORIZED_TEMPLATE.json",
+      "bytes": 7063,
+      "sha256": "2b60cb12cc81b25725d0f3be03f7cec3bb57e5915f957315c68d9800d56f8e13"
+    },
+    {
+      "path": "g2_worker_observation.py",
+      "bytes": 13090,
+      "sha256": "096f2fffe91de7132f45997be51fecceec57d65fdf86caab6f8bbe5c71748f7b"
+    },
+    {
+      "path": "gpu-source-lock-candidate.json",
+      "bytes": 896797,
+      "sha256": "7b8445363e985a7dc4bff08960b31ee4cc325e3d309322f7f4b15d5b0f8aa423"
+    },
+    {
+      "path": "INDEPENDENT_BOUNDARY_REVIEW.json",
+      "bytes": 11622,
+      "sha256": "49b200a5f17d4ecca7f3ce0a81bea94a080cd1dc6315265c1c1d77740234da95"
+    },
+    {
+      "path": "LOCAL_CPU_NORMAL_MODEL_RESULT.json",
+      "bytes": 10382,
+      "sha256": "25e8d866d464c18cebea18e24ee20c3c36f48aebf34436208ff42f6480cb21c8"
+    },
+    {
+      "path": "NEXT_GPU_STAGE_PROPOSAL_NOT_AUTHORIZED.json",
+      "bytes": 2762,
+      "sha256": "9b7b39c12224edfba6f4a40d9a8ec1ac494c518eddc667c07c49aa8f3acfcf78"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3015,
+      "sha256": "cbcbd656c83acdc72fd82699358232604bc6a4e6ce6cd0069ae93c92ca937b7d"
+    },
+    {
+      "path": "run_g2_normal_model_lifecycle.py",
+      "bytes": 43354,
+      "sha256": "bad66233db2a6952e4e8cf2ef3804aadc056e4ef9595ba9b6245c1dc3b9d1535"
+    },
+    {
+      "path": "SERVER09_NINJA_CPU_PREPARATION_REPORT.md",
+      "bytes": 6946,
+      "sha256": "ae5603ab111bae4ee982e183011a27c4f521524ab51bd537f81baccb31a252fe"
+    },
+    {
+      "path": "source-lock-preparation/prepare_cpu_source_lock_candidate.py",
+      "bytes": 19272,
+      "sha256": "1de99fcf62fae93588367651065cc267328387a73c1cc1e850c7503850c96cf9"
+    },
+    {
+      "path": "source-lock-upload-parts/manifest.json",
+      "bytes": 3480,
+      "sha256": "75ffc9f90b5af71136360df1ca1c319085d73ae265bba03e178b699a523beec9"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0001.bin",
+      "bytes": 60000,
+      "sha256": "43a9b263d82e4c741b832e0466e6183311c298d82b136ee196ed536df1283b6f"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0002.bin",
+      "bytes": 60000,
+      "sha256": "5199c2880c1c1b9d9d9c617763e53da4900f19c1b85131de48b5b2a54701a0a9"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0003.bin",
+      "bytes": 60000,
+      "sha256": "5ba864de2fe9b8c4778d16df50d08acd42c002b1f28090a0893fdbdf988907fe"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0004.bin",
+      "bytes": 60000,
+      "sha256": "26530982f8a9abd6544d3325358ce9307def6ac08baf383bb1b2c89446881546"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0005.bin",
+      "bytes": 60000,
+      "sha256": "40d10696008076749595af333078f0eaab1a1cbb38595da58000dd48e0eb345c"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0006.bin",
+      "bytes": 60000,
+      "sha256": "b6765e842d1d7390f1f1fede4d138bd6b3c366f1b55ec635edb56320060464a4"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0007.bin",
+      "bytes": 60000,
+      "sha256": "9d7e1e645b03ac8e6c1319ce553c525d5320e6a45591ffd97a60539971fec7a3"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0008.bin",
+      "bytes": 60000,
+      "sha256": "e283db11cf2094049a0501840e9163fcb9e7065ad60cf335372bf802a6b1e6cf"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0009.bin",
+      "bytes": 60000,
+      "sha256": "34f6134c7e14dc7e9665e72afb69e895928534d04ec0558d3e1ae9feae3d8e91"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0010.bin",
+      "bytes": 60000,
+      "sha256": "07f444efbae2ff5e0fe4fdbcd415235cbc30f86657a14358d68eae3cf6b3afaa"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0011.bin",
+      "bytes": 60000,
+      "sha256": "763fd352478b080c5b6f941e87da92f918270aeda5ebe9358b6b34dc62236824"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0012.bin",
+      "bytes": 60000,
+      "sha256": "ad62cd410a6404f51ece832b0002e5d768d57bd9b88dc1da0fae49d9809de791"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0013.bin",
+      "bytes": 60000,
+      "sha256": "94655425c270a0445dd7050f998fde8c5992f0aa2b55822570589555b78307a5"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0014.bin",
+      "bytes": 60000,
+      "sha256": "d3221adca5f429df41026fd6db578f85235fc95aa1e8b2e8b09e89f17bc14440"
+    },
+    {
+      "path": "source-lock-upload-parts/part-0015.bin",
+      "bytes": 56797,
+      "sha256": "624fbe022db2cf9a97e962ae26e7e6062076d231eef9790879f4f21fb961ff76"
+    },
+    {
+      "path": "test_g2_normal_model_lifecycle.py",
+      "bytes": 33739,
+      "sha256": "236b787a8603ef0eb748928d7d3154d7fc5ac34aa4fe25551e23fe83dcaf1a4f"
+    },
+    {
+      "path": "test_g2_worker_observation.py",
+      "bytes": 19179,
+      "sha256": "104a4ebfbbf24fdac5991bfcd56e7d28e3cd95f53cc58a86d3ac1191b9909f22"
+    }
+  ],
+  "file_count": 34,
+  "server_CPU_tests": 51,
+  "replayed_previous_tests": 48,
+  "new_Ninja_contract_tests": 3,
+  "server_source_count": 4040,
+  "source_lock_sha256": "7b8445363e985a7dc4bff08960b31ee4cc325e3d309322f7f4b15d5b0f8aa423",
+  "actual_new_GPU_jobs_in_this_preparation": 0,
+  "CPU_sampler_build_evidence_separate": true,
+  "CPU_so_reused_in_future_GPU": false,
+  "GPU_model_qualified": false,
+  "performance_claim": false
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "allow_project_local_edits": true,
+  "allow_cpu_tests": true,
+  "allow_public_source_read": true,
+  "allow_remote_push": false,
+  "allow_new_cloud_rental": false,
+  "allow_payment": false,
+  "allow_driver_or_system_changes": false,
+  "allow_shared_data_deletion": false,
+  "allow_gpu_runs": true,
+  "allow_model_downloads": false,
+  "max_gpu_hours": 8,
+  "max_model_download_gib": 20,
+  "approved_gpu_ids": [
+    "GPU-38c1d1c7-2aba-3fa9-e1cd-fe4d3ae569c9"
+  ],
+  "approved_experiment_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+  "approved_dependency_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "approved_auxiliary_storage": null,
+  "gpu_entry_binding": {
+    "label": "server11-c5-native-common-cost-gpu02",
+    "revision_lock_ref": {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-device-revision-20261004/REVISION_SOURCE_LOCK.json",
+      "bytes": 1096971,
+      "sha256": "5977d65a414dddf384e7b068f38186e43574c859c4f2a1eed31fddb67aa650ff"
+    },
+    "context_ref": {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-device-revision-20261004/LIVE_BINDING_CONTEXT.json",
+      "bytes": 1588,
+      "sha256": "5e444bb4b6679436e7131bff1c07ac506a6e48ae1344e3590cbdbc003d060741"
+    },
+    "human_grant_ref": {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-device-revision-20261004/HUMAN_GPU_GRANT.json",
+      "bytes": 1464,
+      "sha256": "f0c16f4c47aaacad6e430b252f6e3a44eb5e469247e232d917860ed638f9e826"
+    },
+    "seconds_limit": 1200,
+    "reserved_seconds": 1220,
+    "max_attempts": 1,
+    "max_processes": 6
+  }
+}

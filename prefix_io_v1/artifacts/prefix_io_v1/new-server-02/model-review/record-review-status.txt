@@ -1,0 +1,9 @@
+{
+  "script": "experiments/prefix_io_v1/scripts/prepare_qwen_download.py",
+  "script_sha256": "02d19f88d283a162fe5b8f0e68e682dd28a32f1623e4cf48f97583453f0d10fd",
+  "cpu_test_passed": 26,
+  "gpu_operations": 0,
+  "model_weight_download_bytes": 0,
+  "metadata_pin": null,
+  "execution": "UNEXECUTED"
+}

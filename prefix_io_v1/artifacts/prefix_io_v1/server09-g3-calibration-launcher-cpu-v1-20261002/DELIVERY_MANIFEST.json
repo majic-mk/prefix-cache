@@ -1,0 +1,494 @@
+{
+  "status": "FROZEN_CPU_READY_GPU_NOT_AUTHORIZED",
+  "files": [
+    {
+      "path": "ACTUAL_CPU_EVIDENCE_DOWNLOADS.json",
+      "bytes": 1177,
+      "sha256": "26882e52b8c5a6bfb82e107b43389ee645306a06ee09dd3a80b50038d095e76b"
+    },
+    {
+      "path": "ACTUAL_FINAL_SOURCE_LOCK_ASSEMBLY.json",
+      "bytes": 250,
+      "sha256": "3cc2b854c5b46f41fd1b3139aa8210a04c745d14c24b5d11eb9753e376e2e88b"
+    },
+    {
+      "path": "ACTUAL_FINAL_SOURCE_UPLOAD_RESULTS.json",
+      "bytes": 3464,
+      "sha256": "f1cded37900151169192d8ee06d0830e88f3e1ade4b1a1ad8d89ce12d7b2a8e0"
+    },
+    {
+      "path": "ACTUAL_GPU_ASSET_FAILURE_TRACE.json",
+      "bytes": 1599,
+      "sha256": "fee231caf52311f28be89fcc06b4efa2e441102ca4971b154a2a1b769dea9361"
+    },
+    {
+      "path": "ACTUAL_INITIAL_CPU_EXECUTION_COMMAND.json",
+      "bytes": 608,
+      "sha256": "845df8711dff5545ed3dff3524b35adea10515b196316463597e80e69f2fe783"
+    },
+    {
+      "path": "ACTUAL_INITIAL_CPU_EXECUTION_RECEIPT.json",
+      "bytes": 349,
+      "sha256": "14094dac36817bc0609580165c7b3427b705e0c100481cf6436ad797358612a4"
+    },
+    {
+      "path": "ACTUAL_NO_GPU_DEVICE_FILESYSTEM_FACTS.json",
+      "bytes": 210,
+      "sha256": "2e98f4c8fb4c7ab286296189f5e785df6dcf3597b07f3d98219e57b644053833"
+    },
+    {
+      "path": "ACTUAL_NO_GPU_READINESS_COMMAND.json",
+      "bytes": 464,
+      "sha256": "8b0e4ad815d60c51b6ef50750557dee1c660fc8418c20ee38a9c93442897c9a8"
+    },
+    {
+      "path": "ACTUAL_NO_GPU_READINESS_RESULT.json",
+      "bytes": 1850,
+      "sha256": "f161c98b4dad93b3a34b359dad96c5777facb9bc85cafdb76189aa92d8227d9d"
+    },
+    {
+      "path": "ACTUAL_ORIGINAL_TAP_SOURCE_AST.json",
+      "bytes": 502,
+      "sha256": "a551eea1d652f5469c42159be2f710a82ed8a205e2d3ace5c5945acf039fd04d"
+    },
+    {
+      "path": "ACTUAL_READONLY_DRIVER_AND_CPU_OUTPUT_AUDIT.json",
+      "bytes": 1950,
+      "sha256": "e7d60e0330755ead5706dc11a829633d56669b6f6b1fc900be94ceb8683f6edf"
+    },
+    {
+      "path": "ACTUAL_REMAINING_CPU_EXECUTION_COMMAND.json",
+      "bytes": 614,
+      "sha256": "6fed40e7fcb54a5f7c9a978aeb7acb29fecead19928f735af7bed7cce40e2f35"
+    },
+    {
+      "path": "ACTUAL_REMAINING_CPU_EXECUTION_RECEIPT.json",
+      "bytes": 334,
+      "sha256": "ab36cbf3ace184c6b284a6df41a4c29744563f30eaed3e1d1a94f77b04dfafbe"
+    },
+    {
+      "path": "ACTUAL_SOURCE_LOCK_ASSEMBLY.json",
+      "bytes": 244,
+      "sha256": "01e94300dc494868a402c4394dd4f2f9c82531ea31d318ad2d17933d47afef03"
+    },
+    {
+      "path": "ACTUAL_SOURCE_UPLOAD_RESULTS.json",
+      "bytes": 5211,
+      "sha256": "410fc8f72b16e515fd59c7eacab8f65f8db643acb433aa8c3ffe43bc04dac1be"
+    },
+    {
+      "path": "cpu-evidence-01/ACTUAL_SERVER_CPU_RESULT.json",
+      "bytes": 2140,
+      "sha256": "4d61613b315fca3f62c91a309d5413c14ebaf039b03c89adb2883564d8e904ab"
+    },
+    {
+      "path": "cpu-evidence-01/test_g3_calibration_plan.py.log",
+      "bytes": 131,
+      "sha256": "873707f00e685525fe01906680b3130cd7f815a538bbbaa55503689394c38b1c"
+    },
+    {
+      "path": "cpu-evidence-01/test_g3_calibration_result.py.log",
+      "bytes": 5522,
+      "sha256": "887cbff836f23ae08f63cd9648a4d05d211f6df60ca6e887e15e778a85d4521d"
+    },
+    {
+      "path": "cpu-evidence-01/test_g3_calibration_runtime.py.log",
+      "bytes": 2558,
+      "sha256": "1c7cc47f17667e9c9979dc2e640e3278f36d737186632cfafbe51851b1c41cf7"
+    },
+    {
+      "path": "cpu-evidence-02/actual-full-source-preflight.log",
+      "bytes": 193,
+      "sha256": "a9ab91575c0e4548cd9b1ab356fed98dcb7f7a4c41e85eb094e77545bf2ccc28"
+    },
+    {
+      "path": "cpu-evidence-02/actual-support-imports.log",
+      "bytes": 1042,
+      "sha256": "027b6e4d9eed25a6c83d4e56b6de074720c33cccae39cd5a0eeab27b436281a0"
+    },
+    {
+      "path": "cpu-evidence-02/ACTUAL_SERVER_REMAINING_CPU_RESULT.json",
+      "bytes": 4649,
+      "sha256": "d4af4059b310d82cff2fe99a60647cf2f74eac20736b7ec7af69e4b4974fbb56"
+    },
+    {
+      "path": "cpu-evidence-02/test_g3_calibration_result.py.log",
+      "bytes": 4337,
+      "sha256": "a20266a0c413ff4cfa6d9cb86ca3702d7b4032109b0bfa2b47b6da3561c51395"
+    },
+    {
+      "path": "cpu-evidence-02/test_run_g3_calibration_pilot.py.log",
+      "bytes": 107,
+      "sha256": "758528d60369058ca4ce513ef0d141fb56205d4a813f59732dc2b65636feba89"
+    },
+    {
+      "path": "CPU_FINAL_FREEZE.json",
+      "bytes": 2649,
+      "sha256": "913955173b85eb1e8911d04b9518f51ee73b42c8746e241816f858cc55b37d82"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_01.log",
+      "bytes": 3196,
+      "sha256": "0a5e1be63ad6e2e9483e933f2270e09824cdd0acd1b49307cbf2101c6e2f389b"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_01_RESULT.json",
+      "bytes": 850,
+      "sha256": "1e2442bf6276f794bfd9ea40e93a47ada49a382f65aa997de59551c1791dfdff"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_02.log",
+      "bytes": 815,
+      "sha256": "bcc270ff0ca7ce787941b6fa1488e9470ce5376efb6da39f1218a63d55a4f44d"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_02_RESULT.json",
+      "bytes": 874,
+      "sha256": "5de363244fe9ae0b83b769b06bedd990efd3864ce69c8990ab8d1caa0c1517a4"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_03.log",
+      "bytes": 135,
+      "sha256": "86c81ec5054ab95d2ddd386392c83bbb6409cd33f90ab5abf1c9b7d11a8c84c7"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_03_RESULT.json",
+      "bytes": 1568,
+      "sha256": "129aa02f161ee7af18f008615f79303ad462fd4db39b577bc5d02d7e79ecdec9"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_04.log",
+      "bytes": 135,
+      "sha256": "86c81ec5054ab95d2ddd386392c83bbb6409cd33f90ab5abf1c9b7d11a8c84c7"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_04_RESULT.json",
+      "bytes": 755,
+      "sha256": "cdbb824f3f1d515eb9832db6802cf4ea2a8d90b4b56e818b2fc1697950fd4257"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_05.log",
+      "bytes": 135,
+      "sha256": "df76124a469eb73aa5fbe73c225d9c2c56221e64186632fa9e7df0e6c97be5c4"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_05_RESULT.json",
+      "bytes": 1670,
+      "sha256": "d01f95af0bad825cef0a1aaf305e506ac3006d714f00d918545e396a8997e1ef"
+    },
+    {
+      "path": "final-source-lock-parts/manifest.json",
+      "bytes": 2632,
+      "sha256": "35f417012eafe2dfedb963435797a0290f7a96a97918f52555d6b3614c3cfd49"
+    },
+    {
+      "path": "final-source-lock-parts/part-00.bin",
+      "bytes": 65536,
+      "sha256": "48a1176996ea697e429c17491bf94f20418f27dd358fd3056c98af0b6c0a850e"
+    },
+    {
+      "path": "final-source-lock-parts/part-01.bin",
+      "bytes": 65536,
+      "sha256": "f5f93999843bf97396cc661cbd49065fa4458420dfeacfb43323c491b473ae3d"
+    },
+    {
+      "path": "final-source-lock-parts/part-02.bin",
+      "bytes": 65536,
+      "sha256": "c14551c97d64b4b34c845b38c8458f7e77ec8e58acfe18acbc9bf50e46091532"
+    },
+    {
+      "path": "final-source-lock-parts/part-03.bin",
+      "bytes": 65536,
+      "sha256": "324deb24d3d584f62e6b44180f8891f9a084539390c97c9b83322168b6d20250"
+    },
+    {
+      "path": "final-source-lock-parts/part-04.bin",
+      "bytes": 65536,
+      "sha256": "8691b9b32b6bc2b7dfc238290bb0f88d39434e55e9ff8556c03c64e3350415a8"
+    },
+    {
+      "path": "final-source-lock-parts/part-05.bin",
+      "bytes": 65536,
+      "sha256": "dcdb904e8a8476461fc5bea8b592ba8364151fd1391c0d55e6b3792194fc7347"
+    },
+    {
+      "path": "final-source-lock-parts/part-06.bin",
+      "bytes": 65536,
+      "sha256": "3dff2957a7354f10134f63d33a5a32814bb77cf5dc2a3e7cbfb0abb0dddff5cf"
+    },
+    {
+      "path": "final-source-lock-parts/part-07.bin",
+      "bytes": 65536,
+      "sha256": "e8910e82b8f06479e637647403796fa4b1f9cf7dd7498a5d2470a490b3780059"
+    },
+    {
+      "path": "final-source-lock-parts/part-08.bin",
+      "bytes": 65536,
+      "sha256": "806135168ff0086904e20fc842831289cec294b7f52d113dbf48efca3506305c"
+    },
+    {
+      "path": "final-source-lock-parts/part-09.bin",
+      "bytes": 65536,
+      "sha256": "c0735c29c2df1afc3bdd843a780cf9b5a1cc5c2a1d9013a3efa38f85063a973b"
+    },
+    {
+      "path": "final-source-lock-parts/part-10.bin",
+      "bytes": 65536,
+      "sha256": "bccf2201f51d662b8d1f74bef9078863e9b94b2a7740217e41407848eb0b7720"
+    },
+    {
+      "path": "final-source-lock-parts/part-11.bin",
+      "bytes": 65536,
+      "sha256": "edb0b9bb7316fa321c6f854854d2cb3510ea97400937fc79ef183a795c561394"
+    },
+    {
+      "path": "final-source-lock-parts/part-12.bin",
+      "bytes": 65536,
+      "sha256": "6079f32ce1b292f35c5ac528f676dbe37e473a36fded21d350b9c4231e6567b0"
+    },
+    {
+      "path": "final-source-lock-parts/part-13.bin",
+      "bytes": 52051,
+      "sha256": "01356d7bc1d5f5117bc3c2144c9b44984dffcdb7dac7e1ce442c170e45903cc9"
+    },
+    {
+      "path": "FINAL_G3_SCOPE_TEMPLATE_NOT_AUTHORIZED.json",
+      "bytes": 4663,
+      "sha256": "b32ae4684ce12365fe3fb8ff430bd09da634049b4c60bf000bd8807ebee31aee"
+    },
+    {
+      "path": "FINAL_GPU_SOURCE_LOCK_REF.json",
+      "bytes": 219,
+      "sha256": "07863732ea5e818fbdbb5767b8df521e600f201acb114c231723278437b23b68"
+    },
+    {
+      "path": "G3_CALIBRATION_CPU_PLAN.json",
+      "bytes": 9516,
+      "sha256": "b33dd9e983dbfaaa615db53f621a6a53a5cb0768cbfa0fc94cabb9951a6527fb"
+    },
+    {
+      "path": "g3_calibration_plan.py",
+      "bytes": 24475,
+      "sha256": "196700d96733ec07c5a4c08c6104ab31a2a36548cf005fbb8e11b6a769f6f0c0"
+    },
+    {
+      "path": "g3_calibration_result.py",
+      "bytes": 34174,
+      "sha256": "83ae8bb14181d51e9d4b0e40bca4123d30578cce43f581d851f97033f155eb9e"
+    },
+    {
+      "path": "g3_calibration_runtime.py",
+      "bytes": 27641,
+      "sha256": "a32842723fb9871696173c257d3276d156545d519a7aefeea449b367bd79a294"
+    },
+    {
+      "path": "G3_HUMAN_SCOPE_TEMPLATE_NOT_AUTHORIZED.json",
+      "bytes": 4667,
+      "sha256": "ab64f8325f66cd44edadf67c905ead60fb933ee18da90955ad3b33023a0843e6"
+    },
+    {
+      "path": "gpu-source-lock-candidate.json",
+      "bytes": 923926,
+      "sha256": "0e8de957d838d683b1fac00cf901e6f1b59232689d0fb8e3e0049df823b4ba2d"
+    },
+    {
+      "path": "gpu-source-lock-final.json",
+      "bytes": 904019,
+      "sha256": "263b3eea9560de916860fb3340e9421ad76a49d3a15d4008857773e342fc152e"
+    },
+    {
+      "path": "GPU_SOURCE_LOCK_REF.json",
+      "bytes": 223,
+      "sha256": "1a1cf97cdcddd24f6495327f1171ae171ef8233ee7c1619a3caa08d787ffb392"
+    },
+    {
+      "path": "historical-run-01/g3_calibration_plan.py",
+      "bytes": 23250,
+      "sha256": "5f7033014a876a81dc8efd93999f4d83e7d6cdfcf94e2dac4775508767b3ba41"
+    },
+    {
+      "path": "historical-run-01/test_g3_calibration_plan.py",
+      "bytes": 17271,
+      "sha256": "b8a38295a228c43a8758055dadcffbe664e71838229dc720f9192173d13b147e"
+    },
+    {
+      "path": "historical-run-02/g3_calibration_plan.py",
+      "bytes": 24340,
+      "sha256": "7868c5ef4a113607320a132a22072fcd9bbb33fb6b367976e81b05065695f21f"
+    },
+    {
+      "path": "historical-run-02/test_g3_calibration_plan.py",
+      "bytes": 18031,
+      "sha256": "b0da9852619c6df7e826f2eb83f2680667882e522a7b0e196d7a00da2330a447"
+    },
+    {
+      "path": "historical-run-03-before-output-seam/g3_calibration_plan.py",
+      "bytes": 24340,
+      "sha256": "7868c5ef4a113607320a132a22072fcd9bbb33fb6b367976e81b05065695f21f"
+    },
+    {
+      "path": "historical-run-03-before-output-seam/test_g3_calibration_plan.py",
+      "bytes": 18041,
+      "sha256": "06ecfaa966d9cd06f9278636340a8d603fee3a809e86ea02594645cc184b4676"
+    },
+    {
+      "path": "historical-run-04/g3_calibration_plan.py",
+      "bytes": 24352,
+      "sha256": "33c56263ac298f9ba39ef5b0211cfaafdb8025eb33c5cfe19c40e0a348f18dd5"
+    },
+    {
+      "path": "historical-run-04/test_g3_calibration_plan.py",
+      "bytes": 18196,
+      "sha256": "7d1ebfbd82b8fcb8bf5296d063dddafc2755bb659cabfdcede3274058032928f"
+    },
+    {
+      "path": "INDEPENDENT_CALIBRATION_CLI_CPU_BOUNDARY_REVIEW.json",
+      "bytes": 8036,
+      "sha256": "bd8257ddd71c1b08dd09ceb7acce9b3aa151ae93b142f24a35589bd27b0cb6f4"
+    },
+    {
+      "path": "INDEPENDENT_NO_GPU_READINESS_REVIEW.json",
+      "bytes": 781,
+      "sha256": "2eccba2faa996e93381ab72ff3e51bfe6bbdaaef27f03708b5149cf3e2edd936"
+    },
+    {
+      "path": "INITIAL_SERVER_CPU_SNAPSHOT.json",
+      "bytes": 289,
+      "sha256": "0aba377329a1399d693a9af809e7f8cdf5860b8e63a65e49e01b2ecf719f9025"
+    },
+    {
+      "path": "replay_g3_cpu_support_imports.py",
+      "bytes": 4389,
+      "sha256": "34ac92fe1f77145fc53adfe22d21f90850cef50147d58c15b1935697ea930db2"
+    },
+    {
+      "path": "run_g3_calibration_pilot.py",
+      "bytes": 17093,
+      "sha256": "feb00143d95e40bcc3691a3f8489e7d32088e3ee7e2342643ddf4885a14f7072"
+    },
+    {
+      "path": "run_g3_cpu_checks.py",
+      "bytes": 4421,
+      "sha256": "e7b3b084e54ff8a6b8f3958d58b22df07d3c84c343617af91c71edede92c5b88"
+    },
+    {
+      "path": "run_g3_cpu_remaining_checks.py",
+      "bytes": 4059,
+      "sha256": "83a685cb3021637fd3903782ffb298c5cf2928885bf9454c7e65fe56f65744c2"
+    },
+    {
+      "path": "SERVER09_G3_GPU_PILOT_CPU_READINESS_REPORT.md",
+      "bytes": 6436,
+      "sha256": "7ef91b238e5ecbc5c51d9f950f96710227de2efd051ec52b5b5d8556e03e0db8"
+    },
+    {
+      "path": "source-lock-upload-parts/manifest.json",
+      "bytes": 2826,
+      "sha256": "6d0147d30d183b0d1841d77543ba2a69436a7557eb81fb0279cc1c75f49afcfb"
+    },
+    {
+      "path": "source-lock-upload-parts/part-00.bin",
+      "bytes": 65536,
+      "sha256": "b6964a49fa49ecd2cdcd5171082e101a91320df56dfe36f5e70eb49677bd8fc6"
+    },
+    {
+      "path": "source-lock-upload-parts/part-01.bin",
+      "bytes": 65536,
+      "sha256": "585643facdcf9e58ecfe55487938ef4da6f8812cdd9f2d80bbadc66020c274e4"
+    },
+    {
+      "path": "source-lock-upload-parts/part-02.bin",
+      "bytes": 65536,
+      "sha256": "7250342ab2ce3892e8dc616b1014aba48382fea83d54331b17e87ad127a12508"
+    },
+    {
+      "path": "source-lock-upload-parts/part-03.bin",
+      "bytes": 65536,
+      "sha256": "7b72fc7f8a2f39ac13603dedf7a13b8721c54005180137fc1d0d670c05a488e1"
+    },
+    {
+      "path": "source-lock-upload-parts/part-04.bin",
+      "bytes": 65536,
+      "sha256": "33b3c288df8f4b9abf32337680154f116ed057cc14b2d5c2d442776178edfb74"
+    },
+    {
+      "path": "source-lock-upload-parts/part-05.bin",
+      "bytes": 65536,
+      "sha256": "a4921b78dc9f755272242b579f069a65fec8dfd71179cc9d1d79c06e75227e26"
+    },
+    {
+      "path": "source-lock-upload-parts/part-06.bin",
+      "bytes": 65536,
+      "sha256": "129ad856e36e4cc42137f31ca88d7aa4ce94787bd0cc85c23a020a6a84437878"
+    },
+    {
+      "path": "source-lock-upload-parts/part-07.bin",
+      "bytes": 65536,
+      "sha256": "7bb67abc083330879fa3645a6507492f61b3631af83d81d0a8164f40225235fd"
+    },
+    {
+      "path": "source-lock-upload-parts/part-08.bin",
+      "bytes": 65536,
+      "sha256": "b9efdeeae781de258da87e252fac6d7dc77754d20ff2c9a35809a1a95c2def16"
+    },
+    {
+      "path": "source-lock-upload-parts/part-09.bin",
+      "bytes": 65536,
+      "sha256": "1cca66e83e42ea0efff5d7e8cdd18fb0d4957a2d73963f286a0cf3abcdc3bc5d"
+    },
+    {
+      "path": "source-lock-upload-parts/part-10.bin",
+      "bytes": 65536,
+      "sha256": "f29aec10166f120624bc17748dd799d47bb8fcdd10e7133a71fd8d2cc4129b4f"
+    },
+    {
+      "path": "source-lock-upload-parts/part-11.bin",
+      "bytes": 65536,
+      "sha256": "fd2400960068e6fbf992105e9c19fb3d91af0b74e2a5c95a35afd4641083e099"
+    },
+    {
+      "path": "source-lock-upload-parts/part-12.bin",
+      "bytes": 65536,
+      "sha256": "5b1a5051be9bfaa8f22a137db5e4c6b8e09a4eab58661702f5dcb83b2de840ac"
+    },
+    {
+      "path": "source-lock-upload-parts/part-13.bin",
+      "bytes": 65536,
+      "sha256": "6cdfad7b366157cf1f9206c62589372e037bc78b8d68807cfaa1b41fcf0c2026"
+    },
+    {
+      "path": "source-lock-upload-parts/part-14.bin",
+      "bytes": 6422,
+      "sha256": "e9b0db3a3e35b178f0fdffef44ff3bade91fdf806e2b3578936b3c2c21a5a884"
+    },
+    {
+      "path": "test_g3_calibration_plan.py",
+      "bytes": 18298,
+      "sha256": "057744cf2f6d66d400a9aa9b7d3ab944a2e032b39b9c9bf07a74e7d18926c159"
+    },
+    {
+      "path": "test_g3_calibration_result.py",
+      "bytes": 24052,
+      "sha256": "c67917b61d5d7e4a84f7aaf4648b1383e46a0813218ed4e4a00f5b3600fb3a4c"
+    },
+    {
+      "path": "test_g3_calibration_runtime.py",
+      "bytes": 19387,
+      "sha256": "ce2ff4039ff66b04df192fe61044e20071d810a6187386ae6130eb24b7b03def"
+    },
+    {
+      "path": "test_run_g3_calibration_pilot.py",
+      "bytes": 6087,
+      "sha256": "74d131d72d9979cc400b66672c1c4746d95f4d6885e842fb416caa6b22a73187"
+    },
+    {
+      "path": "verify_g3_no_gpu_readiness.py",
+      "bytes": 5208,
+      "sha256": "ed85d5f7e4f6c6e372d02bc9e5fd2e70d36b3638bc55989f93b506054db538ed"
+    }
+  ],
+  "file_count": 97,
+  "total_bytes": 4105570,
+  "source_lock_sha256": "263b3eea9560de916860fb3340e9421ad76a49d3a15d4008857773e342fc152e",
+  "GPU_operations": 0
+}

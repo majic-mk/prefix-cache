@@ -1,0 +1,660 @@
+{
+  "schema": "server12_append_only_cpu_delivery_manifest_v1",
+  "utc": "2026-10-04T08:17:44.695529+00:00",
+  "file_count": 93,
+  "files": [
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/02_CLONE_FULL_SOURCE_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "02_CLONE_FULL_SOURCE_COMMAND.json",
+      "bytes": 2330,
+      "sha256": "f8fe75f4f0d3a5c2c5a21caa051f9ed8a96fc7302ec2333705693765050317e3"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/02_CLONE_FULL_SOURCE_RESULT.json",
+      "area": "migration_audit",
+      "relative": "02_CLONE_FULL_SOURCE_RESULT.json",
+      "bytes": 118,
+      "sha256": "9703ca30f57e587771a008c2d9e5968b9c0e4bf9dd1eab9bb24094d510daa616"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/02_CLONE_FULL_SOURCE_STDERR.log",
+      "area": "migration_audit",
+      "relative": "02_CLONE_FULL_SOURCE_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/02_CLONE_FULL_SOURCE_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "02_CLONE_FULL_SOURCE_STDOUT.log",
+      "bytes": 733,
+      "sha256": "c444badfbd70263811933df4980ac6c0a8a55a383a02ae859a1d11d4fa99b55d"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/03_SDK_REAL_ASSETS_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "03_SDK_REAL_ASSETS_COMMAND.json",
+      "bytes": 2133,
+      "sha256": "696d17e97daa27f9a61414d1af1fb165dc2df3207a66635ab9626cc67c5d1be8"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/03_SDK_REAL_ASSETS_RESULT.json",
+      "area": "migration_audit",
+      "relative": "03_SDK_REAL_ASSETS_RESULT.json",
+      "bytes": 119,
+      "sha256": "8e707f8bf65462e79a85bae1a4686ce7688ed0e91f2b3156bf482a0969373b96"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/03_SDK_REAL_ASSETS_STDERR.log",
+      "area": "migration_audit",
+      "relative": "03_SDK_REAL_ASSETS_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/03_SDK_REAL_ASSETS_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "03_SDK_REAL_ASSETS_STDOUT.log",
+      "bytes": 1343,
+      "sha256": "d046c47f2763b8b5a88e412cf58e7237e292bc245cfa2937c21754b9530d17c0"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/04_CODEX_EXECUTION.md",
+      "area": "migration_audit",
+      "relative": "04_CODEX_EXECUTION.md",
+      "bytes": 4557,
+      "sha256": "49e1ba757c99a8a1e872d56bd519ed10b450d8960f3390a54d1f0c32a5d3e5f2"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/04_NEW_SDK_ADAPTER_REAL_ASSETS_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "04_NEW_SDK_ADAPTER_REAL_ASSETS_COMMAND.json",
+      "bytes": 1276,
+      "sha256": "79135b3e9458bfe53a2d4befeb80a06ca373d9ea3433ad4a50f734bda3815e13"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/04_NEW_SDK_ADAPTER_REAL_ASSETS_RESULT.json",
+      "area": "migration_audit",
+      "relative": "04_NEW_SDK_ADAPTER_REAL_ASSETS_RESULT.json",
+      "bytes": 119,
+      "sha256": "d8f606838b599f373402a46a2badbd809ebe3bf4f5429141216c8e6d45bbc351"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/04_NEW_SDK_ADAPTER_REAL_ASSETS_STDERR.log",
+      "area": "migration_audit",
+      "relative": "04_NEW_SDK_ADAPTER_REAL_ASSETS_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/04_NEW_SDK_ADAPTER_REAL_ASSETS_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "04_NEW_SDK_ADAPTER_REAL_ASSETS_STDOUT.log",
+      "bytes": 1851,
+      "sha256": "21d7272bd1281e0c755cd263d2cce3917e525a68223f26d4564f545432fa938e"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/05_SITE_SDK_TESTS_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "05_SITE_SDK_TESTS_COMMAND.json",
+      "bytes": 360,
+      "sha256": "2b50d28f445d15338a125b829f712fe612c07df8853fdc7121b50d4ea8aadb13"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/05_SITE_SDK_TESTS_RESULT.json",
+      "area": "migration_audit",
+      "relative": "05_SITE_SDK_TESTS_RESULT.json",
+      "bytes": 119,
+      "sha256": "f15e6967d51e0cdfb602d63a1f1c90e6ffd14ef0f057f1b7a449d86a7cc4151c"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/05_SITE_SDK_TESTS_STDERR.log",
+      "area": "migration_audit",
+      "relative": "05_SITE_SDK_TESTS_STDERR.log",
+      "bytes": 3994,
+      "sha256": "60abc0af8a36d67d3993e1ca2fdfaa0e0b66697b9b7f0e7af58bfd4a4eec475f"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/05_SITE_SDK_TESTS_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "05_SITE_SDK_TESTS_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/06_NATIVE_DOMAIN_TESTS_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "06_NATIVE_DOMAIN_TESTS_COMMAND.json",
+      "bytes": 348,
+      "sha256": "8ce35bde9c48a91f6038aa54a48da2a49bf945287a82a5f9f695416a7defbf52"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/06_NATIVE_DOMAIN_TESTS_RESULT.json",
+      "area": "migration_audit",
+      "relative": "06_NATIVE_DOMAIN_TESTS_RESULT.json",
+      "bytes": 121,
+      "sha256": "3bdd2df787c02e4b82509b3b9274acc71b8c0201c9ef4d39543bde6e7d30cdcf"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/06_NATIVE_DOMAIN_TESTS_STDERR.log",
+      "area": "migration_audit",
+      "relative": "06_NATIVE_DOMAIN_TESTS_STDERR.log",
+      "bytes": 1741,
+      "sha256": "3023ab4a61f431edbc33023871d4771ee31464ad634f54e95cafedef8d729a13"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/06_NATIVE_DOMAIN_TESTS_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "06_NATIVE_DOMAIN_TESTS_STDOUT.log",
+      "bytes": 473,
+      "sha256": "f289cab9e6d8623fea1a1d9470b55b7f14d4f3a2a69dd6bf61be690fd9329249"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/07_BINDING_CPU_TESTS_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "07_BINDING_CPU_TESTS_COMMAND.json",
+      "bytes": 766,
+      "sha256": "6e4517b8a539e9b14c13e8199f807ca735578e6cc2a63db4a9a4ceebb40cc071"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/07_BINDING_CPU_TESTS_RESULT.json",
+      "area": "migration_audit",
+      "relative": "07_BINDING_CPU_TESTS_RESULT.json",
+      "bytes": 118,
+      "sha256": "62041c3f76f0f3d4081301ada6224be01af8a81b6570bf494b9e3b9d7658d0e4"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/07_BINDING_CPU_TESTS_STDERR.log",
+      "area": "migration_audit",
+      "relative": "07_BINDING_CPU_TESTS_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/07_BINDING_CPU_TESTS_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "07_BINDING_CPU_TESTS_STDOUT.log",
+      "bytes": 896,
+      "sha256": "e8e747cea9f41713aa426f56dcc93f45606f883cf41b535ba21f9287238b0354"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/08_NATIVE_ENTRY_CPU_TESTS_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "08_NATIVE_ENTRY_CPU_TESTS_COMMAND.json",
+      "bytes": 770,
+      "sha256": "addf978a01ae1aaaaea9c994762a4ae2046f9bfa6b61e23d5d223131a7a00004"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/08_NATIVE_ENTRY_CPU_TESTS_RESULT.json",
+      "area": "migration_audit",
+      "relative": "08_NATIVE_ENTRY_CPU_TESTS_RESULT.json",
+      "bytes": 119,
+      "sha256": "826f441760bb6cfcc91a4d059281fca7c54542875f55c417a3e89915fcd2336c"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/08_NATIVE_ENTRY_CPU_TESTS_STDERR.log",
+      "area": "migration_audit",
+      "relative": "08_NATIVE_ENTRY_CPU_TESTS_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/08_NATIVE_ENTRY_CPU_TESTS_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "08_NATIVE_ENTRY_CPU_TESTS_STDOUT.log",
+      "bytes": 1345,
+      "sha256": "989e71e47381c1bc91efed1ff2503c54c7df1ca060bfca03415f5fd9ec138012"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/09_UNBOUND_REVIEW_TEMPLATE_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "09_UNBOUND_REVIEW_TEMPLATE_COMMAND.json",
+      "bytes": 367,
+      "sha256": "0d21cc761a2a83da73e6e6f7e119b4e7369ca762bbdaef8806f5bcfaa734b305"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/09_UNBOUND_REVIEW_TEMPLATE_RESULT.json",
+      "area": "migration_audit",
+      "relative": "09_UNBOUND_REVIEW_TEMPLATE_RESULT.json",
+      "bytes": 119,
+      "sha256": "7df21477469d37994e6cbc16a17aef8326901e7a69c1bde670052f37156752c0"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/09_UNBOUND_REVIEW_TEMPLATE_STDERR.log",
+      "area": "migration_audit",
+      "relative": "09_UNBOUND_REVIEW_TEMPLATE_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/09_UNBOUND_REVIEW_TEMPLATE_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "09_UNBOUND_REVIEW_TEMPLATE_STDOUT.log",
+      "bytes": 335,
+      "sha256": "14881ef64d9e0599c4056ef9d0cd476a7df85e43ef56b276d3c295f417342bfd"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/10_LIVE_CONTEXT_AND_SOURCE_FREEZE_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "10_LIVE_CONTEXT_AND_SOURCE_FREEZE_COMMAND.json",
+      "bytes": 367,
+      "sha256": "d57e85b0c69c34824c00c41723e546a4870aa6fb61ca284046cfdf8633073340"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/10_LIVE_CONTEXT_AND_SOURCE_FREEZE_RESULT.json",
+      "area": "migration_audit",
+      "relative": "10_LIVE_CONTEXT_AND_SOURCE_FREEZE_RESULT.json",
+      "bytes": 117,
+      "sha256": "2221d763311e6aa34bdbd8c3191281d572b44af6ea965780eb6ad36d482c4645"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/10_LIVE_CONTEXT_AND_SOURCE_FREEZE_STDERR.log",
+      "area": "migration_audit",
+      "relative": "10_LIVE_CONTEXT_AND_SOURCE_FREEZE_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/10_LIVE_CONTEXT_AND_SOURCE_FREEZE_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "10_LIVE_CONTEXT_AND_SOURCE_FREEZE_STDOUT.log",
+      "bytes": 328,
+      "sha256": "dc8809ba85f13986b479eeb9f9609aec4d891f7891a5af70cddb8108e26f1e8c"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/11_SOURCE_AST_AND_COMMON_AUDIT_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "11_SOURCE_AST_AND_COMMON_AUDIT_COMMAND.json",
+      "bytes": 571,
+      "sha256": "999cda9c9a2f1c63f49363fb867a9d6699cf0f9387f7ae89eb6cdcbc3f29a58b"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/11_SOURCE_AST_AND_COMMON_AUDIT_RESULT.json",
+      "area": "migration_audit",
+      "relative": "11_SOURCE_AST_AND_COMMON_AUDIT_RESULT.json",
+      "bytes": 119,
+      "sha256": "6ebafbcfea0217576fa452622435638d105a2756e7bc5ddc8f7302094dbd76db"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/11_SOURCE_AST_AND_COMMON_AUDIT_STDERR.log",
+      "area": "migration_audit",
+      "relative": "11_SOURCE_AST_AND_COMMON_AUDIT_STDERR.log",
+      "bytes": 1166,
+      "sha256": "4df64367ed953b8b82d36abcd02d7f1bec22e35b2fc8e72b763fb3a2d533c65c"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/11_SOURCE_AST_AND_COMMON_AUDIT_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "11_SOURCE_AST_AND_COMMON_AUDIT_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/12_SOURCE_AST_AND_COMMON_AUDIT_V2_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "12_SOURCE_AST_AND_COMMON_AUDIT_V2_COMMAND.json",
+      "bytes": 572,
+      "sha256": "763cef71db5b5a569e190525cf8fb0e1fbaf87e294ed268f0aeecb3bc7877756"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/12_SOURCE_AST_AND_COMMON_AUDIT_V2_RESULT.json",
+      "area": "migration_audit",
+      "relative": "12_SOURCE_AST_AND_COMMON_AUDIT_V2_RESULT.json",
+      "bytes": 118,
+      "sha256": "4d4b7202e4f46a200b6325f86b1d083054dca85939513a412160424d9269c5c8"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/12_SOURCE_AST_AND_COMMON_AUDIT_V2_STDERR.log",
+      "area": "migration_audit",
+      "relative": "12_SOURCE_AST_AND_COMMON_AUDIT_V2_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/12_SOURCE_AST_AND_COMMON_AUDIT_V2_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "12_SOURCE_AST_AND_COMMON_AUDIT_V2_STDOUT.log",
+      "bytes": 699,
+      "sha256": "d2dcbb05ed45c9c89dd099b7e0bac9f31f9b3fcba92ecdd8bab3c94ecd377a22"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/13_REAL_UNBOUND_ENTRY_REJECTION_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "13_REAL_UNBOUND_ENTRY_REJECTION_COMMAND.json",
+      "bytes": 2139,
+      "sha256": "19419be0e73a3fb8e197c6b1bdcaee835b792d6cb65060a10144e48ac1e55c66"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/13_REAL_UNBOUND_ENTRY_REJECTION_RESULT.json",
+      "area": "migration_audit",
+      "relative": "13_REAL_UNBOUND_ENTRY_REJECTION_RESULT.json",
+      "bytes": 119,
+      "sha256": "3bbd74270e6c2d5b53f30681c84e408f37f721492b401e741a17b2a4b53ffce2"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/13_REAL_UNBOUND_ENTRY_REJECTION_STDERR.log",
+      "area": "migration_audit",
+      "relative": "13_REAL_UNBOUND_ENTRY_REJECTION_STDERR.log",
+      "bytes": 90,
+      "sha256": "aef0de0a51eef97505fa5b10ea6c6ad14288cf36d989c9072ff3f3a619cc5bc8"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/13_REAL_UNBOUND_ENTRY_REJECTION_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "13_REAL_UNBOUND_ENTRY_REJECTION_STDOUT.log",
+      "bytes": 242,
+      "sha256": "0386f2ddbf1f287df91d1c83991189916cbab909567204f5947ce6dabd983121"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/14_REAL_UNBOUND_ENTRY_REJECTION_V2_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "14_REAL_UNBOUND_ENTRY_REJECTION_V2_COMMAND.json",
+      "bytes": 2389,
+      "sha256": "02ee3f1b2b685f6fd29dda3f6f464e1fedee1109d87a46e856a8751696dd696c"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/14_REAL_UNBOUND_ENTRY_REJECTION_V2_RESULT.json",
+      "area": "migration_audit",
+      "relative": "14_REAL_UNBOUND_ENTRY_REJECTION_V2_RESULT.json",
+      "bytes": 119,
+      "sha256": "e9912d19dae433ff4cd1d5810b8cfeb0e4b144765adab36c03cbc9b0e71630e1"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/14_REAL_UNBOUND_ENTRY_REJECTION_V2_STDERR.log",
+      "area": "migration_audit",
+      "relative": "14_REAL_UNBOUND_ENTRY_REJECTION_V2_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/14_REAL_UNBOUND_ENTRY_REJECTION_V2_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "14_REAL_UNBOUND_ENTRY_REJECTION_V2_STDOUT.log",
+      "bytes": 626,
+      "sha256": "0254d2e852958ac029c4b93e7850729a42213e995dc174de5e6ad3df521984c3"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/15_FINAL_SMALL_SOURCE_AND_LIVE_READINESS_COMMAND.json",
+      "area": "migration_audit",
+      "relative": "15_FINAL_SMALL_SOURCE_AND_LIVE_READINESS_COMMAND.json",
+      "bytes": 2974,
+      "sha256": "6250a811347ec4db9c930b8f9b01c28407b0a011a30445f61edfcc8dd5ab9248"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/15_FINAL_SMALL_SOURCE_AND_LIVE_READINESS_RESULT.json",
+      "area": "migration_audit",
+      "relative": "15_FINAL_SMALL_SOURCE_AND_LIVE_READINESS_RESULT.json",
+      "bytes": 119,
+      "sha256": "c5f783c1afb24c57813682ace9413dcf0e0f0079896807db631cf839b5b8b213"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/15_FINAL_SMALL_SOURCE_AND_LIVE_READINESS_STDERR.log",
+      "area": "migration_audit",
+      "relative": "15_FINAL_SMALL_SOURCE_AND_LIVE_READINESS_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/15_FINAL_SMALL_SOURCE_AND_LIVE_READINESS_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "15_FINAL_SMALL_SOURCE_AND_LIVE_READINESS_STDOUT.log",
+      "bytes": 1637,
+      "sha256": "dc045cf7e17c33598f62bedc0f151560910749131d1681eeac8c6586e6efa838"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/CLONE_SOURCE_AUDIT.json",
+      "area": "migration_audit",
+      "relative": "CLONE_SOURCE_AUDIT.json",
+      "bytes": 769,
+      "sha256": "9e328a1328edbcf2ec889e9acaff9be6f6b0b85a4db980cb0ccd6641c3ba2af7"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/FINAL_MIGRATION_CPU_REPORT.md",
+      "area": "migration_audit",
+      "relative": "FINAL_MIGRATION_CPU_REPORT.md",
+      "bytes": 8953,
+      "sha256": "dbeb5dfbf12f79ee76e0bb228059d4e4374179258c4342927c61486d2bcf1576"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/INITIAL_SERVER_INVENTORY.json",
+      "area": "migration_audit",
+      "relative": "INITIAL_SERVER_INVENTORY.json",
+      "bytes": 3708,
+      "sha256": "df57753c8de2680df5f4c2a115f746f1c275f2a0b19e04ba4d1ffef508c65ff0"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/LOCAL_USER_WORK_BEFORE.json",
+      "area": "migration_audit",
+      "relative": "LOCAL_USER_WORK_BEFORE.json",
+      "bytes": 2621,
+      "sha256": "53a558f52cd219b76c601e0efd862054c38cc7cb4778f6698fa49495408bacc6"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/NEW_SDK_ADAPTER_ACTUAL_ASSETS.json",
+      "area": "migration_audit",
+      "relative": "NEW_SDK_ADAPTER_ACTUAL_ASSETS.json",
+      "bytes": 2117,
+      "sha256": "ecea5282a61a757499f01bf9730a8d707565cbe55d39d23180bec382d3a0a017"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/ORIGINAL_PROJECT_PERMISSIONS.yaml",
+      "area": "migration_audit",
+      "relative": "ORIGINAL_PROJECT_PERMISSIONS.yaml",
+      "bytes": 1307,
+      "sha256": "795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/SDK_ASSETS_REVALIDATION.json",
+      "area": "migration_audit",
+      "relative": "SDK_ASSETS_REVALIDATION.json",
+      "bytes": 1439,
+      "sha256": "13bf40b9e561ccb9b8a73339ab5892141a0b2fc19b8ba311a86c1a2a90a77f87"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/SERVER_FINAL_READY_STATE.json",
+      "area": "migration_audit",
+      "relative": "SERVER_FINAL_READY_STATE.json",
+      "bytes": 1781,
+      "sha256": "1fbff78e7934c56995e7f0220b70d814459270453a1a30afdcba4e140e7a04dd"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/SOURCE_ANCESTRY_AUDIT_V2.json",
+      "area": "migration_audit",
+      "relative": "SOURCE_ANCESTRY_AUDIT_V2.json",
+      "bytes": 22565,
+      "sha256": "47af6ebf28465868739b5fd3e7554b1b80c047708b004dea5271de3fa6db9669"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/UNBOUND_ENTRY_REJECTION_V2.json",
+      "area": "migration_audit",
+      "relative": "UNBOUND_ENTRY_REJECTION_V2.json",
+      "bytes": 678,
+      "sha256": "802d775948fc425c743dda0068cd9a18b700ee659530f4b10834a3e40115caf3"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/audit_site_ancestry_v2.py",
+      "area": "migration_audit",
+      "relative": "audit_site_ancestry_v2.py",
+      "bytes": 5972,
+      "sha256": "1ac6a73a1a229c572a591e6db949fe7443ec76c566e33ff5299106884332af02"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/binding_cpu/CPU_BINDING_RESULT.json",
+      "area": "migration_audit",
+      "relative": "binding_cpu/CPU_BINDING_RESULT.json",
+      "bytes": 950,
+      "sha256": "ae14799127ab83a1aef93b30920c1a1b1f0935e4fc3baa20e7b934a05063ae7a"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/binding_cpu/TEST_STDERR.log",
+      "area": "migration_audit",
+      "relative": "binding_cpu/TEST_STDERR.log",
+      "bytes": 8296,
+      "sha256": "ce2999a0e7eb78f0051290694280a6ef99274b86a1e46f73116bd0b86f2a32c6"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/native_entry_cpu/CPU_NATIVE_ENTRY_RESULT.json",
+      "area": "migration_audit",
+      "relative": "native_entry_cpu/CPU_NATIVE_ENTRY_RESULT.json",
+      "bytes": 1497,
+      "sha256": "931fc5c03feba35c9589dfd44eb3fe4ff4b205618adf3274ccf14fe4dd50c0f8"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/native_entry_cpu/TEST_STDERR.log",
+      "area": "migration_audit",
+      "relative": "native_entry_cpu/TEST_STDERR.log",
+      "bytes": 3428,
+      "sha256": "43f9b8ae794b0c797038ae90c08bd8bcd8d443c39bc2fcccaf42b1c986c3623e"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-migration-audit-20261004/native_entry_cpu/TEST_STDOUT.log",
+      "area": "migration_audit",
+      "relative": "native_entry_cpu/TEST_STDOUT.log",
+      "bytes": 181,
+      "sha256": "cb41fa28cb67294c82e91da339dc243783afe4969fb0d762d856ab548bfa2a02"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/CPU_SOURCE_LOCK.json",
+      "area": "native_recalibration_cpu",
+      "relative": "CPU_SOURCE_LOCK.json",
+      "bytes": 25268,
+      "sha256": "f46da142c5ce033e43a4e6995c1890fc874361fb61a0a01374b0c8ef4d2fb55f"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/LIVE_BINDING_CONTEXT.json",
+      "area": "native_recalibration_cpu",
+      "relative": "LIVE_BINDING_CONTEXT.json",
+      "bytes": 1618,
+      "sha256": "c03e7368b720039560c513b3eaba2328df761b347fd0f6998672af975ba01bde"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/NATIVE_SOURCE_INHERITANCE.json",
+      "area": "native_recalibration_cpu",
+      "relative": "NATIVE_SOURCE_INHERITANCE.json",
+      "bytes": 21227,
+      "sha256": "5720fda85c8eb03b610b6954720b81721d409d4eeb81a097378e67baabe8dac6"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/README.md",
+      "area": "native_recalibration_cpu",
+      "relative": "README.md",
+      "bytes": 2150,
+      "sha256": "0c81a89071355ea742799d9c959471a71541accf2cb0ea5d53618b912808ecb3"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/REVISION_SOURCE_LOCK.json",
+      "area": "native_recalibration_cpu",
+      "relative": "REVISION_SOURCE_LOCK.json",
+      "bytes": 1100072,
+      "sha256": "557ed20beae31b3d844cfa1db58a4538c8569d7264c9523cc350743e6e612fa5"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/UNBOUND_REVIEW_TEMPLATE.json",
+      "area": "native_recalibration_cpu",
+      "relative": "UNBOUND_REVIEW_TEMPLATE.json",
+      "bytes": 4471,
+      "sha256": "3f721608b9ed5bde6e37973f7b5dae02462c13f5be46e555a34de32cec18a844"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/audit_site_ancestry.py",
+      "area": "native_recalibration_cpu",
+      "relative": "audit_site_ancestry.py",
+      "bytes": 5967,
+      "sha256": "c84b24841d8d1ee09aab00b88989440183affc574124aeaf54fe041a0ea79dbf"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/control_native_cost_job.py",
+      "area": "native_recalibration_cpu",
+      "relative": "control_native_cost_job.py",
+      "bytes": 19223,
+      "sha256": "873740f044a40c5190f111ea8097be61010024c892699e0bbe2d75dd2e1a4202"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/gpu_entry_binding.py",
+      "area": "native_recalibration_cpu",
+      "relative": "gpu_entry_binding.py",
+      "bytes": 33971,
+      "sha256": "9a434ce4c9a47088df0582d32640174a71d69271b3c2569975d1ddcbde9e23fd"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/native_conditional_cost.py",
+      "area": "native_recalibration_cpu",
+      "relative": "native_conditional_cost.py",
+      "bytes": 41752,
+      "sha256": "eebf31e14ca2eb7a662c4548adb5a18022b3e5a2bced541fcc1bbf5b0623b64a"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/p4_single_file_receipt.py",
+      "area": "native_recalibration_cpu",
+      "relative": "p4_single_file_receipt.py",
+      "bytes": 16497,
+      "sha256": "8deb840a759249f339015634bc58adb95e986e7c787ff1b7f71b698fa4ec7a0d"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/prepare_and_verify_native_cost.py",
+      "area": "native_recalibration_cpu",
+      "relative": "prepare_and_verify_native_cost.py",
+      "bytes": 24942,
+      "sha256": "cc777713612ebebf361f4c476440317e97610a0f8a0553cb3d7d33e26ea3ea64"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/run_cpu_entry_binding.py",
+      "area": "native_recalibration_cpu",
+      "relative": "run_cpu_entry_binding.py",
+      "bytes": 4728,
+      "sha256": "bb6d67931eb60d2a13eca0d2b718775132096fc14514dbcf7f59ae15fb228c68"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/run_cpu_native_entry.py",
+      "area": "native_recalibration_cpu",
+      "relative": "run_cpu_native_entry.py",
+      "bytes": 6852,
+      "sha256": "f95fbf9d650d4406847b73c0ebdb3dc177bc83338f270dbf85426f50a0dc81d2"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/run_native_cost_experiment.py",
+      "area": "native_recalibration_cpu",
+      "relative": "run_native_cost_experiment.py",
+      "bytes": 43067,
+      "sha256": "2cb5d75d18066a83d1e9bf5e496a0f6c7555b599f476b5b0ab572a5c4f979391"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/site_sdk_binding.py",
+      "area": "native_recalibration_cpu",
+      "relative": "site_sdk_binding.py",
+      "bytes": 10951,
+      "sha256": "31cb4973e9021f7849f703c2db93961bd2c03d3dd35b5b672c72da25334ffc8b"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/test_gpu_entry_binding.py",
+      "area": "native_recalibration_cpu",
+      "relative": "test_gpu_entry_binding.py",
+      "bytes": 21263,
+      "sha256": "c51d855aaa57c1b70dea8c70187ef4545d97dcdb1d5365f993c6d6da8095d529"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/test_native_entry.py",
+      "area": "native_recalibration_cpu",
+      "relative": "test_native_entry.py",
+      "bytes": 14561,
+      "sha256": "981cfe344d524aa85b85340c7216cf7167f96aabd7fd89e4d0ee7dde9753ae8f"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/test_site_sdk_binding.py",
+      "area": "native_recalibration_cpu",
+      "relative": "test_site_sdk_binding.py",
+      "bytes": 12376,
+      "sha256": "5fc5799276624951dca9da6fdbf484e6e679574628c6524a1b71b8717953a90e"
+    },
+    {
+      "archive_path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/tests_native_domain.py",
+      "area": "native_recalibration_cpu",
+      "relative": "tests_native_domain.py",
+      "bytes": 9678,
+      "sha256": "1db7ab12b3dc1e0f5a7cc764d5430e3506c96403c97d3f400d95eb59fadacb87"
+    }
+  ],
+  "GPU_jobs": 0,
+  "no_model_weights_or_KV_caches_in_archive": true
+}

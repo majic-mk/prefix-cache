@@ -1,0 +1,1418 @@
+diff --git a/control/p4_bridge.py b/control/p4_bridge.py
+new file mode 100644
+--- /dev/null
++++ b/control/p4_bridge.py
+@@ -0,0 +1,345 @@
++"""Native P4 value bridge. No job/resource queue, backend, completion, or grant.
++
++Publication is one immutable value view. The native owner must rebind every
++publication to its current ready/parent/generation facts before using advice.
++CPU qualification cannot qualify an interference table or GPU release.
++"""
++from dataclasses import dataclass, replace, asdict
++from threading import get_ident
++from .p4_policy import P4Policy
++from .p4_types import SystemSnapshot, WorkDescriptor, ReleaseWitness
++
++GPU_CAPS = frozenset(("gpu_owner_generation", "gpu_active_refs", "gpu_protectors"))
++
++@dataclass(frozen=True)
++class NativePublication:
++    snapshot: SystemSnapshot
++    works: tuple[WorkDescriptor, ...]
++    witnesses: tuple[ReleaseWitness, ...] = ()
++
++    def __post_init__(self):
++        if type(self.snapshot) is not SystemSnapshot:
++            raise TypeError("immutable owner snapshot required")
++        if type(self.works) is not tuple or len(self.works) > 64 or any(
++                type(w) is not WorkDescriptor for w in self.works):
++            raise ValueError("at most 64 native value candidates required")
++        if type(self.witnesses) is not tuple or len(self.witnesses) > 8 or any(
++                type(w) is not ReleaseWitness for w in self.witnesses):
++            raise ValueError("at most 8 native value witnesses required")
++        if len({w.work_id for w in self.works}) != len(self.works):
++            raise ValueError("ambiguous physical work identity")
++        if self.snapshot.gpu_immediately_reusable_bytes is not None or (
++                GPU_CAPS & self.snapshot.capabilities) or any(
++                w.resource_kind == "gpu" for w in self.witnesses):
++            raise ValueError("this native adapter has no GPU-owner release capability")
++        if any(w.run_id != self.snapshot.run_id or
++               w.snapshot_epoch != self.snapshot.snapshot_epoch for w in self.works):
++            raise ValueError("same-run/epoch work values required")
++
++def _parent_facts(parent):
++    return replace(parent, completion_estimate_ns=None)
++
++def _witness_facts(witness):
++    return replace(witness, parents=tuple(_parent_facts(p) for p in witness.parents),
++                   estimated_unblock_ns=None, error_ns=0, interference_ns=None)
++
++def _state_facts(state):
++    return replace(state, captured_ns=0) if state is not None else None
++
++class NativeP4Bridge:
++    """One owner, scalar generations, one replaceable publication; no owners held."""
++    def __init__(self, policy):
++        if type(policy) is not P4Policy:
++            raise TypeError("exact P4 policy required")
++        if policy.table is not None:
++            # No table with CPU/mock evidence may enter the production adapter.
++            if not policy.table.production_qualified:
++                raise ValueError("production interference table is not GPU qualified")
++        self.policy = policy
++        self.run_id = policy.run_id
++        self._bound = False
++        self._owner_ident = None
++        self._epoch = 0
++        self._epoch_started_ns = None
++        self._last_clock_ns = None
++        self._signature = None
++        self._publication = None
++        self._generation_serial = 0
++        self._generations = {}  # original slot indices -> scalar allocation lifetime
++        self.fault = None
++        self.last_reason = "not_observed"
++        self.choices = self.publications = self.rejected_publications = 0
++        self.last_choice = None
++        self._choice_epoch = None
++        self.last_preview = None
++        self.generation_witness_omissions = 0
++        from .p4_eta import NativeClosureHistory
++        self.eta_history = NativeClosureHistory(self.run_id,
++            max_age_ns=policy.config.max_wait_ns)
++        self._eta_diagnostics = {}
++        self.last_batch = None
++        self._batch_key = None
++        self.prepared_cost_summary = (("status","NO_PREPARED_TABLE"),)
++        self.declared_common_fixed_base = False
++
++    @property
++    def mode(self):
++        return self.policy.config.mode
++
++    def bind(self):
++        if self._bound:
++            raise RuntimeError("P4 bridge cannot be shared")
++        self._bound = True
++
++    def _owner(self):
++        if not self._bound:
++            raise RuntimeError("P4 bridge requires explicit native binding")
++        ident = get_ident()
++        if self._owner_ident is None:
++            self._owner_ident = ident
++        elif self._owner_ident != ident:
++            raise RuntimeError("P4 values must be observed by the native owner")
++
++    def fail(self, reason):
++        if self.fault is None:
++            self.fault = str(reason)[:160]
++        self._publication = None
++        self.eta_history.abort_all()
++        self._eta_diagnostics.clear()
++        self.last_reason = "optional_bridge_fault"
++
++    def observe_native_closure(self, parent_id, geometry, context, *, now_ns):
++        """Observe scalar original-owner closure facts; never publish a forecast."""
++        self._owner()
++        self.eta_history.observe(run_id=self.run_id, parent_id=parent_id,
++            geometry=geometry, context=context, now_ns=now_ns)
++        estimate = self.eta_history.estimate(run_id=self.run_id, parent_id=parent_id,
++            geometry=geometry, context=context, now_ns=now_ns,
++            execution="shadow_diagnostic")
++        if estimate is not None:
++            self._eta_diagnostics[parent_id] = dict(parent_id=parent_id,
++                estimate=asdict(estimate),
++                source="actual_owner_complete_ready_history",
++                production_completion_estimate_ns=None)
++        else:
++            self._eta_diagnostics.pop(parent_id, None)
++        return None  # no CPU/fake or unqualified history enters native publication
++
++    def complete_native_closure(self, parent_id, *, now_ns, successful, drain_known):
++        self._owner()
++        self._eta_diagnostics.pop(parent_id, None)
++        return self.eta_history.finish(run_id=self.run_id, parent_id=parent_id,
++            now_ns=now_ns, successful=successful, drain_known=drain_known)
++
++    def note_reservation(self, index):
++        self._owner()
++        if type(index) is not int or index < 0:
++            raise ValueError("native scalar slot index required")
++        self._generation_serial += 1
++        self._generations[index] = self._generation_serial
++
++    def generation(self, index):
++        self._owner()
++        if type(index) is not int or index < 0:
++            raise ValueError("native scalar slot index required")
++        return self._generations.get(index)
++
++    def epoch(self, signature, now_ns):
++        self._owner()
++        if type(signature) is not tuple or type(now_ns) is not int or now_ns < 0:
++            raise ValueError("bounded owner signature and monotonic time required")
++        nodes = [signature]
++        seen = 0
++        while nodes:
++            value = nodes.pop()
++            seen += 1
++            if seen > 2048:
++                raise ValueError("bounded owner signature metadata exceeded")
++            if type(value) is tuple:
++                if len(value) > 64:
++                    raise ValueError("bounded signature tuple exceeded")
++                nodes.extend(value)
++            elif value is not None and type(value) not in (int,bool,str):
++                raise TypeError("owner signature contains non-value metadata")
++            elif type(value) is str and len(value) > 128:
++                raise ValueError("bounded signature string exceeded")
++        if self._last_clock_ns is not None and now_ns < self._last_clock_ns:
++            raise ValueError("owner clock moved backwards")
++        self._last_clock_ns = now_ns
++        expired = (self._epoch_started_ns is not None and
++                   now_ns - self._epoch_started_ns > self.policy.config.sample_max_age_ns)
++        if signature != self._signature or expired:
++            self._signature = signature
++            self._epoch += 1
++            self._epoch_started_ns = now_ns
++            self._publication = None
++            self._choice_epoch = None
++            self._batch_key = None
++        if self._epoch_started_ns is not None and now_ns < self._epoch_started_ns:
++            raise ValueError("owner clock moved backwards")
++        return self._epoch
++
++    def _validate_binding(self, publication, current, now_ns):
++        if type(publication) is not NativePublication or type(current) is not NativePublication:
++            raise TypeError("strict native publication ABI required")
++        s, actual = publication.snapshot, current.snapshot
++        if not s.fresh(run_id=self.run_id, now_ns=now_ns,
++                       expected_epoch=actual.snapshot_epoch,
++                       max_age_ns=self.policy.config.sample_max_age_ns):
++            raise ValueError("stale run/epoch/time publication")
++        for state in (s.native_state, actual.native_state):
++            if state is not None and (state.run_id != self.run_id or
++                    state.captured_ns > now_ns or
++                    now_ns-state.captured_ns > self.policy.config.sample_max_age_ns):
++                raise ValueError("stale native stage-state publication")
++        if (s.capabilities != actual.capabilities or
++            s.generations != actual.generations or
++            s.targets != actual.targets or
++            s.cpu_clean_reclaimable_bytes != actual.cpu_clean_reclaimable_bytes or
++            _state_facts(s.native_state) != _state_facts(actual.native_state) or
++            s.load_signature != actual.load_signature or
++            s.parents != actual.parents):
++            raise ValueError("publication differs from actual owner facts")
++        if publication.works != current.works:
++            raise ValueError("publication work differs from actual native ready work")
++        if len(publication.witnesses) != len(current.witnesses) or any(
++                w != actual_w for w, actual_w in
++                zip(publication.witnesses, current.witnesses)):
++            raise ValueError("publication closure differs from actual owner protocol")
++        known = {p.job_id: p for p in s.parents}
++        if any(any(known.get(p.job_id) != p for p in w.parents) for w in publication.witnesses):
++            raise ValueError("witness parent forecasts differ from published parent values")
++
++    def publish(self, publication, current, *, now_ns):
++        self._owner()
++        try:
++            self._validate_binding(publication, current, now_ns)
++            if self._publication == publication:
++                return False  # duplicate notification is metadata-idempotent
++            if self._choice_epoch == current.snapshot.snapshot_epoch:
++                raise ValueError("owner epoch already selected; publish before dispatch boundary")
++            if self._publication is not None:
++                raise ValueError("one frozen publication per owner epoch")
++            self._publication = publication
++            self.publications += 1
++            return True
++        except Exception:
++            self.rejected_publications += 1
++            raise  # native intake returns this diagnostic; no parent state changes
++
++    def order(self, current, works, *, now_ns):
++        self._owner()
++        if not works:
++            return ()  # no advice or epoch choice on an empty native window
++        try:
++            self._validate_binding(current,current,now_ns)
++        except (TypeError,ValueError):
++            self.last_reason = "stale_native_owner_view"
++            return tuple(w.work_id for w in works)
++        if self.fault is not None:
++            self.last_reason = "optional_bridge_fault"
++            return tuple(w.work_id for w in works)
++        publication = current
++        if self._publication is not None:
++            try:
++                self._validate_binding(self._publication, current, now_ns)
++                publication = self._publication
++            except (TypeError, ValueError):
++                self.last_reason = "stale_or_changed_native_publication"
++                self._publication = None
++                return tuple(w.work_id for w in works)
++        epoch = current.snapshot.snapshot_epoch
++        if self._choice_epoch != epoch:
++            self.last_choice = self.policy.choose(publication.snapshot, current.works,
++                publication.witnesses, now_ns=now_ns, expected_epoch=epoch)
++            self._choice_epoch = epoch
++            self.choices += 1
++            self.last_reason = self.last_choice.reason
++            if current.works:
++                self.last_preview = self.policy.issue_preview(current.works[0],
++                    publication.snapshot, now_ns=now_ns, expected_epoch=epoch,
++                    execution="production")
++        choice = self.last_choice
++        native_all = tuple(w.work_id for w in current.works)
++        if set(choice.selected_work_ids) != set(native_all) or len(choice.selected_work_ids) != len(native_all):
++            raise ValueError("advice is not a permutation of the original bounded window")
++        if choice.gpu_qualified or choice.gpu_release_credit_bytes is not None:
++            raise ValueError("unsupported GPU release/qualification credit")
++        native = tuple(w.work_id for w in works)
++        selected = tuple(wid for wid in choice.selected_work_ids if wid in set(native))
++        if set(selected) != set(native):
++            raise ValueError("native candidate subset changed")
++        return selected
++
++
++    def batch_prefix(self, current, works, *, now_ns):
++        """Advisory prefix only. No allowance is granted, consumed or retained."""
++        self._owner()
++        if self.fault is not None or not works:
++            return None
++        self._validate_binding(current,current,now_ns)
++        ids=tuple(w.work_id for w in works)
++        if len(ids)>64 or len(set(ids))!=len(ids) or any(
++                w not in current.works for w in works):
++            raise ValueError("existing bounded native batch values required")
++        if any(w.progress is not None for w in works):
++            return None  # never cut an accepted downstream continuation
++        key=(current.snapshot.snapshot_epoch,ids)
++        if key != self._batch_key:
++            self.last_batch=self.policy.choose_batch(current.snapshot,works,
++                now_ns=now_ns,expected_epoch=current.snapshot.snapshot_epoch,
++                execution="production")
++            self._batch_key=key
++        advice=self.last_batch
++        if (advice.action!="selected" or advice.mock_only or
++                not advice.production_qualified or
++                self.mode not in ("interference","joint") or
++                not self.policy.production_interference_qualified or
++                "production_gpu_load_state" not in current.snapshot.capabilities):
++            return None
++        if (advice.stage!="ssd_read" or advice.work_ids!=ids[:len(advice.work_ids)] or
++                not advice.work_ids or any(w.stage!="ssd_read" for w in works)):
++            raise ValueError("batch advice must be an existing ordinary SSD-read prefix")
++        chosen=works[:len(advice.work_ids)]
++        if (advice.physical_bytes != sum(w.nbytes for w in chosen) or
++                advice.storage_units != sum(w.nbytes//w.minimum_unit_bytes for w in chosen)):
++            raise ValueError("batch advice differs from actual physical bytes/quantum")
++        return advice.work_ids
++
++    def preview_issue(self, work, snapshot, *, now_ns):
++        self._owner()
++        if self.fault is not None:
++            from .p4_types import IssuePreview
++            return IssuePreview("native_fallback","optional_bridge_fault")
++        preview = self.policy.issue_preview(work,snapshot,now_ns=now_ns,
++            expected_epoch=snapshot.snapshot_epoch,execution="production")
++        self.last_preview = preview
++        return preview
++
++    def snapshot(self, *, native_shutdown=False):
++        if type(native_shutdown) is not bool:
++            raise ValueError("explicit native shutdown precondition required")
++        if not native_shutdown:
++            self._owner()
++        return dict(schema_version=1, run_id=self.run_id, mode=self.mode,
++            owner_epoch=self._epoch, valid=self.fault is None, fault=self.fault,
++            reason=self.last_reason, choices=self.choices, publications=self.publications,
++            rejected_publications=self.rejected_publications,
++            generation_witness_omissions=self.generation_witness_omissions,
++            last_choice=asdict(self.last_choice) if self.last_choice is not None else None,
++            last_preview=asdict(self.last_preview) if self.last_preview is not None else None,
++            eta_history=self.eta_history.snapshot(),
++            eta_diagnostics=tuple(self._eta_diagnostics.values()),
++            production_eta_qualified=False,
++            last_batch=asdict(self.last_batch) if self.last_batch is not None else None,
++            prepared_cost_summary=dict(self.prepared_cost_summary),
++            declared_common_fixed_base=self.declared_common_fixed_base,
++            scheduled_load_is_active_gpu_state=False,
++            held_job_or_resource_owners=False, new_work_queues=0,
++            gpu_release_credit=None, gpu_qualified=False,
++            interference_production_qualified=self.policy.production_interference_qualified)
++
++def make_native_bridge(run_id, config, *, table=None):
++    from .p4_policy import make_p4_policy
++    policy = make_p4_policy(run_id, config, table=table)
++    return NativeP4Bridge(policy) if policy is not None else None
+diff --git a/control/p4_cost_table.py b/control/p4_cost_table.py
+new file mode 100644
+--- /dev/null
++++ b/control/p4_cost_table.py
+@@ -0,0 +1,125 @@
++"""Exact finite interference-cost interface, with a closed production gate.
++
++P3 conditional/native-owned windows are not a production interference table.
++CPU mock cells exercise the arithmetic only. No constructor flag can turn them
++into GPU-qualified evidence; the P4 paired GPU qualification remains required.
++"""
++from dataclasses import dataclass
++from hashlib import sha256
++import json
++from pathlib import Path
++from .dispatch_budget import Amount, STAGES, integer, vector
++
++BASES = frozenset(("existing_io_plus_delta", "no_io_plus_joint"))
++
++
++def signature(values):
++    if type(values) is not tuple or not 1 <= len(values) <= 16:
++        raise ValueError("finite exact model/load/hardware signature required")
++    for value in values:
++        if type(value) not in (str, int) or (type(value) is str and
++                (not value or len(value) > 128)):
++            raise ValueError("signature contains bounded scalar identities only")
++
++
++@dataclass(frozen=True)
++class CostCell:
++    load_signature: tuple
++    existing_io: tuple[Amount, ...]
++    stage: str
++    physical_bytes: int
++    basis: str
++    baseline_ns: int
++    incremental_or_joint_ns: int
++    uncertainty_ns: int
++
++    def __post_init__(self):
++        signature(self.load_signature)
++        vector(self.existing_io)
++        if self.stage not in STAGES or self.basis not in BASES:
++            raise ValueError("explicit physical stage and unique cost basis required")
++        integer(self.physical_bytes, "physical bytes", 1)
++        for name in ("baseline_ns", "incremental_or_joint_ns", "uncertainty_ns"):
++            integer(getattr(self, name), name)
++
++    @property
++    def key(self):
++        return (self.load_signature, self.existing_io, self.stage, self.physical_bytes)
++
++    @property
++    def total_ns(self):
++        # existing I/O is either already in T0, or already in the joint cost.
++        # There is intentionally no extra existing-I/O additive term.
++        return self.baseline_ns + self.incremental_or_joint_ns + self.uncertainty_ns
++
++
++@dataclass(frozen=True)
++class CostEstimate:
++    total_ns: int
++    basis: str
++    baseline_ns: int
++    incremental_or_joint_ns: int
++    uncertainty_ns: int
++    source_sha256: str
++    mock_only: bool = True
++    production_qualified: bool = False
++
++
++class CostTable:
++    """Immutable cells; unavailable means None rather than zero.
++
++    Current P4 CPU delivery deliberately accepts only mock_only/conditional
++    scopes. A future production loader needs actual paired GPU validation and a
++    frozen compatible source/geometry identity. It must not be enabled by a
++    synthetic boolean or a P3 conditional receipt.
++    """
++    __slots__ = ("cells", "scope", "source_sha256")
++
++    @property
++    def production_qualified(self):
++        return False
++
++    def __setattr__(self, name, value):
++        raise AttributeError("cost tables are immutable")
++
++    def __init__(self, cells=(), *, scope="conditional", source_sha256):
++        if scope not in ("mock_only", "conditional"):
++            raise ValueError("P4 production GPU qualification is unavailable")
++        if type(source_sha256) is not str or len(source_sha256) != 64 or any(
++                c not in "0123456789abcdef" for c in source_sha256):
++            raise ValueError("actual immutable source SHA-256 required")
++        if type(cells) is not tuple or len(cells) > 128 or any(type(c) is not CostCell for c in cells):
++            raise ValueError("bounded immutable cost cells required")
++        if len({c.key for c in cells}) != len(cells):
++            raise ValueError("ambiguous matching cells")
++        object.__setattr__(self, "cells", cells)
++        object.__setattr__(self, "scope", scope)
++        object.__setattr__(self, "source_sha256", source_sha256)
++
++    def lookup(self, load_signature, existing_io, stage, physical_bytes, *, execution="production"):
++        signature(load_signature)
++        vector(existing_io)
++        if stage not in STAGES:
++            raise ValueError("unknown physical stage")
++        integer(physical_bytes, "physical bytes", 1)
++        if execution not in ("production", "cpu_mock"):
++            raise ValueError("explicit production/CPU mock lookup scope required")
++        if execution == "production" or self.scope != "mock_only":
++            return None
++        key = (load_signature, existing_io, stage, physical_bytes)
++        matches = [c for c in self.cells if c.key == key]
++        if len(matches) != 1:
++            return None
++        c = matches[0]
++        return CostEstimate(c.total_ns, c.basis, c.baseline_ns, c.incremental_or_joint_ns,
++                            c.uncertainty_ns, self.source_sha256)
++
++
++def load_conditional_table(path):
++    """Retain provenance of a real P3 conditional JSON, never authorize control."""
++    data = Path(path).read_bytes()
++    parsed = json.loads(data)
++    if type(parsed) is not dict:
++        raise ValueError("conditional table must be a JSON object")
++    # A self-declared qualification cannot bypass the missing P4 GPU validator.
++    return CostTable((), scope="conditional", source_sha256=sha256(data).hexdigest())
+diff --git a/control/p4_eta.py b/control/p4_eta.py
+new file mode 100644
+--- /dev/null
++++ b/control/p4_eta.py
+@@ -0,0 +1,242 @@
++"""Bounded causal native closure observations; no GPU qualification or owners.
++
++A sample measures first complete-ready observation to successful whole-parent
++physical drain. It does not sum per-file timings or infer allocator release.
++CPU/fake completion measurements cannot enable a production forecast.
++"""
++from dataclasses import dataclass, asdict
++from collections import OrderedDict, deque
++from statistics import median_high
++from .dispatch_budget import integer
++from .simple_stage_policy import _run_id
++from .p4_types import text
++
++def _values(values):
++    if type(values) is not tuple or not values or len(values) > 16:
++        raise ValueError("bounded exact native context required")
++    for item in values:
++        if type(item) is int:
++            integer(item, "context value")
++        elif type(item) is str:
++            text(item, "context value")
++        else:
++            raise ValueError("native context contains scalar values only")
++
++@dataclass(frozen=True)
++class ClosureGeometry:
++    rows: tuple
++
++    def __post_init__(self):
++        if type(self.rows) is not tuple or not 1 <= len(self.rows) <= 64:
++            raise ValueError("bounded nonempty native closure geometry required")
++        if tuple(sorted(self.rows)) != self.rows or len(set(self.rows)) != len(self.rows):
++            raise ValueError("canonical unique closure rows required")
++        count = 0
++        for row in self.rows:
++            if type(row) is not tuple or len(row) != 4:
++                raise ValueError("stage, physical bytes, quantum, count required")
++            stage, nbytes, quantum, units = row
++            if stage not in ("ssd_read", "h2d"):
++                raise ValueError("only actual full-ready restore closure geometry supported")
++            for value in (nbytes, quantum, units):
++                integer(value, "closure geometry", 1)
++            if nbytes % quantum:
++                raise ValueError("actual native legal quantum required")
++            count += units
++        if count > 64:
++            raise ValueError("native closure work window exceeded")
++
++@dataclass(frozen=True)
++class CausalEstimate:
++    duration_ns: int
++    empirical_error_ns: int
++    sample_count: int
++    earliest_completed_ns: int
++    latest_completed_ns: int
++    completed_sequence: int
++    source: str = "native_complete_ready_to_successful_parent_drain"
++    production_qualified: bool = False
++
++@dataclass(frozen=True)
++class CompletedClosureMeasurement:
++    run_id: str
++    parent_id: int
++    geometry: ClosureGeometry
++    context: tuple
++    first_observed_ns: int
++    completed_ns: int
++    elapsed_ns: int
++    sequence: int
++    prior_forecast_duration_ns: int | None
++    prior_forecast_error_ns: int | None
++    prior_forecast_sample_count: int
++    causal_absolute_residual_ns: int | None
++    gpu_qualified: bool = False
++
++@dataclass(frozen=True)
++class _Pending:
++    parent_id: int
++    geometry: ClosureGeometry
++    context: tuple
++    first_observed_ns: int
++    prior_estimate: CausalEstimate | None
++
++class NativeClosureHistory:
++    """Only bounded scalar metadata; all production estimates remain blocked."""
++    def __init__(self, run_id, *, max_age_ns, minimum_samples=4):
++        _run_id(run_id)
++        integer(max_age_ns, "history age", 1)
++        if type(minimum_samples) is not int or not 2 <= minimum_samples <= 16:
++            raise ValueError("bounded minimum completed samples required")
++        self.run_id = run_id
++        self.max_age_ns = max_age_ns
++        self.minimum_samples = minimum_samples
++        self._pending = {}
++        self._cells = OrderedDict()
++        self._recent = deque(maxlen=64)
++        self._highest_parent = 0
++        self._last_clock = None
++        self._sequence = 0
++        self.observed = self.completed = self.discarded = self.omitted = 0
++        self.last_reason = "no_native_closure_measurements"
++
++    @property
++    def production_qualified(self):
++        return False
++
++    def _clock(self, now_ns):
++        integer(now_ns, "native owner time")
++        if self._last_clock is not None and now_ns < self._last_clock:
++            raise ValueError("native closure owner clock moved backwards")
++        self._last_clock = now_ns
++
++    def _binding(self, run_id, parent_id, geometry, context):
++        if run_id != self.run_id:
++            raise ValueError("native closure run differs")
++        integer(parent_id, "accepted parent sequence", 1)
++        if type(geometry) is not ClosureGeometry:
++            raise TypeError("immutable actual native geometry required")
++        _values(context)
++
++    def _estimate(self, key, now_ns):
++        samples = self._cells.get(key, ())
++        fresh = tuple(s for s in samples if 0 < now_ns-s.completed_ns <= self.max_age_ns)
++        if len(fresh) < self.minimum_samples:
++            self.last_reason = "insufficient_fresh_completed_native_closures"
++            return None
++        durations = tuple(s.elapsed_ns for s in fresh)
++        point = median_high(durations)
++        residuals = tuple(s.causal_absolute_residual_ns for s in fresh
++                          if s.causal_absolute_residual_ns is not None)
++        margin = max(tuple(abs(d-point) for d in durations) + residuals)
++        return CausalEstimate(point, margin, len(fresh),
++            min(s.completed_ns for s in fresh), max(s.completed_ns for s in fresh),
++            max(s.sequence for s in fresh))
++
++    def observe(self, *, run_id, parent_id, geometry, context, now_ns):
++        self._binding(run_id, parent_id, geometry, context)
++        self._clock(now_ns)
++        pending = self._pending.get(parent_id)
++        if pending is not None:
++            if pending.geometry != geometry or pending.context != context:
++                self.last_reason = "native_closure_context_changed_no_age_reset"
++                return False
++            self.last_reason = "duplicate_observation_preserves_first_time"
++            return False
++        if parent_id <= self._highest_parent:
++            self.omitted += 1
++            self.last_reason = "retired_or_out_of_order_parent_identity"
++            return False
++        # Scalar high-water mark prevents a retired ID from becoming a new sample.
++        self._highest_parent = parent_id
++        if len(self._pending) >= 32:
++            self.omitted += 1
++            self.last_reason = "observation_window_exceeded_native_work_unchanged"
++            return False
++        estimate = self._estimate((geometry, context), now_ns)
++        self._pending[parent_id] = _Pending(parent_id, geometry, context, now_ns, estimate)
++        self.observed += 1
++        self.last_reason = "native_complete_ready_observed"
++        return True
++
++    def estimate(self, *, run_id, parent_id, geometry, context, now_ns,
++                 execution="shadow_diagnostic"):
++        self._binding(run_id, parent_id, geometry, context)
++        self._clock(now_ns)
++        if execution not in ("shadow_diagnostic", "cpu_mock", "production"):
++            raise ValueError("explicit ETA execution scope required")
++        if execution == "production":
++            self.last_reason = "production_eta_live_gpu_qualification_blocked"
++            return None
++        pending = self._pending.get(parent_id)
++        if pending is None or pending.geometry != geometry or pending.context != context:
++            self.last_reason = "no_compatible_first_native_closure_observation"
++            return None
++        estimate = self._estimate((geometry, context), now_ns)
++        if estimate is None:
++            return None
++        if pending.first_observed_ns + estimate.duration_ns <= now_ns:
++            self.last_reason = "elapsed_native_closure_exceeds_empirical_eta"
++            return None
++        self.last_reason = "causal_shadow_diagnostic_only"
++        return estimate
++
++    def finish(self, *, run_id, parent_id, now_ns, successful, drain_known):
++        if run_id != self.run_id:
++            raise ValueError("native closure run differs")
++        integer(parent_id, "accepted parent sequence", 1)
++        self._clock(now_ns)
++        if type(successful) is not bool or type(drain_known) is not bool:
++            raise ValueError("explicit physical drain result required")
++        pending = self._pending.pop(parent_id, None)
++        if pending is None:
++            self.last_reason = "no_pending_native_closure"
++            return None
++        if not successful or not drain_known:
++            self.discarded += 1
++            self.last_reason = "failed_or_unknown_native_drain_not_a_timing_sample"
++            return None
++        elapsed = now_ns-pending.first_observed_ns
++        if elapsed <= 0:
++            self.discarded += 1
++            self.last_reason = "nonpositive_native_observation_interval"
++            return None
++        self._sequence += 1
++        prior = pending.prior_estimate
++        sample = CompletedClosureMeasurement(self.run_id, parent_id, pending.geometry,
++            pending.context, pending.first_observed_ns, now_ns, elapsed, self._sequence,
++            prior.duration_ns if prior else None, prior.empirical_error_ns if prior else None,
++            prior.sample_count if prior else 0,
++            abs(elapsed-prior.duration_ns) if prior else None)
++        key = (pending.geometry, pending.context)
++        cell = self._cells.get(key)
++        if cell is None:
++            if len(self._cells) >= 32:
++                self._cells.popitem(last=False)
++            cell = deque(maxlen=16)
++            self._cells[key] = cell
++        cell.append(sample)
++        self._cells.move_to_end(key)
++        self._recent.append(sample)
++        self.completed += 1
++        self.last_reason = "successful_whole_parent_native_drain_measured"
++        return sample
++
++    def abort_all(self):
++        self.discarded += len(self._pending)
++        self._pending.clear()
++        self.last_reason = "optional_observer_aborted_no_native_owners_changed"
++
++    def snapshot(self):
++        return dict(schema_version=1, run_id=self.run_id, reason=self.last_reason,
++            observations=self.observed, successful_measurements=self.completed,
++            failed_or_unknown_discarded=self.discarded, omissions=self.omitted,
++            pending_count=len(self._pending), cell_count=len(self._cells),
++            retained_cell_samples=sum(len(cell) for cell in self._cells.values()),
++            history_max_age_ns=self.max_age_ns, minimum_samples=self.minimum_samples,
++            pending_limit=32, cell_limit=32, samples_per_cell_limit=16,
++            recent_measurements=tuple(asdict(s) for s in self._recent),
++            production_qualified=False, gpu_qualified=False,
++            held_job_or_resource_owners=False, new_work_queues=0,
++            eta_is_allocator_release=False,
++            error_is_empirical_not_a_coverage_guarantee=True)
+diff --git a/control/p4_policy.py b/control/p4_policy.py
+new file mode 100644
+--- /dev/null
++++ b/control/p4_policy.py
+@@ -0,0 +1,395 @@
++"""Finite P4 advice over existing ready work, without native ownership.
++
++No allocator, backend, queue, Future, completion, or cumulative budget lives
++here. The original DispatchController is the sole allowance consumer. A choice
++is a bounded hint; work outside the window remains in its native queue.
++"""
++from dataclasses import dataclass
++from itertools import islice
++from .dependencies import analyze, ResourceId
++from .dispatch_budget import integer
++from .p4_types import (
++    SystemSnapshot, WorkDescriptor, ReleaseWitness, WaitingTarget, P4Config,
++    PolicyChoice, IssuePreview, BatchChoice,
++)
++from .p4_cost_table import CostTable
++from .simple_stage_policy import PROGRESS, _run_id, _work_id
++
++
++@dataclass(frozen=True)
++class _Closure:
++    resources: tuple
++    work_ids: tuple
++    gpu_bytes: int
++    cpu_bytes: int
++    restore_parents: frozenset
++    unblock_ns: int
++    error_ns: int
++    interference_ns: int | None
++    new_bytes: int
++    native_order: int
++
++
++def make_p4_policy(run_id, config, *, table=None):
++    _run_id(run_id)
++    if type(config) is not P4Config:
++        raise TypeError("frozen P4 configuration required")
++    if config.mode == "off":
++        return None
++    return P4Policy(run_id, config, table=table)
++
++
++class P4Policy:
++    def __init__(self, run_id, config, *, table=None):
++        _run_id(run_id)
++        if type(config) is not P4Config or config.mode == "off":
++            raise ValueError("off must create no policy object")
++        if table is not None and type(table) is not CostTable:
++            raise TypeError("exact finite cost-table interface required")
++        self.run_id = run_id
++        self.config = config
++        self.table = table
++
++    @property
++    def production_interference_qualified(self):
++        return self.table is not None and self.table.production_qualified
++
++    def _fresh(self, snapshot, now_ns, expected_epoch):
++        return (type(snapshot) is SystemSnapshot and snapshot.fresh(
++            run_id=self.run_id, now_ns=now_ns, expected_epoch=expected_epoch,
++            max_age_ns=self.config.sample_max_age_ns))
++
++    @staticmethod
++    def _generation(snapshot, identity):
++        key = (identity.run_id, identity.pool, identity.group, identity.block)
++        for observed, current in snapshot.generations:
++            if (observed.run_id, observed.pool, observed.group, observed.block) == key:
++                return current
++        return None
++
++    def _witness(self, witness, snapshot, works, target, now_ns):
++        if type(witness) is not ReleaseWitness or witness.target_id != target.target_id:
++            return None, "wrong_target_or_invalid_witness"
++        r = witness.resource
++        required = {"owner_release_protocol"}
++        if witness.resource_kind == "gpu":
++            required |= {"gpu_owner_generation", "gpu_active_refs", "gpu_protectors"}
++        elif witness.resource_kind == "cpu":
++            required |= {"cpu_owner_generation", "cpu_active_refs", "cpu_protectors"}
++        else:
++            required |= {"restore_parent_completion"}
++        if not required.issubset(snapshot.capabilities):
++            return None, "missing_release_capability"
++        generation = self._generation(snapshot, r.identity)
++        if generation is None:
++            return None, "unknown_generation"
++        observed = {p.job_id: p for p in snapshot.parents if p.run_id == self.run_id}
++        if len(observed) != len(snapshot.parents):
++            return None, "ambiguous_or_wrong_run_parent"
++        if any(observed.get(p.job_id) != p for p in witness.parents):
++            return None, "parent_observation_mismatch"
++        release = analyze(r, witness.parents, run_id=self.run_id, current_generation=generation)
++        if release.reason not in ("observed_closure", "native_release_confirmed"):
++            return None, release.reason
++        if r.evidence != "observed_blocking":
++            return None, "unselected_victim_is_not_actual_blocker"
++        if release.reason == "native_release_confirmed":
++            return None, "native_zero_io_reclaim_first"
++        if (witness.estimated_unblock_ns is None or release.completion_estimate_ns is None or
++                witness.estimated_unblock_ns < release.completion_estimate_ns or
++                witness.estimated_unblock_ns < now_ns):
++            return None, "unknown_or_premature_legal_unblock_time"
++        # Native parent source fences cannot be retired by a per-file/per-copy estimate.
++        if r.protecting_jobs and witness.release_scope not in ("parent_job", "multi_protector"):
++            return None, "release_scope_weaker_than_parent_fence"
++        if len(r.protecting_jobs) > 1 and witness.release_scope != "multi_protector":
++            return None, "multi_protector_scope_required"
++        by_id = {w.work_id: w for w in works}
++        if not witness.work_ids or any(wid not in by_id for wid in witness.work_ids):
++            return None, "incomplete_ready_work_closure"
++        selected = tuple(by_id[wid] for wid in witness.work_ids)
++        if any(w.submitted or not w.accepted or w.progress is not None for w in selected):
++            return None, "already_submitted_or_native_progress"
++        if any(w.parent_id not in release.pending_parents for w in selected):
++            return None, "closure_work_not_native_parent"
++        # Every still-blocking parent needs a ready selectable stage; submitted-only
++        # blockers are observations, not a manufactured independent ready queue.
++        if not set(release.pending_parents).issubset({w.parent_id for w in selected}):
++            return None, "not_all_protectors_have_selectable_work"
++        if any(w.resource_identity is not None and
++                self._generation(snapshot, w.resource_identity) != w.generation for w in selected):
++            return None, "stale_work_generation"
++        if witness.resource_kind == "restore":
++            restore_id = witness.completed_restore_parent_id
++            if (restore_id is None or restore_id != target.restore_parent_id or
++                    set(release.pending_parents) != {restore_id} or
++                    any(w.parent_id != restore_id or w.stage not in ("ssd_read", "h2d")
++                        for w in selected)):
++                return None, "restore_parent_or_direction_mismatch"
++        credit = release.potential_bytes
++        return _Closure(
++            (r.identity,), witness.work_ids,
++            credit if witness.resource_kind == "gpu" else 0,
++            credit if witness.resource_kind == "cpu" else 0,
++            frozenset((witness.completed_restore_parent_id,))
++                if witness.resource_kind == "restore" and witness.completed_restore_parent_id is not None
++                else frozenset(),
++            witness.estimated_unblock_ns, witness.error_ns, witness.interference_ns,
++            sum(w.nbytes for w in selected), min(w.native_order for w in selected)), "verified_closure"
++
++    @staticmethod
++    def _combine(closures, works):
++        resources = {}
++        work_ids = set()
++        restores = set()
++        for c in closures:
++            # Repeated resource identity must never produce repeated release credit.
++            for identity in c.resources:
++                if identity not in resources:
++                    resources[identity] = c
++            work_ids.update(c.work_ids)
++            restores.update(c.restore_parents)
++        if not resources:
++            return None
++        chosen = tuple(resources.values())
++        selected = tuple(w for w in works if w.work_id in work_ids)
++        return _Closure(tuple(resources), tuple(w.work_id for w in selected),
++                        sum(c.gpu_bytes for c in chosen), sum(c.cpu_bytes for c in chosen),
++                        frozenset(restores), max(c.unblock_ns for c in chosen),
++                        max(c.error_ns for c in chosen),
++                        chosen[0].interference_ns if len(chosen) == 1 else None,
++                        sum(w.nbytes for w in selected), min(w.native_order for w in selected))
++
++    @staticmethod
++    def _satisfies(c, target):
++        return (c.gpu_bytes >= target.need_gpu_bytes and c.cpu_bytes >= target.need_cpu_bytes and
++                (target.restore_parent_id is None or target.restore_parent_id in c.restore_parents))
++
++    def choose(self, snapshot, works, witnesses=(), *, now_ns, expected_epoch):
++        integer(now_ns, "now_ns")
++        integer(expected_epoch, "expected_epoch")
++        observed = tuple(islice(works, 65))
++        if any(type(w) is not WorkDescriptor for w in observed):
++            raise TypeError("existing native WorkDescriptor values required")
++        truncated = len(observed) > 64
++        window = observed[:64]
++        native = tuple(w.work_id for w in window)
++        if len(set(native)) != len(native):
++            raise ValueError("ambiguous native work identity")
++        gpu_known = (self._fresh(snapshot, now_ns, expected_epoch) and
++                     "gpu_owner_generation" in snapshot.capabilities and
++                     "gpu_active_refs" in snapshot.capabilities and
++                     "gpu_protectors" in snapshot.capabilities and
++                     "owner_release_protocol" in snapshot.capabilities)
++        def choice(action, reason, proposed=native, closure=None, target=None):
++            actual = proposed if action == "selected" else native
++            return PolicyChoice(action, actual, proposed,
++                closure.resources if closure is not None else (), reason,
++                target.target_id if target is not None else None,
++                closure.gpu_bytes if closure is not None and gpu_known else (0 if gpu_known else None),
++                closure.cpu_bytes if closure is not None else None,
++                len(window), truncated)
++        if truncated:
++            return choice("native_fallback", "work_window_exceeded")
++        if not self._fresh(snapshot, now_ns, expected_epoch):
++            return choice("native_fallback", "stale_or_incompatible_snapshot")
++        if "native_ready_work" not in snapshot.capabilities:
++            return choice("native_fallback", "missing_ready_work_capability")
++        if any(w.run_id != self.run_id or w.snapshot_epoch != expected_epoch for w in window):
++            return choice("native_fallback", "stale_work_identity")
++        if any(w.created_ns > now_ns for w in window):
++            return choice("native_fallback", "future_work_timestamp")
++        if any(w.submitted for w in window):
++            return choice("native_fallback", "submitted_work_cannot_be_reordered")
++        if any(not w.accepted for w in window):
++            return choice("native_fallback", "unaccepted_work_not_strategy_owned")
++        if any(w.progress is not None for w in window):
++            return choice("native", "native_progress_before_policy")
++        if any(w.resource_identity is not None and
++               self._generation(snapshot, w.resource_identity) != w.generation for w in window):
++            return choice("native_fallback", "stale_work_generation")
++        if self.config.mode in ("interference", "joint") and not self.production_interference_qualified:
++            return choice("native_fallback", "production_interference_gpu_gate_blocked")
++        if self.config.mode == "interference":
++            return choice("native", "interference_preserves_native_target_order")
++        targets = [t for t in snapshot.targets if
++                   t.need_gpu_bytes or t.need_cpu_bytes or t.restore_parent_id is not None]
++        if not targets:
++            return choice("native", "no_observed_blocked_target")
++        if any(t.arrived_ns > now_ns for t in targets):
++            return choice("native_fallback", "future_target_timestamp")
++        # Age prevents endless yielding without inventing a global request scheduler.
++        target = min(targets, key=lambda t: (
++            0 if now_ns - t.arrived_ns >= self.config.max_wait_ns else 1, t.native_order))
++        if (target.need_gpu_bytes and snapshot.gpu_immediately_reusable_bytes is not None and
++                snapshot.gpu_immediately_reusable_bytes >= target.need_gpu_bytes):
++            return choice("native", "native_immediate_gpu_reuse_first", target=target)
++        if (target.need_cpu_bytes and snapshot.cpu_clean_reclaimable_bytes is not None and
++                snapshot.cpu_clean_reclaimable_bytes >= target.need_cpu_bytes):
++            return choice("native", "native_clean_cpu_reclaim_first", target=target)
++        selected_witnesses = tuple(islice(witnesses, 9))
++        if len(selected_witnesses) > 8:
++            return choice("native_fallback", "release_window_exceeded", target=target)
++        closures, reasons, identities = [], [], set()
++        for w in selected_witnesses:
++            c, reason = self._witness(w, snapshot, window, target, now_ns)
++            reasons.append(reason)
++            if c is not None and c.resources[0] not in identities:
++                identities.add(c.resources[0])
++                closures.append(c)
++        # At most seven individual closures plus one bounded multi-resource union.
++        candidates = closures[:7]
++        if len(closures) > 1:
++            union = self._combine(closures, window)
++            if union is not None:
++                candidates = candidates + [union]
++        feasible = [c for c in candidates if self._satisfies(c, target)]
++        if not feasible:
++            return choice("native_fallback", "no_proved_legal_closure:" +
++                          (reasons[0] if reasons else "no_witness"), target=target)
++        earliest = min(feasible, key=lambda c: (c.unblock_ns, c.native_order))
++        equivalent = [c for c in feasible if
++                      abs(c.unblock_ns - earliest.unblock_ns) <= c.error_ns + earliest.error_ns]
++        if self.config.mode == "joint" and self.production_interference_qualified:
++            best = min(equivalent, key=lambda c: (
++                c.interference_ns is None,
++                c.interference_ns if c.interference_ns is not None else 0,
++                c.new_bytes, c.native_order))
++        else:
++            # D and unqualified shadow cannot quietly become an interference arm.
++            best = min(equivalent, key=lambda c: (c.new_bytes, c.native_order))
++        chosen = set(best.work_ids)
++        proposed = tuple(w.work_id for w in window if w.work_id in chosen) + tuple(
++            w.work_id for w in window if w.work_id not in chosen)
++        action = "observed" if self.config.mode == "shadow" else "selected"
++        return choice(action, "verified_bounded_native_release_closure",
++                      proposed=proposed, closure=best, target=target)
++
++    def issue_preview(self, work, snapshot, *, now_ns, expected_epoch, progress=None,
++                      execution="production"):
++        """Additional cost constraint only; never grants or charges any allowance."""
++        if type(work) is not WorkDescriptor:
++            raise TypeError("existing native work values required")
++        if progress is None:
++            progress = work.progress
++        if progress is not None and progress not in PROGRESS:
++            raise ValueError("known native progress reason required")
++        if not self._fresh(snapshot, now_ns, expected_epoch):
++            return IssuePreview("native_fallback", "stale_or_incompatible_snapshot")
++        if execution not in ("production", "cpu_mock"):
++            raise ValueError("explicit production/CPU mock scope required")
++        if "native_ready_work" not in snapshot.capabilities:
++            return IssuePreview("native_fallback", "missing_ready_work_capability")
++        if (work.run_id != self.run_id or work.snapshot_epoch != expected_epoch or
++                work.submitted or not work.accepted or work.created_ns > now_ns):
++            return IssuePreview("native_fallback", "stale_or_nonselectable_work")
++        if (work.resource_identity is not None and
++                self._generation(snapshot, work.resource_identity) != work.generation):
++            return IssuePreview("native_fallback", "stale_work_generation")
++        if progress is not None or now_ns - work.created_ns >= self.config.max_wait_ns:
++            return IssuePreview("issue", "native_progress_override", True)
++        if self.config.mode in ("shadow", "dependency_only"):
++            return IssuePreview("issue", "existing_common_budget_only")
++        if self.table is None or snapshot.native_state is None or snapshot.native_state.inflight is None:
++            return IssuePreview("native_fallback", "unsupported_cost_state")
++        if execution == "production" and not self.production_interference_qualified:
++            return IssuePreview("native_fallback", "production_interference_gpu_gate_blocked")
++        estimate = self.table.lookup(snapshot.load_signature, snapshot.native_state.inflight,
++                                     work.stage, work.nbytes, execution=execution)
++        if estimate is None or self.config.internal_step_budget_ns is None:
++            return IssuePreview("native_fallback", "unsupported_exact_cost_cell_or_step_budget")
++        if not 0 <= now_ns - snapshot.native_state.captured_ns <= self.config.sample_max_age_ns:
++            return IssuePreview("native_fallback", "stale_existing_io_baseline")
++        action = "issue" if estimate.total_ns <= self.config.internal_step_budget_ns else "defer"
++        return IssuePreview(action, "mock_only_cost_preview" if execution == "cpu_mock"
++                            else "qualified_cost_preview", False, estimate.total_ns, False)
++
++
++    def choose_batch(self, snapshot, works, *, now_ns, expected_epoch,
++                     target_work_ids=(), execution="production"):
++        """Finite legal native work prefixes; no splitting, fusing or submission.
++
++        The result is only an advisory bound on an existing native batch. Native
++        hard limits, existing fusion and DispatchController settlement remain
++        authoritative. Unsupported state returns the baseline path, not zero
++        cost. CPU mock forecasts cannot authorize a production batch.
++        """
++        integer(now_ns, "now_ns")
++        integer(expected_epoch, "expected_epoch")
++        observed = tuple(islice(works, 65))
++        if any(type(w) is not WorkDescriptor for w in observed):
++            raise TypeError("existing native work values required")
++        native = tuple(w.work_id for w in observed[:64])
++        def fallback(reason):
++            return BatchChoice("native_fallback", native, None, 0, 0, None, reason,
++                               execution == "cpu_mock", False)
++        if len(observed) > 64 or len(set(native)) != len(native):
++            return fallback("bounded_or_ambiguous_batch_window")
++        if not self._fresh(snapshot, now_ns, expected_epoch):
++            return fallback("stale_or_incompatible_snapshot")
++        if "native_ready_work" not in snapshot.capabilities:
++            return fallback("missing_ready_work_capability")
++        if not observed:
++            return fallback("no_existing_ready_work")
++        if any(w.run_id != self.run_id or w.snapshot_epoch != expected_epoch or w.submitted
++               or not w.accepted or w.created_ns > now_ns for w in observed):
++            return fallback("nonselectable_native_work")
++        if any(w.resource_identity is not None and
++               self._generation(snapshot, w.resource_identity) != w.generation for w in observed):
++            return fallback("stale_work_generation")
++        if any(w.progress is not None or now_ns - w.created_ns >= self.config.max_wait_ns
++               for w in observed):
++            return fallback("native_progress_batch_before_policy")
++        if execution not in ("production", "cpu_mock"):
++            raise ValueError("explicit production/CPU mock scope required")
++        if self.config.mode in ("interference", "joint"):
++            if execution == "production" and not self.production_interference_qualified:
++                return fallback("production_interference_gpu_gate_blocked")
++            if (self.table is None or snapshot.native_state is None or
++                    snapshot.native_state.inflight is None or
++                    self.config.internal_step_budget_ns is None or
++                    not 0 <= now_ns - snapshot.native_state.captured_ns <= self.config.sample_max_age_ns):
++                return fallback("unsupported_existing_io_baseline")
++        if type(target_work_ids) is not tuple or len(target_work_ids) > 64:
++            raise ValueError("bounded target existing work IDs required")
++        for wid in target_work_ids:
++            _work_id(wid)
++        if len(set(target_work_ids)) != len(target_work_ids):
++            raise ValueError("target work identities must be unique")
++        if any(wid not in native for wid in target_work_ids):
++            return fallback("target_outside_existing_ready_window")
++        stage = observed[0].stage
++        quantum = observed[0].minimum_unit_bytes
++        if any(w.stage == stage and w.minimum_unit_bytes != quantum for w in observed):
++            return fallback("mixed_frozen_storage_unit_geometry")
++        units, physical, candidates = 0, 0, []
++        prefix = []
++        for work in observed:
++            if work.stage != stage:
++                break
++            # Never split a storage unit or a native descriptor.
++            units += work.nbytes // work.minimum_unit_bytes
++            physical += work.nbytes
++            prefix.append(work.work_id)
++            if units > self.config.candidate_batches[-1]:
++                break
++            if units not in self.config.candidate_batches:
++                continue
++            estimate = None
++            if self.config.mode in ("interference", "joint"):
++                estimate = self.table.lookup(snapshot.load_signature, snapshot.native_state.inflight,
++                                             stage, physical, execution=execution)
++                if estimate is None or estimate.total_ns > self.config.internal_step_budget_ns:
++                    continue
++            candidates.append((tuple(prefix), physical, units,
++                               estimate.total_ns if estimate is not None else None))
++        if not candidates:
++            return fallback("no_supported_legal_batch")
++        needs = set(target_work_ids)
++        covering = [c for c in candidates if needs and needs.issubset(c[0])]
++        # Advance enough to unblock the selected finite closure, otherwise use
++        # the largest supported native batch. This is not a global optimum.
++        chosen = min(covering, key=lambda c: c[2]) if covering else max(candidates, key=lambda c: c[2])
++        action = "observed" if self.config.mode == "shadow" else "selected"
++        return BatchChoice(action, chosen[0], stage, chosen[1], chosen[2], chosen[3],
++                           "finite_supported_native_prefix", execution == "cpu_mock", False)
+diff --git a/control/p4_types.py b/control/p4_types.py
+new file mode 100644
+--- /dev/null
++++ b/control/p4_types.py
+@@ -0,0 +1,286 @@
++"""P4 immutable scalar observations; these objects confer no resource ownership.
++
++All live values must be collected by existing owners. CPU fixtures are not GPU
++qualification. None is unknown, never a measured zero or a permission to issue.
++"""
++from dataclasses import dataclass
++from .dependencies import Parent, Resource, ResourceId
++from .dispatch_budget import STAGES, integer
++from .dispatch_shadow import ShadowState
++from .simple_stage_policy import PROGRESS, _run_id, _work_id
++
++MODES = frozenset(("off", "shadow", "dependency_only", "interference", "joint"))
++
++
++def text(value, name):
++    if type(value) is not str or not value.strip() or len(value) > 128:
++        raise ValueError(name + " must be bounded nonempty text")
++
++
++def optional_integer(value, name):
++    if value is not None:
++        integer(value, name)
++
++
++def parent_values(parents):
++    if type(parents) is not tuple or len(parents) > 32 or any(type(p) is not Parent for p in parents):
++        raise ValueError("at most 32 immutable native parent values required")
++    for p in parents:
++        _run_id(p.run_id)
++        for name in ("job_id", "total_files", "done_files", "inflight_files"):
++            integer(getattr(p, name), name)
++        if type(p.future_done) is not bool or type(p.failed) is not bool:
++            raise ValueError("explicit parent terminal flags required")
++        optional_integer(p.remaining_stages, "remaining_stages")
++        optional_integer(p.completion_estimate_ns, "completion_estimate_ns")
++
++
++def resource_id(value):
++    if type(value) is not ResourceId:
++        raise TypeError("native identity values required")
++    _run_id(value.run_id)
++    text(value.pool, "pool")
++    for name in ("group", "block", "generation"):
++        integer(getattr(value, name), name)
++
++
++@dataclass(frozen=True)
++class WaitingTarget:
++    target_id: object
++    native_order: int
++    arrived_ns: int
++    need_gpu_bytes: int = 0
++    need_cpu_bytes: int = 0
++    restore_parent_id: int | None = None
++
++    def __post_init__(self):
++        _work_id(self.target_id)
++        for name in ("native_order", "arrived_ns", "need_gpu_bytes", "need_cpu_bytes"):
++            integer(getattr(self, name), name)
++        optional_integer(self.restore_parent_id, "restore_parent_id")
++
++
++@dataclass(frozen=True)
++class SystemSnapshot:
++    run_id: str
++    snapshot_epoch: int
++    monotonic_ns: int
++    capabilities: frozenset[str]
++    parents: tuple[Parent, ...] = ()
++    native_state: ShadowState | None = None
++    targets: tuple[WaitingTarget, ...] = ()
++    generations: tuple[tuple[ResourceId, int], ...] = ()
++    gpu_immediately_reusable_bytes: int | None = None
++    cpu_clean_reclaimable_bytes: int | None = None
++    load_signature: tuple = ()
++
++    def __post_init__(self):
++        _run_id(self.run_id)
++        integer(self.snapshot_epoch, "snapshot_epoch")
++        integer(self.monotonic_ns, "monotonic_ns")
++        if type(self.capabilities) is not frozenset or len(self.capabilities) > 32:
++            raise ValueError("bounded frozen capability mask required")
++        for cap in self.capabilities:
++            text(cap, "capability")
++        parent_values(self.parents)
++        if any(p.run_id != self.run_id for p in self.parents):
++            raise ValueError("snapshot parent identity must be same run")
++        if self.native_state is not None and (type(self.native_state) is not ShadowState or
++                                               self.native_state.run_id != self.run_id):
++            raise ValueError("same-run native state required")
++        if type(self.targets) is not tuple or len(self.targets) > 32 or any(
++                type(t) is not WaitingTarget for t in self.targets):
++            raise ValueError("bounded waiting-target values required")
++        if len({t.target_id for t in self.targets}) != len(self.targets):
++            raise ValueError("ambiguous target identities")
++        if type(self.generations) is not tuple or len(self.generations) > 64:
++            raise ValueError("bounded generation values required")
++        seen = set()
++        for entry in self.generations:
++            if type(entry) is not tuple or len(entry) != 2:
++                raise ValueError("generation identity pairs required")
++            identity, current = entry
++            resource_id(identity)
++            if identity.run_id != self.run_id:
++                raise ValueError("snapshot resource identity must be same run")
++            integer(current, "current generation")
++            key = (identity.run_id, identity.pool, identity.group, identity.block)
++            if key in seen:
++                raise ValueError("ambiguous generation observation")
++            seen.add(key)
++        optional_integer(self.gpu_immediately_reusable_bytes, "GPU immediate bytes")
++        optional_integer(self.cpu_clean_reclaimable_bytes, "CPU clean reclaim bytes")
++        if type(self.load_signature) is not tuple or len(self.load_signature) > 16:
++            raise ValueError("bounded exact load signature required")
++        for item in self.load_signature:
++            if type(item) not in (str, int) or (type(item) is str and len(item) > 128):
++                raise ValueError("load signature contains values only")
++
++    def fresh(self, *, run_id, now_ns, expected_epoch, max_age_ns):
++        integer(now_ns, "now_ns")
++        integer(expected_epoch, "expected_epoch")
++        integer(max_age_ns, "max_age_ns", 1)
++        return (self.run_id == run_id and self.snapshot_epoch == expected_epoch and
++                0 <= now_ns - self.monotonic_ns <= max_age_ns)
++
++
++@dataclass(frozen=True)
++class WorkDescriptor:
++    run_id: str
++    snapshot_epoch: int
++    parent_id: int
++    child_id: object
++    stage: str
++    nbytes: int
++    native_order: int
++    created_ns: int
++    submitted: bool
++    accepted: bool = True
++    staging_bytes_needed: int = 0
++    generation: int | None = None
++    progress: str | None = None
++    minimum_unit_bytes: int = 1
++    resource_identity: ResourceId | None = None
++
++    def __post_init__(self):
++        _run_id(self.run_id)
++        _work_id(self.child_id)
++        if type(self.child_id) not in (str, int):
++            raise ValueError("native child identity must be scalar")
++        for name in ("snapshot_epoch", "parent_id", "native_order", "created_ns",
++                     "staging_bytes_needed"):
++            integer(getattr(self, name), name)
++        integer(self.nbytes, "legal work bytes", 1)
++        integer(self.minimum_unit_bytes, "minimum unit bytes", 1)
++        if self.nbytes % self.minimum_unit_bytes:
++            raise ValueError("work must use legal backend units")
++        if self.stage not in STAGES:
++            raise ValueError("unknown native physical stage")
++        for name in ("submitted", "accepted"):
++            if type(getattr(self, name)) is not bool:
++                raise ValueError("explicit work lifecycle flags required")
++        optional_integer(self.generation, "work generation")
++        if self.progress is not None and self.progress not in PROGRESS:
++            raise ValueError("unknown native progress reason")
++        if self.resource_identity is not None:
++            resource_id(self.resource_identity)
++            if self.resource_identity.run_id != self.run_id:
++                raise ValueError("work resource identity must be same run")
++            if self.generation != self.resource_identity.generation:
++                raise ValueError("work identity and generation must agree")
++
++    @property
++    def work_id(self):
++        return (self.parent_id, self.child_id, self.stage)
++
++
++@dataclass(frozen=True)
++class ReleaseWitness:
++    target_id: object
++    resource: Resource
++    parents: tuple[Parent, ...]
++    resource_kind: str
++    work_ids: tuple
++    owner_source: str
++    estimated_unblock_ns: int | None
++    error_ns: int = 0
++    interference_ns: int | None = None
++    completed_restore_parent_id: int | None = None
++    release_scope: str = "parent_job"
++
++    def __post_init__(self):
++        _work_id(self.target_id)
++        if type(self.resource) is not Resource:
++            raise TypeError("reuse the existing immutable Resource contract")
++        r = self.resource
++        resource_id(r.identity)
++        integer(r.bytes, "physical resource bytes", 1)
++        optional_integer(r.active_refs, "active references")
++        if type(r.protecting_jobs) is not frozenset or len(r.protecting_jobs) > 32:
++            raise ValueError("bounded protecting parent identities required")
++        for pid in r.protecting_jobs:
++            integer(pid, "protecting parent")
++        if r.evidence not in ("observed_blocking", "candidate", "unknown"):
++            raise ValueError("unknown evidence level")
++        if type(r.clean_evictable) is not bool or (r.native_reusable is not None and
++                                                  type(r.native_reusable) is not bool):
++            raise ValueError("explicit native reclaim observations required")
++        parent_values(self.parents)
++        if any(p.run_id != r.identity.run_id for p in self.parents):
++            raise ValueError("release parents and resource must be same run")
++        if self.resource_kind not in ("gpu", "cpu", "restore"):
++            raise ValueError("resource units must remain separate")
++        if type(self.work_ids) is not tuple or len(self.work_ids) > 64:
++            raise ValueError("bounded existing work identities required")
++        for wid in self.work_ids:
++            _work_id(wid)
++        if len(set(self.work_ids)) != len(self.work_ids):
++            raise ValueError("duplicate physical work identity")
++        text(self.owner_source, "original owner source")
++        optional_integer(self.estimated_unblock_ns, "estimated unblock time")
++        integer(self.error_ns, "measurement error")
++        optional_integer(self.interference_ns, "interference estimate")
++        optional_integer(self.completed_restore_parent_id, "restore parent")
++        if self.release_scope not in ("per_copy", "per_file", "parent_job", "multi_protector"):
++            raise ValueError("explicit native release scope required")
++
++
++@dataclass(frozen=True)
++class P4Config:
++    mode: str
++    sample_max_age_ns: int
++    max_wait_ns: int
++    internal_step_budget_ns: int | None = None
++    candidate_batches: tuple[int, ...] = (1, 2, 4, 8)
++
++    def __post_init__(self):
++        if self.mode not in MODES:
++            raise ValueError("only bounded V1 P4 modes are supported")
++        integer(self.sample_max_age_ns, "sample age", 1)
++        integer(self.max_wait_ns, "max wait", 1)
++        optional_integer(self.internal_step_budget_ns, "internal step budget")
++        if self.internal_step_budget_ns == 0:
++            raise ValueError("internal budget must be positive or unknown")
++        if (type(self.candidate_batches) is not tuple or not self.candidate_batches or
++                len(self.candidate_batches) > 4 or any(type(x) is not int or
++                x not in (1, 2, 4, 8) for x in self.candidate_batches) or
++                tuple(sorted(set(self.candidate_batches))) != self.candidate_batches):
++            raise ValueError("finite legal batch candidates required")
++
++
++@dataclass(frozen=True)
++class PolicyChoice:
++    action: str
++    selected_work_ids: tuple
++    proposed_work_ids: tuple
++    closure_resource_ids: tuple
++    reason: str
++    target_id: object | None = None
++    gpu_release_credit_bytes: int | None = None
++    cpu_release_credit_bytes: int | None = None
++    observed_work_count: int = 0
++    window_truncated: bool = False
++    tail_unchanged: bool = True
++    gpu_qualified: bool = False
++
++
++@dataclass(frozen=True)
++class IssuePreview:
++    action: str
++    reason: str
++    progress_override: bool = False
++    predicted_total_ns: int | None = None
++    production_qualified: bool = False
++
++
++@dataclass(frozen=True)
++class BatchChoice:
++    action: str
++    work_ids: tuple
++    stage: str | None
++    physical_bytes: int
++    storage_units: int
++    predicted_total_ns: int | None
++    reason: str
++    mock_only: bool = False
++    production_qualified: bool = False

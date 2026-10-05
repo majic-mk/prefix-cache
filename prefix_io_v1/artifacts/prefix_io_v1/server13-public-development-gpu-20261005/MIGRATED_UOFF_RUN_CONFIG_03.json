@@ -1,0 +1,59 @@
+{
+  "arm": "U",
+  "collection_ref": {
+    "bytes": 3215,
+    "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/UNCALIBRATED_U_COLLECTION_DESCRIPTOR_04.json",
+    "sha256": "557af4a73367ecd6aa9afbefe1d2e2d7a33a6922a0c63d5816fb3ae918367754"
+  },
+  "formal_peer_closed_ref": null,
+  "formal_trace_binding_ref": {
+    "bytes": 2466,
+    "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/MIGRATED_DEVELOPMENT_INPUT_BINDING_03.json",
+    "sha256": "c282ca4b2145c0e529f8c79a89ce48541b3680495b9d49c96d38010e6daef62c"
+  },
+  "gpu_uuid": "GPU-bff07e52-6cfb-5828-bb80-9aa47a3a4a9b",
+  "mode": "off",
+  "off_qualification_ref": null,
+  "output_relative": "experiments/prefix_io_v1/runs/server13-public-development-uoff03/details",
+  "pair_config_ref": {
+    "bytes": 9001,
+    "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/MIGRATED_U_I_CONFIG_03.json",
+    "sha256": "d22c43f35eba6d6849e6ca6e21b4628b4e841201cc1c927a24fa884a41b034b7"
+  },
+  "permissions_ref": {
+    "bytes": 677,
+    "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/EFFECTIVE_STANDING_GPU_PERMISSION_01.json",
+    "sha256": "86e7cbcc6398ddda59f0b39da904adceff15735e8d0c421acc61299e2b6c830f"
+  },
+  "phase": "development",
+  "run_id": "server13-public-development-uoff03",
+  "runner_ref": {
+    "bytes": 61181,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/strong_trace_runner_v7.py",
+    "sha256": "0d916dedd52c2aaec3822adff6560987d443425619f96d57a027a60be10fe9dd"
+  },
+  "runtime_ref": {
+    "bytes": 62770,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/native_runtime_v7.py",
+    "sha256": "8f3727b8cb9eb1f2472da74a8c109023f0d88daa0ea959dbae4fcf9792a6d5f1"
+  },
+  "schema": "strong_native_trace_run_v1",
+  "seconds_limit": 300,
+  "source_lock_ref": {
+    "bytes": 1176256,
+    "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/MIGRATED_U_SOURCE_LOCK_03.json",
+    "sha256": "71ddb94ec1c9f55161f868fbdedb0988d8d6489c61978e06df94aa26f500bdd3"
+  },
+  "source_proof_ref": {
+    "bytes": 19748,
+    "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/MIGRATED_U_SOURCE_PROOF_03.json",
+    "sha256": "998da97e4b06393a6ed6003998aa331bf502ee6425af7225731aa7e0bef739de"
+  },
+  "storage_floor_bytes": 8589934592,
+  "storage_reserve_bytes": 134217728,
+  "workload_ref": {
+    "bytes": 113401,
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_ORIGINAL_MANIFEST_01.json",
+    "sha256": "01bb329d696f61bc9363aaaff553dd380ce457a9f01713f0991562aa92c8d340"
+  }
+}

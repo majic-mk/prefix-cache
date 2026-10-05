@@ -1,0 +1,479 @@
+--- a/experiments/prefix_io_v1/scripts/download_pinned_model.py
++++ b/experiments/prefix_io_v1/scripts/download_pinned_model.py
+@@ -58,8 +58,14 @@
+ class VerifiedRedirect(urllib.request.HTTPRedirectHandler):
+     max_redirections = 5
+     def redirect_request(self, req, fp, code, msg, headers, newurl):
+-        valid_url(newurl)
+-        return super().redirect_request(req, fp, code, msg, headers, newurl)
++        # urllib's default http_error_302 consumes fp.read() before following.
++        # That unbounded body bypasses this downloader's payload accounting.
++        # No redirect route has been qualified for this fixed provider request.
++        try:
++            valid_url(newurl)
++        finally:
++            fp.close()
++        raise RuntimeError("download redirect requires explicit route review; no automatic redirect")
+ 
+ 
+ def make_opener():
+@@ -216,7 +222,7 @@
+                     require(response.headers.get("Content-Encoding", "identity").lower() == "identity",
+                             "compressed responses are not allowed")
+                     length = response.headers.get("Content-Length")
+-                    require(length is not None and int(length) == rec["bytes"],
++                    require(length is None or int(length) == rec["bytes"],
+                             "response Content-Length differs from frozen manifest")
+                     with partial.open("xb") as f:
+                         while actual < amount:
+--- /dev/null
++++ b/tests/prefix_io_v1_download/test_download_boundaries.py
+@@ -0,0 +1,448 @@
++"""CPU-only download boundary tests: fake HTTP bodies and project-local temp ledgers."""
++from __future__ import annotations
++import copy
++import fcntl
++import hashlib
++import importlib.util
++import io
++import json
++import os
++from pathlib import Path
++import shutil
++import socket
++import subprocess
++import sys
++from types import SimpleNamespace
++import urllib.request
++
++import pytest
++import yaml
++
++ROOT = Path(__file__).resolve().parents[2]
++SCRIPT = ROOT / "experiments/prefix_io_v1/scripts/download_pinned_model.py"
++spec = importlib.util.spec_from_file_location("download_under_test", SCRIPT)
++dl = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(dl)
++
++REV = "a" * 40
++WEIGHT = "model-00001-of-00001.safetensors"
++
++
++@pytest.fixture(autouse=True)
++def forbid_real_network(monkeypatch):
++    def blocked(*args, **kwargs):
++        raise AssertionError("CPU review must never connect to a real network")
++    monkeypatch.setattr(socket.socket, "connect", blocked)
++
++
++class Response:
++    status = 200
++    def __init__(self, payload, url, length=True, fail_after=None, encoding="identity"):
++        self.stream = io.BytesIO(payload)
++        self.url = url
++        self.headers = {"Content-Encoding": encoding}
++        if length is True:
++            self.headers["Content-Length"] = str(len(payload))
++        elif length is not None:
++            self.headers["Content-Length"] = str(length)
++        self.fail_after = fail_after
++        self.closed = False
++        self.returned = 0
++        self.read_sizes = []
++    def geturl(self):
++        return self.url
++    def read(self, amount=-1):
++        self.read_sizes.append(amount)
++        if self.fail_after is not None and self.returned >= self.fail_after:
++            raise OSError("injected interrupted response")
++        if self.fail_after is not None:
++            amount = min(amount, self.fail_after - self.returned)
++        block = self.stream.read(amount)
++        self.returned += len(block)
++        return block
++    def __enter__(self):
++        return self
++    def __exit__(self, *exc):
++        self.close()
++    def close(self):
++        self.closed = True
++        self.stream.close()
++
++
++class Rig:
++    def __init__(self, tmp_path, monkeypatch):
++        self.root = tmp_path / "project"
++        self.root.mkdir()
++        self.target = self.root / "models/qwen"
++        self.manifest = self.root / "manifest.json"
++        self.ledger = self.root / "experiments/prefix_io_v1/gpu-budget-ledger.json"
++        self.ledger.parent.mkdir(parents=True)
++        p = self.ledger.parent / "configs/permissions.yaml"
++        p.parent.mkdir()
++        self.permission_path = p
++        self.permissions = {
++            "schema_version": 1,
++            "allow_project_local_edits": True, "allow_cpu_tests": True,
++            "allow_public_source_read": True, "allow_remote_push": False,
++            "allow_new_cloud_rental": False, "allow_payment": False,
++            "allow_driver_or_system_changes": False, "allow_shared_data_deletion": False,
++            "allow_gpu_runs": True, "allow_model_downloads": True,
++            "max_gpu_hours": 8, "max_model_download_gib": 20,
++            "approved_gpu_ids": ["GPU-8b500efe-1a50-0e8e-b21e-716807eebedf"],
++            "approved_experiment_root": str(self.root / "experiments/prefix_io_v1/runs"),
++            "approved_dependency_root": str(self.root),
++        }
++        self.save_permissions()
++        self.initial = {"gpu_wall_seconds": 45.273048002272844,
++                        "model_download_bytes": 0,
++                        "events": [{"label": "historical_gpu_event", "elapsed_seconds": 45.273048002272844}],
++                        "active_reservation": None}
++        self.save_budget(self.initial)
++        self.payloads = {
++            "config.json": b'{"model_type":"qwen2","architectures":["Qwen2ForCausalLM"]}',
++            "tokenizer_config.json": b'{"tokenizer_class":"Qwen2Tokenizer"}',
++            "tokenizer.json": b'{"version":"1.0"}',
++            "model.safetensors.index.json": json.dumps({"weight_map": {"weight": WEIGHT}}).encode(),
++            WEIGHT: b"CPU fixture bytes, not model weights." * 4,
++        }
++        self.plan = {"schema_version": 1, "model_id": dl.MODEL_ID, "revision": REV,
++                     "source": "https://huggingface.co", "trust_remote_code": False, "files": []}
++        for name, payload in self.payloads.items():
++            algorithm = "sha256" if name.endswith(".safetensors") else "git_blob_sha1"
++            digest = (hashlib.sha256(payload).hexdigest() if algorithm == "sha256" else
++                      hashlib.sha1(b"blob " + str(len(payload)).encode() + b"\0" + payload).hexdigest())
++            self.plan["files"].append({
++                "path": name, "bytes": len(payload), "hash_algorithm": algorithm, "hash": digest,
++                "url": f"https://huggingface.co/{dl.MODEL_ID}/resolve/{REV}/{name}"})
++        self.plan["total_bytes"] = sum(len(p) for p in self.payloads.values())
++        self.save_plan()
++        self.requests = []
++        self.responses = []
++        self.response_factory = lambda req, rec: Response(self.payloads[rec["path"]], req.full_url)
++        self.on_open = None
++        monkeypatch.setattr(dl, "make_opener", lambda: self)
++        monkeypatch.setattr(dl.shutil, "disk_usage",
++                            lambda path: SimpleNamespace(free=100 * dl.GIB))
++    def save_plan(self):
++        self.manifest.write_text(json.dumps(self.plan))
++    def save_permissions(self):
++        self.permission_path.write_text(yaml.safe_dump(self.permissions))
++    def save_budget(self, value):
++        self.ledger.write_text(json.dumps(value))
++    def budget(self):
++        return json.loads(self.ledger.read_text())
++    def open(self, req, timeout):
++        reservation = self.budget()["active_reservation"]
++        assert reservation is not None and reservation["kind"] == "model_download"
++        rec = next(r for r in self.plan["files"] if r["url"] == req.full_url)
++        assert reservation["file"] == rec["path"]
++        assert reservation["reserved_bytes"] == rec["bytes"] + 1
++        assert req.get_header("Accept-encoding") == "identity"
++        if self.on_open:
++            self.on_open(req, rec)
++        self.requests.append(req)
++        response = self.response_factory(req, rec)
++        self.responses.append(response)
++        return response
++    def run(self, label="cpu-review"):
++        return dl.execute(self.root, self.manifest, self.target, label)
++
++
++@pytest.fixture
++def rig(tmp_path, monkeypatch):
++    return Rig(tmp_path, monkeypatch)
++
++
++def test_complete_then_reuse_verified_manifest_without_network(rig):
++    first = rig.run("first")
++    assert first["status"] == "VERIFIED_LOCAL_FILES"
++    assert len(rig.requests) == len(rig.payloads)
++    budget = rig.budget()
++    assert budget["model_download_bytes"] == rig.plan["total_bytes"]
++    assert budget["model_payload_received_bytes"] == rig.plan["total_bytes"]
++    assert budget["active_reservation"] is None
++    assert budget["gpu_wall_seconds"] == rig.initial["gpu_wall_seconds"]
++    assert budget["events"] == rig.initial["events"]
++    assert all(r.closed for r in rig.responses)
++    assert not list(rig.target.glob("*.partial"))
++    def no_request(*args):
++        pytest.fail("verified complete files must be reused without another request")
++    rig.open = no_request
++    second = rig.run("reuse")
++    assert set(second["reused_verified_files"]) == set(rig.payloads)
++    assert second["files"] == []
++    assert rig.budget() == budget
++
++
++def test_no_content_length_complete_response_is_verified(rig):
++    rig.response_factory = lambda req, rec: Response(
++        rig.payloads[rec["path"]], req.full_url, length=None)
++    assert rig.run()["status"] == "VERIFIED_LOCAL_FILES"
++    assert rig.budget()["model_download_bytes"] == rig.plan["total_bytes"]
++
++
++@pytest.mark.parametrize("length", [None, True])
++def test_short_stream_charged_conservatively_and_keeps_partial(rig, length):
++    rec = rig.plan["files"][0]
++    body = rig.payloads[rec["path"]][:-3]
++    rig.response_factory = lambda req, _rec: Response(
++        body, req.full_url, length=None if length is None else rec["bytes"])
++    with pytest.raises(RuntimeError, match="short response"):
++        rig.run()
++    event = rig.budget()["download_events"][0]
++    assert event["charged_bytes"] == rec["bytes"] + 1
++    assert event["actual_payload_bytes"] == len(body)
++    assert not event["published"]
++    assert (rig.target / (rec["path"] + ".cpu-review.partial")).read_bytes() == body
++    assert not (rig.target / rec["path"]).exists()
++    assert rig.budget()["active_reservation"] is None
++    assert rig.responses[0].closed
++
++
++@pytest.mark.parametrize("length", [None, True])
++def test_overlong_body_reads_at_most_expected_plus_one(rig, length):
++    rec = rig.plan["files"][0]
++    body = rig.payloads[rec["path"]] + b"x" * 1000
++    rig.response_factory = lambda req, _rec: Response(
++        body, req.full_url, length=None if length is None else rec["bytes"])
++    with pytest.raises(RuntimeError, match="exceeds frozen size"):
++        rig.run()
++    event = rig.budget()["download_events"][0]
++    assert event["charged_bytes"] == event["actual_payload_bytes"] == rec["bytes"] + 1
++    assert rig.responses[0].returned == rec["bytes"] + 1
++    assert not (rig.target / rec["path"]).exists()
++
++
++def test_error_after_some_payload_retains_partial_and_does_not_retry(rig):
++    rec = rig.plan["files"][0]
++    rig.response_factory = lambda req, _rec: Response(
++        rig.payloads[rec["path"]], req.full_url, fail_after=5)
++    with pytest.raises(RuntimeError, match="injected interrupted"):
++        rig.run()
++    event = rig.budget()["download_events"][0]
++    assert event["actual_payload_bytes"] == 5
++    assert event["charged_bytes"] == rec["bytes"] + 1
++    assert len(rig.requests) == 1
++    assert (rig.target / (rec["path"] + ".cpu-review.partial")).stat().st_size == 5
++    assert rig.budget()["events"] == rig.initial["events"]
++
++
++@pytest.mark.parametrize("case", ["hash", "length", "encoding"])
++def test_corrupt_or_incompatible_response_is_never_published(rig, case):
++    rec = rig.plan["files"][0]
++    body = rig.payloads[rec["path"]]
++    if case == "hash":
++        rig.response_factory = lambda req, _rec: Response(b"x" * len(body), req.full_url)
++    elif case == "length":
++        rig.response_factory = lambda req, _rec: Response(body, req.full_url, length=len(body) + 1)
++    else:
++        rig.response_factory = lambda req, _rec: Response(body, req.full_url, encoding="gzip")
++    with pytest.raises(RuntimeError):
++        rig.run()
++    assert not (rig.target / rec["path"]).exists()
++    assert rig.budget()["model_download_bytes"] == rec["bytes"] + 1
++    assert len(rig.requests) == 1 and rig.responses[0].closed
++
++
++@pytest.mark.parametrize("kind", ["gpu", "model_download", "unknown"])
++def test_unresolved_reservation_blocks_before_any_network_or_ledger_change(rig, kind):
++    value = dict(rig.initial, active_reservation={"kind": kind, "reserved_bytes": 123})
++    rig.save_budget(value)
++    before = rig.ledger.read_bytes()
++    with pytest.raises(RuntimeError, match="unfinished reservation"):
++        rig.run()
++    assert not rig.requests and rig.ledger.read_bytes() == before
++
++
++def test_downloader_uses_same_lock_file_as_gpu_runner(rig):
++    with rig.ledger.with_suffix(".lock").open("a") as lock:
++        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
++        with pytest.raises(BlockingIOError):
++            rig.run()
++    assert not rig.requests and rig.budget() == rig.initial
++
++
++def test_actual_gpu_runner_cannot_launch_child_while_download_holds_lock(rig):
++    runner = rig.root / "experiments/prefix_io_v1/scripts/run_gpu_stage.py"
++    runner.parent.mkdir()
++    runner.write_bytes((ROOT / "experiments/prefix_io_v1/scripts/run_gpu_stage.py").read_bytes())
++    marker = rig.root / "must-not-launch"
++    checked = []
++    def check(req, rec):
++        if checked:
++            return
++        p = subprocess.run([sys.executable, str(runner), "--label", "blocked-by-download",
++                            "--seconds", "1", "--", sys.executable, "-c",
++                            "from pathlib import Path; Path(" + repr(str(marker)) + ").touch()"],
++                           capture_output=True, text=True, timeout=10)
++        checked.append(p)
++        assert p.returncode != 0 and "BlockingIOError" in p.stderr
++        assert not marker.exists()
++    rig.on_open = check
++    assert rig.run()["status"] == "VERIFIED_LOCAL_FILES"
++    assert len(checked) == 1
++
++
++def test_insufficient_remaining_budget_not_original_ceiling_blocks_all_requests(rig):
++    cap = 20 * dl.GIB
++    planned = rig.plan["total_bytes"] + len(rig.plan["files"])
++    rig.save_budget(dict(rig.initial, model_download_bytes=cap - planned + 1))
++    before = rig.ledger.read_bytes()
++    with pytest.raises(RuntimeError, match="insufficient cumulative"):
++        rig.run()
++    assert not rig.requests and rig.ledger.read_bytes() == before
++
++
++def test_exact_remaining_budget_succeeds_with_probe_reservation(rig):
++    cap = 20 * dl.GIB
++    planned = rig.plan["total_bytes"] + len(rig.plan["files"])
++    start = cap - planned
++    rig.save_budget(dict(rig.initial, model_download_bytes=start))
++    assert rig.run()["status"] == "VERIFIED_LOCAL_FILES"
++    assert rig.budget()["model_download_bytes"] == start + rig.plan["total_bytes"]
++    assert rig.budget()["model_download_bytes"] <= cap
++
++
++def test_failed_download_spend_is_retained_on_explicit_new_attempt(rig):
++    rec = rig.plan["files"][0]
++    rig.response_factory = lambda req, _rec: Response(
++        rig.payloads[rec["path"]], req.full_url, fail_after=2)
++    with pytest.raises(RuntimeError):
++        rig.run("first-failed")
++    rig.response_factory = lambda req, rec: Response(rig.payloads[rec["path"]], req.full_url)
++    assert rig.run("second")["status"] == "VERIFIED_LOCAL_FILES"
++    assert rig.budget()["model_download_bytes"] == rec["bytes"] + 1 + rig.plan["total_bytes"]
++    assert (rig.target / (rec["path"] + ".first-failed.partial")).exists()
++
++
++@pytest.mark.parametrize("which", ["initial", "next_file"])
++def test_disk_space_failure_stops_before_affected_request(rig, monkeypatch, which):
++    counts = []
++    def usage(path):
++        counts.append(1)
++        good = which == "next_file" and len(counts) <= 2
++        return SimpleNamespace(free=100 * dl.GIB if good else 0)
++    monkeypatch.setattr(dl.shutil, "disk_usage", usage)
++    with pytest.raises(RuntimeError, match="disk"):
++        rig.run()
++    assert len(rig.requests) == (1 if which == "next_file" else 0)
++    assert rig.budget()["active_reservation"] is None
++
++
++@pytest.mark.parametrize("where", ["target_outside", "target_symlink", "manifest_symlink", "existing_file_symlink"])
++def test_project_path_and_file_symlink_rejections(rig, tmp_path, where):
++    outside = tmp_path / "outside"
++    outside.mkdir()
++    if where == "target_outside":
++        rig.target = outside
++    elif where == "target_symlink":
++        rig.target.parent.mkdir()
++        rig.target.symlink_to(outside, target_is_directory=True)
++    elif where == "manifest_symlink":
++        p = rig.root / "linked-plan.json"
++        p.symlink_to(rig.manifest)
++        rig.manifest = p
++    else:
++        rig.target.mkdir(parents=True)
++        p = outside / "first"
++        p.write_bytes(rig.payloads["config.json"])
++        (rig.target / "config.json").symlink_to(p)
++    with pytest.raises(RuntimeError):
++        rig.run()
++    assert not rig.requests and rig.budget() == rig.initial
++
++
++def test_invalid_existing_complete_file_is_not_overwritten(rig):
++    rig.target.mkdir(parents=True)
++    existing = rig.target / "config.json"
++    existing.write_bytes(b"bad old file")
++    with pytest.raises(RuntimeError, match="size mismatch"):
++        rig.run()
++    assert existing.read_bytes() == b"bad old file"
++    assert not rig.requests and rig.budget() == rig.initial
++
++
++@pytest.mark.parametrize("change", ["revision", "path", "wrong_host", "wrong_model", "total", "weight_sha1"])
++def test_frozen_manifest_binding_rejects_changes(rig, change):
++    rec = rig.plan["files"][-1]
++    if change == "revision":
++        rig.plan["revision"] = "main"
++    elif change == "path":
++        rec["path"] = "../model.safetensors"
++    elif change == "wrong_host":
++        rec["url"] = rec["url"].replace("huggingface.co", "huggingface.co.attacker.example")
++    elif change == "wrong_model":
++        rec["url"] = rec["url"].replace("Qwen/Qwen2.5-7B-Instruct", "Other/model")
++    elif change == "total":
++        rig.plan["total_bytes"] += 1
++    else:
++        rec["hash_algorithm"] = "git_blob_sha1"
++        rec["hash"] = "0" * 40
++    rig.save_plan()
++    with pytest.raises(RuntimeError):
++        rig.run()
++    assert not rig.requests and rig.budget() == rig.initial
++
++
++def test_reservation_is_fsynced_before_http_open(rig, monkeypatch):
++    fsynced = []
++    original = dl.os.fsync
++    def counted(fd):
++        original(fd)
++        fsynced.append(fd)
++    monkeypatch.setattr(dl.os, "fsync", counted)
++    def observed(req, rec):
++        assert len(fsynced) >= 4
++        assert rig.budget()["active_reservation"]["file"] == rec["path"]
++    rig.on_open = observed
++    rig.run()
++
++
++def test_failed_settlement_persist_keeps_durable_reservation(rig, monkeypatch):
++    original = dl.atomic_json
++    def fail_settlement(path, obj):
++        if path == rig.ledger and obj.get("active_reservation") is None:
++            raise OSError("injected durable settlement failure")
++        return original(path, obj)
++    monkeypatch.setattr(dl, "atomic_json", fail_settlement)
++    with pytest.raises(OSError, match="settlement failure"):
++        rig.run()
++    reservation = rig.budget()["active_reservation"]
++    assert reservation is not None and reservation["kind"] == "model_download"
++    requests = len(rig.requests)
++    with pytest.raises(RuntimeError, match="unfinished reservation"):
++        rig.run("retry-blocked")
++    assert len(rig.requests) == requests
++
++
++def test_automatic_redirect_never_reads_unmetered_response_payload():
++    class RedirectBody:
++        closed = False
++        def read(self, *args):
++            pytest.fail("urllib redirect read would consume unmetered payload")
++        def close(self):
++            self.closed = True
++    class Parent:
++        def open(self, *args, **kwargs):
++            pytest.fail("redirect must stop until an explicit provider route is approved")
++    handler = dl.VerifiedRedirect()
++    handler.add_parent(Parent())
++    req = urllib.request.Request("https://huggingface.co/first")
++    req.timeout = 10
++    body = RedirectBody()
++    with pytest.raises(RuntimeError, match="redirect"):
++        handler.http_error_302(req, body, 302, "Found",
++                               {"location": "https://huggingface.co/second"})
++    assert body.closed
++
++
++@pytest.mark.parametrize("url", ["http://huggingface.co/a", "https://huggingface.co.attacker.example/a",
++                                 "https://user:pass@huggingface.co/a", "https://huggingface.co:444/a",
++                                 "https://cas-bridge.xethub.hf.co/a"])
++def test_unapproved_redirect_target_is_rejected_without_following(url):
++    class Body:
++        def close(self):
++            pass
++    with pytest.raises(RuntimeError, match="URL outside"):
++        dl.VerifiedRedirect().redirect_request(
++            urllib.request.Request("https://huggingface.co/a"), Body(), 302, "Found", {}, url)

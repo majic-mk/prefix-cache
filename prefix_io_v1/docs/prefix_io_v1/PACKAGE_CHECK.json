@@ -1,0 +1,67 @@
+{
+  "scope": "本地文档打包检查，仅验证UTF-8/JSON/YAML可读、代码围栏闭合和清单摘要，不代表底座、算法或GPU测试通过。",
+  "status": "passed",
+  "files_checked": 12,
+  "files": [
+    {
+      "path": "00_START_HERE.md",
+      "bytes": 3009,
+      "sha256": "6f80fd7e52907d76640b6cc989ee2a75b33ceb7bbfb43e2c9dc984c467328793"
+    },
+    {
+      "path": "01_ARCHITECTURE.md",
+      "bytes": 17528,
+      "sha256": "7a88ab1bfe3ba74766904900a594b99e89e55076d82ce92a81a5810a959ff00a"
+    },
+    {
+      "path": "02_CONTROL_AND_CONTRACTS.md",
+      "bytes": 19725,
+      "sha256": "b016ca08f1ffcfe7f41a322c3a7a5ee6e1dbf5874b2b784045e145774516234c"
+    },
+    {
+      "path": "03_IMPLEMENTATION_AND_EXPERIMENTS.md",
+      "bytes": 19535,
+      "sha256": "6d35bb47d4ec21ceb08aeeca8959cfcc60e79c2091bb2173c414f82cf47cdc17"
+    },
+    {
+      "path": "04_CODEX_EXECUTION.md",
+      "bytes": 4557,
+      "sha256": "49e1ba757c99a8a1e872d56bd519ed10b450d8960f3390a54d1f0c32a5d3e5f2"
+    },
+    {
+      "path": "05_SOURCES_AND_AUDIT.md",
+      "bytes": 7843,
+      "sha256": "ec5d53fe1509bdc04511ed6d2e6d418ec06de815a374d7beba0e3b0de5fb0e7a"
+    },
+    {
+      "path": "FULL_PLAN.md",
+      "bytes": 83132,
+      "sha256": "cbfca04a7bd48b0f31e572f8352ddd05c640397953b58e556b0fbaab270b5360"
+    },
+    {
+      "path": "templates/controller_spec.yaml",
+      "bytes": 1751,
+      "sha256": "e7893f55761aff905ba595726a420e399567bbda7512db740d275e38a4e767a2"
+    },
+    {
+      "path": "templates/dependency_lock.candidate.json",
+      "bytes": 2262,
+      "sha256": "245a0ca4041aeb7401c4382e4fe5a48af71a9e11974052dd68e12f8db00d515d"
+    },
+    {
+      "path": "templates/execution_state.initial.json",
+      "bytes": 3286,
+      "sha256": "f19a2c9169b5d2a6c8d9cd0289a218fd5d3353b4961723eaa2437f36a5fb24f1"
+    },
+    {
+      "path": "templates/experiment_spec.yaml",
+      "bytes": 1912,
+      "sha256": "040946aa63fd29384c8eb7b32c1753dd8bde9e242a44173977ffcf478ec015a0"
+    },
+    {
+      "path": "templates/permissions.yaml",
+      "bytes": 561,
+      "sha256": "148eb81627a8c862eb549e33e0c05eeeb4b10f50747265c4260356634c5c6452"
+    }
+  ]
+}

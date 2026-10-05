@@ -1,0 +1,68 @@
+--- a/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py
++++ b/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py
+@@ -94,6 +94,7 @@
+         self.single_file_reasons = {}
+         self._last_single_file_step = None
+         self.single_file_decisions = []
++        self._single_file_enriched_snapshot = None
+ 
+     def attach_single_file_capture(self, capture, *, runtime_identity, runtime_refs, shadow=True):
+         """Setup-only weak binding to the source-pinned native full-step probe.
+@@ -144,6 +145,7 @@
+         state = self._last_single_file_step
+         if (self.single_file_shadow or state is None or self._single_file_state() != state or
+                 type(at_ns) is not int or at_ns < state[2]):
++            self._single_file_enriched_snapshot = None
+             return False
+         key = (state[0], str(work_id))
+         row = next((r for r in self.single_file_decisions if r["key"] == key), None)
+@@ -183,6 +185,7 @@
+         if self.fault is None:
+             self.fault = str(reason)[:160]
+         self._publication = None
++        self._single_file_enriched_snapshot = None
+         self.eta_history.abort_all()
+         self._eta_diagnostics.clear()
+         self.last_reason = "optional_bridge_fault"
+@@ -388,6 +391,7 @@
+     def preview_issue(self, work, snapshot, *, now_ns):
+         self._owner()
+         if self.fault is not None:
++            self._single_file_enriched_snapshot = None
+             from .p4_types import IssuePreview
+             return IssuePreview("native_fallback","optional_bridge_fault")
+         state = None
+@@ -399,8 +403,22 @@
+                 # copied from the historical receipt.
+                 prefix = self._single_file_runtime.signature_prefix
+                 signature = prefix + state[3:] + (917504,)
+-                snapshot = replace(snapshot, load_signature=signature,
+-                    capabilities=snapshot.capabilities | frozenset(("conditional_single_file_live_step",)))
++                cached = self._single_file_enriched_snapshot
++                if (cached is not None and cached[0] is snapshot and
++                        cached[1] == state and cached[2] == prefix):
++                    snapshot = cached[3]
++                else:
++                    original = snapshot
++                    snapshot = replace(snapshot, load_signature=signature,
++                        capabilities=snapshot.capabilities | frozenset(("conditional_single_file_live_step",)))
++                    # One immutable value pair only. Original timestamps remain
++                    # unchanged; every call still runs policy freshness and the
++                    # real state check below. No capture/runner/ready is held.
++                    self._single_file_enriched_snapshot = (original, state, prefix, snapshot)
++            else:
++                self._single_file_enriched_snapshot = None
++        else:
++            self._single_file_enriched_snapshot = None
+         preview = self.policy.issue_preview(work,snapshot,now_ns=now_ns,
+             expected_epoch=snapshot.snapshot_epoch,execution="production", _single_file_state=state)
+         if self.policy.single_file is not None:
+@@ -417,6 +435,8 @@
+         self.last_preview = preview
+         self._last_single_file_step = (state if preview.reason ==
+             "verified_single_file_experimental_condition" and preview.action == "defer" else None)
++        if self._last_single_file_step is None or self.single_file_shadow:
++            self._single_file_enriched_snapshot = None
+         if self.policy.single_file is not None and self.single_file_shadow and preview.action == "defer":
+             return IssuePreview("native_fallback", "single_file_shadow_preserves_native_issue")
+         return preview

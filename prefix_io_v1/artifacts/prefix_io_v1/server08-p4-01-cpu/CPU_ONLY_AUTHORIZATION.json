@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "USER_AUTHORIZED_P4_CPU_ONLY",
+  "user_instruction": "好，继续，现在是无卡阶段，做完无卡阶段可以做的所有事情",
+  "scope": "P4 CPU source/interface audit, bounded dependency/interference/joint implementation, shadow and fake-backend events, patch/qualification/report/GPU plans only.",
+  "allow_project_local_edits": true,
+  "allow_cpu_tests": true,
+  "allow_gpu_initialization": false,
+  "allow_gpu_runs": false,
+  "allow_model_downloads": false,
+  "allow_driver_or_system_changes": false,
+  "allow_storage_deletion_or_merge": false,
+  "base_permissions": {
+    "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+    "sha256": "795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50",
+    "bytes": 1307
+  },
+  "previous_P3_root_review": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-root-review.json",
+    "sha256": "95bab902ff583f2f76643bb971866a2095d59571d7519da9d162439b9c189f0e",
+    "bytes": 3154
+  },
+  "created_utc": "2026-09-30T15:18:23.905583+00:00"
+}

@@ -1,0 +1,10 @@
+{
+  "CUDA_VISIBLE_DEVICES": "",
+  "argv": [
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python",
+    "-B",
+    "-c",
+    "import importlib.util,pathlib,json\nroot=pathlib.Path(\"/root/autodl-tmp/prefix-io-v1-handoff/project\")\np=root/'artifacts/prefix_io_v1/server14-dr-long-20261005/run_gpu_stage_standing_v1.py'\nspec=importlib.util.spec_from_file_location('actual_standing',p);g=importlib.util.module_from_spec(spec);spec.loader.exec_module(g)\na,r=g.permission_source(root,'artifacts/prefix_io_v1/server14-dr-long-20261005/EFFECTIVE_UNCAPPED_D_R_GPU_PERMISSION_02.json')\nhours=g.gpu_budget_hours(a,r['path'],300,'server14-dr-long-u01')\nassert hours is None\nprint(json.dumps(dict(actual_permission_verified=True,max_gpu_hours=hours,permission_ref=r,historical_ledger_reset=False,GPU_runs=0)))"
+  ],
+  "cwd": "/root/autodl-tmp/prefix-io-v1-handoff/project"
+}

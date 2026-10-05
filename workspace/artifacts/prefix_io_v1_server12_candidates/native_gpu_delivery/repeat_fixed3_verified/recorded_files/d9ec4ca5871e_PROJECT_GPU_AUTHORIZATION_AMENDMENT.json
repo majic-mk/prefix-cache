@@ -1,0 +1,19 @@
+{
+  "schema": "c5_project_persistent_gpu_authorization_amendment_v1",
+  "root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "issuer": "human_user",
+  "authorization": true,
+  "human_instruction": "授权gpu，只要有gpu就用，以后无需授权",
+  "original_max_gpu_seconds": 28800,
+  "original_budget_unchanged": true,
+  "source": "direct_current_user_instruction",
+  "base_permission_ref": {
+    "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+    "bytes": 1307,
+    "sha256": "795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50"
+  },
+  "GPU_authority_scope": "current_frozen_project_experiments_with_existing_stage_gates",
+  "future_gpu_approval_questions_required": false,
+  "received_date": "2026-10-04",
+  "interpretation": "Persistently authorize GPU execution for this project when the target GPU is available. Bind each job to real current source and resource metadata internally, preserve actual predecessor qualification gates and the original cumulative eight-hour budget. No expansion to system/driver/package changes, downloads, deletion, payment or rental."
+}

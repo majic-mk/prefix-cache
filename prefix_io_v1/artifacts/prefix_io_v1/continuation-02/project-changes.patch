@@ -1,0 +1,578 @@
+diff --git a/src/prefix_io_control/observation.py b/src/prefix_io_control/observation.py
+--- a/src/prefix_io_control/observation.py
++++ b/src/prefix_io_control/observation.py
+@@ -20,6 +20,14 @@
+     h2d_inflight_bytes: int | None
+     d2h_inflight_bytes: int | None
+     gpu_immediately_reusable_bytes: int | None = None
++
++    @property
++    def available_fields(self) -> frozenset[str]:
++        # Explicit capability names; an unavailable counter is never a measured zero.
++        names = ("actual_staging_bytes", "free_slots", "active_parent_count",
++                 "parents", "ssd_read_ops", "ssd_write_ops", "h2d_inflight_bytes",
++                 "d2h_inflight_bytes", "gpu_immediately_reusable_bytes")
++        return frozenset(name for name in names if getattr(self, name) is not None)
+ 
+     def fresh(self, *, run_id: str, now_ns: int, max_age_ns: int) -> bool:
+         return (self.run_id == run_id and max_age_ns > 0
+diff --git a/src/prefix_io_control/dependencies.py b/src/prefix_io_control/dependencies.py
+--- a/src/prefix_io_control/dependencies.py
++++ b/src/prefix_io_control/dependencies.py
+@@ -27,6 +27,18 @@
+     remaining_stages: int | None
+     completion_estimate_ns: int | None = None
+ 
++    @property
++    def lifecycle_state(self) -> str:
++        if self.failed:
++            return "FAILED_DRAINING" if self.inflight_files > 0 else "FAILED_FINAL"
++        if (self.total_files < 1 or self.done_files < 0 or self.inflight_files < 0
++                or self.done_files + self.inflight_files > self.total_files):
++            return "INCONSISTENT"
++        if self.future_done:
++            return ("COMPLETED" if self.done_files == self.total_files
++                    and self.inflight_files == 0 else "INCONSISTENT")
++        return "ACCEPTED" if self.done_files == self.inflight_files == 0 else "ACTIVE"
++
+ @dataclass(frozen=True)
+ class Resource:
+     identity: ResourceId
+@@ -35,6 +47,8 @@
+     protecting_jobs: frozenset[int]
+     evidence: str  # observed_blocking / candidate / unknown
+     clean_evictable: bool = False
++    # Owner observation after native fence retirement; parent success alone is insufficient.
++    native_reusable: bool | None = None
+ 
+ @dataclass(frozen=True)
+ class ReleaseAnalysis:
+@@ -58,7 +72,11 @@
+         return result("unknown_active_refs")
+     if resource.active_refs:
+         return result("active_reference")
++    if resource.native_reusable is not None and type(resource.native_reusable) is not bool:
++        return result("invalid_native_release_witness")
+     if not resource.protecting_jobs:
++        if resource.native_reusable is True:
++            return result("native_release_confirmed", now=resource.bytes)
+         # A candidate in a free list is not a proof of allocator ownership.
+         if resource.clean_evictable:
+             return result("native_zero_io_reclaim", potential=resource.bytes)
+@@ -90,7 +108,9 @@
+             if p.completion_estimate_ns is not None and p.completion_estimate_ns >= 0:
+                 estimates.append(p.completion_estimate_ns)
+     if not pending:
+-        return result("all_parent_conditions_complete", now=resource.bytes)
++        if resource.native_reusable is True:
++            return result("native_release_confirmed", now=resource.bytes)
++        return result("awaiting_native_release_witness", potential=resource.bytes)
+     # Potential is a read-only prediction; candidate paths are not confirmed blockers.
+     estimate = max(estimates) if len(estimates) == len(pending) else None
+     return result("observed_closure" if resource.evidence == "observed_blocking" else "candidate_closure",
+diff --git a/tests/prefix_io_v1/test_dependencies.py b/tests/prefix_io_v1/test_dependencies.py
+--- a/tests/prefix_io_v1/test_dependencies.py
++++ b/tests/prefix_io_v1/test_dependencies.py
+@@ -11,7 +11,9 @@
+     return analyze(resource, parents, run_id="run", current_generation=generation)
+ 
+ def test_all_parent_conditions_and_deduplicated_resource():
+-    assert run().reusable_now_bytes == 4096
++    assert run().reusable_now_bytes == 0
++    assert run().potential_bytes == 4096
++    assert run(replace(R, native_reusable=True)).reusable_now_bytes == 4096
+     assert bounded_candidates(iter([R, R])) == (R,)
+ 
+ @pytest.mark.parametrize("refs", [1, 5, None, -1])
+diff --git a/src/prefix_io_control/publication.py b/src/prefix_io_control/publication.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefix_io_control/publication.py
+@@ -0,0 +1,82 @@
++"""Optional CPU-side snapshot publication; no policy, queue, I/O or GPU calls."""
++from threading import Lock, get_ident
++from time import monotonic_ns
++from weakref import ref
++from .observation import capture_reactor
++
++
++class SnapshotPublisher:
++    """One reactor owner, one replaceable immutable snapshot, arbitrary readers.
++
++    The caller explicitly chooses the sampling interval. This is a CPU preparation
++    API, not a vLLM option. Readers MUST supply a run and finite freshness limit.
++    A busy reader causes a dropped observation, never a blocked reactor.
++    No completed-parent history is retained; absence is not completion evidence.
++    """
++
++    def __init__(self, *, run_id: str, interval_ns: int, clock=monotonic_ns):
++        if type(run_id) is not str or not run_id.strip():
++            raise ValueError("run_id must be a nonempty string")
++        if type(interval_ns) is not int or interval_ns <= 0:
++            raise ValueError("interval_ns must be a positive integer")
++        if not callable(clock):
++            raise TypeError("clock must be callable")
++        self.run_id = run_id
++        self.interval_ns = interval_ns
++        self._clock = clock
++        self._lock = Lock()
++        self._latest = None
++        self._owner = None
++        self._next_due = None
++        self._last_clock = None
++        self._epoch = 0
++        self._faulted = False
++        # Owner-only diagnostics; read after the reactor stops, not a live API.
++        self.published_count = 0
++        self.contention_drops = 0
++
++    def __call__(self, reactor):
++        # This check must precede throttling, including calls within one interval.
++        if reactor._worker.ident != get_ident():
++            raise RuntimeError("publisher must run on the reactor owner")
++        if self._owner is None:
++            self._owner = ref(reactor)
++        elif self._owner() is not reactor:
++            raise RuntimeError("publisher cannot be reused across reactors")
++        if self._faulted:
++            return
++        try:
++            now = self._clock()
++            if type(now) is not int or now < 0:
++                raise ValueError("clock must return nonnegative integer nanoseconds")
++            if self._last_clock is not None and now < self._last_clock:
++                raise ValueError("monotonic clock moved backwards")
++            self._last_clock = now
++            if self._next_due is not None and now < self._next_due:
++                return
++            self._next_due = now + self.interval_ns  # No catch-up bursts.
++            self._epoch += 1
++            snapshot = capture_reactor(reactor, run_id=self.run_id, epoch=self._epoch)
++            if not self._lock.acquire(blocking=False):
++                self.contention_drops += 1
++                return
++            try:
++                self._latest = snapshot  # At most one retained observation.
++                self.published_count += 1
++            finally:
++                self._lock.release()
++        except Exception:
++            self._faulted = True  # Readers reject the old snapshot on collector failure.
++            raise
++
++    def latest(self, *, run_id: str, now_ns: int, max_age_ns: int):
++        if type(max_age_ns) is not int or max_age_ns <= 0:
++            raise ValueError("max_age_ns must be a positive integer")
++        if type(now_ns) is not int or now_ns < 0:
++            raise ValueError("now_ns must be nonnegative integer nanoseconds")
++        with self._lock:
++            snapshot = self._latest
++        if self._faulted or snapshot is None:
++            return None
++        return snapshot if snapshot.fresh(
++            run_id=run_id, now_ns=now_ns, max_age_ns=max_age_ns) else None
+diff --git a/tests/prefix_io_v1_observer/__init__.py b/tests/prefix_io_v1_observer/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/tests/prefix_io_v1_observer/test_publication.py b/tests/prefix_io_v1_observer/test_publication.py
+new file mode 100644
+--- /dev/null
++++ b/tests/prefix_io_v1_observer/test_publication.py
+@@ -0,0 +1,241 @@
++import gc
++from dataclasses import FrozenInstanceError, replace
++from threading import Event, Thread, get_ident
++from time import monotonic_ns
++from types import SimpleNamespace as NS
++from weakref import ref
++import pytest
++from prefix_io_control.publication import SnapshotPublisher
++from prefix_io_control.dependencies import Parent, Resource, ResourceId, analyze
++from py_kvcache.reactor import IoReactor
++from tests.prefix_io_v1_progress._cpu_backend import running_rig
++
++
++class CpuReactor(NS):
++    pass
++
++
++def fixture(count=2):
++    return CpuReactor(_worker=NS(ident=get_ident()), actual_staging_bytes=65535,
++        staging_pool=NS(free_count=2),
++        _active=[NS(job_id=i, total_files=9, done_files=1, inflight_files=2,
++                    future_set=False, failed=None) for i in range(count)],
++        _inflight={1: NS(op_kind="read"), 2: NS(op_kind="write")},
++        _pending_copies=[NS(nbytes=4096, is_store=False)])
++
++
++def test_rate_limit_skips_capture_and_never_catches_up(monkeypatch):
++    import prefix_io_control.publication as mod
++    now = [100]
++    pub = SnapshotPublisher(run_id="r", interval_ns=10, clock=lambda: now[0])
++    native = mod.capture_reactor
++    calls = []
++    def capture(*args, **kwargs):
++        calls.append(kwargs["epoch"])
++        return native(*args, **kwargs)
++    monkeypatch.setattr(mod, "capture_reactor", capture)
++    r = fixture(100)
++    pub(r)
++    now[0] = 109
++    pub(r)
++    assert calls == [1]
++    now[0] = 10000
++    pub(r)
++    pub(r)
++    assert calls == [1, 2] and pub.published_count == 2
++    snap = pub.latest(run_id="r", now_ns=monotonic_ns(), max_age_ns=1_000_000_000)
++    assert snap.epoch == 2 and len(snap.parents) == 32 and snap.parents_truncated
++    assert "gpu_immediately_reusable_bytes" not in snap.available_fields
++    assert snap.parents[0].lifecycle_state == "ACTIVE"
++    with pytest.raises(FrozenInstanceError):
++        snap.epoch = 0
++
++
++def test_only_latest_snapshot_is_retained():
++    tick = iter(range(100))
++    pub = SnapshotPublisher(run_id="r", interval_ns=1, clock=lambda: next(tick))
++    r = fixture()
++    pub(r)
++    first = ref(pub.latest(run_id="r", now_ns=monotonic_ns(), max_age_ns=1_000_000_000))
++    assert first() is not None
++    for _ in range(20):
++        pub(r)
++    gc.collect()
++    assert first() is None
++    assert pub.published_count == 21 and pub._latest.epoch == 21
++
++
++def test_reader_contention_drops_observation_without_blocking_owner():
++    pub = SnapshotPublisher(run_id="r", interval_ns=1)
++    r = fixture()
++    finished = Event()
++    errors = []
++    def owner():
++        r._worker.ident = get_ident()
++        try:
++            pub(r)
++        except Exception as error:
++            errors.append(error)
++        finally:
++            finished.set()
++    pub._lock.acquire()
++    thread = Thread(target=owner, daemon=True)
++    thread.start()
++    try:
++        progressed = finished.wait(2)
++    finally:
++        pub._lock.release()
++        thread.join(2)
++    assert progressed and not errors
++    assert pub.contention_drops == 1 and pub.published_count == 0
++    assert pub.latest(run_id="r", now_ns=monotonic_ns(), max_age_ns=1_000_000) is None
++
++
++def test_stale_wrong_run_and_future_timestamp_are_rejected():
++    pub = SnapshotPublisher(run_id="r", interval_ns=1)
++    pub(fixture())
++    snap = pub._latest
++    assert pub.latest(run_id="r", now_ns=snap.monotonic_ns+5, max_age_ns=10) is snap
++    for run_id, now in [("other", snap.monotonic_ns), ("r", snap.monotonic_ns-1),
++                        ("r", snap.monotonic_ns+11)]:
++        assert pub.latest(run_id=run_id, now_ns=now, max_age_ns=10) is None
++
++
++def test_cross_owner_call_is_rejected_even_during_sampling_interval():
++    pub = SnapshotPublisher(run_id="r", interval_ns=1_000_000_000)
++    r = fixture()
++    pub(r)
++    r._worker.ident = -1
++    with pytest.raises(RuntimeError, match="owner"):
++        pub(r)
++
++
++def test_publisher_cannot_be_reused_for_another_reactor():
++    pub = SnapshotPublisher(run_id="r", interval_ns=1)
++    r = fixture()
++    pub(r)
++    with pytest.raises(RuntimeError, match="reused"):
++        pub(fixture())
++
++
++def test_capture_failure_invalidates_previous_snapshot():
++    now = [1]
++    pub = SnapshotPublisher(run_id="r", interval_ns=1, clock=lambda: now[0])
++    r = fixture()
++    pub(r)
++    del r._active[0].inflight_files
++    now[0] = 2
++    with pytest.raises(AttributeError):
++        pub(r)
++    assert pub.latest(run_id="r", now_ns=monotonic_ns(), max_age_ns=1_000_000_000) is None
++
++
++def test_clock_regression_invalidates_snapshot():
++    now = [10]
++    pub = SnapshotPublisher(run_id="r", interval_ns=100, clock=lambda: now[0])
++    r = fixture()
++    pub(r)
++    now[0] = 9
++    with pytest.raises(ValueError, match="backwards"):
++        pub(r)
++    assert pub.latest(run_id="r", now_ns=monotonic_ns(), max_age_ns=1_000_000_000) is None
++
++
++@pytest.mark.parametrize("run_id,interval", [("", 1), (" ", 1), (None, 1),
++    (1, 1), ("r", 0), ("r", -1), ("r", True), ("r", 1.5)])
++def test_invalid_publication_configuration(run_id, interval):
++    with pytest.raises(ValueError):
++        SnapshotPublisher(run_id=run_id, interval_ns=interval)
++
++
++@pytest.mark.parametrize("value", [0, -1, True, None])
++def test_reader_requires_finite_positive_age(value):
++    pub = SnapshotPublisher(run_id="r", interval_ns=1)
++    with pytest.raises(ValueError):
++        pub.latest(run_id="r", now_ns=1, max_age_ns=value)
++
++
++def test_native_reactor_hook_publishes_and_preserves_parent_progress(monkeypatch):
++    with running_rig(monkeypatch) as rig:
++        pub = SnapshotPublisher(run_id="cpu-run", interval_ns=1_000_000)
++        seen = Event()
++        def sink(reactor):
++            pub(reactor)
++            if pub.published_count:
++                seen.set()
++        rig.r._observation_sink = sink
++        rig.r._observation_failures = 0
++        rig.copy_ready.clear()
++        future = rig.submit(files=2)
++        rig.start()
++        waiter = rig.waiter({7})
++        assert seen.wait(2)
++        snap = pub.latest(run_id="cpu-run", now_ns=monotonic_ns(), max_age_ns=1_000_000_000)
++        assert snap is not None and snap.active_parent_count == 1
++        assert snap.gpu_immediately_reusable_bytes is None
++        rig.copy_ready.set()
++        waiter.join(2)
++        assert not waiter.is_alive() and future.result() == 8192
++        assert rig.r._observation_failures == 0 and rig.ordinary_credits == 0
++
++
++def test_native_progress_survives_observer_exception_once(monkeypatch):
++    with running_rig(monkeypatch) as rig:
++        calls = []
++        def broken(reactor):
++            calls.append(1)
++            raise ValueError("CPU observer failure")
++        rig.r._observation_sink = broken
++        rig.r._observation_failures = 0
++        future = rig.submit(files=3)
++        rig.start()
++        waiter = rig.waiter({7})
++        waiter.join(2)
++        assert not waiter.is_alive() and future.result() == 12288
++        assert calls == [1] and rig.r._observation_failures == 1
++        assert rig.r._observation_sink is None
++
++
++def test_disabled_hook_does_not_call_clock_or_capture(monkeypatch):
++    r = IoReactor.__new__(IoReactor)
++    r._observation_sink = None
++    def forbidden(*args, **kwargs):
++        raise AssertionError("off observer executed")
++    monkeypatch.setattr("prefix_io_control.publication.monotonic_ns", forbidden)
++    monkeypatch.setattr("prefix_io_control.publication.capture_reactor", forbidden)
++    r._observe_once()
++
++
++def test_invalid_native_sink_fails_before_backend_resources(monkeypatch):
++    def forbidden(*args, **kwargs):
++        raise AssertionError("allocated backend resources")
++    monkeypatch.setattr("py_kvcache.reactor.LiburingRing", forbidden)
++    with pytest.raises(TypeError, match="observation_sink"):
++        IoReactor(config=None, file_mapper=None, layout=None, observation_sink=1)
++
++
++@pytest.mark.parametrize("failed,done,inflight,future,state", [
++    (True, 2, 1, True, "FAILED_DRAINING"), (True, 2, 0, True, "FAILED_FINAL"),
++    (False, 3, 0, True, "COMPLETED"), (False, 2, 1, True, "INCONSISTENT"),
++    (False, 0, 0, False, "ACCEPTED"), (False, 1, 1, False, "ACTIVE")])
++def test_lifecycle_is_observation_not_a_replacement_state_machine(failed, done, inflight, future, state):
++    p = Parent("r", 1, 3, done, inflight, future, failed, None)
++    assert p.lifecycle_state == state
++
++
++@pytest.mark.parametrize("confirmation,expected", [(None, 0), (False, 0), (True, 4096)])
++def test_parent_success_requires_native_release_confirmation(confirmation, expected):
++    p = Parent("r", 1, 3, 3, 0, True, False, None)
++    resource = Resource(ResourceId("r", "gpu", 0, 1, 1), 4096, 0,
++                        frozenset({1}), "observed_blocking", native_reusable=confirmation)
++    result = analyze(resource, (p,), run_id="r", current_generation=1)
++    assert result.reusable_now_bytes == expected
++    assert result.potential_bytes == (4096 if not confirmation else 0)
++
++
++def test_release_confirmation_cannot_override_active_refs_or_stale_identity():
++    p = Parent("r", 1, 3, 3, 0, True, False, None)
++    resource = Resource(ResourceId("r", "gpu", 0, 1, 1), 4096, 1,
++                        frozenset({1}), "observed_blocking", native_reusable=True)
++    assert analyze(resource, (p,), run_id="r", current_generation=1).reusable_now_bytes == 0
++    assert analyze(replace(resource, active_refs=0), (p,), run_id="r", current_generation=2).reusable_now_bytes == 0
+diff --git a/experiments/prefix_io_v1/scripts/measure_observation_cpu.py b/experiments/prefix_io_v1/scripts/measure_observation_cpu.py
+new file mode 100644
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/measure_observation_cpu.py
+@@ -0,0 +1,129 @@
++"""CPU-only observer microbenchmark; synthetic counters, no device I/O or model.
++
++Measures the optional hook and publisher only, NOT reactor throughput, decode,
++end-to-end overhead, GPU latency, or the 2% engineering target.
++"""
++import argparse
++import hashlib
++import json
++import os
++from pathlib import Path
++import platform
++import random
++import statistics
++import sys
++import threading
++import time
++from types import SimpleNamespace as NS
++
++os.environ["CUDA_VISIBLE_DEVICES"] = ""
++os.environ["RUN_E2E_TESTS"] = ""
++from py_kvcache.reactor import IoReactor
++from prefix_io_control.publication import SnapshotPublisher
++
++
++def reactor(sink):
++    r = IoReactor.__new__(IoReactor)  # No native constructor / backend allocation.
++    r._worker = NS(ident=threading.get_ident())
++    r.actual_staging_bytes = 64 * 4096 + 4095  # Synthetic metadata, not allocated bytes.
++    r.staging_pool = NS(free_count=0)
++    r._active = [NS(job_id=i, total_files=4, done_files=1, inflight_files=2,
++                   future_set=False, failed=None) for i in range(32)]
++    r._inflight = {i: NS(op_kind="read" if i % 2 else "write") for i in range(64)}
++    r._pending_copies = [NS(nbytes=4096, is_store=bool(i % 2)) for i in range(64)]
++    r._observation_sink = sink
++    r._observation_failures = 0
++    return r
++
++
++def call_hook(r):
++    # Same optional branch used after the native pump; the pump is NOT measured.
++    if getattr(r, "_observation_sink", None) is not None:
++        r._observe_once()
++
++
++def main():
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--output", type=Path, required=True)
++    parser.add_argument("--iterations", type=int, default=20000)
++    parser.add_argument("--repeats", type=int, default=7)
++    args = parser.parse_args()
++    if not (100 <= args.iterations <= 100000 and 3 <= args.repeats <= 20):
++        parser.error("CPU diagnostic bounds: iterations 100..100000, repeats 3..20")
++    root = Path(__file__).resolve().parents[3]
++    output = args.output.resolve()
++    if not output.is_relative_to(root / "artifacts" / "prefix_io_v1"):
++        parser.error("output must be inside project artifacts/prefix_io_v1")
++    if output.exists():
++        parser.error("refusing to overwrite prior evidence")
++    cases = {
++        "off_hook": reactor(None),
++        "enabled_sample_not_due": reactor(SnapshotPublisher(run_id="cpu-bench-skip", interval_ns=10**18)),
++        "periodic_1ms_diagnostic": reactor(SnapshotPublisher(run_id="cpu-bench-periodic", interval_ns=1_000_000)),
++        "capture_every_call_worst_case": reactor(SnapshotPublisher(run_id="cpu-bench-all", interval_ns=1)),
++    }
++    for r in cases.values():
++        for _ in range(100):
++            call_hook(r)
++    raw = []
++    rng = random.Random(0)
++    for repeat in range(args.repeats):
++        order = list(cases)
++        rng.shuffle(order)
++        for name in order:
++            r = cases[name]
++            sink = r._observation_sink
++            before_count = sink.published_count if sink else 0
++            wall = time.perf_counter_ns()
++            cpu = time.process_time_ns()
++            for _ in range(args.iterations):
++                call_hook(r)
++            cpu_elapsed = time.process_time_ns() - cpu
++            wall_elapsed = time.perf_counter_ns() - wall
++            assert r._observation_failures == 0
++            raw.append({"case": name, "repeat": repeat,
++                        "wall_ns": wall_elapsed, "cpu_ns": cpu_elapsed,
++                        "wall_ns_per_call": wall_elapsed / args.iterations,
++                        "cpu_ns_per_call": cpu_elapsed / args.iterations,
++                        "snapshots_published": (sink.published_count if sink else 0) - before_count})
++    summary = {}
++    for name in cases:
++        rows = [row for row in raw if row["case"] == name]
++        summary[name] = {
++            "median_wall_ns_per_call": statistics.median(row["wall_ns_per_call"] for row in rows),
++            "median_cpu_ns_per_call": statistics.median(row["cpu_ns_per_call"] for row in rows),
++            "max_repeat_mean_wall_ns_per_call": max(row["wall_ns_per_call"] for row in rows),
++            "snapshots_published_in_timed_calls": sum(row["snapshots_published"] for row in rows),
++        }
++    source_paths = [root / "src/prefix_io_control/observation.py",
++                    root / "src/prefix_io_control/publication.py",
++                    root / "src/prefix_io_control/dependencies.py",
++                    Path(sys.modules["py_kvcache.reactor"].__file__).resolve()]
++    result = {
++        "evidence_type": "CPU_microbenchmark_synthetic_metadata_real_observer_hook",
++        "python": sys.version, "platform": platform.platform(),
++        "iterations_per_repeat": args.iterations, "repeats": args.repeats,
++        "order_seed": 0, "synthetic_shape": {"parents": 32, "ring_ops": 64, "copies": 64},
++        "cgroup_memory_max": Path("/sys/fs/cgroup/memory.max").read_text().strip(),
++        "cgroup_cpu_max": Path("/sys/fs/cgroup/cpu.max").read_text().strip(),
++        "source_hashes": {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths},
++        "summary": summary, "raw_repeats": raw,
++        "gpu_executed": False, "end_to_end_measured": False,
++        "interference_calibration": False, "engineering_2pct_target_verified": False,
++        "limitations": [
++            "Hook and snapshot construction only; no I/O, model, GPU or native pump measured.",
++            "1 ms is a diagnostic sampling point, not a frozen production parameter.",
++            "Synthetic staging byte fields describe fixture metadata, not actual GPU/pinned allocation.",
++            "Reported medians are across repeat means, not individual-call latency percentiles.",
++            "Container scheduling and benchmark harness overhead are included.",
++        ],
++    }
++    output.parent.mkdir(parents=True, exist_ok=True)
++    with output.open("x") as handle:
++        json.dump(result, handle, indent=2)
++        handle.write("\n")
++    print(json.dumps(summary, indent=2))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/experiments/prefix_io_v1/scripts/reproduce_observer_cpu.sh b/experiments/prefix_io_v1/scripts/reproduce_observer_cpu.sh
+new file mode 100644
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/reproduce_observer_cpu.sh
+@@ -0,0 +1,17 @@
++#!/usr/bin/env bash
++set -euo pipefail
++cd "$(dirname "$0")/../../.."
++export CUDA_VISIBLE_DEVICES=""
++export RUN_E2E_TESTS=""
++export PYTHONDONTWRITEBYTECODE=1
++export PYTHONPATH="src:third_party/work/py-kvcache-observer"
++test -f third_party/work/py-kvcache-observer/py_kvcache/reactor.py
++mkdir -p artifacts/prefix_io_v1
++out="$(mktemp -d artifacts/prefix_io_v1/observer-cpu-replay.XXXXXX)"
++.venv-prefix/bin/python -m pytest -q -ra --import-mode=importlib \
++  -W error::pytest.PytestUnhandledThreadExceptionWarning \
++  tests/prefix_io_v1 tests/prefix_io_v1_progress tests/prefix_io_v1_observer \
++  third_party/work/py-kvcache-observer/tests \
++  --junitxml="$out/results.xml" 2>&1 | tee "$out/results.txt"
++.venv-prefix/bin/python experiments/prefix_io_v1/scripts/measure_observation_cpu.py \
++  --output "$out/observation-overhead-cpu.json" --iterations 20000 --repeats 7

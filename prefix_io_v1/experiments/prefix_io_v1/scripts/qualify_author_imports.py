@@ -1,0 +1,155 @@
+"""Runtime author-module qualification, to run inside the GPU budget runner.
+
+Imports may probe NVML/CUDA. This script does not allocate transfer resources,
+instantiate a model/handler/ring, or call a copy kernel. Import success is not
+end-to-end cache qualification. It never changes sys.path or environment.
+"""
+import argparse
+import dataclasses
+import hashlib
+import importlib
+import importlib.machinery
+import inspect
+import json
+from pathlib import Path
+import subprocess
+import sys
+import traceback
+
+EXPECTED = {
+    "author_vllm": "817a7e3124f817cd6e549581d3e5483207a753a4",
+    "common_py_kvcache": "3abba7a502d553f6e7e2e58b92086487e3395d7e",
+    "simple_profiler": "ec0d563bf68856df83c5824ac579700ec076b9e2",
+}
+
+
+def require(condition, message):
+    if not condition:
+        raise RuntimeError(message)
+
+
+def git_info(path, expected):
+    commit = subprocess.check_output(["git", "-C", str(path), "rev-parse", "HEAD"], text=True).strip()
+    require(commit == expected, f"source commit mismatch at {path}: {commit}")
+    dirty = subprocess.check_output(["git", "-C", str(path), "status", "--porcelain=v1",
+                                    "--untracked-files=no"], text=True).splitlines()
+    return {"root": str(path), "expected_commit": expected, "actual_commit": commit,
+            "tracked_status": dirty}
+
+
+def main():
+    root = Path(__file__).resolve().parents[3]
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--author-root", type=Path, default=root / "third_party/work/vllm-author-build")
+    parser.add_argument("--kvcache-root", type=Path, default=root / "third_party/work/py-kvcache")
+    parser.add_argument("--profiler-root", type=Path, default=root / "third_party/upstream/simple-profiler")
+    args = parser.parse_args()
+    roots = {name: path.resolve() for name, path in {
+        "author_vllm": args.author_root, "common_py_kvcache": args.kvcache_root,
+        "simple_profiler": args.profiler_root}.items()}
+    evidence = {
+        "status": "FAILED", "python_executable": sys.executable,
+        "expected_commits": EXPECTED, "sources": {}, "modules": {}, "capabilities": {},
+        "qualification_scope": "author module origins, Python API identities, and registered native copy symbol",
+        "imports_may_probe_gpu": True, "copy_kernel_invoked_by_script": False,
+        "model_loaded_by_script": False, "handler_or_ring_constructed_by_script": False,
+        "end_to_end_cache_qualified": False, "real_copy_qualified": False,
+        "io_uring_qualified": False, "model_execution_qualified": False,
+    }
+
+    def module(name, source_name, package_directory):
+        loaded = importlib.import_module(name)
+        filename = getattr(loaded, "__file__", None)
+        require(filename is not None, f"{name} has no concrete module file")
+        path = Path(filename).resolve()
+        expected_dir = roots[source_name] / package_directory
+        require(path.is_relative_to(expected_dir), f"{name} came from {path}, expected {expected_dir}")
+        evidence["modules"][name] = {"file": str(path),
+                                    "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+        return loaded
+
+    def capability(name, condition):
+        evidence["capabilities"][name] = bool(condition)
+        require(condition, f"required capability unavailable: {name}")
+
+    try:
+        for name, path in roots.items():
+            require(path.is_relative_to(root), f"source root outside project: {path}")
+            evidence["sources"][name] = git_info(path, EXPECTED[name])
+        profiler = module("simple_profiler", "simple_profiler", Path("python/simple_profiler"))
+        profiler_impl = module("simple_profiler.profiler", "simple_profiler", Path("python/simple_profiler"))
+        capability("real_profiler_instance", isinstance(profiler.profiler, profiler_impl.Profiler))
+        capability("profiler_api", all(callable(getattr(profiler, name, None)) for name in
+                                       ("profile", "profile_scope", "profile_gpu", "profile_gpu_scope")))
+        module("vllm", "author_vllm", Path("vllm"))
+        base = module("vllm.v1.kv_offload.base", "author_vllm", Path("vllm"))
+        worker = module("vllm.v1.kv_offload.worker.worker", "author_vllm", Path("vllm"))
+        ops = module("vllm._custom_ops", "author_vllm", Path("vllm"))
+        extension = module("vllm._C", "author_vllm", Path("vllm"))
+        capability("compiled_author_C_loaded", any(str(extension.__file__).endswith(suffix)
+                   for suffix in importlib.machinery.EXTENSION_SUFFIXES))
+        package = module("py_kvcache", "common_py_kvcache", Path("py_kvcache"))
+        adapter = module("py_kvcache.vllm", "common_py_kvcache", Path("py_kvcache"))
+        transfer = module("py_kvcache.transfer", "common_py_kvcache", Path("py_kvcache"))
+        profiling = module("py_kvcache.profiling", "common_py_kvcache", Path("py_kvcache"))
+        reactor = module("py_kvcache.reactor", "common_py_kvcache", Path("py_kvcache"))
+
+        capability("VLLM_AVAILABLE", package.VLLM_AVAILABLE is True and adapter.VLLM_AVAILABLE is True)
+        capability("PLAN_API_AVAILABLE", adapter.PLAN_API_AVAILABLE is True)
+        capability("TORCH_COPY_AVAILABLE", transfer.TORCH_AVAILABLE is True
+                   and transfer.TORCH_COPY_AVAILABLE is True and transfer.ops is ops)
+        capability("same_profiler_instance", profiling.profiler is profiler.profiler)
+        capability("worker_uses_real_profiler", worker.profile_scope is profiler.profile_scope)
+        capability("plan_type_identity", all(getattr(adapter, name) is getattr(base, name)
+                   for name in ("PlanCandidate", "PlanDecision", "PlanOutcome")))
+        candidate_fields = [field.name for field in dataclasses.fields(base.PlanCandidate)]
+        outcome_fields = [field.name for field in dataclasses.fields(base.PlanOutcome)]
+        capability("plan_candidate_fields", candidate_fields ==
+                   ["position", "req_id", "recompute_tokens", "keys"])
+        capability("plan_outcome_fields", outcome_fields == ["decision", "preload_blocks"])
+        capability("plan_decisions", {entry.name: entry.value for entry in base.PlanDecision} ==
+                   {"ADMIT": "admit", "DEFER": "defer", "DECLINE": "decline"})
+        capability("native_handler_identity", adapter.OffloadingHandler is worker.OffloadingHandler
+                   and adapter.TransferResult is worker.TransferResult)
+        capability("handler_inherits_author", issubclass(adapter.NoopSharedStorageOffloadingHandler,
+                                                       worker.OffloadingHandler))
+        capability("manager_inherits_author", issubclass(adapter.SharedStorageOffloadingManager,
+                                                       base.OffloadingManager))
+        capability("spec_inherits_author", issubclass(adapter.PyKvCacheOffloadingSpec, base.OffloadingSpec))
+        required_handler = ("transfer_async", "get_finished", "wait", "shutdown",
+                            "preload_async", "load_from_preload_async")
+        capability("handler_api", all(callable(getattr(adapter.NoopSharedStorageOffloadingHandler, name, None))
+                                     for name in required_handler))
+        capability("native_plan_manager_api", callable(base.OffloadingManager.plan_candidates)
+                   and callable(adapter.SharedStorageOffloadingManager.plan_candidates))
+        capability("native_reactor_api", all(callable(getattr(reactor.TransferCoordinator, name, None))
+                                             for name in ("submit_load", "submit_store", "submit_preload")))
+        evidence["api_signatures"] = {
+            "OffloadingManager.plan_candidates": str(inspect.signature(base.OffloadingManager.plan_candidates)),
+            "SharedStorageOffloadingManager.plan_candidates":
+                str(inspect.signature(adapter.SharedStorageOffloadingManager.plan_candidates)),
+            **{f"handler.{name}": str(inspect.signature(getattr(adapter.NoopSharedStorageOffloadingHandler, name)))
+               for name in required_handler},
+            "swap_blocks_batch": str(inspect.signature(ops.swap_blocks_batch)),
+        }
+        capability("copy_wrapper_api", list(inspect.signature(ops.swap_blocks_batch).parameters) ==
+                   ["src_ptrs", "dst_ptrs", "sizes", "is_src_access_order_any"])
+        torch = importlib.import_module("torch")
+        evidence["torch"] = {"version": torch.__version__, "cuda_build": torch.version.cuda,
+                             "module": torch.__file__}
+        schema = torch._C._dispatch_find_schema_or_throw("_C_cache_ops::swap_blocks_batch", "").schema()
+        evidence["swap_blocks_batch_schema"] = str(schema)
+        capability("registered_batch_copy_arguments", [arg.name for arg in schema.arguments] ==
+                   ["src_ptrs", "dst_ptrs", "sizes", "is_src_access_order_any"])
+        capability("registered_batch_copy_CPU_dispatch",
+                   torch._C._dispatch_has_kernel_for_dispatch_key("_C_cache_ops::swap_blocks_batch", "CPU"))
+        evidence["status"] = "PASSED_IMPORT_AND_SYMBOL_CHECKS_ONLY"
+    except Exception as exc:
+        evidence["error"] = {"type": type(exc).__name__, "message": str(exc),
+                             "traceback": traceback.format_exc()}
+    print(json.dumps(evidence, indent=2, default=str))
+    return 0 if evidence["status"] == "PASSED_IMPORT_AND_SYMBOL_CHECKS_ONLY" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

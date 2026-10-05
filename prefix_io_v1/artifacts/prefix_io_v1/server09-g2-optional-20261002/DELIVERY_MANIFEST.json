@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_ACTUAL_OFF04_FAILURE_AND_NORMAL_SITE_CPU_DIAGNOSIS",
+  "files": [
+    {
+      "path": "ACTUAL_AUTHORIZED_OFF_CPU_PREFLIGHT.json",
+      "bytes": 810,
+      "sha256": "e87a8e930c045957439c7bef63d7061d94df3c2a71bae4a16f544d03c6d72367"
+    },
+    {
+      "path": "ACTUAL_CPU_NORMAL_SITE_PATH_HOOKS.json",
+      "bytes": 2160,
+      "sha256": "3ab9348dde3450f63c315fac5b83d8fd8c6e3cfc8cf8264d3ad0f55686a87288"
+    },
+    {
+      "path": "ACTUAL_CPU_OLD_V3_SITE_FAILURE_REPRODUCTION.json",
+      "bytes": 2076,
+      "sha256": "9622b6f3886c1f23b736a01a501234e66a2b7036ae1be965e001c830a833d53f"
+    },
+    {
+      "path": "ACTUAL_CPU_SITE_HOOK_SOURCES.json",
+      "bytes": 23493,
+      "sha256": "cf98b7bdee479ea7f8b75a9cc23c3d2cbc744987bff46c1545f6264d7d9f4a3b"
+    },
+    {
+      "path": "ACTUAL_CPU_SITE_PTH_INVENTORY.json",
+      "bytes": 2591,
+      "sha256": "ab9ad6ed600941fd83fc131d9f8988c0ae46980c18c5d9f4937560280a1b6267"
+    },
+    {
+      "path": "ACTUAL_INITIAL_CPU_BUDGET_PREFLIGHT.json",
+      "bytes": 1228,
+      "sha256": "a21374060ba69869a715fd88bcb1c588a1037c2c588877b2bf4eb9184899036a"
+    },
+    {
+      "path": "ACTUAL_NEW_HUMAN_SCOPE_CREATION.json",
+      "bytes": 6718,
+      "sha256": "0b667a0d2ac28d7df811f813d249272fa2894bb5f9ea5227906687b1a6246190"
+    },
+    {
+      "path": "ACTUAL_OFF_LAUNCH_RECEIPT.json",
+      "bytes": 2191,
+      "sha256": "c6c66cee5edecfe658d90963172d4dca6c807b8049835b315784a3a62db2304e"
+    },
+    {
+      "path": "ACTUAL_POST_OFF_CPU_SOURCE_AND_SHADOW_GATE.json",
+      "bytes": 1954,
+      "sha256": "59e9039708ef42aa45da4a2b59483098681a55986a6eab980e15685fec0f385d"
+    },
+    {
+      "path": "GPU_STAGE_AUTHORIZATION.json",
+      "bytes": 9603,
+      "sha256": "a1401a3b63e98030efa4da4e06bf89d26e3f3670c89a6e415e9ad84403638fdf"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD_G2.json",
+      "bytes": 2459,
+      "sha256": "6b0501f8f849590b950be9808f7f1a86bd03696615195d21e9a0ce4b366f00e5"
+    },
+    {
+      "path": "INDEPENDENT_OFF04_FAILURE_REVIEW.json",
+      "bytes": 13967,
+      "sha256": "f72cf8719bb9c6b43208b763b898747f69a5116b1ec557e756f6fe42a9b03996"
+    },
+    {
+      "path": "LOCAL_RAW_OFF04_FAILURE_CLOSURE.json",
+      "bytes": 647,
+      "sha256": "ab69685de5e44c63fb945542a13b31f774bf352a43f050ea8cbb4df5f7d16eb8"
+    },
+    {
+      "path": "POST_OFF_GPU_BUDGET_LEDGER.json",
+      "bytes": 344164,
+      "sha256": "a4e91c95ad640f1a1c1fda7bec3bcb3657e25276fa84522157ea43449e54ce55"
+    },
+    {
+      "path": "POST_OFF_READONLY_RESULT.json",
+      "bytes": 26680,
+      "sha256": "c9f11f07051b61c0d590ee345e840816938213f9a9c9b12fa8b2d980ab144657"
+    },
+    {
+      "path": "RAW_OFF_EVIDENCE_DOWNLOAD_VERIFY.json",
+      "bytes": 3059,
+      "sha256": "5627389fe2cf02320ea4495949e7089018873cb3d23f07e8417f63a40949a5a5"
+    },
+    {
+      "path": "runs/off/details/normal-model-lifecycle-result.json",
+      "bytes": 16768,
+      "sha256": "3e5007f9fe594ab6a6b4726a7447bec27acd9bb411985c020fac2a6210fb85fc"
+    },
+    {
+      "path": "runs/off/process.log",
+      "bytes": 9774,
+      "sha256": "eb03eda6399f1aed9db362e2e4a968d0b609bae8c199784d73d04c95e83369d5"
+    },
+    {
+      "path": "runs/off/result.json",
+      "bytes": 1410,
+      "sha256": "821ff0d80b558414de7bc642c22f7c16974c057b9a090618190083d0022f4340"
+    },
+    {
+      "path": "SERVER09_G2_OFF04_FAILURE_AND_SITE_CPU_DIAGNOSIS_REPORT.md",
+      "bytes": 7045,
+      "sha256": "dabff59bd939d886b1b84cc125c26012cab7845bc8bf97b13b8cda04e77946a0"
+    }
+  ],
+  "file_count": 20,
+  "actual_GPU_jobs": 1,
+  "actual_shadow_GPU_jobs": 0,
+  "actual_off_GPU_guard_wall_seconds": 127.51177137065679,
+  "source_count_verified_after_GPU": 4045,
+  "source_lock_sha256": "678aa560117eae06e9e8fd4fc1cb9f3cdf483766bfbf1658c70dcc55b3b5ea15",
+  "complete_frontend_phases": 0,
+  "original_engine_shutdown_proven": false,
+  "OS_session_drained": true,
+  "optional_query_probe_restored": true,
+  "remaining_original_GPU_budget_seconds": 11870.454958300572,
+  "GPU_model_qualification_passed": false,
+  "performance_claim": false,
+  "scope_off04_failed_shadow04_blocked_no_retry": true
+}

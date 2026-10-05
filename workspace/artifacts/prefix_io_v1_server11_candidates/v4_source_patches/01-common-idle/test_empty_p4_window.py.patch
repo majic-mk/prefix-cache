@@ -1,0 +1,15 @@
+--- a/test_empty_p4_window.py
++++ b/test_empty_p4_window.py
+@@ -102,8 +102,10 @@
+         old, old_methods = tree(OLD)
+         new, new_methods = tree(NEW)
+         changed = {name for name in old_methods if ast.dump(old_methods[name]) != ast.dump(new_methods[name])}
+-        self.assertEqual(changed, CHANGED | {'_prefix_stage_decide'})
+-        allowed = CHANGED | {'_prefix_stage_decide', '_prefix_single_file_retry_key'}
++        self.assertEqual(changed, CHANGED | {'_prefix_stage_decide', '_run'})
++        # test_retained_idle_wait separately proves the exact common idle edit.
++        allowed = CHANGED | {'_prefix_stage_decide', '_prefix_single_file_retry_key',
++                             '_run', '_has_poll_work'}
+         for module in (old, new):
+             owner = next(x for x in module.body if isinstance(x, ast.ClassDef) and x.name == 'IoReactor')
+             owner.body = [x for x in owner.body if not isinstance(x, ast.FunctionDef) or x.name not in allowed]

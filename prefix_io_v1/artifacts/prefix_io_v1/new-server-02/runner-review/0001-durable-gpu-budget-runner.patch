@@ -1,0 +1,567 @@
+--- a/experiments/prefix_io_v1/scripts/run_gpu_stage.py
++++ b/experiments/prefix_io_v1/scripts/run_gpu_stage.py
+@@ -1,64 +1,238 @@
+-"""Explicit, serialized first-round GPU job budget; no automatic model downloads."""
+-import argparse, fcntl, json, os, signal, subprocess, time
++"""Serialize bounded GPU commands and retain unresolved usage after interruption.
++
++Only trusted project commands belong here. A process that calls setsid() escapes
++the process group; SIGKILL or host failure cannot run this process's cleanup.
++An unfinished durable reservation therefore always blocks the next invocation.
++"""
++import argparse
++import fcntl
++import json
++import math
++import os
+ from pathlib import Path
++import re
++import signal
++import subprocess
++import time
++import uuid
++
+ import yaml
+ 
++TERM_GRACE_SECONDS = 15.0
++KILL_GRACE_SECONDS = 5.0
++RESERVE_SECONDS = 20
++
++
++class Interrupted(BaseException):
++    def __init__(self, signum):
++        self.signum = signum
++
++
++def atomic_json(path, value):
++    temp = path.with_suffix(".tmp")
++    with temp.open("w") as handle:
++        json.dump(value, handle, indent=2, allow_nan=False)
++        handle.write("\n")
++        handle.flush()
++        os.fsync(handle.fileno())
++    temp.replace(path)
++    fd = os.open(path.parent, os.O_RDONLY | os.O_DIRECTORY)
++    try:
++        os.fsync(fd)
++    finally:
++        os.close(fd)
++
++
++def positive_number(value, name, *, allow_zero=False):
++    if isinstance(value, bool) or not isinstance(value, (int, float)):
++        raise RuntimeError(f"{name} must be a finite number")
++    if not math.isfinite(value) or value < 0 or (not allow_zero and value == 0):
++        raise RuntimeError(f"{name} must be {'nonnegative' if allow_zero else 'positive'} and finite")
++    return value
++
++
++def group_members(pgid):
++    """Read group membership without probing any GPU; zombies own no GPU work."""
++    result = []
++    for directory in Path("/proc").iterdir():
++        if not directory.name.isdigit():
++            continue
++        try:
++            stat = (directory / "stat").read_text()
++        except FileNotFoundError:
++            continue
++        fields = stat[stat.rfind(")") + 2:].split()
++        if int(fields[2]) == pgid and fields[0] not in ("Z", "X"):
++            result.append(int(directory.name))
++    return sorted(result)
++
++
++def signal_group(pgid, signum):
++    try:
++        os.killpg(pgid, signum)
++    except ProcessLookupError:
++        pass
++
++
++def cleanup_group(proc):
++    """Always drain the whole group, including after the direct child exits."""
++    before = group_members(proc.pid)
++    if before:
++        signal_group(proc.pid, signal.SIGTERM)
++    deadline = time.monotonic() + TERM_GRACE_SECONDS
++    while group_members(proc.pid) and time.monotonic() < deadline:
++        proc.poll()  # Reap the direct child; grandchildren may be adopted by init.
++        time.sleep(0.02)
++    if group_members(proc.pid):
++        signal_group(proc.pid, signal.SIGKILL)
++        deadline = time.monotonic() + KILL_GRACE_SECONDS
++        while group_members(proc.pid) and time.monotonic() < deadline:
++            proc.poll()
++            time.sleep(0.02)
++    proc.poll()
++    after = group_members(proc.pid)
++    return {"group_members_before_cleanup": before, "group_members_after_cleanup": after,
++            "group_drained": not after}
++
++
+ def main():
+-    p=argparse.ArgumentParser()
++    p = argparse.ArgumentParser()
+     p.add_argument("--label", required=True)
+     p.add_argument("--seconds", type=int, required=True)
+     p.add_argument("command", nargs=argparse.REMAINDER)
+-    a=p.parse_args()
+-    root=Path(__file__).resolve().parents[3]
+-    if not a.label.replace("-","").replace("_","").isalnum():
++    a = p.parse_args()
++    root = Path(__file__).resolve().parents[3]
++    if not a.label.replace("-", "").replace("_", "").isalnum():
+         p.error("invalid label")
+-    command=a.command[1:] if a.command[:1]==["--"] else a.command
+-    if not command or not 1<=a.seconds<=3600:
++    command = a.command[1:] if a.command[:1] == ["--"] else a.command
++    if not command or not 1 <= a.seconds <= 3600:
+         p.error("command and per-job seconds 1..3600 required")
+-    permission=yaml.safe_load((root/"experiments/prefix_io_v1/configs/permissions.yaml").read_text())
+-    if permission["allow_gpu_runs"] is not True or permission["max_gpu_hours"] is None:
++    permission = yaml.safe_load((root / "experiments/prefix_io_v1/configs/permissions.yaml").read_text())
++    if permission["allow_gpu_runs"] is not True:
+         raise RuntimeError("GPU operation not authorized")
+-    if len(permission["approved_gpu_ids"]) != 1:
++    hours = positive_number(permission["max_gpu_hours"], "max_gpu_hours")
++    approved = permission["approved_gpu_ids"]
++    if (not isinstance(approved, list) or len(approved) != 1
++            or not isinstance(approved[0], str)
++            or not re.fullmatch(r"GPU-[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}", approved[0])):
+         raise RuntimeError("first-round runner requires exactly one approved GPU UUID")
+-    runroot=Path(permission["approved_experiment_root"]).resolve()
++    runroot = Path(permission["approved_experiment_root"]).resolve()
+     if not runroot.is_relative_to(root):
+         raise RuntimeError("experiment root outside project")
+-    runroot.mkdir(exist_ok=True,parents=True)
+-    ledger=root/"experiments/prefix_io_v1/gpu-budget-ledger.json"
+-    with (ledger.with_suffix(".lock")).open("a") as lock:
+-        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+-        budget=json.loads(ledger.read_text())
+-        if budget["gpu_wall_seconds"]+a.seconds+20 > permission["max_gpu_hours"]*3600:
++    runroot.mkdir(exist_ok=True, parents=True)
++    ledger = root / "experiments/prefix_io_v1/gpu-budget-ledger.json"
++    with ledger.with_suffix(".lock").open("a") as lock:
++        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
++        budget = json.loads(ledger.read_text())
++        used = positive_number(budget["gpu_wall_seconds"], "gpu_wall_seconds", allow_zero=True)
++        if not isinstance(budget["events"], list):
++            raise RuntimeError("budget events must be a list")
++        if budget.get("active_reservation") is not None:
++            raise RuntimeError("unfinished GPU reservation: inspect prior process group and reconcile usage before retry")
++        if used + a.seconds + RESERVE_SECONDS > hours * 3600:
+             raise RuntimeError("insufficient cumulative GPU budget including termination reserve")
+-        run=runroot/a.label
++        run = runroot / a.label
+         run.mkdir(exist_ok=False)
+-        env=os.environ.copy()
+-        env["CUDA_VISIBLE_DEVICES"]=permission["approved_gpu_ids"][0]
+-        env["PYTHONDONTWRITEBYTECODE"]="1"
+-        env["HF_HUB_OFFLINE"]="1"
+-        env["TRANSFORMERS_OFFLINE"]="1"  # Download is a separate explicitly budgeted operation.
+-        started=time.time()
+-        timed_out=False
+-        with (run/"process.log").open("wb") as log:
+-            proc=subprocess.Popen(command,cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+-            try:
+-                code=proc.wait(timeout=a.seconds)
+-            except subprocess.TimeoutExpired:
+-                timed_out=True
+-                os.killpg(proc.pid,signal.SIGTERM)
+-                try: code=proc.wait(timeout=15)
+-                except subprocess.TimeoutExpired:
+-                    os.killpg(proc.pid,signal.SIGKILL);code=proc.wait()
+-        elapsed=time.time()-started
+-        event={"label":a.label,"command":command,"gpu_uuid":env["CUDA_VISIBLE_DEVICES"],
+-               "started_unix":started,"elapsed_seconds":elapsed,"exit":code,"timed_out":timed_out,
+-               "evidence":str(run),"gpu_job_attempted":True}
+-        budget["gpu_wall_seconds"]+=elapsed
++        env = os.environ.copy()
++        env.update(CUDA_VISIBLE_DEVICES=approved[0], PYTHONDONTWRITEBYTECODE="1",
++                   HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
++        started = time.time()  # Wall time is evidence only, never budget arithmetic.
++        started_mono = time.monotonic()
++        reservation = {"id": uuid.uuid4().hex, "label": a.label, "command": command,
++                       "started_unix": started, "gpu_uuid": approved[0],
++                       "seconds_limit": a.seconds, "reserved_seconds": a.seconds + RESERVE_SECONDS,
++                       "runner_pid": os.getpid(), "process_group": None, "evidence": str(run)}
++        budget["active_reservation"] = reservation
++        atomic_json(ledger, budget)  # Commit before any child can acquire resources.
++        proc = None
++        child_code = None
++        timed_out = False
++        interrupted_signal = None
++        error = None
++        cleanup = {"group_members_before_cleanup": [], "group_members_after_cleanup": [],
++                   "group_drained": True}
++        old_handlers = {sig: signal.getsignal(sig) for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT)}
++        launch_in_progress = False
++        pending_launch_signal = None
++        def on_signal(signum, frame):
++            nonlocal pending_launch_signal
++            if launch_in_progress:
++                # Do not raise between OS process creation and storing its handle.
++                # Unlike masking signals, this does not alter the child signal mask.
++                pending_launch_signal = signum
++                return
++            raise Interrupted(signum)
++        for sig in old_handlers:
++            signal.signal(sig, on_signal)
++        try:
++            with (run / "process.log").open("wb") as log:
++                launch_in_progress = True
++                try:
++                    proc = subprocess.Popen(command, cwd=root, env=env, stdout=log,
++                                            stderr=subprocess.STDOUT, start_new_session=True)
++                finally:
++                    launch_in_progress = False
++                if pending_launch_signal is not None:
++                    raise Interrupted(pending_launch_signal)
++                reservation["process_group"] = proc.pid
++                atomic_json(ledger, budget)
++                remaining = max(0.0, a.seconds - (time.monotonic() - started_mono))
++                child_code = proc.wait(timeout=remaining)
++        except subprocess.TimeoutExpired:
++            timed_out = True
++        except Interrupted as exc:
++            interrupted_signal = exc.signum
++        except BaseException as exc:
++            error = f"{type(exc).__name__}: {exc}"
++        finally:
++            # A repeated Ctrl-C / SIGTERM must not interrupt cleanup or accounting.
++            for sig in old_handlers:
++                signal.signal(sig, signal.SIG_IGN)
++            if proc is not None:
++                try:
++                    cleanup = cleanup_group(proc)
++                    child_code = proc.poll()
++                except BaseException as exc:
++                    cleanup = {"group_drained": False, "cleanup_error": f"{type(exc).__name__}: {exc}"}
++        elapsed = max(0.0, time.monotonic() - started_mono)
++        if timed_out:
++            code = 124
++        elif interrupted_signal is not None:
++            code = 128 + interrupted_signal
++        elif error is not None:
++            code = 1
++        elif child_code is None:
++            code = 70
++        else:
++            code = child_code if child_code >= 0 else 128 - child_code
++            # A successful parent leaving live children is an incomplete command.
++            if code == 0 and cleanup.get("group_members_before_cleanup"):
++                code = 70
++        if not cleanup["group_drained"]:
++            code = 70
++        event = {"label": a.label, "command": command, "gpu_uuid": approved[0],
++                 "started_unix": started, "elapsed_seconds": elapsed,
++                 "exit": code, "child_exit": child_code, "timed_out": timed_out,
++                 "interrupted_signal": interrupted_signal, "error": error,
++                 "evidence": str(run), "gpu_job_attempted": proc is not None,
++                 "reservation_id": reservation["id"], **cleanup}
++        budget["gpu_wall_seconds"] = used + elapsed
+         budget["events"].append(event)
+-        temp=ledger.with_suffix(".tmp");temp.write_text(json.dumps(budget,indent=2)+"\n");temp.replace(ledger)
+-        (run/"result.json").write_text(json.dumps(event,indent=2)+"\n")
+-        print(json.dumps(event,indent=2))
+-        return 124 if timed_out else code
+-
+-if __name__=="__main__":
++        if cleanup["group_drained"]:
++            budget["active_reservation"] = None
++        else:
++            reservation["state"] = "cleanup_unresolved"
++            reservation["accounted_seconds"] = elapsed
++        try:
++            # Failure to persist retains the previously durable reservation.
++            atomic_json(ledger, budget)
++            atomic_json(run / "result.json", event)
++            print(json.dumps(event, indent=2))
++        finally:
++            for sig, handler in old_handlers.items():
++                signal.signal(sig, handler)
++        return code
++
++
++if __name__ == "__main__":
+     raise SystemExit(main())
+--- /dev/null
++++ b/tests/prefix_io_v1_runner/test_run_gpu_stage.py
+@@ -0,0 +1,276 @@
++"""CPU-only process tests; each fixture has private fake permissions and ledger.
++
++No torch/NVML imports, no real GPU ledger writes and no device operations.
++The copied runner uses shortened termination grace periods for these tests.
++"""
++import importlib.util
++import json
++import os
++from pathlib import Path
++import signal
++import subprocess
++import sys
++import time
++
++import pytest
++import yaml
++
++SOURCE = Path(__file__).resolve().parents[2] / "experiments/prefix_io_v1/scripts/run_gpu_stage.py"
++UUID = "GPU-00000000-0000-0000-0000-000000000000"
++
++
++@pytest.fixture
++def sandbox(tmp_path):
++    script = tmp_path / "experiments/prefix_io_v1/scripts/run_gpu_stage.py"
++    script.parent.mkdir(parents=True)
++    text = SOURCE.read_text().replace("TERM_GRACE_SECONDS = 15.0", "TERM_GRACE_SECONDS = 0.2")
++    text = text.replace("KILL_GRACE_SECONDS = 5.0", "KILL_GRACE_SECONDS = 1.0")
++    script.write_text(text)
++    config = script.parent.parent / "configs/permissions.yaml"
++    config.parent.mkdir()
++    config.write_text(yaml.safe_dump({
++        "allow_gpu_runs": True, "max_gpu_hours": 1,
++        "approved_gpu_ids": [UUID], "approved_experiment_root": str(tmp_path / "runs"),
++    }))
++    ledger = script.parent.parent / "gpu-budget-ledger.json"
++    ledger.write_text(json.dumps({"gpu_wall_seconds": 0, "model_download_bytes": 0, "events": []}))
++    return tmp_path, script, ledger
++
++
++def argv(sandbox, code, seconds=3, label="cpu-case"):
++    return [sys.executable, str(sandbox[1]), "--label", label, "--seconds", str(seconds),
++            "--", sys.executable, "-c", code]
++
++
++def run(sandbox, code, **kwargs):
++    result = subprocess.run(argv(sandbox, code, **kwargs), capture_output=True, text=True, timeout=10)
++    return result, json.loads(sandbox[2].read_text())
++
++
++def wait_path(path, proc, timeout=5):
++    deadline = time.monotonic() + timeout
++    while time.monotonic() < deadline:
++        if path.exists():
++            return
++        if proc.poll() is not None:
++            raise AssertionError(f"runner stopped before child readiness: {proc.communicate()}")
++        time.sleep(0.01)
++    raise AssertionError(f"child did not create {path}")
++
++
++def live(pid):
++    try:
++        stat = Path(f"/proc/{pid}/stat").read_text()
++    except FileNotFoundError:
++        return False
++    return stat[stat.rfind(")") + 2:].split()[0] not in ("Z", "X")
++
++
++def test_cpu_success_records_visible_uuid_and_offline_settings(sandbox):
++    code = ("import os,json,time; time.sleep(.06); "
++            "print(json.dumps({k:os.environ[k] for k in "
++            "['CUDA_VISIBLE_DEVICES','HF_HUB_OFFLINE','TRANSFORMERS_OFFLINE']}))")
++    result, budget = run(sandbox, code)
++    assert result.returncode == 0, result.stderr
++    assert budget["active_reservation"] is None
++    event = budget["events"][-1]
++    assert event["group_drained"] is True
++    assert event["elapsed_seconds"] >= .06
++    log = (sandbox[0] / "runs/cpu-case/process.log").read_text()
++    assert UUID in log and '"HF_HUB_OFFLINE": "1"' in log
++    assert budget["model_download_bytes"] == 0
++
++
++def test_monotonic_charge_survives_backwards_wall_clock(sandbox):
++    # Only this copied CPU-test script is instrumented; production stays unchanged.
++    text = sandbox[1].read_text()
++    prefix = "import time\n_wall_clock=iter([1000., -10000., -20000.])\ntime.time=lambda: next(_wall_clock, -30000.)\n"
++    sandbox[1].write_text(prefix + text)
++    result, budget = run(sandbox, "import time; time.sleep(.08)")
++    assert result.returncode == 0, result.stderr
++    assert budget["events"][0]["started_unix"] == 1000
++    assert budget["gpu_wall_seconds"] >= .08
++
++
++def test_unfinished_reservation_blocks_before_launch(sandbox):
++    budget = json.loads(sandbox[2].read_text())
++    budget["active_reservation"] = {"id": "previous-unresolved"}
++    sandbox[2].write_text(json.dumps(budget))
++    target = sandbox[0] / "should-not-exist"
++    result, after = run(sandbox, f"from pathlib import Path; Path({str(target)!r}).touch()")
++    assert result.returncode != 0
++    assert "unfinished GPU reservation" in result.stderr
++    assert not target.exists()
++    assert after == budget
++
++
++def test_launch_exception_is_recorded_without_gpu_attempt(sandbox):
++    command = argv(sandbox, "pass")
++    command[-3:] = ["/no/such/prefix-io-test-executable"]
++    result = subprocess.run(command, capture_output=True, text=True, timeout=10)
++    budget = json.loads(sandbox[2].read_text())
++    assert result.returncode == 1, result.stderr
++    event = budget["events"][-1]
++    assert "FileNotFoundError" in event["error"]
++    assert event["gpu_job_attempted"] is False
++    assert budget["active_reservation"] is None
++
++
++@pytest.mark.parametrize("stop_signal", [signal.SIGTERM, signal.SIGINT, signal.SIGHUP])
++def test_termination_signal_cleans_child_and_commits_charge(sandbox, stop_signal):
++    ready = sandbox[0] / "child.pid"
++    code = f"import os,time; open({str(ready)!r},'w').write(str(os.getpid())); time.sleep(60)"
++    proc = subprocess.Popen(argv(sandbox, code), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
++    try:
++        wait_path(ready, proc)
++        pid = int(ready.read_text())
++        reserved = json.loads(sandbox[2].read_text())["active_reservation"]
++        assert reserved["process_group"] == pid
++        proc.send_signal(stop_signal)
++        out, err = proc.communicate(timeout=5)
++        assert proc.returncode == 128 + stop_signal, (out, err)
++        budget = json.loads(sandbox[2].read_text())
++        assert budget["active_reservation"] is None
++        assert budget["events"][-1]["interrupted_signal"] == stop_signal
++        assert budget["gpu_wall_seconds"] > 0
++        assert not live(pid)
++    finally:
++        if proc.poll() is None:
++            proc.kill()
++            proc.wait()
++
++
++def test_successful_parent_cannot_leave_background_group_running(sandbox):
++    childpid = sandbox[0] / "background.pid"
++    code = ("import subprocess,sys; "
++            "p=subprocess.Popen([sys.executable,'-c','import time;time.sleep(60)']); "
++            f"open({str(childpid)!r},'w').write(str(p.pid))")
++    result, budget = run(sandbox, code)
++    assert result.returncode == 70, result.stderr
++    event = budget["events"][-1]
++    pid = int(childpid.read_text())
++    assert pid in event["group_members_before_cleanup"]
++    assert event["child_exit"] == 0 and event["group_drained"]
++    assert not live(pid)
++    assert budget["active_reservation"] is None
++
++
++def test_timeout_kills_sigterm_resistant_child(sandbox):
++    childpid = sandbox[0] / "resistant.pid"
++    code = ("import os,signal,time; signal.signal(signal.SIGTERM,signal.SIG_IGN); "
++            f"open({str(childpid)!r},'w').write(str(os.getpid())); time.sleep(60)")
++    result, budget = run(sandbox, code, seconds=1)
++    assert result.returncode == 124, result.stderr
++    event = budget["events"][-1]
++    assert event["timed_out"] and event["child_exit"] == -signal.SIGKILL
++    assert 1 <= event["elapsed_seconds"] < 5
++    assert not live(int(childpid.read_text()))
++    assert budget["active_reservation"] is None
++
++
++def test_exception_after_launch_still_drains_group(sandbox):
++    childpid = sandbox[0] / "exception.pid"
++    # Force a runner-side exception after the real CPU child has started.
++    injected = """
++_ORIGINAL_WAIT = subprocess.Popen.wait
++def _raise_once(self, timeout=None):
++    if not getattr(self, "_raised_once", False):
++        self._raised_once = True
++        time.sleep(.15)
++        raise RuntimeError("injected CPU runner failure")
++    return _ORIGINAL_WAIT(self, timeout=timeout)
++subprocess.Popen.wait = _raise_once
++"""
++    sandbox[1].write_text(sandbox[1].read_text().replace('if __name__ == "__main__":', injected + '\nif __name__ == "__main__":'))
++    code = f"import os,time; open({str(childpid)!r},'w').write(str(os.getpid())); time.sleep(60)"
++    result, budget = run(sandbox, code)
++    assert result.returncode == 1, result.stderr
++    event = budget["events"][-1]
++    assert event["error"] == "RuntimeError: injected CPU runner failure"
++    assert event["group_drained"] and not live(int(childpid.read_text()))
++    assert budget["active_reservation"] is None
++
++
++def test_reservation_exists_before_popen_and_survives_killed_runner(sandbox):
++    # The abrupt interruption is simulated before child launch: no orphan CPU
++    # process and no device operation. It exercises the durable crash boundary.
++    injected = """
++def _terminate_before_child(*args, **kwargs):
++    os.kill(os.getpid(), signal.SIGKILL)
++subprocess.Popen = _terminate_before_child
++"""
++    original = sandbox[1].read_text()
++    sandbox[1].write_text(original.replace('if __name__ == "__main__":', injected + '\nif __name__ == "__main__":'))
++    result, budget = run(sandbox, "raise AssertionError('must not launch')")
++    assert result.returncode == -signal.SIGKILL
++    assert budget["active_reservation"]["process_group"] is None
++    sandbox[1].write_text(original)
++    retry, after = run(sandbox, "raise AssertionError('must not launch')", label="retry")
++    assert retry.returncode != 0 and "unfinished GPU reservation" in retry.stderr
++    assert after == budget
++
++
++@pytest.mark.parametrize("value", [float("nan"), float("inf"), -1, True, None])
++def test_invalid_hours_fail_closed_before_child(sandbox, value):
++    config = sandbox[1].parent.parent / "configs/permissions.yaml"
++    permission = yaml.safe_load(config.read_text())
++    permission["max_gpu_hours"] = value
++    config.write_text(yaml.safe_dump(permission))
++    result, budget = run(sandbox, "raise AssertionError('must not launch')")
++    assert result.returncode != 0
++    assert budget["events"] == [] and budget["gpu_wall_seconds"] == 0
++
++
++def test_budget_rejection_reserves_termination_time(sandbox):
++    budget = json.loads(sandbox[2].read_text())
++    budget["gpu_wall_seconds"] = 3590
++    sandbox[2].write_text(json.dumps(budget))
++    result, after = run(sandbox, "raise AssertionError('must not launch')", seconds=1)
++    assert result.returncode != 0 and "termination reserve" in result.stderr
++    assert after == budget
++
++def test_failed_group_verification_keeps_reservation_and_blocks_retry(sandbox):
++    # The CPU child has already exited. Simulate unavailable /proc verification
++    # without leaving a real process running in this test.
++    injected = """
++def _cannot_verify_group(pgid):
++    raise OSError("injected CPU group inspection failure")
++group_members = _cannot_verify_group
++"""
++    original = sandbox[1].read_text()
++    sandbox[1].write_text(original.replace('if __name__ == "__main__":', injected + '\nif __name__ == "__main__":'))
++    result, budget = run(sandbox, "pass")
++    assert result.returncode == 70
++    assert budget["active_reservation"]["state"] == "cleanup_unresolved"
++    assert budget["active_reservation"]["accounted_seconds"] > 0
++    assert budget["events"][-1]["group_drained"] is False
++    sandbox[1].write_text(original)
++    retry, after = run(sandbox, "raise AssertionError('must not launch')", label="retry")
++    assert retry.returncode != 0 and "unfinished GPU reservation" in retry.stderr
++    assert after == budget
++
++def test_signal_between_os_spawn_and_handle_assignment_cleans_real_child(sandbox):
++    pidfile = sandbox[0] / "spawn-race.pid"
++    injected = f"""
++_ORIGINAL_POPEN = subprocess.Popen
++def _interrupt_before_assignment(*args, **kwargs):
++    child = _ORIGINAL_POPEN(*args, **kwargs)
++    Path({str(pidfile)!r}).write_text(str(child.pid))
++    os.kill(os.getpid(), signal.SIGTERM)
++    return child
++subprocess.Popen = _interrupt_before_assignment
++"""
++    sandbox[1].write_text(sandbox[1].read_text().replace('if __name__ == "__main__":', injected + '\nif __name__ == "__main__":'))
++    try:
++        result, budget = run(sandbox, "import time;time.sleep(60)")
++        assert result.returncode == 143, result.stderr
++        event = budget["events"][-1]
++        assert event["gpu_job_attempted"] is True
++        assert event["interrupted_signal"] == signal.SIGTERM
++        assert event["group_drained"] is True
++        assert not live(int(pidfile.read_text()))
++        assert budget["active_reservation"] is None
++    finally:
++        if pidfile.exists() and live(int(pidfile.read_text())):
++            # Prevent a test regression from leaving a CPU sleeper behind.
++            os.killpg(int(pidfile.read_text()), signal.SIGKILL)

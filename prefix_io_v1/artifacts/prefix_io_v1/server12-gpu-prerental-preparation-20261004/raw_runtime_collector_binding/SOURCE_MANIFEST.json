@@ -1,0 +1,50 @@
+{
+  "schema": "raw_runtime_collector_binding_append_only_source_manifest_v1",
+  "files": [
+    {
+      "path": "runner/native_runtime_v2.py",
+      "bytes": 36348,
+      "sha256": "26b6b8b2e704c09d066963013d4124edf19098dfe1a7085d9de3535a9cddd1c5"
+    },
+    {
+      "path": "runner/strong_trace_runner_v2.py",
+      "bytes": 35693,
+      "sha256": "b4ea7a25ed413ea8508e445f86d6dc0f1ea8e995023908f74cd04f075ecbdd70"
+    },
+    {
+      "path": "raw_runtime_collector_binding/append_runtime_v2_cpu.py",
+      "bytes": 6613,
+      "sha256": "dcaed725550b85950bf709f6ade04b66d4a688f5027512a7832a1bc07f62404a"
+    },
+    {
+      "path": "raw_runtime_collector_binding/test_runtime_collector_binding_cpu.py",
+      "bytes": 9998,
+      "sha256": "c2548ce772fcb804025257e5883440d331b25c358435503f2b9670ebf5eae3b0"
+    },
+    {
+      "path": "raw_runtime_collector_binding/README.md",
+      "bytes": 2561,
+      "sha256": "eaab6b632a9526b8dd77ebf91655dacdf5478c6ae53289cc9727120eaf81229c"
+    }
+  ],
+  "old_runtime_sha256": "a293f98841e34bb9357e8dacb62cda43be7dfc7da66167f3df5577c4b5b11709",
+  "old_trace_sha256": "239771d85459b795d82624e23aa96510954ce301b2fc6554b2e575057edb9ce9",
+  "changed_runtime_functions": [
+    "execute"
+  ],
+  "new_runtime_functions": [
+    "preflight_collector_binding"
+  ],
+  "changed_trace_functions": [
+    "verify_configuration"
+  ],
+  "required_finite_collector_sha256": "a710f3f55ecbc6d8fbce8f3cf85ce4587daf0e1a863783df25a4ba8bc37e2aa0",
+  "required_original_delegate_sha256": "9915ca0c18147eb26f44e2292f541da95e33d0321c6236b224d19d4446e09e9d",
+  "source_only_gate": true,
+  "original_qualification_shadow_collector_preserved": true,
+  "original_phase_workload_guards_preserved": true,
+  "SLO_generated": false,
+  "actual_GPU_runs": 0,
+  "CPU_tests": 6,
+  "production_qualified": false
+}

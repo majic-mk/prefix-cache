@@ -1,0 +1,71 @@
+--- historical-cli-v3
++++ cli-v3
+@@ -16,20 +16,20 @@
+ import time
+ 
+ DELIVERY = "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002"
+-SCRIPT = DELIVERY + "/run_g3_calibration_pilot_v2.py"
+-PLAN_MODULE = DELIVERY + "/g3_calibration_plan.py"
+-RUNTIME_MODULE = DELIVERY + "/g3_calibration_runtime.py"
++SCRIPT = DELIVERY + "/run_g3_calibration_pilot_v3.py"
++PLAN_MODULE = DELIVERY + "/g3_calibration_plan_metrics_v2.py"
++RUNTIME_MODULE = DELIVERY + "/g3_calibration_runtime_metrics_v2.py"
+ RESULT_MODULE = DELIVERY + "/g3_calibration_result.py"
+-PLAN = DELIVERY + "/G3_CALIBRATION_CPU_PLAN.json"
+-LOCK = DELIVERY + "/gpu-source-lock-storage-v2.json"
++PLAN = DELIVERY + "/G3_CALIBRATION_METRICS_V2_CPU_PLAN.json"
++LOCK = DELIVERY + "/gpu-source-lock-metrics-v3.json"
+ RUNS = "experiments/prefix_io_v1/runs"
+ LEDGER = "experiments/prefix_io_v1/gpu-budget-ledger.json"
+ GUARD = "experiments/prefix_io_v1/scripts/run_gpu_stage.py"
+ PERMISSIONS = "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml"
+-BOOTSTRAP_PLAN_REF = dict(path=PLAN_MODULE, bytes=24475,
+-    sha256="196700d96733ec07c5a4c08c6104ab31a2a36548cf005fbb8e11b6a769f6f0c0")
+-BOOTSTRAP_RUNTIME_REF = dict(path=RUNTIME_MODULE, bytes=27641,
+-    sha256="a32842723fb9871696173c257d3276d156545d519a7aefeea449b367bd79a294")
++BOOTSTRAP_PLAN_REF = dict(path=PLAN_MODULE, bytes=24591,
++    sha256="96abdd444c187b70c81de82a63f24b990e3fabe65ecd37307909602181648543")
++BOOTSTRAP_RUNTIME_REF = dict(path=RUNTIME_MODULE, bytes=29978,
++    sha256="0c04287325fd84c31aaea35dc6ff7431229511a04f3ab71bf9aa96a2ce83f1cc")
+ BOOTSTRAP_RESULT_REF = dict(path=RESULT_MODULE, bytes=34174,
+     sha256="83ae8bb14181d51e9d4b0e40bca4123d30578cce43f581d851f97033f155eb9e")
+ 
+@@ -132,6 +132,22 @@
+     runtime = load_module(root, RUNTIME_MODULE, BOOTSTRAP_RUNTIME_REF)
+     runtime.preflight_runtime(root, refs)
+     return plan, refs, lock_ref
++
++
++def check_common_stats_dictionary_fix(root, runtime_receipt):
++    proof=runtime_receipt.get("common_stats_dictionary_fix")
++    require(type(proof) is dict and proof.get("installed") is True and proof.get("restored") is True,
++            "original metrics producer compatibility must be installed and restored")
++    require(proof.get("original_metrics_ref")==dict(path="third_party/work/vllm-author-p4-02-cpu/vllm/distributed/kv_transfer/kv_connector/v1/offloading/metrics.py",bytes=6195,
++        sha256="5ab3c65af3c0f78b0696bcc60c68ecfe51332c6d5f6684bb2cfa0e0ea9677d73"),"original metrics ref")
++    require(proof.get("helper_ref")==dict(path="artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-actual-20261002/metrics-common-fix-cpu/compat_offloading_stats_dict.py",bytes=9744,
++        sha256="7204b0fb3f784f58e5c8cc396810ba52a40769a168980c7e8e0ed210e19bb007"),"exact common producer repair ref")
++    witness=proof.get("witness")
++    require(type(witness) is dict and witness.get("installed") is False
++        and witness.get("source_path")==str(safe(root,proof["original_metrics_ref"]["path"]))
++        and witness.get("source_bytes")==6195 and witness.get("source_sha256")==proof["original_metrics_ref"]["sha256"]
++        and witness.get("original_record_calls_per_invocation")==1 and witness.get("original_consumers_unchanged") is True,
++        "source-bound original producer/consumer restoration witness")
+ 
+ 
+ def prior_results(root, plan, refs, scope, scope_sha, ledger, source_lock, *, verify_publication=True):
+@@ -168,6 +184,7 @@
+             expected_label=label, expected_command=child_command(root, mode, source_lock,
+                 scope["_actual_scope_path"]), expected_storage=str(shared_storage(root, plan)),
+                 prior_process_identities=list(identities))
++        check_common_stats_dictionary_fix(root,runtime)
+         verdict = checker.validate_job_result(mode, report, runtime, event, binding, config=config)
+         require(verdict.get("status") == "PASS_BOUNDED_ORIGINAL_ACQUISITION_PATH_CHECKS",
+                 "previous original path pilot did not qualify: " + mode)
+@@ -202,6 +219,7 @@
+         expected_scope_sha256=scope_ref["sha256"], expected_gpu_uuid=scope["gpu_uuid"],
+         expected_label=label, expected_command=child_command(root, mode, source_lock,
+             scope["_actual_scope_path"]), expected_storage=str(shared_storage(root, plan)))
++    check_common_stats_dictionary_fix(root,runtime)
+     verdict = checker.validate_job_result(mode, report, runtime, events[0], binding, config=config)
+     require(verdict.get("status") == "PASS_BOUNDED_ORIGINAL_ACQUISITION_PATH_CHECKS",
+             "failed populate cannot publish SSD target")

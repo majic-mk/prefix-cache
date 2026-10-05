@@ -1,0 +1,346 @@
+{
+  "schema": "server12_actual_cost_budget_diagnosis_v1",
+  "status": "PASS_CPU_REAL_EVIDENCE_DIAGNOSIS",
+  "scope": "finite_recorded_single_file_condition_only",
+  "origin": "actual_completed_native_gpu_evidence_readonly_replay",
+  "job": "server12-c5-native-common-cost-gpu01",
+  "gpu_uuid": "GPU-a67d2f38-8e1b-29c3-7e5b-375e1410f8ac",
+  "input_refs": {
+    "verification": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/NATIVE_COST_VERIFICATION.json",
+      "bytes": 7327,
+      "sha256": "e5260588b846f7d90b163ecc7d37ed773511407a20d6eec1f20de3c48c57e277"
+    },
+    "summary": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/REAL_CANONICAL_RECEIPT_SUMMARY.json",
+      "bytes": 7222,
+      "sha256": "d57acf45846bccda1482efdb695dec1ba4f1630b466df120c9222827cc2cb263"
+    },
+    "binding": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/NATIVE_SINGLE_FILE_BINDING.json",
+      "bytes": 4151,
+      "sha256": "d79be29c8139a1cd42577b54bdd33e00bedcaa1fc6dbf5100df682b32ca3f42b"
+    },
+    "plan": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/NATIVE_COST_PLAN.json",
+      "bytes": 11501,
+      "sha256": "02d64e82304187ebce07385f0446f7da903ceb083fc40ba18ef1c936593ed17b"
+    },
+    "measurements": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/NATIVE_PAIRED_MEASUREMENTS.json",
+      "bytes": 2298700,
+      "sha256": "665777364406e0b08aebb50475d7ffadadceb93b7d60f8bd4c33f78dca4b15c0"
+    },
+    "site_lock": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/SITE_SOURCE_LOCK.json",
+      "bytes": 1101340,
+      "sha256": "1c0e7ccaa24aef878ea513df6744ff9037c00f02329b95793801b8a05b3ac5c0"
+    }
+  },
+  "calibration_refs": {
+    "plan_ref": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/NATIVE_COST_PLAN.json",
+      "bytes": 11501,
+      "sha256": "02d64e82304187ebce07385f0446f7da903ceb083fc40ba18ef1c936593ed17b"
+    },
+    "measurements_ref": {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/NATIVE_PAIRED_MEASUREMENTS.json",
+      "bytes": 2298700,
+      "sha256": "665777364406e0b08aebb50475d7ffadadceb93b7d60f8bd4c33f78dca4b15c0"
+    },
+    "guard_ref": {
+      "path": "experiments/prefix_io_v1/runs/server12-c5-native-common-cost-gpu01/result.json",
+      "bytes": 1152,
+      "sha256": "250194dda58bb7f47c10e49c566e7630a682aba6d2889c0c2815b5a6ae9f6cad"
+    }
+  },
+  "public_canonical_source_ref": {
+    "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/p4_single_file_receipt.py",
+    "bytes": 16497,
+    "sha256": "8deb840a759249f339015634bc58adb95e986e7c787ff1b7f71b698fa4ec7a0d"
+  },
+  "signature": [
+    "9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017",
+    "GPU-a67d2f38-8e1b-29c3-7e5b-375e1410f8ac",
+    "7bdd32a13b1ba3aec1e3d878ac519b35b0a31a2bd8fe2547cf7bb612718ac3e8",
+    "original_execute_sample_eager_triton_attention",
+    1,
+    1,
+    0,
+    144,
+    917504
+  ],
+  "pairs": [
+    {
+      "pair_id": "pair-0",
+      "split": "calibration",
+      "arm_order": "AB",
+      "seed": 1829,
+      "selected_offset": 16,
+      "A_gpu_ns": 13171328,
+      "B_gpu_ns": 16000256,
+      "paired_B_minus_A_ns": 2828928,
+      "B_minus_A_only_budget_ns": 2828928,
+      "upper_minus_B_ns": 238496,
+      "measured_components": {
+        "baseline": {
+          "selected_offset": 16,
+          "gpu_full_step_ns": 13171328,
+          "host_closed_frame_ns": 13106204,
+          "trigger_host_interval_ns": 238,
+          "native_io": [],
+          "host_intervals_are_not_isolated_gpu_or_ssd_cost": true,
+          "CUDA_and_host_absolute_clocks_are_not_mapped": true
+        },
+        "action": {
+          "selected_offset": 16,
+          "gpu_full_step_ns": 16000256,
+          "host_closed_frame_ns": 15940820,
+          "trigger_host_interval_ns": 29087,
+          "native_io": [
+            {
+              "stage": "ssd_read",
+              "operations": 1,
+              "physical_bytes": 917504,
+              "accepted_at_ns": 25913780939415286,
+              "completed_at_ns": 25913780940967907,
+              "observed_owner_completion_latency_ns": 1552621,
+              "cqe_observed_after_selected_host_frame": false
+            }
+          ],
+          "host_intervals_are_not_isolated_gpu_or_ssd_cost": true,
+          "CUDA_and_host_absolute_clocks_are_not_mapped": true
+        }
+      }
+    },
+    {
+      "pair_id": "pair-1",
+      "split": "calibration",
+      "arm_order": "BA",
+      "seed": 1830,
+      "selected_offset": 16,
+      "A_gpu_ns": 13054688,
+      "B_gpu_ns": 16238752,
+      "paired_B_minus_A_ns": 3184064,
+      "B_minus_A_only_budget_ns": 3067424,
+      "upper_minus_B_ns": 0,
+      "measured_components": {
+        "baseline": {
+          "selected_offset": 16,
+          "gpu_full_step_ns": 13054688,
+          "host_closed_frame_ns": 12994816,
+          "trigger_host_interval_ns": 282,
+          "native_io": [],
+          "host_intervals_are_not_isolated_gpu_or_ssd_cost": true,
+          "CUDA_and_host_absolute_clocks_are_not_mapped": true
+        },
+        "action": {
+          "selected_offset": 16,
+          "gpu_full_step_ns": 16238752,
+          "host_closed_frame_ns": 16181185,
+          "trigger_host_interval_ns": 28517,
+          "native_io": [
+            {
+              "stage": "ssd_read",
+              "operations": 1,
+              "physical_bytes": 917504,
+              "accepted_at_ns": 25913905519861656,
+              "completed_at_ns": 25913905521305586,
+              "observed_owner_completion_latency_ns": 1443930,
+              "cqe_observed_after_selected_host_frame": false
+            }
+          ],
+          "host_intervals_are_not_isolated_gpu_or_ssd_cost": true,
+          "CUDA_and_host_absolute_clocks_are_not_mapped": true
+        }
+      }
+    },
+    {
+      "pair_id": "pair-2",
+      "split": "validation",
+      "arm_order": "AB",
+      "seed": 1831,
+      "selected_offset": 16,
+      "A_gpu_ns": 12964064,
+      "B_gpu_ns": 16097504,
+      "paired_B_minus_A_ns": 3133440,
+      "B_minus_A_only_budget_ns": 2926176,
+      "upper_minus_B_ns": 141248,
+      "measured_components": {
+        "baseline": {
+          "selected_offset": 16,
+          "gpu_full_step_ns": 12964064,
+          "host_closed_frame_ns": 12907826,
+          "trigger_host_interval_ns": 373,
+          "native_io": [],
+          "host_intervals_are_not_isolated_gpu_or_ssd_cost": true,
+          "CUDA_and_host_absolute_clocks_are_not_mapped": true
+        },
+        "action": {
+          "selected_offset": 16,
+          "gpu_full_step_ns": 16097504,
+          "host_closed_frame_ns": 16041057,
+          "trigger_host_interval_ns": 28830,
+          "native_io": [
+            {
+              "stage": "ssd_read",
+              "operations": 1,
+              "physical_bytes": 917504,
+              "accepted_at_ns": 25914282831685122,
+              "completed_at_ns": 25914282833320320,
+              "observed_owner_completion_latency_ns": 1635198,
+              "cqe_observed_after_selected_host_frame": false
+            }
+          ],
+          "host_intervals_are_not_isolated_gpu_or_ssd_cost": true,
+          "CUDA_and_host_absolute_clocks_are_not_mapped": true
+        }
+      }
+    }
+  ],
+  "frozen_math": {
+    "formula": "ceil_calibration_means_plus_max_positive_residual_v1",
+    "original_estimator_proof": {
+      "source_bytes": 48136,
+      "source_sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac",
+      "formula": "ceil_calibration_means_plus_max_positive_residual_v1",
+      "numerical_ast_sha256": "28c0b405e86324c22c47336c8f0120a5a2b5fd1e3befe6da08ffebac1825e29a",
+      "mathematical_expressions_changed": false
+    },
+    "baseline_ns": 13113008,
+    "incremental_or_joint_ns": 3006496,
+    "uncertainty_ns": 119248,
+    "upper_ns": 16238752,
+    "A_only_budget_ns": 13171328,
+    "A_only_baseline_slack_ns": 58320,
+    "upper_minus_budget_ns": 3067424,
+    "gap_decomposition_ns": {
+      "increment": 3006496,
+      "residual": 119248,
+      "subtract_A_only_baseline_slack": 58320
+    },
+    "fits_calibration_A_only_budget": false,
+    "holdout_used_to_refit": false,
+    "action_or_heldout_used_for_budget": false,
+    "numerical_expressions_changed": false
+  },
+  "native_conditional_cost_qualified": true,
+  "full_output_tokens": 768,
+  "heldout_errors": [
+    {
+      "pair_id": "pair-2",
+      "measured_gpu_ns": 16097504,
+      "predicted_upper_ns": 16238752,
+      "underprediction_ns": 0,
+      "signed_error_ns": -141248
+    }
+  ],
+  "finite_candidate_policy": {
+    "scope": "POSTHOC_RECORDED_CONDITION_CPU_POLICY_REPLAY",
+    "preview": {
+      "action": "defer",
+      "reason": "verified_single_file_experimental_condition",
+      "progress_override": false,
+      "predicted_total_ns": 16238752,
+      "production_qualified": false
+    },
+    "native_CPU_execution_rejection": {
+      "action": "native_fallback",
+      "reason": "outside_verified_single_file_condition",
+      "progress_override": false,
+      "predicted_total_ns": null,
+      "production_qualified": false
+    },
+    "recorded_actual_preload_key_sha256": "a9264338fc75deaa2bae2fecffb9aab1d7dbcae44e2610b821459f5e660e682f",
+    "contract_config": {
+      "mode": "interference",
+      "sample_max_age_ns": 228505088,
+      "max_wait_ns": 1,
+      "internal_step_budget_ns": 13171328,
+      "candidate_batches": [
+        1
+      ]
+    },
+    "scalar_values_derived_from_actual_capture": true,
+    "capability_flags_and_ready_work_object_are_CPU_contract_projections": true,
+    "live_owner_snapshot_or_capability_qualified": false,
+    "actual_policy_installed_on_GPU": false,
+    "actual_native_dispatch_affected": false,
+    "native_execution_authorized_by_replay": false,
+    "candidate_count": 1,
+    "unknown_alternative_candidates": "reject_no_calibrated_cell"
+  },
+  "source_loaded_refs": [
+    {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/__init__.py",
+      "bytes": 149,
+      "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dependencies.py",
+      "bytes": 5772,
+      "sha256": "41cc50163c51a2f02486230fcfa36c348af95ef687c3f2cb815bdd6797f29481"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dispatch_budget.py",
+      "bytes": 11021,
+      "sha256": "412c43761cb2f59636240e15c884b25d2a1d0ee708684d496259baf2f34d667c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dispatch_shadow.py",
+      "bytes": 16989,
+      "sha256": "c3d502423116f8c3b74f976acba092cb574d58d078c7b34f368e9e5b926b8e1b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_cost_table.py",
+      "bytes": 5071,
+      "sha256": "4caae858778182f5575ce2d5807bdc72520ef4c5f32a2c18f02ff2628155d0f8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_policy.py",
+      "bytes": 24976,
+      "sha256": "bce19c96c7651f69ebb91a515ea3e9e3d6855636b4bd4aa84e60fb2fbc10d673"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_types.py",
+      "bytes": 11969,
+      "sha256": "07bbcb0a449c349f9c63874728e409180c1c9787f3253723403978e17383094e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-c5-gpu-entry-path-revision-20261004/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/simple_stage_policy.py",
+      "bytes": 21557,
+      "sha256": "8a2dc9586f5e1fe5257f988e44466284d10e0e46a8cee46f876a8febe5caf1a5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server12-c5-native-recalibration-20261004/p4_single_file_receipt.py",
+      "bytes": 16497,
+      "sha256": "8deb840a759249f339015634bc58adb95e986e7c787ff1b7f71b698fa4ec7a0d"
+    }
+  ],
+  "interpretation": {
+    "measured_full_step_includes_combined_action_path_and_variation": true,
+    "isolated_SSD_or_CPU_interference_cost_qualified": false,
+    "full_runtime_observation_cost_measured": false,
+    "causal_subcomponent_attribution_proved": false,
+    "alternative_size_load_or_release_credit_qualified": false
+  },
+  "actual_on_installed": false,
+  "normal_runtime_binding_verified": false,
+  "full_runtime_cost_qualified": false,
+  "production_qualified": false,
+  "strategy_effect_verified": false,
+  "performance_benefit_proved": false,
+  "GPU_operations_this_action": 0,
+  "forbidden_import_attempts": [],
+  "ledger_before_ref": {
+    "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+    "bytes": 393479,
+    "sha256": "f7b749aff3744b65f146d7c7fa44cee813d2a7b9bd1b7c24968e150aa7216e77"
+  },
+  "ledger_after_ref": {
+    "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+    "bytes": 393479,
+    "sha256": "f7b749aff3744b65f146d7c7fa44cee813d2a7b9bd1b7c24968e150aa7216e77"
+  },
+  "outputs_do_not_authorize_GPU_or_native_dispatch": true
+}

@@ -1,0 +1,378 @@
+{
+  "document_kind": "design_contract_draft",
+  "plan_id": "probekv_decoupled_qd_origin_v2",
+  "version": "2.0",
+  "created_date": "2026-09-19",
+  "source_of_truth": "01_系统方案与实验任务书_v2.md",
+  "frozen": false,
+  "directly_executable_runtime_config": false,
+  "repository": {
+    "name": "majic-mk/super-robot",
+    "known_evidence_commit": "c456942ba80bcdc765cdbc72ed2c66e8b0bd8f33",
+    "earlier_commit": "cc7898b1ba59d89ce7fdbb186ded21880f1adf08",
+    "actual_runtime_commit": null,
+    "worktree_hash": null,
+    "force_checkout": false,
+    "merge_main": false,
+    "overwrite_old_results": false
+  },
+  "scope": {
+    "mainline": "multi_source_decoupled",
+    "exact_target_token_match": true,
+    "source_selection_uses_query": false,
+    "joint_source_mask_search": false,
+    "repair_uses_query_and_drift": true,
+    "new_anchor_probe": false,
+    "cf_repair": false,
+    "trained_selector": false,
+    "integrated_concurrency_initial": 1
+  },
+  "models": {
+    "pilot": "mistralai/Mistral-7B-Instruct-v0.3",
+    "formal_primary": "Qwen/Qwen2.5-7B-Instruct",
+    "revision_tokenizer_dtype_from_verified_manifest": true,
+    "verified_manifest": null
+  },
+  "provenance": {
+    "policies": [
+      "EXACT_ONLY",
+      "ALLOW_MIXED_G1"
+    ],
+    "mixed_policy_is_required_experimental_candidate": true,
+    "mixed_deployment_qualified": false,
+    "allow_approximate_upstream": true,
+    "require_exact_whole_request_for_target_capture": false,
+    "target_full_every_token_every_layer": true,
+    "target_full_must_be_proven_by_execution_ledger": true,
+    "old_DENSE_EXACT_semantics_unchanged": true,
+    "types": [
+      "EXACT_CONTEXT",
+      "MIXED_CONTEXT_FULL_SEGMENT",
+      "UNKNOWN_PROVENANCE",
+      "PARTIALLY_REPAIRED_WORKING_KV"
+    ],
+    "max_stored_generation": 1,
+    "cross_context_reuse_rank": "stored_generation+1",
+    "within_request_full_propagation": "max_input_rank_without_increment",
+    "verified_exact_prefix_rank": 0,
+    "unknown_origin_action": "reject_publication",
+    "suffix_can_taint_earlier_target": false,
+    "mixed_allowed_in_exact_prefix_cache": false,
+    "G2_only_isolated_diagnostic": true,
+    "silent_exactness_reset": false
+  },
+  "storage": {
+    "artifact_owns_target_KV_only": true,
+    "store_prefix_KV_per_source": false,
+    "own_parent_KV_through_views_or_leases": false,
+    "source_capture_creates_prefix_shadow": false,
+    "prefix_shadow_separate_optional_feature": true,
+    "request_manifest_shared_once": true,
+    "source_metadata_is_manifest_reference": true,
+    "raw_prefix_repeated_per_source": false,
+    "audit_reference_pins_parent_KV": false,
+    "model_authorization_domain_required": true,
+    "physical_bytes_accounted": true,
+    "capture_before_early_layers_lost": true,
+    "implicit_extra_capture_forward": false,
+    "max_variants_total_across_origin_types": 4,
+    "capacity_controls": [
+      1,
+      2,
+      4
+    ],
+    "optional_capacity_after_gain": 8,
+    "total_byte_budget": null
+  },
+  "source_selection": {
+    "primary": "K_trim_legacy",
+    "controls": [
+      "CFO",
+      "earliest",
+      "latest",
+      "fit_only_fixed",
+      "offline_S0"
+    ],
+    "ablations": [
+      "K_mean",
+      "KV_mean"
+    ],
+    "candidate_completed_depth": 2,
+    "observation_layer": "completed_depth_plus_one",
+    "all_candidate_full_KV_read": false,
+    "source_freeze_no_reselection": true,
+    "full_scope_mismatch_not_a_quality_theorem": true,
+    "shallow_only_near_dedup_default": false,
+    "exact_tie_new_series": "prefer_exact_then_birth_order_then_id",
+    "legacy_ties_unchanged": true,
+    "reuse_profile": null,
+    "add_profile": null,
+    "profiles_bind_provenance_policy": true,
+    "threshold_initial_scope": "one_pair_per_active_policy_model_depth"
+  },
+  "repair": {
+    "primary": "QxD_global",
+    "ratio": 0.15,
+    "count": "ceil(ratio*eligible_token_count)",
+    "alpha_KV": 0.5,
+    "lambda_Query": 1.0,
+    "drift_epsilon": 1e-06,
+    "scale_epsilon": 1e-12,
+    "query_max_rows": 16,
+    "query_span": "builder_verified_user_question",
+    "query_sampling": "uniform_with_endpoints",
+    "current_K_for_attention": true,
+    "winner_only_history_for_drift": true,
+    "full_causal_global_softmax": true,
+    "native_GQA_RoPE_positions": true,
+    "matched_arms": [
+      "D_only",
+      "Q_only",
+      "QxD"
+    ],
+    "legacy_strategy_preserved": true,
+    "fixed_support_no_late_reentry": true,
+    "fallback_if_query_unavailable": "matched_D_only",
+    "post_mask_residual": "diagnostic_only",
+    "optimizations_after_core": [
+      "lambda_0.5",
+      "headpaired"
+    ],
+    "lower_ratios_after_gain": [
+      0.12,
+      0.1
+    ],
+    "new_profile": null
+  },
+  "growth": {
+    "default_triggers": [
+      "content_miss",
+      "complete_scope_mismatch"
+    ],
+    "nontriggers": [
+      "runtime_failure",
+      "economic_rejection",
+      "margin_failure",
+      "partial_scan",
+      "question_changed",
+      "oracle_quality_failure"
+    ],
+    "new_source_may_first_be_M1": true,
+    "exact_digest_dedup": true,
+    "active_exploration": false,
+    "opportunistic_other_reason_growth": false,
+    "target_full_not_whole_dense_on_miss": true,
+    "publish_after_origin_request_complete": true,
+    "birth_request_can_consume_own_new_source": false,
+    "protected_LRU_and_finite_probation": true,
+    "capture_failure": "skip_publication_not_model_rerun",
+    "source_supply_metrics_required": true,
+    "mismatch_requires_stored_eligible_compared_equal": true
+  },
+  "data": {
+    "old_partition_immutable": true,
+    "locked_test_accessed": false,
+    "chronology_without_real_timestamps": "corpus_pseudotime",
+    "support_labels_online": false,
+    "result_conditioned_sampling": false,
+    "source_birth_before_consumer": true,
+    "split_unit": "content_origin_lineage_dependency_component",
+    "initial_target_cap": 30,
+    "per_group_cap": 10,
+    "seed": 20260918,
+    "legacy_prompt_limit": 4096,
+    "legacy_target_length": 512,
+    "ten_segment_case_uses_new_geometry": true,
+    "new_ten_segment_prompt_limit_proposal": 8192,
+    "controlled_provenance_diagnostic_separate_from_natural_stream": true,
+    "reference_dense_can_populate_runtime_pool": false,
+    "cohort_hash": null
+  },
+  "stages": {
+    "P0": {
+      "requires": [],
+      "tasks": [
+        "audit",
+        "provenance_reference_integration",
+        "target_capture",
+        "shadow_decoupling",
+        "data_qualification",
+        "CPU_tests",
+        "GPU_preflight"
+      ],
+      "CPU_can_start": true
+    },
+    "P1E": {
+      "requires": [
+        "P0"
+      ],
+      "target_cap": 30,
+      "max_actions_per_target": 6,
+      "main_target_action_cap": 180,
+      "source_creation_actions_bounded_separately": true,
+      "legacy_first_reuse_layer": 9,
+      "repair": "legacy_fixed15"
+    },
+    "P1M": {
+      "requires": [
+        "P0"
+      ],
+      "must_execute_for_v2_claims": true,
+      "target_cap": 12,
+      "max_actions_per_target": 3,
+      "main_target_action_cap": 36,
+      "arms": [
+        "dense",
+        "E",
+        "M1"
+      ],
+      "paired_birth_origin_and_future_consumer": true,
+      "source_creation_actions_bounded_separately": true,
+      "required_checks": [
+        "explicit_mixed_reference",
+        "dense_quality",
+        "shallow_collision",
+        "parent_KV_eviction"
+      ]
+    },
+    "P2": {
+      "requires": [
+        "P0",
+        "P1E",
+        "P1M"
+      ],
+      "requires_evaluated_not_necessarily_both_PASS": true,
+      "target_cap": 30,
+      "main_arms": 4,
+      "main_target_action_cap": 120,
+      "origins_reported_separately": true
+    },
+    "P3": {
+      "requires": [
+        "P2"
+      ],
+      "requires_source_headroom_or_preregistered_rescue": true,
+      "CFO_same_QxD_required": true,
+      "strong_single_source_same_QxD_required": true,
+      "pool_changes_separate_from_selector_changes": true
+    },
+    "P4": {
+      "requires": [
+        "P3"
+      ],
+      "true_online_boundary_required": true,
+      "completed_depth": 2,
+      "proposed_first_reuse_layer_if_supported": 3,
+      "multi_segment_cells": [
+        "A_only",
+        "B_only",
+        "A_plus_B",
+        "10_segments_new_geometry"
+      ],
+      "cache_conditions": [
+        "GPU_warm",
+        "pinned_CPU",
+        "SSD_declared_page_cache"
+      ],
+      "warmups": 3,
+      "timing_repetitions": 5
+    },
+    "P5": {
+      "requires": [
+        "P4",
+        "P1M"
+      ],
+      "mixed_risk_gate_required": true,
+      "origin_policies": [
+        "EXACT_ONLY",
+        "ALLOW_MIXED_G1"
+      ],
+      "same_byte_budget": true,
+      "same_total_K": true,
+      "independent_causal_pools": true,
+      "future_sources_visible": false,
+      "maintenance_in_total_cost": true
+    },
+    "P6": {
+      "requires": [
+        "P5"
+      ],
+      "model_count": 2,
+      "planning_groups_per_model": 20,
+      "planning_requests_per_model": 300,
+      "counts_are_not_certification": true,
+      "native_reimplemented_reported_separate": true,
+      "refresh_novelty_before_submission": true
+    }
+  },
+  "rescue": {
+    "name": "P1R",
+    "must_preregister_before_outcomes": true,
+    "max_batches": 1,
+    "target_cap": 12,
+    "max_actions_per_target": 6,
+    "main_target_action_cap": 72,
+    "repair": "QxD_15",
+    "numerical_repair_correctness_required": true,
+    "requires_P2_quality_PASS": false,
+    "no_new_tuning_after_negative_result": true
+  },
+  "metrics": {
+    "F1_scale": [
+      0,
+      1
+    ],
+    "legacy_request_dense_tolerance": 0.02,
+    "proposed_mixed_vs_exact_mean_margin": 0.01,
+    "proposed_formal_mean_margin": 0.01,
+    "pilot_headroom_F1": 0.01,
+    "pilot_safe_coverage_gain": 0.05,
+    "pilot_min_complementary_groups": 2,
+    "median_TTFT_gain_target": 0.1,
+    "P95_regression_guard": 0.05,
+    "targets_frozen_before_new_outcomes": true,
+    "cluster_paired_bootstrap_repetitions": 10000,
+    "failure_in_denominator": true,
+    "queue_in_TTFT": true,
+    "maintenance_in_service_end": true,
+    "r1_mixed_reference_is_not_whole_dense": true
+  },
+  "authority": {
+    "CPU_audit_allowed": true,
+    "automatic_GPU_rental_or_payment": false,
+    "gpu_execution_enabled": false,
+    "active_instance_id": null,
+    "gpu_uuid": null,
+    "approval_reference": null,
+    "max_cost": null,
+    "max_gpu_hours": null,
+    "current_unit_price": null,
+    "historical_budget_is_permission": false,
+    "missing_authority_action": "complete_CPU_then_BLOCKED"
+  },
+  "evidence": {
+    "diagnostic_only": true,
+    "paper_evidence": false,
+    "gpu_runtime_qualified": false,
+    "reference_only_policy_tests_in_package": true,
+    "real_model_executed_in_package": false,
+    "remote_repository_modified": false,
+    "stage_outcomes": [
+      "PASS",
+      "FAIL",
+      "INCONCLUSIVE",
+      "BLOCKED"
+    ],
+    "first_deliverables": [
+      "baseline_audit.md",
+      "v2_change_map.md",
+      "source_provenance_contract.json",
+      "input_qualification.jsonl",
+      "cohort_manifest.json",
+      "planned_actions.csv",
+      "cpu_tests.log",
+      "correctness_report.json",
+      "gpu_preflight.json"
+    ]
+  }
+}

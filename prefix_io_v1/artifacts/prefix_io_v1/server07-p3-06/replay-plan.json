@@ -1,0 +1,12 @@
+{
+  "native_reference": "/root/prefix-io-v1-validation/runs/server07-p3-c2-fullref-01/details",
+  "runs": [
+    "/root/prefix-io-v1-validation/runs/server07-p3-c2-all-hit-01/details",
+    "/root/prefix-io-v1-validation/runs/server07-p3-c2-mixed-01/details",
+    "/root/prefix-io-v1-validation/runs/server07-p3-c2-mixed-02/details",
+    "/root/prefix-io-v1-validation/runs/server07-p3-c2-all-hit-02/details"
+  ],
+  "preregistration": "artifacts/prefix_io_v1/server07-p3-06/preregistration.json",
+  "qualification": "artifacts/prefix_io_v1/server07-p3-06/c2-permit.json",
+  "interpretation": "Problem screen with current native admission and fixed iodepth=4, not a comparison of research policies."
+}

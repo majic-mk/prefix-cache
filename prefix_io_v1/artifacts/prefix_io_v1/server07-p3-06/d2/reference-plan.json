@@ -1,0 +1,39 @@
+{
+  "scope": "Previously seen long-content numerical requalification at max_num_seqs=2; unloaded single-request acquisitions",
+  "gpu_uuid": "GPU-f8744916-1693-fa6a-93b6-7f503c03459c",
+  "domain": 16384,
+  "kv_budget_bytes": 2147483648,
+  "staging_budget_bytes": 1073741824,
+  "reps": 3,
+  "sizes": [
+    16256
+  ],
+  "native_label": "server07-p3-c2-native-ref-01",
+  "external_groups": [
+    {
+      "label": "server07-p3-c2-d2-cached-ref-01",
+      "sizes": [
+        16256
+      ],
+      "storage": "aux-heldout-long",
+      "storage_path": "/root/prefix-io-v1-validation/storage/heldout-long"
+    }
+  ],
+  "prompt_manifest": "artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json",
+  "prompt_manifest_sha256": "a8a5f10a7f4596a2cb57fff9ba373c4f6a6c20a9398f44d6fed1ccddb76c0195",
+  "independent_content_validation": true,
+  "run_details": {
+    "server07-p3-c2-native-ref-01": "/root/prefix-io-v1-validation/runs/server07-p3-c2-native-ref-01/details",
+    "server07-p3-c2-d2-cached-ref-01": "/root/prefix-io-v1-validation/runs/server07-p3-c2-d2-cached-ref-01/details"
+  },
+  "acceptance": {
+    "top5_and_selected_output_tolerance": 0,
+    "cold_hot_differences": "retained separately"
+  },
+  "engine_delta": {
+    "max_num_seqs": 2
+  },
+  "connector_delta": {
+    "iodepth": 2
+  }
+}

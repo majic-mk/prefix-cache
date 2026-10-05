@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "USER_AUTHORIZED_TWO_G2_JOBS_READY",
+  "actual_human_reply": "授权这 2 次 G2 验证并继续",
+  "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+  "source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/gpu-source-lock-candidate.json",
+    "bytes": 452304,
+    "sha256": "5e7cc04fe759411800b895169d669f75cade6b2f0adda34d3992ecf2a7dbd760",
+    "files": 2088
+  },
+  "scope": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/GPU_STAGE_AUTHORIZATION_V2.json",
+    "bytes": 4767,
+    "sha256": "ac952fb088f8c59df3d04874f3f8ac66f4513025e9d475ed81b67ea74890bba7"
+  },
+  "human_authorization_record": {
+    "path": "HUMAN_AUTHORIZATION_RECORD_G2.json",
+    "bytes": 1994,
+    "sha256": "742fb528c0dfcee15050d020f9b29e94f8988b0bef359d4b32ec4a849b7a53d4"
+  },
+  "commands": [
+    "cd /root/autodl-tmp/prefix-io-v1-handoff/project && .venv/bin/python -B artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/run_g2_normal_model_lifecycle.py --project /root/autodl-tmp/prefix-io-v1-handoff/project --mode off --name server09-g2-normal-off-01 --source-lock artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/gpu-source-lock-candidate.json --scope-record artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/GPU_STAGE_AUTHORIZATION_V2.json --launch",
+    "cd /root/autodl-tmp/prefix-io-v1-handoff/project && .venv/bin/python -B artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/run_g2_normal_model_lifecycle.py --project /root/autodl-tmp/prefix-io-v1-handoff/project --mode shadow --name server09-g2-normal-shadow-01 --source-lock artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/gpu-source-lock-candidate.json --scope-record artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/GPU_STAGE_AUTHORIZATION_V2.json --launch"
+  ],
+  "maximum_jobs": 2,
+  "seconds_limit_per_job": 300,
+  "guard_reserve_seconds_per_job": 20,
+  "total_planned_reserve_seconds": 640,
+  "budget_reset": false,
+  "primary_floor_bytes": 8589934592,
+  "primary_reserve_bytes": 134217728,
+  "off_must_pass_and_drain_before_shadow": true,
+  "failed_off_means_no_shadow_and_no_retry_under_this_scope": true,
+  "auth_format_CPU_failure_consumed_GPU_jobs": 0,
+  "actual_authorized_off_CPU_preflight_exit": 0,
+  "original_GPU_ledger_used_seconds": 16538.664544709492,
+  "original_remaining_seconds": 12261.335455290508,
+  "performance_claim": false,
+  "P4_completion_claim": false,
+  "new_executor": false,
+  "native_io": "none",
+  "download": false,
+  "system_modification": false,
+  "data_deletion": false
+}

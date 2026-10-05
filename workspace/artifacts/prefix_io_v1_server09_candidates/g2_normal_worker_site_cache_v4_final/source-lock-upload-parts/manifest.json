@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "whole_file": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261002/gpu-source-lock-candidate.json",
+    "bytes": 899396,
+    "sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b"
+  },
+  "parts": [
+    {
+      "path": "part-0001.bin",
+      "offset": 0,
+      "bytes": 60000,
+      "sha256": "b8f7e3121dcc9ee2da213e9196649889b5c8deb1c1eb5f14a10ecfe5ed8e031b"
+    },
+    {
+      "path": "part-0002.bin",
+      "offset": 60000,
+      "bytes": 60000,
+      "sha256": "0bfabdeb3d9953bed1fece5dcdc0701e0e29e99636815d71893de9912eeeda4e"
+    },
+    {
+      "path": "part-0003.bin",
+      "offset": 120000,
+      "bytes": 60000,
+      "sha256": "8cb3466afa6ec3aaf27c7a33169562b7e1d78556fca9408d5b23d34cd95b27f5"
+    },
+    {
+      "path": "part-0004.bin",
+      "offset": 180000,
+      "bytes": 60000,
+      "sha256": "57cae5643a660e98d1ce9e37b67c5a9ba06ade60a341abecd595929d17e7ca92"
+    },
+    {
+      "path": "part-0005.bin",
+      "offset": 240000,
+      "bytes": 60000,
+      "sha256": "b7a062c6214113877d2934caada14bff608b1c37e1071fff913c3298fc44213e"
+    },
+    {
+      "path": "part-0006.bin",
+      "offset": 300000,
+      "bytes": 60000,
+      "sha256": "b61adc9fa93aae58945d305248161d5bb14fcf3912539da3ff98af9150b6aa1d"
+    },
+    {
+      "path": "part-0007.bin",
+      "offset": 360000,
+      "bytes": 60000,
+      "sha256": "90e83353537de8b5c4948dd20ad6111a8e2643f30e29a78e3564ef8f6a6354a6"
+    },
+    {
+      "path": "part-0008.bin",
+      "offset": 420000,
+      "bytes": 60000,
+      "sha256": "828f7fdb5584dd89b7a9eec682d4069b3acc4868a6c7fa66094612be90183991"
+    },
+    {
+      "path": "part-0009.bin",
+      "offset": 480000,
+      "bytes": 60000,
+      "sha256": "aa6578d6ebfa5f1f8fff21e98fe4e478f906c888e7bedb0deae7195d501d1474"
+    },
+    {
+      "path": "part-0010.bin",
+      "offset": 540000,
+      "bytes": 60000,
+      "sha256": "02016fc0a0a36775b23be3b52e04c2669444ad4c88ed04783c729c5e60555646"
+    },
+    {
+      "path": "part-0011.bin",
+      "offset": 600000,
+      "bytes": 60000,
+      "sha256": "7acf15e9e755313dfffd44bc0f01559ef937486701d5d2f398ec24a661c1b789"
+    },
+    {
+      "path": "part-0012.bin",
+      "offset": 660000,
+      "bytes": 60000,
+      "sha256": "05243092ab5f45ad9f7f688b2d9e6e2a53592c71c7219d5580fefe28248194d2"
+    },
+    {
+      "path": "part-0013.bin",
+      "offset": 720000,
+      "bytes": 60000,
+      "sha256": "8867526480bcec57e435ce6d7d17cd86f026adb5d8f5a40d485c689641be7813"
+    },
+    {
+      "path": "part-0014.bin",
+      "offset": 780000,
+      "bytes": 60000,
+      "sha256": "0a30d8268b0f7b02d2c7c868ec696237ff5b8a685311013dce7988b01e56e6ec"
+    },
+    {
+      "path": "part-0015.bin",
+      "offset": 840000,
+      "bytes": 59396,
+      "sha256": "67054658c1acd010752d48e2fc455ac8ff37c5b65bde77532e23a033dbbbeb16"
+    }
+  ]
+}

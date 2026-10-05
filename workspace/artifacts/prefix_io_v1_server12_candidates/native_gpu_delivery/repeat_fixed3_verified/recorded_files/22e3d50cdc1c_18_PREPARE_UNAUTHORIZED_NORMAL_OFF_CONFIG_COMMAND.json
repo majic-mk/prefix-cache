@@ -1,0 +1,15 @@
+{
+  "CUDA_VISIBLE_DEVICES": "",
+  "argv": [
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python",
+    "-B",
+    "-I",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server12-c5-normal-native-cpu-20261004/control_p4_single_file.py",
+    "--root",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "prepare",
+    "--mode",
+    "off"
+  ],
+  "cwd": "/root/autodl-tmp/prefix-io-v1-handoff/project"
+}

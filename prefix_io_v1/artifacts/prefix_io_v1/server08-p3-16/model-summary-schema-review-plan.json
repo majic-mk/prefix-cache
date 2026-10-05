@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_SCHEMA_REVIEW_AND_ROUNDTRIP_PROPOSAL_ONLY",
+  "scope": "P316 frozen model driver/probe/analyzer; no imports, tests, GPU, payload reads, or locked source changes",
+  "sources": [
+    {
+      "path": "experiments/prefix_io_v1/scripts/run_concurrent_pilot_p316.py",
+      "declared_frozen_sha256": "248c901e6bfd2e7fbea3e210623f7556f9fef9c99d66c39cf50daf6ef5b0f26e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/simple_stage_worker_probe_p316.py",
+      "declared_frozen_sha256": "d800267ec66d6bcee17988798f47f91f56f8b5d809e7cefa20dc533713be317f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/analyze_simple_stage_p3_p316.py",
+      "declared_frozen_sha256": "f537dac0ed119c644385e9ea11a8122069868c755c1d475d0b3379a3166ad983"
+    }
+  ],
+  "source_hashes_recomputed": false,
+  "schema_review": {
+    "definite_static_blocker_found": false,
+    "runtime_qualification_pending": true,
+    "cpu_points": [
+      "native_kv.native_metadata_cpu",
+      "cohort_probe_start.native_metadata_cpu",
+      "probe.native_metadata_cpu",
+      "final_probe.native_metadata_cpu"
+    ],
+    "cpu_intervals": [
+      "warmup_and_start_boundary",
+      "cohort_and_tail",
+      "finish"
+    ],
+    "cpu_required": "valid true; error null; fixed warmup/cohort/tail x seven regions; integer nonnegative calls/thread_cpu_ns; phase totals equal region sums; delta monotone and exactly recomputed",
+    "sampling_points": [
+      "native_kv.optional_native_sampling",
+      "cohort_probe_start.optional_native_sampling",
+      "probe.optional_native_sampling",
+      "final_probe.optional_native_sampling"
+    ],
+    "sampling_off_restriction": "Only GPU-hot profile/common stage policy off; install/start/drain suppress optional sink, finish restores it outside timed cohort; mandatory progress and StageAccounting remain",
+    "physical_final": "closed/drained AIO, accepted==reaped, outstanding0; no active/inflight/pending-copy/copy-ready/ready-load/ready-preload; valid stage accounting with zero records/ops/bytes; accepted parents0; no pending controller attempt; engine shutdown completed",
+    "gpu_hot": "All ten family0 rows full golden128 and cached16256; original connector enabled during prewarm; measured accepted SSD reads0, writes0..117440512 bytes; quantum917504",
+    "pressure": "sampling on; live probe staging_capacity valid/observation_valid true/error null/no physical credit; cache_slots+preload_cached_slots>64; shared slots not counted twice",
+    "token_clock": "128 exact engine output timestamps; ambiguous_events is []; 127 finite positive ITLs matching strict increasing timestamps; original native TTFT schema"
+  },
+  "boundary_limits": [
+    "CPU cohort_and_tail starts at start-RPC export and ends at drain-RPC export. Wall cohort starts after trace-start RPC; the intervals are not identical.",
+    "CPU sums measure outermost selected metadata/control/observer hook thread time including timer overhead. They omit frontend/core/model CPU, unwrapped bookkeeping, publication accounting, native I/O/GPU waits and restoration.",
+    "With sampling off, sampled maxima/minima/snapshot_count may be zero or null and do not prove absence of activity; final physical drain is independently checked.",
+    "The native profiler is common across arms. The observation on/off pair estimates the tested optional-sink effect within this common instrumented setup, not total P2 instrumentation overhead.",
+    "Prewarm and its drain are outside cohort; a failed hot prefix/read0/write-cap gate must remain a failure rather than be relaxed.",
+    "Golden full-output comparison for ordinary mixed rows is performed by the analyzer; driver success alone does not certify full-model output equality.",
+    "Success fields may be absent on a failed cohort; analyzer is intentionally allowed to fail closed."
+  ],
+  "first_model_attention": [
+    "Preserve a failed cpu_evidence_error, sampling restoration error or ambiguous token timeline and diagnose exact schema before authorizing any rerun.",
+    "Off/on controls must reuse the same GPU-hot manifest, qualified source, resource configuration and all-arm CPU-probe flag.",
+    "Use the frozen reference_results row kinds cold/gpu_hot and exact family prompt tokens; preserve read-zero and cached16256 gates.",
+    "Analyzer result hash and manifest hash bindings must be preserved; reference supplied should equal the supplemental registered reference for GPU-hot."
+  ],
+  "roundtrip_proposal": {
+    "status": "NOT_EXECUTED",
+    "owner": "root after GPU becomes idle",
+    "gpu_operations_required": 0,
+    "scratch": "artifacts/prefix_io_v1/server08-p3-16/common-patch-roundtrip-01 (new exclusive directory; no .bin/model/private-cache copies)",
+    "base_native": "Exact P313 py-kvcache-p3-shadow-cpu seed under scratch/third_party/work/py-kvcache-p3-15-cpu, verified against P315 native-worktree-seed/patch-boundary-plan",
+    "common315_patch": "artifacts/prefix_io_v1/server08-p3-15/p315-common-native.patch",
+    "increment316_patch": "artifacts/prefix_io_v1/server08-p3-16/p316-common-native-increment.patch",
+    "research315_patch": "artifacts/prefix_io_v1/server08-p3-15/p315-research-policy.patch",
+    "required_project_base": "Copy only source/support modules and saved driver-before.py into matching scratch paths; simple_stage_policy.py/simple_stage_options.py/simple_stage_worker_probe.py absent initially; existing order_options/dispatch_budget/dispatch_shadow/stage_accounting support stays",
+    "steps": [
+      "Manifest scratch source before writes; exact SHA of copied text inputs. Check all patch headers are in declared roots.",
+      "At scratch project root, patch --dry-run --batch --fuzz=0 -p1 for common315; apply with same flags and record exit/output/reject files.",
+      "At scratch native P315 root, dry-run/apply increment316 with -p1 and fuzz0. Verify reactor/staging_cache exact frozen P316 hashes; vllm.py exact P315 common-intermediate hash31dd0fdf201bfe44d169ff3c0ee2b66a28107322c03428a7eaed5fa77d273db3.",
+      "Run root-owned CPU import/default/common-only smoke with the two research modules actively forbidden and CUDA initialization disabled. Default controller None and explicit common parent-cap paths must import/run without research policy.",
+      "Run targeted CPU original normal pipeline, accepted/reaped ownership, pinned STOP retention, verified/unknown drain and admission/accounting guards on the common-only scratch composition.",
+      "At scratch project root dry-run/apply research315. Verify all31 native source hashes exactly match frozen P316; verify original P315 policy modules and driver hashes from P315 patch-boundary-plan.",
+      "Run targeted CPU policy off/fixed/pressure contracts and common lifecycle regressions. Do not weaken exact production source-path guards to accept scratch; declare guards requiring original frozen paths separately.",
+      "Reverse research315 at scratch project root with dry-run/fuzz0; recover common-only intermediate and absent new policy files.",
+      "Reverse increment316 at scratch native root; recover exact P315 common intermediate.",
+      "Reverse common315 at scratch project root; recover exact P313 seed and saved driver-before file. Record all text hashes, modes, commands, exits and any path-dependent limitations."
+    ],
+    "criteria": [
+      "No fuzz or rejects; every forward/reverse file digest matches declared stage manifest.",
+      "Common-only import succeeds with research policy unavailable; default/explicit off does not instantiate controller or optional CPU probe/read CPU clock.",
+      "Common scalar bookkeeping and STOP resource fixes remain active with policy off; no claim of byte-identical P315 native instruction path.",
+      "Final reconstructed engine is byte-identical to the GPU-qualified P316 engine; standalone scratch common-only runtime is CPU-qualified only.",
+      "No new GPU efficacy or complete P3 claim follows from patch roundtrip.",
+      "CPU duplicate executions across compositions are reported as separate checks, never added to unique full-matrix test totals."
+    ]
+  },
+  "validation": {
+    "text_reads": true,
+    "ast_only": true,
+    "imports": 0,
+    "cpu_tests": 0,
+    "gpu_runs": 0,
+    "locked_source_changes": 0,
+    "payload_reads": 0
+  },
+  "created_utc": "2026-09-30T10:47:11.044377+00:00"
+}

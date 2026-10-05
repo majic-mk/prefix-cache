@@ -1,0 +1,1242 @@
+[
+  {
+    "path": "artifacts/prefix_io_v1/server07-p2-01/source-lock.json",
+    "bytes": 3531,
+    "sha256": "456f10ae0e31318f52d31b1343a4ff12822d59a331b0620c09170abdfea4976d"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-03/calibration-candidate/curves-v2.json",
+    "bytes": 12010,
+    "sha256": "892a979b1b1136409e258537f85e9355f6c7bb88e5de1d3f636bf23caf119c2f"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/acquire-before.py",
+    "bytes": 17197,
+    "sha256": "cc9c856951bc49c1f3215b0e0d7af247da96a29e0bc58e6df0f83d861fbcc1e2"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/acquisition-driver.patch",
+    "bytes": 4248,
+    "sha256": "4da13140f792ed510cf88302b5bf8b6d576f94f917a82a71b34d80f907ba085e"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/before.json",
+    "bytes": 109242,
+    "sha256": "dfd7e5882d7765ce2f75018bc28048659af78b7853460c9c8f7bc3b7ea1d8455"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/commands.json",
+    "bytes": 11178,
+    "sha256": "43f8e12881e52c5702e7eb47a2adc23d2f3e78c10506bfac3b8cf5cb19329a3f"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/cost-plan.json",
+    "bytes": 1342,
+    "sha256": "836f5d7f447f1e83fbcc5316e0a199acdaa4ba641c8679f8b017773c4569d07a"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/cpu-before-gpu.json",
+    "bytes": 569,
+    "sha256": "a8a157881bd9ace6c98ae93c7f1c015aed4b4b45936c8b69acb70c09af75acaf"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/cpu-before-gpu.xml",
+    "bytes": 11800,
+    "sha256": "c48df6b44491e2e623a72117c4ce3f3e669f3b5371599de43b2e9d803c3776dd"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/cpu-gpu-guard.json",
+    "bytes": 77,
+    "sha256": "57ed8c7d039ff0f19c3e19acda2681feaf829caab4aaa06bed47a4dbdaa5b3a9"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/cpu-prediction-checks.json",
+    "bytes": 481,
+    "sha256": "80fdaf2a3613fec188caa617fde34b60eac653692db90a01f77c5ab0fc33e7ac"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/cpu-prediction-checks.xml",
+    "bytes": 1443,
+    "sha256": "9f3730015c879b1f6095028f78161e248dfaf7526cb0bf61fe2d243be44d968c"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/drift-analysis.json",
+    "bytes": 2063,
+    "sha256": "c5a05208ff5ef94f9e65a322c6f7947014fc39249342a9112f7f668f7ce4230f"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/drift-control-plan.json",
+    "bytes": 839,
+    "sha256": "8967d440fabcf34d08b2f9c7f5517d3959cd3dc11a36ef3cfc313c545555b1bf"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/drift-result.json",
+    "bytes": 49545,
+    "sha256": "85346962527063b4890bf2407dfaf2c1589e2c362d378ac8a549392881f6ccdb"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/environment-overrides.json",
+    "bytes": 1000,
+    "sha256": "ff4ee66cdd6e44991452c5368882114bd512499be458cca2aa682a9bcdf74b28"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/execution-state-before.json",
+    "bytes": 19884,
+    "sha256": "3b737b7798fd82fbc30283571d695630339f5cf272992ba4dca8419503345e17"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/final-cpu.json",
+    "bytes": 662,
+    "sha256": "430235900ad2499725f96aa5bb1e5caaf90fb0b511e6d0244bc11ae44c7723b6"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/final-cpu.xml",
+    "bytes": 12971,
+    "sha256": "063eb7ecc5133af25031be6566fe62c2bdcbf64fe9ace148f1b4f7ed2c2e2eaa"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/final-health.json",
+    "bytes": 14022,
+    "sha256": "ec760532a3c6adc1ffaed7eb9441ecf8be2912345e566769fe395d3586319bfe"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/heldout-cost-check.json",
+    "bytes": 3897,
+    "sha256": "06c06312255555d7300604bea82002d7cedd665390afcee064db3a79e4243ce4"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/heldout-cost-result.json",
+    "bytes": 3912,
+    "sha256": "7faea28c459061bbd1d9f6a4e9c08f6f57b6c3f7304bda4b589c8f20fa9671c3"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/heldout-disk-preflight.json",
+    "bytes": 210,
+    "sha256": "f83df24e944a0cdff957e5f8cddce9dba075d9cfb684ea83b4d0a58b2c07dc41"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/heldout-prompts.json",
+    "bytes": 85556,
+    "sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/heldout-reference-check.json",
+    "bytes": 2032,
+    "sha256": "6451d6007c59bdac57764d16b139ee2e0056cf759443c39ebd01a6c4464ae343"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/heldout-reference-result.json",
+    "bytes": 7072,
+    "sha256": "2982a07090ca163cec439ab5f53d292434d567e263d2ae41a88f50399d5bc98c"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/heldout-source-texts.json",
+    "bytes": 91375,
+    "sha256": "47d116a2c9e99393a197a2243b16c09ce0f5dbeaf022ac1d57e3168d340ceb05"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/prepare-heldout.json",
+    "bytes": 515,
+    "sha256": "e4a28e7aba6eff91aa9be881e1b7d6006f056017066e6460bf7a2f0cd360a2d3"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/qualification-summary.json",
+    "bytes": 1045,
+    "sha256": "305c383ec2f5e40d779692fb0160c5d6fb121909011ba6f904f63e5ea01d2fa2"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/reference-plan.json",
+    "bytes": 943,
+    "sha256": "f91540136b72cb457208135f777df645209a3bea7811bada8215b7f9f4e741bc"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-2k-drift-control-01-launch.json",
+    "bytes": 2212,
+    "sha256": "03a78bc4f4304344b5caa871faa619e6ac1e989df461d2fdfd40a7265dd9054e"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-2k-drift-control-02-launch.json",
+    "bytes": 2212,
+    "sha256": "f97e1e17276ac9e6236d93438ccef26123b7beeaa7b668b1e1e1b93029b95491"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-heldout-cached-ref-01-launch.json",
+    "bytes": 2488,
+    "sha256": "4521aacda07fd6f02ffa00f090f437d122baae6e13c906c965c3db2d89c680f3"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-heldout-cold-cost-01-launch.json",
+    "bytes": 2408,
+    "sha256": "2d7a28ac324d6631ceef1cfa179aead2fc8961af95435088f6eb4b778d429771"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-heldout-cold-cost-02-launch.json",
+    "bytes": 2408,
+    "sha256": "205297b1c1e70f1508f5a69670cd5e90bbd426c867bbc489ae15808d63e0a684"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-heldout-native-ref-01-launch.json",
+    "bytes": 2538,
+    "sha256": "55bc05dcef3fa0e7b9bdb5ccdf8774b0d3ae933ad8dceef1b30a6ac93f33aa04"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-heldout-paired-cost-01-launch.json",
+    "bytes": 2422,
+    "sha256": "a3b7c88bf966f9799636901bfd09353171d192f8f99e785add3cf3e9c8480ae3"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-heldout-paired-cost-02-launch.json",
+    "bytes": 2422,
+    "sha256": "6726696e7a2bd59cd2eac5228058bca9e74cbdc4dbb51667f2dc19a690610d65"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/server07-p3-heldout-populate-01-launch.json",
+    "bytes": 2411,
+    "sha256": "4ab1dd9d1594d7740926878097f58a8a0a00d1721454c5792f10f4e36d9e9fa1"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/source-lock.json",
+    "bytes": 909,
+    "sha256": "bde29cbf5de55975b540b2645884a6815d06154c150c2f2f548034af0dc959e8"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/system-disk-proposal.json",
+    "bytes": 1090,
+    "sha256": "5c675771cca3c6c09a21a3494acd600964f81d9cb3dc84b8ce1e9064115c5578"
+  },
+  {
+    "path": "artifacts/prefix_io_v1/server07-p3-04/workspace-audit.json",
+    "bytes": 1679,
+    "sha256": "630b13bfe96ddc47d02e328f85d82a5fbfd57dedcef77ad421afcbd6adea5aef"
+  },
+  {
+    "path": "docs/prefix_io_v1/REPRODUCE_SERVER07_P3_HELDOUT.md",
+    "bytes": 3769,
+    "sha256": "0d15010fd765947e63778d78ea09ccc02c7962e95c4ec6b9821b9756602dc28b"
+  },
+  {
+    "path": "docs/prefix_io_v1/SERVER07_P3_HELDOUT_REPORT.md",
+    "bytes": 7580,
+    "sha256": "0479a320bb52e063c3d954d0d02189b99cea2a4b04f54f5963e9e7034ebca391"
+  },
+  {
+    "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+    "bytes": 989,
+    "sha256": "6ec59b1c1e0fb123c420ffb5f68f86f94221e0ee47cfcd6025ec986fea7095aa"
+  },
+  {
+    "path": "experiments/prefix_io_v1/execution_state.json",
+    "bytes": 21323,
+    "sha256": "e6c60e01926c6051c49e177d9bc6db2edfc814b07bc7eeb30f6b0e10777b7040"
+  },
+  {
+    "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+    "bytes": 115970,
+    "sha256": "9c5aeb91ef1b5c0b3fe55b9cb793e13d5eea2e8e64e09835e22b12eec96b833c"
+  },
+  {
+    "path": "experiments/prefix_io_v1/locks/dependency-lock.json",
+    "bytes": 12679,
+    "sha256": "4bc95ff14b4b3abba2d7dd029a393fea7afe48557be2cc64ea4d3bda87f0f89f"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/frozen-config.json",
+    "bytes": 7765,
+    "sha256": "90f64e5edeaf0654832437abb291bcb94d70f5499acb0e1d48aff60c0e618cc7"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/g_mem-2048-0.trace.json",
+    "bytes": 53274,
+    "sha256": "6b839cbd275984cb9683f8109b46b3b756dd15fcef73597d2b94d370bf6768ff"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/g_mem-2048-1.trace.json",
+    "bytes": 53371,
+    "sha256": "cce53db56813c838b93207470b5c910d234a5b4b681dbac7d7a95659d8651c0f"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/g_mem-2048-2.trace.json",
+    "bytes": 53316,
+    "sha256": "411df0d6ccdbe54e7a534d7d457ac0c075227a70984d00b2e311386ee6ff92e5"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/g_ssd-2048-0.trace.json",
+    "bytes": 194239,
+    "sha256": "f02d576de2bb752acdc498956c5701999c341dedebaef00785508188d4e00b93"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/g_ssd-2048-1.trace.json",
+    "bytes": 193264,
+    "sha256": "f95c510aaaeee0997d6e19b3ca38971bac68a72a6ecd7a4c1652b5bfda3f4a39"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/g_ssd-2048-2.trace.json",
+    "bytes": 193298,
+    "sha256": "c096b6c980cf4e92a068090911429b29e783d08c733601d426502426223e4962"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/merge.json",
+    "bytes": 53,
+    "sha256": "fb77f6a3e97905f83c94da0cec2f29ab7daca0112efc5e9ac73b35cb82bf0bd0"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/partial.json",
+    "bytes": 187654,
+    "sha256": "594f30759574e31985d22bc7fcba8905e69171b81e764a092012b179f53d1ac0"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/result.json",
+    "bytes": 188516,
+    "sha256": "6addfe3216642d5bbd99ac01d5cba17fd9e50e093cb9a038254b767d88e2e8a5"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "fb77f6a3e97905f83c94da0cec2f29ab7daca0112efc5e9ac73b35cb82bf0bd0"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/process.log",
+    "bytes": 21013,
+    "sha256": "bb58363d5001918f9bfc3210652cb1a55c886013bb2a5f421399d12a642c4572"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-01/result.json",
+    "bytes": 1231,
+    "sha256": "b4f095601ddc3dc6c199a8590f6bd07ac5e96445b8ebe672583b0863f21583b4"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/frozen-config.json",
+    "bytes": 7765,
+    "sha256": "90f64e5edeaf0654832437abb291bcb94d70f5499acb0e1d48aff60c0e618cc7"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/g_mem-2048-0.trace.json",
+    "bytes": 53223,
+    "sha256": "31dd008c514a2c30e6614566fca61903e9ed6c0add5fce5ffa6e8566bcd3b659"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/g_mem-2048-1.trace.json",
+    "bytes": 53345,
+    "sha256": "40cd4f1e4125422479dfaa30cd8eecfe206c3865df0ffee3b6b914947431e931"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/g_mem-2048-2.trace.json",
+    "bytes": 53367,
+    "sha256": "d325451e60301b1bcf66397d46bb06338a4f1d014b8242bc2b44add42b6481bf"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/g_ssd-2048-0.trace.json",
+    "bytes": 194606,
+    "sha256": "bbfd85db92b937f237aeede5c393319486b953a8252037f754d5a278f6ea04d1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/g_ssd-2048-1.trace.json",
+    "bytes": 193309,
+    "sha256": "ea6d55a7e0e6c459e9c9c2f6e691e77e31c1ea5cfe44fb4843f3d1b1c540db89"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/g_ssd-2048-2.trace.json",
+    "bytes": 191275,
+    "sha256": "8446f31b32a5523bad65d4bdfa756cd37ed01d317538e1229d53fbbc22da8df5"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/merge.json",
+    "bytes": 53,
+    "sha256": "a8d261c8bdc1830d60880cf859e5c00d1d11092d8c814cdb92b0e31fd0d9c164"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/partial.json",
+    "bytes": 187656,
+    "sha256": "1bea38062951c7c6604c86e31236f4a925d0befe5211f4fe2db857e9bb700e0f"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/result.json",
+    "bytes": 188518,
+    "sha256": "8b1066217d1fbc821a0b4652b3130a95e58d9493ba8ede1815df7c247ba62b02"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "a8d261c8bdc1830d60880cf859e5c00d1d11092d8c814cdb92b0e31fd0d9c164"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/process.log",
+    "bytes": 21013,
+    "sha256": "445829c6b3df5c9155d0ad08f05104e310a69622c091deb285f9853242792abd"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-2k-drift-control-02/result.json",
+    "bytes": 1230,
+    "sha256": "41fa8856211bb8559ce6193ac4408ad3e982ba97c9cf6d9248d9e8ef3618377a"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/frozen-config.json",
+    "bytes": 8209,
+    "sha256": "08f169bf9da1c6a4b5d77206f1a49a4e43b3775051983362e6bf1e6d562570b3"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/g_mem-2048-0.trace.json",
+    "bytes": 53177,
+    "sha256": "67123980e1d96c68f95fe2954fd3fe6685bf5abe17284485a75da56ab8b0971d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/g_mem-2048-1.trace.json",
+    "bytes": 53390,
+    "sha256": "7a4021f0542d5901b365ad28e1c3fdafffe01e0cb45062e73601335a5961a92d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/g_mem-2048-2.trace.json",
+    "bytes": 53386,
+    "sha256": "b1cb80bde8eb91211cba2e1a7150c37906252a842dc3acd4214188abcf0ccbe2"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/g_ssd-2048-0.trace.json",
+    "bytes": 200609,
+    "sha256": "a8ad5f6dd6a243a317085542997553c804c56af47892533bc751ea7609fbe1d9"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/g_ssd-2048-1.trace.json",
+    "bytes": 192122,
+    "sha256": "e971059d0d7b92bb08789fa4e178052f1247db266b844bf316a7b1bc5c13264e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/g_ssd-2048-2.trace.json",
+    "bytes": 190074,
+    "sha256": "adce32e7674b34324223e80a94bad23d6ed0ccdd4ba7771334690438fd457fde"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/manifest-validator-source.py",
+    "bytes": 3097,
+    "sha256": "201f87213a44219ec8aa4fe850aea090daa1f9c76ba628d85fc38cdbccf2c35e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/merge.json",
+    "bytes": 53,
+    "sha256": "10b0137218040758fc2601848cd165a52af54560fca8c8b03bcd37be666306c6"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/partial.json",
+    "bytes": 188923,
+    "sha256": "4554e12efaaeada3f23208bb574cd4e979ca1ae2d4f1f63365e97538970f2dc9"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/prompt-manifest.json",
+    "bytes": 85556,
+    "sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/result.json",
+    "bytes": 189799,
+    "sha256": "96b555942b2561a107b0095a22f73413cc9f0c679e65fa911edc238d72f9213b"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "10b0137218040758fc2601848cd165a52af54560fca8c8b03bcd37be666306c6"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/process.log",
+    "bytes": 21698,
+    "sha256": "378531096caf97991b3689a9a5f11c39a82d3cb50f06800e2fec874621681003"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cached-ref-01/result.json",
+    "bytes": 1364,
+    "sha256": "7958a434dbb3a2aad17e5b8d1b526adc329e65738aaf303cd6b737c170b52c9e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/f-2048-0.trace.json",
+    "bytes": 1146,
+    "sha256": "b526236eda2b81b19774a403ee982e975e56a7a446f0f8ac30433e2b1c48d1b7"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/f-2048-1.trace.json",
+    "bytes": 1141,
+    "sha256": "90f16cc0e2b7d183be6e2112adddb8c0a739384561918f8ce70cc06f6a487eef"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/f-2048-2.trace.json",
+    "bytes": 1140,
+    "sha256": "91425e9262fd69a3d40e06200398ea997c5a32a38960b020addfb0a69f5bf6bc"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/frozen-config.json",
+    "bytes": 7517,
+    "sha256": "7722ad44c4cd2ea7039a1fadd3546dbb612f50b88631b4ec53610b7c2d372287"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/manifest-validator-source.py",
+    "bytes": 3097,
+    "sha256": "201f87213a44219ec8aa4fe850aea090daa1f9c76ba628d85fc38cdbccf2c35e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/merge.json",
+    "bytes": 53,
+    "sha256": "adbab82f5c5715c830372f209f61ba7f74249db147944fe1cf51e4de9f639cf1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/partial.json",
+    "bytes": 89396,
+    "sha256": "82fc5135e2a54c0cf65e67f1946e0f764576c9a688f3e391db3ba3e636db4f95"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/prompt-manifest.json",
+    "bytes": 85556,
+    "sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/result.json",
+    "bytes": 89476,
+    "sha256": "24bfc90acb02f7abcf228051c90c77b36c028df793d1436f90a82bd0a8c88baf"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "adbab82f5c5715c830372f209f61ba7f74249db147944fe1cf51e4de9f639cf1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/process.log",
+    "bytes": 15545,
+    "sha256": "2bf8c978a99600c49e136ed3a560241db17c5cfb20e1f1a1f35793883ded20fe"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-01/result.json",
+    "bytes": 1326,
+    "sha256": "05062851d65e73b53d37c05aba50e7a7fb7959eff5199a718e0aadd77b27c7aa"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/f-2048-0.trace.json",
+    "bytes": 1150,
+    "sha256": "3c7bf5d405b37f94150cb6fce9a33b4c3ecb2e43e8f86694a7ab803413f6568d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/f-2048-1.trace.json",
+    "bytes": 1141,
+    "sha256": "8d885de6b26ef1056cfa54acadba173230e35f9a7fa2349a3763c58601f8972f"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/f-2048-2.trace.json",
+    "bytes": 1142,
+    "sha256": "d61af5705bc54a6300f8eacb45f7a23ae86c1b32ed10b668299813982f33f489"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/frozen-config.json",
+    "bytes": 7517,
+    "sha256": "7722ad44c4cd2ea7039a1fadd3546dbb612f50b88631b4ec53610b7c2d372287"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/manifest-validator-source.py",
+    "bytes": 3097,
+    "sha256": "201f87213a44219ec8aa4fe850aea090daa1f9c76ba628d85fc38cdbccf2c35e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/merge.json",
+    "bytes": 53,
+    "sha256": "3f466fe3dbf4af992595849555cbb650132180e8f7ab53ca379c1910de4adf32"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/partial.json",
+    "bytes": 89390,
+    "sha256": "25b2ec642041b14a82e2db108f1cd72ffe8cf800d4ef23f059823af6c56c53d0"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/prompt-manifest.json",
+    "bytes": 85556,
+    "sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/result.json",
+    "bytes": 89470,
+    "sha256": "2bb3e843a0f6f76d07aaea728ffbf92e9a04ecce558bb7541c182db569c75671"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "3f466fe3dbf4af992595849555cbb650132180e8f7ab53ca379c1910de4adf32"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/process.log",
+    "bytes": 15545,
+    "sha256": "e30efaf3b40484d2d498c959d89f2dd4f3fc82f9d2159242e6e0991ab16db027"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-cold-cost-02/result.json",
+    "bytes": 1326,
+    "sha256": "2cf61869480d21bbe5c872921fef35f4d4251178757622cc9dbfef121788a7ab"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/f-2048-0.trace.json",
+    "bytes": 1153,
+    "sha256": "e8bff09da49dbead4e8e87ca6251d98f435e8dbaa6d30dc6b4451dd479834d1d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/f-2048-1.trace.json",
+    "bytes": 1142,
+    "sha256": "cc381008905f33efb2d1028b2635a693d76c604088ae488db8fda1b04ebf8e5d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/f-2048-2.trace.json",
+    "bytes": 1146,
+    "sha256": "fa421374544b740d0448c38e3d981edeffc5f1a25d8aa424fd448d3bef8a495a"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/frozen-config.json",
+    "bytes": 7535,
+    "sha256": "97bc632e5d64f4226de0e4afcce667ed5cabb54df255704bc0cfc6256cae0bf5"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/gpu_hot-2048-0.trace.json",
+    "bytes": 1140,
+    "sha256": "6bc185a08c2ddbf67f9db75d83924a054e2ae2034fe18ed31606bb7c64084a9d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/gpu_hot-2048-1.trace.json",
+    "bytes": 1142,
+    "sha256": "57c6eb40777e40808cc41a1daa0c14bc2a10312e065c232a76a5ec72281af7d5"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/gpu_hot-2048-2.trace.json",
+    "bytes": 1144,
+    "sha256": "eef95efe7705f074b6a332d57332d91f87af19507d0a3c1d9f8be59e9eec8e41"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/manifest-validator-source.py",
+    "bytes": 3097,
+    "sha256": "201f87213a44219ec8aa4fe850aea090daa1f9c76ba628d85fc38cdbccf2c35e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/merge.json",
+    "bytes": 53,
+    "sha256": "b591c250da5d72dd4c7fadbcda770465145c67bb0e3a8df9f9831e59e9c8b8a6"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/partial.json",
+    "bytes": 181284,
+    "sha256": "ed508f663e3bc469d97e61450d230f1520ab670d0294d904cd2eccc1953ec60b"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/prompt-manifest.json",
+    "bytes": 85556,
+    "sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/result.json",
+    "bytes": 181399,
+    "sha256": "bebe5fca6dbbafd34cf38433f25c07a9211db55219f23763e735745be1e4353f"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "b591c250da5d72dd4c7fadbcda770465145c67bb0e3a8df9f9831e59e9c8b8a6"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/process.log",
+    "bytes": 17400,
+    "sha256": "2909b6b2d861026a917c786d947bcf3a8a8bc0b4fb8a95cc4148c90031b54fde"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-native-ref-01/result.json",
+    "bytes": 1388,
+    "sha256": "9ece6d14cc15dbb1d05906cc836cfdebf15cd63cd46156fb84c32b1ee1a56a8e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/frozen-config.json",
+    "bytes": 8191,
+    "sha256": "e521eaffc8c68f23dcad6d1895adca875fce0d88b8266008e6fc05e3bbe3f7a3"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/g_mem-2048-0.trace.json",
+    "bytes": 53227,
+    "sha256": "39b3f48ef9c5847e09978b773d6e4cc2a5e4493ba466fd1489a79b0f303afdc8"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/g_mem-2048-1.trace.json",
+    "bytes": 53362,
+    "sha256": "f18d4dbe025489da5d7c28ce169b5c408c52268c401e603de598f855a1f306ea"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/g_mem-2048-2.trace.json",
+    "bytes": 53382,
+    "sha256": "2bd4fae339be7f6c5bbb8dcd96038eb4dd8f757ee5c6bb181e8f32ef286a329d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/g_ssd-2048-0.trace.json",
+    "bytes": 196534,
+    "sha256": "855df36821dbe8e5acbb437fd05759a05ef94dea6d882ea489faeebd55975016"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/g_ssd-2048-1.trace.json",
+    "bytes": 198165,
+    "sha256": "161d058dca402f460ea25c93ef9c9fcf0e6521d26d2da30f8d551c0194ab64e9"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/g_ssd-2048-2.trace.json",
+    "bytes": 191294,
+    "sha256": "1a9666f1c75353185f7037d138e79221ad15d9548668b0abe9e3c0bf57c708a4"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/manifest-validator-source.py",
+    "bytes": 3097,
+    "sha256": "201f87213a44219ec8aa4fe850aea090daa1f9c76ba628d85fc38cdbccf2c35e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/merge.json",
+    "bytes": 53,
+    "sha256": "3938d4ac88cbfe077f235e3886271ed65294629a28958a94e8e74b4df6ac8c53"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/partial.json",
+    "bytes": 185635,
+    "sha256": "cae2cde1b9aa47c9a59f7cb8a06b5a8c4a881963e40306394aecb1fc734bc6e9"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/prompt-manifest.json",
+    "bytes": 85556,
+    "sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/result.json",
+    "bytes": 186497,
+    "sha256": "26410146cfc3ee20cd1faf4997e5245c5c6248e7b632f4b86241cf3691585f1e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "3938d4ac88cbfe077f235e3886271ed65294629a28958a94e8e74b4df6ac8c53"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/process.log",
+    "bytes": 21705,
+    "sha256": "424770e62344f8a787a8786459377426982118c84c1d94afaf8f502aa4cafe17"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-01/result.json",
+    "bytes": 1334,
+    "sha256": "e55bb1310f2f6c49128512180abb02aae94c00b4bd13fee05f8b7d5d9993fd04"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/frozen-config.json",
+    "bytes": 8191,
+    "sha256": "e521eaffc8c68f23dcad6d1895adca875fce0d88b8266008e6fc05e3bbe3f7a3"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/g_mem-2048-0.trace.json",
+    "bytes": 53188,
+    "sha256": "d87a7451bd869a81794bba46c93a121436544fc51889f22f8f2c4444f57df385"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/g_mem-2048-1.trace.json",
+    "bytes": 53405,
+    "sha256": "f96fd79a75892bd5c6c4986ca6ee687430b51736dbc59bb413391de3b0df0b00"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/g_mem-2048-2.trace.json",
+    "bytes": 53188,
+    "sha256": "320affdff4a4aa2fcf5daf1e534fe010d6e7d7f4d05293b63cd3d78265762f9b"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/g_ssd-2048-0.trace.json",
+    "bytes": 193993,
+    "sha256": "e86491b5f7303cb5a4b53fef46056500a72625fdc36a5b96d5f1958a17fba561"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/g_ssd-2048-1.trace.json",
+    "bytes": 192269,
+    "sha256": "d60dbb16b1531dabc23ea54e9aab8feaa523ea8dc52b63c1b327cb012187ce2c"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/g_ssd-2048-2.trace.json",
+    "bytes": 196173,
+    "sha256": "0c87a4a7ca085ebfb4659bcaad81a8309b9d7d92c0c8d615fad89e645a0069c9"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/manifest-validator-source.py",
+    "bytes": 3097,
+    "sha256": "201f87213a44219ec8aa4fe850aea090daa1f9c76ba628d85fc38cdbccf2c35e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/merge.json",
+    "bytes": 53,
+    "sha256": "b54dd4b1933c9ea70b3f288c3520f069f09b425592e17f1d9aa6d736bbfbdd50"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/partial.json",
+    "bytes": 185637,
+    "sha256": "1cbfe6f3b94af1fd93dc97e8be036108f21e84706ade587586d08c67dc74732f"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/prompt-manifest.json",
+    "bytes": 85556,
+    "sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/result.json",
+    "bytes": 186499,
+    "sha256": "3ba86e8e40acda5e05e1fe9df9f6547864031847d3773733ae2a8accf261701d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "b54dd4b1933c9ea70b3f288c3520f069f09b425592e17f1d9aa6d736bbfbdd50"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/process.log",
+    "bytes": 21705,
+    "sha256": "4d375ce96361a53070e68fcc94a1bbe8235a4bb2b8be7a9d8e672dd88a3ade84"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-paired-cost-02/result.json",
+    "bytes": 1334,
+    "sha256": "de3ad0d1c7dac959caa7d71581749b034d42c4e3b36bbb391e4e3fd8fd54cda1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/driver-source.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/frozen-config.json",
+    "bytes": 8191,
+    "sha256": "e521eaffc8c68f23dcad6d1895adca875fce0d88b8266008e6fc05e3bbe3f7a3"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/g_mem-2048-0.trace.json",
+    "bytes": 53171,
+    "sha256": "4f648c0970e3554cd51716675f8e158cea656ce6488f62ec7ca93a9a00c5de30"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/g_mem-2048-1.trace.json",
+    "bytes": 53188,
+    "sha256": "2f07e43ed3fa9a628b483d261d780aff1bfa6aa778d31daabce602c4314a33a3"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/g_mem-2048-2.trace.json",
+    "bytes": 53173,
+    "sha256": "644d2dc1c34da6d15bd489a87884e775e62df1cadbd93b353f54df0d5e8c5343"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/manifest-validator-source.py",
+    "bytes": 3097,
+    "sha256": "201f87213a44219ec8aa4fe850aea090daa1f9c76ba628d85fc38cdbccf2c35e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/merge.json",
+    "bytes": 53,
+    "sha256": "dfe691d83abdae430a4eb0371ccee326b05e5d64ce31a97ec6002c9017c53de7"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/partial.json",
+    "bytes": 184478,
+    "sha256": "0fa4e7189a89fb47141ae6089330bc146e99335eb2e4025ca07fa0abd71e4273"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/prompt-manifest.json",
+    "bytes": 85556,
+    "sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/result.json",
+    "bytes": 185338,
+    "sha256": "8f43d191326a81578b088a58d529e32d4bd08b5806cd5b66c7e3acb400ebb845"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/results_engine_core_0.json",
+    "bytes": 53,
+    "sha256": "dfe691d83abdae430a4eb0371ccee326b05e5d64ce31a97ec6002c9017c53de7"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/store-2048-0.trace.json",
+    "bytes": 87634,
+    "sha256": "da25d35d6c49a00e92baf03399298d1f5f131101ee851be76261843970ad3682"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/store-2048-1.trace.json",
+    "bytes": 86989,
+    "sha256": "a4baa88f1d0ecdfa9a22788bdf1b742cbaa6ca06dcc365195bb19db41f67b73e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/details/store-2048-2.trace.json",
+    "bytes": 87008,
+    "sha256": "7813a47a890558132dfecb922d32e3db638ec75e96a151c6307b19cfd94f8770"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/process.log",
+    "bytes": 21374,
+    "sha256": "03acdbd798eaddab0dc7c7c9bd4eb7d14d3b88ca6a39ebc883508f281a418711"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-heldout-populate-01/result.json",
+    "bytes": 1327,
+    "sha256": "af1e39091d090261fda4b60b04839aa08770d84d3e4dbd23b0ba22aec08d66c6"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-uniform-long-cost-01/details/frozen-config.json",
+    "bytes": 7748,
+    "sha256": "42bd8a10a76927550aa3e79ad2c0c49f5614205b485964bffc7c81f9aec7c75b"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-uniform-long-cost-01/details/result.json",
+    "bytes": 547861,
+    "sha256": "8c0dfc17cb2a0268837b655d60971f353bcf53d11afa202eaf6a13a77a33c4f0"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-uniform-native-ref-01/details/frozen-config.json",
+    "bytes": 7116,
+    "sha256": "483912b84666ce4bc881a65eb2c32b9bb516650b6bddc1ed9019ada3c67b344a"
+  },
+  {
+    "path": "experiments/prefix_io_v1/runs/server07-p3-uniform-native-ref-01/details/result.json",
+    "bytes": 2624567,
+    "sha256": "47339fccef79dad239e6475a00ab468c037556645b8553b51e3590021bc575a8"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py",
+    "bytes": 18151,
+    "sha256": "a30802f033a8b7904a5bf103f7c350ac95e3aebd42a9f22161e5b7820a04cdb1"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/aio_cpu_microbench.py",
+    "bytes": 7462,
+    "sha256": "43d092e7dc721c74ed35cfdb58f18e7e2fd62f298ee2a447a23411aa320bebc6"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/aio_cpu_mixed_screen.py",
+    "bytes": 9601,
+    "sha256": "6602ec5a903601e4d38c03489817ffcb9b59f32bf2f03042504b112f9b9a1bd5"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/analyze_cached_references.py",
+    "bytes": 7695,
+    "sha256": "6a33992b9ec51dc25d405813b1ee9ccf8ee33a5a15cc44c802301253135eaba7"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/analyze_heldout_drift.py",
+    "bytes": 4785,
+    "sha256": "a73ff332ce4ad2ffc555f6725844f1c6b8c4055e508833c2f8d0091cbbd0b858"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/analyze_long_replay.py",
+    "bytes": 6124,
+    "sha256": "e8870aac0bd3a78f2c5b5393418e5584717563646301fd1b3b2c7159364111e6"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/analyze_p2_qualification.py",
+    "bytes": 4753,
+    "sha256": "3301abb69a9f8f672d5ebe7fd690b8907db9c8fe58c50ce7511e43dcd7358ce5"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/analyze_p3_pilot.py",
+    "bytes": 6799,
+    "sha256": "95f778f9d53d37feb19eb24a0163c814e7e453ae99eaa03cdf57fe64c3f7537e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/analyze_repeated_native_costs.py",
+    "bytes": 6695,
+    "sha256": "21bf7fc7562dcf1711a0e3dbad9b740e122a7126304d7f048258f79b32dc773a"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/audit.py",
+    "bytes": 5660,
+    "sha256": "85553cc8c53817592367842613386e77de8a7838dff011f8c677c37d0076bb24"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/audit_local_model_headers.py",
+    "bytes": 2956,
+    "sha256": "ac972b7682502d54d638bbe5639b4a3ac0519bb63dd980e3eae12f9bb96f9b6d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/build_author_vllm.sh",
+    "bytes": 1629,
+    "sha256": "8682e2d43ffa819827bd48be647e4d832b7b094fef49893b0d027425dd291a8b"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/check_selected_gpu_capacity.py",
+    "bytes": 1135,
+    "sha256": "f0388cc6886c03d8704d2118dd7033df8e1c46c2622066b7399fca86532e83c5"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/cuda_base_smoke.py",
+    "bytes": 1077,
+    "sha256": "607f21ea6dd03e559f1e1933eff2f3242815f63a2fde24969d1be0064deeeb72"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/download_pinned_model.py",
+    "bytes": 16672,
+    "sha256": "c39562e4b2a6450f355b52210dc06ebd5ae499e6693349509ce6532718e08ded"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/export_native_aio_costs.py",
+    "bytes": 6397,
+    "sha256": "19f6911e78d59eacc148a36f48004f887946d9a655f1be53d2c3a40628787b49"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/export_uniform_calibration_candidate.py",
+    "bytes": 9062,
+    "sha256": "2f575802f9618bbf832152a62b443b06de674f61a58e61f0f52720c08bd986d9"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/heldout_manifest.py",
+    "bytes": 3097,
+    "sha256": "201f87213a44219ec8aa4fe850aea090daa1f9c76ba628d85fc38cdbccf2c35e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/long_calibration_contract.py",
+    "bytes": 1959,
+    "sha256": "aa8c4e0c6762790343dd5a8ff6a056a14cd12e2d1962d5583ab19af68a3678fd"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/measure_observation_cpu.py",
+    "bytes": 6029,
+    "sha256": "b42387b277452408fec6459a5e9f9a6220a11784d7081063727c9309b0173123"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "bytes": 21990,
+    "sha256": "7d31cce851ca2334fedbe6b66c4e2d9bfff19e8768bafaa52f68e414518d77e2"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/prepare_cuda_toolkit.py",
+    "bytes": 1447,
+    "sha256": "b402765637c2d5ef7dd4d3e9555d6f7f66fb38f9fe8275b1ef80ed6e9471848f"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/prepare_heldout_validation.py",
+    "bytes": 3386,
+    "sha256": "5c983dbacf8441793f4dca4fc70da93b907f358ed7a80c0b327520fa18b6507b"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/prepare_native_calibration_plan.py",
+    "bytes": 16365,
+    "sha256": "bbea9525726a3e88a6cd2e5e7489cefe77b391606213999ad70737a36a1567f0"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/prepare_p3_pilot.py",
+    "bytes": 2338,
+    "sha256": "dbf840f6dbe4a2323d70b176094aa9e36d45bde4aaf3ff23c68c65dc7e61d265"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/prepare_qwen_download.py",
+    "bytes": 10082,
+    "sha256": "02d19f88d283a162fe5b8f0e68e682dd28a32f1623e4cf48f97583453f0d10fd"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/preserve_build_evidence.py",
+    "bytes": 1273,
+    "sha256": "8d03abde1b1ec6133b656b1cae00e0fa3f98e467e06e7100f8dc98b78606d027"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/qualify_aio_gpu_reactor.py",
+    "bytes": 8364,
+    "sha256": "1eca44fb729e77dfbe9468ecb3554081c8f46a2ddae8a60fca10ca0264e8c10e"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/qualify_author_copy.py",
+    "bytes": 10636,
+    "sha256": "a491b7041c8664ad7de887006652573f4eea56858931bfe93e0c87ca35764799"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/qualify_author_imports.py",
+    "bytes": 9567,
+    "sha256": "17cd55f4acffcdb3ba13b4d7a0d6c7aec2c74582201d4b9f8028c204e14ce868"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/qualify_author_platform.py",
+    "bytes": 1239,
+    "sha256": "12e216235ea52a2feea6cc30e9df62b8cb21b6bbf6de8fddc29c510743368fcf"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/qualify_native_aio_kv.py",
+    "bytes": 4530,
+    "sha256": "fb74d41995630b446dda2cca11ab47e20ec895e5b984d3b9fdbb52a7b0eb842b"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/qualify_p2_gpu_progress.py",
+    "bytes": 9773,
+    "sha256": "63faa55bf8c0c8f88df02e34c42cda24d7d49ac800e1fd70e490b3e091b38d6d"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/qualify_p2_native_observer.py",
+    "bytes": 8090,
+    "sha256": "43f056855a0c1daa956ff31d32ff7deab8489c053477bdd8efe8ceb4e79ee7ab"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/reproduce_cpu.sh",
+    "bytes": 456,
+    "sha256": "7ed8cec9daf7646f2c8b678b9dc432aaaa85b63de63a18b12c9438bfbbd99bd0"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/reproduce_observer_cpu.sh",
+    "bytes": 864,
+    "sha256": "bbba70f7c7706ab5009f1840dad49e89b5b02078a4e83fb2accadacbec3f0d13"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/reproduce_progress_cpu.sh",
+    "bytes": 671,
+    "sha256": "01aa4ad3ea118ec77ee32f6367d89b58fca4d11e48ed904c52c066522fdbbffc"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/resume_pinned_model.py",
+    "bytes": 13203,
+    "sha256": "86b1f6ad71e0f5fbdea689ea2efe7ae092407ee4b3b1a9bbb096b45ffe6a0ddc"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py",
+    "bytes": 657,
+    "sha256": "c38b0a07eee0c7fb17dcbd74d5ed2e6b6adae38ce1596419ae684602aadb8226"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "bytes": 10863,
+    "sha256": "0786442f4104f3dc54e2006b0e7b3ed2dd3501dcf6410fa2e2c52201dd05559f"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/run_long_calibration_replay.py",
+    "bytes": 11073,
+    "sha256": "14640d36b1f004a6ff2dead0b0c1e7cfe881e6541231974d83ce55396e08bf84"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/run_p3_native_pilot.py",
+    "bytes": 14157,
+    "sha256": "ff0905821eddc368dbfe168fdb735603dcfedbddcec96d86dfd01614dfbdf855"
+  },
+  {
+    "path": "experiments/prefix_io_v1/scripts/validate_heldout_costs.py",
+    "bytes": 8636,
+    "sha256": "677853eedaa9d2013c9e5e8e6e9c038da02694e9c911c11e7a42df0730bcc58f"
+  },
+  {
+    "path": "src/prefix_io_control/__init__.py",
+    "bytes": 149,
+    "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+  },
+  {
+    "path": "src/prefix_io_control/bridge.py",
+    "bytes": 852,
+    "sha256": "c1e1a5454ebeda338f37deebdccf9293374e9e9002c472377ae483438071ecb5"
+  },
+  {
+    "path": "src/prefix_io_control/config.py",
+    "bytes": 8880,
+    "sha256": "5a250e2ffb233f6252ecfc5e1209c23e141d00f9c2295712ff44087bafcf93b6"
+  },
+  {
+    "path": "src/prefix_io_control/dependencies.py",
+    "bytes": 5772,
+    "sha256": "41cc50163c51a2f02486230fcfa36c348af95ef687c3f2cb815bdd6797f29481"
+  },
+  {
+    "path": "src/prefix_io_control/native_options.py",
+    "bytes": 1338,
+    "sha256": "25f09f9ef3006553314156cd0795e94cf6a67e7bc1215e6d3bd3d832459722fe"
+  },
+  {
+    "path": "src/prefix_io_control/native_owner.py",
+    "bytes": 8493,
+    "sha256": "2ef22ba90e6a89890a0a060e81f0cd639f7f04bb8c7bb16635208edf80534a81"
+  },
+  {
+    "path": "src/prefix_io_control/observation.py",
+    "bytes": 2890,
+    "sha256": "8ddf5634f46b254f9e539187caa964503d44954637edfeb5c385b2b369b706f2"
+  },
+  {
+    "path": "src/prefix_io_control/preflight.py",
+    "bytes": 2140,
+    "sha256": "a4cff5d15308bb3b51b9a1e959851d34f8fbc72e34b697d1a70dfdb71e01a126"
+  },
+  {
+    "path": "src/prefix_io_control/publication.py",
+    "bytes": 3688,
+    "sha256": "bcaaa49d78f44d692cab89ad86fa5197cbab59491dab85b902d9fe4ef7baa0b7"
+  },
+  {
+    "path": "src/prefix_io_control/token_timeline.py",
+    "bytes": 1738,
+    "sha256": "fbcae96ecbc86041d324362fa5b6b2a4c4d51e033b67f1b330cfc2b594c84164"
+  },
+  {
+    "path": "tests/prefix_io_v1_native_costs/test_export_rejections.py",
+    "bytes": 2431,
+    "sha256": "2dfd5c70c2c5258dbf7ef36bb61fe90003359cd7e26c4aabc17d7adffd50e038"
+  },
+  {
+    "path": "tests/prefix_io_v1_pilot/test_activity_intervals.py",
+    "bytes": 1407,
+    "sha256": "7a2751d64352c3f63eee12a064b22bb15a85ef15e8ad83bb4357b82ab6561301"
+  },
+  {
+    "path": "tests/prefix_io_v1_pilot/test_cached_reference_checks.py",
+    "bytes": 1992,
+    "sha256": "ce619338b8ae884fbfc5d280e544f24113624e0b1eb171a4905725eb15bbdc1d"
+  },
+  {
+    "path": "tests/prefix_io_v1_pilot/test_cost_domain_guard.py",
+    "bytes": 1755,
+    "sha256": "d2151fc49b7f3c557293397a1a8cee11e8cd89f80814807fbdfed176de488c2c"
+  },
+  {
+    "path": "tests/prefix_io_v1_pilot/test_heldout_manifest.py",
+    "bytes": 1924,
+    "sha256": "d10bf2d436d3b6c1e7fbc47cd3ca9f3f0d0cb488f44ee6d04b6b1e2a17ce0233"
+  },
+  {
+    "path": "tests/prefix_io_v1_pilot/test_heldout_prediction.py",
+    "bytes": 962,
+    "sha256": "ae385cf73344c2d11422124a7c85cde5751e554a0685b1f971badc52a30fd222"
+  },
+  {
+    "path": "tests/prefix_io_v1_pilot/test_long_calibration_contract.py",
+    "bytes": 2290,
+    "sha256": "924f69a3fd7f3d7b5c68983149031b85e85c3032d622d52965b66fddd7127903"
+  },
+  {
+    "path": "tests/prefix_io_v1_pilot/test_repeated_cost_checks.py",
+    "bytes": 3371,
+    "sha256": "9945d82e1b81cf1a4de78fedb9b972a71a95b4042bbf9fa5f0bd8c92aa301514"
+  },
+  {
+    "path": "tests/prefix_io_v1_pilot/test_token_timeline.py",
+    "bytes": 1141,
+    "sha256": "02d11921447b518be502361faa6e64472b81f803aaff738da7f5882782bb55c3"
+  }
+]

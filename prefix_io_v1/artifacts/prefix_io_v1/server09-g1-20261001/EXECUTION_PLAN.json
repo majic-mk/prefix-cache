@@ -1,0 +1,59 @@
+{
+  "status": "AUTHORIZED_AND_CPU_GATES_PENDING",
+  "modes": [
+    "off",
+    "shadow"
+  ],
+  "maximum_jobs": 2,
+  "total_planned_reserve_seconds": 400,
+  "scope_record": "artifacts/prefix_io_v1/server09-g1-20261001/GPU_STAGE_AUTHORIZATION.json",
+  "source_lock": "artifacts/prefix_io_v1/server09-g1-20261001/gpu-source-lock.json",
+  "permissions_path": "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml",
+  "runs": [
+    {
+      "mode": "off",
+      "name": "server09-p4-native-off-01",
+      "launch_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+        "--mode",
+        "off",
+        "--name",
+        "server09-p4-native-off-01",
+        "--launch",
+        "--scope-record",
+        "artifacts/prefix_io_v1/server09-g1-20261001/GPU_STAGE_AUTHORIZATION.json",
+        "--source-lock",
+        "artifacts/prefix_io_v1/server09-g1-20261001/gpu-source-lock.json",
+        "--permissions-path",
+        "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml"
+      ]
+    },
+    {
+      "mode": "shadow",
+      "name": "server09-p4-native-shadow-01",
+      "launch_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+        "--mode",
+        "shadow",
+        "--name",
+        "server09-p4-native-shadow-01",
+        "--launch",
+        "--scope-record",
+        "artifacts/prefix_io_v1/server09-g1-20261001/GPU_STAGE_AUTHORIZATION.json",
+        "--source-lock",
+        "artifacts/prefix_io_v1/server09-g1-20261001/gpu-source-lock.json",
+        "--permissions-path",
+        "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml"
+      ]
+    }
+  ],
+  "source_refs_count": 2052,
+  "budget_before": {
+    "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+    "bytes": 335086,
+    "sha256": "31199998369e35fcd40daddd7af340353b0feaf134bbe37d2dd8f1f35391efc1"
+  },
+  "global_budget_reset": false
+}

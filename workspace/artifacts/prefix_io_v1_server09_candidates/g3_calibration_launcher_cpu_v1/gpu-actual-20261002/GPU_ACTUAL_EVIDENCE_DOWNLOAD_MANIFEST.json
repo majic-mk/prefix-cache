@@ -1,0 +1,179 @@
+{
+  "status": "ACTUAL_GPU_EVIDENCE_INVENTORY",
+  "files": [
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/result.json",
+      "local_relative": "cold/result.json",
+      "bytes": 1368,
+      "sha256": "4da7bbbef36d2e168a2e4f3fedf128e25117bca3a13944ce57bdf32cb54b3e75"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/process.log",
+      "local_relative": "cold/process.log",
+      "bytes": 14029,
+      "sha256": "b2771bc5ed7adc98a30ef3bcb99fcb75a36ca6fbcd3b9b3122dc37875e2c3b54"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/calibration-runtime-result.json",
+      "local_relative": "cold/details/calibration-runtime-result.json",
+      "bytes": 24706,
+      "sha256": "a1239055586ce5ac0ac1b9bbdd8dacea33675f8c941b6caabd9d3f72d05ef918"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/post-source-verification.json",
+      "local_relative": "cold/details/post-source-verification.json",
+      "bytes": 495,
+      "sha256": "474c08c8173f1d03621765f72c0a5babf456ab773c76143701c50cab3bd0362c"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/original-generate-00.json",
+      "local_relative": "cold/details/original-generate-00.json",
+      "bytes": 899,
+      "sha256": "9e901485bd9a11b7f8dad2f5eae262fb667b91feca314d5825c80b8fab045219"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/original-generate-01.json",
+      "local_relative": "cold/details/original-generate-01.json",
+      "bytes": 899,
+      "sha256": "5baecad69b3aaadfedd6ef1b568e569b784d3ae3b4e73403355287f459c857a7"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/original-generate-02.json",
+      "local_relative": "cold/details/original-generate-02.json",
+      "bytes": 899,
+      "sha256": "369c89a4a7635e3e4eecc5acf3dd0f054be941e32f1a524e78e0f88c707f4bcb"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/acquisition/driver-source.py",
+      "local_relative": "cold/details/acquisition/driver-source.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/acquisition/f-128-0.trace.json",
+      "local_relative": "cold/details/acquisition/f-128-0.trace.json",
+      "bytes": 1128,
+      "sha256": "78e4fb1ed5d2c67dca16cf7788275c18db11758d0c08e851a31f248a2e66bfd5"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/acquisition/f-128-1.trace.json",
+      "local_relative": "cold/details/acquisition/f-128-1.trace.json",
+      "bytes": 1116,
+      "sha256": "b8d7047b16d330092dc0c293cf8aa26fc2a96315e8d9a6aba4bbe60186b3fb1e"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/acquisition/f-128-2.trace.json",
+      "local_relative": "cold/details/acquisition/f-128-2.trace.json",
+      "bytes": 1116,
+      "sha256": "e298bc81a3d781bbf73c2d071ed3f64f666c4679d117905a19a48c6f66d85362"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/acquisition/frozen-config.json",
+      "local_relative": "cold/details/acquisition/frozen-config.json",
+      "bytes": 7120,
+      "sha256": "16262847134f3bf4318fcf6d036d1650446b983274c9cb6b660a004b01b87f9a"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/acquisition/partial.json",
+      "local_relative": "cold/details/acquisition/partial.json",
+      "bytes": 10125,
+      "sha256": "38299ae144f78079132a8ed15aefab5c44952f0c2b7d09ddfb7c9e40346f8d47"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/acquisition/result.json",
+      "local_relative": "cold/details/acquisition/result.json",
+      "bytes": 10833,
+      "sha256": "3c51b6895ae642dfde70fd09cd447236b931e3d015a59ec3fc9ee35c00c986a7"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-actual-20261002/cold-parent-execution.json",
+      "local_relative": "cold-parent-execution.json",
+      "bytes": 2675,
+      "sha256": "9ca2e3505ac3ea37419025929f70e22917ae88ea8c1c6109251656e7559446cb"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-actual-20261002/cold-parent.log",
+      "local_relative": "cold-parent.log",
+      "bytes": 1368,
+      "sha256": "4da7bbbef36d2e168a2e4f3fedf128e25117bca3a13944ce57bdf32cb54b3e75"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/result.json",
+      "local_relative": "populate/result.json",
+      "bytes": 1380,
+      "sha256": "a818d355d820ec8fd7d8555966817b8aaaefd1a17ab21a03c103054b04b5374a"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/process.log",
+      "local_relative": "populate/process.log",
+      "bytes": 18232,
+      "sha256": "55f03404b52be593e5c012a0d30e1050c9671d198d761f7e31243f38ae82345b"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/details/calibration-runtime-result.json",
+      "local_relative": "populate/details/calibration-runtime-result.json",
+      "bytes": 25490,
+      "sha256": "fcea748077dfd525885f7fa79e6ac19a98bf09447fd42a8a48da3b5a21bce192"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/details/original-generate-00.json",
+      "local_relative": "populate/details/original-generate-00.json",
+      "bytes": 899,
+      "sha256": "9e901485bd9a11b7f8dad2f5eae262fb667b91feca314d5825c80b8fab045219"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/details/acquisition/driver-source.py",
+      "local_relative": "populate/details/acquisition/driver-source.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/details/acquisition/frozen-config.json",
+      "local_relative": "populate/details/acquisition/frozen-config.json",
+      "bytes": 7808,
+      "sha256": "be759e9e0c751b3a79525954cea366fe01dea846405e4eea6d0d27f1581625e8"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/details/acquisition/partial.json",
+      "local_relative": "populate/details/acquisition/partial.json",
+      "bytes": 4953,
+      "sha256": "f62aa59b8e23083b4d2650bacee0601bb42b675b6b38dcf48730a7d528c1875b"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/details/acquisition/result.json",
+      "local_relative": "populate/details/acquisition/result.json",
+      "bytes": 9054,
+      "sha256": "67fb518c96ffc166b1114363667e6f19152040472e7313084e1f6ebff0c3d129"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/details/acquisition/store-128-0.trace.json",
+      "local_relative": "populate/details/acquisition/store-128-0.trace.json",
+      "bytes": 7855,
+      "sha256": "8aca5b071dab19fca2c40a49d3997b1a067bfb6f2229fc696711266f29c851d1"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-actual-20261002/populate-parent-execution.json",
+      "local_relative": "populate-parent-execution.json",
+      "bytes": 4213,
+      "sha256": "ecf7e260bdf7409e4e64c774fb2b4a1591ddf3ddd25630171b4fa6ab4bfede9b"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-actual-20261002/populate-parent.log",
+      "local_relative": "populate-parent.log",
+      "bytes": 1380,
+      "sha256": "a818d355d820ec8fd7d8555966817b8aaaefd1a17ab21a03c103054b04b5374a"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-actual-20261002/ACTUAL_G3_TWO_JOB_SOURCE_CLOSURE_AND_STORAGE.json",
+      "local_relative": "ACTUAL_G3_TWO_JOB_SOURCE_CLOSURE_AND_STORAGE.json",
+      "bytes": 6560,
+      "sha256": "9b71817aa7c485471e2e7672c0505b26296f7184c00426bc0a391bdfb36c2de1"
+    },
+    {
+      "remote": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/gpu-budget-ledger.json",
+      "local_relative": "gpu-budget-ledger-after-g3.json",
+      "bytes": 350364,
+      "sha256": "8bf9876c6afb543f878228baa8f2f9eff8b8efe4c8565bd400de20f8daaf7884"
+    }
+  ]
+}

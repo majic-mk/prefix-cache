@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "CPU_TESTABLE_SOURCE_BOUND_OWNER_AND_TAIL_OBSERVER_NOT_INSTALLED",
+  "runtime_hook_status": "not_installed",
+  "GPU_jobs": 0,
+  "GPU_verified": false,
+  "production_qualified": false,
+  "cost_qualified": false,
+  "release_credit": false,
+  "effect_verified": false,
+  "scope": "Read-only actual registration/source/counter observations at existing original handler calls; no launcher, backend, executor, policy or timer implementation.",
+  "api": {
+    "constructor": "NativeOwnerObserver(enabled=False, origin='cpu_fixture'|'source_bound_runtime', run_id, source_root, support_root=source_root, drain_module_path, connector_path, adapter_path, max_records=1024)",
+    "owner": "verify_owner(worker, handler) returns bounded immutable source/registration witness or invalidates observer",
+    "transfer": "observe_transfer(worker, handler, job_id, (src_spec,dst_spec), profile_tid=..., req_id=...) invokes original handler.transfer_async exactly once and returns original object",
+    "results": "observe_get_finished(worker, handler) invokes original consuming handler.get_finished exactly once, copies existing returned TransferResult scalar fields and returns the original list identity",
+    "shutdown": "observe_shutdown(worker, handler) invokes original handler.shutdown exactly once. Only after success, original coordinator.inspect_snapshot exactly once; direct actual fields and frozen drain validation must agree. Original exception object has priority.",
+    "installation": "No hooks are installed. Root must use these wrappers at the one existing original boundary; never call get_finished or shutdown separately for observation. Current code requires original instance methods unmodified; a future instance-hook installer would need its own explicit binding contract."
+  },
+  "registration_chain": ["locked GPUWorker module original singleton aliases", "kv_transfer_state._KV_CONNECTOR_AGENT", "OffloadingConnector.connector_worker", "OffloadingConnectorWorker.worker and spec", "OffloadingWorker.handlers and both exact transfer mappings", "PyKvCacheOffloadingSpec._handler", "NoopSharedStorageOffloadingHandler.coordinator", "TransferCoordinator.reactor", "IoReactor.ring and _prefix_stage_accounting"],
+  "binding": {
+    "module_refs": "11 exact source refs are embedded in MODULE_REFS; full original source is compiled without execution to obtain code baselines.",
+    "runtime": "Exact sys.modules/module file/spec/loader, class identity, original method code/qualname/globals and no instance method override; author LockedSourceLoader get_code/class/globals and pinned qualifier source are checked. Original actual Thread identities and accounting owner identity checked. None owner is valid only before physical stage acceptance.",
+    "cpu_fixture": "Explicit fixture modules have no runtime loader/spec and replay original exact code objects against synthetic actors. origin=source_bound_runtime rejects these fixtures; shape receipts cannot claim source-bound runtime, GPU, SSD, effect or production truth.",
+    "source_bound_runtime_limit": "Source and owner-chain binding alone is not proof of real GPU backing, UUID, ABI, active GPU guard or actual native execution. These independent witnesses belong to the future root runner. native_io_completion_observed stays false even when source-bound stage closure fields were copied; source_bound_stage_closure_observed means only the checked counter/owner contract was observed."
+  },
+  "tail": {
+    "reused_validator": "Frozen g2_native_drain_provider.py 21997 bytes SHA261f8cd2438a4941d41077b20c95bfab4ca4418858bbab09aa7a3ef459353a44 is loaded by pin; only existing _copy_native_fields and convert_post_shutdown semantics are reused on its own CPU validator instance. Old classes and false-qualification receipts remain unchanged.",
+    "required": ["successful original shutdown", "actual native/AIO actor not alive", "all 16 native owner fields empty", "handler active empty", "observation failures zero", "actual parent fields exist and agree", "all four stage accepted/completed requested/transferred counts agree; failed/inflight/outstanding zero", "Linux AIO closed/drained and accepted=completed=reaped, outstanding/pending/ready/unreaped zero", "snapshot/direct owner fields agree", "run and source identity stable before and after"],
+    "logical_vs_physical": "Transfer block/hash IDs and logical storage bytes are independent of aligned SSD request/result bytes and actual summed CUDA mapping bytes. No conversion equates these quantities. AIO accepted includes open/close; its total is not the SSD-read/write stage operation count.",
+    "pending_results": "Tail preserves task_results_complete=false if existing accepted tasks never appeared in the original consumed result batch; physical counter closure does not invent missing parent results.",
+    "roundtrip": "A native SSD roundtrip needs actual positive SSD write/D2H and SSD read/H2D in the root evidence, plus independent real payload equality. Newly stored staging is cached; immediate reload can have zero SSD read. Original store+shutdown and fresh original load instance, or original natural pressure, must establish an actual file load without clearing or disabling cache."
+  },
+  "unknowns": ["GPU elapsed and host/CUDA clock mapping", "full-step existing/new IO causal attribution", "resource release credit", "KV byte payload equality", "native GPU/SSD correctness qualification without actual root guarded run witness", "method effect or cost table readiness"],
+  "bounded_state": "max_records 1..4096 limits combined transfer/result scalar rows; at most 4096 CPU block IDs/hashes per transfer and 128 layout entries. On overflow, drift or observer fault, invalidate bounded scalar state without retrying or replacing the original call. No owner/runner/Future/job/tensor/event/callback/bound-method/exception/traceback is retained.",
+  "tests": "23 stdlib CPU contracts, including original-source registration methods, exact full-source code-object replay, original transfer/result identity and once counts, original native/AIO shutdown join/close plus snapshot once, old source/class unchanged, real source SHA/size failure, stale or swapped registration/modules/globals/code, CPU origin rejection, off poisoned inputs, short/missing/unreaped/failure tail, bounded scalar extraction and weakref GC.",
+  "server_test": ".venv/bin/python -B -I -S <deployment>/test_g3_native_owner_observer.py --source-root <ROOT> --support-root <ROOT> --drain-source <frozen-drain-artifact>/g2_native_drain_provider.py --connector-source <frozen-runtime-artifact>/p4_runtime_scalar_connector.py --adapter-source <frozen-frame-artifact>/p4_full_step_frame_adapter.py -v",
+  "allowed_next": "Root actual server stdlib CPU replay and source-only preflight; separate runtime/pilot source/scope/guard/payload review before any GPU execution. No new GPU authorization is created."
+}

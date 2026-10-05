@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_CPU_SDK_HELPER_V2_AND_ACTUAL_ASSET_PREFLIGHT",
+  "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-cuda13-toolchain-v2-20261001",
+  "actual_GPU_runs": 0,
+  "common_environment_repair_only": true,
+  "production_qualified": false,
+  "model_execution_qualified": false,
+  "files": [
+    {
+      "path": "CUDA13_SDK_CPU_PLAN.json",
+      "bytes": 10025,
+      "sha256": "8044db267791d5f217e3dd9c478375787aa73a74d53d19117f6bcebbc1f0a659"
+    },
+    {
+      "path": "cuda13_sdk_overlay.py",
+      "bytes": 16929,
+      "sha256": "ed846361788e9bdde853e6e0aa16e361329e3f2dffbfbe2c4f396acf9e9d1ecf"
+    },
+    {
+      "path": "historical-before-inventory-order-repair/CUDA13_SDK_CPU_PLAN.json",
+      "bytes": 7618,
+      "sha256": "aae0f625c8591a5d1e42198c8ba24cf68d7eedfcc1390064b22b2bb594809d02"
+    },
+    {
+      "path": "historical-before-inventory-order-repair/cuda13_sdk_overlay.py",
+      "bytes": 16875,
+      "sha256": "5a9151e1220eca08aa736f20be59cd6816bf47beb148a2429741fbe2d6ab177f"
+    },
+    {
+      "path": "historical-before-inventory-order-repair/LOCAL_CPU_CUDA13_SDK_RESULT.json",
+      "bytes": 4397,
+      "sha256": "73a52b3c9921025c2a6de5ea57b6fe605e8657a44713cb7fbe344563d09a17b2"
+    },
+    {
+      "path": "historical-before-inventory-order-repair/README.md",
+      "bytes": 2567,
+      "sha256": "46fa6639d1379520495c6c600484ee191fd5189a924c2bf761e6dd1b71c2d37c"
+    },
+    {
+      "path": "historical-before-inventory-order-repair/SERVER_CPU_TEST_RESULT.json",
+      "bytes": 2575,
+      "sha256": "d8a6e0eba1ec12c5584951ecbaf951b41f13e01777d3408485fdf783d99b2a85"
+    },
+    {
+      "path": "historical-before-inventory-order-repair/SERVER_READONLY_ASSET_PREFLIGHT_RESULT.json",
+      "bytes": 1105,
+      "sha256": "d85e6876b31a44971d8f4d0d075a9d162e46b9049953693d75b5cbcb41205081"
+    },
+    {
+      "path": "historical-before-inventory-order-repair/test_cuda13_sdk_overlay.py",
+      "bytes": 17142,
+      "sha256": "5a76cb71893b64ae8210f6474ad078b5d90f6a5cd1d79cbd3d1453cf60927c99"
+    },
+    {
+      "path": "INDEPENDENT_BOUNDARY_REVIEW.json",
+      "bytes": 9499,
+      "sha256": "0e1192fabe20ca97b6ee1091ff188127a36f9c6fe55e23322eaebf3156849f87"
+    },
+    {
+      "path": "LOCAL_CPU_CUDA13_SDK_RESULT.json",
+      "bytes": 4883,
+      "sha256": "62b881f6067559cf3b25346518944ae72e4b00a6229e2d5299bc55f0e32ff1c5"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3266,
+      "sha256": "098260311ca38f413a08429cd74dfa355707b225f44523ea15143bf0c61b9438"
+    },
+    {
+      "path": "SERVER_CPU_TEST_RESULT.json",
+      "bytes": 2575,
+      "sha256": "d8a6e0eba1ec12c5584951ecbaf951b41f13e01777d3408485fdf783d99b2a85"
+    },
+    {
+      "path": "SERVER_CPU_TEST_RESULT_V2.json",
+      "bytes": 2578,
+      "sha256": "ab75b8fb3fc36b3119085fe6f28dfbffe541d3a880af96da70790e7f11898589"
+    },
+    {
+      "path": "SERVER_READONLY_ASSET_PREFLIGHT_RESULT.json",
+      "bytes": 1105,
+      "sha256": "d85e6876b31a44971d8f4d0d075a9d162e46b9049953693d75b5cbcb41205081"
+    },
+    {
+      "path": "SERVER_READONLY_ASSET_PREFLIGHT_RESULT_V2.json",
+      "bytes": 1202,
+      "sha256": "605f03db19dca55d91ffeed6a62764977b11f5033bdcbbeddf403c21814f351f"
+    },
+    {
+      "path": "test_cuda13_sdk_overlay.py",
+      "bytes": 18789,
+      "sha256": "e75291b4172293a5279a4c4bbad768578c425ee44249b895db29372283aeebb9"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "bytes": 48136,
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_paired_measurement_verifier.py",
+      "sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac"
+    },
+    {
+      "bytes": 2686,
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_verified_cost_loader.py",
+      "sha256": "23fddf7c159ff2bdcb98c000ad18f90c804183f0a5af9bf08be24ac3b54d368d"
+    },
+    {
+      "bytes": 12933,
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_raw_pair_recorder.py",
+      "sha256": "8ef2ea06bfe096dbf0c0dbbb585c0b1778a2620113217d2b2a94debd793e1a42"
+    },
+    {
+      "bytes": 8871,
+      "path": "experiments/prefix_io_v1/scripts/prepare_p4_raw_pair.py",
+      "sha256": "dae3b4f78d174233ae63eb9f2ca2cd1aefdfd5160d2e09ccf6a872317202c6a4"
+    },
+    {
+      "bytes": 28994,
+      "path": "tests/prefix_io_v1_p4_measurements/test_semantic_verifier.py",
+      "sha256": "bd62a0952ba8e018e7abbe8637fcbc77db4d0332da85a18c916627f31d4dc5bb"
+    },
+    {
+      "bytes": 21256,
+      "path": "tests/prefix_io_v1_p4_measurements/test_semantic_v2.py",
+      "sha256": "3754dd7a5dbbb77930f7aa27a69f21d54f1dcedbb235033ecf03e65c557ae7b7"
+    },
+    {
+      "bytes": 6588,
+      "path": "tests/prefix_io_v1_p4_measurements/test_offline_v2_cli.py",
+      "sha256": "e363ec7ea27020305c832db4a78f9fbfa544610819d435bd2f3c504f97e8fa3b"
+    }
+  ],
+  "scope": "CPU_ONLY_NO_GPU_QUALIFICATION"
+}

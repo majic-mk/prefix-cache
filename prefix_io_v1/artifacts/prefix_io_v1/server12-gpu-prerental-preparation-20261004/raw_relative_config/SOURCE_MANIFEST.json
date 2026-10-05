@@ -1,0 +1,28 @@
+{
+  "schema": "raw_relative_config_append_only_source_manifest_v1",
+  "files": [
+    {
+      "path": "raw_relative_config/test_relative_parent_config_cpu.py",
+      "bytes": 6756,
+      "sha256": "f1514a83103e4d0cbdd500c3ec30fbe86be4f18dededfcdc942d9b17dc3886ba"
+    },
+    {
+      "path": "raw_relative_config/README.md",
+      "bytes": 1579,
+      "sha256": "3f27c461be3e35a06bf269e00348447dd4fda8703d5658f39c5ce7f86d91d5fc"
+    },
+    {
+      "path": "runner/strong_native_cost_runner_v3.py",
+      "bytes": 32523,
+      "sha256": "d0eca2e77dc1fb2cab5f95fac7f31a41978ea5c560f45f1ead8a8e1b79166240"
+    }
+  ],
+  "previous_v2_sha256": "36b1f20a106a823cef372795b9e65323cce6f7944ddc756d792878d74cbe0d7b",
+  "unchanged_device_helper_sha256": "f43769e132a1fe28c5d1c244f93785e63cc895c8a991b89ae6e4205c4308d427",
+  "modified_AST_functions": [
+    "source_patch"
+  ],
+  "CPU_tests": 3,
+  "actual_GPU_runs": 0,
+  "production_qualified": false
+}

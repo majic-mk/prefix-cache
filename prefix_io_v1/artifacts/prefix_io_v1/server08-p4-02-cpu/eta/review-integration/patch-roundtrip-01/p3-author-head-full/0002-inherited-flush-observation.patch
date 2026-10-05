@@ -1,0 +1,57 @@
+--- a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
++++ b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+@@ -252,6 +252,14 @@
+ class OffloadingConnectorScheduler:
+     """Implementation of Scheduler side methods"""
+ 
++    # Opt-in diagnostic callback, installed only by the bounded experiment.
++    _prefix_flush_probe = None
++
++    def _observe_prefix_flush(self, reason, req_id=None, block_ids=None, job_ids=None):
++        probe = self._prefix_flush_probe
++        if probe is not None:
++            probe.safe(probe.flush, self, reason, req_id, block_ids, job_ids)
++
+     def __init__(self, spec: OffloadingSpec):
+         self.spec = spec
+         self.config = SchedulerOffloadConfig.from_spec(spec)
+@@ -881,6 +889,7 @@
+                 for bid in dst_block_ids
+                 for jid in self._block_id_to_pending_jobs.get(bid, ())
+             )
++            self._observe_prefix_flush("restore_destination", request.request_id, dst_block_ids)
+ 
+         src_spec = self.manager.prepare_load(keys_to_load, req_status.req_context)
+         if self.enable_preload:
+@@ -943,6 +952,7 @@
+                             for bid in new_blocks_flat
+                             for jid in self._block_id_to_pending_jobs.get(bid, ())
+                         )
++                        self._observe_prefix_flush("new_allocation", req_id, new_blocks_flat)
+ 
+             num_scheduled_tokens = scheduler_output.num_scheduled_tokens[req_id]
+             num_tokens_after_batch = req.num_computed_tokens + num_scheduled_tokens
+@@ -1110,6 +1120,7 @@
+             any_jid = next(iter(req_status.transfer_jobs))
+             assert self._jobs[any_jid].is_store
+             self._current_batch_jobs_to_flush.update(req_status.transfer_jobs)
++            self._observe_prefix_flush("preempted_request", req_id, job_ids=req_status.transfer_jobs)
+ 
+         # If all tracked requests are finished, flush all pending jobs
+         # (both store and load) - there might not be a future scheduler
+@@ -1118,6 +1129,7 @@
+             rs.req.is_finished() for rs in self._req_status.values()
+         ):
+             self._current_batch_jobs_to_flush.update(self._jobs.keys())
++            self._observe_prefix_flush("all_requests_finished", job_ids=self._jobs.keys())
+ 
+         meta = OffloadingConnectorMetadata(
+             load_jobs=self._current_batch_load_jobs,
+@@ -1244,6 +1256,7 @@
+ 
+         # Flush all in-flight jobs
+         self._current_batch_jobs_to_flush.update(self._jobs.keys())
++        self._observe_prefix_flush("cache_reset", job_ids=self._jobs.keys())
+ 
+         # Reset offloading manager cache
+         self.manager.reset_cache()

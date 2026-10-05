@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "scope": "p4_paired_semantic_plan",
+  "context": {
+    "run_id": "cpu-semantic-fixture",
+    "model_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "gpu_uuid": "GPU-CPU-FIXTURE",
+    "native_source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "vllm_source_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "kv_layout_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "kernel_mode": "eager",
+    "torch_version": "torch-fixture",
+    "cuda_version": "cuda-fixture",
+    "driver_version": "driver-fixture",
+    "transfer_quantum_bytes": 8,
+    "gpu_pool_bytes": 128,
+    "stage_capacity_bytes": 64,
+    "internal_step_budget_ns": 200,
+    "cost_basis": "existing_io_plus_delta",
+    "uncertainty_method": "paired_residual_margin"
+  },
+  "workload_split_ref": {
+    "path": "artifacts/prefix_io_v1/server08-p4-02-cpu/gpu-next-day/raw-cli-fixture-v1/split.json",
+    "bytes": 1216,
+    "sha256": "15c437fa4cc8b165509d92d562f878d6070977c75b44300a5132166986553294"
+  },
+  "action_operations": {
+    "cell-1": 2
+  },
+  "min_calibration_pairs": 2,
+  "min_validation_pairs": 1,
+  "max_pairs": 64,
+  "max_windows": 4096,
+  "formula": "ceil_calibration_means_plus_max_positive_residual_v1"
+}

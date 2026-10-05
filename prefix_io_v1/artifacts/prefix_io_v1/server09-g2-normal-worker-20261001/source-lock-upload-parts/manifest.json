@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "CPU_ONLY_G2_SOURCE_CANDIDATE",
+  "whole_file": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/gpu-source-lock-candidate.json",
+    "bytes": 452304,
+    "sha256": "5e7cc04fe759411800b895169d669f75cade6b2f0adda34d3992ecf2a7dbd760"
+  },
+  "parts_directory": "artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/source-lock-upload-parts",
+  "encoding": "raw byte slices, no text/newline conversion",
+  "maximum_part_bytes": 60000,
+  "part_count": 8,
+  "parts": [
+    {
+      "path": "part-0001.bin",
+      "offset": 0,
+      "bytes": 60000,
+      "sha256": "bd5365bc7fc17a0930f0bb45086721da0d5b569c6a8f0784433c65f5125002a0"
+    },
+    {
+      "path": "part-0002.bin",
+      "offset": 60000,
+      "bytes": 60000,
+      "sha256": "b76f2f9a952c53df6eb43e4b03e879ff4edc148aa117e2adb36eefa176d2fd05"
+    },
+    {
+      "path": "part-0003.bin",
+      "offset": 120000,
+      "bytes": 60000,
+      "sha256": "98dbc091514feaa7d9c53dd62bbe990758ec91cf8db96ad5977967de0e5e7811"
+    },
+    {
+      "path": "part-0004.bin",
+      "offset": 180000,
+      "bytes": 60000,
+      "sha256": "b3d5ab772e677ee957a7793fc507178c299904383f37ee15a81261cbe53148f4"
+    },
+    {
+      "path": "part-0005.bin",
+      "offset": 240000,
+      "bytes": 60000,
+      "sha256": "ea4a258e054194bce8483f252a999a00071eb4d30e69e2f4c973a2211d77814f"
+    },
+    {
+      "path": "part-0006.bin",
+      "offset": 300000,
+      "bytes": 60000,
+      "sha256": "a09669772905dd133b10d2c0785d4956c540afe580a6774eeec143b4fa45a5ac"
+    },
+    {
+      "path": "part-0007.bin",
+      "offset": 360000,
+      "bytes": 60000,
+      "sha256": "b4d6f3f8c3c4d46ad5ec070c8b5dc4222fac6bd9fd54f1fb059339f4f3d5e41c"
+    },
+    {
+      "path": "part-0008.bin",
+      "offset": 420000,
+      "bytes": 32304,
+      "sha256": "16a5e147c5e920792c6e4a9ddcb615901564c0a2481fe1ef6307bbf87a8e95ba"
+    }
+  ],
+  "reconstruction": "Read each part in manifest order, verify exact bytes/SHA and contiguous offset, concatenate original bytes, verify whole bytes/SHA before append-new publishing.",
+  "allow_gpu_initialization": false,
+  "allow_gpu_runs": false,
+  "remote_upload_performed": false,
+  "actual_GPU_runs": 0,
+  "original_G1_lock_modified": false
+}

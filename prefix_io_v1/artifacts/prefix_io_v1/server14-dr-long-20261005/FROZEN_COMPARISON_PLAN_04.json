@@ -1,0 +1,472 @@
+{
+  "all_final_input_ids_lengths": [
+    16257,
+    16257,
+    16257,
+    16257,
+    16257
+  ],
+  "arms": [
+    "U",
+    "F8+D_R"
+  ],
+  "budget_remaining_at_freeze": 1052.5713347517885,
+  "calibration_manifest_ref": {
+    "bytes": 1122310,
+    "path": "artifacts/prefix_io_v1/server08-p3-15/all_hit-manifest.json",
+    "sha256": "1dc8f14dcd076f41ce05dacb0244444c4919693c34dda454dc80b9a5cf617d48"
+  },
+  "calibration_max_execution_seconds": 300,
+  "calibration_revision_status": "single-family idea rejected by historical qualified pattern; current original mixed U runs first to isolate original-path progress",
+  "calibration_scope": "independent original all_hit request stream, shared cached family content; not independent unseen content; no effect result fitting",
+  "common_runtime_domain_sha256": "e873a93b6c1b1dfae2c55b6c3aa184d1231288ce5a7912daa8ba827e90a2b156",
+  "cumulative_budget_limit_seconds": null,
+  "domain": {
+    "curves_ref": {
+      "bytes": 10978,
+      "path": "artifacts/prefix_io_v1/server08-p3-14/calibration-candidate/curves-v2.json",
+      "sha256": "fd05683418e851d5130ba2ab646e9e33cbb0ea490584787dca3d019abff6d451"
+    },
+    "engine": {
+      "attention_config": {
+        "backend": "TRITON_ATTN"
+      },
+      "block_size": 16,
+      "compilation_config": 0,
+      "cpu_offload_gb": 0,
+      "disable_log_stats": false,
+      "distributed_executor_backend": "uni",
+      "dtype": "bfloat16",
+      "enable_chunked_prefill": true,
+      "enable_prefix_caching": true,
+      "enforce_eager": true,
+      "generation_config": "vllm",
+      "gpu_memory_utilization": 0.7,
+      "kv_cache_dtype": "auto",
+      "kv_cache_memory_bytes": 2147483648,
+      "kv_offloading_size": null,
+      "load_format": "safetensors",
+      "max_model_len": 16400,
+      "max_num_batched_tokens": 16400,
+      "max_num_seqs": 2,
+      "offload_group_size": 0,
+      "prefix_caching_hash_algo": "sha256",
+      "quantization": null,
+      "seed": 0,
+      "skip_tokenizer_init": true,
+      "tensor_parallel_size": 1,
+      "trust_remote_code": false
+    },
+    "initial_source_manifest_ref": {
+      "bytes": 905259,
+      "path": "experiments/prefix_io_v1/runs/server08-p3-14-source/source-manifest.json",
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    "io_depth": 8,
+    "model_plan_ref": {
+      "bytes": 7310,
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+      "sha256": "9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017"
+    },
+    "runtime_refs": {
+      "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/kv_geometry.json": {
+        "bytes": 264,
+        "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/kv_geometry.json",
+        "sha256": "7bdd32a13b1ba3aec1e3d878ac519b35b0a31a2bd8fe2547cf7bb612718ac3e8"
+      },
+      "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/sdk_migration/site_sdk_migration.py": {
+        "bytes": 11359,
+        "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/sdk_migration/site_sdk_migration.py",
+        "sha256": "3fd20b032c16178da8cd2a46e89a74f93cec8ff7464fbf4e5fe689e6be5b1d0f"
+      },
+      "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/ACTUAL_DRIVER_MIGRATION_AUDIT_01.json": {
+        "bytes": 1413,
+        "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/ACTUAL_DRIVER_MIGRATION_AUDIT_01.json",
+        "sha256": "9874640f0ab80d847d6adcf77dd71c7f6e5c540ed782d855473cf0cfa3818a3c"
+      },
+      "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/ACTUAL_UOFF03_COLLECTION_CLOSED_02.json": {
+        "bytes": 5300,
+        "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/ACTUAL_UOFF03_COLLECTION_CLOSED_02.json",
+        "sha256": "a35b739dc7b3d8319716cba635e35655d4d3fb9e92878ded2b741e0e5de7072c"
+      },
+      "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/raw_unit_cost/natural_unit_raw_runner_v2.py": {
+        "bytes": 28974,
+        "path": "artifacts/prefix_io_v1/server13-public-development-gpu-20261005/raw_unit_cost/natural_unit_raw_runner_v2.py",
+        "sha256": "2f4aae0a1c1650bfd0f83357ddb0d3fbd2c590391c0a864255e572da272c0052"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/DIRECT_USER_GPU_AUTHORIZATION_02.json": {
+        "bytes": 515,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/DIRECT_USER_GPU_AUTHORIZATION_02.json",
+        "sha256": "2874da8addb0bf3cea84734ce8bb340597c8bb75dee55251212efb246892b99a"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/EFFECTIVE_UNCAPPED_D_R_GPU_PERMISSION_02.json": {
+        "bytes": 923,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/EFFECTIVE_UNCAPPED_D_R_GPU_PERMISSION_02.json",
+        "sha256": "8a9d711885b46d60c8b40c8bf55addef970d340676bf9175df22bf082f91b8e1"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/dr_p316_original_adapter_v5.py": {
+        "bytes": 40128,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/dr_p316_original_adapter_v5.py",
+        "sha256": "781f2215c824f22a91abd2bc651408c5105d9c674ca9d6e648e7b5951c5be03e"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/run_gpu_stage_standing_v1.py": {
+        "bytes": 17901,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/run_gpu_stage_standing_v1.py",
+        "sha256": "bb2e3f4415f47634e347f539288af7b103664b276e2944cdadcb39c86b6c19ae"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/__init__.py": {
+        "bytes": 149,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/__init__.py",
+        "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/bridge.py": {
+        "bytes": 852,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/bridge.py",
+        "sha256": "c1e1a5454ebeda338f37deebdccf9293374e9e9002c472377ae483438071ecb5"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/config.py": {
+        "bytes": 9901,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/config.py",
+        "sha256": "0a659a588947773c8fa071296260ba9ae878787f34beda014fde24fb874164de"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/dependencies.py": {
+        "bytes": 5772,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/dependencies.py",
+        "sha256": "41cc50163c51a2f02486230fcfa36c348af95ef687c3f2cb815bdd6797f29481"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/dispatch_budget.py": {
+        "bytes": 11021,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/dispatch_budget.py",
+        "sha256": "412c43761cb2f59636240e15c884b25d2a1d0ee708684d496259baf2f34d667c"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/dispatch_shadow.py": {
+        "bytes": 16989,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/dispatch_shadow.py",
+        "sha256": "c3d502423116f8c3b74f976acba092cb574d58d078c7b34f368e9e5b926b8e1b"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/native_flush_probe.py": {
+        "bytes": 11396,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/native_flush_probe.py",
+        "sha256": "b24902ca76aa998c564218738ec02cfc3c96f5b12523a2df80765a489c04ebda"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/native_options.py": {
+        "bytes": 1338,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/native_options.py",
+        "sha256": "25f09f9ef3006553314156cd0795e94cf6a67e7bc1215e6d3bd3d832459722fe"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/native_owner.py": {
+        "bytes": 8493,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/native_owner.py",
+        "sha256": "2ef22ba90e6a89890a0a060e81f0cd639f7f04bb8c7bb16635208edf80534a81"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/observation.py": {
+        "bytes": 2890,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/observation.py",
+        "sha256": "8ddf5634f46b254f9e539187caa964503d44954637edfeb5c385b2b369b706f2"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/order_options.py": {
+        "bytes": 2089,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/order_options.py",
+        "sha256": "8d631e19b40b87604747f3aee2db9031e696f74c3a98147e4e966062220e4aea"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_bridge.py": {
+        "bytes": 28796,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_bridge.py",
+        "sha256": "99c445084e937eb5691a2711cf429cac7f0cc0cacaef4851a3efff95bec501ae"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_cost_table.py": {
+        "bytes": 5071,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_cost_table.py",
+        "sha256": "4caae858778182f5575ce2d5807bdc72520ef4c5f32a2c18f02ff2628155d0f8"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_eta.py": {
+        "bytes": 10679,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_eta.py",
+        "sha256": "befe3d10e3466be8a34d0b4756f993c0100cf909e712b167ec221c37f9064d50"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_gpu_step_observation.py": {
+        "bytes": 11977,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_gpu_step_observation.py",
+        "sha256": "2dbd58eb095413520c5818cf5bb982ae6ca584933fc9b6db567eef41b29ca690"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_load_observation.py": {
+        "bytes": 6379,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_load_observation.py",
+        "sha256": "522091deaa6489ad555694475faa34060a9176a4341417c499e4b42d6556db2c"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_native_window_journal.py": {
+        "bytes": 9647,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_native_window_journal.py",
+        "sha256": "3a9ded39846cccf88ee9aceed2e16b86d8a7bbe953adfea3ba1a302b2c5aa8c3"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_options.py": {
+        "bytes": 4629,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_options.py",
+        "sha256": "4dba8237ab94ff8b235e248b253a727822c99e8f1ac40e5b412d91d352a8613c"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_paired_measurement_verifier.py": {
+        "bytes": 48136,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_paired_measurement_verifier.py",
+        "sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_policy.py": {
+        "bytes": 25721,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_policy.py",
+        "sha256": "71ff8481023197e8aec8d352f53e127b8a2372d412672021d6d70924151bcfd6"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_production_table_contract.py": {
+        "bytes": 14365,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_production_table_contract.py",
+        "sha256": "ae244d09c2fc1eb077e6af8df3ae378b6b3504b4f71ff10eb26f0ada7d2c71fd"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_raw_pair_recorder.py": {
+        "bytes": 12933,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_raw_pair_recorder.py",
+        "sha256": "8ef2ea06bfe096dbf0c0dbbb585c0b1778a2620113217d2b2a94debd793e1a42"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_restore_forecast.py": {
+        "bytes": 11900,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_restore_forecast.py",
+        "sha256": "d4849e0af75eed039bcdc6961876db05615c383eacd78a49c3a850df15a82efb"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_restore_order_journal.py": {
+        "bytes": 9559,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_restore_order_journal.py",
+        "sha256": "e89edeac43b6321bcf7c95c8e9329cdcaa3794a50f5da0740c1de04dfaf8c4ae"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_single_file_receipt.py": {
+        "bytes": 16500,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_single_file_receipt.py",
+        "sha256": "50cc763a191a66cb002ad1e6091f35fa2af9d413b37ca251af0487686ab73a82"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_startup_evidence.py": {
+        "bytes": 2085,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_startup_evidence.py",
+        "sha256": "56fc6df03e7fde275ee344bac300acb51de1046dfbf64025c9c035a8f4e1b4dd"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_types.py": {
+        "bytes": 11969,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_types.py",
+        "sha256": "07bbcb0a449c349f9c63874728e409180c1c9787f3253723403978e17383094e"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_verified_cost_loader.py": {
+        "bytes": 2686,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/p4_verified_cost_loader.py",
+        "sha256": "23fddf7c159ff2bdcb98c000ad18f90c804183f0a5af9bf08be24ac3b54d368d"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/preflight.py": {
+        "bytes": 2140,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/preflight.py",
+        "sha256": "a4cff5d15308bb3b51b9a1e959851d34f8fbc72e34b697d1a70dfdb71e01a126"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/publication.py": {
+        "bytes": 3688,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/publication.py",
+        "sha256": "bcaaa49d78f44d692cab89ad86fa5197cbab59491dab85b902d9fe4ef7baa0b7"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/simple_stage_options.py": {
+        "bytes": 5445,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/simple_stage_options.py",
+        "sha256": "63fe6a27087ec604e82f47bd15a4e72eb3f475304203006fd9b5718f5a90a8dd"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/simple_stage_policy.py": {
+        "bytes": 21557,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/simple_stage_policy.py",
+        "sha256": "8a2dc9586f5e1fe5257f988e44466284d10e0e46a8cee46f876a8febe5caf1a5"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/stage_accounting.py": {
+        "bytes": 3580,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/stage_accounting.py",
+        "sha256": "11a736586a9278e2c373d4fc1bfe0faf9cd166b81e9d9c3f658500a51ab954aa"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/start_budget.py": {
+        "bytes": 6547,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/start_budget.py",
+        "sha256": "d83fb291e2788366b7453132114534199c72df52634bde226cba3f34eb40c1c8"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/start_options.py": {
+        "bytes": 2819,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/start_options.py",
+        "sha256": "f7e01eff1ffa641bde1b968e7a9a877458e7528601be04d50b7790664fa78866"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/store_order.py": {
+        "bytes": 2947,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/store_order.py",
+        "sha256": "3b06e96e6b5e21fc6c6ca4bbc89be235888948191f12ae69de7ae95f8bc8d8f0"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/store_readiness.py": {
+        "bytes": 6549,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/store_readiness.py",
+        "sha256": "203f063a418bda608ea19564a1c2dfe308d1291c640ccfe629f78aec1cfb2e98"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/token_timeline.py": {
+        "bytes": 1738,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/control/prefix_io_control/token_timeline.py",
+        "sha256": "fbcae96ecbc86041d324362fa5b6b2a4c4d51e033b67f1b330cfc2b594c84164"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/__init__.py": {
+        "bytes": 986,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/__init__.py",
+        "sha256": "27a469e4bd7ea7ae62ca91486307a2a3b4bb2906b140917ca63b1e7b5de08813"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/_pchip.py": {
+        "bytes": 2681,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/_pchip.py",
+        "sha256": "d3f186b52ae296181ae3e547cb8516ba1538a20062bb76152c6042b13ff5d397"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/break_even.py": {
+        "bytes": 9567,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/break_even.py",
+        "sha256": "2419c9470df0e43558ccc729aa3927ebd4d1381e00276d4caaa57b3cf19c42a6"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/cost_model.py": {
+        "bytes": 4014,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/cost_model.py",
+        "sha256": "e85922054fe96dce5c0221f1cc17cc3f1b2d7addd7eae452cabad305fc412397"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/file_mapper.py": {
+        "bytes": 1681,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/file_mapper.py",
+        "sha256": "165239153b9bf1b475992358683a8d43849d74f0e841326704e1c419abda72dc"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/fs_config.py": {
+        "bytes": 9057,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/fs_config.py",
+        "sha256": "7a2429d15f6d6009da5f7965ba6b15279a9ef25b348cadd29927f61b9c488698"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/liburing_file.py": {
+        "bytes": 15244,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/liburing_file.py",
+        "sha256": "6a8995ca6e5f49ae470e8c49dbf3d98caf2d09dd091cb6f08f9e892c051414f5"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/linux_aio.py": {
+        "bytes": 17646,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/linux_aio.py",
+        "sha256": "0a987479722c7d6b520b99c9b283febb55c5145fc17c5623b8b1151c4f45a6d7"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/load_planner.py": {
+        "bytes": 18325,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/load_planner.py",
+        "sha256": "92581e373d7e5c0903520417fb0ce80141f2f65506bf16c7ecbde94ab1ca5fe2"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/profiling.py": {
+        "bytes": 970,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/profiling.py",
+        "sha256": "b6025d8afb9256be2a2d35df01e4bf96f3926a2948ecc88a32c2c63336b333d3"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/reactor.py": {
+        "bytes": 188003,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/reactor.py",
+        "sha256": "2fa42b5a8065c6015d68870289584e90c9b91cd918d95ca36641600f13fca6d2"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/staging.py": {
+        "bytes": 2674,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/staging.py",
+        "sha256": "18d2b634b894fec32d7abbf767132afbd4fc5ec66fef738ffef724f3e95e615b"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/staging_cache.py": {
+        "bytes": 12310,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/staging_cache.py",
+        "sha256": "f505da0a942dfded2019fd5b292a986ddb7a29e18bb47c568f9a614eb2a0d928"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/transfer.py": {
+        "bytes": 12061,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/transfer.py",
+        "sha256": "1dcc5f4370e3db694d34924038a8fdd5a2eb12cf7f04ba81072dc969f275c1ba"
+      },
+      "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/vllm.py": {
+        "bytes": 33693,
+        "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/runtime_source_v2/native/py_kvcache/vllm.py",
+        "sha256": "901cc5b9a20245e60d2200ef190979b80adb77ca5a049624c6bc4ec171a712d1"
+      },
+      "experiments/prefix_io_v1/scripts/concurrent_pilot_contract_p316.py": {
+        "bytes": 10650,
+        "path": "experiments/prefix_io_v1/scripts/concurrent_pilot_contract_p316.py",
+        "sha256": "a6adcf6b3626fb18e9bc5a259551b978864b3fec24e307fa34b5b82daadd437d"
+      },
+      "experiments/prefix_io_v1/scripts/experiment_storage.py": {
+        "bytes": 3806,
+        "path": "experiments/prefix_io_v1/scripts/experiment_storage.py",
+        "sha256": "ec5fdb9d9f9001de1080aadb740a87320ccc783f95032c5fdff310dc869a127f"
+      },
+      "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py": {
+        "bytes": 21990,
+        "path": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+        "sha256": "7d31cce851ca2334fedbe6b66c4e2d9bfff19e8768bafaa52f68e414518d77e2"
+      },
+      "experiments/prefix_io_v1/scripts/qualify_concurrent_pilot.py": {
+        "bytes": 2911,
+        "path": "experiments/prefix_io_v1/scripts/qualify_concurrent_pilot.py",
+        "sha256": "42a8c282b54d0290aeb4f3da9d7c003a22e344141081c5168141d0bfed86fdb5"
+      },
+      "experiments/prefix_io_v1/scripts/run_concurrent_pilot_p316.py": {
+        "bytes": 19749,
+        "path": "experiments/prefix_io_v1/scripts/run_concurrent_pilot_p316.py",
+        "sha256": "248c901e6bfd2e7fbea3e210623f7556f9fef9c99d66c39cf50daf6ef5b0f26e"
+      },
+      "experiments/prefix_io_v1/scripts/run_long_calibration_replay.py": {
+        "bytes": 13833,
+        "path": "experiments/prefix_io_v1/scripts/run_long_calibration_replay.py",
+        "sha256": "8780a715cb48b65a836c34870e1a6d4367a584476f8e4660eacf1f3a88d8d8fb"
+      },
+      "experiments/prefix_io_v1/scripts/run_p3_native_pilot.py": {
+        "bytes": 14157,
+        "path": "experiments/prefix_io_v1/scripts/run_p3_native_pilot.py",
+        "sha256": "ff0905821eddc368dbfe168fdb735603dcfedbddcec96d86dfd01614dfbdf855"
+      },
+      "experiments/prefix_io_v1/scripts/storage_source_registration.py": {
+        "bytes": 12133,
+        "path": "experiments/prefix_io_v1/scripts/storage_source_registration.py",
+        "sha256": "cc95d6d83273569caf6c4aaacb50e61dd01a13e341bda863b2718aa742d45734"
+      }
+    },
+    "staging_bytes": 1073741824
+  },
+  "effect_manifest_ref": {
+    "bytes": 1122338,
+    "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+    "sha256": "1128f0b4c5481837f87c689e29f1b0f92fc80d29d8d13573fe08714bef58c197"
+  },
+  "extra_arms": false,
+  "failed_preparation_labels": [
+    "server14-dr-cal01",
+    "server14-dr-cal02",
+    "server14-dr-cal03",
+    "server14-dr-cal04"
+  ],
+  "first_pair_protected_seconds": 640,
+  "fixed_controller_ref": {
+    "bytes": 1234,
+    "path": "artifacts/prefix_io_v1/server08-p3-16/fixed8-control.json",
+    "sha256": "f1804a918a5d38ee2233c8bdf5f35e6c99c01d4dd508e10e17e4091994fdd678"
+  },
+  "gpu_release_credit": null,
+  "historical_cumulative_budget_limit_seconds": 28800,
+  "history_max_age_ns": 600000000000,
+  "initial_cache_families": [
+    true,
+    true,
+    true,
+    false,
+    false
+  ],
+  "minimum_exact_closure_samples": 4,
+  "new_production_qualification": false,
+  "no_artificial_IO": true,
+  "no_budget_reset": true,
+  "only_restore_parent_forecasts": true,
+  "original_qualification_historical_only": true,
+  "output_tokens_per_request": 128,
+  "preference": "U,D_R,D_R,U if actual remaining budget can protect a full reverse pair after first pair; one pair protected initially",
+  "requests": 10,
+  "revision_reason": "Minimal actual post-shutdown scalar projection preserves all lifecycle checks and original failure report; user expressly removed cumulative GPU cap; no algorithm/input/arrival/admission/source/executor changes",
+  "schema": "frozen_p316_U_vs_F8_restore_dependency_v1",
+  "stage_guard_cleanup_seconds": 20,
+  "stage_guard_execution_limit_seconds": 300,
+  "standing_gpu_authorization_ref": {
+    "bytes": 515,
+    "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/DIRECT_USER_GPU_AUTHORIZATION_02.json",
+    "sha256": "2874da8addb0bf3cea84734ce8bb340597c8bb75dee55251212efb246892b99a"
+  },
+  "whole_window_progress_guard_preserved": true
+}

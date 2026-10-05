@@ -1,0 +1,59 @@
+{
+  "status": "CPU_NATIVE_CONFIGURATION_PREPARED_NO_GPU_OPERATION",
+  "source_count": 4107,
+  "source_lock_ref": {
+    "path": "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/gpu-source-lock-native-qualification.json",
+    "bytes": 911501,
+    "sha256": "4eda4ea59fa200c411a05b18efc50995a78d2bd62a544b2cb991e1d2c45964c0"
+  },
+  "scope_ref": {
+    "path": "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/GPU_STAGE_AUTHORIZATION.json",
+    "bytes": 1757,
+    "sha256": "ca6dd66d0915fd54d88fa0ce9b9c7cdaf62ec730f8e6fdb5fa2e5589935e8fca"
+  },
+  "cpu_plan_ref": {
+    "path": "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/NATIVE_QUALIFICATION_CPU_PLAN.json",
+    "bytes": 3420,
+    "sha256": "5f098f404cfc0909b39083ce935e525f0329027b185231448f0df0d4b4516776"
+  },
+  "original_entry_unchanged": true,
+  "original_guard_unchanged": true,
+  "GPU_operations": 0,
+  "full_source_bytes_verified": false,
+  "original_launch_gates_still_required": true,
+  "outer_operator_order_gate_still_required": true,
+  "commands": {
+    "off": [
+      ".venv/bin/python",
+      "-B",
+      "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+      "--mode",
+      "off",
+      "--name",
+      "server10-p4-native-off-01",
+      "--scope-record",
+      "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/GPU_STAGE_AUTHORIZATION.json",
+      "--source-lock",
+      "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/gpu-source-lock-native-qualification.json",
+      "--permissions-path",
+      "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+      "--launch"
+    ],
+    "shadow": [
+      ".venv/bin/python",
+      "-B",
+      "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+      "--mode",
+      "shadow",
+      "--name",
+      "server10-p4-native-shadow-01",
+      "--scope-record",
+      "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/GPU_STAGE_AUTHORIZATION.json",
+      "--source-lock",
+      "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/gpu-source-lock-native-qualification.json",
+      "--permissions-path",
+      "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+      "--launch"
+    ]
+  }
+}

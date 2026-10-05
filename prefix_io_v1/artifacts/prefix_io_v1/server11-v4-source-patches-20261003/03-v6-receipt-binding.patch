@@ -1,0 +1,166 @@
+--- a/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_single_file_receipt.py
++++ b/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_single_file_receipt.py
+@@ -2,7 +2,7 @@
+ 
+ The caller freezes the binding in the new experiment's source closure. Hashes
+ detect drift; they are not signatures or an authorization mechanism. Issuance
+-replays the frozen v5 serializer and verifier over the real raw receipts. The
++replays the frozen v6 serializer and verifier over the real raw receipts. The
+ private constructor prevents accidental dict/PASS promotion, not hostile Python
+ code in this process. No model, torch, CUDA, or storage engine is imported here.
+ """
+@@ -15,7 +15,9 @@
+ from typing import ClassVar
+ 
+ 
+-_D5 = "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/"
++_D6 = "artifacts/prefix_io_v1/server11-native-cost-v6-20261003/"
++_COMMON_OVERLAY = "artifacts/prefix_io_v1/server11-p4-single-file-candidate-v4-20261003/source"
++_NATIVE = _COMMON_OVERLAY + "/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py"
+ _ISSUER = object()
+ _KERNEL_MODE = "original_execute_sample_eager_triton_attention"
+ _ORIGINAL = "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_paired_measurement_verifier.py"
+@@ -84,10 +86,10 @@
+             parse_constant=lambda value: (_ for _ in ()).throw(ValueError("nonfinite JSON")))
+ 
+ 
+-_VERIFIER = FileRef(_D5 + "native_conditional_cost.py", 36869,
++_VERIFIER = FileRef(_D6 + "native_conditional_cost.py", 36869,
+     "e20944ea470a4fbdbd10cb67e516cfc2b9f1de3f53d61d0249e0fa6d0e59a291")
+-_SERIALIZER = FileRef(_D5 + "prepare_and_verify_native_cost.py", 19198,
+-    "ecf7ccec2030c7a8b9eefb72130f08e54f8d76faaf0490ef96799191f47905c5")
++_SERIALIZER = FileRef(_D6 + "prepare_and_verify_native_cost.py", 22006,
++    "6cb02c8d2ff148a1c25f221a2350f71ae71daff39c1cdcd191954ae8e6c9570f")
+ _MATH = FileRef(_ORIGINAL, 48136,
+     "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac")
+ 
+@@ -120,7 +122,7 @@
+ 
+     Reuse the verified original estimator's calibration baseline, then add the
+     largest positive A residual. Neither action nor heldout samples enter this
+-    budget. Cost fitting itself remains entirely in the frozen v5 estimator.
++    budget. Cost fitting itself remains entirely in the frozen estimator.
+     """
+     ids = [row["pair_id"] for row in plan["entries"] if row["split"] == "calibration"]
+     _require(len(ids) == 2 and len(set(ids)) == 2, "two independent calibration A samples")
+@@ -183,10 +185,12 @@
+             ref.read(project)
+             if key == "runtime_common_refs":
+                 _require(locked.get(ref.path) == ref.mapping(), "common source differs from real calibration closure")
++            if ref.path.startswith(_COMMON_OVERLAY + "/"):
++                _require(locked.get(ref.path) == ref.mapping(), "C4 runtime source differs from actual C4 calibration")
+         result.append(refs)
+     common, overlay = result
+     required = {plan["model_plan_ref"]["path"], plan["model_config_ref"]["path"],
+-                plan["cuda_event_source_ref"]["path"], _RUNNER}
++                plan["cuda_event_source_ref"]["path"], _RUNNER, _NATIVE}
+     _require(required.issubset({ref.path for ref in common}), "model/layout/Event/model runner common pins required")
+     return common, overlay
+ 
+@@ -196,7 +200,7 @@
+     _VERIFIER.read(project)
+     raw = _SERIALIZER.read(project)
+     _MATH.read(project)
+-    name = "_p4_single_file_v5_serializer_" + str(id(raw))
++    name = "_p4_single_file_v6_serializer_" + str(id(raw))
+     spec = importlib.util.spec_from_file_location(name, _relative(project, _SERIALIZER.path))
+     module = importlib.util.module_from_spec(spec)
+     sys.modules[name] = module
+@@ -209,7 +213,7 @@
+ 
+ 
+ def load_verified_single_file(project, binding_path):
+-    """Issue only after v5 raw reserialization, native verification, and pins.
++    """Issue only after v6 raw reserialization, native verification, and pins.
+ 
+     binding_path is a relative path explicitly frozen by the parent workflow.
+     The consumer must require binding_ref in its new runtime source closure.
+@@ -231,9 +235,15 @@
+     refs = {key: FileRef.from_mapping(value) for key, value in calibration.items()}
+     plan = refs["plan_ref"].json(project)
+     record = refs["measurements_ref"].json(project)
+-    _require(plan.get("job_id") == "server11-native-cost-six-window-05" and plan.get("units") == 1
++    _require(plan.get("job_id") == "server11-native-cost-six-window-06" and plan.get("units") == 1
+              and plan.get("operations") == 1 and plan.get("transfer_quantum_bytes") == 917504,
+-             "only the actual v5 single-file calibration is supported")
++             "only the actual v6 single-file calibration is supported")
++    native = FileRef.from_mapping(plan["native_source_ref"])
++    _require(native.path == _NATIVE and native.sha256 == plan["native_source_sha256"]
++             and plan.get("common_overlay_relative") == _COMMON_OVERLAY
++             and plan.get("common_owner_parameters") == {"max_accepted_parents":8, "bridge_is_none":True},
++             "actual same C4 native source and unchanged common owner parameters required")
++    native.read(project)
+     common, overlay = _runtime_refs(project, binding, plan)
+     serializer = _load_frozen_serializer(project)
+     reconstructed = serializer.serialize_runtime_record(project,
+@@ -248,7 +258,7 @@
+              and verified.get("conditional_cost_cell_qualified") is True
+              and verified.get("heldout_covered") is True
+              and verified.get("production_qualified") is False
+-             and verified.get("holdout_used_to_refit") is False, "v5 finite native cell did not qualify")
++             and verified.get("holdout_used_to_refit") is False, "v6 finite native cell did not qualify")
+     condition = verified["condition"]
+     _require(condition["stage"] == "ssd_read" and condition["physical_bytes"] == 917504
+              and condition["operations"] == 1
+--- a/test_single_file_receipt.py
++++ b/test_single_file_receipt.py
+@@ -71,17 +71,17 @@
+     def test_eight_file_cell_cannot_be_relabelled_single_file(self):
+         with tempfile.TemporaryDirectory() as directory:
+             root = Path(directory).resolve()
+-            plan = write(root, "plan.json", {"job_id": "server11-native-cost-six-window-05",
++            plan = write(root, "plan.json", {"job_id": "server11-native-cost-six-window-06",
+                 "units": 8, "operations": 8, "transfer_quantum_bytes": 917504})
+             measurements = write(root, "measurements.json", {"origin": "native_gpu_recording"})
+             guard = write(root, "guard.json", {"exit_code": 0})
+             write(root, "binding.json", {"schema_version": 1, "scope": "p4_single_file_native_binding_v1",
+                 "calibration": {"plan_ref": plan, "measurements_ref": measurements, "guard_ref": guard},
+                 "runtime_common_refs": [], "runtime_overlay_refs": [], "kernel_mode": R._KERNEL_MODE})
+-            with self.assertRaisesRegex(ValueError, "actual v5 single-file"):
++            with self.assertRaisesRegex(ValueError, "actual v6 single-file"):
+                 R.load_verified_single_file(root, "binding.json")
+ 
+-    def test_cost_verifier_source_must_match_frozen_v5(self):
++    def test_cost_verifier_source_must_match_frozen_v6(self):
+         with tempfile.TemporaryDirectory() as directory:
+             root = Path(directory).resolve()
+             path = root / R._VERIFIER.path
+@@ -89,6 +89,38 @@
+             path.write_text("# PASS result cannot substitute for the verifier\n", encoding="utf-8")
+             with self.assertRaisesRegex(ValueError, "size changed"):
+                 R._load_frozen_serializer(root)
++
++    def test_old_v5_job_cannot_supply_new_common_base_receipt(self):
++        with tempfile.TemporaryDirectory() as directory:
++            root = Path(directory).resolve()
++            plan = write(root, 'plan.json', dict(job_id='server11-native-cost-six-window-05',
++                units=1,operations=1,transfer_quantum_bytes=917504))
++            value = write(root, 'data.json', dict(native_execution_verified=True))
++            write(root, 'binding.json', dict(schema_version=1,scope='p4_single_file_native_binding_v1',
++                calibration=dict(plan_ref=plan,measurements_ref=value,guard_ref=value),
++                runtime_common_refs=[],runtime_overlay_refs=[],kernel_mode=R._KERNEL_MODE))
++            with self.assertRaisesRegex(ValueError, 'actual v6 single-file'):
++                R.load_verified_single_file(root, 'binding.json')
++
++    def test_actual_c4_reactor_must_be_common_and_other_overlay_bytes_match_calibration(self):
++        with tempfile.TemporaryDirectory() as directory:
++            root = Path(directory).resolve()
++            paths = ('model-plan.json','model-config.json','event.py',R._RUNNER,R._NATIVE)
++            common = [write(root,name,dict(fixture=name)) for name in paths]
++            overlay_path = R._COMMON_OVERLAY+'/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py'
++            overlay = write(root,overlay_path,dict(cpu_fixture=True))
++            lock = write(root,'source-lock.json',dict(files=common+[overlay]))
++            plan = dict(source_lock_ref=lock,model_plan_ref=common[0],model_config_ref=common[1],
++                cuda_event_source_ref=common[2])
++            binding = dict(runtime_common_refs=common,runtime_overlay_refs=[overlay])
++            self.assertEqual(R._runtime_refs(root,binding,plan)[0][-1].path,R._NATIVE)
++            binding['runtime_common_refs'] = common[:-1]
++            with self.assertRaisesRegex(ValueError,'common pins'):
++                R._runtime_refs(root,binding,plan)
++            binding['runtime_common_refs'] = common
++            binding['runtime_overlay_refs'] = [write(root,overlay_path,dict(changed=True))]
++            with self.assertRaisesRegex(ValueError,'C4 runtime source differs'):
++                R._runtime_refs(root,binding,plan)
+ 
+     @staticmethod
+     def budget_fixture():

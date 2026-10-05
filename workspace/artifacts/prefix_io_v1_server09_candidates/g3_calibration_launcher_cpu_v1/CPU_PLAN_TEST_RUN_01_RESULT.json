@@ -1,0 +1,28 @@
+{
+  "status": "ACTUAL_CPU_RED_RUN_01",
+  "actual_process_exit": 1,
+  "tests_run": 29,
+  "failures": 1,
+  "errors": 2,
+  "source_and_log_refs": [
+    {
+      "path": "g3_calibration_plan.py",
+      "bytes": 23250,
+      "sha256": "5f7033014a876a81dc8efd93999f4d83e7d6cdfcf94e2dac4775508767b3ba41"
+    },
+    {
+      "path": "test_g3_calibration_plan.py",
+      "bytes": 17271,
+      "sha256": "b8a38295a228c43a8758055dadcffbe664e71838229dc720f9192173d13b147e"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_01.log",
+      "bytes": 3196,
+      "sha256": "0a5e1be63ad6e2e9483e933f2270e09824cdd0acd1b49307cbf2101c6e2f389b"
+    }
+  ],
+  "reason": "Windows Python lacks Path.is_relative_to; one test reused its mutable ledger object while constructing cases",
+  "GPU_jobs": 0,
+  "RPC_calls": 0,
+  "author_source_modified": false
+}

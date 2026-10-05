@@ -1,0 +1,35 @@
+{
+  "native_reference": "/root/prefix-io-v1-validation/runs/server07-p3-c2-fullref-01/details",
+  "performance_order": [
+    "server07-p3-c2-d8-mixed-01",
+    "server07-p3-c2-d2-mixed-01",
+    "server07-p3-c2-d2-mixed-02",
+    "server07-p3-c2-d8-mixed-02"
+  ],
+  "groups": [
+    {
+      "io_depth": 4,
+      "permit": "artifacts/prefix_io_v1/server07-p3-06/c2-permit.json",
+      "runs": [
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-mixed-01/details",
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-mixed-02/details"
+      ]
+    },
+    {
+      "io_depth": 8,
+      "permit": "artifacts/prefix_io_v1/server07-p3-06/d8/permit.json",
+      "runs": [
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-d8-mixed-01/details",
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-d8-mixed-02/details"
+      ]
+    },
+    {
+      "io_depth": 2,
+      "permit": "artifacts/prefix_io_v1/server07-p3-06/d2/permit.json",
+      "runs": [
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-d2-mixed-01/details",
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-d2-mixed-02/details"
+      ]
+    }
+  ]
+}

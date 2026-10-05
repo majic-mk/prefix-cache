@@ -1,0 +1,74 @@
+{
+  "GPU_launch_allowed": false,
+  "actual_GPU_operations": 0,
+  "actual_RPC_operations": 0,
+  "actual_family_receipts_delivered": 0,
+  "actual_network_operations": 0,
+  "actual_tokenizers_library_runs": 0,
+  "files": [
+    {
+      "bytes": 26639,
+      "path": "close_squad_tokenizer_family_cpu.py",
+      "sha256": "c909bfd073149f65aa94ec238539b3bd0aeb1571a82c323f7a943e5ae15ee8f1"
+    },
+    {
+      "bytes": 17316,
+      "path": "test_close_squad_tokenizer_family_cpu.py",
+      "sha256": "ffdddbce5aa33280b86b429cf9771286ea56df3f8dd91bd744f200e0cd99396d"
+    },
+    {
+      "bytes": 5273,
+      "path": "README_FAMILY_CLOSE.md",
+      "sha256": "9bc8887fe2380fdef21606b32f403abd7441b0a3f81457400c624a25fe1bfd82"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_FAMILY_CPU_TEST_STDOUT.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2800,
+      "path": "LOCAL_FAMILY_CPU_TEST_STDERR.log",
+      "sha256": "c32419804b780353524030aea63914e4b93d6d9d3c2fbf1639b60d09d177ef5d"
+    },
+    {
+      "bytes": 1289,
+      "path": "LOCAL_FAMILY_CPU_TEST_RESULT.json",
+      "sha256": "38b3bc852b084c44d3ca0aca7d461e7bd2c1700ed4d2d4a0897463c31ada5e97"
+    },
+    {
+      "bytes": 983,
+      "path": "LOCAL_FAMILY_CLI_HELP_STDOUT.log",
+      "sha256": "1229fe539687a0de84c6280e8957af807945f15c31ab71140157f39472cc9456"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_FAMILY_CLI_HELP_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1244,
+      "path": "LOCAL_FAMILY_CLI_HELP_RESULT.json",
+      "sha256": "e1b6d2a2025b30e945435732f3e625a8b02f315803bb0bacbb70026eaf785242"
+    },
+    {
+      "bytes": 293,
+      "path": "LOCAL_FAMILY_CLI_UNBOUND_STDOUT.log",
+      "sha256": "01f4a3c71d839e16029ebffe7a5e3ffbe90b19fc2c04a17964bf45dca85962a4"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_FAMILY_CLI_UNBOUND_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1237,
+      "path": "LOCAL_FAMILY_CLI_UNBOUND_RESULT.json",
+      "sha256": "7ba7314f55d16cda826deddc3adf0cf953c5a93fe4c7841156b4cbc6f5af49a9"
+    }
+  ],
+  "local_CPU_fixture_tests_passed": 16,
+  "old_frozen_sources_and_v1_v2_adapter_deliveries_unchanged": true,
+  "schema": "CPU_squad_actual_tokenizer_family_closer_source_manifest_v1",
+  "schema_is_not_an_actual_family_receipt": true
+}

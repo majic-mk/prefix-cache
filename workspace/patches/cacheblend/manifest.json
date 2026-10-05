@@ -1,0 +1,265 @@
+{
+  "repository": "https://github.com/YaoJiayi/CacheBlend.git",
+  "base_commit": "b72d7945e6d6306f12be66520196e0f081fa2b0c",
+  "patches": {
+    "cb0": [
+      "0001-cb0-fix-suffix-length.patch"
+    ],
+    "probekv": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch"
+    ],
+    "probekv_closed_loop": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch"
+    ],
+    "probekv_v6_multiregion": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch"
+    ],
+    "probekv_v6_staggered_runtime": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch"
+    ],
+    "probekv_v6_prefix_hardened_runtime": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch",
+      "0005-probekv-native-prefix-shadow.patch"
+    ],
+    "probekv_v7_single_artifact_runtime": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch",
+      "0005-probekv-native-prefix-shadow.patch",
+      "0006-probekv-v7-conservative-repair-rounding.patch"
+    ],
+    "probekv_v8_training_free_residual_k": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch",
+      "0005-probekv-native-prefix-shadow.patch",
+      "0006-probekv-v7-conservative-repair-rounding.patch"
+    ],
+    "probekv_v8_schema6_joint_cfo": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch",
+      "0005-probekv-native-prefix-shadow.patch",
+      "0006-probekv-v7-conservative-repair-rounding.patch",
+      "0007-probekv-schema6-cfo-post-rope-hook.patch",
+      "0008-probekv-resumable-active-kv-writeback.patch"
+    ],
+    "probekv_v8_winner_gradual_streaming": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch",
+      "0005-probekv-native-prefix-shadow.patch",
+      "0006-probekv-v7-conservative-repair-rounding.patch",
+      "0007-probekv-schema6-cfo-post-rope-hook.patch",
+      "0008-probekv-resumable-active-kv-writeback.patch"
+    ],
+    "probekv_v8_gradual_barrier_tiered_lru": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch",
+      "0005-probekv-native-prefix-shadow.patch",
+      "0006-probekv-v7-conservative-repair-rounding.patch",
+      "0007-probekv-schema6-cfo-post-rope-hook.patch",
+      "0008-probekv-resumable-active-kv-writeback.patch"
+    ],
+    "probekv_v8_absolute_residual_variant_admission": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch",
+      "0005-probekv-native-prefix-shadow.patch",
+      "0006-probekv-v7-conservative-repair-rounding.patch",
+      "0007-probekv-schema6-cfo-post-rope-hook.patch",
+      "0008-probekv-resumable-active-kv-writeback.patch"
+    ],
+    "probekv_v8_variant_growth_counterfactual": [
+      "0001-cb0-fix-suffix-length.patch",
+      "0002-probekv-segment-repair-mask.patch",
+      "0003-probekv-multiregion-union-mask.patch",
+      "0004-probekv-staggered-resumable-dual-model.patch",
+      "0005-probekv-native-prefix-shadow.patch",
+      "0006-probekv-v7-conservative-repair-rounding.patch",
+      "0007-probekv-schema6-cfo-post-rope-hook.patch",
+      "0008-probekv-resumable-active-kv-writeback.patch",
+      "0009-probekv-native-prefix-owned-slots.patch",
+      "0010-probekv-composite-rope-flat-heads.patch",
+      "0011-probekv-matched-prefill-kernel.patch",
+      "0012-probekv-bounded-fused-norm.patch"
+    ]
+  },
+  "runtime_modes": {
+    "h1_case_runner": {
+      "patch_mode": "probekv",
+      "layer_resumable_prefill": false,
+      "async_source_loading": false,
+      "purpose": "CB1-CB3 and H1 source sensitivity only"
+    },
+    "closed_loop_v5": {
+      "patch_mode": "probekv_closed_loop",
+      "layer_resumable_prefill": true,
+      "async_source_loading": true,
+      "scheduler_feedback_required": true,
+      "cuda_event_timing_required": true,
+      "implementation": "ProbeKV CacheBlendOnlineEngine adapter",
+      "status": "adapter_complete_engine_pending_a800",
+      "paper_evidence": false,
+      "purpose": "selector to scheduler to refined admission to execution"
+    },
+    "closed_loop_v6": {
+      "patch_mode": "probekv_v6_multiregion",
+      "ordered_repair_regions": true,
+      "absolute_union_mask": true,
+      "per_segment_ratio": true,
+      "layer_resumable_prefill": true,
+      "async_multisource_loading": true,
+      "scheduler_feedback_required": true,
+      "cuda_event_timing_required": true,
+      "implementation": "ProbeKV MultiSegmentCacheBlendRuntime adapter",
+      "status": "patch_static_checked_engine_pending_a800",
+      "paper_evidence": false,
+      "purpose": "v6 multi-segment correctness and closed-loop execution"
+    },
+    "staggered_runtime_v6": {
+      "patch_mode": "probekv_v6_staggered_runtime",
+      "ordered_repair_regions": true,
+      "absolute_union_mask": true,
+      "per_segment_ratio": true,
+      "per_segment_staggered_boundaries": true,
+      "layer_resumable_prefill": true,
+      "async_multisource_loading": true,
+      "scheduler_feedback_required": true,
+      "cuda_event_timing_required": true,
+      "model_adapters": [
+        "mistral_cacheblend_llama_v041",
+        "qwen2_5_vllm041"
+      ],
+      "implementation": "ProbeKVResumablePrefillSession + pinned model hooks",
+      "status": "concrete_engine_hook_complete_requires_a800_qualification",
+      "paper_evidence": false,
+      "purpose": "A/C staggered dual-model runtime qualification"
+    },
+    "prefix_hardened_runtime_v6": {
+      "patch_mode": "probekv_v6_prefix_hardened_runtime",
+      "inherits": "probekv_v6_staggered_runtime",
+      "native_prefix_cache": true,
+      "exact_prefix_pre_rope_shadow": true,
+      "prefix_rows_excluded_from_active_queries": true,
+      "status": "requires_dual_model_a800_qualification",
+      "paper_evidence": false,
+      "purpose": "native Prefix Cache plus ProbeKV r=1 qualification"
+    },
+    "single_artifact_runtime_v7": {
+      "patch_mode": "probekv_v7_single_artifact_runtime",
+      "inherits": "probekv_v6_prefix_hardened_runtime",
+      "single_lossless_bf16_artifact": true,
+      "multiple_physical_replicas": true,
+      "repair_rounding_policy": "ceil",
+      "per_segment_staggered_boundaries": true,
+      "status": "requires_dual_model_a800_qualification",
+      "paper_evidence": false,
+      "purpose": "v7 single-Artifact multi-Replica dual-model qualification"
+    },
+    "training_free_residual_k_runtime_v8": {
+      "patch_mode": "probekv_v8_training_free_residual_k",
+      "inherits": "probekv_v7_single_artifact_runtime",
+      "training_free_residual_k_selection": true,
+      "selection_state_k_only": true,
+      "full_kv_transfer_for_selection": false,
+      "winner_only_prefetch": true,
+      "predicted_and_refined_joint_planners": true,
+      "repair_ratio": 0.15,
+      "status": "requires_dual_model_a800_profile_freeze_and_qualification",
+      "paper_evidence": false,
+      "purpose": "v8 training-free Source selection and two-stage runtime qualification"
+    },
+    "schema6_joint_cfo_runtime_v8": {
+      "patch_mode": "probekv_v8_schema6_joint_cfo",
+      "inherits": "probekv_v8_training_free_residual_k",
+      "post_rope_cfo_hook": true,
+      "streaming_attention_aggregation": true,
+      "joint_timeline_gate2_gate3": true,
+      "active_repair_row_writeback_each_layer": true,
+      "status": "requires_mistral_a800_sparse_sentinel",
+      "paper_evidence": false,
+      "purpose": "schema-v6 CFO and joint-runtime sentinel only"
+    },
+    "winner_gradual_streaming_runtime_v8": {
+      "patch_mode": "probekv_v8_winner_gradual_streaming",
+      "inherits": "schema6_joint_cfo_runtime_v8",
+      "source_score_repair_support_separated": true,
+      "winner_specific_repair_metric": true,
+      "gradual_no_reentry_support": true,
+      "load_recompute_overlap_controller": true,
+      "final_commit_admission": true,
+      "integrity_modes_split": true,
+      "formal_online_full_digest": false,
+      "status": "no_gpu_complete_requires_schema7_a800_sentinel",
+      "paper_evidence": false,
+      "purpose": "schema-v7 CacheBlend-aligned winner repair and gradual streaming"
+    },
+    "gradual_barrier_tiered_lru_runtime_v8": {
+      "patch_mode": "probekv_v8_gradual_barrier_tiered_lru",
+      "inherits": "winner_gradual_streaming_runtime_v8",
+      "dense_d1_d2_selection_barrier": true,
+      "gate1_same_origin_positive_saving": true,
+      "final_commit_request_joint_timeline": true,
+      "cpu_preferred_single_backing": true,
+      "cpu_and_ssd_lru": true,
+      "repair_ratio_scope_explicit": true,
+      "legacy_ac_policy_removed_from_main": true,
+      "status": "no_gpu_complete_requires_schema8_a800_sentinel",
+      "paper_evidence": false,
+      "purpose": "schema-v8 d1/d2 dense barrier, tiered LRU, and explicit repair-ratio scope"
+    },
+    "absolute_residual_variant_admission_runtime_v8": {
+      "patch_mode": "probekv_v8_absolute_residual_variant_admission",
+      "inherits": "gradual_barrier_tiered_lru_runtime_v8",
+      "absolute_residual_admission": true,
+      "dense_exact_variant_materialization": true,
+      "full_candidate_coverage_for_mismatch": true,
+      "online_variant_growth": true,
+      "status": "no_gpu_complete_requires_schema9_profile_freeze_and_a800_qualification",
+      "paper_evidence": false,
+      "purpose": "schema9 absolute Source compatibility and audited online Variant growth"
+    },
+    "variant_growth_counterfactual_runtime_v8": {
+      "patch_mode": "probekv_v8_variant_growth_counterfactual",
+      "inherits": "absolute_residual_variant_admission_runtime_v8",
+      "bounded_variant_probation": true,
+      "budget_truncated_exploration": true,
+      "gate1_counterfactual": true,
+      "atomic_preparation_reservation": true,
+      "final_commit_admission": true,
+      "status": "no_gpu_complete_requires_schema10_profile_freeze_and_a800_qualification",
+      "paper_evidence": false,
+      "purpose": "schema10 dynamic Variant growth, materialization quality, and Gate1 counterfactual audit"
+    }
+  },
+  "innovation_claim": false,
+  "patch_application": "exact base commit with git apply --unidiff-zero --check",
+  "ratio_denominator": "repeated segment C tokens only",
+  "suffix_policy": "mandatory dense suffix S is excluded from repair ratio",
+  "causal_mask_policy": "absolute rows of arbitrary selected query positions",
+  "source_k_representation": "pre-RoPE; rotate at current org_pos",
+  "v7_full_kv_artifact_policy": "one lossless BF16 Artifact per Source Variant",
+  "v8_source_selection_policy": "training-free residual K with K-only SelectionState",
+  "v8_schema7_repair_policy": "winner-specific fixed15 fallback plus profiled gradual no-reentry candidates",
+  "v8_schema8_main_policy": "dense d1/d2 selection barrier, CPU-preferred single backing, tier LRU, and explicit ratio scope",
+  "v8_schema9_main_policy": "schema8 runtime plus absolute residual admission and exact-dense online Variant growth",
+  "v8_schema10_main_policy": "schema9 runtime plus bounded probation, controlled exploration, materialization quality, and Gate1 counterfactual audit"
+}

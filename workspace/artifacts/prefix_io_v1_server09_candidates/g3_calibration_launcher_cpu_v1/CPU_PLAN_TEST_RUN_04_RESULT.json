@@ -1,0 +1,28 @@
+{
+  "status": "PASS_CPU_PLAN_TEST_RUN_04",
+  "actual_process_exit": 0,
+  "tests_run": 31,
+  "failures": 0,
+  "errors": 0,
+  "elapsed_test_s": 1.369,
+  "source_and_log_refs": [
+    {
+      "path": "g3_calibration_plan.py",
+      "bytes": 24352,
+      "sha256": "33c56263ac298f9ba39ef5b0211cfaafdb8025eb33c5cfe19c40e0a348f18dd5"
+    },
+    {
+      "path": "test_g3_calibration_plan.py",
+      "bytes": 18196,
+      "sha256": "7d1ebfbd82b8fcb8bf5296d063dddafc2755bb659cabfdcede3274058032928f"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_04.log",
+      "bytes": 135,
+      "sha256": "86c81ec5054ab95d2ddd386392c83bbb6409cd33f90ab5abf1c9b7d11a8c84c7"
+    }
+  ],
+  "GPU_jobs": 0,
+  "RPC_calls": 0,
+  "qualification_granted": false
+}

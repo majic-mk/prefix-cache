@@ -1,0 +1,67 @@
+--- before/experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py
++++ experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py
+@@ -87,10 +87,16 @@
+     ap.add_argument("--sizes",default="16,64,128,256,512,1024")
+     ap.add_argument("--reps",type=int,default=6)
+     ap.add_argument("--domain",type=int,choices=[1024,4096,8192,16384],default=1024)
++    ap.add_argument("--max-num-seqs",type=int,choices=[1,2],default=1)
++    ap.add_argument("--iodepth",type=int,choices=[2,4,8],default=4)
+     ap.add_argument("--native-hot-diagnostic",action="store_true")
+     ap.add_argument("--diagnostic-logprobs",action="store_true")
+     ap.add_argument("--cached-reference-logprobs",action="store_true")
+     args=ap.parse_args()
++    from concurrent_pilot_contract import acquisition_delta
++    engine_delta=acquisition_delta(args.domain,args.max_num_seqs)
++    from concurrent_pilot_contract import acquisition_io_depth
++    io_depth=acquisition_io_depth(args.domain,args.max_num_seqs,args.iodepth)
+     base.require(not args.cached_reference_logprobs or (args.mode=="paired" and not args.native_hot_diagnostic and not args.diagnostic_logprobs),"cached reference requires paired mode only")
+     base.require(not args.diagnostic_logprobs or args.native_hot_diagnostic,"logprob diagnostic requires native hot diagnostic")
+     base.require(not args.native_hot_diagnostic or args.mode=="cold","native hot diagnostic requires external cache disabled")
+@@ -138,12 +144,13 @@
+         alias.symlink_to(model,target_is_directory=True)
+         extra=dict(spec_name="PyKvCacheOffloadingSpec",spec_module_path="py_kvcache.vllm",
+             shared_storage_path=str(storage),block_size=16,sync_on_store=False,
+-            staging_mem=(128 if args.domain==1024 else (1024 if args.domain==16384 else 512))/1024,iodepth=4,enable_preload=True,
++            staging_mem=(128 if args.domain==1024 else (1024 if args.domain==16384 else 512))/1024,iodepth=io_depth,enable_preload=True,
+             preload_lookahead_requests=1,preload_share_staging=True,staging_cache="lru",
+             load_planner="on" if args.mode=="planned" else "off",io_backend="linux_aio")
+         if curves:extra["prefix_cache_break_even_path"]=str(curves)
+         config=dict(base.ENGINE,max_model_len=args.domain+16,max_num_batched_tokens=args.domain+16,
+             kv_cache_memory_bytes=268435456 if args.domain==1024 else (2147483648 if args.domain==16384 else 1073741824),disable_log_stats=False,prefix_caching_hash_algo="sha256")
++        config.update(engine_delta)
+         if args.mode=="planned":
+             measured=json.loads(curves.read_text())
+             base.require(measured["model_name"]==base.MODEL_ID and measured["provenance"]["gpu_uuid"]==os.environ["CUDA_VISIBLE_DEVICES"],"curve identity mismatch")
+--- before/experiments/prefix_io_v1/scripts/validate_heldout_costs.py
++++ experiments/prefix_io_v1/scripts/validate_heldout_costs.py
+@@ -38,7 +38,7 @@
+         relative_error=error,absolute_relative_error=abs(error),passed=abs(error)<=tolerance,
+         n=len(samples),samples_s=samples,min_s=min(samples),max_s=max(samples))
+ 
+-def costs(root,plan_path):
++def costs(root,plan_path,engine_delta=None,connector_delta=None):
+     plan=json.loads(plan_path.read_text())
+     curve_path=root/plan["candidate"];require(digest(curve_path)==plan["candidate_sha256"],"curve changed")
+     curve=json.loads(curve_path.read_text())
+@@ -53,11 +53,20 @@
+     refs={(r["prefix_tokens"],r["rep"],r["kind"]):r for r in nr["rows"]}
+     ec=json.loads((details_path(root,rp["external_groups"][0]["label"],rp)/"frozen-config.json").read_text())
+     engine_without_connector=lambda e:{k:v for k,v in e.items() if k!="kv_transfer_config"}
+-    require(engine_without_connector(nc["engine"])==engine_without_connector(curve["provenance"]["engine"]),"candidate budget/config mismatch")
++    expected_engine=engine_without_connector(curve["provenance"]["engine"])
++    if engine_delta is not None:
++        from concurrent_pilot_contract import expected_variant_engine
++        require(plan.get("engine_delta")==engine_delta,"unregistered engine change")
++        expected_engine=expected_variant_engine(expected_engine,engine_delta)
++    require(engine_without_connector(nc["engine"])==expected_engine,"candidate budget/config mismatch")
+     require(nc["model"]==curve["provenance"]["model"] and nc["gpu_uuid"]==curve["provenance"]["gpu_uuid"],"candidate identity mismatch")
+     extra=ec["engine"]["kv_transfer_config"]["kv_connector_extra_config"].copy()
+     expected=curve["provenance"]["engine"]["kv_transfer_config"]["kv_connector_extra_config"].copy()
+     extra.pop("shared_storage_path");expected.pop("shared_storage_path")
++    if connector_delta is not None:
++        from concurrent_pilot_contract import DELTA,expected_connector_variant
++        require(engine_delta==DELTA and plan.get("connector_delta")==connector_delta,"unregistered connector change")
++        expected=expected_connector_variant(expected,connector_delta)
+     require(extra==expected,"candidate storage mechanism/config mismatch")
+     samples={k:{n:[] for n in rp["sizes"]} for k in ("f","g_ssd","g_mem")}
+     session_counts={k:0 for k in samples};sources=[];seen=set();checked_rows=0;session_medians=[]

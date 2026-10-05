@@ -1,0 +1,25 @@
+{
+  "status": "PASSED_C2_UNLOADED_POINT_GATE",
+  "engine_delta": {
+    "max_num_seqs": 2
+  },
+  "runtime_scope": "Bounded two-sequence controlled development screen only; loaded prediction, unseen content and formal evaluation unqualified",
+  "maximum_absolute_relative_median_error": 0.25,
+  "cost_plan": "artifacts/prefix_io_v1/server07-p3-06/cost-plan.json",
+  "cost_plan_sha256": "dc25ccfef5274e006de152bffc06317ff2b4edae2c288c687636e8c57f8b3df7",
+  "cost_result": "artifacts/prefix_io_v1/server07-p3-06/cost-result.json",
+  "cost_result_sha256": "906ccbd54ce5e2297d48debbfc3f2e6c0cdc938b3ee65726c78acd533c36190d",
+  "candidate_sha256": "13ea532044c2dcb5cb213ba17e885c274177704f71ac8b9f5ef134a5381f0e86",
+  "manifests": {
+    "all_hit": {
+      "path": "artifacts/prefix_io_v1/server07-p3-06/all_hit-manifest.json",
+      "sha256": "94920aae8ccd747dfd3affaf9f7f462016a96d702dad9385a00986902bf9ab4e"
+    },
+    "mixed_readwrite": {
+      "path": "artifacts/prefix_io_v1/server07-p3-06/mixed_readwrite-manifest.json",
+      "sha256": "026d2d1691572eda2b4228dea6f826daa5f5b61836cc31bbf6cf4e0541fd7273"
+    }
+  },
+  "ordinary_quotas_installed": false,
+  "formal_goodput": false
+}

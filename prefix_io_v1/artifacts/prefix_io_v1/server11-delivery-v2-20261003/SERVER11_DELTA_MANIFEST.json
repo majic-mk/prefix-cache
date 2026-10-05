@@ -1,0 +1,2084 @@
+{
+  "status": "CLOSED_NATIVE_RUN_DELTA",
+  "files": [
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/CONFIG_AND_SOURCE_PREPARATION_COMMAND.json",
+      "bytes": 245,
+      "sha256": "49c15cda3ab85b9a990f16ae9743c031846e27659146cd304693aa473fe7bdc0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/CONFIG_AND_SOURCE_PREPARATION_RESULT.json",
+      "bytes": 466,
+      "sha256": "d82c654748ee443c78d6f38926eff93be8edcdd2b665252fd277cb8bec0ec827"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/CONFIG_AND_SOURCE_PREPARATION_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/CONFIG_AND_SOURCE_PREPARATION_STDOUT.log",
+      "bytes": 438,
+      "sha256": "ede36a36110ba453cbf35d7f2ffd60a67c82baf50d453745b064c76dcffae232"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/FINAL_NATIVE_VERIFICATION_COMMAND.json",
+      "bytes": 1216,
+      "sha256": "470c25a9d1c6f1e98f609a78f6a4e50573c0a9fb9d4b8b431977ff58a3321a2c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/FINAL_NATIVE_VERIFICATION_RESULT.json",
+      "bytes": 1428,
+      "sha256": "f57a4735547952b278c7aacf6866257f0e1fc0828a46c700c7e187dbd8af582d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/FINAL_NATIVE_VERIFICATION_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/FINAL_NATIVE_VERIFICATION_STDOUT.log",
+      "bytes": 530,
+      "sha256": "e7b13200ef62ca88d84c45648b24085627028ea48c9bd561e4851d376df6aa10"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/FINAL_SCOPE_COMMAND.json",
+      "bytes": 351,
+      "sha256": "2e6e0275de8f73d13c899cde0033058ffdcaa260b343648367ed2045914e1a69"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/FINAL_SCOPE_RESULT.json",
+      "bytes": 536,
+      "sha256": "27b39c7a67b1e1ac5f3679ea7a464da3be2ddfe62bf60f83bd9fb6fad67530b8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/FINAL_SCOPE_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/FINAL_SCOPE_STDOUT.log",
+      "bytes": 195,
+      "sha256": "c1cc54e360a8c5d28090f09de22b987c1e451ee8202bf19bed861c00137b8527"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/GPU_GUARD_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/GPU_GUARD_STDOUT.log",
+      "bytes": 1106,
+      "sha256": "caad02197fcd19b5c8d3f93058f06b0cabda061e79c06fff915ef7e8cd12b5f1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/GPU_LAUNCH_INTENT.json",
+      "bytes": 1631,
+      "sha256": "53a45cb07f394daf5a87acadc85373f60fb976f1c4e35defda2c679993af87b6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/GPU_LAUNCH_RECEIPT.json",
+      "bytes": 695,
+      "sha256": "533b2e7da558b0c753392de3ba98df1a3af8439f4115fd71908d6cd857b889e0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/HARNESS_CPU_COMMAND.json",
+      "bytes": 508,
+      "sha256": "695d79357a89a0989a60e80fb8e02249b0ed3e3de91f6cb21bb241539ec683a4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/HARNESS_CPU_RESULT.json",
+      "bytes": 416,
+      "sha256": "2ff25eebebe6c3687bf068307083ab30231fd95673e3dbc07d75c6906ba3ebc8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/HARNESS_CPU_STDERR.log",
+      "bytes": 2212,
+      "sha256": "b61449f314302d12815a48c8765e3a42d7d4adb4408046984a6bbb1f249a5a54"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/HARNESS_CPU_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/LAUNCH_AFTER_CONFIRMED_NO_DISPATCH_COMMAND.json",
+      "bytes": 210,
+      "sha256": "40a837aef7f9b27682c39e0b2aa52f33dd6b85214b29a051a2467ca113237b30"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/LAUNCH_AFTER_CONFIRMED_NO_DISPATCH_RESULT.json",
+      "bytes": 474,
+      "sha256": "02505f6ac5aa06b30b107ef15438f3dafad885083843decd2a66e476eaf65768"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/LAUNCH_AFTER_CONFIRMED_NO_DISPATCH_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/LAUNCH_AFTER_CONFIRMED_NO_DISPATCH_STDOUT.log",
+      "bytes": 184,
+      "sha256": "61c53e61aeff3b8938f4555d1e0d3b192688abd75ef8476c7a9dd7982835118b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/LAUNCH_COMMAND.json",
+      "bytes": 210,
+      "sha256": "40a837aef7f9b27682c39e0b2aa52f33dd6b85214b29a051a2467ca113237b30"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/LAUNCH_RESULT.json",
+      "bytes": 419,
+      "sha256": "2ebf1a66607f01716c0c923c774bd800c4bf0e2ca3b4c4cfb6b340f445985d52"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/LAUNCH_STDERR.log",
+      "bytes": 1534,
+      "sha256": "62090fc21f11848c21aeb02296918b7daf8551ee5cd4bf460c0342a060459d96"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/LAUNCH_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/NATIVE_CONDITIONAL_COST_RESULT.json",
+      "bytes": 7271,
+      "sha256": "2ba9d39fa0a29ab6c4844755882f2c82228e152fc0284b5576216220669f9f1f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/NATIVE_COST_CONFIG.json",
+      "bytes": 870,
+      "sha256": "7022e5f44600a5f6ab7575f1a5b0cb4a0070e0489c593fe420a3c4cb15918548"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/NATIVE_COST_PLAN.json",
+      "bytes": 10406,
+      "sha256": "73fb0c4f0b7d0bca8776bfd8d4832104c77f5b6cf950f27f3123e9609790adfc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/NATIVE_COST_PLAN_REF.json",
+      "bytes": 192,
+      "sha256": "df92d369dcd2a773a4034e26a8a3841fbd4d11a72b1765e962b1182622a2eb64"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/NATIVE_MEASUREMENTS.json",
+      "bytes": 2287288,
+      "sha256": "0ba3fcb37e678d8cdd4504ecee8b8241e0a5faeb8f1b88af015e9eb043a9c1af"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/POST_RUN_SOURCE_COMMAND.json",
+      "bytes": 243,
+      "sha256": "adec1b2d7bbdc0e5ca6a21876e8fc8cf20aca6dbdad952d2518e9142b4a65e19"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/POST_RUN_SOURCE_RESULT.json",
+      "bytes": 435,
+      "sha256": "4fa75f1d319819beb894f5d416337591b2623b572d5f4c735c25fa6b71002f9e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/POST_RUN_SOURCE_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/POST_RUN_SOURCE_STDOUT.log",
+      "bytes": 191,
+      "sha256": "e845d8b5095a4e2a48d5b0c9cbc4ce4b9978c658fa19fb6a949511cc886eed5e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/PREREGISTERED_PLAN_COMMAND.json",
+      "bytes": 750,
+      "sha256": "8ec9ea413684bfc49da56479a79b4620aa387b100a5422346d8f2ca4118fdfdc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/PREREGISTERED_PLAN_RESULT.json",
+      "bytes": 949,
+      "sha256": "a3c9231ba6dd735cbb04e4a4eb96cffeb02704c1e1772ddab85f16fddae1fd42"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/PREREGISTERED_PLAN_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/PREREGISTERED_PLAN_STDOUT.log",
+      "bytes": 467,
+      "sha256": "1d07c25444043ef0994c6a11e1203a87ea949f737029ae01271924ac73519325"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/README_NATIVE_CONDITIONAL_COST.md",
+      "bytes": 7071,
+      "sha256": "bdda079ad9d36f9ea6dbda24b5305de8ec5a112948ff751ee86d27946c3ef700"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/SERIALIZER_CPU_COMMAND.json",
+      "bytes": 417,
+      "sha256": "ebf6a9945798645f2159f2aedaee3960f3f4df3b128cc014b9aa06a1c0bdd029"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/SERIALIZER_CPU_RESULT.json",
+      "bytes": 432,
+      "sha256": "af221aeb5ab6884225f762a4d47de1f9f2a65ca10df130378d1fc57269ff3308"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/SERIALIZER_CPU_STDERR.log",
+      "bytes": 106,
+      "sha256": "93b948e243b38f5c9db932f60a52b2859f3085cee08419d84d9fc8268e7e1a43"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/SERIALIZER_CPU_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/SIX_PROCESS_AUTHORIZED_SCOPE.json",
+      "bytes": 3322,
+      "sha256": "38bf6987a1c41b73441a35fd7ff4c9d0fe3a21348c9a915e3619526be920cecc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/SOURCE_AFTER_VERIFICATION.json",
+      "bytes": 387,
+      "sha256": "6133c7c9e450ffd614e0e7f8fd6c7531c69c49aba71850c99bd439bbec9dcac9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/SOURCE_BEFORE_VERIFICATION.json",
+      "bytes": 388,
+      "sha256": "edcedf56704c86e4fafe2a8e9064fcb6da58a6c948b9cb4429988670e23aa226"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/VALIDATOR_CPU_COMMAND.json",
+      "bytes": 410,
+      "sha256": "23ab1968ac62c98548bdcae64b5bafcc1dafc48bf506e4b0edc1f0b64d91395b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/VALIDATOR_CPU_RESULT.json",
+      "bytes": 424,
+      "sha256": "7b21b845c8ccb288b4cfa3fd28cec6628b9093d3178617eaa072a2637163adc0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/VALIDATOR_CPU_STDERR.log",
+      "bytes": 116,
+      "sha256": "4b855e87500830498564647ca3840ba01bef45cdfa9cb61963fe6b1e241e3ebf"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/VALIDATOR_CPU_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW00_EARLY_CHECK_COMMAND.json",
+      "bytes": 789,
+      "sha256": "5cc89a9b050b2465032bbdf0db70ceda7eb44ae6fe2081576f282bd0b9df451b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW00_EARLY_CHECK_RESULT.json",
+      "bytes": 992,
+      "sha256": "a3c9add6f19bf880c71ac73fd1f23c75fb2b84be4ca812563f4755e63ef7a1a4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW00_EARLY_CHECK_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW00_EARLY_CHECK_STDOUT.log",
+      "bytes": 312,
+      "sha256": "21282f33e96e5ae73b6dc80c4fc803c27704fcd5cb9b26d2ffe94820fabb8a34"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW00_EARLY_RESULT.json",
+      "bytes": 962,
+      "sha256": "7748315ced4e2654cc0ce82f478de7673c46c373dd6ef884d3e0f7ed8e41d41a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW01_EARLY_CHECK_COMMAND.json",
+      "bytes": 789,
+      "sha256": "7d0be9e1c8ea0ed80061d58491a1c3b519500e3678a2a7b0c18363f5a5807781"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW01_EARLY_CHECK_RESULT.json",
+      "bytes": 991,
+      "sha256": "88188f98ee44060ef9a135240779602c2097757da535b6f4cc31199e17f25f44"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW01_EARLY_CHECK_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW01_EARLY_CHECK_STDOUT.log",
+      "bytes": 312,
+      "sha256": "6d072e0bb4622d7275edf027134a25dcbf943b4067d1c10683887b03d926ba8e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW01_EARLY_RESULT.json",
+      "bytes": 966,
+      "sha256": "7339679ddf97b2b668f894ebf9784bc18fa574e7801420726363fbe92f849270"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW02_EARLY_CHECK_COMMAND.json",
+      "bytes": 789,
+      "sha256": "ba65a0ec231d5d359ed4b5e80f670b2f2dfe93b26e5a966ecdc948116a6cf2f3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW02_EARLY_CHECK_RESULT.json",
+      "bytes": 992,
+      "sha256": "45b62baf5f7a14c837506522e9e99b044aa4263e780df7582411883d86a465bb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW02_EARLY_CHECK_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW02_EARLY_CHECK_STDOUT.log",
+      "bytes": 312,
+      "sha256": "e263a0a642aaa9c6000fc8a3753efa8cb3a0350355d03baea54fb8ff8f71a915"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW02_EARLY_RESULT.json",
+      "bytes": 966,
+      "sha256": "5e76f3808d1d7246fe02223bc7b17d10103d9fffa962ab95c071b811944601b9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW03_EARLY_CHECK_COMMAND.json",
+      "bytes": 789,
+      "sha256": "9e01c9ceb963382aeac413ed1c8beefc8f009e86cc40c60a04a09b5805f3f12f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW03_EARLY_CHECK_RESULT.json",
+      "bytes": 992,
+      "sha256": "a3a3bb1f53671f1744a6e246f70726d8375982d8dee18998a68af12c1c60bc0f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW03_EARLY_CHECK_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW03_EARLY_CHECK_STDOUT.log",
+      "bytes": 312,
+      "sha256": "93d6be27208f5c7b3789cdcc69ef947adf820515e0a41ede66f57dad5556c6a8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW03_EARLY_RESULT.json",
+      "bytes": 962,
+      "sha256": "e21efda87db27253751bad8881cc6057e56968d4faec697b5f0b79c997f8c0b8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW04_EARLY_CHECK_COMMAND.json",
+      "bytes": 789,
+      "sha256": "6524c2dacef28f14a7598758b83c3b7ec198aab593cfb184b85bf6adb7476227"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW04_EARLY_CHECK_RESULT.json",
+      "bytes": 992,
+      "sha256": "06cf975ad6132315e087a749bec1346d0ee7e0dd4c1c2ac6767c360e21871a2b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW04_EARLY_CHECK_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW04_EARLY_CHECK_STDOUT.log",
+      "bytes": 312,
+      "sha256": "56705117550f8f41c4645bd01ebfd192f85a56fb0b994174ff676690e1da4af3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/WINDOW04_EARLY_RESULT.json",
+      "bytes": 962,
+      "sha256": "f0dbff6426614537274df9ded7e7bf6200873840fd02e25b16986db5df685633"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/control_native_cost_job.py",
+      "bytes": 12075,
+      "sha256": "a90ccf751782d1ca675abd26031e4fab0bdfa0ed85a43c99c41fe95ad87e1f78"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/gpu-source-lock-native-cost.json",
+      "bytes": 935051,
+      "sha256": "5448ec9126b34a2a41a9e522c7508bfabd8e668cf6a982d531dbd6c7a4f02234"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/native_conditional_cost.py",
+      "bytes": 36869,
+      "sha256": "e20944ea470a4fbdbd10cb67e516cfc2b9f1de3f53d61d0249e0fa6d0e59a291"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/prepare_and_verify_native_cost.py",
+      "bytes": 19198,
+      "sha256": "ecf7ccec2030c7a8b9eefb72130f08e54f8d76faaf0490ef96799191f47905c5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/run_native_cost_experiment.py",
+      "bytes": 39687,
+      "sha256": "feb1e3dead5da65141b7f0faadbb857bdcf654e0c5b2291c67ca5b1913bc53dc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/test_native_conditional_cost.py",
+      "bytes": 13143,
+      "sha256": "56304f4f1fcb82188a66450b1bcb1927701fd681fed4d5eeb4de231dc332ab76"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/test_native_cost_harness.py",
+      "bytes": 15278,
+      "sha256": "ab342f6d192873723242e83cf214ba159afb0ca9c813541ccf4e9205c13bed44"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/test_optional_metrics_source.py",
+      "bytes": 7188,
+      "sha256": "ece6a9e1f17e938792765cb64efa18a09edd10a0fcb5d0173d0b7f259558345a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/test_prepare_and_verify_native_cost.py",
+      "bytes": 6199,
+      "sha256": "c3eb2024c7bc9b8a082f1ad89bbc7e659f1795fc3f34f9d2657f83635854ac15"
+    },
+    {
+      "path": "experiments/prefix_io_v1/configs/permissions.server11.native-cost.yaml",
+      "bytes": 675,
+      "sha256": "4a42c67a3e6f51fd28dae1ad27fdd3424b7d21194d4fcae6cc19140cd738b0c1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+      "bytes": 374722,
+      "sha256": "d564078300c6d8a733b3c8ed8e3fc4c1f42a5c3b4c6f9b744c5be1b76f2f5d52"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/native-cost-runtime-result.json",
+      "bytes": 5650624,
+      "sha256": "0c31c3fd99f12a0bf2da04187b8fb6bf149fd1541e50dc75bc6ed0003e62b6c6"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/CHILD_COMMAND.json",
+      "bytes": 518,
+      "sha256": "f110b4bb442bddd680e69678d617aeae015552d2a46ff48d8205817b4f92fc1f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/CHILD_RESULT.json",
+      "bytes": 619,
+      "sha256": "f7f14ec487c5a86999e8ae7d1c4d342aa34531042a8f89135e93dafa869cc69a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/STDERR.log",
+      "bytes": 725,
+      "sha256": "aaab8501d5e8fcbc484416ebf18fc79b7fb07effcd4a29ff1950c8dfef5feb39"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/STDOUT.log",
+      "bytes": 12120,
+      "sha256": "97a0e5215ee61bd5684bfa8dc9e7547cb0ecd34970919219ebe6bab8d329bf1d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/hot-warmup-0-raw-output.json",
+      "bytes": 3232,
+      "sha256": "572fa8d6cdfbf7121ceee1376a6ca67f9aa68cdd1f5f4717eb071cacd5d0505b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/native-cost-runtime-result.json",
+      "bytes": 1019448,
+      "sha256": "ce9743201e39f019064e331bf148d3cf3690bfd19de43b783235057a14aba591"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/native-journal.json",
+      "bytes": 102469,
+      "sha256": "414e6dee0fb93302380f3ae9bbaad9de950966e57355f57a86f03673eafe46fa"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/primer-0-raw-output.json",
+      "bytes": 1704,
+      "sha256": "f822fea00d0c0bba655235ececacf8bfbf77b0e0d05f86fc562246778fc5931f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/08f/1e/08f1e999b5a9fb6c37929ee8226c848a46cb66ceccb27cc4ec89b50d4a96aff6.bin",
+      "bytes": 917504,
+      "sha256": "69571043c3d7bd2b0a8993d0cd0ae9dd886209e56157708e2ab50f2d4150ee5a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/0e4/5d/0e45d35160c1479d9b933c8d48e842b633f4f16c058b22991b360607f9b46f15.bin",
+      "bytes": 917504,
+      "sha256": "c4386dd052463e3a93c0e05e96aca795a44577a7fae5af6cd7d637dde0ac83cf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/11c/62/11c6268b4c97f47bfed0d7f618b2a7438d0234bb0a68ed2a3fa320286448428a.bin",
+      "bytes": 917504,
+      "sha256": "cabea34d5fc02fe9b8c5d73178f9d8d38ac2ad6eb520144bdef441a8651f7ecc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/14a/a9/14aa96207c9812bef0df4669ab84cbc38c6201ed8dc47375775df65a926a1186.bin",
+      "bytes": 917504,
+      "sha256": "482b0b5585e3cb2a4ec94d763d6c1889a71e5c427ca99957c3eb3b2d5811d544"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/1fd/68/1fd68c61e241e7fadaa91013d0b546fe01618795bf0acdd6328df45990264ce2.bin",
+      "bytes": 917504,
+      "sha256": "191e938db5f810ca11b391f5152dc35470fdf4aee52dde4776be98d7b0d7571d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/21f/dd/21fdd47dd33d339292f4181240d3cc64e81c1dcfe638d12d495ded2c5c01ce21.bin",
+      "bytes": 917504,
+      "sha256": "5d8202ff80dab0d06975ffccca97de88ecd28edd77ef8bb998df0a4b4692000f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/271/d7/271d78b08e3c1d0d224b274a88b56a2e46649e81c50341bba26bd1c0f5c90b0f.bin",
+      "bytes": 917504,
+      "sha256": "85e886b593cd1944535d0569a7c3d574dd6492c0874bc85321ae02b645f7272b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/2d3/a5/2d3a50004f9315e20846c780c3111cd74a1313eeb7869155a49d2450d865b863.bin",
+      "bytes": 917504,
+      "sha256": "284b4b5488510503cc4834018b15e47a9158352614db5cd4f2a7b5184c2ad268"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/2d7/7d/2d77dcd9094c740011ac8701efee895047f1caa4b5ab40902af9b92770ee936e.bin",
+      "bytes": 917504,
+      "sha256": "50ccab8b754ba6aa4b59c721ec7d227928d16e11ba23360b178d0ff1b14a71ec"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/380/77/38077931ae02423642ea1488f51679cfa61f9ddf1b02b32f6837201e9819a66e.bin",
+      "bytes": 917504,
+      "sha256": "75c91dc0c987983d7f26f282af8e64ac694ef3cc6a2fee478bdde22d5dfbf866"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/3f8/a2/3f8a253f34b879f947be7e379d3a063b73f10d9c1d7277cc33c9cfcad93a27a9.bin",
+      "bytes": 917504,
+      "sha256": "270d6fbf8a26e008870553626984ce33437f3cc1004a66b17acdabcf32405884"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/407/36/40736c60a6267f4c5af3d8d89a93909bd814bbcb61d1c69ae588ff144aea513d.bin",
+      "bytes": 917504,
+      "sha256": "578fd84c0bc0c16b2f01f14c683611b17bbfce6b4c84341382bf9eeed66e8ee1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/439/cc/439cc9b8adf0c1ff6b3643d08f536cc6a0c796173e7794c01e93f16ff9fee588.bin",
+      "bytes": 917504,
+      "sha256": "a7dc6e77e4cf415d248bd56a994111f0d5eca737552b681dfacb1030c4d3c173"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/486/4a/4864adb1d41c7f8c99b374a48e544ae55fbe2fe7c9f2d8b4f053708b7aa0814d.bin",
+      "bytes": 917504,
+      "sha256": "f47875e88e0193a2f5d9007d8ccd1f9ea0b50623aae71694a3232aed1a1c493a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4bc/8a/4bc8af088dd7b9289b16069e7bb1032a86c944d3926316f2f5118075a5987c22.bin",
+      "bytes": 917504,
+      "sha256": "951472e20c4fbff46ce7a96886baea822964ceaf8db8a5adf47c0edf7869b450"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4d9/6c/4d96c863486036b8034a6e16893baaebedd6622cb3359eecfc5c6ffb67c83b14.bin",
+      "bytes": 917504,
+      "sha256": "09282aae8088dbcf287dc572ab43c5496b8c20293e212648285c32d7a0141842"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4ed/84/4ed840473039c1a0eb09aa055e95d6a62fcd2e80fb8376bb9b63e3a5e15bae23.bin",
+      "bytes": 917504,
+      "sha256": "f754a10ccd7c7724fa9054692dedd701863f1a8f5ac0676b0ea410d603624b72"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f0/03/4f0036ea07ea6550ff166fdbdba3934c9febbb5a29ee1aa203fa95fbb0881ff7.bin",
+      "bytes": 917504,
+      "sha256": "c7f715aed0e4fd256a58a6b6bb5f86c04d638464173f2a8e5ea15da666430bcf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f8/21/4f821c4c4a087025fb87798670c0f075bafe368a2c547151199272431a65c232.bin",
+      "bytes": 917504,
+      "sha256": "e29986d12ad43c11aed98017226da23b449de728154f22632285b3594fcb16bc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4fb/50/4fb50e75de1b9ded1676beb4d3646004252eff39c7591d93dc06aa6717b5c975.bin",
+      "bytes": 917504,
+      "sha256": "5c7a95725408277a2f2e40040960964b835344d02511b7a92cc87c6fb3d48af0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/505/5a/5055a13f051c8001af0edb83649d7ed8196a6e1a1ae8deebfba954929cad7303.bin",
+      "bytes": 917504,
+      "sha256": "cbfaae42a890b108e171e1ec9b63ae0cbcf613ae3e917c4a2d24254a9048bd51"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/5c5/e7/5c5e7b7d14a7eb004cdb5ec9a75a9fe876c832b6aebc90731941e00e5c76f6f2.bin",
+      "bytes": 917504,
+      "sha256": "1d8e2efc43c1b97d1920834105c5596244d477048dd27da7af57c598d9f7228b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/64b/f3/64bf359af38df9da14f4dbafced4e7c7fa9eb67f894dd2599a4aad0541a8dc28.bin",
+      "bytes": 917504,
+      "sha256": "553ea82a4c89f7c0819f8e4666a825367054c50ebe5fd07df77755961a91ae41"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/77f/38/77f380613cb446135865e5ea5da6ce35963d0bc03ae668e9087c2ad2b8cb7fb2.bin",
+      "bytes": 917504,
+      "sha256": "f2c0bcc9f903b687d1da2c66de39c00caa3096b8cfbd1b29290654194bb88dc6"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/786/b8/786b8ab7d2340798efd11f51157b5077d987964009ff4530c39e16b6a6baadfd.bin",
+      "bytes": 917504,
+      "sha256": "a1b00e392f49088408da5918292d33a884f16b97737ffdb6d53b34baf9da3327"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/809/de/809de9c4bcbbbd3b6a0964fdbefbbdd3b5ef3763c6d1e9337161465ffa7012fa.bin",
+      "bytes": 917504,
+      "sha256": "67715374dabdcd825981ce3c9ffe36c262f4c0132e93d246579176308b4d4f9a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/911/11/91111ca1071efbe616b639bde44ed33513041f25160b20b8a8253af8e30e3fdd.bin",
+      "bytes": 917504,
+      "sha256": "6ffe73ffa64f38853fb58521cfe3149e65414565a71978d5d6d4313a2524860b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a2c/d9/a2cd91c8bfdf947ba20f42c15490fbe3182705757d46b2b94ef348bcfdc2108f.bin",
+      "bytes": 917504,
+      "sha256": "828c8c386b5a674084502d51d2074b0639a5dffa2ce7aedaa9642373761b0013"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a92/64/a9264338fc75deaa2bae2fecffb9aab1d7dbcae44e2610b821459f5e660e682f.bin",
+      "bytes": 917504,
+      "sha256": "e21687f8aaaf28abfc9bc8a7c7dee3366c315d24ccf9aa1773a2177473eacb01"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a96/9a/a969aa4d64d26802c80aa0445d7cf99c11610ab222741937668e4d7c941b9b11.bin",
+      "bytes": 917504,
+      "sha256": "c35fdafba0da92e563e555e30904b353b82d026b5ac92a463ed970256cfc7ab8"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ad3/4f/ad34ffb991880b1c89b7e540db2e9c43b485168766db00447cf3f9bb5ad922d6.bin",
+      "bytes": 917504,
+      "sha256": "0dc839321704193f74db7d2db50d4be035adaf89cc48474dc4dedbf45df193c5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b5a/33/b5a33fa2bb841f58f7874638d1dff3174ed2f651d82dd2280311c77337feca6f.bin",
+      "bytes": 917504,
+      "sha256": "77e5c3fd8fbba852167f4eab41182ff100f5763de9f53018f3159c490379aaf0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/bc1/c2/bc1c2d0fffb2cbde4f943a5bb40db9a2b92120adcb1716c4375b1b6d351cd19d.bin",
+      "bytes": 917504,
+      "sha256": "ff179c3f97a7f72fba4326e4fc97f173e50b590c22862d54e5e4a4a940468f42"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c7b/8e/c7b8edac15eda8a940017b59cc3b896a963e3e5cb0b6feabe7a1f4452660d472.bin",
+      "bytes": 917504,
+      "sha256": "d8ded3fc8bd3fe39027dfb6fc8b2c23a897050a99cd82b7249a171462fc83a3c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c8b/39/c8b39ca0dca26ab4dbb34fc9edde6f23212559667363877f550acaacf2455f65.bin",
+      "bytes": 917504,
+      "sha256": "829ef0c5316289d7a9f657c35dca8b1ba3d7b0092bad1cf70a60e28e3f35b519"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ce0/3d/ce03d27f7259dbf503ef0f37839fb39c5f2ca1a2b4530443e94346a68c5733d7.bin",
+      "bytes": 917504,
+      "sha256": "c7d2cacba26fd48e89be883a6e9d3412a638f5dd248cd9026ce29cd264af4699"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/d0e/b8/d0eb8fb9b39c169cc02e8aac35b96badc8e5014611a7327f207bd9853960c701.bin",
+      "bytes": 917504,
+      "sha256": "3e2fe96769447b67109662955c6721fbce501b39828733bafdea81042389d894"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/df3/7d/df37de5462eea4f94fcaa7e06ba091535ab78d867a32496adf1b2e89f23430a1.bin",
+      "bytes": 917504,
+      "sha256": "ea7265b653977e88c863fd902775511452e6851a845c84f63815c35f844b8965"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e62/9e/e629e61807aa3cedf1f68d794ca7edcbdf355d5b84c79e92e247cb91673a50a7.bin",
+      "bytes": 917504,
+      "sha256": "5b8ba90dce0ea0810540b6dc652657cb388b55140d7aa258b81bb32bd0a2ef56"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e98/f5/e98f5983dfaa50e86c9f595b572e797a92652a0ca1adaf34ffeace447d9100bf.bin",
+      "bytes": 917504,
+      "sha256": "16f73016d781de7ffd20a555b0d96fe6bd8c51f62133f250d314af2f79780d4e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/server11-native-cost-six-window-05-p0-A-capture.json",
+      "bytes": 184312,
+      "sha256": "3950f8318896e72bc5c58d21a0c026fbf2e185a73da7afb2f880222df6b5e919"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/server11-native-cost-six-window-05-p0-A-frontend.json",
+      "bytes": 393896,
+      "sha256": "0e5ba6fc4221fc2f1ce36ea43056dd78ebf551a0604d15cd4140ebf6e21edaf1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/server11-native-cost-six-window-05-p0-A-window.json",
+      "bytes": 673576,
+      "sha256": "bbfa6fbb087e330366b4e8644468f087d48fce76140c1b0c2d83bfe7c1076b60"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/warmup-0.json",
+      "bytes": 49666,
+      "sha256": "097435041c94f5d2363bc8070df11ae522f92f8b64b3cfb44e1beabce688e224"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/CHILD_COMMAND.json",
+      "bytes": 518,
+      "sha256": "d1768d0f13c059b047803a35a74175c6958334a2f05d8d88b52d65a5267342c6"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/CHILD_RESULT.json",
+      "bytes": 618,
+      "sha256": "e67fc23a5f735f1e3b9c56f0772bd0893e06c65e886618e447a03fd710e904a0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/STDERR.log",
+      "bytes": 725,
+      "sha256": "5acf2894eb65eaa01c1cf86c084e257dc4c9081e6b398925a066c5ae36a71938"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/STDOUT.log",
+      "bytes": 12120,
+      "sha256": "60cab65312b4865302110fcbb05b06b74cb3c164002a84236e6223f8f273db6b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/hot-warmup-0-raw-output.json",
+      "bytes": 3232,
+      "sha256": "572fa8d6cdfbf7121ceee1376a6ca67f9aa68cdd1f5f4717eb071cacd5d0505b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/native-cost-runtime-result.json",
+      "bytes": 1024190,
+      "sha256": "cbb74a793aff98f619505aba00233a7ccbc8fe7acbed7561cc5e0fecc772b920"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/native-journal.json",
+      "bytes": 105436,
+      "sha256": "c1837427feb388714d8a2054470b92f5942d4eabe7af6512e44c565e0384547e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/primer-0-raw-output.json",
+      "bytes": 1704,
+      "sha256": "f822fea00d0c0bba655235ececacf8bfbf77b0e0d05f86fc562246778fc5931f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/08f/1e/08f1e999b5a9fb6c37929ee8226c848a46cb66ceccb27cc4ec89b50d4a96aff6.bin",
+      "bytes": 917504,
+      "sha256": "69571043c3d7bd2b0a8993d0cd0ae9dd886209e56157708e2ab50f2d4150ee5a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/0e4/5d/0e45d35160c1479d9b933c8d48e842b633f4f16c058b22991b360607f9b46f15.bin",
+      "bytes": 917504,
+      "sha256": "c4386dd052463e3a93c0e05e96aca795a44577a7fae5af6cd7d637dde0ac83cf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/11c/62/11c6268b4c97f47bfed0d7f618b2a7438d0234bb0a68ed2a3fa320286448428a.bin",
+      "bytes": 917504,
+      "sha256": "cabea34d5fc02fe9b8c5d73178f9d8d38ac2ad6eb520144bdef441a8651f7ecc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/14a/a9/14aa96207c9812bef0df4669ab84cbc38c6201ed8dc47375775df65a926a1186.bin",
+      "bytes": 917504,
+      "sha256": "482b0b5585e3cb2a4ec94d763d6c1889a71e5c427ca99957c3eb3b2d5811d544"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/1fd/68/1fd68c61e241e7fadaa91013d0b546fe01618795bf0acdd6328df45990264ce2.bin",
+      "bytes": 917504,
+      "sha256": "191e938db5f810ca11b391f5152dc35470fdf4aee52dde4776be98d7b0d7571d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/21f/dd/21fdd47dd33d339292f4181240d3cc64e81c1dcfe638d12d495ded2c5c01ce21.bin",
+      "bytes": 917504,
+      "sha256": "5d8202ff80dab0d06975ffccca97de88ecd28edd77ef8bb998df0a4b4692000f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/271/d7/271d78b08e3c1d0d224b274a88b56a2e46649e81c50341bba26bd1c0f5c90b0f.bin",
+      "bytes": 917504,
+      "sha256": "85e886b593cd1944535d0569a7c3d574dd6492c0874bc85321ae02b645f7272b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/2d3/a5/2d3a50004f9315e20846c780c3111cd74a1313eeb7869155a49d2450d865b863.bin",
+      "bytes": 917504,
+      "sha256": "284b4b5488510503cc4834018b15e47a9158352614db5cd4f2a7b5184c2ad268"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/2d7/7d/2d77dcd9094c740011ac8701efee895047f1caa4b5ab40902af9b92770ee936e.bin",
+      "bytes": 917504,
+      "sha256": "50ccab8b754ba6aa4b59c721ec7d227928d16e11ba23360b178d0ff1b14a71ec"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/380/77/38077931ae02423642ea1488f51679cfa61f9ddf1b02b32f6837201e9819a66e.bin",
+      "bytes": 917504,
+      "sha256": "75c91dc0c987983d7f26f282af8e64ac694ef3cc6a2fee478bdde22d5dfbf866"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/3f8/a2/3f8a253f34b879f947be7e379d3a063b73f10d9c1d7277cc33c9cfcad93a27a9.bin",
+      "bytes": 917504,
+      "sha256": "270d6fbf8a26e008870553626984ce33437f3cc1004a66b17acdabcf32405884"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/407/36/40736c60a6267f4c5af3d8d89a93909bd814bbcb61d1c69ae588ff144aea513d.bin",
+      "bytes": 917504,
+      "sha256": "578fd84c0bc0c16b2f01f14c683611b17bbfce6b4c84341382bf9eeed66e8ee1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/439/cc/439cc9b8adf0c1ff6b3643d08f536cc6a0c796173e7794c01e93f16ff9fee588.bin",
+      "bytes": 917504,
+      "sha256": "a7dc6e77e4cf415d248bd56a994111f0d5eca737552b681dfacb1030c4d3c173"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/486/4a/4864adb1d41c7f8c99b374a48e544ae55fbe2fe7c9f2d8b4f053708b7aa0814d.bin",
+      "bytes": 917504,
+      "sha256": "f47875e88e0193a2f5d9007d8ccd1f9ea0b50623aae71694a3232aed1a1c493a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4bc/8a/4bc8af088dd7b9289b16069e7bb1032a86c944d3926316f2f5118075a5987c22.bin",
+      "bytes": 917504,
+      "sha256": "951472e20c4fbff46ce7a96886baea822964ceaf8db8a5adf47c0edf7869b450"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4d9/6c/4d96c863486036b8034a6e16893baaebedd6622cb3359eecfc5c6ffb67c83b14.bin",
+      "bytes": 917504,
+      "sha256": "09282aae8088dbcf287dc572ab43c5496b8c20293e212648285c32d7a0141842"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4ed/84/4ed840473039c1a0eb09aa055e95d6a62fcd2e80fb8376bb9b63e3a5e15bae23.bin",
+      "bytes": 917504,
+      "sha256": "f754a10ccd7c7724fa9054692dedd701863f1a8f5ac0676b0ea410d603624b72"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f0/03/4f0036ea07ea6550ff166fdbdba3934c9febbb5a29ee1aa203fa95fbb0881ff7.bin",
+      "bytes": 917504,
+      "sha256": "c7f715aed0e4fd256a58a6b6bb5f86c04d638464173f2a8e5ea15da666430bcf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f8/21/4f821c4c4a087025fb87798670c0f075bafe368a2c547151199272431a65c232.bin",
+      "bytes": 917504,
+      "sha256": "e29986d12ad43c11aed98017226da23b449de728154f22632285b3594fcb16bc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4fb/50/4fb50e75de1b9ded1676beb4d3646004252eff39c7591d93dc06aa6717b5c975.bin",
+      "bytes": 917504,
+      "sha256": "5c7a95725408277a2f2e40040960964b835344d02511b7a92cc87c6fb3d48af0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/505/5a/5055a13f051c8001af0edb83649d7ed8196a6e1a1ae8deebfba954929cad7303.bin",
+      "bytes": 917504,
+      "sha256": "cbfaae42a890b108e171e1ec9b63ae0cbcf613ae3e917c4a2d24254a9048bd51"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/5c5/e7/5c5e7b7d14a7eb004cdb5ec9a75a9fe876c832b6aebc90731941e00e5c76f6f2.bin",
+      "bytes": 917504,
+      "sha256": "1d8e2efc43c1b97d1920834105c5596244d477048dd27da7af57c598d9f7228b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/64b/f3/64bf359af38df9da14f4dbafced4e7c7fa9eb67f894dd2599a4aad0541a8dc28.bin",
+      "bytes": 917504,
+      "sha256": "553ea82a4c89f7c0819f8e4666a825367054c50ebe5fd07df77755961a91ae41"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/77f/38/77f380613cb446135865e5ea5da6ce35963d0bc03ae668e9087c2ad2b8cb7fb2.bin",
+      "bytes": 917504,
+      "sha256": "f2c0bcc9f903b687d1da2c66de39c00caa3096b8cfbd1b29290654194bb88dc6"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/786/b8/786b8ab7d2340798efd11f51157b5077d987964009ff4530c39e16b6a6baadfd.bin",
+      "bytes": 917504,
+      "sha256": "a1b00e392f49088408da5918292d33a884f16b97737ffdb6d53b34baf9da3327"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/809/de/809de9c4bcbbbd3b6a0964fdbefbbdd3b5ef3763c6d1e9337161465ffa7012fa.bin",
+      "bytes": 917504,
+      "sha256": "67715374dabdcd825981ce3c9ffe36c262f4c0132e93d246579176308b4d4f9a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/911/11/91111ca1071efbe616b639bde44ed33513041f25160b20b8a8253af8e30e3fdd.bin",
+      "bytes": 917504,
+      "sha256": "6ffe73ffa64f38853fb58521cfe3149e65414565a71978d5d6d4313a2524860b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a2c/d9/a2cd91c8bfdf947ba20f42c15490fbe3182705757d46b2b94ef348bcfdc2108f.bin",
+      "bytes": 917504,
+      "sha256": "828c8c386b5a674084502d51d2074b0639a5dffa2ce7aedaa9642373761b0013"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a92/64/a9264338fc75deaa2bae2fecffb9aab1d7dbcae44e2610b821459f5e660e682f.bin",
+      "bytes": 917504,
+      "sha256": "e21687f8aaaf28abfc9bc8a7c7dee3366c315d24ccf9aa1773a2177473eacb01"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a96/9a/a969aa4d64d26802c80aa0445d7cf99c11610ab222741937668e4d7c941b9b11.bin",
+      "bytes": 917504,
+      "sha256": "c35fdafba0da92e563e555e30904b353b82d026b5ac92a463ed970256cfc7ab8"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ad3/4f/ad34ffb991880b1c89b7e540db2e9c43b485168766db00447cf3f9bb5ad922d6.bin",
+      "bytes": 917504,
+      "sha256": "0dc839321704193f74db7d2db50d4be035adaf89cc48474dc4dedbf45df193c5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b5a/33/b5a33fa2bb841f58f7874638d1dff3174ed2f651d82dd2280311c77337feca6f.bin",
+      "bytes": 917504,
+      "sha256": "77e5c3fd8fbba852167f4eab41182ff100f5763de9f53018f3159c490379aaf0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/bc1/c2/bc1c2d0fffb2cbde4f943a5bb40db9a2b92120adcb1716c4375b1b6d351cd19d.bin",
+      "bytes": 917504,
+      "sha256": "ff179c3f97a7f72fba4326e4fc97f173e50b590c22862d54e5e4a4a940468f42"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c7b/8e/c7b8edac15eda8a940017b59cc3b896a963e3e5cb0b6feabe7a1f4452660d472.bin",
+      "bytes": 917504,
+      "sha256": "d8ded3fc8bd3fe39027dfb6fc8b2c23a897050a99cd82b7249a171462fc83a3c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c8b/39/c8b39ca0dca26ab4dbb34fc9edde6f23212559667363877f550acaacf2455f65.bin",
+      "bytes": 917504,
+      "sha256": "829ef0c5316289d7a9f657c35dca8b1ba3d7b0092bad1cf70a60e28e3f35b519"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ce0/3d/ce03d27f7259dbf503ef0f37839fb39c5f2ca1a2b4530443e94346a68c5733d7.bin",
+      "bytes": 917504,
+      "sha256": "c7d2cacba26fd48e89be883a6e9d3412a638f5dd248cd9026ce29cd264af4699"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/d0e/b8/d0eb8fb9b39c169cc02e8aac35b96badc8e5014611a7327f207bd9853960c701.bin",
+      "bytes": 917504,
+      "sha256": "3e2fe96769447b67109662955c6721fbce501b39828733bafdea81042389d894"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/df3/7d/df37de5462eea4f94fcaa7e06ba091535ab78d867a32496adf1b2e89f23430a1.bin",
+      "bytes": 917504,
+      "sha256": "ea7265b653977e88c863fd902775511452e6851a845c84f63815c35f844b8965"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e62/9e/e629e61807aa3cedf1f68d794ca7edcbdf355d5b84c79e92e247cb91673a50a7.bin",
+      "bytes": 917504,
+      "sha256": "5b8ba90dce0ea0810540b6dc652657cb388b55140d7aa258b81bb32bd0a2ef56"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e98/f5/e98f5983dfaa50e86c9f595b572e797a92652a0ca1adaf34ffeace447d9100bf.bin",
+      "bytes": 917504,
+      "sha256": "16f73016d781de7ffd20a555b0d96fe6bd8c51f62133f250d314af2f79780d4e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/server11-native-cost-six-window-05-p0-B-capture.json",
+      "bytes": 184617,
+      "sha256": "7f120a2d982d28856c2326fc6b4c56aae7afa0871e3bd1badade440abb3e18ae"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/server11-native-cost-six-window-05-p0-B-frontend.json",
+      "bytes": 393896,
+      "sha256": "2a0a5081922843ff3eca46414e02b70465928a410bbc9b9efc546c04753f7c02"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/server11-native-cost-six-window-05-p0-B-window.json",
+      "bytes": 674854,
+      "sha256": "3724786ff6ed059cc6fd2d4aa029a3dfe535d1de32b8a6685cceaaf675e42655"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/warmup-0.json",
+      "bytes": 49666,
+      "sha256": "8e36fef3d6fd6566dc6902a32253d2940ab5389c4dd0335d0d7205cce466910b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/CHILD_COMMAND.json",
+      "bytes": 518,
+      "sha256": "f7e5500d1e8c5f757cff4264a1e931d8b509acbe909939814643f4dffc8e672c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/CHILD_RESULT.json",
+      "bytes": 618,
+      "sha256": "d1b62af60ca8b51c45482f42be702695788e30332a862f992f56b05df0297209"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/STDERR.log",
+      "bytes": 725,
+      "sha256": "84ac0a041457c955e210e7c386386613bd097e8854bc25096d55a7432bcbf081"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/STDOUT.log",
+      "bytes": 12120,
+      "sha256": "2cfd448e736f3c3d8bac2c5938979785f534c7548389b6910700dacaf915cedf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/hot-warmup-1-raw-output.json",
+      "bytes": 3232,
+      "sha256": "f33cd5e35b93b907e52cdce63ad383729bba9d01a862e7919b138fb9c8030065"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/native-cost-runtime-result.json",
+      "bytes": 1024189,
+      "sha256": "a1beec1532b83d6dd99b83381108ab06647be8818a0ad36b19ce89257c5be321"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/native-journal.json",
+      "bytes": 105436,
+      "sha256": "4c5cfbbc2400a872eb3238ca2f8d85c528854abf70cea7bedd486af0c6e83906"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/primer-1-raw-output.json",
+      "bytes": 1704,
+      "sha256": "f8fe77c18707573f8d3afbfb03afde416acb40057e91fe3030c13d412e13bc17"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/08f/1e/08f1e999b5a9fb6c37929ee8226c848a46cb66ceccb27cc4ec89b50d4a96aff6.bin",
+      "bytes": 917504,
+      "sha256": "69571043c3d7bd2b0a8993d0cd0ae9dd886209e56157708e2ab50f2d4150ee5a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/0e4/5d/0e45d35160c1479d9b933c8d48e842b633f4f16c058b22991b360607f9b46f15.bin",
+      "bytes": 917504,
+      "sha256": "c4386dd052463e3a93c0e05e96aca795a44577a7fae5af6cd7d637dde0ac83cf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/102/55/102552729458f432c5adf3d3a2413a16d93446d49e20facdb42fae88215e3221.bin",
+      "bytes": 917504,
+      "sha256": "75de515aa52a2eef7ec04992803ba63f3388d2f8a9d7f3c8beb4a5fdd0a90ada"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/11c/62/11c6268b4c97f47bfed0d7f618b2a7438d0234bb0a68ed2a3fa320286448428a.bin",
+      "bytes": 917504,
+      "sha256": "cabea34d5fc02fe9b8c5d73178f9d8d38ac2ad6eb520144bdef441a8651f7ecc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/14a/a9/14aa96207c9812bef0df4669ab84cbc38c6201ed8dc47375775df65a926a1186.bin",
+      "bytes": 917504,
+      "sha256": "482b0b5585e3cb2a4ec94d763d6c1889a71e5c427ca99957c3eb3b2d5811d544"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/19d/8e/19d8ecb850f0ae4eb00b52686eccf401061707b4d5132b803df26bbba0bed950.bin",
+      "bytes": 917504,
+      "sha256": "c0fdfb4c2268cf2afcdcd9a8fb9434a478385a7b025a25929462eec06e9b1a8b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/1fd/68/1fd68c61e241e7fadaa91013d0b546fe01618795bf0acdd6328df45990264ce2.bin",
+      "bytes": 917504,
+      "sha256": "191e938db5f810ca11b391f5152dc35470fdf4aee52dde4776be98d7b0d7571d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/222/27/22227b315524b923d66802d097fd34244f6be497ca61f841dac12e6e070a7743.bin",
+      "bytes": 917504,
+      "sha256": "2903e9384d4401cb7dff0b3391bb1db07a7ebffda89996cde9ca1e1e089e2444"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/271/d7/271d78b08e3c1d0d224b274a88b56a2e46649e81c50341bba26bd1c0f5c90b0f.bin",
+      "bytes": 917504,
+      "sha256": "85e886b593cd1944535d0569a7c3d574dd6492c0874bc85321ae02b645f7272b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/2d3/a5/2d3a50004f9315e20846c780c3111cd74a1313eeb7869155a49d2450d865b863.bin",
+      "bytes": 917504,
+      "sha256": "284b4b5488510503cc4834018b15e47a9158352614db5cd4f2a7b5184c2ad268"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/370/b8/370b82ec804474707d1db24e8090dd27d1183bd0e8c61fa72ebfb968efba3a5e.bin",
+      "bytes": 917504,
+      "sha256": "e77345b33cf47abbd33465263e32d9f9c759fb950daf3fb52a6eb1568813f405"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/380/77/38077931ae02423642ea1488f51679cfa61f9ddf1b02b32f6837201e9819a66e.bin",
+      "bytes": 917504,
+      "sha256": "75c91dc0c987983d7f26f282af8e64ac694ef3cc6a2fee478bdde22d5dfbf866"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/407/36/40736c60a6267f4c5af3d8d89a93909bd814bbcb61d1c69ae588ff144aea513d.bin",
+      "bytes": 917504,
+      "sha256": "578fd84c0bc0c16b2f01f14c683611b17bbfce6b4c84341382bf9eeed66e8ee1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/435/fd/435fd546dc4661b7e118724f11b55d34ce8d9613ff2566e5402977b82183a9df.bin",
+      "bytes": 917504,
+      "sha256": "07a9cb55c6aaed8d7878b6b6823c1e2d67fae4d0c08bb27e1df8417822b95173"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/445/11/44511936f9f242ee156a2d52a37d17dc1c9aee3f9d0d0d1b6de87d71613b7c9e.bin",
+      "bytes": 917504,
+      "sha256": "5fb39010ebec2eea35fc003a941bfa945353e90e300f007d400c7877f47b17c9"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/448/e9/448e94e707806c9243a5b9553f6c4aff52ced4776b3d237702211f892a637c06.bin",
+      "bytes": 917504,
+      "sha256": "ecefad6ec1740c5f4c855638c38c0064176af684ea5a2c0fea2069d3e435c29f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4bc/8a/4bc8af088dd7b9289b16069e7bb1032a86c944d3926316f2f5118075a5987c22.bin",
+      "bytes": 917504,
+      "sha256": "951472e20c4fbff46ce7a96886baea822964ceaf8db8a5adf47c0edf7869b450"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f0/49/4f0493a2a188f2a13f623bf59c805546d8f36483cf580aefb34aa930c0a77938.bin",
+      "bytes": 917504,
+      "sha256": "e101536c8262b94a7a4bbe1945a8469c5b1908de675647b09212c1331e5d16c6"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f8/21/4f821c4c4a087025fb87798670c0f075bafe368a2c547151199272431a65c232.bin",
+      "bytes": 917504,
+      "sha256": "e29986d12ad43c11aed98017226da23b449de728154f22632285b3594fcb16bc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4fb/50/4fb50e75de1b9ded1676beb4d3646004252eff39c7591d93dc06aa6717b5c975.bin",
+      "bytes": 917504,
+      "sha256": "5c7a95725408277a2f2e40040960964b835344d02511b7a92cc87c6fb3d48af0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/7de/64/7de6404986cbe94f1c514c9977be8743a81b02d2b8ca3f4e9ac3ac668dd02343.bin",
+      "bytes": 917504,
+      "sha256": "ad7f8734d7d9fc785eec94c7acb439884c758193cbcffe1e4c00775d94a78b74"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/809/de/809de9c4bcbbbd3b6a0964fdbefbbdd3b5ef3763c6d1e9337161465ffa7012fa.bin",
+      "bytes": 917504,
+      "sha256": "67715374dabdcd825981ce3c9ffe36c262f4c0132e93d246579176308b4d4f9a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/866/d8/866d8d359dc827fd2f7cf4fb630872c469e2e76cc45e5dae5d5a308d5a914d3f.bin",
+      "bytes": 917504,
+      "sha256": "3e4ed9a0abfe8a02a25efd65c8d909c627724bab4c1f77acadd63201b9c7636b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/911/11/91111ca1071efbe616b639bde44ed33513041f25160b20b8a8253af8e30e3fdd.bin",
+      "bytes": 917504,
+      "sha256": "6ffe73ffa64f38853fb58521cfe3149e65414565a71978d5d6d4313a2524860b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a2c/d9/a2cd91c8bfdf947ba20f42c15490fbe3182705757d46b2b94ef348bcfdc2108f.bin",
+      "bytes": 917504,
+      "sha256": "828c8c386b5a674084502d51d2074b0639a5dffa2ce7aedaa9642373761b0013"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a92/64/a9264338fc75deaa2bae2fecffb9aab1d7dbcae44e2610b821459f5e660e682f.bin",
+      "bytes": 917504,
+      "sha256": "e21687f8aaaf28abfc9bc8a7c7dee3366c315d24ccf9aa1773a2177473eacb01"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a98/7c/a987cb1f8300ff6eb725bdb1b36ae3a7105d317f04281d0187494235ee1a2171.bin",
+      "bytes": 917504,
+      "sha256": "d9b45a1c65eaa37132cfd8ef3115e3715a33bed0912e358720bfb26cc7aa2f3c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ad3/4f/ad34ffb991880b1c89b7e540db2e9c43b485168766db00447cf3f9bb5ad922d6.bin",
+      "bytes": 917504,
+      "sha256": "0dc839321704193f74db7d2db50d4be035adaf89cc48474dc4dedbf45df193c5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ada/13/ada137fff926f8cc001728f717411e234ee62b3ae47cf22fe43286900f8288cc.bin",
+      "bytes": 917504,
+      "sha256": "4063a8c6cbca9b6f2148e9be9420653676cdb510543f8853445856f59e0cebf3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b1d/f5/b1df5f1460816fdf1b3e0ee85b0a2197db744f104fb5a139fd4974a836f24a20.bin",
+      "bytes": 917504,
+      "sha256": "5153c9a10fe61e62e2a9a2f794402a0eb79f21b3405f4f643b02b212b6ce699e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b5a/33/b5a33fa2bb841f58f7874638d1dff3174ed2f651d82dd2280311c77337feca6f.bin",
+      "bytes": 917504,
+      "sha256": "77e5c3fd8fbba852167f4eab41182ff100f5763de9f53018f3159c490379aaf0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c8b/39/c8b39ca0dca26ab4dbb34fc9edde6f23212559667363877f550acaacf2455f65.bin",
+      "bytes": 917504,
+      "sha256": "829ef0c5316289d7a9f657c35dca8b1ba3d7b0092bad1cf70a60e28e3f35b519"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ce0/3d/ce03d27f7259dbf503ef0f37839fb39c5f2ca1a2b4530443e94346a68c5733d7.bin",
+      "bytes": 917504,
+      "sha256": "c7d2cacba26fd48e89be883a6e9d3412a638f5dd248cd9026ce29cd264af4699"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/d0e/b8/d0eb8fb9b39c169cc02e8aac35b96badc8e5014611a7327f207bd9853960c701.bin",
+      "bytes": 917504,
+      "sha256": "3e2fe96769447b67109662955c6721fbce501b39828733bafdea81042389d894"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/df3/7d/df37de5462eea4f94fcaa7e06ba091535ab78d867a32496adf1b2e89f23430a1.bin",
+      "bytes": 917504,
+      "sha256": "ea7265b653977e88c863fd902775511452e6851a845c84f63815c35f844b8965"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e4e/36/e4e36443065d94447702ceabf250104a0a258661356ae68b4670486bb13ea770.bin",
+      "bytes": 917504,
+      "sha256": "068d304df81bdc25e305572aa2b6dd7a8198426e3bcfce8923989ce7b2355de8"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e62/9e/e629e61807aa3cedf1f68d794ca7edcbdf355d5b84c79e92e247cb91673a50a7.bin",
+      "bytes": 917504,
+      "sha256": "5b8ba90dce0ea0810540b6dc652657cb388b55140d7aa258b81bb32bd0a2ef56"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e98/f5/e98f5983dfaa50e86c9f595b572e797a92652a0ca1adaf34ffeace447d9100bf.bin",
+      "bytes": 917504,
+      "sha256": "16f73016d781de7ffd20a555b0d96fe6bd8c51f62133f250d314af2f79780d4e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/f18/4a/f184a2af88598d8bf0fe4ad585b1a26463800cceeecbb618b0795499494783a7.bin",
+      "bytes": 917504,
+      "sha256": "48557a0da7603eac808d2fb1504c512ee7a1bc4ad7a7c38aceb9e37c2439ab0a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/fc6/bb/fc6bb1b4d5e2391216634a9257f8ce25394dfda0b1e341680c4c1f6b2e744c57.bin",
+      "bytes": 917504,
+      "sha256": "fb68c4e82ef1fce258a8bdb35247add421bf2bf5aca308067c79d96e62304483"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/server11-native-cost-six-window-05-p1-B-capture.json",
+      "bytes": 184617,
+      "sha256": "a98a604ced988f31d66087250fe6766fcbbe3650c4a481eaa671c1585fcd3c6c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/server11-native-cost-six-window-05-p1-B-frontend.json",
+      "bytes": 393896,
+      "sha256": "59ead42aa8d58e7a51c30d9841ac318536bbbd51d0912e064a665517cd6b9f88"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/server11-native-cost-six-window-05-p1-B-window.json",
+      "bytes": 674854,
+      "sha256": "3d1c4d814beeccefc3cc5379287a28579c190753d4d32f0076b17f106de097fa"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/warmup-1.json",
+      "bytes": 49665,
+      "sha256": "5931a0af7cc6290248ca51fb3449ce878fabe83860aaa2476c07e2a251179e6d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/CHILD_COMMAND.json",
+      "bytes": 518,
+      "sha256": "3d3dc05e3f7c741523538540c3dc198aa9fd79b1db52830e2276f2c8bcd659aa"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/CHILD_RESULT.json",
+      "bytes": 619,
+      "sha256": "ed0d2c98fdf7402851fae9606850a643483acb90e676f991c1d262b58c945f26"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/STDERR.log",
+      "bytes": 725,
+      "sha256": "84452e7947b1a94bdd09dab4d78faa920e1735707133c260db75b6a57b19827f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/STDOUT.log",
+      "bytes": 12120,
+      "sha256": "4cc8a184b30f8839397f31a81618fbb7bb0c79f76798aa9b502f7a2740fe65a9"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/hot-warmup-1-raw-output.json",
+      "bytes": 3232,
+      "sha256": "f33cd5e35b93b907e52cdce63ad383729bba9d01a862e7919b138fb9c8030065"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/native-cost-runtime-result.json",
+      "bytes": 1019447,
+      "sha256": "e92e1855770407e37d84fe31dd85dbd4f745d12e6734d2b9b7ae24c0a691d7d3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/native-journal.json",
+      "bytes": 102469,
+      "sha256": "04c8d8f619ba02ef390ba7a1ba1ce2ea1f9f7ec3dcdc8943da757435882a30bc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/primer-1-raw-output.json",
+      "bytes": 1704,
+      "sha256": "f8fe77c18707573f8d3afbfb03afde416acb40057e91fe3030c13d412e13bc17"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/08f/1e/08f1e999b5a9fb6c37929ee8226c848a46cb66ceccb27cc4ec89b50d4a96aff6.bin",
+      "bytes": 917504,
+      "sha256": "69571043c3d7bd2b0a8993d0cd0ae9dd886209e56157708e2ab50f2d4150ee5a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/0e4/5d/0e45d35160c1479d9b933c8d48e842b633f4f16c058b22991b360607f9b46f15.bin",
+      "bytes": 917504,
+      "sha256": "c4386dd052463e3a93c0e05e96aca795a44577a7fae5af6cd7d637dde0ac83cf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/102/55/102552729458f432c5adf3d3a2413a16d93446d49e20facdb42fae88215e3221.bin",
+      "bytes": 917504,
+      "sha256": "75de515aa52a2eef7ec04992803ba63f3388d2f8a9d7f3c8beb4a5fdd0a90ada"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/11c/62/11c6268b4c97f47bfed0d7f618b2a7438d0234bb0a68ed2a3fa320286448428a.bin",
+      "bytes": 917504,
+      "sha256": "cabea34d5fc02fe9b8c5d73178f9d8d38ac2ad6eb520144bdef441a8651f7ecc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/14a/a9/14aa96207c9812bef0df4669ab84cbc38c6201ed8dc47375775df65a926a1186.bin",
+      "bytes": 917504,
+      "sha256": "482b0b5585e3cb2a4ec94d763d6c1889a71e5c427ca99957c3eb3b2d5811d544"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/19d/8e/19d8ecb850f0ae4eb00b52686eccf401061707b4d5132b803df26bbba0bed950.bin",
+      "bytes": 917504,
+      "sha256": "c0fdfb4c2268cf2afcdcd9a8fb9434a478385a7b025a25929462eec06e9b1a8b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/1fd/68/1fd68c61e241e7fadaa91013d0b546fe01618795bf0acdd6328df45990264ce2.bin",
+      "bytes": 917504,
+      "sha256": "191e938db5f810ca11b391f5152dc35470fdf4aee52dde4776be98d7b0d7571d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/222/27/22227b315524b923d66802d097fd34244f6be497ca61f841dac12e6e070a7743.bin",
+      "bytes": 917504,
+      "sha256": "2903e9384d4401cb7dff0b3391bb1db07a7ebffda89996cde9ca1e1e089e2444"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/271/d7/271d78b08e3c1d0d224b274a88b56a2e46649e81c50341bba26bd1c0f5c90b0f.bin",
+      "bytes": 917504,
+      "sha256": "85e886b593cd1944535d0569a7c3d574dd6492c0874bc85321ae02b645f7272b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/2d3/a5/2d3a50004f9315e20846c780c3111cd74a1313eeb7869155a49d2450d865b863.bin",
+      "bytes": 917504,
+      "sha256": "284b4b5488510503cc4834018b15e47a9158352614db5cd4f2a7b5184c2ad268"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/370/b8/370b82ec804474707d1db24e8090dd27d1183bd0e8c61fa72ebfb968efba3a5e.bin",
+      "bytes": 917504,
+      "sha256": "e77345b33cf47abbd33465263e32d9f9c759fb950daf3fb52a6eb1568813f405"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/380/77/38077931ae02423642ea1488f51679cfa61f9ddf1b02b32f6837201e9819a66e.bin",
+      "bytes": 917504,
+      "sha256": "75c91dc0c987983d7f26f282af8e64ac694ef3cc6a2fee478bdde22d5dfbf866"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/407/36/40736c60a6267f4c5af3d8d89a93909bd814bbcb61d1c69ae588ff144aea513d.bin",
+      "bytes": 917504,
+      "sha256": "578fd84c0bc0c16b2f01f14c683611b17bbfce6b4c84341382bf9eeed66e8ee1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/435/fd/435fd546dc4661b7e118724f11b55d34ce8d9613ff2566e5402977b82183a9df.bin",
+      "bytes": 917504,
+      "sha256": "07a9cb55c6aaed8d7878b6b6823c1e2d67fae4d0c08bb27e1df8417822b95173"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/445/11/44511936f9f242ee156a2d52a37d17dc1c9aee3f9d0d0d1b6de87d71613b7c9e.bin",
+      "bytes": 917504,
+      "sha256": "5fb39010ebec2eea35fc003a941bfa945353e90e300f007d400c7877f47b17c9"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/448/e9/448e94e707806c9243a5b9553f6c4aff52ced4776b3d237702211f892a637c06.bin",
+      "bytes": 917504,
+      "sha256": "ecefad6ec1740c5f4c855638c38c0064176af684ea5a2c0fea2069d3e435c29f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4bc/8a/4bc8af088dd7b9289b16069e7bb1032a86c944d3926316f2f5118075a5987c22.bin",
+      "bytes": 917504,
+      "sha256": "951472e20c4fbff46ce7a96886baea822964ceaf8db8a5adf47c0edf7869b450"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f0/49/4f0493a2a188f2a13f623bf59c805546d8f36483cf580aefb34aa930c0a77938.bin",
+      "bytes": 917504,
+      "sha256": "e101536c8262b94a7a4bbe1945a8469c5b1908de675647b09212c1331e5d16c6"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f8/21/4f821c4c4a087025fb87798670c0f075bafe368a2c547151199272431a65c232.bin",
+      "bytes": 917504,
+      "sha256": "e29986d12ad43c11aed98017226da23b449de728154f22632285b3594fcb16bc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4fb/50/4fb50e75de1b9ded1676beb4d3646004252eff39c7591d93dc06aa6717b5c975.bin",
+      "bytes": 917504,
+      "sha256": "5c7a95725408277a2f2e40040960964b835344d02511b7a92cc87c6fb3d48af0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/7de/64/7de6404986cbe94f1c514c9977be8743a81b02d2b8ca3f4e9ac3ac668dd02343.bin",
+      "bytes": 917504,
+      "sha256": "ad7f8734d7d9fc785eec94c7acb439884c758193cbcffe1e4c00775d94a78b74"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/809/de/809de9c4bcbbbd3b6a0964fdbefbbdd3b5ef3763c6d1e9337161465ffa7012fa.bin",
+      "bytes": 917504,
+      "sha256": "67715374dabdcd825981ce3c9ffe36c262f4c0132e93d246579176308b4d4f9a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/866/d8/866d8d359dc827fd2f7cf4fb630872c469e2e76cc45e5dae5d5a308d5a914d3f.bin",
+      "bytes": 917504,
+      "sha256": "3e4ed9a0abfe8a02a25efd65c8d909c627724bab4c1f77acadd63201b9c7636b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/911/11/91111ca1071efbe616b639bde44ed33513041f25160b20b8a8253af8e30e3fdd.bin",
+      "bytes": 917504,
+      "sha256": "6ffe73ffa64f38853fb58521cfe3149e65414565a71978d5d6d4313a2524860b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a2c/d9/a2cd91c8bfdf947ba20f42c15490fbe3182705757d46b2b94ef348bcfdc2108f.bin",
+      "bytes": 917504,
+      "sha256": "828c8c386b5a674084502d51d2074b0639a5dffa2ce7aedaa9642373761b0013"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a92/64/a9264338fc75deaa2bae2fecffb9aab1d7dbcae44e2610b821459f5e660e682f.bin",
+      "bytes": 917504,
+      "sha256": "e21687f8aaaf28abfc9bc8a7c7dee3366c315d24ccf9aa1773a2177473eacb01"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a98/7c/a987cb1f8300ff6eb725bdb1b36ae3a7105d317f04281d0187494235ee1a2171.bin",
+      "bytes": 917504,
+      "sha256": "d9b45a1c65eaa37132cfd8ef3115e3715a33bed0912e358720bfb26cc7aa2f3c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ad3/4f/ad34ffb991880b1c89b7e540db2e9c43b485168766db00447cf3f9bb5ad922d6.bin",
+      "bytes": 917504,
+      "sha256": "0dc839321704193f74db7d2db50d4be035adaf89cc48474dc4dedbf45df193c5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ada/13/ada137fff926f8cc001728f717411e234ee62b3ae47cf22fe43286900f8288cc.bin",
+      "bytes": 917504,
+      "sha256": "4063a8c6cbca9b6f2148e9be9420653676cdb510543f8853445856f59e0cebf3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b1d/f5/b1df5f1460816fdf1b3e0ee85b0a2197db744f104fb5a139fd4974a836f24a20.bin",
+      "bytes": 917504,
+      "sha256": "5153c9a10fe61e62e2a9a2f794402a0eb79f21b3405f4f643b02b212b6ce699e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b5a/33/b5a33fa2bb841f58f7874638d1dff3174ed2f651d82dd2280311c77337feca6f.bin",
+      "bytes": 917504,
+      "sha256": "77e5c3fd8fbba852167f4eab41182ff100f5763de9f53018f3159c490379aaf0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c8b/39/c8b39ca0dca26ab4dbb34fc9edde6f23212559667363877f550acaacf2455f65.bin",
+      "bytes": 917504,
+      "sha256": "829ef0c5316289d7a9f657c35dca8b1ba3d7b0092bad1cf70a60e28e3f35b519"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ce0/3d/ce03d27f7259dbf503ef0f37839fb39c5f2ca1a2b4530443e94346a68c5733d7.bin",
+      "bytes": 917504,
+      "sha256": "c7d2cacba26fd48e89be883a6e9d3412a638f5dd248cd9026ce29cd264af4699"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/d0e/b8/d0eb8fb9b39c169cc02e8aac35b96badc8e5014611a7327f207bd9853960c701.bin",
+      "bytes": 917504,
+      "sha256": "3e2fe96769447b67109662955c6721fbce501b39828733bafdea81042389d894"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/df3/7d/df37de5462eea4f94fcaa7e06ba091535ab78d867a32496adf1b2e89f23430a1.bin",
+      "bytes": 917504,
+      "sha256": "ea7265b653977e88c863fd902775511452e6851a845c84f63815c35f844b8965"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e4e/36/e4e36443065d94447702ceabf250104a0a258661356ae68b4670486bb13ea770.bin",
+      "bytes": 917504,
+      "sha256": "068d304df81bdc25e305572aa2b6dd7a8198426e3bcfce8923989ce7b2355de8"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e62/9e/e629e61807aa3cedf1f68d794ca7edcbdf355d5b84c79e92e247cb91673a50a7.bin",
+      "bytes": 917504,
+      "sha256": "5b8ba90dce0ea0810540b6dc652657cb388b55140d7aa258b81bb32bd0a2ef56"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e98/f5/e98f5983dfaa50e86c9f595b572e797a92652a0ca1adaf34ffeace447d9100bf.bin",
+      "bytes": 917504,
+      "sha256": "16f73016d781de7ffd20a555b0d96fe6bd8c51f62133f250d314af2f79780d4e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/f18/4a/f184a2af88598d8bf0fe4ad585b1a26463800cceeecbb618b0795499494783a7.bin",
+      "bytes": 917504,
+      "sha256": "48557a0da7603eac808d2fb1504c512ee7a1bc4ad7a7c38aceb9e37c2439ab0a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/fc6/bb/fc6bb1b4d5e2391216634a9257f8ce25394dfda0b1e341680c4c1f6b2e744c57.bin",
+      "bytes": 917504,
+      "sha256": "fb68c4e82ef1fce258a8bdb35247add421bf2bf5aca308067c79d96e62304483"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/server11-native-cost-six-window-05-p1-A-capture.json",
+      "bytes": 184312,
+      "sha256": "612dc6dea66bba92ddf2e8b868d21f6a7b7b25f441a2c0cf27b3d9c310d7fae2"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/server11-native-cost-six-window-05-p1-A-frontend.json",
+      "bytes": 393896,
+      "sha256": "d6458072d60f07984d7aa2e1b8741c38f48ea713e290283d359b87e8c389bd27"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/server11-native-cost-six-window-05-p1-A-window.json",
+      "bytes": 673576,
+      "sha256": "5f6cd1f9ad8b3d1cfdd077f622f931cc67403728534adb019ebfceac56b4573f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/warmup-1.json",
+      "bytes": 49665,
+      "sha256": "5ffa4d1e2a202d2e71d6296656025ae7d6ce7033a0b44685e3dd65d9c1d20038"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/CHILD_COMMAND.json",
+      "bytes": 518,
+      "sha256": "fa539a0fd6086f0b687001ca3f31035ce0cbb44aa82b514911d5e75f8e046e89"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/CHILD_RESULT.json",
+      "bytes": 619,
+      "sha256": "58dd6a4d813596f662e6228aaf44b92a72d1f1759ecc7f709593418f2e8106b3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/STDERR.log",
+      "bytes": 725,
+      "sha256": "63f127b99165f9c4fa1b6ad32a94db4af38a686d9816029cdc87f0c6bbdba109"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/STDOUT.log",
+      "bytes": 12120,
+      "sha256": "7867a4021cf2a9b2729080abb4ecad389acec1bdb254a59957a2b6a5a0d5db22"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/hot-warmup-2-raw-output.json",
+      "bytes": 3232,
+      "sha256": "7cd15415775e82c60558392c9171cbcf949f49143293f6910af837649fdb9a61"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/native-cost-runtime-result.json",
+      "bytes": 1019445,
+      "sha256": "5c83e5c745f1108e73811085f5e4c160dce6a9ee60fa5695e671d43bee6c6aca"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/native-journal.json",
+      "bytes": 102469,
+      "sha256": "c7b2337ed7c4d25e23594443174242d8a3677b13937739789512cda7536bf61d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/primer-2-raw-output.json",
+      "bytes": 1704,
+      "sha256": "109348b4a3db1527e6f217e00bc5b49faf437d2d02d87cb3bc5bd9d538428003"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/01c/bc/01cbc9cebb3f63a22a32482011c255205110347cbe8e58475f594edf35ea7254.bin",
+      "bytes": 917504,
+      "sha256": "0fc655b85b6a9900cebbc5a7484f87fdcd0cb564d717c90bdd891532beaaac79"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/08f/1e/08f1e999b5a9fb6c37929ee8226c848a46cb66ceccb27cc4ec89b50d4a96aff6.bin",
+      "bytes": 917504,
+      "sha256": "69571043c3d7bd2b0a8993d0cd0ae9dd886209e56157708e2ab50f2d4150ee5a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/0e4/5d/0e45d35160c1479d9b933c8d48e842b633f4f16c058b22991b360607f9b46f15.bin",
+      "bytes": 917504,
+      "sha256": "c4386dd052463e3a93c0e05e96aca795a44577a7fae5af6cd7d637dde0ac83cf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/11c/62/11c6268b4c97f47bfed0d7f618b2a7438d0234bb0a68ed2a3fa320286448428a.bin",
+      "bytes": 917504,
+      "sha256": "cabea34d5fc02fe9b8c5d73178f9d8d38ac2ad6eb520144bdef441a8651f7ecc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/123/16/12316d5924e00a8960794e1db1739cca4f59d117d83ab891182ac1429c712b7a.bin",
+      "bytes": 917504,
+      "sha256": "4c5721d444024392878e29aa863f3e7c09ba689d5f000812facadb85f736203b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/14a/a9/14aa96207c9812bef0df4669ab84cbc38c6201ed8dc47375775df65a926a1186.bin",
+      "bytes": 917504,
+      "sha256": "482b0b5585e3cb2a4ec94d763d6c1889a71e5c427ca99957c3eb3b2d5811d544"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/1fd/68/1fd68c61e241e7fadaa91013d0b546fe01618795bf0acdd6328df45990264ce2.bin",
+      "bytes": 917504,
+      "sha256": "191e938db5f810ca11b391f5152dc35470fdf4aee52dde4776be98d7b0d7571d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/20e/71/20e71c13065710baafc74f289ab30ff8b7e0a06bf69a4c20147b141dfe8d5b78.bin",
+      "bytes": 917504,
+      "sha256": "cc5a821be42519da7d17134814a44c61819e96f2a8d6f8b557790b62dd87642e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/271/d7/271d78b08e3c1d0d224b274a88b56a2e46649e81c50341bba26bd1c0f5c90b0f.bin",
+      "bytes": 917504,
+      "sha256": "85e886b593cd1944535d0569a7c3d574dd6492c0874bc85321ae02b645f7272b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/2d3/a5/2d3a50004f9315e20846c780c3111cd74a1313eeb7869155a49d2450d865b863.bin",
+      "bytes": 917504,
+      "sha256": "284b4b5488510503cc4834018b15e47a9158352614db5cd4f2a7b5184c2ad268"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/380/77/38077931ae02423642ea1488f51679cfa61f9ddf1b02b32f6837201e9819a66e.bin",
+      "bytes": 917504,
+      "sha256": "75c91dc0c987983d7f26f282af8e64ac694ef3cc6a2fee478bdde22d5dfbf866"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/3ad/e7/3ade7aa45505b729c66f1acd68cb18a1ac560f3aab447e8798c77737857eb339.bin",
+      "bytes": 917504,
+      "sha256": "44b6dc70407db75ff1008277a20686a8fbb12d2e9eddff10859cc4459859c741"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/3cc/89/3cc895823f63d4da3b1b48a4a6206b078dfebd3b46d708627d2292b06fba3ec3.bin",
+      "bytes": 917504,
+      "sha256": "ac686e072ded8da0f17d41cd1e24eb967ec9ae4b69a300577f0cec73a39cb4ea"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/407/36/40736c60a6267f4c5af3d8d89a93909bd814bbcb61d1c69ae588ff144aea513d.bin",
+      "bytes": 917504,
+      "sha256": "578fd84c0bc0c16b2f01f14c683611b17bbfce6b4c84341382bf9eeed66e8ee1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4bc/8a/4bc8af088dd7b9289b16069e7bb1032a86c944d3926316f2f5118075a5987c22.bin",
+      "bytes": 917504,
+      "sha256": "951472e20c4fbff46ce7a96886baea822964ceaf8db8a5adf47c0edf7869b450"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f8/21/4f821c4c4a087025fb87798670c0f075bafe368a2c547151199272431a65c232.bin",
+      "bytes": 917504,
+      "sha256": "e29986d12ad43c11aed98017226da23b449de728154f22632285b3594fcb16bc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4fb/50/4fb50e75de1b9ded1676beb4d3646004252eff39c7591d93dc06aa6717b5c975.bin",
+      "bytes": 917504,
+      "sha256": "5c7a95725408277a2f2e40040960964b835344d02511b7a92cc87c6fb3d48af0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/656/81/656819fe93da621abe13eee31e3bf64f9a272b17d471bec84c13aab513638738.bin",
+      "bytes": 917504,
+      "sha256": "fd62c6b482655d2433817d029a9c1822c2399c3cdd602d7f2dc8b17d31ff8e04"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/7c8/58/7c858f394877094b50e2fbe275571ad84bb6c4b587a879359583a0c1dfddee5c.bin",
+      "bytes": 917504,
+      "sha256": "40b7175a371933976f82b7ffed3df074dce8d6f21953af41ea10228d9f291f08"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/7e4/8c/7e48c12d3dd9721dedb734c45ee687b97d3ca48aaac1dcaf6b570cce9ae891dc.bin",
+      "bytes": 917504,
+      "sha256": "fc9dfca17a60062ca13cf9f00ea068a37b19721832343d31c4d45a427286abb1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/809/de/809de9c4bcbbbd3b6a0964fdbefbbdd3b5ef3763c6d1e9337161465ffa7012fa.bin",
+      "bytes": 917504,
+      "sha256": "67715374dabdcd825981ce3c9ffe36c262f4c0132e93d246579176308b4d4f9a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/911/11/91111ca1071efbe616b639bde44ed33513041f25160b20b8a8253af8e30e3fdd.bin",
+      "bytes": 917504,
+      "sha256": "6ffe73ffa64f38853fb58521cfe3149e65414565a71978d5d6d4313a2524860b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/926/45/92645ec0a71c1d45c856a0232ef6c313ee9f3beba5f4e8032209a701eeefb6a0.bin",
+      "bytes": 917504,
+      "sha256": "198c14f622663f03696b74d4938e664e5a94c6337cea26add8574f30bc77b8ca"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/9de/14/9de14969285be354f4155f0465553f5ea6c75ce8848043b519d09344f9fbe265.bin",
+      "bytes": 917504,
+      "sha256": "99fdedbbf07c103190d19aad407de344ebc251c45059998c115373f9549186e0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a2c/d9/a2cd91c8bfdf947ba20f42c15490fbe3182705757d46b2b94ef348bcfdc2108f.bin",
+      "bytes": 917504,
+      "sha256": "828c8c386b5a674084502d51d2074b0639a5dffa2ce7aedaa9642373761b0013"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a92/64/a9264338fc75deaa2bae2fecffb9aab1d7dbcae44e2610b821459f5e660e682f.bin",
+      "bytes": 917504,
+      "sha256": "e21687f8aaaf28abfc9bc8a7c7dee3366c315d24ccf9aa1773a2177473eacb01"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ac9/41/ac94183810904e158ebe726588b079cc3b52173694639acd403382a25c802ff7.bin",
+      "bytes": 917504,
+      "sha256": "93ce876ca7fded1da7735d01e1cd94b972f673035711eb62ae9e5b2b53458694"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ad3/4f/ad34ffb991880b1c89b7e540db2e9c43b485168766db00447cf3f9bb5ad922d6.bin",
+      "bytes": 917504,
+      "sha256": "0dc839321704193f74db7d2db50d4be035adaf89cc48474dc4dedbf45df193c5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ad4/23/ad4237fe1cbe283ddb3c576b79635ea9978e7785028c3602d8d3dabd1a0cced4.bin",
+      "bytes": 917504,
+      "sha256": "65ad2f1d9e93163417ab6d82c72aa3d6a1ac9c3fbe1018df9707fdb1caec7b9b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b20/db/b20db2624072e66a9b15434b4c6ab5931afc4938de459185feedff7dce61cf40.bin",
+      "bytes": 917504,
+      "sha256": "9df6e31cbffef7a32a19e9e5f16099bda6f9796b5714bada940d4a2c8fa6666b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b5a/33/b5a33fa2bb841f58f7874638d1dff3174ed2f651d82dd2280311c77337feca6f.bin",
+      "bytes": 917504,
+      "sha256": "77e5c3fd8fbba852167f4eab41182ff100f5763de9f53018f3159c490379aaf0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c51/13/c5113a259d303d3d630012adfaa8a1ca275f996cc8f855f8183154381bddca25.bin",
+      "bytes": 917504,
+      "sha256": "f4306dfb5399224ac8a04a688ad45367aee04ccc1ab1cc024a86056ed473c8c3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c8b/39/c8b39ca0dca26ab4dbb34fc9edde6f23212559667363877f550acaacf2455f65.bin",
+      "bytes": 917504,
+      "sha256": "829ef0c5316289d7a9f657c35dca8b1ba3d7b0092bad1cf70a60e28e3f35b519"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ce0/3d/ce03d27f7259dbf503ef0f37839fb39c5f2ca1a2b4530443e94346a68c5733d7.bin",
+      "bytes": 917504,
+      "sha256": "c7d2cacba26fd48e89be883a6e9d3412a638f5dd248cd9026ce29cd264af4699"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/d0e/b8/d0eb8fb9b39c169cc02e8aac35b96badc8e5014611a7327f207bd9853960c701.bin",
+      "bytes": 917504,
+      "sha256": "3e2fe96769447b67109662955c6721fbce501b39828733bafdea81042389d894"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/db1/a7/db1a788abd03da0add590740b4b09dac0146009b2c9df1042294fba2e20674b8.bin",
+      "bytes": 917504,
+      "sha256": "6f31d205103929b73df3b9dff8e0bbd192790874af720e823fd2c4bcc6b8b79e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/df3/7d/df37de5462eea4f94fcaa7e06ba091535ab78d867a32496adf1b2e89f23430a1.bin",
+      "bytes": 917504,
+      "sha256": "ea7265b653977e88c863fd902775511452e6851a845c84f63815c35f844b8965"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e62/9e/e629e61807aa3cedf1f68d794ca7edcbdf355d5b84c79e92e247cb91673a50a7.bin",
+      "bytes": 917504,
+      "sha256": "5b8ba90dce0ea0810540b6dc652657cb388b55140d7aa258b81bb32bd0a2ef56"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e98/f5/e98f5983dfaa50e86c9f595b572e797a92652a0ca1adaf34ffeace447d9100bf.bin",
+      "bytes": 917504,
+      "sha256": "16f73016d781de7ffd20a555b0d96fe6bd8c51f62133f250d314af2f79780d4e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ff9/48/ff94856620c2b9e2b90dcd6061520d21212d73aba17880af05fa8b086ffe3eb4.bin",
+      "bytes": 917504,
+      "sha256": "4dc264ea01ce2cc6af9eec80c33584e1a02478850ac00fd5a6151ef76c2c565f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/server11-native-cost-six-window-05-p2-A-capture.json",
+      "bytes": 184312,
+      "sha256": "1a46b93f1e85bfa1a19109ad3bcfc540ec5da10a8198ff7278b1bce840b88255"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/server11-native-cost-six-window-05-p2-A-frontend.json",
+      "bytes": 393896,
+      "sha256": "ecf37a8285e5cf67fda19676764c796281983a9ca344b84b84ca926e1fa974c8"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/server11-native-cost-six-window-05-p2-A-window.json",
+      "bytes": 673572,
+      "sha256": "606961c0f6612b8912b50f89d5ef4dda3b230a4405af6c27bdb8a00d0345494b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/warmup-2.json",
+      "bytes": 49667,
+      "sha256": "bd27ea710204c8e79a9d2371d89d3919d3b3add88c7d374e63586dfe6f1831bc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/CHILD_COMMAND.json",
+      "bytes": 518,
+      "sha256": "c6e0f0f9a27e079e7417b56789f28ac86b6c770517f4e663842a9aaff6586363"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/CHILD_RESULT.json",
+      "bytes": 619,
+      "sha256": "8eb0e9d6fdf323af1afc6dc7362d079a4eddae20685c3511d9eb33bd2f983324"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/STDERR.log",
+      "bytes": 725,
+      "sha256": "a33f132d9a246812ca8b540e5d3ba6704ec1521eebf1ff47440f8cccba78cd73"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/STDOUT.log",
+      "bytes": 12120,
+      "sha256": "b1e441a4dea43988acdae4aefcb7f7b68dbd572bd271bc1e59ee98e2d55b526e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/hot-warmup-2-raw-output.json",
+      "bytes": 3232,
+      "sha256": "7cd15415775e82c60558392c9171cbcf949f49143293f6910af837649fdb9a61"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/native-cost-runtime-result.json",
+      "bytes": 1024181,
+      "sha256": "12de14a69482cf8a0798f02b0a5d0e5b2defd1d85cff501cb529a2aa837371ad"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/native-journal.json",
+      "bytes": 105430,
+      "sha256": "f0cb5c53dda91b7c1f14eb1a49436cef464007070dad8df51539f6f5f8de79dc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/primer-2-raw-output.json",
+      "bytes": 1704,
+      "sha256": "109348b4a3db1527e6f217e00bc5b49faf437d2d02d87cb3bc5bd9d538428003"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/01c/bc/01cbc9cebb3f63a22a32482011c255205110347cbe8e58475f594edf35ea7254.bin",
+      "bytes": 917504,
+      "sha256": "0fc655b85b6a9900cebbc5a7484f87fdcd0cb564d717c90bdd891532beaaac79"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/08f/1e/08f1e999b5a9fb6c37929ee8226c848a46cb66ceccb27cc4ec89b50d4a96aff6.bin",
+      "bytes": 917504,
+      "sha256": "69571043c3d7bd2b0a8993d0cd0ae9dd886209e56157708e2ab50f2d4150ee5a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/0e4/5d/0e45d35160c1479d9b933c8d48e842b633f4f16c058b22991b360607f9b46f15.bin",
+      "bytes": 917504,
+      "sha256": "c4386dd052463e3a93c0e05e96aca795a44577a7fae5af6cd7d637dde0ac83cf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/11c/62/11c6268b4c97f47bfed0d7f618b2a7438d0234bb0a68ed2a3fa320286448428a.bin",
+      "bytes": 917504,
+      "sha256": "cabea34d5fc02fe9b8c5d73178f9d8d38ac2ad6eb520144bdef441a8651f7ecc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/123/16/12316d5924e00a8960794e1db1739cca4f59d117d83ab891182ac1429c712b7a.bin",
+      "bytes": 917504,
+      "sha256": "4c5721d444024392878e29aa863f3e7c09ba689d5f000812facadb85f736203b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/14a/a9/14aa96207c9812bef0df4669ab84cbc38c6201ed8dc47375775df65a926a1186.bin",
+      "bytes": 917504,
+      "sha256": "482b0b5585e3cb2a4ec94d763d6c1889a71e5c427ca99957c3eb3b2d5811d544"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/1fd/68/1fd68c61e241e7fadaa91013d0b546fe01618795bf0acdd6328df45990264ce2.bin",
+      "bytes": 917504,
+      "sha256": "191e938db5f810ca11b391f5152dc35470fdf4aee52dde4776be98d7b0d7571d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/20e/71/20e71c13065710baafc74f289ab30ff8b7e0a06bf69a4c20147b141dfe8d5b78.bin",
+      "bytes": 917504,
+      "sha256": "cc5a821be42519da7d17134814a44c61819e96f2a8d6f8b557790b62dd87642e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/271/d7/271d78b08e3c1d0d224b274a88b56a2e46649e81c50341bba26bd1c0f5c90b0f.bin",
+      "bytes": 917504,
+      "sha256": "85e886b593cd1944535d0569a7c3d574dd6492c0874bc85321ae02b645f7272b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/2d3/a5/2d3a50004f9315e20846c780c3111cd74a1313eeb7869155a49d2450d865b863.bin",
+      "bytes": 917504,
+      "sha256": "284b4b5488510503cc4834018b15e47a9158352614db5cd4f2a7b5184c2ad268"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/380/77/38077931ae02423642ea1488f51679cfa61f9ddf1b02b32f6837201e9819a66e.bin",
+      "bytes": 917504,
+      "sha256": "75c91dc0c987983d7f26f282af8e64ac694ef3cc6a2fee478bdde22d5dfbf866"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/3ad/e7/3ade7aa45505b729c66f1acd68cb18a1ac560f3aab447e8798c77737857eb339.bin",
+      "bytes": 917504,
+      "sha256": "44b6dc70407db75ff1008277a20686a8fbb12d2e9eddff10859cc4459859c741"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/3cc/89/3cc895823f63d4da3b1b48a4a6206b078dfebd3b46d708627d2292b06fba3ec3.bin",
+      "bytes": 917504,
+      "sha256": "ac686e072ded8da0f17d41cd1e24eb967ec9ae4b69a300577f0cec73a39cb4ea"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/407/36/40736c60a6267f4c5af3d8d89a93909bd814bbcb61d1c69ae588ff144aea513d.bin",
+      "bytes": 917504,
+      "sha256": "578fd84c0bc0c16b2f01f14c683611b17bbfce6b4c84341382bf9eeed66e8ee1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4bc/8a/4bc8af088dd7b9289b16069e7bb1032a86c944d3926316f2f5118075a5987c22.bin",
+      "bytes": 917504,
+      "sha256": "951472e20c4fbff46ce7a96886baea822964ceaf8db8a5adf47c0edf7869b450"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4f8/21/4f821c4c4a087025fb87798670c0f075bafe368a2c547151199272431a65c232.bin",
+      "bytes": 917504,
+      "sha256": "e29986d12ad43c11aed98017226da23b449de728154f22632285b3594fcb16bc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/4fb/50/4fb50e75de1b9ded1676beb4d3646004252eff39c7591d93dc06aa6717b5c975.bin",
+      "bytes": 917504,
+      "sha256": "5c7a95725408277a2f2e40040960964b835344d02511b7a92cc87c6fb3d48af0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/656/81/656819fe93da621abe13eee31e3bf64f9a272b17d471bec84c13aab513638738.bin",
+      "bytes": 917504,
+      "sha256": "fd62c6b482655d2433817d029a9c1822c2399c3cdd602d7f2dc8b17d31ff8e04"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/7c8/58/7c858f394877094b50e2fbe275571ad84bb6c4b587a879359583a0c1dfddee5c.bin",
+      "bytes": 917504,
+      "sha256": "40b7175a371933976f82b7ffed3df074dce8d6f21953af41ea10228d9f291f08"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/7e4/8c/7e48c12d3dd9721dedb734c45ee687b97d3ca48aaac1dcaf6b570cce9ae891dc.bin",
+      "bytes": 917504,
+      "sha256": "fc9dfca17a60062ca13cf9f00ea068a37b19721832343d31c4d45a427286abb1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/809/de/809de9c4bcbbbd3b6a0964fdbefbbdd3b5ef3763c6d1e9337161465ffa7012fa.bin",
+      "bytes": 917504,
+      "sha256": "67715374dabdcd825981ce3c9ffe36c262f4c0132e93d246579176308b4d4f9a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/911/11/91111ca1071efbe616b639bde44ed33513041f25160b20b8a8253af8e30e3fdd.bin",
+      "bytes": 917504,
+      "sha256": "6ffe73ffa64f38853fb58521cfe3149e65414565a71978d5d6d4313a2524860b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/926/45/92645ec0a71c1d45c856a0232ef6c313ee9f3beba5f4e8032209a701eeefb6a0.bin",
+      "bytes": 917504,
+      "sha256": "198c14f622663f03696b74d4938e664e5a94c6337cea26add8574f30bc77b8ca"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/9de/14/9de14969285be354f4155f0465553f5ea6c75ce8848043b519d09344f9fbe265.bin",
+      "bytes": 917504,
+      "sha256": "99fdedbbf07c103190d19aad407de344ebc251c45059998c115373f9549186e0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a2c/d9/a2cd91c8bfdf947ba20f42c15490fbe3182705757d46b2b94ef348bcfdc2108f.bin",
+      "bytes": 917504,
+      "sha256": "828c8c386b5a674084502d51d2074b0639a5dffa2ce7aedaa9642373761b0013"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/a92/64/a9264338fc75deaa2bae2fecffb9aab1d7dbcae44e2610b821459f5e660e682f.bin",
+      "bytes": 917504,
+      "sha256": "e21687f8aaaf28abfc9bc8a7c7dee3366c315d24ccf9aa1773a2177473eacb01"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ac9/41/ac94183810904e158ebe726588b079cc3b52173694639acd403382a25c802ff7.bin",
+      "bytes": 917504,
+      "sha256": "93ce876ca7fded1da7735d01e1cd94b972f673035711eb62ae9e5b2b53458694"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ad3/4f/ad34ffb991880b1c89b7e540db2e9c43b485168766db00447cf3f9bb5ad922d6.bin",
+      "bytes": 917504,
+      "sha256": "0dc839321704193f74db7d2db50d4be035adaf89cc48474dc4dedbf45df193c5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ad4/23/ad4237fe1cbe283ddb3c576b79635ea9978e7785028c3602d8d3dabd1a0cced4.bin",
+      "bytes": 917504,
+      "sha256": "65ad2f1d9e93163417ab6d82c72aa3d6a1ac9c3fbe1018df9707fdb1caec7b9b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b20/db/b20db2624072e66a9b15434b4c6ab5931afc4938de459185feedff7dce61cf40.bin",
+      "bytes": 917504,
+      "sha256": "9df6e31cbffef7a32a19e9e5f16099bda6f9796b5714bada940d4a2c8fa6666b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/b5a/33/b5a33fa2bb841f58f7874638d1dff3174ed2f651d82dd2280311c77337feca6f.bin",
+      "bytes": 917504,
+      "sha256": "77e5c3fd8fbba852167f4eab41182ff100f5763de9f53018f3159c490379aaf0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c51/13/c5113a259d303d3d630012adfaa8a1ca275f996cc8f855f8183154381bddca25.bin",
+      "bytes": 917504,
+      "sha256": "f4306dfb5399224ac8a04a688ad45367aee04ccc1ab1cc024a86056ed473c8c3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/c8b/39/c8b39ca0dca26ab4dbb34fc9edde6f23212559667363877f550acaacf2455f65.bin",
+      "bytes": 917504,
+      "sha256": "829ef0c5316289d7a9f657c35dca8b1ba3d7b0092bad1cf70a60e28e3f35b519"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ce0/3d/ce03d27f7259dbf503ef0f37839fb39c5f2ca1a2b4530443e94346a68c5733d7.bin",
+      "bytes": 917504,
+      "sha256": "c7d2cacba26fd48e89be883a6e9d3412a638f5dd248cd9026ce29cd264af4699"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/d0e/b8/d0eb8fb9b39c169cc02e8aac35b96badc8e5014611a7327f207bd9853960c701.bin",
+      "bytes": 917504,
+      "sha256": "3e2fe96769447b67109662955c6721fbce501b39828733bafdea81042389d894"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/db1/a7/db1a788abd03da0add590740b4b09dac0146009b2c9df1042294fba2e20674b8.bin",
+      "bytes": 917504,
+      "sha256": "6f31d205103929b73df3b9dff8e0bbd192790874af720e823fd2c4bcc6b8b79e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/df3/7d/df37de5462eea4f94fcaa7e06ba091535ab78d867a32496adf1b2e89f23430a1.bin",
+      "bytes": 917504,
+      "sha256": "ea7265b653977e88c863fd902775511452e6851a845c84f63815c35f844b8965"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e62/9e/e629e61807aa3cedf1f68d794ca7edcbdf355d5b84c79e92e247cb91673a50a7.bin",
+      "bytes": 917504,
+      "sha256": "5b8ba90dce0ea0810540b6dc652657cb388b55140d7aa258b81bb32bd0a2ef56"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/e98/f5/e98f5983dfaa50e86c9f595b572e797a92652a0ca1adaf34ffeace447d9100bf.bin",
+      "bytes": 917504,
+      "sha256": "16f73016d781de7ffd20a555b0d96fe6bd8c51f62133f250d314af2f79780d4e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/private-storage/Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/tp_1_pp_size_1_pcp_size_1/rank_0/auto/ff9/48/ff94856620c2b9e2b90dcd6061520d21212d73aba17880af05fa8b086ffe3eb4.bin",
+      "bytes": 917504,
+      "sha256": "4dc264ea01ce2cc6af9eec80c33584e1a02478850ac00fd5a6151ef76c2c565f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/server11-native-cost-six-window-05-p2-B-capture.json",
+      "bytes": 184617,
+      "sha256": "9f940445a88d1b9ed1b925f09f3171b40ba5349d3a61052098079b6c23fcaaa0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/server11-native-cost-six-window-05-p2-B-frontend.json",
+      "bytes": 393896,
+      "sha256": "fd8363f4e894e8f8cd48a791098887ba4c438009477a6bf79e95cab03a4051d5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/server11-native-cost-six-window-05-p2-B-window.json",
+      "bytes": 674850,
+      "sha256": "472d39ef72f4d81c5bc799402bbe8d1174b079ae2a861114f2cdf5e853b7bd8c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/warmup-2.json",
+      "bytes": 49667,
+      "sha256": "17bcfc7d0da3cf9a152da194f0b7c88fbd051074b4297f64054d701b9b35e26b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/process.log",
+      "bytes": 158,
+      "sha256": "4195761a046581b7a7eeac9629689ec3f14cb4c413a3cfe056d7f604caf1ffab"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/result.json",
+      "bytes": 1106,
+      "sha256": "caad02197fcd19b5c8d3f93058f06b0cabda061e79c06fff915ef7e8cd12b5f1"
+    }
+  ],
+  "file_count": 404,
+  "uncompressed_bytes": 244346910,
+  "excluded_reproducible_cache_or_aliases": [
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/runtime-cache",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/00/details/Qwen/Qwen2.5-7B-Instruct",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/runtime-cache",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/01/details/Qwen/Qwen2.5-7B-Instruct",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/runtime-cache",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/02/details/Qwen/Qwen2.5-7B-Instruct",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/runtime-cache",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/03/details/Qwen/Qwen2.5-7B-Instruct",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/runtime-cache",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/04/details/Qwen/Qwen2.5-7B-Instruct",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/runtime-cache",
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05/details/windows/05/details/Qwen/Qwen2.5-7B-Instruct"
+  ],
+  "closed_guard_results": [
+    {
+      "label": "server11-native-cost-six-window-05",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/run_native_cost_experiment.py",
+        "--execute",
+        "--config",
+        "artifacts/prefix_io_v1/server11-native-cost-v5-20261003/NATIVE_COST_CONFIG.json"
+      ],
+      "gpu_uuid": "GPU-38c1d1c7-2aba-3fa9-e1cd-fe4d3ae569c9",
+      "started_unix": 1791023515.1167102,
+      "elapsed_seconds": 658.0417792564258,
+      "exit": 0,
+      "child_exit": 0,
+      "timed_out": false,
+      "interrupted_signal": null,
+      "error": null,
+      "evidence": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server11-native-cost-six-window-05",
+      "gpu_job_attempted": true,
+      "reservation_id": "8a7f85b0c82441798d6cf47cac5fa8bf",
+      "session_id": 10657,
+      "session_members_before_cleanup": [],
+      "session_members_after_cleanup": [],
+      "session_drained": true,
+      "permissions": {
+        "path": "experiments/prefix_io_v1/configs/permissions.server11.native-cost.yaml",
+        "bytes": 675,
+        "sha256": "4a42c67a3e6f51fd28dae1ad27fdd3424b7d21194d4fcae6cc19140cd738b0c1"
+      }
+    }
+  ],
+  "gpu_wall_seconds": 20365.412908162456,
+  "remaining_gpu_seconds": 8434.587091837544,
+  "archived_runs": [
+    "experiments/prefix_io_v1/runs/server11-native-cost-six-window-05"
+  ],
+  "archived_sources": [
+    "artifacts/prefix_io_v1/server11-native-cost-v5-20261003"
+  ],
+  "new_GPU_operations": 0,
+  "deletions": 0
+}

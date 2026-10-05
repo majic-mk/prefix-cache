@@ -1,0 +1,621 @@
+diff --git a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/common.py b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/common.py
+--- a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/common.py
++++ b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/common.py
+@@ -36,6 +36,8 @@
+     # preload_id attribute). Lets storage backends begin reading hit blocks
+     # early; the matching load job places the already-read data.
+     reqs_to_preload: dict[ReqId, LoadStoreSpec] | None = None
++    # Optional immutable P4 scheduled-work values; never GPU completion evidence.
++    prefix_p4_scheduled_load: Any | None = None
+ 
+ 
+ @dataclass
+diff --git a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+--- a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
++++ b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+@@ -1131,11 +1131,19 @@
+             self._current_batch_jobs_to_flush.update(self._jobs.keys())
+             self._observe_prefix_flush("all_requests_finished", job_ids=self._jobs.keys())
+ 
++        prefix_p4_load = None
++        capture_p4 = getattr(self.manager, "capture_prefix_p4_scheduler_load", None)
++        if capture_p4 is not None:
++            try:
++                prefix_p4_load = capture_p4(scheduler_output, self._req_status)
++            except Exception:
++                logger.warning("Optional P4 scheduled-work observation failed", exc_info=True)
+         meta = OffloadingConnectorMetadata(
+             load_jobs=self._current_batch_load_jobs,
+             store_jobs=self._build_store_jobs(scheduler_output),
+             jobs_to_flush=self._current_batch_jobs_to_flush,
+             reqs_to_preload=self._reqs_to_preload or None,
++            prefix_p4_scheduled_load=prefix_p4_load,
+         )
+         self._current_batch_load_jobs = {}
+         self._current_batch_jobs_to_flush = set()
+diff --git a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
+--- a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
++++ b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
+@@ -389,7 +389,16 @@
+     def handle_worker_message(self, metadata: OffloadingWorkerMessageMetadata) -> bool:
+         return self.worker.handle_worker_message(metadata.message)
+ 
++    def _publish_prefix_p4_scheduled_load(self, metadata):
++        value = getattr(metadata, "prefix_p4_scheduled_load", None)
++        if value is not None:
++            try:
++                self.worker.handle_worker_message(value)
++            except Exception:
++                logger.warning("Optional P4 load metadata relay failed", exc_info=True)
++
+     def handle_preemptions(self, kv_connector_metadata: OffloadingConnectorMetadata):
++        self._publish_prefix_p4_scheduled_load(kv_connector_metadata)
+         self._submit_preloads(kv_connector_metadata)
+         self._submit_store_jobs()
+ 
+@@ -397,6 +406,7 @@
+             self.worker.wait(kv_connector_metadata.jobs_to_flush)
+ 
+     def start_kv_transfers(self, metadata: OffloadingConnectorMetadata):
++        self._publish_prefix_p4_scheduled_load(metadata)
+         self._submit_store_jobs()
+ 
+         # Fallback for worker paths that reach start_kv_transfers without a
+diff --git a/control/p4_load_observation.py b/control/p4_load_observation.py
+new file mode 100644
+--- /dev/null
++++ b/control/p4_load_observation.py
+@@ -0,0 +1,126 @@
++"""Bounded scheduler work values, not a claim that a GPU step is active.
++
++The author scheduler owns the inputs. No request, tensor, job or Future is kept.
++The worker republishes one immutable value under the original submit lock.
++Qualification of scheduled work against actual GPU step state is separate.
++"""
++from dataclasses import dataclass
++from hashlib import sha256
++import json
++from pathlib import Path
++from .simple_stage_policy import _run_id
++from .dispatch_budget import integer
++
++MAX_REQUESTS = 256
++
++def _digest(value):
++    if type(value) is not str or len(value) != 64 or any(c not in "0123456789abcdef" for c in value):
++        raise ValueError("actual source SHA-256 required")
++
++@dataclass(frozen=True)
++class SchedulerLoadObservation:
++    run_id: str
++    sequence: int
++    captured_ns: int
++    source_sha256: str
++    requests: int
++    prefill_requests: int
++    decode_requests: int
++    prefill_tokens: int
++    decode_tokens: int
++    min_context_tokens: int
++    max_context_tokens: int
++    total_context_tokens: int
++    geometry_sha256: str
++
++    def __post_init__(self):
++        _run_id(self.run_id)
++        for key in ("sequence","captured_ns","requests","prefill_requests","decode_requests",
++                    "prefill_tokens","decode_tokens","min_context_tokens","max_context_tokens",
++                    "total_context_tokens"):
++            integer(getattr(self,key),key,1 if key == "sequence" else 0)
++        _digest(self.source_sha256); _digest(self.geometry_sha256)
++        if self.requests > MAX_REQUESTS or self.prefill_requests > self.requests or self.decode_requests > self.requests:
++            raise ValueError("bounded scheduled requests required")
++        if (not self.requests <= self.prefill_requests+self.decode_requests <= 2*self.requests or
++                (self.prefill_requests==0)!=(self.prefill_tokens==0) or
++                (self.decode_requests==0)!=(self.decode_tokens==0) or
++                self.prefill_tokens < self.prefill_requests or self.decode_tokens < self.decode_requests):
++            raise ValueError("scheduled request/token counts disagree")
++        if self.min_context_tokens > self.max_context_tokens:
++            raise ValueError("context range is reversed")
++        if not self.requests and any((self.prefill_requests,self.decode_requests,self.prefill_tokens,
++                self.decode_tokens,self.min_context_tokens,self.max_context_tokens,self.total_context_tokens)):
++            raise ValueError("empty scheduled work must have zero scalar work")
++        if self.requests and (not self.prefill_tokens + self.decode_tokens or
++                not self.prefill_requests + self.decode_requests or
++                not self.min_context_tokens*self.requests <= self.total_context_tokens <= self.max_context_tokens*self.requests):
++            raise ValueError("inconsistent nonempty scheduled work")
++
++    @property
++    def signature(self):
++        return ("scheduler-work-v1",self.source_sha256,self.requests,self.prefill_requests,
++                self.decode_requests,self.prefill_tokens,self.decode_tokens,
++                self.min_context_tokens,self.max_context_tokens,self.total_context_tokens,
++                self.geometry_sha256)
++
++    @property
++    def production_gpu_state_qualified(self):
++        return False
++
++    def fresh(self,*,run_id,now_ns,max_age_ns):
++        integer(now_ns,"now_ns"); integer(max_age_ns,"max_age_ns",1)
++        return self.run_id == run_id and 0 <= now_ns-self.captured_ns <= max_age_ns
++
++@dataclass(frozen=True)
++class SchedulerLoadUnavailable:
++    run_id: str
++    sequence: int
++    captured_ns: int
++    reason: str
++    def __post_init__(self):
++        _run_id(self.run_id); integer(self.sequence,"sequence",1);integer(self.captured_ns,"captured_ns")
++        if type(self.reason) is not str or not self.reason or len(self.reason)>160:
++            raise ValueError("bounded missing-state reason required")
++
++class SchedulerLoadProducer:
++    """Only consumes current scheduled inputs; there is no second scheduler."""
++    def __init__(self,run_id):
++        _run_id(run_id)
++        self.run_id=run_id;self.sequence=0
++        self.source_sha256=sha256(Path(__file__).read_bytes()).hexdigest()
++        self.last_reason="not_observed"
++
++    def capture(self,scheduler_output,req_status,*,now_ns):
++        integer(now_ns,"now_ns");self.sequence+=1
++        try:
++            scheduled=scheduler_output.num_scheduled_tokens
++            if type(scheduled) is not dict or len(scheduled)>MAX_REQUESTS or type(req_status) is not dict:
++                raise ValueError("unsupported bounded scheduler inputs")
++            rows=[];prefill_requests=decode_requests=prefill_tokens=decode_tokens=0
++            for req_id,count in scheduled.items():
++                if type(req_id) is not str or not req_id or len(req_id)>1024:
++                    raise ValueError("unsupported request identity")
++                integer(count,"actual scheduled tokens",1)
++                status=req_status.get(req_id)
++                if status is None:raise ValueError("scheduled request has no current owner state")
++                req=status.req
++                computed=req.num_computed_tokens
++                prompt=req.num_prompt_tokens
++                integer(computed,"actual computed tokens");integer(prompt,"actual prompt tokens")
++                if count>1_000_000 or computed>1_000_000 or prompt>1_000_000:
++                    raise ValueError("scheduled scalar token bound exceeded")
++                p=min(count,max(0,prompt-computed));d=count-p
++                prefill_tokens+=p;decode_tokens+=d
++                prefill_requests+=int(p>0);decode_requests+=int(d>0)
++                rows.append((computed,prompt,count,p,d))
++            rows.sort()
++            contexts=[r[0] for r in rows]
++            geometry=sha256(json.dumps(rows,separators=(",",":")).encode()).hexdigest()
++            self.last_reason="actual_scheduler_work_not_gpu_active_state"
++            return SchedulerLoadObservation(self.run_id,self.sequence,now_ns,self.source_sha256,
++                len(rows),prefill_requests,decode_requests,prefill_tokens,decode_tokens,
++                min(contexts,default=0),max(contexts,default=0),sum(contexts),geometry)
++        except Exception as exc:
++            self.last_reason=type(exc).__name__+": "+str(exc)
++            return SchedulerLoadUnavailable(self.run_id,self.sequence,now_ns,self.last_reason[:160])
+diff --git a/control/p4_options.py b/control/p4_options.py
+--- a/control/p4_options.py
++++ b/control/p4_options.py
+@@ -1,9 +1,8 @@
+-"""Strict isolated P4 option. It does not change P3 source or acceptance rules."""
++"""Strict isolated P4 startup; prepared CPU evidence cannot enable production."""
+ from dataclasses import dataclass
+ from .simple_stage_options import (
+     PARENT_KEY, POLICY_KEY, parse_simple_options, build_simple_kwargs, identity,
+ )
+-
+ P4_KEY = "prefix_io_p4_policy"
+ 
+ @dataclass(frozen=True)
+@@ -12,6 +11,7 @@
+     run_id: str | None = None
+     config: object | None = None
+     fixed: object | None = None
++    prepared_cost_request: object | None = None
+ 
+ def parse_p4_options(extra):
+     if type(extra) is not dict:
+@@ -33,8 +33,6 @@
+         raise ValueError("unsupported P4 schema")
+     if original.parent_cap is None or original.run_id != identity(raw["run_id"]):
+         raise ValueError("P4 requires same-run common admission/accounting")
+-    if raw["cost_table"] is not None:
+-        raise ValueError("no P4 production cost table has a GPU qualification gate")
+     from .p4_types import P4Config
+     batches = raw["candidate_batches"]
+     if type(batches) is not list:
+@@ -44,22 +42,46 @@
+     if config.mode == "off":
+         raise ValueError("off must not carry policy state")
+     fixed = None
+-    if config.mode == "dependency_only":
+-        fixed_raw = raw["fixed_stage_policy"]
++    fixed_raw = raw["fixed_stage_policy"]
++    if fixed_raw is not None:
+         if type(fixed_raw) is not dict or fixed_raw.get("mode") != "fixed":
+-            raise ValueError("dependency-only requires frozen original fixed stage budget")
++            raise ValueError("only frozen original fixed stage budget can be declared")
+         fixed = parse_simple_options(dict(base, **{POLICY_KEY:fixed_raw}))
+-        if fixed.policy is None:
+-            raise ValueError("fixed stage configuration missing")
+-    elif raw["fixed_stage_policy"] is not None:
+-        raise ValueError("shadow/unsupported I/J must retain baseline U allowances")
+-    return Options(original, raw["run_id"], config, fixed)
++        if fixed.policy is None or fixed.run_id != raw["run_id"]:
++            raise ValueError("same-run fixed stage configuration required")
++    if config.mode == "dependency_only" and fixed is None:
++        raise ValueError("dependency-only requires frozen original fixed stage budget")
++    request = None
++    if raw["cost_table"] is not None:
++        if config.mode not in ("shadow","interference","joint"):
++            raise ValueError("D cannot consume an interference-table input")
++        from .p4_startup_evidence import parse_prepared_cost_request
++        request=parse_prepared_cost_request(raw["cost_table"])
++        if request.expected_context.run_id != raw["run_id"]:
++            raise ValueError("paired measurement startup context run differs")
++    return Options(original, raw["run_id"], config, fixed, request)
+ 
+-def build_p4_kwargs(options):
++def build_p4_kwargs(options, *, evidence_root=None):
+     if type(options) is not Options:
+         raise TypeError("parsed immutable P4 options required")
+-    result = build_simple_kwargs(options.fixed or options.original)
++    prepared = None
++    if options.prepared_cost_request is not None:
++        if evidence_root is None:
++            raise ValueError("independently bound project evidence root required")
++        prepared=options.prepared_cost_request.load(evidence_root)
++        if prepared.production_qualified:
++            raise ValueError("GPU-qualified activation is not implemented by the CPU prepared loader")
++    # An explicit fixed common base is usable for D/shadow. I/J without real
++    # qualification still use U; declaring caps is not permission to apply them.
++    fixed_applies=(options.config is not None and
++        options.config.mode in ("dependency_only","shadow") and options.fixed is not None)
++    result = build_simple_kwargs(options.fixed if fixed_applies else options.original)
+     if options.config is not None:
+         from .p4_bridge import make_native_bridge
+-        result["p4_bridge"] = make_native_bridge(options.run_id, options.config)
++        bridge=make_native_bridge(options.run_id,options.config)
++        bridge.prepared_cost_summary = ((("status","NO_PREPARED_TABLE"),) if prepared is None else
++            (("status",prepared.status),("candidate_sha256",prepared.source_ref.sha256),
++             ("cell_count",prepared.cell_count),("gpu_verified",False)))
++        bridge.declared_common_fixed_base = options.fixed is not None
++        result["p4_bridge"] = bridge
+     return result
+diff --git a/control/p4_startup_evidence.py b/control/p4_startup_evidence.py
+new file mode 100644
+--- /dev/null
++++ b/control/p4_startup_evidence.py
+@@ -0,0 +1,40 @@
++"""Strict startup binding of prepared measurements; it grants no GPU capability."""
++from dataclasses import dataclass
++from pathlib import PurePosixPath
++from .p4_production_table_contract import TableContext, EvidenceRef, _keys, _require
++
++def relative(value):
++    _require(type(value) is str and 0 < len(value) <= 512 and "\\" not in value and "\x00" not in value,
++             "bounded project-relative metadata path required")
++    p=PurePosixPath(value)
++    _require(not p.is_absolute() and ":" not in p.parts[0] and
++             all(x not in ("",".","..") for x in value.split("/")),
++             "relative metadata path cannot escape project")
++    return value
++
++@dataclass(frozen=True)
++class PreparedCostRequest:
++    candidate_path: str
++    expected_context: TableContext
++    qualification_ref: EvidenceRef
++    expected_verifier_ref: EvidenceRef
++    plan_path: str
++    expected_plan_ref: EvidenceRef
++
++    def load(self,root):
++        from .p4_verified_cost_loader import load_semantically_verified_table
++        return load_semantically_verified_table(root,self.candidate_path,
++            expected_context=self.expected_context,qualification_ref=self.qualification_ref,
++            expected_verifier_ref=self.expected_verifier_ref,plan_path=self.plan_path,
++            expected_plan_ref=self.expected_plan_ref)
++
++def parse_prepared_cost_request(raw):
++    _keys(raw,("kind","candidate_path","expected_context","qualification_ref",
++        "expected_verifier_ref","plan_path","expected_plan_ref"),"prepared cost startup request")
++    _require(raw["kind"] == "paired_semantic_candidate","only strict paired semantic candidate input supported")
++    candidate=relative(raw["candidate_path"]);plan=relative(raw["plan_path"])
++    refs=[EvidenceRef.from_mapping(raw[k]) for k in
++          ("qualification_ref","expected_verifier_ref","expected_plan_ref")]
++    for ref in refs:relative(ref.path)
++    _require(refs[2].path == plan,"independently frozen plan path must match")
++    return PreparedCostRequest(candidate,TableContext.from_mapping(raw["expected_context"]),*refs[:2],plan,refs[2])
+diff --git a/native/py_kvcache/reactor.py b/native/py_kvcache/reactor.py
+--- a/native/py_kvcache/reactor.py
++++ b/native/py_kvcache/reactor.py
+@@ -2345,12 +2345,114 @@
+         except Exception as exc:
+             bridge.fail(type(exc).__name__ + ": " + str(exc))
+ 
++    def _prefix_p4_parent_terminal(self, job, *, successful):
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return  # off before clock/import or scalar owner inspection
++        pid = getattr(job, "accepted_parent_sequence", None)
++        if type(pid) is not int or pid < 1:
++            return
++        try:
++            if self._worker.ident != threading.get_ident():
++                raise RuntimeError("closure drain sampling requires native owner")
++            physical_success = (successful and job.failed is None and
++                job.done_files == job.total_files and job.inflight_files == 0 and
++                job.next_file_index == job.total_files and
++                not getattr(job, "accepted_parent_retired", False))
++            bridge.complete_native_closure(pid, now_ns=time.monotonic_ns(),
++                successful=bool(physical_success),
++                drain_known=not getattr(self, "_native_drain_unknown", False))
++        except Exception as exc:
++            bridge.fail(type(exc).__name__ + ": " + str(exc))
++
++
++    def publish_p4_scheduled_load(self, observation):
++        """One immutable scalar publication; no work queue or awaited Future."""
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return False  # off before optional imports, clocks or metadata scan
++        from prefix_io_control.p4_load_observation import SchedulerLoadObservation, SchedulerLoadUnavailable
++        if type(observation) not in (SchedulerLoadObservation, SchedulerLoadUnavailable):
++            raise TypeError("strict immutable scheduler work values required")
++        if observation.run_id != bridge.run_id:
++            raise ValueError("scheduler work belongs to a different run")
++        with self._submit_lock:
++            if self._closed:
++                raise RuntimeError("native intake closed")
++            previous = getattr(self, "_prefix_p4_load_frame", None)
++            sequence = getattr(self, "_prefix_p4_load_sequence", 0)
++            if observation.sequence < sequence:
++                raise ValueError("scheduler work sequence moved backwards")
++            if observation.sequence == sequence:
++                if observation == previous:
++                    return False
++                # Conflicting same-step metadata invalidates the previous view.
++                self._prefix_p4_load_frame = None
++                raise ValueError("conflicting same-sequence scheduled work")
++            self._prefix_p4_load_frame = observation
++            self._prefix_p4_load_sequence = observation.sequence
++        return True
++
++    def _prefix_p4_load_values(self, now_ns):
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return (), None
++        lock = getattr(self, "_submit_lock", None)
++        if lock is None:
++            frame = getattr(self, "_prefix_p4_load_frame", None)
++        else:
++            with lock:
++                frame = getattr(self, "_prefix_p4_load_frame", None)
++        from prefix_io_control.p4_load_observation import SchedulerLoadObservation
++        if type(frame) is not SchedulerLoadObservation or not frame.fresh(
++                run_id=bridge.run_id, now_ns=now_ns,
++                max_age_ns=bridge.policy.config.sample_max_age_ns):
++            return (), None
++        return frame.signature, frame
++
++    def _prefix_p4_existing_io_state(self, now_ns, free):
++        accounting = getattr(self, "_prefix_stage_accounting", None)
++        if accounting is None or not accounting.valid:
++            return None
++        try:
++            from prefix_io_control.dispatch_budget import Amount, STAGES
++            from prefix_io_control.dispatch_shadow import ShadowState
++            accounting._owner()
++            return ShadowState(self._prefix_p4_bridge.run_id, now_ns,
++                inflight=tuple(Amount(accounting.stats[s]["inflight_ops"],
++                    accounting.stats[s]["inflight_bytes"]) for s in STAGES),
++                free_staging_bytes=free,
++                accepted_parents=self.accepted_parent_count(),
++                native_issue_safe=None)
++        except Exception:
++            return None  # missing owner facts are unknown rather than zero
++
++    def _prefix_p4_read_batch_ids(self):
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return None
++        try:
++            view = self._prefix_p4_collect()
++            if view is None:
++                return None
++            ids = tuple((r.job.accepted_parent_sequence, r.file_index, "ssd_read")
++                for r in self._ready_fds_load if r.job is not None and r.job.failed is None)
++            by_id = {w.work_id:w for w in view.works}
++            works = tuple(by_id[wid] for wid in ids if wid in by_id)
++            if not works:
++                return None
++            return bridge.batch_prefix(view, works, now_ns=time.monotonic_ns())
++        except Exception as exc:
++            bridge.fail(type(exc).__name__+": "+str(exc))
++            return None  # optional advice cannot drop accepted native work
++
+     def _prefix_p4_collect(self):
+         """Owner-only bounded values; original queues and owners stay untouched."""
+         bridge = getattr(self, "_prefix_p4_bridge", None)
+         if bridge is None:
+             return None  # off before clock, snapshot, imports, or scanning
+         from prefix_io_control.p4_bridge import NativePublication
++        from prefix_io_control.p4_eta import ClosureGeometry
+         from prefix_io_control.p4_types import SystemSnapshot, WorkDescriptor, WaitingTarget, ReleaseWitness
+         from prefix_io_control.dependencies import Parent, Resource, ResourceId
+         if self._worker.ident != threading.get_ident():
+@@ -2362,6 +2464,7 @@
+             return None  # no truncation or dropping of native jobs
+         now = time.monotonic_ns()
+         run = bridge.run_id
++        load_signature, load_frame = self._prefix_p4_load_values(now)
+         jobs, order = {}, {}
+         for index, job in enumerate(self._active):
+             pid = job.accepted_parent_sequence
+@@ -2408,18 +2511,42 @@
+             depth = max((2 if x[2] == "ssd_read" else 1 for x in rows), default=0) if complete else None
+             if complete:
+                 complete_ready.add(pid)
++                # Measure the native whole closure, including original queues and
++                # fused copies. Per-file timings cannot predict future fusion.
++                grouped_rows = {}
++                for row in rows:
++                    quantum = self.file_store.io_size if row[2] == "ssd_read" else row[3]
++                    key = (row[2], row[3], quantum)
++                    grouped_rows[key] = grouped_rows.get(key, 0) + 1
++                geometry = ClosureGeometry(tuple(sorted(
++                    key + (count,) for key, count in grouped_rows.items())))
++                context = ("native-ready-closure-v1", self.file_store.io_size,
++                    self.layout.storage_block_bytes,
++                    len(self._active), len(self._ready_fds_load), len(self._copy_ready),
++                    len(getattr(self, "_pending_copies", ())),
++                    len(getattr(self, "_inflight", ())),
++                    getattr(self, "_data_inflight", 0),
++                    getattr(self, "_open_inflight", 0),
++                    getattr(self, "iodepth", 0),
++                    load_frame.source_sha256 if load_frame is not None else "scheduler-source-unknown",
++                    load_frame.geometry_sha256 if load_frame is not None else "scheduled-work-unknown")
++                bridge.observe_native_closure(pid, geometry, context, now_ns=now)
+             parents.append(Parent(run, pid, job.total_files, job.done_files, job.inflight_files,
+                 bool(job.future_set), job.failed is not None, depth, None))
+         free = self._prefix_clean_reclaimable_bytes()
++        native_state = self._prefix_p4_existing_io_state(now, free)
++        io_signature = tuple((a.ops,a.nbytes) for a in native_state.inflight) if native_state is not None else ()
+         signature = (tuple((p.job_id,p.total_files,p.done_files,p.inflight_files,p.future_done,p.failed,
+                            p.remaining_stages) for p in parents),
+-                     tuple((j.accepted_parent_sequence,fi,stage,gen) for j,fi,stage,nb,need,gen,rid in raw),
++                     tuple((j.accepted_parent_sequence,fi,stage,nb,need,gen) for j,fi,stage,nb,need,gen,rid in raw),
+                      tuple((rc.slot_index,rc.shared.copies_inflight if rc.shared else
+                             rc.cache.copies_inflight if rc.cache else 1,
+                             bool(rc.shared.cached) if rc.shared else False)
+                            for rc in self._copy_ready), free,
+                      bool(self._stop), tuple(sorted(j.accepted_parent_sequence for j in self._active
+-                                               if self.is_mandatory(j.future))))
++                                               if self.is_mandatory(j.future))),
++                     io_signature, load_signature,
++                     load_frame.sequence if load_frame is not None else None)
+         epoch = bridge.epoch(signature, now)
+         works = []
+         for idx,(job,fi,stage,nbytes,need,generation,identity) in enumerate(raw):
+@@ -2499,8 +2626,12 @@
+                 release_scope="multi_protector" if len(pids)>1 else "parent_job"))
+         caps = frozenset(("native_ready_work","owner_release_protocol",
+             "restore_parent_completion","cpu_owner_generation","cpu_active_refs","cpu_protectors"))
+-        snapshot = SystemSnapshot(run,epoch,now,caps,tuple(parents),None,
+-            tuple(targets),tuple(generations.items()),None,free)
++        if native_state is not None:
++            caps |= frozenset(("native_existing_io",))
++        if load_frame is not None:
++            caps |= frozenset(("scheduled_work_observation",))
++        snapshot = SystemSnapshot(run,epoch,now,caps,tuple(parents),native_state,
++            tuple(targets),tuple(generations.items()),None,free,load_signature)
+         return NativePublication(snapshot,tuple(works),tuple(witnesses))
+ 
+     def _prefix_p4_order(self, entries, kind):
+@@ -2720,7 +2851,12 @@
+         if ordered is not self._ready_fds_load:
+             for index, ready in enumerate(ordered):
+                 self._ready_fds_load[index] = ready
++        p4_batch_ids = self._prefix_p4_read_batch_ids()
+         while self._ready_fds_load and self._data_inflight < self.iodepth:
++            if p4_batch_ids is not None:
++                item = self._ready_fds_load[0]
++                if item.job is not None and (item.job.accepted_parent_sequence, item.file_index, "ssd_read") not in p4_batch_ids:
++                    return made  # retain tail in its original native queue
+             slot = self._reserve_foreground_slot()
+             if slot is None:
+                 return made
+@@ -3435,6 +3571,7 @@
+                 job.failed = exc
+                 logger.exception("py-kvcache transfer job %s failed", job.job_id, exc_info=exc)
+         elif job.failed is None and job.done_files == job.total_files:
++            self._prefix_p4_parent_terminal(job, successful=True)
+             self._retire_accepted_parent(job)  # Physical whole-parent drain before callbacks.
+             job.future_set = True
+             self._emit(job, success=True)
+@@ -3453,6 +3590,7 @@
+                 if getattr(self, "_native_drain_unknown", False):
+                     remaining.append(job)
+                     continue
++                self._prefix_p4_parent_terminal(job, successful=False)
+                 self._retire_accepted_parent(job)  # Safe capacity before reentrant callbacks.
+                 job.future_set = True
+                 self._emit(job, success=False)
+@@ -3657,6 +3795,9 @@
+     def inspect_p4_view(self):
+         return self.reactor.inspect_p4_view()
+ 
++    def publish_p4_scheduled_load(self, observation):
++        return self.reactor.publish_p4_scheduled_load(observation)
++
+     def request_p4_publication(self, publication):
+         return self.reactor.request_p4_publication(publication)
+ 
+diff --git a/native/py_kvcache/vllm.py b/native/py_kvcache/vllm.py
+--- a/native/py_kvcache/vllm.py
++++ b/native/py_kvcache/vllm.py
+@@ -194,6 +194,7 @@
+         file_mapper: FileMapper,
+         *,
+         planner: LoadPlanner | None = None,
++        p4_load_run_id: str | None = None,
+     ):
+         self.file_mapper = file_mapper
+         # Positive hits are immutable; misses not cached (another process can publish between steps).
+@@ -206,6 +207,16 @@
+         # waits for the write and loads rather than recomputing a reusable prefix.
+         self._store_inflight: dict[bytes, int] = {}
+         self._planner = planner
++        self._prefix_p4_load_producer = None
++        if p4_load_run_id is not None:
++            from prefix_io_control.p4_load_observation import SchedulerLoadProducer
++            self._prefix_p4_load_producer = SchedulerLoadProducer(p4_load_run_id)
++
++    def capture_prefix_p4_scheduler_load(self, scheduler_output, req_status):
++        producer = self._prefix_p4_load_producer
++        if producer is None:
++            return None  # off before clock, source read or request scan
++        return producer.capture(scheduler_output, req_status, now_ns=time.monotonic_ns())
+ 
+     @staticmethod
+     def _get_block_hash(key: OffloadKey) -> bytes:
+@@ -417,6 +428,19 @@
+         )
+         self._max_submitted_preload_ids = 1024
+         self.is_shutdown = False
++
++    def handle_worker_message(self, message):
++        reactor = getattr(self.coordinator, "reactor", None)
++        if reactor is None or getattr(reactor, "_prefix_p4_bridge", None) is None:
++            return False  # off before optional imports/metadata work
++        from prefix_io_control.p4_load_observation import SchedulerLoadObservation, SchedulerLoadUnavailable
++        if type(message) not in (SchedulerLoadObservation, SchedulerLoadUnavailable):
++            return False
++        try:
++            self.coordinator.publish_p4_scheduled_load(message)
++        except Exception as exc:
++            self._prefix_p4_load_reason = type(exc).__name__ + ": " + str(exc)
++        return True  # optional diagnostic cannot fail an accepted transfer
+ 
+     def preload_async(
+         self,
+@@ -770,6 +794,9 @@
+             self._manager = SharedStorageOffloadingManager(
+                 self.file_mapper,
+                 planner=self._planner,
++                p4_load_run_id=(self._prefix_io_options.run_id if
++                    getattr(self, "_prefix_io_p4_options", False) and
++                    getattr(self._prefix_io_options, "config", None) is not None else None),
+             )
+         return self._manager
+ 
+@@ -792,7 +819,8 @@
+             if self._prefix_io_options is not None:
+                 if getattr(self,"_prefix_io_p4_options",False):
+                     from prefix_io_control.p4_options import build_p4_kwargs
+-                    observer_kwargs = build_p4_kwargs(self._prefix_io_options)
++                    observer_kwargs = build_p4_kwargs(self._prefix_io_options,
++                        evidence_root=__import__("pathlib").Path(__file__).resolve().parents[4])
+                 else:
+                     from prefix_io_control.simple_stage_options import build_simple_kwargs
+                     observer_kwargs = build_simple_kwargs(self._prefix_io_options)

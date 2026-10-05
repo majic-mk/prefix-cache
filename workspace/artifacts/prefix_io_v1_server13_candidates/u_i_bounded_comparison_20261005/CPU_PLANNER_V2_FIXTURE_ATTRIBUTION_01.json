@@ -1,0 +1,127 @@
+{
+  "schema": "CPU_planner_V2_fixture_attribution_v1",
+  "origin": "already_executed_original_pure_Pchip_CostTables_LoadPlanner",
+  "scope": "conditional structural decisions using preserved historical author LoadPlanner curves; no actual I/O, model, GPU, release or performance validation",
+  "GPU_operations": 0,
+  "SSH_operations": 0,
+  "actual_IO_operations": 0,
+  "synthetic_hashes": true,
+  "hash_rule": "48 i.to_bytes(8,big) values representing assumed loadable A files; not actual cache hashes",
+  "injected_fixture_clock_seconds": 1.0,
+  "fixture_max_preload_slots": 142,
+  "fixture_defer_tolerance": 1,
+  "block_tokens": 16,
+  "max_model_len": 1024,
+  "A_recompute_tokens": 768,
+  "A_assumed_load_blocks": 48,
+  "K_recompute_tokens": 768,
+  "K_assumed_load_blocks": 0,
+  "no_actual_file_existence_was_checked": true,
+  "no_actual_staging_or_GPU_residency_was_checked": true,
+  "case_summary": [
+    {
+      "candidates": [
+        "A"
+      ],
+      "outstanding_load_blocks": [],
+      "A": "DECLINE"
+    },
+    {
+      "candidates": [
+        "K",
+        "A"
+      ],
+      "outstanding_load_blocks": [],
+      "A": "DEFER48"
+    },
+    {
+      "candidates": [
+        "K",
+        "A"
+      ],
+      "outstanding_load_blocks": [
+        1
+      ],
+      "A": "DEFER48"
+    },
+    {
+      "candidates": [
+        "K",
+        "A"
+      ],
+      "outstanding_load_blocks": [
+        4
+      ],
+      "A": "DECLINE"
+    }
+  ],
+  "required_runtime_premises": [
+    "one real running decoder with two ordered waiting candidates K,A",
+    "K genuinely new with load_blocks0",
+    "A actual source cache files loadable and not blocked_on_store",
+    "full768 A mapping really yields48 available load blocks",
+    "storage_wait no greater than permitted measured margin; no unsupported old read state",
+    "original planner capacity sufficient for48 preload blocks",
+    "normal writer/eviction/admission lifecycle only; no injection",
+    "actual live GPU frame and CUDA witness determine context; context784 is not inferred"
+  ],
+  "current_GPU_cost_table_qualification": false,
+  "strategy_effect_proved": false,
+  "SSD_restore_proved": false,
+  "context784_observed": false,
+  "new_frozen_input_ref": {
+    "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server13_candidates\\u_i_bounded_comparison_20261005\\FROZEN_REQUEST_INPUTS_02.json",
+    "bytes": 141745,
+    "sha256": "a5cab33912bdd9d0fb58e3a927123bfa9f971b92649b4f3900636af5bfe6e754"
+  },
+  "input_sha_matches_parent_statement": true,
+  "observed_source_request_ids": [
+    0,
+    2,
+    3,
+    4,
+    5,
+    7,
+    12,
+    14,
+    15,
+    17,
+    19,
+    0
+  ],
+  "source_request_ids_match_V2_design": true,
+  "input_sourceIDs_metadata_checked_after_original_fixture": true,
+  "source_refs_read_after_original_fixture": [
+    {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server07_p3\\third_party\\work\\py-kvcache-p2-aio\\py_kvcache\\_pchip.py",
+      "bytes": 2681,
+      "sha256": "d3f186b52ae296181ae3e547cb8516ba1538a20062bb76152c6042b13ff5d397"
+    },
+    {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server07_p3\\third_party\\work\\py-kvcache-p2-aio\\py_kvcache\\break_even.py",
+      "bytes": 9567,
+      "sha256": "2419c9470df0e43558ccc729aa3927ebd4d1381e00276d4caaa57b3cf19c42a6"
+    },
+    {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server07_p3\\third_party\\work\\py-kvcache-p2-aio\\py_kvcache\\cost_model.py",
+      "bytes": 4014,
+      "sha256": "e85922054fe96dce5c0221f1cc17cc3f1b2d7addd7eae452cabad305fc412397"
+    },
+    {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server07_p3\\third_party\\work\\py-kvcache-p2-aio\\py_kvcache\\profiling.py",
+      "bytes": 970,
+      "sha256": "b6025d8afb9256be2a2d35df01e4bf96f3926a2948ecc88a32c2c63336b333d3"
+    },
+    {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server11_candidates\\notification_v5_native_cost_preparation_cpu\\common_candidate\\source\\third_party\\work\\py-kvcache-p4-02-cpu\\py_kvcache\\load_planner.py",
+      "bytes": 18325,
+      "sha256": "92581e373d7e5c0903520417fb0ce80141f2f65506bf16c7ecbde94ab1ca5fe2"
+    },
+    {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server12_candidates\\gpu_prerental_preparation_20261004\\source_inputs\\ORIGINAL_PLANNER_CURVES_V2.json",
+      "bytes": 11757,
+      "sha256": "f7cd071cde00aa18edcc463be0b83886bb4240291acabb4c9f4adb30b8c6311e"
+    }
+  ],
+  "source_refs_are_posthoc_record_time_hashes_not_prelaunch_pins": true
+}

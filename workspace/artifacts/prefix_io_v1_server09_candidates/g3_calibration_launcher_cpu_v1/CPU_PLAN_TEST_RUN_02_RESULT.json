@@ -1,0 +1,28 @@
+{
+  "status": "ACTUAL_CPU_RED_RUN_02",
+  "actual_process_exit": 1,
+  "tests_run": 31,
+  "failures": 1,
+  "errors": 0,
+  "source_and_log_refs": [
+    {
+      "path": "g3_calibration_plan.py",
+      "bytes": 24340,
+      "sha256": "7868c5ef4a113607320a132a22072fcd9bbb33fb6b367976e81b05065695f21f"
+    },
+    {
+      "path": "test_g3_calibration_plan.py",
+      "bytes": 18031,
+      "sha256": "b0da9852619c6df7e826f2eb83f2680667882e522a7b0e196d7a00da2330a447"
+    },
+    {
+      "path": "CPU_PLAN_TEST_RUN_02.log",
+      "bytes": 815,
+      "sha256": "bcc270ff0ca7ce787941b6fa1488e9470ce5376efb6da39f1218a63d55a4f44d"
+    }
+  ],
+  "reason": "Windows temporary directory short path differs from its canonical resolved long path; source checker correctly returns canonical path",
+  "GPU_jobs": 0,
+  "RPC_calls": 0,
+  "author_source_modified": false
+}

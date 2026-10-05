@@ -1,0 +1,142 @@
+# 实际命令记录：不是可整体重跑的脚本。旧 label/output 必须保留。
+
+# GPU wrapper 环境（继承当前进程环境后覆盖）
+export CUDA_HOME=/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/cuda-toolkit
+export TORCH_CUDA_ARCH_LIST=12.0
+export NVCC_THREADS=1
+export MAX_JOBS=4
+export PATH=/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/cuda-toolkit/bin:/root/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+export FLASHINFER_WORKSPACE_BASE=/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runtime-cache/flashinfer
+export FLASHINFER_NVCC=/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/cuda-toolkit/bin/nvcc
+export FLASHINFER_NO_DOWNLOAD=1
+export PYTHONPATH=/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p2-aio:/root/autodl-tmp/prefix-io-v1-handoff/project/src:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts
+export PYTHONDONTWRITEBYTECODE=1
+
+# server07-p3-aux-native-ref-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-native-ref-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-native-ref-01/details --storage /root/prefix-io-v1-validation/storage/calibration-16k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode cold --sizes 2048,4096,8192,16384 --reps 3 --domain 16384 --native-hot-diagnostic --diagnostic-logprobs
+
+# server07-p3-aux-long-ref-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-long-ref-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-long-ref-01/details --storage /root/prefix-io-v1-validation/storage/calibration-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 2048,4096 --reps 3 --domain 16384 --cached-reference-logprobs
+
+# server07-p3-aux-8k-ref-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-8k-ref-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-8k-ref-01/details --storage /root/prefix-io-v1-validation/storage/calibration-8k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 8192 --reps 3 --domain 16384 --cached-reference-logprobs
+
+# server07-p3-aux-16k-ref-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-16k-ref-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-16k-ref-01/details --storage /root/prefix-io-v1-validation/storage/calibration-16k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 16384 --reps 3 --domain 16384 --cached-reference-logprobs
+
+# server07-p3-aux-cold-cost-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-cold-cost-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-cold-cost-01/details --storage /root/prefix-io-v1-validation/storage/calibration-16k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode cold --sizes 2048,4096,8192,16384 --reps 3 --domain 16384
+
+# server07-p3-aux-long-cost-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-long-cost-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-long-cost-01/details --storage /root/prefix-io-v1-validation/storage/calibration-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 2048,4096 --reps 3 --domain 16384
+
+# server07-p3-aux-8k-cost-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-8k-cost-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-8k-cost-01/details --storage /root/prefix-io-v1-validation/storage/calibration-8k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 8192 --reps 3 --domain 16384
+
+# server07-p3-aux-16k-cost-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-16k-cost-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-16k-cost-01/details --storage /root/prefix-io-v1-validation/storage/calibration-16k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 16384 --reps 3 --domain 16384
+
+# server07-p3-aux-16k-cost-02 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-16k-cost-02 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-16k-cost-02/details --storage /root/prefix-io-v1-validation/storage/calibration-16k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 16384 --reps 3 --domain 16384
+
+# server07-p3-aux-8k-cost-02 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-8k-cost-02 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-8k-cost-02/details --storage /root/prefix-io-v1-validation/storage/calibration-8k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 8192 --reps 3 --domain 16384
+
+# server07-p3-aux-long-cost-02 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-long-cost-02 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-long-cost-02/details --storage /root/prefix-io-v1-validation/storage/calibration-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 2048,4096 --reps 3 --domain 16384
+
+# server07-p3-aux-cold-cost-02 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-cold-cost-02 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-cold-cost-02/details --storage /root/prefix-io-v1-validation/storage/calibration-16k --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode cold --sizes 2048,4096,8192,16384 --reps 3 --domain 16384
+
+# server07-p3-aux-heldout-native-ref-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-heldout-native-ref-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-heldout-native-ref-01/details --storage /root/prefix-io-v1-validation/storage/heldout-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode cold --sizes 16256 --reps 3 --domain 16384 --prompt-manifest artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json --native-hot-diagnostic --diagnostic-logprobs
+
+# server07-p3-aux-heldout-populate-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-heldout-populate-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-heldout-populate-01/details --storage /root/prefix-io-v1-validation/storage/heldout-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode populate --sizes 16256 --reps 3 --domain 16384 --prompt-manifest artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json
+
+# server07-p3-aux-heldout-cached-ref-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-heldout-cached-ref-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-heldout-cached-ref-01/details --storage /root/prefix-io-v1-validation/storage/heldout-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 16256 --reps 3 --domain 16384 --prompt-manifest artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json --cached-reference-logprobs
+
+# server07-p3-aux-long-native-128-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-long-native-128-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/run_long_native_reference.py --output /root/prefix-io-v1-validation/runs/server07-p3-aux-long-native-128-01/details --prompts artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json --native-config /root/prefix-io-v1-validation/runs/server07-p3-aux-native-ref-01/details/frozen-config.json --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json
+
+# server07-p3-aux-heldout-cold-cost-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-heldout-cold-cost-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-heldout-cold-cost-01/details --storage /root/prefix-io-v1-validation/storage/heldout-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode cold --sizes 16256 --reps 3 --domain 16384 --prompt-manifest artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json
+
+# server07-p3-aux-heldout-paired-cost-01 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-heldout-paired-cost-01 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-heldout-paired-cost-01/details --storage /root/prefix-io-v1-validation/storage/heldout-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 16256 --reps 3 --domain 16384 --prompt-manifest artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json
+
+# server07-p3-aux-heldout-paired-cost-02 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-heldout-paired-cost-02 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-heldout-paired-cost-02/details --storage /root/prefix-io-v1-validation/storage/heldout-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode paired --sizes 16256 --reps 3 --domain 16384 --prompt-manifest artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json
+
+# server07-p3-aux-heldout-cold-cost-02 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-heldout-cold-cost-02 --seconds 240 -- .venv/bin/python experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py --output-dir /root/prefix-io-v1-validation/runs/server07-p3-aux-heldout-cold-cost-02/details --storage /root/prefix-io-v1-validation/storage/heldout-long --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --mode cold --sizes 16256 --reps 3 --domain 16384 --prompt-manifest artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json
+
+# server07-p3-aux-long-replay-01 exit=1
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-long-replay-01 --seconds 300 -- .venv/bin/python experiments/prefix_io_v1/scripts/run_long_calibration_replay.py --output /root/prefix-io-v1-validation/runs/server07-p3-aux-long-replay-01/details --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --curves artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json --manifest artifacts/prefix_io_v1/server07-p3-05/independent-long-manifest.json --storage-source /root/prefix-io-v1-validation/storage/heldout-long --validation-qualification artifacts/prefix_io_v1/server07-p3-05/long-qualification.json --validation-prompts artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json
+
+# server07-p3-aux-long-replay-02 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-long-replay-02 --seconds 300 -- .venv/bin/python experiments/prefix_io_v1/scripts/run_long_calibration_replay.py --output /root/prefix-io-v1-validation/runs/server07-p3-aux-long-replay-02/details --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --curves artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json --manifest artifacts/prefix_io_v1/server07-p3-05/independent-long-manifest.json --storage-source /root/prefix-io-v1-validation/storage/heldout-long --validation-qualification artifacts/prefix_io_v1/server07-p3-05/long-validation-permit.json --validation-prompts artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json
+
+# server07-p3-aux-long-replay-03 exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server07-p3-aux-long-replay-03 --seconds 300 -- .venv/bin/python experiments/prefix_io_v1/scripts/run_long_calibration_replay.py --output /root/prefix-io-v1-validation/runs/server07-p3-aux-long-replay-03/details --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --curves artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json --manifest artifacts/prefix_io_v1/server07-p3-05/independent-long-manifest.json --storage-source /root/prefix-io-v1-validation/storage/heldout-long --validation-qualification artifacts/prefix_io_v1/server07-p3-05/long-validation-permit.json --validation-prompts artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json
+
+# CPU/离线操作：各捕获记录包含 stdout/stderr/exit
+
+# artifacts/prefix_io_v1/server07-p3-05/storage-cpu.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py -q --import-mode=importlib tests/prefix_io_v1/test_config.py tests/prefix_io_v1_pilot/test_experiment_storage.py tests/prefix_io_v1_pilot/test_cost_domain_guard.py --junitxml artifacts/prefix_io_v1/server07-p3-05/storage-cpu.xml
+
+# artifacts/prefix_io_v1/server07-p3-05/provision-storage.json exit=0
+.venv/bin/python -c 'from pathlib import Path
+import sys,json,shutil
+sys.path.insert(0,"experiments/prefix_io_v1/scripts")
+from experiment_storage import permission,preflight
+p=permission();a=p["approved_auxiliary_storage"];root=Path(a["root"])
+assert not root.exists() and root.resolve()==root
+assert shutil.disk_usage(root.parent).free>=a["max_bytes"]+a["minimum_free_bytes"]
+root.mkdir(mode=0o700)
+(root/"PROJECT.json").write_text(json.dumps(dict(project=str(Path.cwd()),authorization=a),indent=2))
+print(json.dumps(preflight(root/"probe",4*1024**2)))
+'
+
+# artifacts/prefix_io_v1/server07-p3-05/aux-direct-aio.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/probe_auxiliary_storage.py
+
+# artifacts/prefix_io_v1/server07-p3-05/copy-calibration.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/copy_calibration_to_aux.py --out artifacts/prefix_io_v1/server07-p3-05/calibration-copy-manifest.json
+
+# artifacts/prefix_io_v1/server07-p3-05/prepare-long-heldout.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/prepare_long_heldout_validation.py --out artifacts/prefix_io_v1/server07-p3-05
+
+# artifacts/prefix_io_v1/server07-p3-05/cpu-before-gpu.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py -q --import-mode=importlib tests/prefix_io_v1/test_config.py tests/prefix_io_v1_pilot tests/prefix_io_v1_native_costs --junitxml artifacts/prefix_io_v1/server07-p3-05/cpu-before-gpu.xml
+
+# artifacts/prefix_io_v1/server07-p3-05/aux-reference-analysis.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/analyze_cached_references.py --plan artifacts/prefix_io_v1/server07-p3-05/aux-reference-plan.json --output artifacts/prefix_io_v1/server07-p3-05/aux-reference-result.json
+
+# artifacts/prefix_io_v1/server07-p3-05/validation-contract-cpu.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py -q --import-mode=importlib tests/prefix_io_v1_pilot/test_long_validation_contract.py --junitxml artifacts/prefix_io_v1/server07-p3-05/validation-contract-cpu.xml
+
+# artifacts/prefix_io_v1/server07-p3-05/aux-candidate-export.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/export_uniform_calibration_candidate.py --plan artifacts/prefix_io_v1/server07-p3-05/aux-cost-plan.json --out artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate
+
+# artifacts/prefix_io_v1/server07-p3-05/cpu-before-heldout.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py -q --import-mode=importlib tests/prefix_io_v1/test_config.py tests/prefix_io_v1_pilot tests/prefix_io_v1_native_costs --junitxml artifacts/prefix_io_v1/server07-p3-05/cpu-before-heldout.xml
+
+# artifacts/prefix_io_v1/server07-p3-05/long-reference-analysis.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/validate_heldout_costs.py --reference-only --plan artifacts/prefix_io_v1/server07-p3-05/long-reference-plan.json --out artifacts/prefix_io_v1/server07-p3-05/long-reference-result.json
+
+# artifacts/prefix_io_v1/server07-p3-05/long-cost-analysis.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/validate_heldout_costs.py --plan artifacts/prefix_io_v1/server07-p3-05/long-cost-plan.json --out artifacts/prefix_io_v1/server07-p3-05/long-cost-result.json
+
+# artifacts/prefix_io_v1/server07-p3-05/long-qualification.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/qualify_long_validation.py --plan artifacts/prefix_io_v1/server07-p3-05/long-cost-plan.json --result artifacts/prefix_io_v1/server07-p3-05/long-cost-result.json --out artifacts/prefix_io_v1/server07-p3-05/long-qualification.json
+
+# artifacts/prefix_io_v1/server07-p3-05/reissue-long-qualification-command.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/qualify_long_validation.py --plan artifacts/prefix_io_v1/server07-p3-05/long-cost-plan.json --result artifacts/prefix_io_v1/server07-p3-05/long-cost-result.json --out artifacts/prefix_io_v1/server07-p3-05/long-validation-permit.json
+
+# artifacts/prefix_io_v1/server07-p3-05/long-replay-analysis-command.json exit=0
+.venv/bin/python experiments/prefix_io_v1/scripts/analyze_long_validation.py --plan artifacts/prefix_io_v1/server07-p3-05/long-replay-plan-effective.json --out artifacts/prefix_io_v1/server07-p3-05/long-service-result.json
+
+# artifacts/prefix_io_v1/server07-p3-05/final-cpu-command.json exit=0
+env AIO_CPU_GPU_GUARD_PATH=artifacts/prefix_io_v1/server07-p3-05/cpu-gpu-guard.json .venv/bin/python experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py -q --import-mode=importlib tests/prefix_io_v1/test_config.py tests/prefix_io_v1_pilot tests/prefix_io_v1_native_costs --junitxml artifacts/prefix_io_v1/server07-p3-05/final-cpu.xml

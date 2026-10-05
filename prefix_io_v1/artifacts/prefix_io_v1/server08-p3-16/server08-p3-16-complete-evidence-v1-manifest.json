@@ -1,0 +1,1233 @@
+{
+  "schema_version": 1,
+  "status": "P3_COMPLETE_EVIDENCE_BASE_PLUS_DELTA",
+  "P3_complete": true,
+  "P4_enabled": false,
+  "root_review": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-root-review.json",
+    "bytes": 3154,
+    "sha256": "95bab902ff583f2f76643bb971866a2095d59571d7519da9d162439b9c189f0e"
+  },
+  "required_source_lock": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/source-lock-final-p3.json",
+    "bytes": 411617,
+    "sha256": "b985264edf9db448687f138a627d5e87b3a233e665cf8ef5a4713162d1709e03"
+  },
+  "required_input_keys": 2724,
+  "required_unique_paths": 2724,
+  "all_required_inputs_covered": true,
+  "historical_base": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/server08-p3-16-blocked-checkpoint-evidence-v3.zip",
+    "bytes": 52574727,
+    "sha256": "958ebfbcfa36c0bc51007b9ddde2fdbd226eeac9d5a7c902ee8a5cd933998d0f"
+  },
+  "historical_base_entry": "historical-checkpoint/server08-p3-16-blocked-checkpoint-evidence-v3.zip",
+  "historical_base_proof": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/evidence-archive-server-verification.json",
+    "bytes": 2720,
+    "sha256": "f63e4667a43d8c43a70b2cf3e797f3644c3b8bfb59d9fbec040e3d7c7b7933e8"
+  },
+  "historical_base_metadata_files": 1927,
+  "historical_frozen_source_files": 2599,
+  "delta_files": [
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/CAPABILITY_MATRIX-final.md",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/CAPABILITY_MATRIX-final.md",
+      "bytes": 1465,
+      "sha256": "17399eaac230309ea1961332606fe7d7e15c74b7547b1d989cd083ecac9cd5d6"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/P3_FINAL_ROOT_REVIEW.md",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/P3_FINAL_ROOT_REVIEW.md",
+      "bytes": 2842,
+      "sha256": "430b364a8536ef23c215bb79a8c82d6cd76560081f12419ff7981961250466e5"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/PILOT_PROBLEM_REPORT-at-storage-block-final-v2.md",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/PILOT_PROBLEM_REPORT-at-storage-block-final-v2.md",
+      "bytes": 7287,
+      "sha256": "213d15716f2a899f16af3970472aa868221404e544754e4ec16bafd045d6d03f"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/PILOT_PROBLEM_REPORT-final-evidence.md",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/PILOT_PROBLEM_REPORT-final-evidence.md",
+      "bytes": 5130,
+      "sha256": "ee0398ee4db78ad76618d43c2ecab3a5c554713655a9cc7bb9fef22358362edc"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/REPRODUCTION-final.md",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/REPRODUCTION-final.md",
+      "bytes": 1511,
+      "sha256": "4dafe3d5632638dc99c2626ff0ba25b261b6106ffd62026cc8fcc7f58f5a1c20"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/actual-capacity-bindings-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/actual-capacity-bindings-command.json",
+      "bytes": 3145,
+      "sha256": "d6cf7fa4b59338c14449e0b0d98dd0e692537eede59ca3dbb89ec98bdff4d064"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/actual-capacity-bindings-cuda-guard.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/actual-capacity-bindings-cuda-guard.json",
+      "bytes": 51,
+      "sha256": "1725e1395abacc65e50e10bc1cadd6d5babb4ce03e54f7d5be2f69bf4f01e30a"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/actual-capacity-qualification-binding-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/actual-capacity-qualification-binding-preflight.json",
+      "bytes": 1193,
+      "sha256": "1d6564ddb78bbfdc0f2495afb99cc71728ce504e50ea25d6ce5d25a070c40530"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/assemble-final-p3-evidence-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/assemble-final-p3-evidence-command.json",
+      "bytes": 1157,
+      "sha256": "32a21ae5948d6fb865917d26f7296b42714349d869be719229ce14df922bcf52"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/assemble_final_p3_evidence.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/assemble_final_p3_evidence.py",
+      "bytes": 16006,
+      "sha256": "dcce64da5b78e21b14fbe4a4f591b0e5c9701b351a34902c2d3ac3c75254bf71"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/blocked-checkpoint-delivery-receipt-v1.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/blocked-checkpoint-delivery-receipt-v1.json",
+      "bytes": 2834,
+      "sha256": "ea39c37f353d3573133c4da958ca15a79376cab4e374ab3e2a1e59d6e14f515b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/blocked-checkpoint-evidence-package-v3-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/blocked-checkpoint-evidence-package-v3-command.json",
+      "bytes": 909,
+      "sha256": "d85f8e439f7410ef8a1676715b6466b65a633acf774d60fb5b0acb223140573b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-analysis-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-analysis-command.json",
+      "bytes": 21744,
+      "sha256": "326bd92a3f54182f7d6496c3c559014950a2747e06e6db158d59dd4cba9b5a0f"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-analysis-cuda-guard.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-analysis-cuda-guard.json",
+      "bytes": 51,
+      "sha256": "1725e1395abacc65e50e10bc1cadd6d5babb4ce03e54f7d5be2f69bf4f01e30a"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-command.json",
+      "bytes": 3640,
+      "sha256": "97a5379c334695fc3c5b3ed53c2e8fdab5bd761b7b91b6806b162129e24c3ffb"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-preflight.json",
+      "bytes": 471,
+      "sha256": "7e53d754179209f6ee2ae21e6870499ea4ceede40b799c0f33baa80d72ab9c6f"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-analysis.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-analysis.json",
+      "bytes": 23091,
+      "sha256": "d9c05983b08b8a77c829dfec31b089cad6e16b30f5505251f61c38ec419956fb"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-v3-plan.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-v3-plan.json",
+      "bytes": 4712,
+      "sha256": "33b4bbe75f73094a542ae685630f6de7e70a428632d3c4c7acc092a2f4d0720e"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-01-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-01-command.json",
+      "bytes": 3612,
+      "sha256": "eb6115b972dd6031790aee535673bade214d8a4bd95122f9eeb8f2824e71f6ee"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-01-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-01-preflight.json",
+      "bytes": 472,
+      "sha256": "c974fb255d6bf6151abc255921832d058cd6d8bd07dc88abda7e602e74f3472b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-02-analysis-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-02-analysis-command.json",
+      "bytes": 21720,
+      "sha256": "900757247d7e8ab3d38e90f16ea3a85ae445928c9a04253d40caa76b0b35af0d"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-02-analysis-cuda-guard.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-02-analysis-cuda-guard.json",
+      "bytes": 51,
+      "sha256": "1725e1395abacc65e50e10bc1cadd6d5babb4ce03e54f7d5be2f69bf4f01e30a"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-02-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-02-command.json",
+      "bytes": 3629,
+      "sha256": "045728b278bcae61477d98af996770bebeebf2a6cb61b3e608672371beb1182b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-02-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-02-preflight.json",
+      "bytes": 471,
+      "sha256": "12bdc3b53aef91e6b93ba05bb5fa497ca9bc12b547593ac265acf4b4b5bf68bb"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-02-analysis.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-02-analysis.json",
+      "bytes": 23073,
+      "sha256": "db3f0d10a3670c1097e8e149c23c54343b2c6cf8cd66f8ec6209be7f2d88468c"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-02-v3-plan.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-02-v3-plan.json",
+      "bytes": 4696,
+      "sha256": "8a77360314ed640df83e6f6b1da4cbc5c15edf406787bfaba6f32c6f49e5ebed"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/close_p3_after_root_review.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/close_p3_after_root_review.py",
+      "bytes": 10044,
+      "sha256": "59d7443e7a102496a8437371329a9546ec1a17e83c511ac4d4123f59f43db6a7"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/evidence-archive-server-verification-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/evidence-archive-server-verification-command.json",
+      "bytes": 559,
+      "sha256": "b724bb3b791d7eec81f605cc5828da10849d9c84ac4d3c572ee6ff8092211c65"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/evidence-archive-server-verification.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/evidence-archive-server-verification.json",
+      "bytes": 2720,
+      "sha256": "f63e4667a43d8c43a70b2cf3e797f3644c3b8bfb59d9fbec040e3d7c7b7933e8"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/execution-lock-10-qualified-capacity-plans.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/execution-lock-10-qualified-capacity-plans.json",
+      "bytes": 386993,
+      "sha256": "96abf8e4e9054dfd26a9d45e481bc2050b727dac65f40f1afcda0b4df9ec870c"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/execution-lock-11-selected-hot-plans.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/execution-lock-11-selected-hot-plans.json",
+      "bytes": 387840,
+      "sha256": "37659b0ce8e241f809977103aae829073ec3567598f39f1f90029a802826d5ca"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/execution-lock-12-final-p3.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/execution-lock-12-final-p3.json",
+      "bytes": 405157,
+      "sha256": "212b29ded099b4677fabbb2305cf65e035c97ff8de587ab2808f3daa08b28909"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/execution-state-final-p3-receipt.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/execution-state-final-p3-receipt.json",
+      "bytes": 931,
+      "sha256": "3641ab50dbc680eacbee387d197085a6ca5191ba289f056b95fbdb05a69d811b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/execution_state-before-final-p3.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/execution_state-before-final-p3.json",
+      "bytes": 45293,
+      "sha256": "820c3f5ab54f720b0dca382323079508995e9295dfd9f2b6b50ac6f93c38e97d"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/execution_state-final-p3-snapshot.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/execution_state-final-p3-snapshot.json",
+      "bytes": 45798,
+      "sha256": "501b1937c1dba3b014a08cb750b4664dd5015d8416e5ecde907bcaf421b869d5"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/final-archive-storage-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/final-archive-storage-preflight.json",
+      "bytes": 642,
+      "sha256": "039fb10740a8f092392ace4f11761bc3ec7f7e5a3784e5d00e013091e2e6e89b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/final-report-count-clarification.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/final-report-count-clarification.json",
+      "bytes": 2274,
+      "sha256": "e374a75f09acf5a954c06b0b456e47836fd67634c070a6003e01a1c66fd64285"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/final-source-audit-executed.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/final-source-audit-executed.py",
+      "bytes": 4458,
+      "sha256": "3d8a566a82c671980a17a90f2937847fd8e9ca6217622c077013d97e4045357b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/finite-grid-selection-final.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/finite-grid-selection-final.json",
+      "bytes": 19347,
+      "sha256": "1d775eae38bbbcd58f931cde20ad7d8ecc673dc60d24a9444a1d041f258bd616"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-budget-final-p3.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-budget-final-p3.json",
+      "bytes": 335086,
+      "sha256": "31199998369e35fcd40daddd7af340353b0feaf134bbe37d2dd8f1f35391efc1"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-analysis-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-analysis-command.json",
+      "bytes": 15852,
+      "sha256": "554b72cc4497bdecf543e37e0d637185c76ba4e7847579546f13f9b69649d53b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-analysis.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-analysis.json",
+      "bytes": 19047,
+      "sha256": "66a7987eb8bb77bd609461bd795b37c4b695719f463750321ddd2d96c6781cb3"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-command.json",
+      "bytes": 3683,
+      "sha256": "028998f63498b1779f7a965e4f32b0e111f415d96493350eabf729359720be25"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-plan.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-plan.json",
+      "bytes": 2673,
+      "sha256": "a188de14af62ffbcd42cf4af7d8d594a16ca4c5bc03ddc3cba3d7d48bc6ad219"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-preflight.json",
+      "bytes": 463,
+      "sha256": "605c346f6e26a5a2dd5fbe9fb9277da5d7f4b655c4822da3bb6614826a73c05e"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-analysis-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-analysis-command.json",
+      "bytes": 15851,
+      "sha256": "097d6c7be5d60abc1e39076dc743a60dbbbafa84857e659a4df483bd2ca2245c"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-analysis.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-analysis.json",
+      "bytes": 19046,
+      "sha256": "1bf596b11375a4f9c27f789b13bf4701dcc40b0e6fb465df3b4174ffedbf28ec"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-command.json",
+      "bytes": 3683,
+      "sha256": "275dd21e46df742e84b16415ce492cb7794edf554d72d4ee9e9f88eea798c0c2"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-plan.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-plan.json",
+      "bytes": 2673,
+      "sha256": "459d597e9cdf6afa98816d5817baff97b5643a5c721baab138e90928998cf639"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-preflight.json",
+      "bytes": 463,
+      "sha256": "6a9b3eaa7b843ad77babfdbcbc59033e13ab58f60961f8a54a38220f23b6160a"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-analysis-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-analysis-command.json",
+      "bytes": 15852,
+      "sha256": "f724d58a1a496faec19f877e1812b79c04c8956105e686ab6e4788fbb82e9b98"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-analysis.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-analysis.json",
+      "bytes": 19047,
+      "sha256": "1104ac1f12959aa6bf8c7889b3a10dd7eda3bd08b1dd133e25bbcb4aace7e2d8"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-command.json",
+      "bytes": 3683,
+      "sha256": "5969303e0ff50bf8c997f29df81b1acda1adc2656ada513a7640b845e4fc6ca5"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-plan.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-plan.json",
+      "bytes": 2673,
+      "sha256": "5611ef9fc50dce8d9faa855db2110571acbbfc7f0c8664463ca635b172fce929"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-preflight.json",
+      "bytes": 462,
+      "sha256": "6a9866045fdf22d251c84fd2a7f168a0ace3b1cdc4cfa998e8824ec06cbecf86"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-analysis-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-analysis-command.json",
+      "bytes": 16048,
+      "sha256": "718ee9bb1e50dba50d52350cc2fbeedabae77ccda53f3bacc4868cb531c670fc"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-analysis.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-analysis.json",
+      "bytes": 60414,
+      "sha256": "32447edc05e67d4e6942e84f5aacf5bd3a0770453ebdddea6e55b2ca6faea22a"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-command.json",
+      "bytes": 3416,
+      "sha256": "6aa2de3ae9494d966a0812712227ed162dc65d7c538feda2f2487603bd8fc321"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-preflight.json",
+      "bytes": 472,
+      "sha256": "5d0b1cf8dd93fae9f3fe1d0b312904e850c0997240e3006a692e6a7e19fb8f60"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-analysis-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-analysis-command.json",
+      "bytes": 16037,
+      "sha256": "cf6e4fdee3d86484e39693051e908f45ef2fe8c2cbd05d52bc69f7b9d445b5f3"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-analysis.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-analysis.json",
+      "bytes": 60169,
+      "sha256": "6852b1440dff04da7d7d4e2f3577d31bee04572078771996ca1dbffc14b51390"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-command.json",
+      "bytes": 3415,
+      "sha256": "fbb8d0666a3b64ebc2da15708b4fcf485d11d66303b40a1c89d0da5db26b232a"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-preflight.json",
+      "bytes": 472,
+      "sha256": "d8dff0268a208dbbe13e6ec7dbe36cd7b1f989d3f42fbe04bcb83cef8ffc16c0"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-analysis-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-analysis-command.json",
+      "bytes": 16014,
+      "sha256": "c2c3e4564ef6b655a48d24d0b7638509e833342f29b79d0ff00f68f0712eb5b0"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-analysis.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-analysis.json",
+      "bytes": 60151,
+      "sha256": "4970bd24c80bc112e032523c0f4c74f7210af5cfe7fd80be0f47ac1f476eb9af"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-command.json",
+      "bytes": 3380,
+      "sha256": "d3e38df30fba7d17c46f4326ff41857875b5252a7f7bdace91e6399d1337d660"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-preflight.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-preflight.json",
+      "bytes": 467,
+      "sha256": "68c3e5c1aea36d30edf2134976d6013e0cc25a56a857e902e77ecea95e0119a1"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-closeout-analysis-final.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-closeout-analysis-final.json",
+      "bytes": 93435,
+      "sha256": "bbe44bb45d0fc50ee10568078c5f4344a8b50c00cb2ff2c1c37bf7d96bd56b46"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-closeout-final-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-closeout-final-command.json",
+      "bytes": 667,
+      "sha256": "6392d9b80ffc19a19316a7ef17dc0c10571c551644d0c1e1712975d0896868cf"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-closeout-manifest-final.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-closeout-manifest-final.json",
+      "bytes": 62543,
+      "sha256": "1231d3f0a477044aa073feb1fcd0eff7667778afecef33aa09f1141cbb8c06d3"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-delivery-evidence-final.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-delivery-evidence-final.json",
+      "bytes": 4016,
+      "sha256": "e20f7f15a9ea458225fb0a8783f0d7cc57f91bc0e6726081d3fe1e3290ffcf97"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-final-root-review-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-final-root-review-command.json",
+      "bytes": 920,
+      "sha256": "202ee69ba0e0d7ec479c1bb21a23c0adfcb8cd2d1c893930c2f9725aadf874f2"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-final-root-review.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-final-root-review.json",
+      "bytes": 3154,
+      "sha256": "95bab902ff583f2f76643bb971866a2095d59571d7519da9d162439b9c189f0e"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-problem-report-final-receipt.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-problem-report-final-receipt.json",
+      "bytes": 798,
+      "sha256": "6d2e19e78dcf4e8b96c16f71a8da33550ae945dde250251beecf61cff4ad379e"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-reproduction-final.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-reproduction-final.json",
+      "bytes": 66118,
+      "sha256": "b1d110a1b562dc591dcbbca89780cb4cfbf5136d03b4e73e3f7d8db1897119d2"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-final.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-final.json",
+      "bytes": 38717,
+      "sha256": "fee984fb2cb6e2f7b8e2a1c03106a997a9bf9f75efc70b68563179d1271db15f"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/package_final_p3_evidence.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/package_final_p3_evidence.py",
+      "bytes": 6922,
+      "sha256": "1655c0bf67a7ec8dba3fa6cbf0167297cdc33f652808ad482bc015404b5efa2c"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-apply-journal.jsonl",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-apply-journal.jsonl",
+      "bytes": 12172383,
+      "sha256": "d13222aa737dbfeece16f0d68678fbe6c0b95735bb803a003b75fa3c864d9a42"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-authorized-apply-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-authorized-apply-command.json",
+      "bytes": 460,
+      "sha256": "573286c822a3ad21cf3a393a045e511e9f95590ad65c4c01c85e5e96ffe8586b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-authorized-dryrun-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-authorized-dryrun-command.json",
+      "bytes": 1117,
+      "sha256": "635397d8f0968502b4d068568df0a2a844baf8541359f2e104121e1e6223b589"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-postverify-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-postverify-command.json",
+      "bytes": 2261,
+      "sha256": "6039d3a0c9a84b55c760417aa1742e75ba880e7d513be1484c2c79ba66eadf08"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-postverify.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-postverify.json",
+      "bytes": 494,
+      "sha256": "a7c5964aef153109f0cf9978256413ac234fb7830c221071c389213cb4f23b7b"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-revalidation-after-grant-command.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-revalidation-after-grant-command.json",
+      "bytes": 1065,
+      "sha256": "7cf5ab1819a72b1bd08634fb499960c82a6faa03a7d8ccc5184636c8816e848e"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-revalidation-after-grant.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-revalidation-after-grant.json",
+      "bytes": 770,
+      "sha256": "e2b39f7eb16ed9740c36832f8a8f0f6e8a4712963a7a4f872f1dbe024412728d"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-space-after-apply.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-space-after-apply.json",
+      "bytes": 1446,
+      "sha256": "e9f4acffdf53aaef17a0a3c13e34706446bf4e69080c0c0496034eadd4111c6c"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-space-before-apply.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-space-before-apply.json",
+      "bytes": 517,
+      "sha256": "854f975d9a0e0360bdeb602862191926fdae472efed2b179462555712cebce21"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/revalidate_frozen_private_cache_manifest_after_grant.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/revalidate_frozen_private_cache_manifest_after_grant.py",
+      "bytes": 4966,
+      "sha256": "fbd16b9ba726f6c648dac650a2c705ca9e4eecb6b4fcbef6545a6a0f7df074c6"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/run_authorized_private_cache_consolidation.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/run_authorized_private_cache_consolidation.py",
+      "bytes": 1812,
+      "sha256": "4c4ec90e9d96719ee30e2414a6af0c7e52ccbbf4179f3afd6d5e1fa979c43c21"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/server08-p3-16-blocked-checkpoint-evidence-v3-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/server08-p3-16-blocked-checkpoint-evidence-v3-manifest.json",
+      "bytes": 791332,
+      "sha256": "bb527e02547d07e013c53c5d41c31a7b807557f7a6d7923a5e48b1aacc56fd90"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/source-lock-final-p3.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/source-lock-final-p3.json",
+      "bytes": 411617,
+      "sha256": "b985264edf9db448687f138a627d5e87b3a233e665cf8ef5a4713162d1709e03"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/source-preservation-after-cache-merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/source-preservation-after-cache-merge.json",
+      "bytes": 1133,
+      "sha256": "e0de0ed0d9aecf1c2c161dcd1858c6ba70564af78327747cffae5c80a1468674"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/source-preservation-final-p3.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/source-preservation-final-p3.json",
+      "bytes": 17850,
+      "sha256": "7dc1290229898fdc171f2dbeb023ccfa72a4f38500ca90beba6dc05b4a1745a2"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/validate_capacity_bindings_under_cpu_guard.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/validate_capacity_bindings_under_cpu_guard.py",
+      "bytes": 2940,
+      "sha256": "3c273acf90af6c4bd04d61861cb1c8a152ed39e30eebc487bf467a2ef6509dbf"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/verify_authorized_cache_merge_with_primary_mapping.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/verify_authorized_cache_merge_with_primary_mapping.py",
+      "bytes": 3749,
+      "sha256": "113e030383b0e9cd17809b5a7988bf5c7383a6d6566840cb262d63c9b357561e"
+    },
+    {
+      "entry": "project/artifacts/prefix_io_v1/server08-p3-16/verify_checkpoint_archive_on_server.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/verify_checkpoint_archive_on_server.py",
+      "bytes": 5238,
+      "sha256": "f6fb60327810e20398061f85ed1ebe457f0e5234f803e0c4a58c34a5d69927cf"
+    },
+    {
+      "entry": "project/docs/prefix_io_v1/SERVER08_P3_FINAL_ROOT_REVIEW.md",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/docs/prefix_io_v1/SERVER08_P3_FINAL_ROOT_REVIEW.md",
+      "bytes": 2842,
+      "sha256": "430b364a8536ef23c215bb79a8c82d6cd76560081f12419ff7981961250466e5"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/configs/authorizations/server08_p316_archive_dedup.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/configs/authorizations/server08_p316_archive_dedup.json",
+      "bytes": 1258,
+      "sha256": "8b7d58b0379203e0d7e7e663d1c1808eb81a9d03a3c7885b5be3bc931599ecab"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/execution_state.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/execution_state.json",
+      "bytes": 45798,
+      "sha256": "501b1937c1dba3b014a08cb750b4664dd5015d8416e5ecde907bcaf421b869d5"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+      "bytes": 2262421,
+      "sha256": "7c1a6b456e1833b2fec5e70c1fc602a3b2aa5c40707cf4461ca0859145cf2fad"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/contract-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/contract-source.py",
+      "bytes": 6611,
+      "sha256": "49a33366092bf116a6a3b07ee2053c67602418c2f94c375fc58840c50f68934b"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/driver-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/driver-source.py",
+      "bytes": 20621,
+      "sha256": "d3c757ee6e209141d800251eda5479eb6f041674f6c974036f53c01e72a1546b"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/frozen-config.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/frozen-config.json",
+      "bytes": 1293581,
+      "sha256": "050ed6f0751683198ddd16e04a890969f2a95e63fd3f898057edb51446ef2847"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/manifest.json",
+      "bytes": 1122879,
+      "sha256": "f3edda04106e537b9cb7731b94ce0844d29c0a02cfcfa0170a8a45cf7afc09ec"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/merge.json",
+      "bytes": 15093,
+      "sha256": "3c59b2a7fe92da9a3dd30292ae091eac53a32023af249ed16c13175a746047ad"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/native-cohort.trace.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/native-cohort.trace.json",
+      "bytes": 14489756,
+      "sha256": "4488d8a5225c02161ff0bd744ce2559e2d9d3a23c97766c2489bd8fb2fbd80c6"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/probe-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/probe-source.py",
+      "bytes": 14572,
+      "sha256": "fc6b3c71d64914ec8924fe83869634d85d99da89bcf6f5d33e25dd44eee9ff08"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/result.json",
+      "bytes": 438063,
+      "sha256": "814d5c6d70a474c619cb06eee887f36b8916ef26dd6513571e633dbf71a172e0"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/results_engine_core_0.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/results_engine_core_0.json",
+      "bytes": 15093,
+      "sha256": "0fb56f1f4ba94b0255e9fac51fdaf612e2f8ef830ed2df6cc260377cef846559"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/storage-source-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/storage-source-manifest.json",
+      "bytes": 905259,
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/process.log",
+      "bytes": 40318,
+      "sha256": "b94236f086cba8ab8196f3a594acf587491ba9a02ac84612b31660bc775aace4"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/result.json",
+      "bytes": 1898,
+      "sha256": "482f94efcb726422d5f3686c7e57f37695fa2c267a7aad05d9bdd5c9b4c3c1e9"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-01/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-01/process.log",
+      "bytes": 1653,
+      "sha256": "8fe1281d8b8dfb323af596e3cbb434cdac9d6a43d06787d0a06d542302cd88fa"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-01/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-01/result.json",
+      "bytes": 1884,
+      "sha256": "ba782b7f15cbf144b787112b1deb12f630c3033873366701fbc7af45df8c4d55"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/contract-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/contract-source.py",
+      "bytes": 6611,
+      "sha256": "49a33366092bf116a6a3b07ee2053c67602418c2f94c375fc58840c50f68934b"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/driver-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/driver-source.py",
+      "bytes": 20621,
+      "sha256": "d3c757ee6e209141d800251eda5479eb6f041674f6c974036f53c01e72a1546b"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/frozen-config.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/frozen-config.json",
+      "bytes": 1293582,
+      "sha256": "96d421d461a29af75a7dd43c3aca071bfc401a01070a5409db49bf00499fd5df"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/manifest.json",
+      "bytes": 1122880,
+      "sha256": "f5c9a5e263e698d2ab4229262b1c6124c74609d62efa5f116be366f57025cbb6"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/merge.json",
+      "bytes": 15087,
+      "sha256": "cbc78abd9fca27aa61e12e5d0dbb329690611c965e8958ed65d64d10e5459cda"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/native-cohort.trace.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/native-cohort.trace.json",
+      "bytes": 12995986,
+      "sha256": "303fca31a4924abf6ad0ad368c526fc94fad35527ae1844adadd3b44d07043ae"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/probe-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/probe-source.py",
+      "bytes": 14572,
+      "sha256": "fc6b3c71d64914ec8924fe83869634d85d99da89bcf6f5d33e25dd44eee9ff08"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/result.json",
+      "bytes": 438521,
+      "sha256": "072fcc6700ab0eba6b56cb110c38b18b4398efef33119a08833d8e4e3d6d5977"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/results_engine_core_0.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/results_engine_core_0.json",
+      "bytes": 15087,
+      "sha256": "59e457a58046764aacf0d9e3202324b63e138298fa67954a5fcbb885b1d55beb"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/storage-source-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/details/storage-source-manifest.json",
+      "bytes": 905259,
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/process.log",
+      "bytes": 41136,
+      "sha256": "9ab891f8b3b857ee44932483e6e99f21ed12d1a2be84565b0e900d96618400fd"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-02/result.json",
+      "bytes": 1892,
+      "sha256": "94649dec12998a781d5ca87a79f77c77f28a00d9dedff46213798dc52b883409"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/contract-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/contract-source.py",
+      "bytes": 10650,
+      "sha256": "a6adcf6b3626fb18e9bc5a259551b978864b3fec24e307fa34b5b82daadd437d"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/driver-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/driver-source.py",
+      "bytes": 19749,
+      "sha256": "248c901e6bfd2e7fbea3e210623f7556f9fef9c99d66c39cf50daf6ef5b0f26e"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/frozen-config.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/frozen-config.json",
+      "bytes": 1292967,
+      "sha256": "f0327b956f98a451a068652bfcfc580c9c4827cc06d5e59da9d00265d3446eef"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/manifest.json",
+      "bytes": 1122319,
+      "sha256": "205d0527742c871c57a41e9a8b42121a5610c7677db3d3f1dbb3df13577ed613"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/merge.json",
+      "bytes": 1645612,
+      "sha256": "b55924fe0fb8b4599d5a38764db81cd9fcae28961f05bad2808fdd7d45cbb4a2"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/native-cohort.trace.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/native-cohort.trace.json",
+      "bytes": 809674,
+      "sha256": "30a530a201f86683d46c0230f6df9db18112b38ece7e9a557ffd4375276f5b5f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/probe-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/probe-source.py",
+      "bytes": 14268,
+      "sha256": "d800267ec66d6bcee17988798f47f91f56f8b5d809e7cefa20dc533713be317f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/result.json",
+      "bytes": 373452,
+      "sha256": "39409ca1b3bb77475d2ca513a68a07c81585aedeff6096769b77d8e8eca3fe3f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/results_engine_core_0.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/results_engine_core_0.json",
+      "bytes": 1645612,
+      "sha256": "90c9888453a6b2ba92241366585af1559007546d6066bd63a90911c9eb7724f3"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/storage-source-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/storage-source-manifest.json",
+      "bytes": 905259,
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/process.log",
+      "bytes": 63632,
+      "sha256": "af6f8963587e7893f03c3624a519d3113681f537cd912fe193a7654ff33098db"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/result.json",
+      "bytes": 1915,
+      "sha256": "7cb155759b01c93ef6ce753266d9d60c820decbbd80f61ffd1544851c140d8af"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/contract-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/contract-source.py",
+      "bytes": 10650,
+      "sha256": "a6adcf6b3626fb18e9bc5a259551b978864b3fec24e307fa34b5b82daadd437d"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/driver-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/driver-source.py",
+      "bytes": 19749,
+      "sha256": "248c901e6bfd2e7fbea3e210623f7556f9fef9c99d66c39cf50daf6ef5b0f26e"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/frozen-config.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/frozen-config.json",
+      "bytes": 1292967,
+      "sha256": "7cd3f078eef9d0a269e69b00ed03edc96053141608d80fcd1e332d7fdc3c316a"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/manifest.json",
+      "bytes": 1122319,
+      "sha256": "205d0527742c871c57a41e9a8b42121a5610c7677db3d3f1dbb3df13577ed613"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/merge.json",
+      "bytes": 1660172,
+      "sha256": "bde8bfab28bff6b2f488baee2e322962c155f1dcb2aa32fda1657738174880bf"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/native-cohort.trace.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/native-cohort.trace.json",
+      "bytes": 810220,
+      "sha256": "494141388902ad14601b7c1a75beeb1a5f454a8159b1dbf5e07cf812c5f7c2f1"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/probe-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/probe-source.py",
+      "bytes": 14268,
+      "sha256": "d800267ec66d6bcee17988798f47f91f56f8b5d809e7cefa20dc533713be317f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/result.json",
+      "bytes": 373291,
+      "sha256": "44a551e5f5ab74f709e0e110b805b3137ec55522ce749ee24733d5d3f1f2ebcb"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/results_engine_core_0.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/results_engine_core_0.json",
+      "bytes": 1660172,
+      "sha256": "d5e1eb33080822330b142979854c60d3034260d0ebaa999d7c61a59d5203d11d"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/storage-source-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/storage-source-manifest.json",
+      "bytes": 905259,
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/process.log",
+      "bytes": 63630,
+      "sha256": "93f9c661ac8dde48a3100aff005e3a49f0c61f884eaf8491adc60413e7806a3f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/result.json",
+      "bytes": 1915,
+      "sha256": "c34696f4325985a40cb578a788a58e8da9ae867db8b7ded418b52bc28fe5e1b6"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/contract-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/contract-source.py",
+      "bytes": 10650,
+      "sha256": "a6adcf6b3626fb18e9bc5a259551b978864b3fec24e307fa34b5b82daadd437d"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/driver-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/driver-source.py",
+      "bytes": 19749,
+      "sha256": "248c901e6bfd2e7fbea3e210623f7556f9fef9c99d66c39cf50daf6ef5b0f26e"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/frozen-config.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/frozen-config.json",
+      "bytes": 1292967,
+      "sha256": "faefa3630212ad88a44cafc16e08f14dd2c5570e0bdaa3a9f27e6cab7e69a673"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/manifest.json",
+      "bytes": 1122319,
+      "sha256": "205d0527742c871c57a41e9a8b42121a5610c7677db3d3f1dbb3df13577ed613"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/merge.json",
+      "bytes": 1663092,
+      "sha256": "9250225eb7ece6fa7f1eed07b2be1e00dc720dd7d9c8b7fd9d6d4e0067002cdc"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/native-cohort.trace.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/native-cohort.trace.json",
+      "bytes": 811407,
+      "sha256": "6485a35cf039232e500dceb0725811d47e4ecf6f06ffd6c1721baec495331a8c"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/probe-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/probe-source.py",
+      "bytes": 14268,
+      "sha256": "d800267ec66d6bcee17988798f47f91f56f8b5d809e7cefa20dc533713be317f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/result.json",
+      "bytes": 373438,
+      "sha256": "1838ed9fee53f43f8728bce5b5875b606254e92127527df45b79392db743625f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/results_engine_core_0.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/results_engine_core_0.json",
+      "bytes": 1663092,
+      "sha256": "f57c96b426506099ad2738393a6711132ccdfd989d461b306874e9eadb4e33bf"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/storage-source-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/storage-source-manifest.json",
+      "bytes": 905259,
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/process.log",
+      "bytes": 63633,
+      "sha256": "988b1bbb63d41d66d0e50c1abdbba63d730be4e8917b1a39d54dcff4d2290fc9"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/result.json",
+      "bytes": 1916,
+      "sha256": "fdfa9d05a9c30fd23dd19ca5ee93c36ba3d29a081459f04f203490e077529aeb"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/contract-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/contract-source.py",
+      "bytes": 10650,
+      "sha256": "a6adcf6b3626fb18e9bc5a259551b978864b3fec24e307fa34b5b82daadd437d"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/driver-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/driver-source.py",
+      "bytes": 19749,
+      "sha256": "248c901e6bfd2e7fbea3e210623f7556f9fef9c99d66c39cf50daf6ef5b0f26e"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/frozen-config.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/frozen-config.json",
+      "bytes": 1294484,
+      "sha256": "44b6cac7ff7f267b9fbd719c254355337fec392bca782e97ab8b0a84f9524916"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/manifest.json",
+      "bytes": 1122338,
+      "sha256": "1128f0b4c5481837f87c689e29f1b0f92fc80d29d8d13573fe08714bef58c197"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/merge.json",
+      "bytes": 15095,
+      "sha256": "74bde5700e9c48c0b97e812039fc22c29dca83aaeaa8ecd288258a3a550cfeb2"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/native-cohort.trace.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/native-cohort.trace.json",
+      "bytes": 13917871,
+      "sha256": "e295e78a336627ed076fcc7dc7eda48c7c06f59053061da442c65489b286b902"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/probe-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/probe-source.py",
+      "bytes": 14268,
+      "sha256": "d800267ec66d6bcee17988798f47f91f56f8b5d809e7cefa20dc533713be317f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/result.json",
+      "bytes": 1005630,
+      "sha256": "9d9ab281bb048cf7ba31f7f9d6f29c3364d1556d28273905fb100e3410575caf"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/results_engine_core_0.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/results_engine_core_0.json",
+      "bytes": 15095,
+      "sha256": "b6ffcdea3765cfde2789534e0becacdb87e39db3bb6b301cf576886c5678d1bb"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/storage-source-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/storage-source-manifest.json",
+      "bytes": 905259,
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/process.log",
+      "bytes": 45311,
+      "sha256": "cbab945353d6b05be88463af01db61740343b4789ae3e3510950818f64e3c266"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/result.json",
+      "bytes": 1792,
+      "sha256": "d4ad8291d5649f98e4316188fb08cbe43a66a81bbcf295e0e016862ed107bbd6"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/contract-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/contract-source.py",
+      "bytes": 10650,
+      "sha256": "a6adcf6b3626fb18e9bc5a259551b978864b3fec24e307fa34b5b82daadd437d"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/driver-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/driver-source.py",
+      "bytes": 19749,
+      "sha256": "248c901e6bfd2e7fbea3e210623f7556f9fef9c99d66c39cf50daf6ef5b0f26e"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/frozen-config.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/frozen-config.json",
+      "bytes": 1294484,
+      "sha256": "a0887481bc15e0b7c9e2ffdda9ef31b900c055ed19cf4ea74998ce309e60864d"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/manifest.json",
+      "bytes": 1122338,
+      "sha256": "1128f0b4c5481837f87c689e29f1b0f92fc80d29d8d13573fe08714bef58c197"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/merge.json",
+      "bytes": 15088,
+      "sha256": "e73767e42817d72b07205f28a0a10ae150158cb3c6e00f412e034987ed960bb9"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/native-cohort.trace.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/native-cohort.trace.json",
+      "bytes": 12988254,
+      "sha256": "c36ef346f38d3093cde854f6abda6536a589c1fe92695ffc8f9f47da4e5934d0"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/probe-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/probe-source.py",
+      "bytes": 14268,
+      "sha256": "d800267ec66d6bcee17988798f47f91f56f8b5d809e7cefa20dc533713be317f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/result.json",
+      "bytes": 534355,
+      "sha256": "29fb15b2a0ec800dbb5656bdecc3b657e87472d37175f4eed3c416109007d287"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/results_engine_core_0.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/results_engine_core_0.json",
+      "bytes": 15088,
+      "sha256": "2dd645cd3f2f6d087567e2cb86ed945bfc1ba9f49617fe938f08f25a2204ed79"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/storage-source-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/storage-source-manifest.json",
+      "bytes": 905259,
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/process.log",
+      "bytes": 45326,
+      "sha256": "e7e38eb14205d459bf89bdf273128f63041a69b65e70c87052bf80c081caf51c"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/result.json",
+      "bytes": 1791,
+      "sha256": "41ee4da8e635b72e26f2ad31fb590f95f45293c1290ff22b2001aedecda8088e"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/contract-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/contract-source.py",
+      "bytes": 10650,
+      "sha256": "a6adcf6b3626fb18e9bc5a259551b978864b3fec24e307fa34b5b82daadd437d"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/driver-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/driver-source.py",
+      "bytes": 19749,
+      "sha256": "248c901e6bfd2e7fbea3e210623f7556f9fef9c99d66c39cf50daf6ef5b0f26e"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/frozen-config.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/frozen-config.json",
+      "bytes": 1294447,
+      "sha256": "9e661a0f22f512e5d217d927a16f6404a29cb9e229cf8f3067c30f0b0602c7c0"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/manifest.json",
+      "bytes": 1122338,
+      "sha256": "1128f0b4c5481837f87c689e29f1b0f92fc80d29d8d13573fe08714bef58c197"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/merge.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/merge.json",
+      "bytes": 15083,
+      "sha256": "203dc498c2510316fe64d9e19b95198b7fd1c01ef9151ce9cbc3d35bac5dd3a7"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/native-cohort.trace.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/native-cohort.trace.json",
+      "bytes": 13262623,
+      "sha256": "5c3d22e1910c3626518e19981c24eea35d581cf9286631ded0b2d2d5a41b93e8"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/probe-source.py",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/probe-source.py",
+      "bytes": 14268,
+      "sha256": "d800267ec66d6bcee17988798f47f91f56f8b5d809e7cefa20dc533713be317f"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/result.json",
+      "bytes": 538930,
+      "sha256": "1b81462205506a4667314536d97cdc8f1da878bf4f0ac2788cbe1736f05fb5d4"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/results_engine_core_0.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/results_engine_core_0.json",
+      "bytes": 15083,
+      "sha256": "8f43178e2cc0a8c346560acaa5d48dc08ab86b6a1ff3397de3a3c027317f917e"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/storage-source-manifest.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/storage-source-manifest.json",
+      "bytes": 905259,
+      "sha256": "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/process.log",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/process.log",
+      "bytes": 45222,
+      "sha256": "04d348364e07042af1f135185707f438ea016f56cbea56cd4f71451e31dd30bf"
+    },
+    {
+      "entry": "project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/result.json",
+      "source_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/result.json",
+      "bytes": 1771,
+      "sha256": "03e9f6b17a5cb2746b42853142f5c8eadb94ff143f3ccd17946905bc391a85c3"
+    }
+  ],
+  "temporary_fixture_metadata_excluded": [
+    "artifacts/prefix_io_v1/server08-p3-16/closeout-schema-cpu-01-tmp",
+    "artifacts/prefix_io_v1/server08-p3-16/closeout-schema-cpu-02-tmp"
+  ],
+  "GPU_stage_successes": 37,
+  "GPU_stage_failed_attempts": 1,
+  "CPU_unique_passed": 1613,
+  "CPU_skipped": 16,
+  "model_and_private_cache_payload_included": false,
+  "compiled_library_payloads_included": false,
+  "new_GPU_workloads_run": 0,
+  "archive": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/server08-p3-16-complete-evidence-v1.zip",
+    "bytes": 62590070,
+    "sha256": "70cde45fb9389b8acb16fe236765d02d73b575bebf3ee564ae712ef0ae98b699"
+  },
+  "seconds": 1.0103974640369415
+}

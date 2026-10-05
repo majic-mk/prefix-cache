@@ -1,0 +1,23 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-I",
+    "-S",
+    "artifacts/prefix_io_v1/server11-native-cost-v2-20261003/prepare_and_verify_native_cost.py",
+    "--prepare",
+    "--project",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "--source-lock",
+    "artifacts/prefix_io_v1/server11-native-cost-v2-20261003/gpu-source-lock-native-cost.json",
+    "--config",
+    "artifacts/prefix_io_v1/server11-native-cost-v2-20261003/NATIVE_COST_CONFIG.json",
+    "--plan",
+    "artifacts/prefix_io_v1/server11-native-cost-v2-20261003/NATIVE_COST_PLAN.json",
+    "--plan-ref",
+    "artifacts/prefix_io_v1/server11-native-cost-v2-20261003/NATIVE_COST_PLAN_REF.json"
+  ],
+  "environment_overrides": {
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

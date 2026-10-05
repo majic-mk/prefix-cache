@@ -1,0 +1,16 @@
+{
+  "approved_gpu_ids": [
+    "GPU-cb140ee8-a52e-93ba-38f7-e2fddfbb43b3"
+  ],
+  "authority": "direct_user_instruction",
+  "budget_not_reset": true,
+  "cleanup_reserve_seconds": 20,
+  "completion_condition": "narrow_experiment_complete",
+  "historical_usage_preserved": true,
+  "issued_utc": "2026-10-05T12:51:22.607057Z",
+  "max_gpu_hours": null,
+  "per_job_seconds_max": 300,
+  "schema_version": 1,
+  "scope": "U_VS_F8_PLUS_D_R_ONLY",
+  "user_literal": "无限续约，没有gpu固定配额，知道完成实验"
+}

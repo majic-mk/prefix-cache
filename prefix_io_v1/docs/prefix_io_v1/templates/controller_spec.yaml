@@ -1,0 +1,47 @@
+# 拟新增的控制器配置，Codex须实现解析器，不能直接传给现成vLLM。
+# 数量是V1起始设计，不是已调优值，null必须现场决定，禁止当0。
+schema_version: 1
+mode: "off"
+inherit_upstream_load_planner: true
+inherit_upstream_write_admission: true
+preserve_existing_pipeline: true
+preserve_native_completion_semantics: true
+allow_early_source_release_protocol_change: false
+allow_mid_transfer_recompute_switch: false
+candidate_limits:
+  max_parent_jobs_observed: 32
+  max_ready_work_observed: 64
+  max_release_closures: 8
+  max_dependency_stage_depth: 3
+  storage_units_per_batch_candidates: [1, 2, 4, 8]
+  # 以上是有界观察和搜索参数，不是全系统并发限制。
+credits:
+  grant_once_per_epoch: true
+  snapshot_max_age_ms: null
+  max_issued_h2d_bytes_per_epoch: null
+  max_issued_d2h_bytes_per_epoch: null
+  max_inflight_h2d_bytes: null
+  max_inflight_d2h_bytes: null
+  max_new_ssd_read_ops_per_epoch: null
+  max_new_ssd_write_ops_per_epoch: null
+  max_inflight_ssd_ops: null
+  max_accepted_parent_jobs: null
+  actual_staging_budget_bytes: null
+feedback:
+  calibration_manifest: null
+  internal_step_budget_ms: null
+  uncertainty_margin_policy: null
+  table_miss_action: validated_conservative_fallback
+  stale_snapshot_action: validated_progress_preserving_fallback
+progress:
+  mandatory_signal_verified: false
+  must_preserve_native_continuations: true
+  allow_performance_budget_override_for_progress: true
+  may_override_memory_or_event_safety: false
+  validated_min_progress_unit: null
+observability:
+  log_full_kv_in_hot_path: false
+  scan_full_kv_pool_each_step: false
+  global_gpu_sync_for_statistics: false
+  record_actual_allocated_bytes: true
+  record_parent_completion_granularity: true

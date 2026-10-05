@@ -1,0 +1,37 @@
+{
+  "schema": "raw_no_forward_binding_append_only_source_manifest_v1",
+  "files": [
+    {
+      "path": "runner/strong_native_cost_runner_v6.py",
+      "bytes": 37986,
+      "sha256": "be0660712e503cdf496cab6fa7aa48ce206aca78d944803f4862e0f67a540ca7"
+    },
+    {
+      "path": "raw_no_forward_binding/append_v6_cpu.py",
+      "bytes": 1528,
+      "sha256": "bfaf2907061a3981ab598f0a30a30906d45a05a8f69c03ce3c525351999ab424"
+    },
+    {
+      "path": "raw_no_forward_binding/test_collector_binding_cpu.py",
+      "bytes": 8702,
+      "sha256": "74c297912e1d358e0d5afdf0dce6c63d76954b4dbb034a3c348b94db296fd7e9"
+    },
+    {
+      "path": "raw_no_forward_binding/README.md",
+      "bytes": 1739,
+      "sha256": "4142e83d22d9e59229d33bbe733fdc80227d8314fabeca02075b46088763f24f"
+    }
+  ],
+  "previous_v5_sha256": "e05921ea213a9b6c6d8da15e9fea2c22ccef62020a934a1ddb3c36859c47978f",
+  "modified_functions": [
+    "prepare_plan"
+  ],
+  "required_source_leaves": [
+    "runner/bounded_native_full_step_collector_v2.py",
+    "runner/bounded_native_full_step_collector.py"
+  ],
+  "required_original_delegate_sha256": "9915ca0c18147eb26f44e2292f541da95e33d0321c6236b224d19d4446e09e9d",
+  "original_diagnostics_unchanged": true,
+  "GPU_runs": 0,
+  "production_qualified": false
+}

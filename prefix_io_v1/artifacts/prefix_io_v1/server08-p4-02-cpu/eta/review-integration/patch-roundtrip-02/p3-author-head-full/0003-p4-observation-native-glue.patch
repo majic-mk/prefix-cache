@@ -1,0 +1,1082 @@
+--- a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/common.py
++++ b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/common.py
+@@ -36,6 +36,8 @@
+     # preload_id attribute). Lets storage backends begin reading hit blocks
+     # early; the matching load job places the already-read data.
+     reqs_to_preload: dict[ReqId, LoadStoreSpec] | None = None
++    # Optional immutable P4 scheduled-work values; never GPU completion evidence.
++    prefix_p4_scheduled_load: Any | None = None
+ 
+ 
+ @dataclass
+--- a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
++++ b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py
+@@ -1131,11 +1131,19 @@
+             self._current_batch_jobs_to_flush.update(self._jobs.keys())
+             self._observe_prefix_flush("all_requests_finished", job_ids=self._jobs.keys())
+ 
++        prefix_p4_load = None
++        capture_p4 = getattr(self.manager, "capture_prefix_p4_scheduler_load", None)
++        if capture_p4 is not None:
++            try:
++                prefix_p4_load = capture_p4(scheduler_output, self._req_status)
++            except Exception:
++                logger.warning("Optional P4 scheduled-work observation failed", exc_info=True)
+         meta = OffloadingConnectorMetadata(
+             load_jobs=self._current_batch_load_jobs,
+             store_jobs=self._build_store_jobs(scheduler_output),
+             jobs_to_flush=self._current_batch_jobs_to_flush,
+             reqs_to_preload=self._reqs_to_preload or None,
++            prefix_p4_scheduled_load=prefix_p4_load,
+         )
+         self._current_batch_load_jobs = {}
+         self._current_batch_jobs_to_flush = set()
+--- a/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
++++ b/author/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py
+@@ -389,7 +389,16 @@
+     def handle_worker_message(self, metadata: OffloadingWorkerMessageMetadata) -> bool:
+         return self.worker.handle_worker_message(metadata.message)
+ 
++    def _publish_prefix_p4_scheduled_load(self, metadata):
++        value = getattr(metadata, "prefix_p4_scheduled_load", None)
++        if value is not None:
++            try:
++                self.worker.handle_worker_message(value)
++            except Exception:
++                logger.warning("Optional P4 load metadata relay failed", exc_info=True)
++
+     def handle_preemptions(self, kv_connector_metadata: OffloadingConnectorMetadata):
++        self._publish_prefix_p4_scheduled_load(kv_connector_metadata)
+         self._submit_preloads(kv_connector_metadata)
+         self._submit_store_jobs()
+ 
+@@ -397,6 +406,7 @@
+             self.worker.wait(kv_connector_metadata.jobs_to_flush)
+ 
+     def start_kv_transfers(self, metadata: OffloadingConnectorMetadata):
++        self._publish_prefix_p4_scheduled_load(metadata)
+         self._submit_store_jobs()
+ 
+         # Fallback for worker paths that reach start_kv_transfers without a
+--- /dev/null
++++ b/control/p4_load_observation.py
+@@ -0,0 +1,126 @@
++"""Bounded scheduler work values, not a claim that a GPU step is active.
++
++The author scheduler owns the inputs. No request, tensor, job or Future is kept.
++The worker republishes one immutable value under the original submit lock.
++Qualification of scheduled work against actual GPU step state is separate.
++"""
++from dataclasses import dataclass
++from hashlib import sha256
++import json
++from pathlib import Path
++from .simple_stage_policy import _run_id
++from .dispatch_budget import integer
++
++MAX_REQUESTS = 256
++
++def _digest(value):
++    if type(value) is not str or len(value) != 64 or any(c not in "0123456789abcdef" for c in value):
++        raise ValueError("actual source SHA-256 required")
++
++@dataclass(frozen=True)
++class SchedulerLoadObservation:
++    run_id: str
++    sequence: int
++    captured_ns: int
++    source_sha256: str
++    requests: int
++    prefill_requests: int
++    decode_requests: int
++    prefill_tokens: int
++    decode_tokens: int
++    min_context_tokens: int
++    max_context_tokens: int
++    total_context_tokens: int
++    geometry_sha256: str
++
++    def __post_init__(self):
++        _run_id(self.run_id)
++        for key in ("sequence","captured_ns","requests","prefill_requests","decode_requests",
++                    "prefill_tokens","decode_tokens","min_context_tokens","max_context_tokens",
++                    "total_context_tokens"):
++            integer(getattr(self,key),key,1 if key == "sequence" else 0)
++        _digest(self.source_sha256); _digest(self.geometry_sha256)
++        if self.requests > MAX_REQUESTS or self.prefill_requests > self.requests or self.decode_requests > self.requests:
++            raise ValueError("bounded scheduled requests required")
++        if (not self.requests <= self.prefill_requests+self.decode_requests <= 2*self.requests or
++                (self.prefill_requests==0)!=(self.prefill_tokens==0) or
++                (self.decode_requests==0)!=(self.decode_tokens==0) or
++                self.prefill_tokens < self.prefill_requests or self.decode_tokens < self.decode_requests):
++            raise ValueError("scheduled request/token counts disagree")
++        if self.min_context_tokens > self.max_context_tokens:
++            raise ValueError("context range is reversed")
++        if not self.requests and any((self.prefill_requests,self.decode_requests,self.prefill_tokens,
++                self.decode_tokens,self.min_context_tokens,self.max_context_tokens,self.total_context_tokens)):
++            raise ValueError("empty scheduled work must have zero scalar work")
++        if self.requests and (not self.prefill_tokens + self.decode_tokens or
++                not self.prefill_requests + self.decode_requests or
++                not self.min_context_tokens*self.requests <= self.total_context_tokens <= self.max_context_tokens*self.requests):
++            raise ValueError("inconsistent nonempty scheduled work")
++
++    @property
++    def signature(self):
++        return ("scheduler-work-v1",self.source_sha256,self.requests,self.prefill_requests,
++                self.decode_requests,self.prefill_tokens,self.decode_tokens,
++                self.min_context_tokens,self.max_context_tokens,self.total_context_tokens,
++                self.geometry_sha256)
++
++    @property
++    def production_gpu_state_qualified(self):
++        return False
++
++    def fresh(self,*,run_id,now_ns,max_age_ns):
++        integer(now_ns,"now_ns"); integer(max_age_ns,"max_age_ns",1)
++        return self.run_id == run_id and 0 <= now_ns-self.captured_ns <= max_age_ns
++
++@dataclass(frozen=True)
++class SchedulerLoadUnavailable:
++    run_id: str
++    sequence: int
++    captured_ns: int
++    reason: str
++    def __post_init__(self):
++        _run_id(self.run_id); integer(self.sequence,"sequence",1);integer(self.captured_ns,"captured_ns")
++        if type(self.reason) is not str or not self.reason or len(self.reason)>160:
++            raise ValueError("bounded missing-state reason required")
++
++class SchedulerLoadProducer:
++    """Only consumes current scheduled inputs; there is no second scheduler."""
++    def __init__(self,run_id):
++        _run_id(run_id)
++        self.run_id=run_id;self.sequence=0
++        self.source_sha256=sha256(Path(__file__).read_bytes()).hexdigest()
++        self.last_reason="not_observed"
++
++    def capture(self,scheduler_output,req_status,*,now_ns):
++        integer(now_ns,"now_ns");self.sequence+=1
++        try:
++            scheduled=scheduler_output.num_scheduled_tokens
++            if type(scheduled) is not dict or len(scheduled)>MAX_REQUESTS or type(req_status) is not dict:
++                raise ValueError("unsupported bounded scheduler inputs")
++            rows=[];prefill_requests=decode_requests=prefill_tokens=decode_tokens=0
++            for req_id,count in scheduled.items():
++                if type(req_id) is not str or not req_id or len(req_id)>1024:
++                    raise ValueError("unsupported request identity")
++                integer(count,"actual scheduled tokens",1)
++                status=req_status.get(req_id)
++                if status is None:raise ValueError("scheduled request has no current owner state")
++                req=status.req
++                computed=req.num_computed_tokens
++                prompt=req.num_prompt_tokens
++                integer(computed,"actual computed tokens");integer(prompt,"actual prompt tokens")
++                if count>1_000_000 or computed>1_000_000 or prompt>1_000_000:
++                    raise ValueError("scheduled scalar token bound exceeded")
++                p=min(count,max(0,prompt-computed));d=count-p
++                prefill_tokens+=p;decode_tokens+=d
++                prefill_requests+=int(p>0);decode_requests+=int(d>0)
++                rows.append((computed,prompt,count,p,d))
++            rows.sort()
++            contexts=[r[0] for r in rows]
++            geometry=sha256(json.dumps(rows,separators=(",",":")).encode()).hexdigest()
++            self.last_reason="actual_scheduler_work_not_gpu_active_state"
++            return SchedulerLoadObservation(self.run_id,self.sequence,now_ns,self.source_sha256,
++                len(rows),prefill_requests,decode_requests,prefill_tokens,decode_tokens,
++                min(contexts,default=0),max(contexts,default=0),sum(contexts),geometry)
++        except Exception as exc:
++            self.last_reason=type(exc).__name__+": "+str(exc)
++            return SchedulerLoadUnavailable(self.run_id,self.sequence,now_ns,self.last_reason[:160])
+--- /dev/null
++++ b/control/p4_options.py
+@@ -0,0 +1,87 @@
++"""Strict isolated P4 startup; prepared CPU evidence cannot enable production."""
++from dataclasses import dataclass
++from .simple_stage_options import (
++    PARENT_KEY, POLICY_KEY, parse_simple_options, build_simple_kwargs, identity,
++)
++P4_KEY = "prefix_io_p4_policy"
++
++@dataclass(frozen=True)
++class Options:
++    original: object
++    run_id: str | None = None
++    config: object | None = None
++    fixed: object | None = None
++    prepared_cost_request: object | None = None
++
++def parse_p4_options(extra):
++    if type(extra) is not dict:
++        raise TypeError("connector options must be an exact mapping")
++    if P4_KEY not in extra:
++        return Options(parse_simple_options(extra))
++    if POLICY_KEY in extra:
++        raise ValueError("P4 option and P3 policy option are mutually exclusive")
++    base = {k: v for k, v in extra.items() if k != P4_KEY}
++    original = parse_simple_options(base)
++    raw = extra[P4_KEY]
++    if raw == {"mode": "off"} and type(raw) is dict:
++        return Options(original)
++    keys = {"schema_version", "run_id", "mode", "sample_max_age_ns", "max_wait_ns",
++            "internal_step_budget_ns", "candidate_batches", "fixed_stage_policy", "cost_table"}
++    if type(raw) is not dict or set(raw) != keys:
++        raise ValueError("strict active P4 fields required")
++    if type(raw["schema_version"]) is not int or raw["schema_version"] != 1:
++        raise ValueError("unsupported P4 schema")
++    if original.parent_cap is None or original.run_id != identity(raw["run_id"]):
++        raise ValueError("P4 requires same-run common admission/accounting")
++    from .p4_types import P4Config
++    batches = raw["candidate_batches"]
++    if type(batches) is not list:
++        raise ValueError("explicit finite JSON batch list required")
++    config = P4Config(raw["mode"], raw["sample_max_age_ns"], raw["max_wait_ns"],
++                      raw["internal_step_budget_ns"], tuple(batches))
++    if config.mode == "off":
++        raise ValueError("off must not carry policy state")
++    fixed = None
++    fixed_raw = raw["fixed_stage_policy"]
++    if fixed_raw is not None:
++        if type(fixed_raw) is not dict or fixed_raw.get("mode") != "fixed":
++            raise ValueError("only frozen original fixed stage budget can be declared")
++        fixed = parse_simple_options(dict(base, **{POLICY_KEY:fixed_raw}))
++        if fixed.policy is None or fixed.run_id != raw["run_id"]:
++            raise ValueError("same-run fixed stage configuration required")
++    if config.mode == "dependency_only" and fixed is None:
++        raise ValueError("dependency-only requires frozen original fixed stage budget")
++    request = None
++    if raw["cost_table"] is not None:
++        if config.mode not in ("shadow","interference","joint"):
++            raise ValueError("D cannot consume an interference-table input")
++        from .p4_startup_evidence import parse_prepared_cost_request
++        request=parse_prepared_cost_request(raw["cost_table"])
++        if request.expected_context.run_id != raw["run_id"]:
++            raise ValueError("paired measurement startup context run differs")
++    return Options(original, raw["run_id"], config, fixed, request)
++
++def build_p4_kwargs(options, *, evidence_root=None):
++    if type(options) is not Options:
++        raise TypeError("parsed immutable P4 options required")
++    prepared = None
++    if options.prepared_cost_request is not None:
++        if evidence_root is None:
++            raise ValueError("independently bound project evidence root required")
++        prepared=options.prepared_cost_request.load(evidence_root)
++        if prepared.production_qualified:
++            raise ValueError("GPU-qualified activation is not implemented by the CPU prepared loader")
++    # An explicit fixed common base is usable for D/shadow. I/J without real
++    # qualification still use U; declaring caps is not permission to apply them.
++    fixed_applies=(options.config is not None and
++        options.config.mode in ("dependency_only","shadow") and options.fixed is not None)
++    result = build_simple_kwargs(options.fixed if fixed_applies else options.original)
++    if options.config is not None:
++        from .p4_bridge import make_native_bridge
++        bridge=make_native_bridge(options.run_id,options.config)
++        bridge.prepared_cost_summary = ((("status","NO_PREPARED_TABLE"),) if prepared is None else
++            (("status",prepared.status),("candidate_sha256",prepared.source_ref.sha256),
++             ("cell_count",prepared.cell_count),("gpu_verified",False)))
++        bridge.declared_common_fixed_base = options.fixed is not None
++        result["p4_bridge"] = bridge
++    return result
+--- /dev/null
++++ b/control/p4_startup_evidence.py
+@@ -0,0 +1,40 @@
++"""Strict startup binding of prepared measurements; it grants no GPU capability."""
++from dataclasses import dataclass
++from pathlib import PurePosixPath
++from .p4_production_table_contract import TableContext, EvidenceRef, _keys, _require
++
++def relative(value):
++    _require(type(value) is str and 0 < len(value) <= 512 and "\\" not in value and "\x00" not in value,
++             "bounded project-relative metadata path required")
++    p=PurePosixPath(value)
++    _require(not p.is_absolute() and ":" not in p.parts[0] and
++             all(x not in ("",".","..") for x in value.split("/")),
++             "relative metadata path cannot escape project")
++    return value
++
++@dataclass(frozen=True)
++class PreparedCostRequest:
++    candidate_path: str
++    expected_context: TableContext
++    qualification_ref: EvidenceRef
++    expected_verifier_ref: EvidenceRef
++    plan_path: str
++    expected_plan_ref: EvidenceRef
++
++    def load(self,root):
++        from .p4_verified_cost_loader import load_semantically_verified_table
++        return load_semantically_verified_table(root,self.candidate_path,
++            expected_context=self.expected_context,qualification_ref=self.qualification_ref,
++            expected_verifier_ref=self.expected_verifier_ref,plan_path=self.plan_path,
++            expected_plan_ref=self.expected_plan_ref)
++
++def parse_prepared_cost_request(raw):
++    _keys(raw,("kind","candidate_path","expected_context","qualification_ref",
++        "expected_verifier_ref","plan_path","expected_plan_ref"),"prepared cost startup request")
++    _require(raw["kind"] == "paired_semantic_candidate","only strict paired semantic candidate input supported")
++    candidate=relative(raw["candidate_path"]);plan=relative(raw["plan_path"])
++    refs=[EvidenceRef.from_mapping(raw[k]) for k in
++          ("qualification_ref","expected_verifier_ref","expected_plan_ref")]
++    for ref in refs:relative(ref.path)
++    _require(refs[2].path == plan,"independently frozen plan path must match")
++    return PreparedCostRequest(candidate,TableContext.from_mapping(raw["expected_context"]),*refs[:2],plan,refs[2])
+--- a/native/py_kvcache/reactor.py
++++ b/native/py_kvcache/reactor.py
+@@ -102,6 +102,11 @@
+ 
+ 
+ @dataclass(frozen=True)
++class _P4Deferred:
++    action: str = "defer"
++    attempt: Any = None
++
++@dataclass(frozen=True)
+ class _StageDispatch:
+     decision: Any
+     work_id: Any
+@@ -120,6 +125,17 @@
+     token: object
+     future: Future
+ 
++
++@dataclass(frozen=True)
++class _P4Inspect:
++    token: object
++    future: Future
++
++@dataclass(frozen=True)
++class _P4Publish:
++    token: object
++    publication: Any
++    future: Future
+ 
+ @dataclass
+ class _ProgressState:
+@@ -230,6 +246,7 @@
+         dispatch_shadow: Any = None,
+         max_accepted_parents: int | None = None,
+         dispatch_controller: Any = None,
++        p4_bridge: Any = None,
+     ) -> None:
+         if max_accepted_parents is not None and (
+             type(max_accepted_parents) is not int or not 1 <= max_accepted_parents <= 64
+@@ -243,6 +260,20 @@
+             raise ValueError("progress_run_id must be a nonempty string or None")
+         if observation_sink is not None and not callable(observation_sink):
+             raise TypeError("observation_sink must be callable or None")
++        if p4_bridge is not None:
++            from prefix_io_control.p4_bridge import NativeP4Bridge
++            if type(p4_bridge) is not NativeP4Bridge:
++                raise TypeError("exact isolated native P4 bridge required")
++            if progress_run_id != p4_bridge.run_id or max_accepted_parents is None or stage_accounting is None:
++                raise ValueError("P4 requires same-run common progress/admission/accounting")
++            if any(x is not None for x in (start_budget,store_order,dispatch_shadow)):
++                raise ValueError("P4 excludes legacy experimental policies")
++            if p4_bridge.mode == "dependency_only":
++                if dispatch_controller is None or dispatch_controller.config.mode != "fixed":
++                    raise ValueError("dependency-only requires original fixed controller")
++            elif dispatch_controller is not None:
++                raise ValueError("shadow/unsupported I/J must retain original U allowances")
++            p4_bridge.bind()
+         if dispatch_controller is not None:
+             from prefix_io_control.simple_stage_policy import DispatchController
+             if not isinstance(dispatch_controller, DispatchController):
+@@ -438,6 +469,8 @@
+         self._prefix_store_order = store_order
+         self._prefix_dispatch_shadow = dispatch_shadow
+         self._prefix_dispatch_controller = dispatch_controller
++        self._prefix_p4_bridge = p4_bridge
++        self._prefix_p4_controls_pending = 0
+         self._prefix_init_capacity_observation()
+         self._observation_sink = observation_sink
+         self._observation_failures = 0
+@@ -645,6 +678,8 @@
+             controller=controller.snapshot(native_shutdown=native_shutdown) if controller is not None else None,
+             free_reclaimable_staging_bytes=capacity["free_reclaimable_staging_bytes"],
+             staging_capacity=capacity,
++            p4=getattr(self,'_prefix_p4_bridge',None).snapshot(native_shutdown=native_shutdown)
++                if getattr(self,'_prefix_p4_bridge',None) is not None else None,
+             physical_drain_inferred=False, gpu_release_credit=False,
+         )
+ 
+@@ -1174,9 +1209,11 @@
+                 break
+             if isinstance(item, _ReactorJob):
+                 fail_parent(item)
+-            elif isinstance(item, _OwnerSnapshot):
+-                item.future.set_exception(wrapped)
++            elif isinstance(item, (_OwnerSnapshot,_P4Inspect,_P4Publish)):
++                if not item.future.done():
++                    item.future.set_exception(wrapped)
+         self._owner_snapshot_pending = 0
++        self._prefix_p4_controls_pending = 0
+         state = getattr(self, "_prefix_progress", None)
+         if state is not None:
+             state.required.clear()
+@@ -1197,6 +1234,26 @@
+ 
+     def _intake(self, item: Any) -> None:
+         state = getattr(self, "_prefix_progress", None)
++        if isinstance(item, (_P4Inspect,_P4Publish)):
++            try:
++                if state is None or item.token is not state.token:
++                    raise ValueError("P4 publication native run token differs")
++                bridge = getattr(self,"_prefix_p4_bridge",None)
++                if bridge is None:
++                    raise RuntimeError("P4 bridge disabled")
++                view = self._prefix_p4_collect()
++                if view is None:
++                    raise ValueError("actual native observation exceeds supported window")
++                result = view if isinstance(item,_P4Inspect) else bridge.publish(
++                    item.publication,view,now_ns=time.monotonic_ns())
++                item.future.set_result(result)
++            except Exception as diagnostic:
++                if not item.future.done():
++                    item.future.set_exception(diagnostic)
++            finally:
++                with self._submit_lock:
++                    self._prefix_p4_controls_pending = max(0,getattr(self,"_prefix_p4_controls_pending",0)-1)
++            return
+         if isinstance(item, _AdmissionDrain):
+             if item.token is getattr(self, "_admission_token", None):
+                 with self._parent_cv:
+@@ -1870,6 +1927,7 @@
+             slot = self.staging_pool.try_reserve()
+         if slot is None and self._evict_one_preload_slot():
+             slot = self.staging_pool.try_reserve()
++        self._prefix_p4_note_reservation(slot)
+         return slot
+ 
+     def _reserve_preload_slot(self):
+@@ -1877,6 +1935,7 @@
+         slot = self.staging_pool.try_reserve()
+         if slot is None and self._evict_one_cache_slot("preload_pressure"):
+             slot = self.staging_pool.try_reserve()
++        self._prefix_p4_note_reservation(slot)
+         return slot
+ 
+     def _release_or_cache(self, block_hash: bytes, slot_index: int) -> None:
+@@ -2048,7 +2107,8 @@
+     def _prefix_stage_decide(self, stage, nbytes, work_id, job=None, *,
+                              continuation=False, support=False, reserved_bytes=0):
+         controller = getattr(self, "_prefix_dispatch_controller", None)
+-        if controller is None:
++        p4 = getattr(self, "_prefix_p4_bridge", None)
++        if controller is None and p4 is None:
+             return None  # Off: no clock, snapshot, policy import or copy-byte sum.
+         try:
+             from prefix_io_control.dispatch_budget import Amount, STAGES
+@@ -2070,7 +2130,7 @@
+                 free += reserved_bytes
+             parents = self.accepted_parent_count()
+             sample = ShadowState(
+-                controller.run_id, now, inflight=inflight,
++                controller.run_id if controller is not None else p4.run_id, now, inflight=inflight,
+                 free_staging_bytes=free, accepted_parents=parents,
+                 # Original device/slot/FD checks succeeded. The unchanged copy
+                 # launch still enforces compute-event stream ordering before DMA.
+@@ -2082,13 +2142,44 @@
+                 "mandatory" if job is not None and self.is_mandatory(job.future) else
+                 "mandatory_support" if support else None
+             )
++            if p4 is not None:
++                try:
++                    from dataclasses import replace
++                    from prefix_io_control.p4_types import WorkDescriptor
++                    view = self._prefix_p4_collect()
++                    if view is not None and (job is not None or progress is not None):
++                        # Unbound ordinary preload has no native arrival proof:
++                        # keep its original path, rather than reset a policy age.
++                        preview_now = time.monotonic_ns()
++                        snapshot = replace(view.snapshot,native_state=sample)
++                        child = work_id[-1] if type(work_id) is tuple else work_id
++                        if type(child) not in (int,str) or type(child) is int and child < 0:
++                            child = str(work_id)[:128]
++                        actual = WorkDescriptor(p4.run_id,snapshot.snapshot_epoch,
++                            job.accepted_parent_sequence if job is not None else 0,
++                            child,stage,nbytes,0,
++                            job.profile.start_ns if job is not None else preview_now,
++                            False,True,reserved_bytes,
++                            progress=progress,minimum_unit_bytes=(
++                                self.file_store.io_size if stage in ("ssd_read","ssd_write") else
++                                sum(self.layout.bytes_per_kernel_block)))
++                        preview = p4.preview_issue(actual,snapshot,now_ns=preview_now)
++                        if preview.action == "defer" and progress is None:
++                            return _StageDispatch(_P4Deferred(),work_id)
++                except Exception as p4_exc:
++                    p4.fail(type(p4_exc).__name__+": "+str(p4_exc))
++            if controller is None:
++                return None  # unsupported I/J preserve U; no new allowance owner
+             decision = controller.decide(
+                 stage, nbytes, sample, now_ns=now, work_id=work_id,
+                 staging_bytes_needed=reserved_bytes, progress=progress
+             )
+             return _StageDispatch(decision, work_id)
+         except Exception as exc:
+-            controller.fail(type(exc).__name__ + ": " + str(exc))
++            if controller is not None:
++                controller.fail(type(exc).__name__ + ": " + str(exc))
++            elif p4 is not None:
++                p4.fail(type(exc).__name__ + ": " + str(exc))
+             return None  # Failed optional performance control uses original dispatch.
+ 
+     def _prefix_stage_settle(self, dispatch, outcome, exc=None):
+@@ -2126,7 +2217,7 @@
+ 
+     def _prefix_ready_read_decision(self, ready):
+         controller = getattr(self, "_prefix_dispatch_controller", None)
+-        if controller is None:
++        if controller is None and getattr(self,"_prefix_p4_bridge",None) is None:
+             return None
+         if ready.sequence <= 0:
+             self._ready_sequence = getattr(self, "_ready_sequence", 0) + 1
+@@ -2245,10 +2336,375 @@
+         except Exception as exc:
+             budget.fail(type(exc).__name__)
+ 
++    def _prefix_p4_note_reservation(self, slot):
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None or slot is None:
++            return
++        try:
++            bridge.note_reservation(slot.index)
++        except Exception as exc:
++            bridge.fail(type(exc).__name__ + ": " + str(exc))
++
++    def _prefix_p4_parent_terminal(self, job, *, successful):
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return  # off before clock/import or scalar owner inspection
++        pid = getattr(job, "accepted_parent_sequence", None)
++        if type(pid) is not int or pid < 1:
++            return
++        try:
++            if self._worker.ident != threading.get_ident():
++                raise RuntimeError("closure drain sampling requires native owner")
++            physical_success = (successful and job.failed is None and
++                job.done_files == job.total_files and job.inflight_files == 0 and
++                job.next_file_index == job.total_files and
++                not getattr(job, "accepted_parent_retired", False))
++            bridge.complete_native_closure(pid, now_ns=time.monotonic_ns(),
++                successful=bool(physical_success),
++                drain_known=not getattr(self, "_native_drain_unknown", False))
++        except Exception as exc:
++            bridge.fail(type(exc).__name__ + ": " + str(exc))
++
++
++    def publish_p4_scheduled_load(self, observation):
++        """One immutable scalar publication; no work queue or awaited Future."""
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return False  # off before optional imports, clocks or metadata scan
++        from prefix_io_control.p4_load_observation import SchedulerLoadObservation, SchedulerLoadUnavailable
++        if type(observation) not in (SchedulerLoadObservation, SchedulerLoadUnavailable):
++            raise TypeError("strict immutable scheduler work values required")
++        if observation.run_id != bridge.run_id:
++            raise ValueError("scheduler work belongs to a different run")
++        with self._submit_lock:
++            if self._closed:
++                raise RuntimeError("native intake closed")
++            previous = getattr(self, "_prefix_p4_load_frame", None)
++            sequence = getattr(self, "_prefix_p4_load_sequence", 0)
++            if observation.sequence < sequence:
++                raise ValueError("scheduler work sequence moved backwards")
++            if observation.sequence == sequence:
++                if observation == previous:
++                    return False
++                # Conflicting same-step metadata invalidates the previous view.
++                self._prefix_p4_load_frame = None
++                raise ValueError("conflicting same-sequence scheduled work")
++            self._prefix_p4_load_frame = observation
++            self._prefix_p4_load_sequence = observation.sequence
++        return True
++
++    def _prefix_p4_load_values(self, now_ns):
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return (), None
++        lock = getattr(self, "_submit_lock", None)
++        if lock is None:
++            frame = getattr(self, "_prefix_p4_load_frame", None)
++        else:
++            with lock:
++                frame = getattr(self, "_prefix_p4_load_frame", None)
++        from prefix_io_control.p4_load_observation import SchedulerLoadObservation
++        if type(frame) is not SchedulerLoadObservation or not frame.fresh(
++                run_id=bridge.run_id, now_ns=now_ns,
++                max_age_ns=bridge.policy.config.sample_max_age_ns):
++            return (), None
++        return frame.signature, frame
++
++    def _prefix_p4_existing_io_state(self, now_ns, free):
++        accounting = getattr(self, "_prefix_stage_accounting", None)
++        if accounting is None or not accounting.valid:
++            return None
++        try:
++            from prefix_io_control.dispatch_budget import Amount, STAGES
++            from prefix_io_control.dispatch_shadow import ShadowState
++            accounting._owner()
++            return ShadowState(self._prefix_p4_bridge.run_id, now_ns,
++                inflight=tuple(Amount(accounting.stats[s]["inflight_ops"],
++                    accounting.stats[s]["inflight_bytes"]) for s in STAGES),
++                free_staging_bytes=free,
++                accepted_parents=self.accepted_parent_count(),
++                native_issue_safe=None)
++        except Exception:
++            return None  # missing owner facts are unknown rather than zero
++
++    def _prefix_p4_read_batch_ids(self):
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return None
++        try:
++            view = self._prefix_p4_collect()
++            if view is None:
++                return None
++            ids = tuple((r.job.accepted_parent_sequence, r.file_index, "ssd_read")
++                for r in self._ready_fds_load if r.job is not None and r.job.failed is None)
++            by_id = {w.work_id:w for w in view.works}
++            works = tuple(by_id[wid] for wid in ids if wid in by_id)
++            if not works:
++                return None
++            return bridge.batch_prefix(view, works, now_ns=time.monotonic_ns())
++        except Exception as exc:
++            bridge.fail(type(exc).__name__+": "+str(exc))
++            return None  # optional advice cannot drop accepted native work
++
++    def _prefix_p4_collect(self):
++        """Owner-only bounded values; original queues and owners stay untouched."""
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return None  # off before clock, snapshot, imports, or scanning
++        from prefix_io_control.p4_bridge import NativePublication
++        from prefix_io_control.p4_eta import ClosureGeometry
++        from prefix_io_control.p4_types import SystemSnapshot, WorkDescriptor, WaitingTarget, ReleaseWitness
++        from prefix_io_control.dependencies import Parent, Resource, ResourceId
++        if self._worker.ident != threading.get_ident():
++            raise RuntimeError("P4 collection requires actual native owner")
++        if len(self._active) > 32 or (len(self._ready_fds_load) + len(self._copy_ready) +
++                sum(1 for j in self._active if j.is_store and j.failed is None and
++                    j.next_file_index < j.total_files)) > 64:
++            bridge.last_reason = "native_observation_window_exceeded"
++            return None  # no truncation or dropping of native jobs
++        now = time.monotonic_ns()
++        run = bridge.run_id
++        load_signature, load_frame = self._prefix_p4_load_values(now)
++        jobs, order = {}, {}
++        for index, job in enumerate(self._active):
++            pid = job.accepted_parent_sequence
++            if type(pid) is not int or pid < 1 or job.accepted_parent_retired:
++                bridge.last_reason = "unknown_native_parent_identity"
++                return None
++            jobs[pid] = job
++            order[pid] = index
++        raw = []
++        for ready in self._ready_fds_load:
++            if ready.job is None or ready.job.failed is not None:
++                continue
++            if ready.sequence <= 0:
++                self._ready_sequence = getattr(self, "_ready_sequence", 0) + 1
++                ready.sequence = self._ready_sequence
++            raw.append((ready.job, ready.file_index, "ssd_read", self.file_store.io_size,
++                        self.file_store.io_size, None, None))
++        for job in self._active:
++            if job.is_store and job.failed is None and job.next_file_index < job.total_files:
++                raw.append((job, job.next_file_index, "d2h", self.layout.storage_block_bytes,
++                            self.file_store.io_size, None, None))
++        for rc in self._copy_ready:
++            generation = bridge.generation(rc.slot_index)
++            identity = (ResourceId(run, "cpu-staging", 0, rc.slot_index, generation)
++                        if generation is not None else None)
++            raw.append((rc.job, rc.file_index, "h2d", rc.nbytes, 0, generation, identity))
++        by_parent = {pid: [] for pid in jobs}
++        for item in raw:
++            pid = item[0].accepted_parent_sequence
++            if pid not in jobs:
++                bridge.last_reason = "ready_parent_outside_native_owner_window"
++                return None
++            if item[2] != "d2h":
++                by_parent[pid].append(item)
++        parents = []
++        complete_ready = set()
++        for pid, job in jobs.items():
++            rows = by_parent[pid]
++            files = {x[1] for x in rows}
++            complete = (job.failed is None and not job.future_set and
++                        job.next_file_index == job.total_files and
++                        len(files) == len(rows) == job.inflight_files and
++                        job.done_files + len(files) == job.total_files and len(files) > 0)
++            depth = max((2 if x[2] == "ssd_read" else 1 for x in rows), default=0) if complete else None
++            if complete:
++                complete_ready.add(pid)
++                # Measure the native whole closure, including original queues and
++                # fused copies. Per-file timings cannot predict future fusion.
++                grouped_rows = {}
++                for row in rows:
++                    quantum = self.file_store.io_size if row[2] == "ssd_read" else row[3]
++                    key = (row[2], row[3], quantum)
++                    grouped_rows[key] = grouped_rows.get(key, 0) + 1
++                geometry = ClosureGeometry(tuple(sorted(
++                    key + (count,) for key, count in grouped_rows.items())))
++                context = ("native-ready-closure-v1", self.file_store.io_size,
++                    self.layout.storage_block_bytes,
++                    len(self._active), len(self._ready_fds_load), len(self._copy_ready),
++                    len(getattr(self, "_pending_copies", ())),
++                    len(getattr(self, "_inflight", ())),
++                    getattr(self, "_data_inflight", 0),
++                    getattr(self, "_open_inflight", 0),
++                    getattr(self, "iodepth", 0),
++                    load_frame.source_sha256 if load_frame is not None else "scheduler-source-unknown",
++                    load_frame.geometry_sha256 if load_frame is not None else "scheduled-work-unknown")
++                bridge.observe_native_closure(pid, geometry, context, now_ns=now)
++            parents.append(Parent(run, pid, job.total_files, job.done_files, job.inflight_files,
++                bool(job.future_set), job.failed is not None, depth, None))
++        free = self._prefix_clean_reclaimable_bytes()
++        native_state = self._prefix_p4_existing_io_state(now, free)
++        io_signature = tuple((a.ops,a.nbytes) for a in native_state.inflight) if native_state is not None else ()
++        signature = (tuple((p.job_id,p.total_files,p.done_files,p.inflight_files,p.future_done,p.failed,
++                           p.remaining_stages) for p in parents),
++                     tuple((j.accepted_parent_sequence,fi,stage,nb,need,gen) for j,fi,stage,nb,need,gen,rid in raw),
++                     tuple((rc.slot_index,rc.shared.copies_inflight if rc.shared else
++                            rc.cache.copies_inflight if rc.cache else 1,
++                            bool(rc.shared.cached) if rc.shared else False)
++                           for rc in self._copy_ready), free,
++                     bool(self._stop), tuple(sorted(j.accepted_parent_sequence for j in self._active
++                                               if self.is_mandatory(j.future))),
++                     io_signature, load_signature,
++                     load_frame.sequence if load_frame is not None else None)
++        epoch = bridge.epoch(signature, now)
++        works = []
++        for idx,(job,fi,stage,nbytes,need,generation,identity) in enumerate(raw):
++            progress = ("shutdown" if self._stop else "continuation" if stage == "h2d" else
++                        "mandatory" if self.is_mandatory(job.future) else None)
++            works.append(WorkDescriptor(run, epoch, job.accepted_parent_sequence, fi, stage,
++                nbytes, idx, job.profile.start_ns, False, True, need, generation, progress,
++                (self.file_store.io_size if stage == "ssd_read" else
++                 self.layout.storage_block_bytes if stage == "d2h" else nbytes), identity))
++        targets = []
++        for pid, job in jobs.items():
++            if job.failed is not None or job.future_set:
++                continue
++            if not job.is_store:
++                targets.append(WaitingTarget("restore:"+str(pid),order[pid],
++                    job.profile.start_ns,restore_parent_id=pid))
++            elif free == 0 and job.next_file_index < job.total_files:
++                targets.append(WaitingTarget("cpu-slot:"+str(pid),order[pid],
++                    job.profile.start_ns,need_cpu_bytes=self.file_store.io_size))
++        parent_map = {p.job_id:p for p in parents}
++        generations, witnesses = {}, []
++        for work in works:
++            if work.resource_identity is not None:
++                generations[work.resource_identity] = work.generation
++        for target in targets:
++            pid = target.restore_parent_id
++            if pid not in complete_ready or len(witnesses) == 8:
++                continue
++            rows = tuple(w.work_id for w in works if w.parent_id == pid and w.stage in ("ssd_read","h2d"))
++            identity = ResourceId(run,"restore-parent",0,pid,pid)
++            if identity not in generations and len(generations) >= 64:
++                bridge.generation_witness_omissions += 1
++                continue  # omit optional witness, retain full native ready window
++            generations[identity] = pid
++            resource = Resource(identity,jobs[pid].transfer_size,0,frozenset((pid,)),
++                                "observed_blocking",False,None)
++            witnesses.append(ReleaseWitness(target.target_id,resource,(parent_map[pid],),
++                "restore",rows,"py_kvcache.reactor.restore-parent",None,
++                completed_restore_parent_id=pid))
++        # CPU source pin evidence is conservative parent-AND. Continuations are
++        # never delayed/reordered by policy even if this potential path is seen.
++        cpu_target = next((t for t in targets if t.need_cpu_bytes),None)
++        grouped = {}
++        for rc in self._copy_ready:
++            grouped.setdefault(rc.slot_index,[]).append(rc)
++        for slot_index, members in grouped.items():
++            if cpu_target is None or len(witnesses) == 8:
++                break
++            generation = bridge.generation(slot_index)
++            pids = frozenset(rc.job.accepted_parent_sequence for rc in members)
++            if generation is None or not pids.issubset(complete_ready):
++                continue
++            shared = members[0].shared
++            cache = members[0].cache
++            if any(rc.shared is not shared or rc.cache is not cache for rc in members):
++                continue
++            if shared is not None and (shared.slot_index != slot_index or
++                    shared.copies_inflight != len(members) or
++                    shared.cached and self._shared_cached.get(shared.block_hash) is not shared):
++                continue
++            if cache is not None and (cache.slot_index != slot_index or
++                    cache.copies_inflight != len(members) or
++                    self._staging_cache is None or
++                    self._staging_cache._slots.get(cache.block_hash) is not cache):
++                continue
++            # Original raw read slots have one copy owner; no unknown consumers.
++            if shared is None and cache is None and len(members) != 1:
++                continue
++            identity = ResourceId(run,"cpu-staging",0,slot_index,generation)
++            generations[identity] = generation
++            rows = tuple(w.work_id for w in works if w.parent_id in pids and w.stage in ("ssd_read","h2d"))
++            resource = Resource(identity,self.file_store.io_size,0,pids,
++                                "observed_blocking",False,None)
++            witnesses.append(ReleaseWitness(cpu_target.target_id,resource,
++                tuple(parent_map[pid] for pid in sorted(pids)),"cpu",rows,
++                "py_kvcache.reactor.cpu-staging",None,
++                release_scope="multi_protector" if len(pids)>1 else "parent_job"))
++        caps = frozenset(("native_ready_work","owner_release_protocol",
++            "restore_parent_completion","cpu_owner_generation","cpu_active_refs","cpu_protectors"))
++        if native_state is not None:
++            caps |= frozenset(("native_existing_io",))
++        if load_frame is not None:
++            caps |= frozenset(("scheduled_work_observation",))
++        snapshot = SystemSnapshot(run,epoch,now,caps,tuple(parents),native_state,
++            tuple(targets),tuple(generations.items()),None,free,load_signature)
++        return NativePublication(snapshot,tuple(works),tuple(witnesses))
++
++    def _prefix_p4_order(self, entries, kind):
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if bridge is None:
++            return entries  # off before clock, snapshot or candidate iteration
++        try:
++            view = self._prefix_p4_collect()
++            if view is None:
++                return entries
++            if kind == "stores":
++                ids = [(j.accepted_parent_sequence,j.next_file_index,"d2h") for j in entries
++                       if j.is_store and j.failed is None and j.next_file_index < j.total_files]
++            else:
++                ids = [(r.job.accepted_parent_sequence,r.file_index,"ssd_read") for r in entries
++                       if r.job is not None and r.job.failed is None]
++            candidates = tuple(w for w in view.works if w.work_id in set(ids))
++            if not candidates:
++                return entries  # empty pump is not a dispatch boundary
++            selected = bridge.order(view,candidates,now_ns=time.monotonic_ns())
++            if tuple(ids) == selected:
++                return entries
++            eligible = ([x for x in entries if x.is_store and x.failed is None and
++                         x.next_file_index < x.total_files] if kind=="stores" else
++                        [x for x in entries if x.job is not None and x.job.failed is None])
++            by_id = dict(zip(ids,eligible))
++            rank = {wid:i for i,wid in enumerate(selected)}
++            # Local bounded permutation only; no retained queue or ownership.
++            chosen = iter(sorted(by_id.values(),key=lambda x:rank[
++                (x.accepted_parent_sequence,x.next_file_index,"d2h") if kind=="stores" else
++                (x.job.accepted_parent_sequence,x.file_index,"ssd_read")]))
++            return tuple(next(chosen) if (
++                x.is_store and x.failed is None and x.next_file_index<x.total_files
++                if kind=="stores" else x.job is not None and x.job.failed is None) else x
++                for x in entries)
++        except Exception as exc:
++            bridge.fail(type(exc).__name__+": "+str(exc))
++            return entries  # optional strategy errors cannot fail native jobs
++
++    def inspect_p4_view(self, timeout=5.0):
++        if getattr(self,"_prefix_p4_bridge",None) is None:
++            raise RuntimeError("P4 bridge is disabled")
++        future = Future()
++        with self._submit_lock:
++            if self._closed:
++                raise RuntimeError("native intake closed")
++            if getattr(self,"_prefix_p4_controls_pending",0) >= 2:
++                raise RuntimeError("bounded P4 metadata control inbox full")
++            self._prefix_p4_controls_pending = getattr(self,"_prefix_p4_controls_pending",0)+1
++            self._incoming.put(_P4Inspect(self._prefix_progress.token,future))
++        return future
++
++    def request_p4_publication(self, publication):
++        bridge = getattr(self,"_prefix_p4_bridge",None)
++        if bridge is None:
++            raise RuntimeError("P4 bridge is disabled")
++        from prefix_io_control.p4_bridge import NativePublication
++        if type(publication) is not NativePublication:
++            raise TypeError("strict immutable owner publication required")
++        future = Future()
++        with self._submit_lock:
++            if self._closed:
++                raise RuntimeError("native intake closed")
++            if getattr(self,"_prefix_p4_controls_pending",0) >= 2:
++                raise RuntimeError("bounded P4 metadata control inbox full")
++            self._prefix_p4_controls_pending = getattr(self,"_prefix_p4_controls_pending",0)+1
++            self._incoming.put(_P4Publish(self._prefix_progress.token,publication,future))
++        return future
++
+     def _prefix_ordered_stores(self):
+         order = getattr(self, "_prefix_store_order", None)
+         if order is None or order.faulted:
+-            return self._active
++            return self._prefix_p4_order(self._active, "stores")
+         try:
+             return order.ordered(self._active, self._prefix_progress.required)
+         except Exception as exc:
+@@ -2391,7 +2847,16 @@
+ 
+     def _drain_ready_load_fds(self) -> bool:
+         made = False
++        ordered = self._prefix_p4_order(self._ready_fds_load,"reads")
++        if ordered is not self._ready_fds_load:
++            for index, ready in enumerate(ordered):
++                self._ready_fds_load[index] = ready
++        p4_batch_ids = self._prefix_p4_read_batch_ids()
+         while self._ready_fds_load and self._data_inflight < self.iodepth:
++            if p4_batch_ids is not None:
++                item = self._ready_fds_load[0]
++                if item.job is not None and (item.job.accepted_parent_sequence, item.file_index, "ssd_read") not in p4_batch_ids:
++                    return made  # retain tail in its original native queue
+             slot = self._reserve_foreground_slot()
+             if slot is None:
+                 return made
+@@ -2519,7 +2984,7 @@
+         if slot is None:
+             return False
+         controller = getattr(self, "_prefix_dispatch_controller", None)
+-        if controller is not None:
++        if controller is not None or getattr(self,"_prefix_p4_bridge",None) is not None:
+             try:
+                 mapping = self._build_mapping(
+                     slot.index, job.block_chunks[job.next_file_index], 1,
+@@ -2957,7 +3422,8 @@
+                 shadow_attempt = self._prefix_shadow_copy_begin(
+                     "h2d", sizes, offset, continuation=True
+                 )
+-                if getattr(self, "_prefix_dispatch_controller", None) is not None:
++                if (getattr(self, "_prefix_dispatch_controller", None) is not None or
++                        getattr(self,"_prefix_p4_bridge",None) is not None):
+                     stage_dispatch = self._prefix_stage_decide(
+                         "h2d", int(sizes[:offset].sum()), ("h2d", id(ready)),
+                         continuation=True
+@@ -3105,6 +3571,7 @@
+                 job.failed = exc
+                 logger.exception("py-kvcache transfer job %s failed", job.job_id, exc_info=exc)
+         elif job.failed is None and job.done_files == job.total_files:
++            self._prefix_p4_parent_terminal(job, successful=True)
+             self._retire_accepted_parent(job)  # Physical whole-parent drain before callbacks.
+             job.future_set = True
+             self._emit(job, success=True)
+@@ -3123,6 +3590,7 @@
+                 if getattr(self, "_native_drain_unknown", False):
+                     remaining.append(job)
+                     continue
++                self._prefix_p4_parent_terminal(job, successful=False)
+                 self._retire_accepted_parent(job)  # Safe capacity before reentrant callbacks.
+                 job.future_set = True
+                 self._emit(job, success=False)
+@@ -3192,6 +3660,7 @@
+         dispatch_shadow: Any = None,
+         max_accepted_parents: int | None = None,
+         dispatch_controller: Any = None,
++        p4_bridge: Any = None,
+     ) -> None:
+         self.layout = layout
+         self.reactor = IoReactor(
+@@ -3208,6 +3677,7 @@
+             dispatch_shadow=dispatch_shadow,
+             max_accepted_parents=max_accepted_parents,
+             dispatch_controller=dispatch_controller,
++            p4_bridge=p4_bridge,
+         )
+ 
+     @property
+@@ -3322,6 +3792,15 @@
+     def raise_if_native_fatal(self):
+         self.reactor.raise_if_native_fatal()
+ 
++    def inspect_p4_view(self):
++        return self.reactor.inspect_p4_view()
++
++    def publish_p4_scheduled_load(self, observation):
++        return self.reactor.publish_p4_scheduled_load(observation)
++
++    def request_p4_publication(self, publication):
++        return self.reactor.request_p4_publication(publication)
++
+     def request_owner_snapshot(self):
+         return self.reactor.request_owner_snapshot()
+ 
+--- a/native/py_kvcache/vllm.py
++++ b/native/py_kvcache/vllm.py
+@@ -194,6 +194,7 @@
+         file_mapper: FileMapper,
+         *,
+         planner: LoadPlanner | None = None,
++        p4_load_run_id: str | None = None,
+     ):
+         self.file_mapper = file_mapper
+         # Positive hits are immutable; misses not cached (another process can publish between steps).
+@@ -206,6 +207,16 @@
+         # waits for the write and loads rather than recomputing a reusable prefix.
+         self._store_inflight: dict[bytes, int] = {}
+         self._planner = planner
++        self._prefix_p4_load_producer = None
++        if p4_load_run_id is not None:
++            from prefix_io_control.p4_load_observation import SchedulerLoadProducer
++            self._prefix_p4_load_producer = SchedulerLoadProducer(p4_load_run_id)
++
++    def capture_prefix_p4_scheduler_load(self, scheduler_output, req_status):
++        producer = self._prefix_p4_load_producer
++        if producer is None:
++            return None  # off before clock, source read or request scan
++        return producer.capture(scheduler_output, req_status, now_ns=time.monotonic_ns())
+ 
+     @staticmethod
+     def _get_block_hash(key: OffloadKey) -> bytes:
+@@ -417,6 +428,19 @@
+         )
+         self._max_submitted_preload_ids = 1024
+         self.is_shutdown = False
++
++    def handle_worker_message(self, message):
++        reactor = getattr(self.coordinator, "reactor", None)
++        if reactor is None or getattr(reactor, "_prefix_p4_bridge", None) is None:
++            return False  # off before optional imports/metadata work
++        from prefix_io_control.p4_load_observation import SchedulerLoadObservation, SchedulerLoadUnavailable
++        if type(message) not in (SchedulerLoadObservation, SchedulerLoadUnavailable):
++            return False
++        try:
++            self.coordinator.publish_p4_scheduled_load(message)
++        except Exception as exc:
++            self._prefix_p4_load_reason = type(exc).__name__ + ": " + str(exc)
++        return True  # optional diagnostic cannot fail an accepted transfer
+ 
+     def preload_async(
+         self,
+@@ -642,8 +666,13 @@
+         # Project-owned optional P2 observer adapter; absent/off keeps native path.
+         self._prefix_io_options = None
+         if any(str(key).startswith("prefix_io_") for key in self.extra_config):
+-            from prefix_io_control.simple_stage_options import parse_simple_options
+-            self._prefix_io_options = parse_simple_options(self.extra_config)
++            if "prefix_io_p4_policy" in self.extra_config:
++                from prefix_io_control.p4_options import parse_p4_options
++                self._prefix_io_options = parse_p4_options(self.extra_config)
++                self._prefix_io_p4_options = True
++            else:
++                from prefix_io_control.simple_stage_options import parse_simple_options
++                self._prefix_io_options = parse_simple_options(self.extra_config)
+         self.shared_file_config = SharedFileConfig.from_extra_config(self.extra_config)
+         self._manager: SharedStorageOffloadingManager | None = None
+         self._handler: NoopSharedStorageOffloadingHandler | None = None
+@@ -765,6 +794,9 @@
+             self._manager = SharedStorageOffloadingManager(
+                 self.file_mapper,
+                 planner=self._planner,
++                p4_load_run_id=(self._prefix_io_options.run_id if
++                    getattr(self, "_prefix_io_p4_options", False) and
++                    getattr(self._prefix_io_options, "config", None) is not None else None),
+             )
+         return self._manager
+ 
+@@ -785,8 +817,13 @@
+             )
+             observer_kwargs = {}
+             if self._prefix_io_options is not None:
+-                from prefix_io_control.simple_stage_options import build_simple_kwargs
+-                observer_kwargs = build_simple_kwargs(self._prefix_io_options)
++                if getattr(self,"_prefix_io_p4_options",False):
++                    from prefix_io_control.p4_options import build_p4_kwargs
++                    observer_kwargs = build_p4_kwargs(self._prefix_io_options,
++                        evidence_root=__import__("pathlib").Path(__file__).resolve().parents[4])
++                else:
++                    from prefix_io_control.simple_stage_options import build_simple_kwargs
++                    observer_kwargs = build_simple_kwargs(self._prefix_io_options)
+             coordinator = TransferCoordinator(
+                 **observer_kwargs,
+                 config=self.shared_file_config,

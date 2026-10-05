@@ -1,0 +1,42 @@
+[
+  {
+    "actual_GPU_runs": 0,
+    "expected_exit": 0,
+    "mutation": null,
+    "name": "positive-full128-selected1",
+    "origin": "cpu_fixture",
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p4-02-cpu/cost-verifier/fixtures-v2-cli-01/positive-full128-selected1"
+  },
+  {
+    "actual_GPU_runs": 0,
+    "expected_exit": 0,
+    "mutation": null,
+    "name": "positive-full128-selected2",
+    "origin": "cpu_fixture",
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p4-02-cpu/cost-verifier/fixtures-v2-cli-01/positive-full128-selected2"
+  },
+  {
+    "actual_GPU_runs": 0,
+    "expected_exit": 1,
+    "mutation": "raw",
+    "name": "negative-original-source-drift",
+    "origin": "cpu_fixture",
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p4-02-cpu/cost-verifier/fixtures-v2-cli-01/negative-original-source-drift"
+  },
+  {
+    "actual_GPU_runs": 0,
+    "expected_exit": 1,
+    "mutation": "trace",
+    "name": "negative-complete-trace-drift",
+    "origin": "cpu_fixture",
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p4-02-cpu/cost-verifier/fixtures-v2-cli-01/negative-complete-trace-drift"
+  },
+  {
+    "actual_GPU_runs": 0,
+    "expected_exit": 1,
+    "mutation": "version",
+    "name": "negative-v1-role-in-v2-bundle",
+    "origin": "cpu_fixture",
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p4-02-cpu/cost-verifier/fixtures-v2-cli-01/negative-v1-role-in-v2-bundle"
+  }
+]

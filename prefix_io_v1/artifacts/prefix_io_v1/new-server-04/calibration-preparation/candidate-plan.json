@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "candidate_calibration_plan_not_cost_curves",
+  "status": "PLANNED_CPU_ONLY",
+  "execution": "UNEXECUTED",
+  "gpu_executed": false,
+  "network_used": false,
+  "budget_reservation": "NOT_RESERVED",
+  "driver_ready": false,
+  "configuration_frozen_for_execution": false,
+  "p1_complete": false,
+  "p3_activated": false,
+  "identity": {
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "model_name_for_runtime": "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "provider": "modelscope",
+    "source": "https://modelscope.cn",
+    "revision": "16c174980d8a1492910551634b4969e69cdc2444",
+    "revision_namespace": "modelscope_git_commit",
+    "manifest": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+      "sha256": "9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017"
+    },
+    "model_config": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444/config.json",
+      "sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c"
+    },
+    "prior_frozen_config": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/native-prefix-04/details/frozen-config.json",
+      "sha256": "6c3ba3ba8cdab49e8db5a1fae3111ba6b7dd38b74d9830b73913a86db9766581"
+    },
+    "prior_result": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/native-prefix-04/details/smoke-result.json",
+      "sha256": "fbb7a4a26198fab0450e9ffb2cb2e4ff87e1550454bc2bf4c6f0ff36fbc19b74"
+    },
+    "prior_budget_runner": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/native-prefix-04/result.json",
+      "sha256": "4ae0ec52d903f6784703f9076357f26fabc085d965b6006adb275439934db49e"
+    },
+    "dependency_lock": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/locks/dependency-lock.json",
+      "sha256": "b7dc91c207eadccbe053d7a4aca5cad8e5c241b666134d9fb5f927d0e217074f"
+    },
+    "environment_lock": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/locks/environment.json",
+      "sha256": "552f990c6919b4e5f30c78e55472db87c44c7d26792bafa80dfb9abc7eca9f01"
+    },
+    "gpu_uuid": "GPU-8b500efe-1a50-0e8e-b21e-716807eebedf",
+    "gpu_identity_scope": "historical evidence matched to current lock; no fresh GPU probe",
+    "kv_dtype_string": "auto",
+    "actual_kv_dtype": "torch.bfloat16",
+    "kv_bytes_per_token": 57344,
+    "weight_files_rehashed_now": false,
+    "qualification_scope": "previous native GPU Prefix only; not calibration or SSD"
+  },
+  "author_reuse": {
+    "path": "third_party/upstream/kvcache-experiments/scripts/pareto_measure.py",
+    "commit": "0e023a84a21246b9bbc06266fa8070397eccbdc9",
+    "sha256": "47f13dc13abbf042954f5a30f50aa7129b932f3f88fb02fd2b6871277dd4476c",
+    "nodes_executed": [
+      "Job",
+      "build_job_plan"
+    ],
+    "entire_source_hash_verified_first": true,
+    "calls_excluded": [
+      "main",
+      "select_model_preset",
+      "start_server",
+      "run_benchmark"
+    ]
+  },
+  "candidate_jobs": [
+    {
+      "curve": "cold_prefill",
+      "server_config": "baseline",
+      "doc_size": 64,
+      "concurrency": 1,
+      "n_requests": 3,
+      "prefix_reuse_pct": 0.0,
+      "prefix_size": "0"
+    },
+    {
+      "curve": "cold_prefill",
+      "server_config": "baseline",
+      "doc_size": 128,
+      "concurrency": 1,
+      "n_requests": 3,
+      "prefix_reuse_pct": 0.0,
+      "prefix_size": "0"
+    },
+    {
+      "curve": "cold_prefill",
+      "server_config": "baseline",
+      "doc_size": 192,
+      "concurrency": 1,
+      "n_requests": 3,
+      "prefix_reuse_pct": 0.0,
+      "prefix_size": "0"
+    }
+  ],
+  "planned_measured_requests": 9,
+  "doc_size_semantics": "original driver nominal word-derived argument; actual token counts unverified",
+  "actual_token_fit_verified": false,
+  "untimed_pre_warmup_requests": null,
+  "prior_engine_reference": {
+    "dtype": "bfloat16",
+    "kv_cache_dtype": "auto",
+    "quantization": null,
+    "load_format": "safetensors",
+    "trust_remote_code": false,
+    "skip_tokenizer_init": true,
+    "tensor_parallel_size": 1,
+    "distributed_executor_backend": "uni",
+    "max_model_len": 256,
+    "max_num_seqs": 1,
+    "max_num_batched_tokens": 256,
+    "block_size": 16,
+    "kv_cache_memory_bytes": 67108864,
+    "gpu_memory_utilization": 0.7,
+    "enable_prefix_caching": true,
+    "enable_chunked_prefill": true,
+    "cpu_offload_gb": 0,
+    "offload_group_size": 0,
+    "kv_offloading_size": null,
+    "kv_transfer_config": null,
+    "attention_config": {
+      "backend": "TRITON_ATTN"
+    },
+    "enforce_eager": true,
+    "compilation_config": 0,
+    "generation_config": "vllm",
+    "disable_log_stats": true,
+    "seed": 0
+  },
+  "cold_control_required": {
+    "enable_prefix_caching": false
+  },
+  "calibration_measurements": {
+    "f": null,
+    "g_mem": null,
+    "g_ssd": null
+  },
+  "optional_curve_review": null,
+  "non_ssd_feasibility": {
+    "f": "does not require io_uring; requires a reviewed real GPU driver and authorized budget",
+    "g_mem": "not measured; original emit estimator depends on g_ssd and actual disk bandwidth",
+    "g_ssd": "blocked by io_uring EPERM and unqualified original storage path"
+  },
+  "blocking_adaptations": [
+    "Exact-token adapter/actual token evidence; original prompt uses words and defaults chat templates",
+    "Explicit bounded pre-warmup (original benchmark defaults five 256-word prompts)",
+    "Same-session reviewed launcher; original vllm_server.start_server calls setsid via start_new_session",
+    "Local noninteractive model/config selection and full prior offline/private-cache/JIT launch environment",
+    "Real repetitions and request/TTFT evidence with failures retained; no smoke wall time converted to f",
+    "Native staging/SSD lifecycle and real CQE evidence before g_mem/g_ssd or complete v2 export",
+    "Original emit_break_even emits scalar v1 only; do not relabel it as v2"
+  ],
+  "future_v2_contract": {
+    "native_reader": "third_party/upstream/py-kvcache/py_kvcache/break_even.py",
+    "reader_commit": "3abba7a502d553f6e7e2e58b92086487e3395d7e",
+    "reader_sha256": "2419c9470df0e43558ccc729aa3927ebd4d1381e00276d4caaa57b3cf19c42a6",
+    "required_curves": [
+      "f",
+      "g_ssd",
+      "g_mem"
+    ],
+    "scalar_gate_fields_must_be_explicit": [
+      "break_even_ssd_tokens",
+      "break_even_mem_tokens",
+      "safety_margin_tokens"
+    ],
+    "range_policy": "do not silently extrapolate outside observed calibration domain",
+    "identity_required": [
+      "exact runtime model_name",
+      "kv_dtype=auto",
+      "actual BF16 provenance",
+      "kv_bytes_per_token"
+    ],
+    "algorithm": "reuse original interpolation; no curve algorithm implemented here"
+  }
+}

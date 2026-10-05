@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "status": "PASS_ACTUAL_SERVER_ALL_2088_SOURCE_REFS_SHA256_ONLY",
+  "source_lock": {
+    "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/gpu-source-lock-candidate.json",
+    "bytes": 452304,
+    "sha256": "5e7cc04fe759411800b895169d669f75cade6b2f0adda34d3992ecf2a7dbd760",
+    "files": 2088
+  },
+  "old_baseline_refs_preserved": 2052,
+  "new_refs": 36,
+  "original_G1_lock_unchanged": true,
+  "raw_parts": 8,
+  "actual_GPU_runs": 0,
+  "live_hook_installed": false,
+  "new_human_record_created": false,
+  "new_GPU_scope_created": false,
+  "preflight": {
+    "request": {
+      "cmd": "cd '/root/autodl-tmp/prefix-io-v1-handoff/project' && CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S '/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/run_g2_normal_model_lifecycle.py' --project '/root/autodl-tmp/prefix-io-v1-handoff/project' --preflight --source-lock artifacts/prefix_io_v1/server09-g2-normal-worker-20261001/gpu-source-lock-candidate.json",
+      "timeout": 120
+    },
+    "result": {
+      "stdout": "{\"status\": \"SOURCE_LOCK_VERIFIED_BUT_NO_NEW_G2_HUMAN_SCOPE\", \"source_count\": 2088, \"gpu_initialized\": false, \"actual_gpu_runs\": 0, \"runtime_hook_status\": \"not_installed\", \"production_qualified\": false}\n",
+      "stderr": "",
+      "exit": 0
+    }
+  },
+  "assembly": {
+    "request": {
+      "cmd": "cd '/root/autodl-tmp/prefix-io-v1-handoff/project' && CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S -c 'import pathlib,json,hashlib,os\nroot=pathlib.Path(\"/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-normal-worker-20261001\")\nmdata=(root/'\\''source-lock-upload-parts/manifest.json'\\'').read_bytes()\nassert len(mdata)==2258 and hashlib.sha256(mdata).hexdigest()=='\\''adce22d9100b3c21d15a3842e59f0626a0a8af59761823b4c43871edbe49c5ff'\\''\nm=json.loads(mdata);assert len(m['\\''parts'\\''])==8\nchunks=[];offset=0\nfor r in m['\\''parts'\\'']:\n p=root/'\\''source-lock-upload-parts'\\''/r['\\''path'\\'']\n assert p.is_file() and not p.is_symlink() and p.parent==root/'\\''source-lock-upload-parts'\\''\n b=p.read_bytes()\n assert r['\\''offset'\\'']==offset and len(b)==r['\\''bytes'\\''] and hashlib.sha256(b).hexdigest()==r['\\''sha256'\\'']\n chunks.append(b);offset+=len(b)\ndata=b'\\'''\\''.join(chunks)\nassert len(data)==452304 and hashlib.sha256(data).hexdigest()=='\\''5e7cc04fe759411800b895169d669f75cade6b2f0adda34d3992ecf2a7dbd760'\\''\nobj=json.loads(data);assert obj['\\''status'\\'']=='\\''CPU_ONLY_G2_SOURCE_CANDIDATE'\\'' and len(obj['\\''files'\\''])==2088\nbase=pathlib.Path(\"/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g1-20261001/gpu-source-lock.json\").read_bytes()\nassert len(base)==444671 and hashlib.sha256(base).hexdigest()=='\\''5b438ebc1ec014c22d1d501915600b4cd9bc777ad9f05da1f7ac9b1a18cc1181'\\''\nassert obj['\\''files'\\''][:2052]==json.loads(base)['\\''files'\\'']\nv=os.statvfs(root);assert v.f_bavail*v.f_frsize>8*1024**3+128*1024**2\np=root/'\\''gpu-source-lock-candidate.json'\\'';assert not p.is_symlink()\nif p.exists():assert p.read_bytes()==data\nelse:\n with p.open('\\''xb'\\'') as f:f.write(data)\nassert p.read_bytes()==data\nprint(json.dumps(dict(status='\\''PASS_APPEND_CPU_SOURCE_CANDIDATE_EXACT_RAW_BYTES'\\'',bytes=len(data),sha256=hashlib.sha256(data).hexdigest(),source_count=2088,old_source_rows_preserved=2052,GPU_runs=0,new_human_scope_created=False)))'",
+      "timeout": 60
+    },
+    "result": {
+      "stdout": "{\"status\": \"PASS_APPEND_CPU_SOURCE_CANDIDATE_EXACT_RAW_BYTES\", \"bytes\": 452304, \"sha256\": \"5e7cc04fe759411800b895169d669f75cade6b2f0adda34d3992ecf2a7dbd760\", \"source_count\": 2088, \"old_source_rows_preserved\": 2052, \"GPU_runs\": 0, \"new_human_scope_created\": false}\n",
+      "stderr": "",
+      "exit": 0
+    }
+  }
+}

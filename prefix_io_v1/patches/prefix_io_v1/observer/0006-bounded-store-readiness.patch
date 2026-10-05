@@ -1,0 +1,671 @@
+diff --git a/src/prefix_io_control/store_readiness.py b/src/prefix_io_control/store_readiness.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefix_io_control/store_readiness.py
+@@ -0,0 +1,116 @@
++"""Bounded passive store readiness samples through the existing observer hook.
++
++States describe a post-pump instant, never a proven scheduling denial, a CUDA
++execution interval, or immediately reusable GPU capacity. No CUDA event queries.
++"""
++from collections import deque
++from itertools import islice
++from threading import get_ident
++from time import monotonic_ns
++from weakref import ref
++
++class StoreReadinessProbe:
++    def __init__(self, *, run_id, interval_ns=1_000_000, max_samples=96, mandatory_only=False, clock=monotonic_ns):
++        if type(run_id) is not str or not run_id.strip() or len(run_id) > 128:
++            raise ValueError("bounded nonempty run identity required")
++        for name, value, bound in (("interval_ns", interval_ns, None), ("max_samples", max_samples, 96)):
++            if type(value) is not int or value < 1 or (bound is not None and value > bound):
++                raise ValueError("invalid " + name)
++        if not callable(clock):
++            raise TypeError("clock must be callable")
++        if type(mandatory_only) is not bool:
++            raise ValueError("mandatory_only must be boolean")
++        self.mandatory_only = mandatory_only
++        self.run_id = run_id
++        self.interval_ns = interval_ns
++        self.records = deque(maxlen=max_samples)
++        self.clock = clock
++        self.owner = None
++        self.last_now = None
++        self.next_due = None
++        self.samples = self.overwritten = self.truncated_samples = 0
++        self.faulted = False
++        self.error = None
++        self.counts = dict(queued_stores=0, mandatory_stores=0, device_capacity_full=0,
++                           no_free_staging=0, d2h_pending=0, write_pending=0)
++
++    def __call__(self, reactor):
++        if self.faulted:
++            return
++        try:
++            if reactor._worker.ident != get_ident():
++                raise RuntimeError("readiness sampling requires the reactor owner")
++            if self.owner is None:
++                self.owner = ref(reactor)
++            elif self.owner() is not reactor:
++                raise RuntimeError("probe cannot span reactors")
++            if reactor._prefix_progress.run_id != self.run_id:
++                raise ValueError("readiness run identity mismatch")
++            now = self.clock()
++            if type(now) is not int or now < 0 or (self.last_now is not None and now < self.last_now):
++                raise ValueError("invalid monotonic observation clock")
++            self.last_now = now
++            if self.next_due is not None and now < self.next_due:
++                return
++            self.next_due = now + self.interval_ns
++            jobs = list(islice(reactor._active, 32))
++            if self.mandatory_only and not any(j.is_store and reactor.is_mandatory(j.future) for j in jobs):
++                return
++            copies = list(islice(reactor._pending_copies, 64))
++            io = list(islice(reactor._inflight.values(), 64))
++            truncated = (len(reactor._active) > 32 or len(reactor._pending_copies) > 64
++                         or len(reactor._inflight) > 64)
++            stores = []
++            full = reactor._data_inflight >= reactor.iodepth
++            free = reactor.staging_pool.free_count
++            preceding = 0
++            for job in jobs:
++                if not job.is_store or job.failed is not None or job.future_set:
++                    continue
++                queued = max(0, job.total_files - job.next_file_index)
++                mandatory = reactor.is_mandatory(job.future)
++                copy_count = sum(c.is_store and c.job is job for c in copies)
++                write_count = sum(op.op_kind == "write" and op.job is job for op in io)
++                stores.append(dict(parent_id=job.job_id, queued_files=queued,
++                    next_file_index=job.next_file_index, total_files=job.total_files,
++                    inflight_files=job.inflight_files, done_files=job.done_files,
++                    mandatory=mandatory, preceding_queued_store_parents=preceding,
++                    d2h_pending_observed=copy_count, ssd_write_pending_observed=write_count,
++                    pending_counts_are_lower_bounds=truncated,
++                    compute_event_state="not_queried", immediate_reusable_gpu_bytes=None))
++                preceding += int(queued > 0)
++                self.counts["queued_stores"] += int(queued > 0)
++                self.counts["mandatory_stores"] += int(mandatory)
++                self.counts["device_capacity_full"] += int(queued > 0 and full)
++                self.counts["no_free_staging"] += int(queued > 0 and free == 0)
++                self.counts["d2h_pending"] += copy_count
++                self.counts["write_pending"] += write_count
++            self.samples += 1
++            self.truncated_samples += int(truncated)
++            record = dict(parents_observed=len(jobs),
++                active_parents=len(reactor._active), truncated=truncated,
++                data_inflight=reactor._data_inflight, iodepth=reactor.iodepth,
++                free_staging_slots=free, reclaimable_staging_slots=None, stores=stores)
++            # Coalesce identical observed states; no inference between samples.
++            if self.records and self.records[-1]["state"] == record:
++                self.records[-1]["last_time_ns"] = now
++                self.records[-1]["samples"] += 1
++            else:
++                if len(self.records) == self.records.maxlen:
++                    self.overwritten += 1
++                self.records.append(dict(first_time_ns=now, last_time_ns=now, samples=1, state=record))
++        except Exception as exc:
++            self.faulted = True
++            self.error = (type(exc).__name__ + ": " + str(exc))[:160]
++
++    def export(self):
++        """Read after native shutdown; deliberately no live reader API."""
++        reactor = self.owner() if self.owner else None
++        if reactor is not None and reactor._worker.is_alive():
++            raise RuntimeError("export only after native worker shutdown")
++        return dict(run_id=self.run_id, mandatory_only=self.mandatory_only, samples=self.samples, overwritten=self.overwritten,
++                    truncated_samples=self.truncated_samples, faulted=self.faulted,
++                    error=self.error, counts=dict(self.counts), records=list(self.records),
++                    sampling="post-pump CPU states; counts are repeated observations, not unique jobs",
++                    causal_denial_attribution=False, cuda_event_queries=0,
++                    inferred_gpu_release_bytes=None, native_scheduling_modified=False)
+diff --git a/tests/prefix_io_v1_start_budget/test_store_readiness.py b/tests/prefix_io_v1_start_budget/test_store_readiness.py
+new file mode 100644
+--- /dev/null
++++ b/tests/prefix_io_v1_start_budget/test_store_readiness.py
+@@ -0,0 +1,150 @@
++import threading
++from concurrent.futures import Future
++from types import SimpleNamespace as NS
++import pytest
++from prefix_io_control.store_readiness import StoreReadinessProbe
++from tests.prefix_io_v1_start_budget._fixture import rig,eventually
++
++def native():
++    r=NS(_worker=threading.current_thread(),_prefix_progress=NS(run_id="r"),
++        _active=[],_pending_copies=[],_inflight={},_data_inflight=1,iodepth=1,
++        staging_pool=NS(free_count=0),is_mandatory=lambda f:True)
++    return r
++
++# Weak references need a normal instance (SimpleNamespace is not weak-referenceable).
++class Reactor: pass
++
++def fake():
++    r=Reactor();r.__dict__.update(native().__dict__);return r
++
++def job(jid=7):
++    class NeverQuery:
++        def query(self):raise AssertionError("observer must not query CUDA")
++    return NS(is_store=True,failed=None,future_set=False,job_id=jid,total_files=3,
++        next_file_index=1,inflight_files=1,done_files=0,future=Future(),compute_event=NeverQuery())
++
++def test_bounded_samples_and_no_false_causal_or_release_claims():
++    r=fake();j=job();r._active=[j]
++    r._pending_copies=[NS(is_store=True,job=j,end_event=j.compute_event)]
++    p=StoreReadinessProbe(run_id="r",max_samples=2,interval_ns=1,clock=iter(range(5)).__next__)
++    for _ in range(5):p(r)
++    assert not p.faulted and p.samples==5 and p.overwritten==0
++    row=p.records[-1]["state"]["stores"][0]
++    assert row["queued_files"]==2 and row["mandatory"]
++    assert row["d2h_pending_observed"]==1
++    assert row["compute_event_state"]=="not_queried"
++    assert row["immediate_reusable_gpu_bytes"] is None
++    assert p.counts["device_capacity_full"]==5
++    with pytest.raises(RuntimeError):p.export()
++
++def test_truncation_is_visible_and_not_unbounded_scan():
++    r=fake();r._active=[job(i) for i in range(80)]
++    r._inflight={i:NS(op_kind="write",job=r._active[-1]) for i in range(100)}
++    p=StoreReadinessProbe(run_id="r",clock=lambda:0);p(r)
++    assert not p.faulted and p.truncated_samples==1
++    assert p.records[0]["state"]["parents_observed"]==32
++    assert len(p.records[0]["state"]["stores"])==32
++    assert all(x["pending_counts_are_lower_bounds"] for x in p.records[0]["state"]["stores"])
++
++def test_sampling_interval_and_clock_regression_invalidate():
++    now=[10];r=fake()
++    p=StoreReadinessProbe(run_id="r",interval_ns=10,clock=lambda:now[0])
++    p(r);now[0]=15;p(r);assert p.samples==1
++    now[0]=9;p(r);assert p.faulted
++
++def test_bad_owner_run_and_reuse_disable_only_observation():
++    r=fake();p=StoreReadinessProbe(run_id="wrong");p(r);assert p.faulted
++    p=StoreReadinessProbe(run_id="r",clock=lambda:0);p(r);p(fake());assert p.faulted
++    p=StoreReadinessProbe(run_id="r");r._worker=NS(ident=-1);p(r);assert p.faulted
++
++def test_native_mock_pipeline_reports_pending_then_drains_without_policy(monkeypatch):
++    with rig(monkeypatch,enabled=False,slots=2,depth=1) as x:
++        p=StoreReadinessProbe(run_id="cpu-run",interval_ns=1)
++        x.r._observation_sink=p
++        x.copy_ready.clear()
++        f=x.submit(files=3)
++        x.start()
++        eventually(lambda:p.counts["queued_stores"]>0)
++        assert not f.done() and x.writes==0
++        waiter=x.waiter({7})
++        eventually(lambda:p.counts["mandatory_stores"]>0)
++        x.copy_ready.set();waiter.join(2)
++        assert not waiter.is_alive() and f.result()==3*4096
++        x.stop()
++        report=p.export()
++        assert not report["faulted"] and report["native_scheduling_modified"] is False
++        assert report["inferred_gpu_release_bytes"] is None
++        assert len(x.r.file_store.finished)==3
++
++def test_probe_failure_does_not_fail_native_completion(monkeypatch):
++    with rig(monkeypatch,enabled=False) as x:
++        p=StoreReadinessProbe(run_id="wrong")
++        x.r._observation_sink=p
++        f=x.submit(files=1);x.start()
++        assert f.result(timeout=2)==4096
++        x.stop()
++        assert p.faulted and x.r.file_store.finished
++
++def test_changed_states_remain_bounded_and_keep_observed_time_ranges():
++    r=fake();j=job();r._active=[j]
++    p=StoreReadinessProbe(run_id="r",max_samples=2,interval_ns=1,clock=iter(range(6)).__next__)
++    p(r);p(r)
++    assert p.records[0]["first_time_ns"]==0 and p.records[0]["last_time_ns"]==1
++    assert p.records[0]["samples"]==2
++    j.next_file_index=2;p(r);p(r)
++    j.next_file_index=3;p(r);p(r)
++    assert len(p.records)==2 and p.overwritten==1
++    assert p.records[0]["first_time_ns"]==2 and p.records[1]["last_time_ns"]==5
++
++def test_mandatory_filter_keeps_only_required_store_windows():
++    r=fake();r._active=[job()]
++    r.is_mandatory=lambda f:False
++    p=StoreReadinessProbe(run_id="r",mandatory_only=True,interval_ns=1,clock=iter(range(3)).__next__)
++    p(r);assert p.samples==0
++    r.is_mandatory=lambda f:True
++    p(r);assert p.samples==1 and p.records[0]["first_time_ns"]==1
++
++def test_worker_composition_preserves_sink_and_native_shutdown(monkeypatch):
++    import importlib
++    import store_readiness_worker_probe as module
++    native_state=importlib.import_module("vllm.distributed.kv_transfer.kv_transfer_state")
++    with rig(monkeypatch,enabled=False,depth=1) as x:
++        calls=[];actions=[]
++        old=lambda r:calls.append(1)
++        x.r._observation_sink=old
++        cw=NS(worker=NS(handlers=[x.handler]))
++        monkeypatch.setattr(native_state,"get_kv_transfer_group",lambda:NS(connector_worker=cw))
++        monkeypatch.setattr(module,"original",lambda w,a,limits=None:actions.append(a) or {})
++        worker=NS()
++        module.worker_probe(worker,"install")
++        module.worker_probe(worker,"start")
++        with pytest.raises(RuntimeError):module.worker_probe(worker,"start")
++        x.copy_ready.clear();f=x.submit(files=3);x.start();waiter=x.waiter({7})
++        eventually(lambda:worker._readiness_probes[0][-1].samples>0)
++        x.copy_ready.set();waiter.join(2)
++        assert not waiter.is_alive() and f.result()==12288
++        result=module.worker_probe(worker,"finish")
++        assert calls and actions==["install","start","finish"]
++        assert x.r._observation_sink is old and not x.r._worker.is_alive()
++        assert len(result["store_readiness"])==1
++        assert not result["store_readiness"][0]["faulted"]
++
++def test_experiment_driver_preserved_outside_opt_in_observer_flag():
++    import ast
++    from pathlib import Path
++    root=Path(__file__).resolve().parents[2]
++    prior=root/"artifacts/prefix_io_v1/server07-p3-11/before-model-observer/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py"
++    current=root/"experiments/prefix_io_v1/scripts/run_concurrent_pilot.py"
++    class RemoveProbe(ast.NodeTransformer):
++        def visit_Expr(self,node):
++            if isinstance(node.value,ast.Call) and any(isinstance(a,ast.Constant) and a.value=="--store-readiness-probe" for a in node.value.args):
++                return None
++            return self.generic_visit(node)
++        def visit_If(self,node):
++            if isinstance(node.test,ast.Attribute) and node.test.attr=="store_readiness_probe":
++                return None
++            return self.generic_visit(node)
++        def visit_Call(self,node):
++            node.keywords=[k for k in node.keywords if k.arg!="store_readiness_probe"]
++            return self.generic_visit(node)
++    assert ast.dump(RemoveProbe().visit(ast.parse(current.read_text())))==ast.dump(ast.parse(prior.read_text()))
+diff --git a/tests/prefix_io_v1_start_budget/test_readiness_analysis.py b/tests/prefix_io_v1_start_budget/test_readiness_analysis.py
+new file mode 100644
+--- /dev/null
++++ b/tests/prefix_io_v1_start_budget/test_readiness_analysis.py
+@@ -0,0 +1,43 @@
++from copy import deepcopy
++import pytest
++from analyze_store_readiness import diagnose
++
++def inputs():
++    parent=dict(parent_id=3,mandatory=True,queued_files=1,next_file_index=0,inflight_files=0,pending_counts_are_lower_bounds=False)
++    bg=dict(parent_id=2,mandatory=False,queued_files=10,total_files=100,d2h_pending_observed=1,ssd_write_pending_observed=7)
++    state=dict(stores=[bg,parent],truncated=False,data_inflight=8,iodepth=8,free_staging_slots=0)
++    case=dict(wait=dict(start=1.0,seconds=1.0))
++    chain=dict(qualified=True,parents=[dict(job_id=3,copy_host_enqueue_from_wait_seconds=.8)])
++    ob=dict(run_id="r",faulted=False,mandatory_only=True,truncated_samples=0,overwritten=5,
++        records=[dict(first_time_ns=1100000000,last_time_ns=1500000000,samples=3,state=state)])
++    return case,chain,ob
++
++def test_joins_only_observed_queued_parent_without_invented_gain():
++    a,b,c=inputs();r=diagnose(a,b,c,run_id="r");p=r["parents"][0]
++    assert p["retained_sample_count"]==3 and p["preceding_background_parent_ids"]==[2]
++    assert p["all_selected_iodepth_full"] and p["all_selected_no_free_staging"]
++    assert p["minimum_background_stage_ops"]==8 and r["estimated_speedup"] is None
++    assert r["overwritten_state_groups"]==5 and not r["complete_wait_coverage"]
++    assert not r["reclaimable_staging_known"] and r["immediately_reusable_gpu_bytes"] is None
++
++@pytest.mark.parametrize("change",["outside","unmatched","already_issued","nonmandatory"])
++def test_missing_eligible_states_are_unknown_not_zero_wait(change):
++    a,b,c=inputs();p=c["records"][0]["state"]["stores"][-1]
++    if change=="outside":c["records"][0]["last_time_ns"]=1900000000
++    elif change=="unmatched":p["parent_id"]=99
++    elif change=="already_issued":p["next_file_index"]=1
++    else:p["mandatory"]=False
++    x=diagnose(a,b,c,run_id="r")["parents"][0]
++    assert x["retained_sample_count"]==0 and x["all_selected_iodepth_full"] is None
++
++@pytest.mark.parametrize("bad",["run","fault","truncated","duplicate","order","unqualified","count"])
++def test_rejects_inconsistent_or_partial_evidence(bad):
++    a,b,c=inputs()
++    if bad=="run":c["run_id"]="x"
++    elif bad=="fault":c["faulted"]=True
++    elif bad=="truncated":c["truncated_samples"]=1
++    elif bad=="duplicate":c["records"][0]["state"]["stores"].append(deepcopy(c["records"][0]["state"]["stores"][-1]))
++    elif bad=="order":c["records"]*=2
++    elif bad=="unqualified":b["qualified"]=False
++    elif bad=="count":c["records"][0]["samples"]=True
++    with pytest.raises(ValueError):diagnose(a,b,c,run_id="r")
+diff --git a/experiments/prefix_io_v1/scripts/store_readiness_worker_probe.py b/experiments/prefix_io_v1/scripts/store_readiness_worker_probe.py
+new file mode 100644
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/store_readiness_worker_probe.py
+@@ -0,0 +1,53 @@
++"""Experiment-only composition of existing flush and readiness observers."""
++from flush_cause_worker_probe import worker_probe as original
++from prefix_io_control.store_readiness import StoreReadinessProbe
++
++def worker_probe(worker, action, limits=None):
++    from vllm.distributed.kv_transfer.kv_transfer_state import get_kv_transfer_group
++    cw = get_kv_transfer_group().connector_worker
++    if action == "install":
++        result = original(worker, action, limits)
++        worker._readiness_probes = []
++        return result
++    if action == "start":
++        if worker._readiness_probes:
++            raise RuntimeError("readiness cohort cannot start twice")
++        # Warmup has already been drained by the existing driver.
++        for h in cw.worker.handlers:
++            r = h.coordinator.reactor
++            if r._active or r._pending_copies or r._inflight or getattr(r, "_prefix_start_budget", None):
++                raise RuntimeError("readiness diagnostic requires a drained native baseline")
++            if not r.progress_bridge_enabled:
++                raise RuntimeError("mandatory progress identity is required")
++        result = original(worker, action, limits)
++        for h in cw.worker.handlers:
++            r = h.coordinator.reactor
++            probe = StoreReadinessProbe(run_id=r._prefix_progress.run_id,
++                interval_ns=1_000_000, mandatory_only=True)
++            old = r._observation_sink
++            def combined(reactor, old=old, probe=probe):
++                if old is not None:
++                    old(reactor)
++                probe(reactor)
++            r._observation_sink = combined
++            worker._readiness_probes.append((h, r, old, combined, probe))
++        result["store_readiness_installed"] = True
++        return result
++    if action == "finish":
++        # Unwrap ours first so the existing driver's own restore chain stays valid.
++        entries = worker._readiness_probes
++        for h, r, old, combined, probe in entries:
++            if r._observation_sink is combined:
++                r._observation_sink = old
++        result = original(worker, action, limits)
++        result["store_readiness"] = []
++        for h, r, old, combined, probe in entries:
++            h.shutdown()
++            if r._worker.is_alive() or r._active or r._inflight or r._pending_copies:
++                raise RuntimeError("native readiness diagnostic did not drain")
++            observation = probe.export()
++            if observation["faulted"]:
++                raise RuntimeError("readiness observer failed: " + str(observation["error"]))
++            result["store_readiness"].append(observation)
++        return result
++    return original(worker, action, limits)
+diff --git a/experiments/prefix_io_v1/scripts/qualify_store_readiness_gpu.py b/experiments/prefix_io_v1/scripts/qualify_store_readiness_gpu.py
+new file mode 100644
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/qualify_store_readiness_gpu.py
+@@ -0,0 +1,137 @@
++"""Bounded real CUDA/AIO validation of passive readiness; no policy efficacy."""
++import argparse
++import hashlib
++import json
++import os
++import sys
++import time
++import traceback
++from pathlib import Path
++from experiment_storage import ROOT, preflight
++from prefix_io_control.store_readiness import StoreReadinessProbe
++from prefix_io_control.stage_accounting import StageAccounting
++
++def require(ok, message):
++    if not ok:
++        raise RuntimeError(message)
++
++def qualify(out):
++    import torch
++    import py_kvcache.reactor as native
++    from py_kvcache.reactor import TransferCoordinator
++    from py_kvcache.vllm import NoopSharedStorageOffloadingHandler, SharedStorageLoadStoreSpec
++    from py_kvcache.fs_config import SharedFileConfig
++    from py_kvcache.file_mapper import FileMapper
++    from py_kvcache.transfer import ParsedKvLayout
++    from vllm.v1.kv_offload.base import (
++        CanonicalKVCaches, CanonicalKVCacheTensor, CanonicalKVCacheRef, GPULoadStoreSpec)
++    require(Path(native.__file__).resolve().is_relative_to(
++        ROOT/"third_party/work/py-kvcache-p3-quota-cpu"), "wrong frozen worktree")
++    require(torch.cuda.device_count()==1, "one approved GPU required")
++    torch.manual_seed(311)
++    tensors=[torch.randint(-128,128,(128,32768),device="cuda",dtype=torch.int8) for _ in range(4)]
++    original=[t[:64].cpu().clone() for t in tensors]
++    canonical=CanonicalKVCaches(
++        [CanonicalKVCacheTensor(t,page_size_bytes=32768) for t in tensors],
++        [[CanonicalKVCacheRef(tensor_idx=i,page_size_bytes=32768) for i in range(4)]])
++    layout=ParsedKvLayout.from_canonical_kv_caches(
++        gpu_block_size=16,storage_block_size=16,kv_caches=canonical)
++    payload=64*layout.storage_block_bytes
++    results=[]
++    for mode in ("off","readiness"):
++        directory=out/mode/"files"
++        directory.mkdir(parents=True,exist_ok=False)
++        hashes=[hashlib.sha256((mode+str(i)).encode()).digest() for i in range(64)]
++        disk=SharedStorageLoadStoreSpec(hashes)
++        mapper=FileMapper(root_dir=str(directory),model_name="p311-synthetic",
++            gpu_block_size=16,gpu_blocks_per_file=1,tp_size=1,pp_size=1,pcp_size=1,
++            rank=0,dtype="bfloat16")
++        for t,s in zip(tensors,original):
++            t[:64].copy_(s)
++        torch.cuda.synchronize()
++        for phase in ("store","restore"):
++            if phase=="restore":
++                for t in tensors:t.zero_()
++                torch.cuda.synchronize()
++            run_id=mode+"-"+phase
++            probe=StoreReadinessProbe(run_id=run_id,interval_ns=100_000) if mode=="readiness" else None
++            accounting=StageAccounting() if probe else None
++            kwargs=dict(progress_run_id=run_id,observation_sink=probe,
++                        stage_accounting=accounting) if probe else {}
++            c=TransferCoordinator(config=SharedFileConfig(root_dir=str(directory),iodepth=1,
++                staging_mem=16/1024,enable_preload=True,preload_share_staging=True,
++                io_backend="linux_aio"),file_mapper=mapper,layout=layout,
++                storage_block_tokens=16,**kwargs)
++            h=NoopSharedStorageOffloadingHandler(coordinator=c)
++            try:
++                require(c.reactor.staging_buffer.is_pinned(),"staging is not pinned")
++                gpu=GPULoadStoreSpec(list(range(64)),[64],[0])
++                pair=(gpu,disk) if phase=="store" else (disk,gpu)
++                require(h.transfer_async(1,pair,req_id=run_id),"native transfer rejected")
++                f=h._active[1][0]
++                h.wait({1})
++                require(f.result(timeout=1)==payload,"native parent size mismatch")
++                if phase=="restore":
++                    torch.cuda.synchronize()
++                    require(all(torch.equal(t[:64].cpu(),s) for t,s in zip(tensors,original)),
++                            "exact same-source GPU bytes changed")
++                else:
++                    require(all(Path(mapper.get_file_name(b)).stat().st_size==layout.storage_block_bytes
++                                for b in hashes),"native cache publication incomplete")
++            finally:
++                h.shutdown()
++            r=c.reactor
++            require(not r._worker.is_alive() and not r._active and not r._inflight
++                    and not r._pending_copies,"native state did not drain")
++            aio=r.ring.snapshot()
++            require(aio["closed"] and aio["drained"] and aio["outstanding"]==0,"AIO not drained")
++            require(r.actual_staging_bytes<=r.staging_budget_bytes,"staging budget exceeded")
++            observation=probe.export() if probe else None
++            stages=accounting.snapshot() if accounting else None
++            if probe:
++                require(not observation["faulted"] and observation["samples"]>0,"observer failed")
++                require(stages["valid"] and stages["outstanding_records"]==0,"accounting incomplete")
++                for s in stages["stages"].values():
++                    require(s["failed_ops"]==0 and s["accepted_bytes"]==s["transferred_bytes"],
++                            "physical stage byte imbalance")
++                expected=("d2h","ssd_write") if phase=="store" else ("ssd_read","h2d")
++                require(all(stages["stages"][s]["accepted_bytes"]==payload for s in expected),
++                        "real physical path not exercised")
++                if phase=="store":
++                    require(observation["counts"]["queued_stores"]>0
++                        and observation["counts"]["mandatory_stores"]>0,
++                        "queued mandatory native store not observed")
++            results.append(dict(mode=mode,phase=phase,payload_bytes=payload,
++                observation=observation,accounting=stages,aio=aio,
++                actual_staging_bytes=r.actual_staging_bytes,staging_budget_bytes=r.staging_budget_bytes))
++    return dict(status="PASS_REAL_GPU_PASSIVE_READINESS",cases=results,
++                real_cuda=True,real_linux_aio=True,exact_restore_both_arms=True,
++                gpu_model_workload=False,performance_comparison=False,
++                dispatch_budget_installed=False,full_stage_caps_qualified=False)
++
++def main():
++    p=argparse.ArgumentParser()
++    p.add_argument("--output",required=True)
++    a=p.parse_args()
++    out=Path(a.output)
++    require(not out.exists(),"append-only evidence output required")
++    before=preflight(out,128*1024**2)
++    out.mkdir(parents=True,exist_ok=False)
++    (out/"preflight.json").write_text(json.dumps(before,indent=2))
++    started=time.monotonic()
++    try:
++        result=qualify(out)
++        code=0
++    except BaseException as exc:
++        result=dict(status="FAIL",error=repr(exc),traceback=traceback.format_exc())
++        code=1
++    result["elapsed_seconds"]=time.monotonic()-started
++    try:result["storage_after"]=preflight(out,0)
++    except Exception as exc:
++        result.update(status="FAIL",storage_error=str(exc));code=1
++    (out/"result.json").write_text(json.dumps(result,indent=2))
++    print(json.dumps(dict(status=result["status"],output=str(out),exit=code)))
++    return code
++
++if __name__=="__main__":
++    raise SystemExit(main())
+diff --git a/experiments/prefix_io_v1/scripts/analyze_store_readiness.py b/experiments/prefix_io_v1/scripts/analyze_store_readiness.py
+new file mode 100644
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/analyze_store_readiness.py
+@@ -0,0 +1,103 @@
++"""Join bounded post-pump states to already qualified native destination fences."""
++import argparse
++import json
++from pathlib import Path
++from analyze_flush_diagnostic import analyze
++from analyze_blocked_store_chains import fence
++from analyze_mixed_start_budget import validate_reference
++
++def require(ok,message):
++    if not ok: raise ValueError(message)
++
++def diagnose(case, chain, observation, *, run_id):
++    require(chain["qualified"],"native fence chain is not qualified")
++    require(observation["run_id"]==run_id and not observation["faulted"],"wrong or invalid observer")
++    require(observation["mandatory_only"] is True,"unfrozen observation scope")
++    require(observation["truncated_samples"]==0,"bounded parent view is incomplete")
++    records=observation["records"]
++    require(len(records)<=96,"record bound exceeded")
++    wait=case["wait"]
++    start=wait["start"]*1e9
++    end=(wait["start"]+wait["seconds"])*1e9
++    rows=[]
++    last=-1
++    for record in records:
++        first=record["first_time_ns"];final=record["last_time_ns"]
++        require(type(first) is int and type(final) is int and last<first<=final,"unordered sampled states")
++        require(type(record["samples"]) is int and record["samples"]>0,"invalid sample count")
++        last=final
++    for parent in chain["parents"]:
++        jid=parent["job_id"]
++        cutoff=start+parent["copy_host_enqueue_from_wait_seconds"]*1e9
++        selected=[]
++        for record in records:
++            if not start<=record["first_time_ns"]<=record["last_time_ns"]<min(end,cutoff):continue
++            s=record["state"]
++            require(not s["truncated"],"truncated retained state")
++            matching=[p for p in s["stores"] if p["parent_id"]==jid]
++            require(len(matching)<=1,"duplicate parent identity in snapshot")
++            if not matching:continue
++            p=matching[0]
++            if not (p["mandatory"] and p["queued_files"]>0 and p["next_file_index"]==0
++                    and p["inflight_files"]==0):continue
++            require(not p["pending_counts_are_lower_bounds"],"partial parent stages")
++            pos=s["stores"].index(p)
++            preceding=[q for q in s["stores"][:pos]
++                if not q["mandatory"] and q["queued_files"]>0 and q["total_files"]>1]
++            selected.append(dict(first_ns=record["first_time_ns"],last_ns=record["last_time_ns"],
++                samples=record["samples"],iodepth_full=s["data_inflight"]>=s["iodepth"],
++                no_free_staging=s["free_staging_slots"]==0,
++                preceding_large_background_parents=[q["parent_id"] for q in preceding],
++                background_stage_ops=sum(q["d2h_pending_observed"]+q["ssd_write_pending_observed"] for q in preceding)))
++        rows.append(dict(parent_id=jid,retained_state_groups=len(selected),
++            retained_sample_count=sum(s["samples"] for s in selected),
++            first_retained_sample_after_wait_seconds=(selected[0]["first_ns"]-start)/1e9 if selected else None,
++            last_retained_sample_after_wait_seconds=(selected[-1]["last_ns"]-start)/1e9 if selected else None,
++            all_selected_iodepth_full=all(s["iodepth_full"] for s in selected) if selected else None,
++            all_selected_no_free_staging=all(s["no_free_staging"] for s in selected) if selected else None,
++            all_selected_preceded_by_large_background=all(s["preceding_large_background_parents"] for s in selected) if selected else None,
++            preceding_background_parent_ids=sorted({jid for s in selected for jid in s["preceding_large_background_parents"]}),
++            minimum_background_stage_ops=min((s["background_stage_ops"] for s in selected),default=None),
++            observations=selected))
++    return dict(parents=rows,overwritten_state_groups=observation["overwritten"],
++        complete_wait_coverage=False,exact_decision_denial_known=False,
++        compute_event_readiness_known=False,reclaimable_staging_known=False,
++        estimated_speedup=None,immediately_reusable_gpu_bytes=None,
++        interpretation="Retained sampled states only. Background ordering and full device capacity coexist; no counterfactual timing or proof that staging cannot be reclaimed.")
++
++def main():
++    ap=argparse.ArgumentParser()
++    ap.add_argument("--plan",type=Path,required=True)
++    ap.add_argument("--out",type=Path,required=True)
++    a=ap.parse_args()
++    plan=json.loads(a.plan.read_text())
++    require(len(plan["runs"])==1,"one frozen diagnostic launch required")
++    result=analyze(a.plan)
++    require(result["status"]=="PASSED_BOUNDED_FLUSH_DIAGNOSTIC","reference/flush validation failed")
++    entry=plan["runs"][0]
++    folder=Path(entry["command"][entry["command"].index("--output")+1])
++    native=json.loads((folder/"result.json").read_text())
++    reference=json.loads((Path(plan["native_reference"])/"result.json").read_text())
++    refs={(r["family"],r["kind"]):r["output_tokens"] for r in reference["rows"]}
++    require(validate_reference(native,refs)==10,"reference incomplete")
++    require(native["engine_shutdown"]=="completed" and native["store_readiness_probe"] is True,"wrong or undrained diagnostic")
++    trace=json.loads((folder/"native-cohort.trace.json").read_text())
++    ob=native["final_probe"]["store_readiness"]
++    require(len(ob)==1,"single reactor required")
++    probe=native["probe"]["flush_diagnostic"]
++    require(not any(probe[k] for k in ("dropped_records","dropped_jobs","dropped_causes","errors","faulted")),"flush witness incomplete")
++    row=result["runs"][0]
++    row["store_fence_chains"]=[]
++    row["readiness_diagnoses"]=[]
++    for case in row["causal_waits"]:
++        f=fence(case,trace,probe["records"])
++        row["store_fence_chains"].append(f)
++        row["readiness_diagnoses"].append(diagnose(case,f,ob[0],run_id=entry["label"]))
++    result["interpretation"]="One frozen mixed native replay with passive flush/readiness observers. No performance comparison or research policy."
++    result["status"]="PASS_MIXED_READINESS_DIAGNOSTIC"
++    result["readiness_summary"]={k:v for k,v in ob[0].items() if k!="records"}
++    with a.out.open("x") as f:json.dump(result,f,indent=2)
++    print(json.dumps({k:v for k,v in result.items() if k!="runs"},indent=2))
++    for d in row["readiness_diagnoses"]:
++        print(json.dumps([{k:v for k,v in p.items() if k!="observations"} for p in d["parents"]],indent=2))
++if __name__=="__main__":main()
+diff --git a/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py b/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py
+--- a/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py
++++ b/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py
+@@ -16,11 +16,17 @@
+         ap.add_argument("--"+name,type=Path,required=True)
+     ap.add_argument("--qualification",type=Path,required=True)
+     ap.add_argument("--flush-cause-probe",action="store_true")
++    ap.add_argument("--store-readiness-probe",action="store_true")
+     ap.add_argument("--start-budget-config",type=Path)
+     a=ap.parse_args();out=a.output.resolve();source=a.storage_source.resolve()
+     if a.flush_cause_probe:
+         from flush_cause_worker_probe import worker_probe as diagnostic_probe
+         worker_probe=diagnostic_probe
++    if a.store_readiness_probe:
++        base.require(a.flush_cause_probe and a.start_budget_config is None,
++                     "readiness requires passive flush diagnostics without a start policy")
++        from store_readiness_worker_probe import worker_probe as readiness_probe
++        worker_probe=readiness_probe
+     authorized_path(out);authorized_path(source)
+     start_options = None
+     if a.start_budget_config is not None:
+@@ -48,7 +54,7 @@
+     report=dict(status="FAILED",scope=manifest["scope"],
+         formal_performance_claim=False,independent_content_validation=False,cache_resets=0,
+         ordinary_quota_installed=False,policy_mode="shadow",cuda_timeline_requested=False,
+-        flush_cause_probe=a.flush_cause_probe,
++        flush_cause_probe=a.flush_cause_probe,store_readiness_probe=a.store_readiness_probe,
+         rows=[],manifest_sha256=hashlib.sha256(a.manifest.read_bytes()).hexdigest(),
+         curves_sha256=hashlib.sha256(a.curves.read_bytes()).hexdigest(),
+         initial_cache="published SSD corpus via hardlinks; new engine GPU/staging cold; private suffix writes",
+@@ -81,7 +87,7 @@
+         sampling=dict(base.SAMPLING,max_tokens=128,min_tokens=128)
+         base.write_new_json(out/"frozen-config.json",dict(model=identity,engine=config,sampling=sampling,
+             manifest=manifest,gpu_uuid=os.environ["CUDA_VISIBLE_DEVICES"],pythonhashseed="0",
+-            flush_cause_probe=a.flush_cause_probe))
++            flush_cause_probe=a.flush_cause_probe,store_readiness_probe=a.store_readiness_probe))
+         os.chdir(out)
+         from vllm import LLM,SamplingParams
+         llm=LLM(model=base.MODEL_ID,**config);engine=llm.llm_engine

@@ -1,0 +1,12 @@
+--- a/strong_trace_runner_v7.py
++++ b/strong_trace_runner_v7.py
+@@ -692,7 +692,8 @@
+                     source_manifest["output_tokens"] == actual["max_tokens"] and
+                     {key: value for key, value in original.items() if key != "prompt_token_ids"} == actual["original_request_spec"],
+                     "original P3 full spec/IDs/arrival/outputs unchanged")
+-    require(config_engine["max_num_seqs"] >= concurrency, "common engine supports frozen concurrency")
++    integer(config_engine["max_num_seqs"], "original engine running sequence bound", 1, 8)
++    integer(concurrency, "frontend accepted/waiting request bound", 1, 8)
+     require(workload["model_manifest_sha256"] == refs[MODEL_PLAN]["sha256"], "actual model tokenizer manifest")
+     curve = config_engine["kv_transfer_config"]["kv_connector_extra_config"]["prefix_cache_break_even_path"]
+     curve_relative = Path(curve).relative_to(Path(root).resolve()).as_posix()

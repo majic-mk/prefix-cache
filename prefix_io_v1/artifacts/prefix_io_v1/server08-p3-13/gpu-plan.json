@@ -1,0 +1,20 @@
+{
+  "label": "server08-p3-13-order-migration-01",
+  "output": "experiments/prefix_io_v1/runs/server08-p3-13-order-migration-01/details",
+  "maximum_seconds": 90,
+  "reservation_bytes": 134217728,
+  "scope": "Migration CUDA/Linux-AIO byte correctness only; abnormal utilization prevents performance interpretation",
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "--label",
+    "server08-p3-13-order-migration-01",
+    "--seconds",
+    "90",
+    "--",
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/qualify_store_order_gpu.py",
+    "--output",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-13-order-migration-01/details"
+  ]
+}

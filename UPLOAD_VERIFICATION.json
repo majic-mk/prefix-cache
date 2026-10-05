@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "source_files_verified": 27981,
+  "unique_Git_blobs_verified": 8124,
+  "staged_file_count": 27988,
+  "source_bytes": 528698580,
+  "normalization_changed_source_bytes": false,
+  "credential_scan": "PASS",
+  "additional_GPU_runs": 0
+}

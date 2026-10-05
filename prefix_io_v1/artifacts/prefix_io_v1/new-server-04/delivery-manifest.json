@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-26T16:23:30.430632+00:00",
+  "delivery_type": "incremental CPU-only continuation",
+  "base_archive": "prefix-io-v1-new-server-03-20260926.zip",
+  "base_archive_sha256": "55a7ef22048073c4ffc386eb62eb5a855b5c95b3dc8388b5096bb4c877714698",
+  "phase": "P1_BLOCKED",
+  "gpu_execution": false,
+  "files": [
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/io_uring_setup_probe.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/io_uring_setup_probe.py",
+      "bytes": 5637,
+      "sha256": "97d75b973783d83c4c36a2701f3e6261b40bed775c9c52a25094ea33ecd27dc9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/before-execution_state.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/before-execution_state.json",
+      "bytes": 9673,
+      "sha256": "43f04fa4a3381f5654d38fc3a262b50f8d694f8ebe7eef513e6ef62d1046775e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/before-gpu-budget-ledger.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/before-gpu-budget-ledger.json",
+      "bytes": 21979,
+      "sha256": "9e8fe2682aca1e528f068c1feb114b75d91e3fca91e4fede981cd6eedd00d8a8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/before-permissions.yaml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/before-permissions.yaml",
+      "bytes": 672,
+      "sha256": "77cbc07bcc9026be94fe91116dc48c3d2d44e130ef72e67aac6939a45c1848a0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/before-state-hashes.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/before-state-hashes.json",
+      "bytes": 482,
+      "sha256": "71e604437f5e1e6cebd2bf4238c8fbfa949ae21061a991b9bc109b75c85b08db"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-format-audit.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-format-audit.md",
+      "bytes": 3767,
+      "sha256": "92a3d23b45dc795fca59541f0f47bb7f3702bea40af44357a821f2996d32749f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/README.md",
+      "bytes": 8415,
+      "sha256": "d35b445041ebb35ccd476e995726eaf33ea483c5c6ffa0cb12f546241ca78129"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/candidate-plan.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/candidate-plan.json",
+      "bytes": 7074,
+      "sha256": "ffb164411e2980db5f8cb393c691ed639a35ba3646e99b99645487852ea839ab"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/cli-help.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/cli-help.log",
+      "bytes": 606,
+      "sha256": "9afa2d0d34e5cd7f461c61c6025b5bdcea616505e38deff585ecfcbb6100de2b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/commands.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/commands.json",
+      "bytes": 1181,
+      "sha256": "328a4f5a046fde94de92baaaf673000953e345a63d77c428bc1ec6a33502d8b0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/cpu-tests.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/cpu-tests.log",
+      "bytes": 99,
+      "sha256": "18071e3ef88d66716cb7d5427c42019ff98a08917e4b9b38dad5f08f2d93d43d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/cpu-tests.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/cpu-tests.xml",
+      "bytes": 5284,
+      "sha256": "eb279e0a191f9f346acdff76be6ecc0716a9242a9697e5be48ecf8ebe1a93537"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/verification.json",
+      "bytes": 661,
+      "sha256": "4b663936f3d3edc165795a2266eb5ff68c1f62c8d23a3a88ae18246c58c1c3b5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/verification.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/verification.log",
+      "bytes": 661,
+      "sha256": "4b663936f3d3edc165795a2266eb5ff68c1f62c8d23a3a88ae18246c58c1c3b5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-preparation/verify_cpu.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-preparation/verify_cpu.py",
+      "bytes": 2958,
+      "sha256": "b9e5a5167064143c65f6ca0f429ce5fa21982ff0c61fe33c7143090a031c43b5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/calibration-source-provenance.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/calibration-source-provenance.json",
+      "bytes": 2149,
+      "sha256": "a005986ce12a1e85005e7d69fa6f4796f03ba2c0cddf95998e4f3ca2dac59ab6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/canonical-before/CAPABILITY_MATRIX.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/canonical-before/CAPABILITY_MATRIX.md",
+      "bytes": 4912,
+      "sha256": "00476281d78b80c40b53918c426f24074b5c3d08e55e19b4fafb335bff6b1132"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/canonical-before/GPU_STAGE_REPORT.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/canonical-before/GPU_STAGE_REPORT.md",
+      "bytes": 2284,
+      "sha256": "39b59b7f5b3db0139c872d17d43a25fd8f92833bc2428a6d674ec0a58c2c2141"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/canonical-before/PATCH_MAP.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/canonical-before/PATCH_MAP.md",
+      "bytes": 5761,
+      "sha256": "9b17ca77a846f04bdfd179e0ec1cd51e1ab72e1152eccc18c8c871668595b7e3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/canonical-before/manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/canonical-before/manifest.json",
+      "bytes": 482,
+      "sha256": "53c6defa53d75698d758bcf3f4abb75d29a00b5d9ae3f47e681c025d08ebb5e6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/capability-report.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/capability-report.json",
+      "bytes": 851,
+      "sha256": "edefc9685c51cbd6df4380b95f9a02b0a4b0af73a6adb7ea36636ae42f5b8289"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/cpu-results-summary.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/cpu-results-summary.json",
+      "bytes": 347,
+      "sha256": "87c47815d5f14e00a4f910996722108c848f39accc727d856888bfd37e0049c7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/final-consistency.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/final-consistency.json",
+      "bytes": 1197,
+      "sha256": "56873b17cb35518200886beab07fc3a2c449afa479e53d56c5a27a2ce294d16b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/independent-review.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/independent-review.md",
+      "bytes": 1239,
+      "sha256": "a3f49e0296e856620b0b436695ba7c66daf6cf521c16b242b71e1e93beedd4fb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/io-uring-recheck.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/io-uring-recheck.json",
+      "bytes": 1556,
+      "sha256": "55d7f9c44885627cb3eb1905a196041af804fc5b9533e88a02d261b11e9fcd3f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/pack_delta.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/pack_delta.py",
+      "bytes": 3561,
+      "sha256": "35c23debdf81c94100aa7e7e05708a1cfc816fbf1bdc4c863032b5b3640571ed"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/preflight-command.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/preflight-command.json",
+      "bytes": 730,
+      "sha256": "c32e69c81c202a38740b4aded56516d73bf7052b6c345ec1dcfaf06992fcb709"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/preflight.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/preflight.json",
+      "bytes": 222,
+      "sha256": "401d54c936d41df5e390a9ca1d18f82db741c86ac9a35ee6555b6f7ec4b73fdd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/source-preservation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/source-preservation.json",
+      "bytes": 857,
+      "sha256": "15d1492e52bc9c5af778e587d94f01d7b4fbb27c7b30fbc9f2f40c246a8aa9da"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/workspace-branch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/workspace-branch.json",
+      "bytes": 204,
+      "sha256": "f4ee0d697d2c4f7776ca3d0e4ffe9940c2c1b30df5bedc2c0a8ed59a0bdaa132"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/workspace-head.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/workspace-head.json",
+      "bytes": 219,
+      "sha256": "0c5db39ce1258ccbd9ec8f7a032083e2e28c6f4b02dfb636daac18bb49662309"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-04/workspace-status.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-04/workspace-status.json",
+      "bytes": 524,
+      "sha256": "31491563533c53e1869d0afb96b0939c6098d9ea3577c4bd2deb2ad043d91c9a"
+    },
+    {
+      "path": "docs/prefix_io_v1/CAPABILITY_MATRIX.md",
+      "archive_path": "project/docs/prefix_io_v1/CAPABILITY_MATRIX.md",
+      "bytes": 5394,
+      "sha256": "0edcabc07aa6ceca47da9f8aa6be9bf50718f8bcf9435d52b91795b6c22a6e7c"
+    },
+    {
+      "path": "docs/prefix_io_v1/GPU_STAGE_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/GPU_STAGE_REPORT.md",
+      "bytes": 2691,
+      "sha256": "3aaf3d987bbce4425288a30f13924ee186ad3a7f02347856b7192baa08216291"
+    },
+    {
+      "path": "docs/prefix_io_v1/NEW_SERVER_04_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/NEW_SERVER_04_REPORT.md",
+      "bytes": 5442,
+      "sha256": "632cb5e4bb6d79b09490d21fccee416d6c8e38395fcfcffad6ae7ab4bb99bc3f"
+    },
+    {
+      "path": "docs/prefix_io_v1/PATCH_MAP.md",
+      "archive_path": "project/docs/prefix_io_v1/PATCH_MAP.md",
+      "bytes": 6423,
+      "sha256": "cbf987545d782706177f1d4561995555b1e395ab91c893feca12e739bbec80ff"
+    },
+    {
+      "path": "docs/prefix_io_v1/PLATFORM_IO_URING_REQUEST.md",
+      "archive_path": "project/docs/prefix_io_v1/PLATFORM_IO_URING_REQUEST.md",
+      "bytes": 3125,
+      "sha256": "fedfab823a5ab48296e8185d545965f02a03afb3247c9d5687f84e32259bf3cc"
+    },
+    {
+      "path": "docs/prefix_io_v1/REPRODUCE_NEW_SERVER_04.md",
+      "archive_path": "project/docs/prefix_io_v1/REPRODUCE_NEW_SERVER_04.md",
+      "bytes": 3111,
+      "sha256": "669f7f03ae56dda70b2f53ddd02b9e25ea9a6ad8c72582869425a26252e71ec8"
+    },
+    {
+      "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+      "archive_path": "project/experiments/prefix_io_v1/configs/permissions.yaml",
+      "bytes": 672,
+      "sha256": "77cbc07bcc9026be94fe91116dc48c3d2d44e130ef72e67aac6939a45c1848a0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/execution_state.json",
+      "archive_path": "project/experiments/prefix_io_v1/execution_state.json",
+      "bytes": 10961,
+      "sha256": "da7afb03fc9a915d00e0f238770dec44c8b081d893f9d308c3ddcf1539529a1d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_native_calibration_plan.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/prepare_native_calibration_plan.py",
+      "bytes": 16365,
+      "sha256": "bbea9525726a3e88a6cd2e5e7489cefe77b391606213999ad70737a36a1567f0"
+    },
+    {
+      "path": "tests/prefix_io_v1_calibration/test_prepare_plan.py",
+      "archive_path": "project/tests/prefix_io_v1_calibration/test_prepare_plan.py",
+      "bytes": 10159,
+      "sha256": "5be05c0da892d9b30fdcd0e9c8c091ee6588379d49e9fbdbe7c50fe14125793e"
+    }
+  ],
+  "file_count": 42
+}

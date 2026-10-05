@@ -1,0 +1,38 @@
+{
+  "authorization_origin": "direct_human_reply",
+  "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+  "gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+  "allow_gpu_runs": true,
+  "allow_gpu_initialization": true,
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "maximum_jobs": 2,
+  "maximum_total_planned_reserve_seconds": 640,
+  "permitted_run_names": {
+    "off": "server10-g2-normal-off-01",
+    "shadow": "server10-g2-normal-shadow-01"
+  },
+  "source_lock": {
+    "path": "artifacts/prefix_io_v1/server10-g2-migration-v1-20261003/gpu-source-lock-server10-g2.json",
+    "bytes": 912207,
+    "sha256": "2ad5cd4456e66f289a050024ae1b6edae3c9e8984410ea2cf2486da081452ecc"
+  },
+  "base_permissions": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+    "bytes": 685,
+    "sha256": "aa54897390dd18c71f4578d45c87b74a3d26a3c63daea2660bf752c41be3be50"
+  },
+  "authorization_basis": "NEW_SERVER_GPU_SYSTEM_VERIFICATION_DIRECT_REQUEST",
+  "verbatim_user_answer": "旧服务器已经关机，已经把代码克隆到新的服务器，接下来验证在新服务器进行gpu实验，完成系统验证",
+  "scope_summary": "独立G2完整模型资格验证：最多off、shadow各一次，每次300秒和20秒收尾；每次cold/repeat各完整128 tokens。off完整输出、原shutdown返回且OS会话排空后才shadow；失败停止；不重试、不下载、不改系统或驱动。沿用原8小时累计预算。",
+  "scope_summary_is_agent_bounded_interpretation": true,
+  "existing_reference_scope_reused": false,
+  "question_item_id": "not_applicable:direct_typed_user_message",
+  "reply_medium": "direct_typed_user_message",
+  "credentials_omitted": true,
+  "observation_timestamp_utc": "2026-10-03T06:42:39.027191+00:00",
+  "observation_timestamp_is_not_user_sent_timestamp": true,
+  "SSH_target": "root@connect.westd.seetacloud.com:12351"
+}

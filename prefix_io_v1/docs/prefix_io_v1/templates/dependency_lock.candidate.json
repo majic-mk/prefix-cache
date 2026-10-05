@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-09-25",
+  "status": "candidate_only_not_compatibility_certified",
+  "compatibility_verified": false,
+  "gpu_verified": false,
+  "repositories": {
+    "py_kvcache": {
+      "url": "https://github.com/atlarge-research/py-kvcache",
+      "candidate_commit": "3abba7a502d553f6e7e2e58b92086487e3395d7e",
+      "readme_blob_sha": "309a20e60c10279b360adaa74c21158cdcdfad73",
+      "source_read_verified": true,
+      "installed_commit": null
+    },
+    "vllm_author_fork": {
+      "url": "https://github.com/t348575/vllm",
+      "candidate_branch": "preload",
+      "candidate_commit": "d6eadf416bb5234047760bf55d532f2f038cf697",
+      "worker_blob_sha": "fa79c094a2f7226e888c73e38ef054defc9f9cc8",
+      "source_read_verified": true,
+      "installed_commit": null,
+      "must_verify_plan_api_and_full_lifecycle": true
+    },
+    "benchmark_harness": {
+      "url": "https://github.com/t348575/kvcache-experiments",
+      "candidate_commit": null,
+      "readme_blob_sha": "b9b973a1f0bc543b66cbd7db7df083d87d7a51ae",
+      "installed_commit": null
+    },
+    "simple_profiler": {
+      "url": "https://github.com/t348575/simple-profiler",
+      "candidate_commit": null,
+      "installed_commit": null
+    },
+    "user_project": {
+      "url": "https://github.com/majic-mk/super-robot",
+      "historical_audited_commit": "7c586e1734bdef2a248adda77bb18563178a2826",
+      "local_workspace": null,
+      "local_head": null,
+      "local_dirty_state": null,
+      "do_not_reset_to_historical_commit": true
+    }
+  },
+  "runtime": {
+    "python_version": null,
+    "torch_version": null,
+    "cuda_runtime": null,
+    "cuda_toolkit": null,
+    "driver": null,
+    "attention_backend": null,
+    "gpu_model": null,
+    "gpu_compute_capability": null,
+    "vllm_import_path": null,
+    "py_kvcache_import_path": null,
+    "liburing_version": null,
+    "filesystem": null,
+    "o_direct_verified": false,
+    "io_uring_verified": false
+  },
+  "release_capabilities": {
+    "independent_source_safe_ack": null,
+    "source_fence_release_scope": null,
+    "mandatory_progress_bridge_verified": false,
+    "native_layerwise_consume_verified": false
+  },
+  "common_patches": [],
+  "observer_patches": [],
+  "policy_patches": []
+}

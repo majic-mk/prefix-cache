@@ -1,0 +1,13 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-I",
+    "-S",
+    "artifacts/prefix_io_v1/server11-native-cost-v2-20261003/control_native_cost_job.py",
+    "prepare"
+  ],
+  "environment_overrides": {
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

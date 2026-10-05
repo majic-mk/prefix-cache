@@ -1,0 +1,14 @@
+{
+  "root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "label": "server11-native-cost-six-window-01",
+  "gpu_uuid": "GPU-38c1d1c7-2aba-3fa9-e1cd-fe4d3ae569c9",
+  "purpose": "CURRENT_CONTEXT_NATIVE_FULL_STEP_SSD_READ_DIAGNOSTIC_ONLY",
+  "seconds_limit": 1200,
+  "reserved_seconds": 1220,
+  "active_ledger": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+  "storage": "experiments/prefix_io_v1/runs/server11-native-cost-01-private-storage",
+  "out": "experiments/prefix_io_v1/runs/server11-native-cost-six-window-01/details",
+  "source_lock": "artifacts/prefix_io_v1/server11-native-cost-v1-20261003/gpu-source-lock-native-cost.json",
+  "input_manifest": "artifacts/prefix_io_v1/server11-native-cost-v1-20261003/SSD_INPUT_MANIFEST.json",
+  "collector_relative": "artifacts/prefix_io_v1/server11-full-step-collector-v1-20261003/native_full_step_collector.py"
+}

@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LOCAL_CPU_SOURCE_CANDIDATE_PREPARATION_ONLY",
+  "lock_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/gpu-source-lock-candidate.json",
+    "bytes": 896797,
+    "sha256": "7b8445363e985a7dc4bff08960b31ee4cc325e3d309322f7f4b15d5b0f8aa423"
+  },
+  "manifest_ref": {
+    "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13_ninja/source-lock-upload-parts/manifest.json",
+    "bytes": 3480,
+    "sha256": "75ffc9f90b5af71136360df1ca1c319085d73ae265bba03e178b699a523beec9"
+  },
+  "builder_ref": {
+    "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13_ninja/source-lock-preparation/prepare_cpu_source_lock_candidate.py",
+    "bytes": 19272,
+    "sha256": "1de99fcf62fae93588367651065cc267328387a73c1cc1e850c7503850c96cf9"
+  },
+  "original_frozen_input_refs": [
+    {
+      "path": "artifacts/prefix_io_v1_server09_g1_20261001/gpu-source-lock.json",
+      "bytes": 444671,
+      "sha256": "5b438ebc1ec014c22d1d501915600b4cd9bc777ad9f05da1f7ac9b1a18cc1181"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker/gpu-source-lock-candidate.json",
+      "bytes": 452304,
+      "sha256": "5e7cc04fe759411800b895169d669f75cade6b2f0adda34d3992ecf2a7dbd760"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13/gpu-source-lock-candidate.json",
+      "bytes": 895738,
+      "sha256": "f3d21df27310ce2c5199ab69f2a62f80b2111390f3ad160aba6ea843dd06f1d9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server09_g2_cuda13_20261001/ACTUAL_CPU_BUILD_LAUNCHER_AUDIT.json",
+      "bytes": 15438,
+      "sha256": "edcbefe014178bec50a66b13f3b8358f6cc1550f6159cd971936c197b2645f36"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13_ninja/run_g2_normal_model_lifecycle.py",
+      "bytes": 43354,
+      "sha256": "bad66233db2a6952e4e8cf2ef3804aadc056e4ef9595ba9b6245c1dc3b9d1535"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13_ninja/g2_worker_observation.py",
+      "bytes": 13090,
+      "sha256": "096f2fffe91de7132f45997be51fecceec57d65fdf86caab6f8bbe5c71748f7b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13_ninja/G2_NORMAL_MODEL_CPU_PLAN.json",
+      "bytes": 16514,
+      "sha256": "19441c85dd70aa114d3cc58d81e63e8f3c61ef657a196753e7e3c036e434c610"
+    }
+  ],
+  "exact_old_2052_G1_rows_and_order_preserved": true,
+  "exact_old_2088_G2_rows_and_order_preserved": true,
+  "exact_old_4035_CUDA13_rows_and_order_preserved": true,
+  "old_lock_bytes_SHA_rechecked": true,
+  "required_paths": [
+    ".venv/bin/ninja",
+    ".venv/lib/python3.12/site-packages/flashinfer/compilation_context.py",
+    ".venv/lib/python3.12/site-packages/flashinfer/jit/cpp_ext.py",
+    ".venv/lib/python3.12/site-packages/flashinfer/jit/utils.py",
+    ".venv/lib/python3.12/site-packages/torch/utils/_contextlib.py",
+    ".venv/lib/python3.12/site-packages/torch/version.py",
+    "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CPU_COMPILE_LINK_RESULT.json",
+    "artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CUDA13_SOURCE_INVENTORY.json",
+    "artifacts/prefix_io_v1/server09-cuda13-toolchain-v2-20261001/CUDA13_SDK_CPU_PLAN.json",
+    "artifacts/prefix_io_v1/server09-cuda13-toolchain-v2-20261001/cuda13_sdk_overlay.py",
+    "artifacts/prefix_io_v1/server09-g1-20261001/gpu-source-lock.json",
+    "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/G2_NORMAL_MODEL_CPU_PLAN.json",
+    "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/g2_worker_observation.py",
+    "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/run_g2_normal_model_lifecycle.py",
+    "artifacts/prefix_io_v1/server09-migration-20261001/collector-candidate/p4_full_step_frame_adapter.py",
+    "artifacts/prefix_io_v1/server09-runtime-connector-20261001/p4_runtime_scalar_connector.py",
+    "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml",
+    "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "experiments/prefix_io_v1/scripts/prepare_p4_gpu_next_day.py",
+    "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "third_party/work/vllm-author-p4-02-cpu/vllm/entrypoints/llm.py",
+    "third_party/work/vllm-author-p4-02-cpu/vllm/v1/engine/core.py",
+    "third_party/work/vllm-author-p4-02-cpu/vllm/v1/engine/core_client.py",
+    "third_party/work/vllm-author-p4-02-cpu/vllm/v1/engine/llm_engine.py",
+    "third_party/work/vllm-author-p4-02-cpu/vllm/v1/executor/uniproc_executor.py",
+    "third_party/work/vllm-author-p4-02-cpu/vllm/v1/worker/gpu_model_runner.py",
+    "third_party/work/vllm-author-p4-02-cpu/vllm/v1/worker/gpu_worker.py",
+    "third_party/work/vllm-author-p4-02-cpu/vllm/v1/worker/worker_base.py"
+  ],
+  "required_paths_count": 30,
+  "actual_verify_source_lock_ast_sha256": "23632a7bad19724263d1ddc4ac4f1c00d379edb13d029d0359cdbdab4540e42e",
+  "new_ref_count": 5,
+  "total_refs": 4040,
+  "new_refs": [
+    {
+      "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/run_g2_normal_model_lifecycle.py",
+      "bytes": 43354,
+      "sha256": "bad66233db2a6952e4e8cf2ef3804aadc056e4ef9595ba9b6245c1dc3b9d1535"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/g2_worker_observation.py",
+      "bytes": 13090,
+      "sha256": "096f2fffe91de7132f45997be51fecceec57d65fdf86caab6f8bbe5c71748f7b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/G2_NORMAL_MODEL_CPU_PLAN.json",
+      "bytes": 16514,
+      "sha256": "19441c85dd70aa114d3cc58d81e63e8f3c61ef657a196753e7e3c036e434c610"
+    },
+    {
+      "path": ".venv/bin/ninja",
+      "bytes": 370448,
+      "sha256": "08639e194fffa7f08b259fc4abfa4803aff66b64de52549cee42ec527d55cea6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-20261001/gpu-source-lock-candidate.json",
+      "bytes": 895738,
+      "sha256": "f3d21df27310ce2c5199ab69f2a62f80b2111390f3ad160aba6ea843dd06f1d9"
+    }
+  ],
+  "ref_provenance": [
+    {
+      "ref": {
+        "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/run_g2_normal_model_lifecycle.py",
+        "bytes": 43354,
+        "sha256": "bad66233db2a6952e4e8cf2ef3804aadc056e4ef9595ba9b6245c1dc3b9d1535"
+      },
+      "input_evidence_ref": {
+        "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13_ninja/run_g2_normal_model_lifecycle.py",
+        "bytes": 43354,
+        "sha256": "bad66233db2a6952e4e8cf2ef3804aadc056e4ef9595ba9b6245c1dc3b9d1535"
+      },
+      "role": "distinct final ninja normal source/plan"
+    },
+    {
+      "ref": {
+        "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/g2_worker_observation.py",
+        "bytes": 13090,
+        "sha256": "096f2fffe91de7132f45997be51fecceec57d65fdf86caab6f8bbe5c71748f7b"
+      },
+      "input_evidence_ref": {
+        "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13_ninja/g2_worker_observation.py",
+        "bytes": 13090,
+        "sha256": "096f2fffe91de7132f45997be51fecceec57d65fdf86caab6f8bbe5c71748f7b"
+      },
+      "role": "distinct final ninja normal source/plan"
+    },
+    {
+      "ref": {
+        "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/G2_NORMAL_MODEL_CPU_PLAN.json",
+        "bytes": 16514,
+        "sha256": "19441c85dd70aa114d3cc58d81e63e8f3c61ef657a196753e7e3c036e434c610"
+      },
+      "input_evidence_ref": {
+        "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13_ninja/G2_NORMAL_MODEL_CPU_PLAN.json",
+        "bytes": 16514,
+        "sha256": "19441c85dd70aa114d3cc58d81e63e8f3c61ef657a196753e7e3c036e434c610"
+      },
+      "role": "distinct final ninja normal source/plan"
+    },
+    {
+      "ref": {
+        "path": ".venv/bin/ninja",
+        "bytes": 370448,
+        "sha256": "08639e194fffa7f08b259fc4abfa4803aff66b64de52549cee42ec527d55cea6"
+      },
+      "input_evidence_ref": {
+        "path": "artifacts/prefix_io_v1_server09_g2_cuda13_20261001/ACTUAL_CPU_BUILD_LAUNCHER_AUDIT.json",
+        "bytes": 15438,
+        "sha256": "edcbefe014178bec50a66b13f3b8358f6cc1550f6159cd971936c197b2645f36"
+      },
+      "role": "prior actual CPU-read existing executable; current server recheck pending"
+    },
+    {
+      "ref": {
+        "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-20261001/gpu-source-lock-candidate.json",
+        "bytes": 895738,
+        "sha256": "f3d21df27310ce2c5199ab69f2a62f80b2111390f3ad160aba6ea843dd06f1d9"
+      },
+      "input_evidence_ref": {
+        "path": "artifacts/prefix_io_v1_server09_candidates/g2_normal_worker_cuda13/gpu-source-lock-candidate.json",
+        "bytes": 895738,
+        "sha256": "f3d21df27310ce2c5199ab69f2a62f80b2111390f3ad160aba6ea843dd06f1d9"
+      },
+      "role": "unchanged whole CUDA13 candidate lock itself; not authority"
+    }
+  ],
+  "local_part_count": 15,
+  "local_part_bytes_limit": 60000,
+  "actual_disk_part_reconstruction_exact": true,
+  "current_remote_all_source_bytes_verified": false,
+  "framework_imports": 0,
+  "actual_GPU_runs": 0,
+  "remote_writes": 0,
+  "human_record_created": false,
+  "GPU_authorization_created": false,
+  "permissions_modified": false,
+  "budget_ledger_modified": false,
+  "gpu_verified": false,
+  "production_qualified": false,
+  "effect_verified": false
+}

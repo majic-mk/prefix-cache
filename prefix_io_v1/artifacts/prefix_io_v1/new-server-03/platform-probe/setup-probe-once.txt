@@ -1,0 +1,48 @@
+{
+  "utc": "2026-09-26T14:58:24.948668+00:00",
+  "scope": "CPU-only setup-and-close; not an io_uring transfer qualification",
+  "kernel": "5.15.0-94-generic",
+  "machine": "x86_64",
+  "python_version": "3.12.3",
+  "effective_uid": 0,
+  "syscall_number": 425,
+  "depth": 2,
+  "flags": 0,
+  "params_bytes": 120,
+  "setup_attempted": true,
+  "mmap_attempted": false,
+  "enter_attempted": false,
+  "io_submissions": 0,
+  "gpu_operations": 0,
+  "network_operations": 0,
+  "sysctl_changed": false,
+  "privileges_changed": false,
+  "seccomp_changed": false,
+  "io_uring_disabled": {
+    "value": "0",
+    "error": null
+  },
+  "io_uring_group": {
+    "value": "-1",
+    "error": null
+  },
+  "process_security": {
+    "CapEff": "00000000a80425fb",
+    "NoNewPrivs": "0",
+    "Seccomp": "2",
+    "Seccomp_filters": "1"
+  },
+  "process_status_read_error": null,
+  "rlimit_memlock": {
+    "soft": "unlimited",
+    "hard": "unlimited",
+    "unit": "bytes"
+  },
+  "return_value": -1,
+  "status": "SETUP_FAILED",
+  "errno": 1,
+  "errno_name": "EPERM",
+  "error": "Operation not permitted",
+  "fd_closed": null,
+  "exit_code": 2
+}

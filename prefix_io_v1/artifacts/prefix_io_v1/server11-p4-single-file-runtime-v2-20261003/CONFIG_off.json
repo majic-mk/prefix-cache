@@ -1,0 +1,19 @@
+{
+  "root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "label": "server11-p4-single-file-off-02",
+  "gpu_uuid": "GPU-38c1d1c7-2aba-3fa9-e1cd-fe4d3ae569c9",
+  "purpose": "FINITE_NATIVE_SINGLE_FILE_P4_RUNTIME_QUALIFICATION_ONLY",
+  "seconds_limit": 300,
+  "reserved_seconds": 320,
+  "active_ledger": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+  "storage": "experiments/prefix_io_v1/runs/server11-native-cost-01-private-storage",
+  "out": "experiments/prefix_io_v1/runs/server11-p4-single-file-off-02/details",
+  "source_lock": "artifacts/prefix_io_v1/server11-p4-single-file-runtime-v2-20261003/COMMON_SOURCE_LOCK.json",
+  "input_manifest": "artifacts/prefix_io_v1/server11-native-cost-v1-20261003/SSD_INPUT_MANIFEST.json",
+  "collector_relative": "artifacts/prefix_io_v1/server11-p4-single-file-candidate-v2-20261003/native_full_step_collector.py",
+  "runtime_binding_relative": "artifacts/prefix_io_v1/server11-p4-single-file-candidate-v2-20261003/single_file_runtime_binding.py",
+  "mode": "off",
+  "binding_relative": "artifacts/prefix_io_v1/server11-p4-single-file-runtime-v2-20261003/SINGLE_FILE_BINDING.json",
+  "overlay_relative": "artifacts/prefix_io_v1/server11-p4-single-file-candidate-v2-20261003/source",
+  "previous_qualification_ref": null
+}

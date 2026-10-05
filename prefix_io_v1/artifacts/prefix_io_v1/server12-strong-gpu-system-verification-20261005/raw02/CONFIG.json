@@ -1,0 +1,55 @@
+{
+  "schema": "strong_gpu_exact_cell_acquisition_config_v1",
+  "job_id": "server12-strong-exact-cal02",
+  "gpu_uuid": "GPU-b2de2c25-cdc7-a350-267f-56e7763a287f",
+  "seconds_limit": 900,
+  "storage_reserve_bytes": 536870912,
+  "storage_floor_bytes": 8589934592,
+  "source_lock_ref": {
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/PRERENT_SOURCE_LOCK_V6.json",
+    "bytes": 1127037,
+    "sha256": "34d5332e2e1a31f83eeb12c0827facc392faf39b93bdba5874a00a249c1d753a"
+  },
+  "source_proof_ref": {
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/PRERENT_SOURCE_PROOF_V6.json",
+    "bytes": 665,
+    "sha256": "8fd5c625b9a854abad8bdb50803e02c377954f8be01c1fb68a7362d0124623f1"
+  },
+  "plan_ref": {
+    "path": "artifacts/prefix_io_v1/server12-strong-gpu-system-verification-20261005/raw02/BOUND_PLAN.json",
+    "bytes": 166513,
+    "sha256": "5d43a6c1e7862b2e3d8b4f115e8c49af95cb57331f56a698848ceabdf54515b6"
+  },
+  "intent_ref": {
+    "path": "artifacts/prefix_io_v1/server12-strong-gpu-system-verification-20261005/raw02/PRELAUNCH_INTENT.json",
+    "bytes": 1351,
+    "sha256": "0026e69211e27e180f77e73ff83c7bb90b10f646bd03f48d0988e0735ba79018"
+  },
+  "permissions_ref": {
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/live-off01/EFFECTIVE_GPU_PERMISSION.json",
+    "bytes": 677,
+    "sha256": "ea2848a46776a196878f0cf665ca2284225861e3e46b919c8b2c100905b7e35f"
+  },
+  "off_qualification_ref": {
+    "path": "artifacts/prefix_io_v1/server12-strong-gpu-system-verification-20261005/OFF_GUARD_CLOSED_QUALIFICATION.json",
+    "bytes": 1722373,
+    "sha256": "5c95676980e7218936dd891859397b730f3d85a01cabb787ea36a2fb16401a02"
+  },
+  "off_guard_ref": {
+    "path": "experiments/prefix_io_v1/runs/server12-strong-u-qual-off01/result.json",
+    "bytes": 1222,
+    "sha256": "1ef518c6fba823359ade71de1710a21076b544a87b8a8be367eb0a771706e693"
+  },
+  "output_relative": "experiments/prefix_io_v1/runs/server12-strong-exact-cal02/details",
+  "storage_template_relative": "experiments/prefix_io_v1/runs/server11-native-cost-01-private-storage",
+  "input_manifest_ref": {
+    "path": "artifacts/prefix_io_v1/server11-native-cost-v1-20261003/SSD_INPUT_MANIFEST.json",
+    "bytes": 12274,
+    "sha256": "c8b593f571c4dbbff28a98bc83e2ed37fd1c9a0c2589a4af21a53938b0d7b093"
+  },
+  "runner_ref": {
+    "bytes": 32523,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/strong_native_cost_runner_v3.py",
+    "sha256": "d0eca2e77dc1fb2cab5f95fac7f31a41978ea5c560f45f1ead8a8e1b79166240"
+  }
+}

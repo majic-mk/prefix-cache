@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "OWNED_CPU_FILES_FROZEN_NOT_FULL_GPU_SOURCE_LOCK",
+  "files": [
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_p4_gpu_next_day.py",
+      "bytes": 16776,
+      "sha256": "80355036d02de7c3d8fa987f52e708b6b9099dab1902aced44d2b7e7fdbc324b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+      "bytes": 22123,
+      "sha256": "d802bd7de635c115579e209af0b75b4d32b4576f03565980cad05465fcae1755"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_next_day/test_next_day_plan.py",
+      "bytes": 7233,
+      "sha256": "ed0111b36c3ae091a2a9b3b2cda73ce619e76dc7d574b206718f3a886e95ddad"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_next_day/test_native_gpu_preparation.py",
+      "bytes": 5213,
+      "sha256": "57ad2d1ee329cc2bdce5e16befa2438bd5001f7abc4990e9c8fcee2d60615f75"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_raw_pair_recorder.py",
+      "bytes": 12933,
+      "sha256": "8ef2ea06bfe096dbf0c0dbbb585c0b1778a2620113217d2b2a94debd793e1a42"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_p4_calibration_startup.py",
+      "bytes": 6181,
+      "sha256": "ac2ffddd6bfa238553cb641331910dace4fd0d47066a606697919a11e22b6cdd"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_p4_raw_pair.py",
+      "bytes": 3645,
+      "sha256": "647da1a466ee825aef5529d1f988f2f2e834d143e9982b725892996b4b2c03c5"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_next_day/test_calibration_preparation.py",
+      "bytes": 2936,
+      "sha256": "0233e361dcbf5164e3718026c96d320b7206c537810d9afc9d891652975f697f"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_raw_preparation/test_explicit_raw_preparation.py",
+      "bytes": 6741,
+      "sha256": "aded2d37f8cc21a76c27571f8783e2eaebc17a7542f1c684408cf04d5db7012f"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_raw_preparation/test_offline_raw_cli.py",
+      "bytes": 3563,
+      "sha256": "8f3f82b34166b91613b4b6fd77ab729e625f97601cdb84d15aa7fc12f2e98e54"
+    }
+  ]
+}

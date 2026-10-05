@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "status": "CPU_ONLY_CANONICAL_PARENT_IMPORTER_V3_CANDIDATE",
+  "canonical_delivery_directory": "artifacts/prefix_io_v1/server09-optional-capability-probe-v3-20261002",
+  "purpose": "PRESERVE_ORIGINAL_EXACT_OPTIONAL_ABSENCE_QUERY_SEMANTICS",
+  "source_only_files": [
+    {
+      "path": "optional_capability_probe.py",
+      "bytes": 13805,
+      "sha256": "48138660e3ac43e1ea7b342a2727772e8745ed0f59c355c50f10616584a956d3"
+    },
+    {
+      "path": "test_optional_capability_probe.py",
+      "bytes": 20359,
+      "sha256": "e27bd53910e58d7dc792f4c436d5c46822604ea7f426560b2c1c904006c4105f"
+    }
+  ],
+  "original_source_pins": [
+    {
+      "path": "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+      "bytes": 29692,
+      "sha256": "5d9604fc07d80495a49febfcd488cb2601f74a2bef107261c8e623a4d0a1c77d"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/vllm/third_party/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/vllm/utils/import_utils.py",
+      "bytes": 14589,
+      "sha256": "f14b07131a4d49955150016dbfa34f7d8d5f586b1545a1173e0d4f904578b18b"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/vllm/utils/deep_gemm.py",
+      "bytes": 19901,
+      "sha256": "99e316620e3cdda2db7d9fd7a4ae5968e9c9ef98d7399d62a2c4a5c506627854"
+    },
+    {
+      "path": "third_party/work/vllm-author-p4-02-cpu/vllm/model_executor/warmup/deep_gemm_warmup.py",
+      "bytes": 13044,
+      "sha256": "b05db0127b19fc38da78e96c74df279e2cd53e0c262e9a7cad53486cf21f3414"
+    }
+  ],
+  "actual_new_GPU_runs_in_this_subtask": 0,
+  "actual_framework_imports": 0,
+  "actual_compiler_executions": 0,
+  "actual_remote_operations": 0,
+  "live_hook_installed": false,
+  "GPU_collector_verified": false,
+  "production_qualified": false,
+  "effect_verified": false,
+  "off03_actual_failure": {
+    "name": "server09-g2-normal-off-03",
+    "guard_elapsed_seconds": 131.6455060718581,
+    "exit": 1,
+    "session_drained": true,
+    "phases": [],
+    "message": "vllm.third_party.deep_gemm has no exact locked binary fallback",
+    "shadow03_run": false,
+    "model_outputs_qualified": false
+  },
+  "diagnosis": {
+    "author_semantics": "Original cached _has_module returns importlib.util.find_spec(name) is not None; has_deep_gemm checks external deep_gemm first, then vllm.third_party.deep_gemm",
+    "actual_inventory": "Actual author's third_party contains only lockedemptyinit/flashmla/pynvml/triton_kernels, no DeepGEMM; seven original binary bindings have no DeepGEMM",
+    "adapter_trigger": "Original BoundAuthorFinder.locked_binary_spec raises for missing vendored optional probe rather than returning specNone. Its behavior is not changed.",
+    "fix": "Wrap only original author import_utils._has_module in current process. Always call original first; only exact name plus same builtin ModuleNotFoundError name/args and exact original _has_module/find_spec/locked_binary_spec trace codes+same finder instance may become False after complete locked absence recheck."
+  },
+  "protocol": {
+    "CPU_preflight": "verify_optional_absence(root, refs) -> plain witness; exact5source pins and physical absence only. No author code execution/cache/env/import hook/mkdir.",
+    "runtime": "install_capability_probe(import_utils_module, original_finder, root, refs) -> handle. Original qualifier module must be registered by existing locked load_ref; import_utils original module/function code/globals and cache wrapper identity verified.",
+    "cleanup": "handle.detach() restores only our ownwrapper; originalfinder/source unchanged. Global hooks/cache are not modified by the validator; secondary query uses same alreadyboundcache.",
+    "install_order": "Future newly authorized guarded driver: source/permissions/session/offline model/storage and SDK/Ninja guards first; import original torch/vllm/fromvllm; load actual author import_utils; install before original LLM; detach after original shutdown before removing original finder.",
+    "history": "Uninstalled abandoned finder-None prototype and earlier receipt retained only locally under historical-before-capability-probe-design; excluded from all runtime refs/delivery."
+  },
+  "boundaries": {
+    "exact_optional_fullname": "vllm.third_party.deep_gemm",
+    "original_finder_and_author_files_unchanged": true,
+    "external_deep_gemm_preserved": true,
+    "original_cached_success_and_other_module_results_preserved": true,
+    "unmatched_error_same_object_bare_raise": true,
+    "required_module_import_still_hard_rejected": true,
+    "new_module_or_binary_created": false,
+    "new_executor": false,
+    "numerical_configuration_unchanged": true,
+    "kernels_disabled": false,
+    "strategies_unchanged": true,
+    "global_environment_unchanged": true,
+    "namespace_or_package_or_py_pyc_so_pyd_or_link_presence_rejected": true,
+    "runtime_parent_only_canonical_author_path": true,
+    "downstream_meta_risk": "No finder returnsNone and original firstfinder exception remains required. Only its alreadycached solecanonical parent is checked; globalpathhooks for unrelated editable namespaces are not read/called/modified. OriginalPathFinder secondary query remains and identical cached object is required.",
+    "gate_failure": "Source/path/absence validation failure never returns False; an independent gate exception can propagate. It is not a successful capability witness.",
+    "error_object": "Before ANY exception attribute access require type(error) is builtin ModuleNotFoundError; otherwise bare raise same object. Then exactstr name and one exactstr arg compare without conversion; only then examine threeexact original traceback codes/self/globals.",
+    "wrong_or_drift_source_parent_path_cached_importer_rejected": true,
+    "cached_importer": "Must alreadyexist exactFileFinder; path exactstr equals canonicalparent; loaders exactlist/exacttuple2/exactstrsuffix and standardloader identity; no find_spec/find_loader instanceoverride; samecached object before/after secondaryPathFinder. Missing/None/unknown/drift refuses."
+  },
+  "tests": {
+    "actual_local": "14/14 PASS0.923s/0skip Python3.12 -B -I -S",
+    "source": "Original qualifier source stdlib-only + independent original cached _has_module/has_deep_gemm AST in synthetic locked module/parent",
+    "cases": [
+      "Original absence reproduced; queryFalse but directrequired import remains exception",
+      "External availability/cachedsuccess originalTrue without absence inspection",
+      "Unrelated and forged error sameidentity once; poisonargs no __str__",
+      "Exactcode traceback from wrongfinder rejected without fakingFalse",
+      "All present source/namespace/pyc/extension and optional oldbinary refs refused",
+      "Source/hash/symlink fault/root/function/parent/metachain/importercache drift refused",
+      "Purepreflight zero env/files/module mutation; detach preserves foreignoverride; qualificationFalse",
+      "Exception subclass poisoned traceback: baseline and wrapper eachonce sameobject with0custom attribute reads",
+      "Actual pinned4717-byte thirdsitehook has0calls under original+secondary queries sharing alreadyboundstandardparentcache; unknown/missing/override/loader/sameinstancecache refusals"
+    ],
+    "actual_server_command": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S artifacts/prefix_io_v1/server09-optional-capability-probe-v3-20261002/test_optional_capability_probe.py --source-root \"$PWD\"",
+    "mock_limit": "Windows symlink rejection exercised through read-only Path.is_symlink fault injection; no real Windows links claimed.",
+    "actual_normal_site_replay_required": "Root controls separate CPU .venv/bin/python -B normal-site startup (omit -S, match actualchild), loadsource helper only, originalPathFinder(parent)->None builds realcache, _validate_search_path must return samecache under actual3hooks; do not import framework/GPU or changehooks."
+  },
+  "next_allowed_stage": "Independent bounded final review, root actualnormal-site CPUreplay and server14contracts/sourcegate, then root newnormalV4/names05 sourcefreeze4050refs. GPU04failure terminates/shadow04blocked; no newGPU authorization here.",
+  "remaining_uncertainty": "Only optional capability semantics/locked source checked here. Successful real normal model/128 outputs/worker/fullshutdown and any research performance effect remain unverified.",
+  "repair_from_previous_frozen_candidate": {
+    "previous_directory": "g2_optional_import_cpu_v2",
+    "old_five_files_preserved": true,
+    "old_helper": {
+      "path": "optional_capability_probe.py",
+      "bytes": 14193,
+      "sha256": "61e8980dedbb47920abfd33939c5458b98e09ea1bc5288a5061bbdd7df8cca59"
+    },
+    "old_test": {
+      "path": "test_optional_capability_probe.py",
+      "bytes": 15788,
+      "sha256": "716dfb366d2ea592afa1a3f2f0494674892a1fb58163b41bd7dd6adc8321b429"
+    },
+    "actual_failure": "Authorized off04 original missing probe reached wrapper, then ValueError unknown path hook due globalcount3; exit1 phase0 sessiondrained. CPU actual -B normal-site reproduces same with real standard cachedFileFinder.",
+    "minimal_source_delta": "Only _validate_search_path validates alreadyexisting boundcanonical cache instead of globalhooks; _verify_absence captures returned cache and verifies sameinstance after secondaryPathFinder. No original finder/source/cachedfirst/error/restore change.",
+    "new_contract": "Actual pinned editable vLLM thirdhook source4717B, spiedthirdhook0call for existing canonicalcache. Existing cache-negative contract nowchecks missing/None/unknown/override/scalar drift and sameinstance drift."
+  },
+  "off04_actual_failure": {
+    "name": "server09-g2-normal-off-04",
+    "guard_elapsed_seconds": 127.51177137065679,
+    "exit": 1,
+    "session_drained": true,
+    "phases": [],
+    "error_type": "ValueError",
+    "message": "unknown path hook",
+    "shadow04_run": false,
+    "normal_outputs_qualified": false
+  },
+  "startup_evidence": {
+    "actual_parent_report": "CPU normal-site -B, no framework/GPU; threehooks rather than -I-S fixtures twohooks",
+    "actual_hook_source": {
+      "path": ".venv/lib/python3.12/site-packages/__editable___vllm_0_1_dev1_g817a7e312_finder.py",
+      "bytes": 4717,
+      "sha256": "11446ee6db26a2901e8df4e15096cc393a2e819426cdd397efe803aa6d2f2753"
+    },
+    "readonly_receipts": [
+      {
+        "path": "ACTUAL_CPU_SITE_PTH_INVENTORY.json",
+        "bytes": 2591,
+        "sha256": "ab9ad6ed600941fd83fc131d9f8988c0ae46980c18c5d9f4937560280a1b6267"
+      },
+      {
+        "path": "ACTUAL_CPU_SITE_HOOK_SOURCES.json",
+        "bytes": 23493,
+        "sha256": "cf98b7bdee479ea7f8b75a9cc23c3d2cbc744987bff46c1545f6264d7d9f4a3b"
+      },
+      {
+        "path": "ACTUAL_CPU_NORMAL_SITE_PATH_HOOKS.json",
+        "bytes": 2160,
+        "sha256": "3ab9348dde3450f63c315fac5b83d8fd8c6e3cfc8cf8264d3ad0f55686a87288"
+      },
+      {
+        "path": "ACTUAL_CPU_OLD_V3_SITE_FAILURE_REPRODUCTION.json",
+        "bytes": 2076,
+        "sha256": "9622b6f3886c1f23b736a01a501234e66a2b7036ae1be965e001c830a833d53f"
+      }
+    ],
+    "hooks_and_pth_untouched": true,
+    "tests_compile_actual_hook_only_without_install": true
+  }
+}

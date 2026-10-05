@@ -1,0 +1,83 @@
+{
+  "GPU_launch_allowed": false,
+  "actual_GPU_operations": 0,
+  "actual_RPC_operations": 0,
+  "actual_natural_trace_receipts": 0,
+  "actual_tokenizers_library_runs": 0,
+  "existing_installed_bytecode_is_never_deleted_or_executed_by_these_source_loaders": true,
+  "files": [
+    {
+      "bytes": 1283,
+      "path": "LOCAL_CLI_HELP_RESULT.json",
+      "sha256": "7e1ff0b93b51eafac8cc69d2a4c096419cc4fe6900e772978927820dc545125f"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CLI_HELP_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 987,
+      "path": "LOCAL_CLI_HELP_STDOUT.log",
+      "sha256": "3cc832f10e2b03d9168b178189b9827483c5a370010c01326ff658dabd652dc9"
+    },
+    {
+      "bytes": 1650,
+      "path": "LOCAL_CLI_UNBOUND_RESULT.json",
+      "sha256": "0ed6d072f1fdbe182372d16e2b0fb81be1ff874051dff2efcc4b1ffa0ff2e30e"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CLI_UNBOUND_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 295,
+      "path": "LOCAL_CLI_UNBOUND_STDOUT.log",
+      "sha256": "748a50b8e221eefc540c207f135110ef992c00ac827c669cd821d74255c78eba"
+    },
+    {
+      "bytes": 1330,
+      "path": "LOCAL_CPU_TEST_RESULT.json",
+      "sha256": "0180805bcec9265852032283ddcae9779142c1325ee5fc2e6a6c8dabc52f2590"
+    },
+    {
+      "bytes": 3800,
+      "path": "LOCAL_CPU_TEST_STDERR.log",
+      "sha256": "d63955ab0d947806ca73626a9f0d1d52cffa511fe43af04b45961acdfc449674"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CPU_TEST_STDOUT.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 23442,
+      "path": "raw_tokenizer_cpu.py",
+      "sha256": "2d252d0647f6a1617a4222fd86009da27344d29391c109fa3ccecf7cd4f68c63"
+    },
+    {
+      "bytes": 6741,
+      "path": "README.md",
+      "sha256": "554019aefe9a5d4ed824ff46e9c3a4e587abe14abf7b4479cb92a3d11b652971"
+    },
+    {
+      "bytes": 22257,
+      "path": "test_raw_tokenizer_cpu.py",
+      "sha256": "2f91edf5e1aa04718cf59a472b4dc24e97d87ae05916377cdcaaa96e32cf54d4"
+    }
+  ],
+  "formal_receipt_ready": false,
+  "local_tests_passed": 24,
+  "next_CPU_step": "root deploys, checks actual server source closure and CPU suite, then appends the CPU-only source freeze; no natural dataset was supplied",
+  "read_only_original_pins": {
+    "author_common": "a331d1595b815c3c8fc63d3e2f236264c2f181ece7a9de51f50beb4703338df5",
+    "author_trace": "83713db1b011a954616896ec0ccfa05dc766805e80ed8defdef0da65100ff99e",
+    "protocol": "7fbc544597c9abe334122d354e7494b590e810ab0682f1d2d155408cc4f618eb"
+  },
+  "read_only_original_sources_unchanged": true,
+  "schema": "CPU_raw_tokenizer_producer_source_manifest_v1",
+  "source_only_tokenizers_and_protocol_execution": true,
+  "suggested_server_relative_base": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/natural_input_cpu",
+  "tests_are_explicit_CPU_fixtures_or_import_spies": true
+}

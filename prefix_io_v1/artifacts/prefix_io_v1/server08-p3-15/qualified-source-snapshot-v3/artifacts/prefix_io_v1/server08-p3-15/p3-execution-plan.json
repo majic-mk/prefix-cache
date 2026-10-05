@@ -1,0 +1,67 @@
+{
+  "stage": "P3",
+  "fixed_route": "author py-kvcache plus author vLLM; incremental native hooks only",
+  "common_changes": [
+    "bounded accepted-parent intake including incoming/active/failed-draining",
+    "copy failure drain proof before release and terminal Future",
+    "owner metadata snapshots and existing mandatory progress"
+  ],
+  "research_changes": [
+    "finite fixed/pressure stage performance allowances",
+    "compact actual API acceptance accounting"
+  ],
+  "off_behavior": "no research controller; common correctness/admission identical across arms",
+  "p4_policies_enabled": false,
+  "new_cache_or_model_executor": false,
+  "gpu_budget_inherited_start_seconds": 11404.191353771836,
+  "maximum_planned_seconds": 5760,
+  "termination_reserve_included": true,
+  "gpu_uuid": "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+  "sequence": [
+    {
+      "kind": "protocol primitive",
+      "sessions": 1,
+      "maximum_seconds_each": 240
+    },
+    {
+      "kind": "model off/shadow qualification",
+      "sessions": 2,
+      "maximum_seconds_each": 240
+    },
+    {
+      "kind": "normal off recurrence",
+      "sessions": 2,
+      "maximum_seconds_each": 240
+    },
+    {
+      "kind": "sparse continuous decode calibration",
+      "sessions": 2,
+      "maximum_seconds_each": 600
+    },
+    {
+      "kind": "independent sparse validation",
+      "sessions": 1,
+      "maximum_seconds_each": 600
+    },
+    {
+      "kind": "U/F/P/P/F/U development",
+      "sessions": 6,
+      "maximum_seconds_each": 240
+    },
+    {
+      "kind": "all-hit U/B/B/U negative overhead control",
+      "sessions": 4,
+      "maximum_seconds_each": 240
+    }
+  ],
+  "storage": "PRIMARY; same registered 3048-file source; 3GiB preflight model reservations; minfree8GiB; no cache merge/deletion grants reused",
+  "partition": "known cost calibration families vs previously seen development families; no P5 evaluation",
+  "effect_claim": "descriptive P3 development comparisons; SLO null; no formal goodput or independent unseen evaluation",
+  "stop_rules": [
+    "no repeatable ordinary native blocking target",
+    "only extreme artificial throttling creates target",
+    "strong simple baseline solves target",
+    "attention/model executor rewrite needed"
+  ],
+  "status": "planned_not_executed"
+}

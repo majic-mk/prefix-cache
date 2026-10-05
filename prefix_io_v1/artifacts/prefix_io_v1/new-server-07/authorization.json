@@ -1,0 +1,9 @@
+{
+  "source": "user explicit request to log in new server and complete remaining plan",
+  "endpoint": "connect.westd.seetacloud.com:38819",
+  "gpu_uuid_verified_by_nvidia_smi": "GPU-f8744916-1693-fa6a-93b6-7f503c03459c",
+  "scope": "Continue approved P1 then plan gates using existing CPU-qualified AIO compatibility, on the newly designated server; unchanged GPU/model budgets and system-change prohibition",
+  "previous_gpu_uuid": "GPU-8b500efe-1a50-0e8e-b21e-716807eebedf",
+  "budget_not_reset": true,
+  "driver_or_system_changes": false
+}

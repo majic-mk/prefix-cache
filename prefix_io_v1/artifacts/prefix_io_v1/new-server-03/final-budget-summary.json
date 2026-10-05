@@ -1,0 +1,81 @@
+{
+  "gpu_wall_seconds_cumulative": 285.24748319387436,
+  "gpu_hours_cumulative": 0.07923541199829844,
+  "gpu_seconds_this_delivery": 239.97443519160151,
+  "gpu_hours_remaining": 7.920764588001702,
+  "gpu_job_count_cumulative": 15,
+  "gpu_job_count_this_delivery": 9,
+  "events_this_delivery": [
+    {
+      "label": "native-capacity-01",
+      "exit": 0,
+      "elapsed_seconds": 0.22785929683595896,
+      "session_drained": true
+    },
+    {
+      "label": "native-prefix-01",
+      "exit": 1,
+      "elapsed_seconds": 43.941840377636254,
+      "session_drained": true
+    },
+    {
+      "label": "native-capacity-02",
+      "exit": 0,
+      "elapsed_seconds": 0.22936536092311144,
+      "session_drained": true
+    },
+    {
+      "label": "native-prefix-02",
+      "exit": 1,
+      "elapsed_seconds": 36.53168174251914,
+      "session_drained": true
+    },
+    {
+      "label": "native-capacity-03",
+      "exit": 0,
+      "elapsed_seconds": 0.2251498717814684,
+      "session_drained": true
+    },
+    {
+      "label": "native-prefix-03",
+      "exit": 1,
+      "elapsed_seconds": 102.04273400548846,
+      "session_drained": true
+    },
+    {
+      "label": "native-capacity-04",
+      "exit": 0,
+      "elapsed_seconds": 0.22699306905269623,
+      "session_drained": true
+    },
+    {
+      "label": "native-prefix-04",
+      "exit": 0,
+      "elapsed_seconds": 56.27513352409005,
+      "session_drained": true
+    },
+    {
+      "label": "native-postrun-01",
+      "exit": 0,
+      "elapsed_seconds": 0.2736779432743788,
+      "session_drained": true
+    }
+  ],
+  "model_download_charged_bytes": 19422798722,
+  "model_application_payload_returned_bytes": 15242868376,
+  "model_download_remaining_bytes": 2052037758,
+  "active_reservation": null,
+  "postrun_nvml": {
+    "uuid": "GPU-8b500efe-1a50-0e8e-b21e-716807eebedf",
+    "free_bytes": 33669644288,
+    "used_bytes": 521273344,
+    "total_bytes": 34190917632,
+    "compute_process_count": 0,
+    "min_required_free_bytes": 25769803776,
+    "cuda_context_created": false,
+    "scope": "NVML selected GPU capacity only",
+    "status": "PASSED"
+  },
+  "stage": "P1_native_GPU_Prefix_passed_SSD_blocked",
+  "performance_claim": false
+}

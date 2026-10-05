@@ -1,0 +1,387 @@
+diff --git a/py_kvcache/fs_config.py b/py_kvcache/fs_config.py
+index 14c700a..78057ae 100644
+--- a/py_kvcache/fs_config.py
++++ b/py_kvcache/fs_config.py
+@@ -89,6 +89,17 @@ class SharedFileConfig:
+     load_planner_defer_tolerance: float = DEFAULT_LOAD_PLANNER_DEFER_TOLERANCE
+     load_planner_defer_deadline_max_s: float = DEFAULT_LOAD_PLANNER_DEFER_DEADLINE_MAX_S
+ 
++    io_backend: str = "io_uring"
++    aio_metadata_workers: int = 2
++
++    def __post_init__(self):
++        if self.io_backend not in {"io_uring", "linux_aio"}:
++            raise ValueError("io_backend must be io_uring or linux_aio")
++        if (isinstance(self.aio_metadata_workers, bool) or
++                not isinstance(self.aio_metadata_workers, int) or
++                not 1 <= self.aio_metadata_workers <= 8):
++            raise ValueError("aio_metadata_workers must be an integer in [1, 8]")
++
+     @classmethod
+     def from_extra_config(cls, extra_config: Mapping[str, object]) -> "SharedFileConfig":
+         root_dir = _coerce_str(
+@@ -175,8 +186,16 @@ class SharedFileConfig:
+         if staging_mem is not None and staging_mem <= 0:
+             raise ValueError("staging_mem must be positive when provided")
+ 
++        io_backend = _coerce_str(extra_config.get("io_backend"), field_name="io_backend")
++        if io_backend is None:
++            io_backend = "io_uring"
++        aio_workers = _coerce_int(extra_config.get("aio_metadata_workers"),
++                                  field_name="aio_metadata_workers")
++
+         return cls(
+             root_dir=root_dir,
++            io_backend=io_backend,
++            aio_metadata_workers=2 if aio_workers is None else aio_workers,
+             sync_on_store=False if sync_on_store is None else sync_on_store,
+             iodepth=DEFAULT_IODEPTH if iodepth is None else iodepth,
+             staging_mem=DEFAULT_STAGING_MEM_GIB if staging_mem is None else staging_mem,
+diff --git a/py_kvcache/reactor.py b/py_kvcache/reactor.py
+index 3ee8d2c..5a3a37d 100644
+--- a/py_kvcache/reactor.py
++++ b/py_kvcache/reactor.py
+@@ -82,6 +82,21 @@ class _ReactorJob:
+     compute_event: Any = None
+ 
+ 
++@dataclass(frozen=True)
++class _MandatoryWait:
++    # Identity is local to one reactor instance; integer job IDs alone can recur.
++    token: object
++    futures: frozenset[Future[int]]
++
++
++@dataclass
++class _ProgressState:
++    run_id: str
++    token: object = field(default_factory=object)
++    # Scheduling signal only: native jobs, slots, queues and Futures retain ownership.
++    required: set[Future[int]] = field(default_factory=set)
++
++
+ @dataclass
+ class _PreloadRequest:
+     block_hashes: list[bytes]
+@@ -173,7 +188,15 @@ class IoReactor:
+         layout: ParsedKvLayout,
+         break_even: BreakEvenThresholds | None = None,
+         storage_block_tokens: int = 0,
++        progress_run_id: str | None = None,
++        observation_sink: Any = None,
+     ) -> None:
++        if progress_run_id is not None and (
++            type(progress_run_id) is not str or not progress_run_id.strip()
++        ):
++            raise ValueError("progress_run_id must be a nonempty string or None")
++        if observation_sink is not None and not callable(observation_sink):
++            raise TypeError("observation_sink must be callable or None")
+         if not TORCH_COPY_AVAILABLE:
+             raise RuntimeError("vLLM and torch are required for the I/O reactor")
+         self.config = config
+@@ -196,6 +219,13 @@ class IoReactor:
+             min_slots=min_slots,
+         )
+         self.staging_buffer = layout.allocate_staging_buffer(slot_count)
++        self.actual_staging_bytes = self.staging_buffer.untyped_storage().nbytes()
++        self.staging_budget_bytes = int(config.staging_mem * (1 << 30))
++        if self.actual_staging_bytes > self.staging_budget_bytes:
++            raise ValueError(
++                f"actual staging backing {self.actual_staging_bytes} exceeds "
++                f"budget {self.staging_budget_bytes}"
++            )
+         self._staging_base_ptr = self.staging_buffer.data_ptr()
+         self.staging_pool = StagingPool(slot_count=slot_count)
+         if slot_count <= min_slots:
+@@ -208,7 +238,14 @@ class IoReactor:
+             )
+         self.open_lookahead = max(1, config.open_lookahead or self.iodepth)
+         ring_depth = max(self.iodepth + self.open_lookahead + 16, 16)
+-        self.ring = LiburingRing(ring_depth, ring_id=0)
++        if config.io_backend == "io_uring":
++            self.ring = LiburingRing(ring_depth, ring_id=0)
++        else:
++            from .linux_aio import LinuxAioRing
++
++            self.ring = LinuxAioRing(
++                ring_depth, ring_id=0, metadata_workers=config.aio_metadata_workers
++            )
+ 
+         self._streams = [torch.cuda.Stream() for _ in range(slot_count)]
+         self._copy_stream = torch.cuda.Stream()
+@@ -299,6 +336,12 @@ class IoReactor:
+             else None
+         )
+ 
++        # None keeps ordinary deployment disabled; no parent signal refs are created.
++        self._prefix_progress = (
++            _ProgressState(progress_run_id) if progress_run_id is not None else None
++        )
++        self._observation_sink = observation_sink
++        self._observation_failures = 0
+         self._worker = threading.Thread(target=self._run, name="py-kvcache-reactor", daemon=True)
+         self._worker.start()
+         logger.info(
+@@ -317,6 +360,34 @@ class IoReactor:
+                 return
+             self._incoming.put(job)
+ 
++    @property
++    def progress_bridge_enabled(self) -> bool:
++        return getattr(self, "_prefix_progress", None) is not None
++
++    def request_mandatory(self, futures: list[Future[int]]) -> bool:
++        state = getattr(self, "_prefix_progress", None)
++        if state is None:
++            return False
++        if any(not isinstance(future, Future) for future in futures):
++            raise TypeError("mandatory signals must refer to existing parent Futures")
++        requested = frozenset(futures)
++        if not requested:
++            return False
++        with self._submit_lock:
++            if self._closed:
++                return False
++            # Reuse the native incoming channel. FIFO puts accepted jobs before waits.
++            self._incoming.put(_MandatoryWait(state.token, requested))
++        return True
++
++    def is_mandatory(self, future: Future[int]) -> bool:
++        state = getattr(self, "_prefix_progress", None)
++        if state is None:
++            return False
++        if threading.get_ident() != self._worker.ident:
++            raise RuntimeError("mandatory membership is reactor-owner state")
++        return future in state.required
++
+     def enqueue_preload(
+         self,
+         block_hashes: list[bytes],
+@@ -565,12 +636,26 @@ class IoReactor:
+                 if self._stop and not self._has_work():
+                     break
+                 self._pump_once()
++                if getattr(self, "_observation_sink", None) is not None:
++                    self._observe_once()
+         except BaseException as exc:
+             # Fail every outstanding Future so vLLM gets errors instead of
+             # blocking forever waiting on this dead thread.
+             logger.exception("py-kvcache reactor thread crashed; failing all outstanding transfers")
+             self._fail_everything(exc)
+ 
++    def _observe_once(self) -> None:
++        """Optional bounded CPU observer; native work/completion has already run."""
++        sink = self._observation_sink
++        if sink is None:
++            return
++        try:
++            sink(self)
++        except Exception:
++            # A broken observer cannot fail native parent Futures or flood logs.
++            self._observation_failures += 1
++            self._observation_sink = None
++
+     def _fail_everything(self, exc: BaseException) -> None:
+         self._stop = True
+         wrapped = RuntimeError("py-kvcache reactor thread crashed")
+@@ -607,6 +692,11 @@ class IoReactor:
+                     except BaseException:
+                         pass
+ 
++        state = getattr(self, "_prefix_progress", None)
++        if state is not None:
++            # Drop signal references on fatal termination, not native I/O ownership.
++            state.required.clear()
++
+     def _drain_incoming(self, *, block: bool) -> None:
+         if block:
+             try:
+@@ -622,7 +712,18 @@ class IoReactor:
+             self._intake(item)
+ 
+     def _intake(self, item: Any) -> None:
++        state = getattr(self, "_prefix_progress", None)
++        if isinstance(item, _MandatoryWait):
++            if state is not None and item.token is state.token:
++                # Unknown, drained and prior-run Futures cannot acquire urgency.
++                state.required.update(
++                    job.future for job in self._active if job.future in item.futures
++                )
++            return
+         if item is self._STOP:
++            if state is not None:
++                # No future scheduler epoch is needed to drain accepted work.
++                state.required.update(job.future for job in self._active)
+             self._stop = True
+             unclaimed = self._preload_cached_total
+             if unclaimed:
+@@ -2035,6 +2136,10 @@ class IoReactor:
+                 job.next_file_index >= job.total_files or job.failed is not None
+             )
+             if drained and job.future_set:
++                state = getattr(self, "_prefix_progress", None)
++                if state is not None:
++                    # A failed Future can settle before other I/O drains.
++                    state.required.discard(job.future)
+                 removed = True
+                 continue
+             remaining.append(job)
+@@ -2074,6 +2179,8 @@ class TransferCoordinator:
+         layout: ParsedKvLayout,
+         break_even: BreakEvenThresholds | None = None,
+         storage_block_tokens: int = 0,
++        progress_run_id: str | None = None,
++        observation_sink: Any = None,
+     ) -> None:
+         self.layout = layout
+         self.reactor = IoReactor(
+@@ -2082,8 +2189,17 @@ class TransferCoordinator:
+             layout=layout,
+             break_even=break_even,
+             storage_block_tokens=storage_block_tokens,
++            progress_run_id=progress_run_id,
++            observation_sink=observation_sink,
+         )
+ 
++    @property
++    def progress_bridge_enabled(self) -> bool:
++        return self.reactor.progress_bridge_enabled
++
++    def request_mandatory(self, futures: list[Future[int]]) -> bool:
++        return self.reactor.request_mandatory(futures)
++
+     def submit_store(
+         self,
+         src_spec: Any,
+diff --git a/py_kvcache/staging.py b/py_kvcache/staging.py
+index 9d18ac0..4b00145 100644
+--- a/py_kvcache/staging.py
++++ b/py_kvcache/staging.py
+@@ -1,6 +1,7 @@
+ from __future__ import annotations
+ 
+ from dataclasses import dataclass
++import math
+ 
+ 
+ @dataclass(frozen=True)
+@@ -25,8 +26,27 @@ class StagingPool:
+         io_size: int,
+         min_slots: int = 1,
+     ) -> int:
++        if isinstance(staging_mem_gib, bool) or not isinstance(staging_mem_gib, (int, float)):
++            raise ValueError("staging_mem_gib must be finite and positive")
++        if not math.isfinite(staging_mem_gib) or staging_mem_gib <= 0:
++            raise ValueError("staging_mem_gib must be finite and positive")
++        if type(io_size) is not int or io_size <= 0:
++            raise ValueError("io_size must be a positive integer")
++        if type(min_slots) is not int or min_slots <= 0:
++            raise ValueError("min_slots must be a positive integer")
++        # ParsedKvLayout.allocate_staging_buffer retains an aligned view of a
++        # backing allocation with DIRECT_IO_ALIGNMENT - 1 additional bytes.
++        from .liburing_file import DIRECT_IO_ALIGNMENT
++        overhead = DIRECT_IO_ALIGNMENT - 1
+         staging_bytes = int(staging_mem_gib * (1 << 30))
+-        return max(max(1, min_slots), max(1, staging_bytes // io_size))
++        required = min_slots * io_size + overhead
++        if required > staging_bytes:
++            raise ValueError(
++                f"staging budget {staging_bytes} bytes cannot fit minimum "
++                f"{min_slots} slots: backing requires {required} bytes; "
++                "freeze a larger budget or lower iodepth"
++            )
++        return (staging_bytes - overhead) // io_size
+ 
+     @property
+     def free_count(self) -> int:
+diff --git a/py_kvcache/transfer.py b/py_kvcache/transfer.py
+index ae032f7..78dfa03 100644
+--- a/py_kvcache/transfer.py
++++ b/py_kvcache/transfer.py
+@@ -10,12 +10,17 @@ from .profiling import add_event, now_ns
+ 
+ try:
+     import torch
++    TORCH_AVAILABLE = True
++except ImportError:
++    torch = Any
++    TORCH_AVAILABLE = False
++
++try:
+     from vllm import _custom_ops as ops
+     from vllm.utils.platform_utils import is_pin_memory_available
+ 
+     TORCH_COPY_AVAILABLE = True
+ except Exception:
+-    torch = Any
+     ops = None
+     TORCH_COPY_AVAILABLE = False
+ 
+@@ -153,8 +158,12 @@ class ParsedKvLayout:
+         )
+ 
+     def allocate_staging_buffer(self, slot_count: int) -> Any:
+-        if not TORCH_COPY_AVAILABLE:
+-            raise RuntimeError("vLLM and torch are required for GPU copy support")
++        # CPU storage/alignment tests do not require vLLM copy kernels.
++        # Reactor creation and canonical GPU layout still check TORCH_COPY_AVAILABLE.
++        if not TORCH_AVAILABLE:
++            raise RuntimeError("torch is required for CPU staging allocation")
++        if type(slot_count) is not int or slot_count <= 0:
++            raise ValueError("slot_count must be a positive integer")
+ 
+         slot_bytes = self.storage_block_bytes
+         if slot_bytes % DIRECT_IO_ALIGNMENT != 0:
+diff --git a/py_kvcache/vllm.py b/py_kvcache/vllm.py
+index 4a6ebfe..7e3e097 100644
+--- a/py_kvcache/vllm.py
++++ b/py_kvcache/vllm.py
+@@ -546,6 +546,9 @@ class NoopSharedStorageOffloadingHandler(OffloadingHandler):
+             active[0] for job_id in job_ids if (active := self._active.get(job_id)) is not None
+         ]
+         if futures:
++            if getattr(self.coordinator, "progress_bridge_enabled", False) is True:
++                # Publish before blocking; the independent reactor consumes the signal.
++                self.coordinator.request_mandatory(futures)
+             futures_wait(futures)
+         add_event(
+             "py_kvcache.handler.wait",
+@@ -622,6 +625,11 @@ class PyKvCacheOffloadingSpec(OffloadingSpec):
+     def __init__(self, vllm_config: VllmConfig, kv_cache_config: KVCacheConfig):
+         super().__init__(vllm_config, kv_cache_config)
+ 
++        # Project-owned optional P2 observer adapter; absent/off keeps native path.
++        self._prefix_io_options = None
++        if any(str(key).startswith("prefix_io_") for key in self.extra_config):
++            from prefix_io_control.native_options import parse_options
++            self._prefix_io_options = parse_options(self.extra_config)
+         self.shared_file_config = SharedFileConfig.from_extra_config(self.extra_config)
+         self._manager: SharedStorageOffloadingManager | None = None
+         self._handler: NoopSharedStorageOffloadingHandler | None = None
+@@ -761,7 +769,12 @@ class PyKvCacheOffloadingSpec(OffloadingSpec):
+                 storage_block_size=storage_block_size,
+                 kv_caches=kv_caches,
+             )
++            observer_kwargs = {}
++            if self._prefix_io_options is not None:
++                from prefix_io_control.native_options import build_observer_kwargs
++                observer_kwargs = build_observer_kwargs(self._prefix_io_options)
+             coordinator = TransferCoordinator(
++                **observer_kwargs,
+                 config=self.shared_file_config,
+                 file_mapper=self.file_mapper,
+                 layout=layout,
+diff --git a/tests/test_planner_manager.py b/tests/test_planner_manager.py
+index 7c3c151..244b539 100644
+--- a/tests/test_planner_manager.py
++++ b/tests/test_planner_manager.py
+@@ -490,7 +490,8 @@ class SpecConfigValidationTest(unittest.TestCase):
+         spec = self._build(gpu_block_size=16, block_size_factor=4)
+         self.assertEqual(spec.storage_block_tokens, 64)
+         self.assertEqual(spec._planner._tables.block_tokens, 64)
+-        self.assertEqual(spec._planner._max_preload_slots, 112)
++        # One slot is reserved for the retained alignment backing overhead.
++        self.assertEqual(spec._planner._max_preload_slots, 111)
+ 
+     def test_planner_off_by_default_skips_all_validation(self) -> None:
+         vllm_config = self._vllm_config()

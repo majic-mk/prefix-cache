@@ -1,0 +1,12 @@
+{
+  "original_error": "FileNotFoundError old/simple-primitive-plan.json",
+  "partial_writes": [
+    "off-control.json",
+    "shadow-control.json",
+    "fixed-control.json",
+    "pressure-control.json",
+    "gpu-environment.json",
+    "start-audit.json"
+  ],
+  "recovery": "existing old/primitive-plan.json validated before NEW plan creation; no overwrite, no GPU attempted"
+}

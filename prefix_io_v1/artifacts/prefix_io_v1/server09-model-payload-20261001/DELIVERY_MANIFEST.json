@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_CPU_EVIDENCE_ONLY",
+  "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-model-payload-20261001",
+  "actual_GPU_runs": 0,
+  "production_qualified": false,
+  "effect_verified": false,
+  "files": [
+    {
+      "path": "verify_server09_model_payload_readonly.py",
+      "bytes": 11990,
+      "sha256": "405f3a16f301434f9115e7a942b43baccf4bc4457878e9fc10652a09a2970991"
+    },
+    {
+      "path": "SERVER09_MODEL_PAYLOAD_READONLY_RESULT_V2.json",
+      "bytes": 97302,
+      "sha256": "6eed7b029b9d8c6f0e01e3d1ea2e5e9ea7aaee004d0266fab50c0a2a727c1cbb"
+    },
+    {
+      "path": "SERVER09_MODEL_PAYLOAD_READONLY_RESULT.json",
+      "bytes": 12413,
+      "sha256": "4dc62da52a34a463ea2b8584ea7a5aaf96276fbbd39642a5ad1971d71bf4622d"
+    },
+    {
+      "path": "README_SERVER09_MODEL_PAYLOAD_READONLY.md",
+      "bytes": 3665,
+      "sha256": "60e223302efd955f69ce99202fae6d73ef47949e554289916cbf94c054db3f1b"
+    },
+    {
+      "path": "modelscope-download-plan.json",
+      "bytes": 7310,
+      "sha256": "9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017"
+    }
+  ]
+}

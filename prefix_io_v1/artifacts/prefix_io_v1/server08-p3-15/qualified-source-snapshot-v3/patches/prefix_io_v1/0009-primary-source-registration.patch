@@ -1,0 +1,1267 @@
+--- a/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py
++++ b/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py
+@@ -15,6 +15,7 @@
+     for name in ["output","model-dir","model-plan","curves","manifest","storage-source"]:
+         ap.add_argument("--"+name,type=Path,required=True)
+     ap.add_argument("--qualification",type=Path,required=True)
++    ap.add_argument("--storage-registration",type=Path)
+     ap.add_argument("--flush-cause-probe",action="store_true")
+     ap.add_argument("--store-readiness-probe",action="store_true")
+     ap.add_argument("--start-budget-config",type=Path)
+@@ -40,7 +41,22 @@
+     base.require(permit["candidate_sha256"]==hashlib.sha256(a.curves.read_bytes()).hexdigest(),"candidate changed")
+     item=permit["manifests"][manifest["profile"]]
+     base.require(item["sha256"]==hashlib.sha256(a.manifest.read_bytes()).hexdigest(),"workload changed")
+-    base.require(source==Path("/root/prefix-io-v1-validation/storage/heldout-long"),"unexpected published source")
++    source_registration = None
++    if a.storage_registration is None:
++        base.require(source==Path("/root/prefix-io-v1-validation/storage/heldout-long"),"unexpected published source")
++    else:
++        from storage_source_registration import validate_registration
++        source_registration = validate_registration(
++            Path(__file__).resolve().parents[3], a.storage_registration, source, out,
++            os.environ.get("CUDA_VISIBLE_DEVICES"))
++        root = Path(__file__).resolve().parents[3]
++        cost_plan = json.loads((root/permit["cost_plan"]).read_text())
++        reference_plan = json.loads((root/cost_plan["reference_plan"]).read_text())
++        groups = reference_plan["external_groups"]
++        base.require(len(groups)==1 and Path(groups[0]["storage_path"]).resolve()==source,
++                     "registered source differs from qualified cached reference")
++        base.require(reference_plan["gpu_uuid"]==source_registration["gpu_uuid"],
++                     "registered source qualification GPU differs")
+     engine_config=validate(manifest,candidate,os.environ.get("CUDA_VISIBLE_DEVICES"))
+     base.require(manifest.get("io_depth",4)==permit.get("connector_delta",{}).get("iodepth",4),"I/O setting differs from qualification")
+     disk_contract=preflight(out,required_new_bytes(manifest["profile"]))
+@@ -60,6 +76,8 @@
+         initial_cache="published SSD corpus via hardlinks; new engine GPU/staging cold; private suffix writes",
+         source_shared_physical_bytes=sum(r["bytes"] for r in inventory))
+     report["disk_contract"]=disk_contract
++    if source_registration is not None:
++        report["source_registration"]=source_registration
+     if start_options is not None:
+         report.update(start_budget_config=start_options,
+             ordinary_quota_installed=start_options["mode"] in ("fixed","pressure"),
+--- a/tests/prefix_io_v1_start_budget/test_store_readiness.py
++++ b/tests/prefix_io_v1_start_budget/test_store_readiness.py
+@@ -137,10 +137,22 @@
+     current=root/"experiments/prefix_io_v1/scripts/run_concurrent_pilot.py"
+     class RemoveProbe(ast.NodeTransformer):
+         def visit_Expr(self,node):
+-            if isinstance(node.value,ast.Call) and any(isinstance(a,ast.Constant) and a.value=="--store-readiness-probe" for a in node.value.args):
++            if isinstance(node.value,ast.Call) and any(isinstance(a,ast.Constant) and a.value in ("--store-readiness-probe","--storage-registration") for a in node.value.args):
++                return None
++            return self.generic_visit(node)
++        def visit_Assign(self,node):
++            if len(node.targets)==1 and isinstance(node.targets[0],ast.Name) and node.targets[0].id=="source_registration":
+                 return None
+             return self.generic_visit(node)
+         def visit_If(self,node):
++            # P314 optional preparation is independently compared against its
++            # frozen pre-change complete driver AST; retain the original path.
++            if (isinstance(node.test,ast.Compare) and isinstance(node.test.left,ast.Attribute)
++                    and node.test.left.attr=="storage_registration"):
++                return self.visit(node.body[0])
++            if (isinstance(node.test,ast.Compare) and isinstance(node.test.left,ast.Name)
++                    and node.test.left.id=="source_registration"):
++                return None
+             if isinstance(node.test,ast.Attribute) and node.test.attr=="store_readiness_probe":
+                 return None
+             return self.generic_visit(node)
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/storage_source_registration.py
+@@ -0,0 +1,239 @@
++"""P314 explicit primary-disk registration of the one frozen heldout source.
++
++Read-only experimental preparation. No copy, import fallback, native cache
++configuration, I/O queue, GPU operation or resource lifecycle change occurs.
++Only the existing P312 manifest may register a physically separate source tree.
++"""
++import errno
++import hashlib
++import json
++import os
++import re
++import stat
++from pathlib import Path, PurePosixPath
++
++from experiment_storage import authorized_path, permission
++
++ORIGIN_ROOT = Path("/root/prefix-io-v1-validation/storage/heldout-long")
++ORIGIN_MANIFEST = Path(
++    "/root/prefix-io-v1-validation/runs/server07-p3-12-mixed-order-01-off/"
++    "details/storage-source-manifest.json"
++)
++ORIGIN_MANIFEST_SHA256 = "c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
++KEYS = frozenset((
++    "schema_version", "gpu_uuid", "source_root", "origin_root", "origin_manifest",
++    "origin_manifest_sha256", "source_manifest", "source_manifest_sha256",
++    "file_count", "total_bytes",
++))
++
++
++def _require(value, message):
++    if not value:
++        raise ValueError(message)
++
++
++def _unique_object(pairs):
++    result = {}
++    for key, value in pairs:
++        _require(key not in result, "duplicate JSON key")
++        result[key] = value
++    return result
++
++
++def _read_json(path):
++    _require(path.is_file() and not path.is_symlink(), "metadata must be a regular file")
++    _require(path.stat().st_size <= 8 * 1024**2, "bounded manifest/registration required")
++    data = path.read_bytes()
++    return json.loads(data, object_pairs_hook=_unique_object), data
++
++
++def _sha(data):
++    return hashlib.sha256(data).hexdigest()
++
++
++def _digest(value):
++    _require(type(value) is str and re.fullmatch("[0-9a-f]{64}", value) is not None,
++             "SHA-256 must be lowercase hexadecimal")
++    return value
++
++
++def _canonical(value, root, *, absolute_field=False):
++    _require(isinstance(value, (str, Path)), "path must be text or Path")
++    if type(value) is str:
++        _require(value and "\x00" not in value and "\\" not in value, "unsafe path text")
++    path = Path(value)
++    _require(".." not in path.parts, "path traversal is prohibited")
++    if absolute_field:
++        _require(path.is_absolute(), "registration paths must be absolute")
++    if not path.is_absolute():
++        path = root / path
++    # Check before resolve so even an alias into an otherwise approved root fails.
++    cursor = path
++    while True:
++        _require(not cursor.is_symlink(), "symlink path or ancestor is prohibited")
++        if cursor == cursor.parent:
++            break
++        cursor = cursor.parent
++    _require(path.resolve() == path, "noncanonical path is prohibited")
++    return path
++
++
++def _primary(value, root, primary, *, absolute_field=False):
++    path = _canonical(value, root, absolute_field=absolute_field)
++    actual, auxiliary = authorized_path(path, project=root)
++    _require(auxiliary is None and actual == path and path != primary
++             and path.is_relative_to(primary), "path must be inside approved primary experiments")
++    return path
++
++
++def _device(path):
++    """Separate seam for CPU-only filesystem-device fixtures."""
++    return path.stat().st_dev
++
++
++def _hash_file(path):
++    # Called only for declared regular source members after exact-tree validation.
++    before = path.stat()
++    digest = hashlib.sha256()
++    with path.open("rb") as stream:
++        for block in iter(lambda: stream.read(1024 * 1024), b""):
++            digest.update(block)
++    after = path.stat()
++    _require((before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns) ==
++             (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns),
++             "source member changed during validation")
++    return digest.hexdigest()
++
++
++def _members(rows):
++    _require(type(rows) is list and 0 < len(rows) <= 3048, "bounded frozen manifest list required")
++    result = {}
++    for row in rows:
++        _require(type(row) is dict and set(row) == {"path", "bytes", "sha256"},
++                 "strict frozen member keys required")
++        value = row["path"]
++        _require(type(value) is str and value and "\\" not in value and "\x00" not in value,
++                 "unsafe manifest member path")
++        parts = value.split("/")
++        _require(all(part not in ("", ".", "..") and ":" not in part for part in parts),
++                 "unsafe manifest member path")
++        relative = PurePosixPath(value)
++        _require(not relative.is_absolute() and relative.as_posix() == value
++                 and relative.suffix == ".bin", "members must be canonical relative .bin paths")
++        _require(value not in result, "duplicate manifest member")
++        _require(type(row["bytes"]) is int and row["bytes"] > 0, "positive member bytes required")
++        _digest(row["sha256"])
++        result[value] = row
++    return result
++
++
++def validate_registration(root, registration_path, storage_source, output_path, expected_gpu_uuid):
++    """Validate the explicit source before model startup; never create/copy data.
++
++    Paths and source content must remain frozen through the caller's run. This is
++    a point-in-time proof, not an ownership reservation or concurrent writer lock.
++    Tests may monkeypatch the three ORIGIN constants for private tmp_path fixtures.
++    """
++    root = _canonical(root, Path.cwd())
++    _require(root.is_dir(), "project root must exist")
++    permissions = permission(root)
++    primary = _canonical(permissions["approved_experiment_root"], root, absolute_field=True)
++    _require(primary.is_dir(), "approved primary root must exist")
++    registration_path = _primary(registration_path, root, primary)
++    registration, registration_bytes = _read_json(registration_path)
++    _require(type(registration) is dict and set(registration) == KEYS,
++             "strict source registration keys required")
++    _require(type(registration["schema_version"]) is int and registration["schema_version"] == 1,
++             "source registration schema must be 1")
++    uuid = registration["gpu_uuid"]
++    _require(type(uuid) is str and uuid and uuid == expected_gpu_uuid
++             and uuid in permissions["approved_gpu_ids"], "GPU UUID is not explicitly approved")
++    source = _primary(registration["source_root"], root, primary, absolute_field=True)
++    _require(source == _primary(storage_source, root, primary), "storage source differs from registration")
++    _require(source.is_dir(), "registered source must be an existing independent directory")
++    source_manifest = _primary(registration["source_manifest"], root, primary, absolute_field=True)
++    origin = _canonical(registration["origin_root"], root, absolute_field=True)
++    _require(origin == Path(ORIGIN_ROOT) and origin.is_dir(), "only the existing heldout origin is allowed")
++    _, origin_grant = authorized_path(origin, project=root)
++    _require(origin_grant is not None, "origin must remain in approved auxiliary storage")
++    origin_manifest = _canonical(registration["origin_manifest"], root, absolute_field=True)
++    _require(origin_manifest == Path(ORIGIN_MANIFEST), "only the fixed P312 origin manifest is allowed")
++    # Project evidence is read-only; auxiliary evidence also needs its explicit grant.
++    if not origin_manifest.is_relative_to(root):
++        authorized_path(origin_manifest, project=root)
++    _require(not (source == origin or source.is_relative_to(origin) or origin.is_relative_to(source)),
++             "registered source may not overlap origin")
++    _require(not os.path.samefile(source, origin), "registered source aliases origin directory")
++    _require(not registration_path.is_relative_to(source) and not source_manifest.is_relative_to(source),
++             "source metadata must stay outside the exact payload tree")
++    _require(registration_path != source_manifest, "registration and manifest must be independent metadata")
++
++    origin_rows, origin_bytes = _read_json(origin_manifest)
++    frozen_digest = _digest(ORIGIN_MANIFEST_SHA256)
++    _require(_sha(origin_bytes) == frozen_digest, "frozen origin manifest changed")
++    _require(_digest(registration["origin_manifest_sha256"]) == frozen_digest,
++             "declared origin digest differs from frozen manifest")
++    source_rows, manifest_bytes = _read_json(source_manifest)
++    _require(_digest(registration["source_manifest_sha256"]) == frozen_digest
++             and _sha(manifest_bytes) == frozen_digest and manifest_bytes == origin_bytes,
++             "source manifest must be byte-identical to frozen origin")
++    members = _members(origin_rows)
++    _require(source_rows == origin_rows, "source namespace differs from frozen origin")
++    count = registration["file_count"]
++    total = registration["total_bytes"]
++    _require(type(count) is int and count == len(members), "registered file count mismatch")
++    _require(type(total) is int and total == sum(row["bytes"] for row in members.values()),
++             "registered total bytes mismatch")
++
++    output = _primary(output_path, root, primary)
++    _require(not (output == source or output.is_relative_to(source) or source.is_relative_to(output)),
++             "output may not alias, contain or be contained by source")
++    if output.exists():
++        _require(output.is_dir(), "existing output must be a directory")
++        _require(not os.path.samefile(output, source), "output aliases source directory")
++    nearest = output
++    while not nearest.exists():
++        nearest = nearest.parent
++    _require(nearest.is_dir(), "nearest existing output parent must be a directory")
++    source_device, output_device = _device(source), _device(nearest)
++    if source_device != output_device:
++        raise OSError(errno.EXDEV, "registered source/output hardlink path crosses devices")
++
++    # Check names/types only first; do not read an undeclared source payload.
++    observed = set()
++    for directory, directories, names in os.walk(source, followlinks=False):
++        base = Path(directory)
++        for name in directories:
++            _require(not (base / name).is_symlink(), "source directory symlink prohibited")
++        for name in names:
++            path = base / name
++            _require(not path.is_symlink() and stat.S_ISREG(path.stat().st_mode),
++                     "source members must be nonsymlink regular files")
++            observed.add(path.relative_to(source).as_posix())
++    _require(observed == set(members), "source tree has missing or extra files")
++    proof = hashlib.sha256()
++    for relative, row in sorted(members.items()):
++        path = _canonical(source / relative, root)
++        _require(path.stat().st_size == row["bytes"], "source member size changed")
++        if _device(path) != source_device:
++            raise OSError(errno.EXDEV, "source member crosses output device")
++        digest = _hash_file(path)
++        _require(digest == row["sha256"], "source member content changed")
++        proof.update((relative + "\0" + str(row["bytes"]) + "\0" + digest + "\n").encode())
++    _require(origin_manifest.read_bytes() == origin_bytes
++             and source_manifest.read_bytes() == manifest_bytes
++             and registration_path.read_bytes() == registration_bytes,
++             "registration or frozen metadata changed during validation")
++    return dict(
++        schema_version=1, gpu_uuid=uuid, source_root=str(source), origin_root=str(origin),
++        registration_path=str(registration_path), registration_sha256=_sha(registration_bytes),
++        origin_manifest=str(origin_manifest), origin_manifest_sha256=frozen_digest,
++        source_manifest=str(source_manifest), source_manifest_sha256=frozen_digest,
++        source_content_proof_sha256=proof.hexdigest(), file_count=count, total_bytes=total,
++        source_device=source_device, output_parent_device=output_device,
++        nearest_existing_output_parent=str(nearest), output_path=str(output),
++        source_tree_exact=True, full_source_hashes_verified=True,
++        original_payloads_read=False, source_materialization_performed=False,
++        native_cache_engine_modified=False, gpu_operations_performed=False,
++        proof_scope="point-in-time frozen source/device validation before model startup",
++    )
+--- /dev/null
++++ b/tests/prefix_io_v1_pilot/test_storage_source_registration.py
+@@ -0,0 +1,397 @@
++"""Private tmp_path fixtures only; no real origin/source, native engine or GPU."""
++import copy
++import errno
++import hashlib
++import json
++import os
++from pathlib import Path
++from types import SimpleNamespace
++
++import pytest
++
++import storage_source_registration as mod
++
++
++def digest(data):
++    return hashlib.sha256(data).hexdigest()
++
++
++def save(path, value):
++    path.parent.mkdir(parents=True, exist_ok=True)
++    path.write_text(json.dumps(value, separators=(",", ":")), encoding="utf-8")
++
++
++@pytest.fixture
++def fixture(tmp_path, monkeypatch):
++    root = tmp_path / "project"
++    primary = root / "experiments/prefix_io_v1/runs"
++    auxiliary = tmp_path / "auxiliary"
++    source = primary / "registered-heldout-source"
++    origin = auxiliary / "storage/heldout-long"
++    origin_manifest = auxiliary / "runs/server07-p3-12-mixed-order-01-off/details/storage-source-manifest.json"
++    source_manifest = primary / "registration/source-manifest.json"
++    registration_path = primary / "registration/source-registration.json"
++    output = primary / "fresh-cohort/details"
++    source.mkdir(parents=True)
++    origin.mkdir(parents=True)
++    namespace = ("Qwen/Qwen2.5-7B-Instruct/block_size_16_blocks_per_file_1/"
++                 "tp_1_pp_size_1_pcp_size_1/rank_0/auto")
++    rows = []
++    for index, payload in enumerate((b"KV-first\x00", b"KV-second\x01")):
++        relative = namespace + "/" + str(index).zfill(3) + "/aa/" + str(index) * 64 + ".bin"
++        for directory in (source, origin):
++            path = directory / relative
++            path.parent.mkdir(parents=True, exist_ok=True)
++            path.write_bytes(payload)
++        rows.append(dict(path=relative, bytes=len(payload), sha256=digest(payload)))
++    save(origin_manifest, rows)
++    source_manifest.parent.mkdir(parents=True)
++    source_manifest.write_bytes(origin_manifest.read_bytes())
++    manifest_sha = digest(origin_manifest.read_bytes())
++    registration = dict(
++        schema_version=1, gpu_uuid="GPU-test", source_root=str(source), origin_root=str(origin),
++        origin_manifest=str(origin_manifest), origin_manifest_sha256=manifest_sha,
++        source_manifest=str(source_manifest), source_manifest_sha256=manifest_sha,
++        file_count=len(rows), total_bytes=sum(row["bytes"] for row in rows),
++    )
++    save(registration_path, registration)
++    flags = {name: False for name in (
++        "allow_project_local_edits", "allow_cpu_tests", "allow_public_source_read",
++        "allow_remote_push", "allow_new_cloud_rental", "allow_payment",
++        "allow_driver_or_system_changes", "allow_shared_data_deletion",
++        "allow_gpu_runs", "allow_model_downloads",
++    )}
++    flags.update(allow_project_local_edits=True, allow_cpu_tests=True, allow_gpu_runs=True)
++    authorization_path = root / "experiments/prefix_io_v1/configs/authorizations/fixture.json"
++    auxiliary_grant = dict(root=str(auxiliary), max_bytes=20 * 1024**3,
++                           minimum_free_bytes=8 * 1024**3,
++                           authorization_record=authorization_path.relative_to(root).as_posix())
++    permissions = dict(
++        flags, schema_version=1, max_gpu_hours=8, max_model_download_gib=20,
++        approved_gpu_ids=["GPU-test"], approved_experiment_root=str(primary),
++        approved_dependency_root=str(root), approved_auxiliary_storage=auxiliary_grant,
++    )
++    permission_path = root / "experiments/prefix_io_v1/configs/permissions.yaml"
++    save(permission_path, permissions)  # JSON is valid YAML; exercise real permission parser.
++    save(authorization_path, dict(auxiliary_grant, gpu_uuid="GPU-test", max_gpu_hours_unchanged=8))
++    monkeypatch.setattr(mod, "ORIGIN_ROOT", origin)
++    monkeypatch.setattr(mod, "ORIGIN_MANIFEST", origin_manifest)
++    monkeypatch.setattr(mod, "ORIGIN_MANIFEST_SHA256", manifest_sha)
++    return SimpleNamespace(
++        root=root, primary=primary, auxiliary=auxiliary, source=source, origin=origin,
++        origin_manifest=origin_manifest, source_manifest=source_manifest,
++        registration_path=registration_path, registration=registration, rows=rows,
++        output=output, permissions=permissions, permission_path=permission_path,
++        authorization_path=authorization_path,
++    )
++
++
++def validate(f, **changes):
++    arguments = dict(root=f.root, registration_path=f.registration_path,
++                     storage_source=f.source, output_path=f.output, expected_gpu_uuid="GPU-test")
++    arguments.update(changes)
++    return mod.validate_registration(**arguments)
++
++
++def rewrite(f, **changes):
++    value = dict(f.registration, **changes)
++    save(f.registration_path, value)
++    return value
++
++
++def refreeze(f, monkeypatch, rows):
++    """Fixture-only malformed-frozen-manifest seam; production constants stay fixed."""
++    save(f.origin_manifest, rows)
++    f.source_manifest.write_bytes(f.origin_manifest.read_bytes())
++    value = digest(f.origin_manifest.read_bytes())
++    monkeypatch.setattr(mod, "ORIGIN_MANIFEST_SHA256", value)
++    rewrite(f, origin_manifest_sha256=value, source_manifest_sha256=value,
++            file_count=len(rows), total_bytes=sum(row["bytes"] for row in rows))
++
++
++def test_valid_registration_verifies_only_declared_new_payloads(fixture, monkeypatch):
++    f = fixture
++    visited = []
++    original = mod._hash_file
++    def observe(path):
++        visited.append(path)
++        assert path.is_relative_to(f.source)
++        return original(path)
++    monkeypatch.setattr(mod, "_hash_file", observe)
++    report = validate(f)
++    assert set(visited) == {f.source / row["path"] for row in f.rows}
++    assert report["source_tree_exact"] and report["full_source_hashes_verified"]
++    assert report["file_count"] == 2 and report["total_bytes"] == sum(row["bytes"] for row in f.rows)
++    assert report["source_device"] == report["output_parent_device"]
++    assert report["original_payloads_read"] is False
++    assert report["source_materialization_performed"] is False
++    assert report["gpu_operations_performed"] is False
++    assert not f.output.exists()
++
++
++def test_missing_registration_key_rejected(fixture):
++    value = dict(fixture.registration)
++    del value["origin_manifest_sha256"]
++    save(fixture.registration_path, value)
++    with pytest.raises(ValueError):
++        validate(fixture)
++
++
++def test_extra_registration_key_rejected(fixture):
++    rewrite(fixture, copy_fallback=True)
++    with pytest.raises(ValueError):
++        validate(fixture)
++
++
++def test_duplicate_json_registration_key_rejected(fixture):
++    path = fixture.registration_path
++    path.write_text(path.read_text().replace('"schema_version":1', '"schema_version":1,"schema_version":1', 1))
++    with pytest.raises(ValueError, match="duplicate JSON"):
++        validate(fixture)
++
++
++def test_schema_and_count_types_do_not_accept_bool_or_float(fixture):
++    for changes in (dict(schema_version=True), dict(file_count=True), dict(file_count=2.0),
++                    dict(total_bytes=True), dict(total_bytes=1)):
++        rewrite(fixture, **changes)
++        with pytest.raises(ValueError):
++            validate(fixture)
++
++
++def test_storage_source_argument_must_match_registered_path(fixture):
++    other = fixture.primary / "other-source"
++    other.mkdir()
++    with pytest.raises(ValueError):
++        validate(fixture, storage_source=other)
++
++
++def test_source_outside_primary_rejected(fixture):
++    rewrite(fixture, source_root=str(fixture.origin))
++    with pytest.raises(ValueError):
++        validate(fixture, storage_source=fixture.origin)
++
++
++def test_registration_outside_primary_rejected(fixture):
++    other = fixture.root / "artifacts/registration.json"
++    save(other, fixture.registration)
++    with pytest.raises(ValueError):
++        validate(fixture, registration_path=other)
++
++
++def test_source_manifest_outside_primary_rejected(fixture):
++    rewrite(fixture, source_manifest=str(fixture.origin_manifest))
++    with pytest.raises(ValueError):
++        validate(fixture)
++
++
++def test_origin_root_cannot_be_substituted(fixture):
++    other = fixture.auxiliary / "storage/unrelated"
++    other.mkdir()
++    rewrite(fixture, origin_root=str(other))
++    with pytest.raises(ValueError):
++        validate(fixture)
++
++
++def test_equal_content_alternative_origin_manifest_rejected(fixture):
++    other = fixture.auxiliary / "runs/another-manifest.json"
++    other.parent.mkdir(parents=True, exist_ok=True)
++    other.write_bytes(fixture.origin_manifest.read_bytes())
++    rewrite(fixture, origin_manifest=str(other))
++    with pytest.raises(ValueError):
++        validate(fixture)
++
++
++def test_wrong_expected_gpu_uuid_rejected(fixture):
++    with pytest.raises(ValueError):
++        validate(fixture, expected_gpu_uuid="GPU-other")
++
++
++def test_wrong_registered_gpu_uuid_rejected(fixture):
++    rewrite(fixture, gpu_uuid="GPU-other")
++    with pytest.raises(ValueError):
++        validate(fixture)
++
++
++def test_gpu_uuid_must_be_in_permissions_even_when_arguments_agree(fixture):
++    f = fixture
++    permissions = dict(f.permissions, approved_gpu_ids=["GPU-other"])
++    save(f.permission_path, permissions)
++    record = json.loads(f.authorization_path.read_text())
++    record["gpu_uuid"] = "GPU-other"
++    save(f.authorization_path, record)
++    with pytest.raises(ValueError):
++        validate(f)
++
++
++def test_changed_old_manifest_not_accepted_by_refreshing_registration_hashes(fixture):
++    f = fixture
++    data = f.origin_manifest.read_bytes() + b"\n"
++    f.origin_manifest.write_bytes(data)
++    f.source_manifest.write_bytes(data)
++    rewrite(f, origin_manifest_sha256=digest(data), source_manifest_sha256=digest(data))
++    with pytest.raises(ValueError, match="frozen origin manifest changed"):
++        validate(f)
++
++
++def test_source_manifest_cannot_change_format_or_hash(fixture):
++    fixture.source_manifest.write_bytes(fixture.source_manifest.read_bytes() + b"\n")
++    with pytest.raises(ValueError, match="byte-identical"):
++        validate(fixture)
++
++
++def test_equal_size_source_content_corruption_rejected(fixture):
++    path = fixture.source / fixture.rows[0]["path"]
++    path.write_bytes(b"x" * path.stat().st_size)
++    with pytest.raises(ValueError, match="content changed"):
++        validate(fixture)
++
++
++def test_source_size_change_rejected(fixture):
++    path = fixture.source / fixture.rows[0]["path"]
++    path.write_bytes(path.read_bytes() + b"x")
++    with pytest.raises(ValueError, match="size changed"):
++        validate(fixture)
++
++
++def test_extra_payload_rejected_before_any_source_payload_read(fixture, monkeypatch):
++    (fixture.source / "undeclared.bin").write_bytes(b"do not read")
++    def must_not_read(path):
++        raise AssertionError("tree rejection must precede all payload reads")
++    monkeypatch.setattr(mod, "_hash_file", must_not_read)
++    with pytest.raises(ValueError, match="extra files"):
++        validate(fixture)
++
++
++def test_missing_payload_rejected(fixture):
++    (fixture.source / fixture.rows[0]["path"]).unlink()
++    with pytest.raises(ValueError, match="missing or extra"):
++        validate(fixture)
++
++
++def test_duplicate_manifest_member_rejected(fixture, monkeypatch):
++    rows = copy.deepcopy(fixture.rows)
++    rows.append(dict(rows[0]))
++    refreeze(fixture, monkeypatch, rows)
++    with pytest.raises(ValueError, match="duplicate manifest"):
++        validate(fixture)
++
++
++def test_unsafe_manifest_members_never_escape_the_source_tree(fixture, monkeypatch):
++    paths = ("../escape.bin", "/absolute.bin", "a/../../escape.bin", "a//b.bin",
++             "a/./b.bin", "a\\b.bin", "C:/escape.bin", "a/\x00.bin")
++    for unsafe in paths:
++        rows = copy.deepcopy(fixture.rows)
++        rows[0]["path"] = unsafe
++        refreeze(fixture, monkeypatch, rows)
++        with pytest.raises(ValueError):
++            validate(fixture)
++
++
++def test_non_bin_member_and_unknown_member_fields_rejected(fixture, monkeypatch):
++    for mutation in (dict(path="README.txt"), dict(extra="unapproved")):
++        rows = copy.deepcopy(fixture.rows)
++        rows[0].update(mutation)
++        refreeze(fixture, monkeypatch, rows)
++        with pytest.raises(ValueError):
++            validate(fixture)
++
++
++def test_member_symlink_to_equal_bytes_is_rejected(fixture):
++    f = fixture
++    path = f.source / f.rows[0]["path"]
++    outside = f.root / "outside.bin"
++    outside.write_bytes(path.read_bytes())
++    path.unlink()
++    path.symlink_to(outside)
++    with pytest.raises(ValueError, match="nonsymlink"):
++        validate(f)
++
++
++def test_directory_symlink_does_not_get_followed(fixture):
++    f = fixture
++    directory = f.source / "Qwen"
++    moved = f.root / "preserved-Qwen"
++    directory.rename(moved)
++    directory.symlink_to(moved, target_is_directory=True)
++    with pytest.raises(ValueError, match="directory symlink"):
++        validate(f)
++
++
++def test_source_root_symlink_alias_rejected(fixture):
++    f = fixture
++    moved = f.primary / "real-source"
++    f.source.rename(moved)
++    f.source.symlink_to(moved, target_is_directory=True)
++    with pytest.raises(ValueError, match="symlink"):
++        validate(f)
++
++
++def test_registration_symlink_rejected(fixture):
++    f = fixture
++    moved = f.registration_path.with_name("backing.json")
++    f.registration_path.rename(moved)
++    f.registration_path.symlink_to(moved)
++    with pytest.raises(ValueError, match="symlink"):
++        validate(f)
++
++
++def test_output_cannot_equal_contain_or_be_contained_by_source(fixture):
++    for output in (fixture.source, fixture.source / "child", fixture.primary):
++        with pytest.raises(ValueError):
++            validate(fixture, output_path=output)
++
++
++def test_output_symlink_alias_to_source_rejected(fixture):
++    alias = fixture.primary / "output-alias"
++    alias.symlink_to(fixture.source, target_is_directory=True)
++    with pytest.raises(ValueError, match="symlink"):
++        validate(fixture, output_path=alias)
++
++
++def test_cross_device_output_parent_fails_with_exdev_before_hashes(fixture, monkeypatch):
++    f = fixture
++    original = mod._device
++    def devices(path):
++        return original(path) + (1 if path == f.primary else 0)
++    monkeypatch.setattr(mod, "_device", devices)
++    def must_not_hash(path):
++        raise AssertionError("EXDEV must be detected before source hashing/model startup")
++    monkeypatch.setattr(mod, "_hash_file", must_not_hash)
++    with pytest.raises(OSError) as error:
++        validate(f)
++    assert error.value.errno == errno.EXDEV
++
++
++def test_cross_device_member_also_fails_with_exdev(fixture, monkeypatch):
++    member = fixture.source / fixture.rows[0]["path"]
++    original = mod._device
++    monkeypatch.setattr(mod, "_device", lambda path: original(path) + (1 if path == member else 0))
++    with pytest.raises(OSError) as error:
++        validate(fixture)
++    assert error.value.errno == errno.EXDEV
++
++
++def test_source_metadata_must_stay_outside_exact_payload_tree(fixture):
++    manifest = fixture.source / "source-manifest.json"
++    manifest.write_bytes(fixture.source_manifest.read_bytes())
++    rewrite(fixture, source_manifest=str(manifest))
++    with pytest.raises(ValueError, match="metadata"):
++        validate(fixture)
++
++
++def test_nonregular_declared_source_file_never_blocks_on_read(fixture):
++    path = fixture.source / fixture.rows[0]["path"]
++    path.unlink()
++    os.mkfifo(path)
++    with pytest.raises(ValueError, match="regular files"):
++        validate(fixture)
++
++
++def test_relative_field_and_traversal_arguments_rejected(fixture):
++    rewrite(fixture, source_root="relative/source")
++    with pytest.raises(ValueError):
++        validate(fixture)
++    save(fixture.registration_path, fixture.registration)
++    escaped = str(fixture.primary / ".." / "runs" / "registered-heldout-source")
++    with pytest.raises(ValueError):
++        validate(fixture, storage_source=escaped)
+--- /dev/null
++++ b/tests/prefix_io_v1_pilot/test_registered_driver_contract.py
+@@ -0,0 +1,42 @@
++"""Static regression of the optional model-driver facility, before GPU startup."""
++import ast
++from pathlib import Path
++ROOT=Path(__file__).resolve().parents[2]
++def trees():
++ old=ast.parse((ROOT/"artifacts/prefix_io_v1/server08-p3-14/run_concurrent_pilot-before.py").read_text())
++ new=ast.parse((ROOT/"experiments/prefix_io_v1/scripts/run_concurrent_pilot.py").read_text())
++ return old,new
++def main(tree):
++ return next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=="main")
++def text(node):return ast.unparse(node)
++def test_default_driver_restores_original_ast():
++ old,new=trees();m=main(new);body=[];old_source=next(n for n in main(old).body if 'unexpected published source' in text(n))
++ for n in m.body:
++  s=text(n)
++  if s=="ap.add_argument('--storage-registration', type=Path)" or s=="source_registration = None":continue
++  if isinstance(n,ast.If) and s.startswith("if a.storage_registration is None:"):
++   assert len(n.body)==1
++   assert ast.dump(n.test)==ast.dump(ast.parse("a.storage_registration is None",mode="eval").body)
++   assert ast.dump(n.body[0],include_attributes=False)==ast.dump(old_source,include_attributes=False)
++   body.append(n.body[0]);continue
++  if isinstance(n,ast.If) and s.startswith("if source_registration is not None:"):continue
++  body.append(n)
++ m.body=body
++ assert ast.dump(new,include_attributes=False)==ast.dump(old,include_attributes=False)
++def test_source_validation_and_gate_binding_precede_clone_and_runtime():
++ _,tree=trees();body=main(tree).body
++ source_gate=next(i for i,n in enumerate(body) if isinstance(n,ast.If) and text(n).startswith("if a.storage_registration is None:"))
++ clone=next(i for i,n in enumerate(body) if "inventory = clone_private_storage(" in text(n))
++ runtime=next(i for i,n in enumerate(body) if "base.configure_runtime_environment()" in text(n))
++ assert source_gate < clone < runtime
++ block=text(body[source_gate])
++ assert 'root / permit' in block and 'reference_plan' in block
++ assert 'storage_path' in block and '== source' in block
++ assert 'source_registration' in block and "['gpu_uuid']" in block
++ assert not any(isinstance(n,ast.Try) for n in ast.walk(body[source_gate]))
++def test_native_cache_clone_and_engine_configuration_unchanged():
++ old,new=trees()
++ for prefix in ["inventory = clone_private_storage(", "config = dict(engine_config", "sampling = dict(base.SAMPLING"]:
++  def pick(tree):
++   return next(n for n in ast.walk(main(tree)) if isinstance(n,ast.Assign) and text(n).startswith(prefix))
++  assert ast.dump(pick(old),include_attributes=False)==ast.dump(pick(new),include_attributes=False)
+--- /dev/null
++++ b/experiments/prefix_io_v1/scripts/package_primary_qualification_delivery.py
+@@ -0,0 +1,241 @@
++"""Package P314 qualification evidence on approved PRIMARY storage.
++
++Run only after final source/version locks, report and patches exist. This script
++never edits those locks or packages model/cache payloads or CPU temporary trees.
++"""
++import hashlib
++import json
++import time
++import zipfile
++from pathlib import Path
++
++from experiment_storage import ROOT, permission, preflight
++
++OUT = ROOT / "artifacts/prefix_io_v1/server08-p3-14"
++AUX = Path("/root/prefix-io-v1-validation")
++PRIMARY = ROOT / "experiments/prefix_io_v1/runs"
++DESTINATION = PRIMARY / "deliveries/server08-p3-primary-qualification.zip"
++RESERVATION_BYTES = 256 * 1024**2
++PACKAGE_SCRIPT = "experiments/prefix_io_v1/scripts/package_primary_qualification_delivery.py"
++EXCLUDED_DELIVERY_NAMES = {
++    "delivery-manifest.json", "delivery-receipt.json",
++    "delivery-local-verification.json", "delivery-final-check.json",
++}
++PAYLOAD_SUFFIXES = {".bin", ".safetensors", ".pt", ".pth", ".ckpt", ".zip"}
++
++
++def sha(path):
++    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
++
++
++def project_path(value):
++    path = Path(value)
++    return path if path.is_absolute() else ROOT / path
++
++
++def assert_idle(ledger_path):
++    ledger = json.loads(ledger_path.read_text())
++    assert ledger["active_reservation"] is None, "GPU budget must be idle before packaging"
++    return ledger
++
++
++def main():
++    ledger_path = ROOT / "experiments/prefix_io_v1/gpu-budget-ledger.json"
++    assert_idle(ledger_path)
++    ledger_digest = sha(ledger_path)
++    authorized = permission(ROOT)
++    assert Path(authorized["approved_experiment_root"]) == PRIMARY
++    assert DESTINATION.is_relative_to(PRIMARY)
++    assert not DESTINATION.exists(), "delivery ZIP is append-only"
++    storage_before = preflight(DESTINATION, RESERVATION_BYTES)
++    assert Path(storage_before["root"]) == PRIMARY
++    assert storage_before["reserved_new_bytes"] == RESERVATION_BYTES
++
++    lock_path = OUT / "source-lock-final.json"
++    version_path = OUT / "version-lock.json"
++    lock = json.loads(lock_path.read_text())
++    assert type(lock) is dict and lock, "final source lock is required"
++    version = json.loads(version_path.read_text())
++    assert version["source_lock_files"] == len(lock), "version/source lock count mismatch"
++    assert version["source_lock_sha256"] == sha(lock_path), "version/source lock SHA mismatch"
++    lock_digest, version_digest = sha(lock_path), sha(version_path)
++    for value, digest in lock.items():
++        path = project_path(value)
++        assert type(digest) is str and len(digest) == 64
++        assert path.is_file() and not path.is_symlink(), str(path)
++        assert sha(path) == digest, "source lock mismatch: " + str(path)
++    own_digest = sha(ROOT / PACKAGE_SCRIPT)
++    assert lock.get(PACKAGE_SCRIPT) == own_digest, "packager must already be in final source lock"
++
++    def assert_locks_unchanged():
++        assert sha(lock_path) == lock_digest and sha(version_path) == version_digest, "final locks changed"
++
++    files = {}
++
++    def add(value):
++        path = project_path(value)
++        assert path.is_absolute() and ".." not in path.parts, "unsafe evidence path: " + str(path)
++        assert path.is_file() and not path.is_symlink(), str(path)
++        assert path.suffix.lower() not in PAYLOAD_SUFFIXES, "payload prohibited: " + str(path)
++        assert "models" not in path.parts and "__pycache__" not in path.parts, str(path)
++        if path.is_relative_to(ROOT):
++            evidence_root = ROOT
++            name = path.relative_to(ROOT).as_posix()
++        elif path.is_relative_to(AUX):
++            evidence_root = AUX
++            name = "auxiliary/" + path.relative_to(AUX).as_posix()
++        else:
++            raise ValueError("outside delivery evidence roots: " + str(path))
++        # Prevent a parent-directory symlink from redirecting locked evidence.
++        cursor = path.parent
++        while cursor != evidence_root:
++            assert not cursor.is_symlink(), "redirected evidence directory: " + str(cursor)
++            assert cursor != cursor.parent
++            cursor = cursor.parent
++        assert not evidence_root.is_symlink()
++        if name in files:
++            assert files[name] == path, "ambiguous archive name: " + name
++        files[name] = path
++
++    def add_top(directory):
++        directory = project_path(directory)
++        assert directory.is_dir() and not directory.is_symlink(), str(directory)
++        for path in sorted(directory.iterdir()):
++            assert not path.is_symlink(), "symlink in top-level evidence: " + str(path)
++            if path.is_file() and path.suffix.lower() not in PAYLOAD_SUFFIXES:
++                add(path)
++
++    for value, digest in lock.items():
++        path = project_path(value)
++        assert sha(path) == digest, "source changed during packaging: " + str(path)
++        add(path)
++
++    for directory, pattern in [
++        ("docs/prefix_io_v1", "*.md"),
++        ("docs/prefix_io_v1/templates", "*"),
++        ("experiments/prefix_io_v1/locks", "*.json"),
++        ("patches/prefix_io_v1", "*.patch"),
++        ("src/prefix_io_control", "*.py"),
++        ("experiments/prefix_io_v1/scripts", "*.py"),
++    ]:
++        for path in sorted((ROOT / directory).rglob(pattern)):
++            if path.is_file() and "__pycache__" not in path.parts:
++                add(path)
++    for directory in sorted((ROOT / "tests").glob("prefix_io_v1*")):
++        if directory.is_dir():
++            for path in sorted(directory.rglob("*.py")):
++                if "__pycache__" not in path.parts:
++                    add(path)
++    for value in [
++        "experiments/prefix_io_v1/execution_state.json",
++        "experiments/prefix_io_v1/gpu-budget-ledger.json",
++        "experiments/prefix_io_v1/configs/permissions.yaml",
++        "REPRODUCE_SERVER08_P3_PRIMARY_QUALIFICATION.md",
++        "docs/prefix_io_v1/SERVER08_P3_PRIMARY_QUALIFICATION_REPORT.md",
++    ]:
++        add(value)
++
++    def add_gpu_run(plan_path, output_flag, expected_label=None):
++        entry = json.loads(project_path(plan_path).read_text())
++        command = entry["command"]
++        assert type(command) is list and command.count(output_flag) == 1, str(plan_path)
++        label = entry["label"]
++        assert type(label) is str and label.startswith("server08-p3-14-")
++        assert Path(label).name == label and label not in (".", ".."), "unsafe run label"
++        if expected_label is not None:
++            assert label == expected_label, "execution-plan/individual-plan label mismatch"
++        run_root = PRIMARY / label
++        folder = project_path(command[command.index(output_flag) + 1])
++        assert folder == project_path(entry["output"]) == run_root / "details", "frozen output differs from argv"
++        add(plan_path)
++        add_top(folder)
++        for name in ("process.log", "result.json"):
++            add(run_root / name)
++        return entry
++
++    execution = json.loads((OUT / "execution-plan.json").read_text())
++    jobs = execution["jobs"]
++    assert type(jobs) is list and len(jobs) == 13, "P314 requires exactly 13 qualification plans"
++    assert len({job["label"] for job in jobs}) == len(jobs), "duplicate qualification labels"
++    assert len({job["plan"] for job in jobs}) == len(jobs), "duplicate qualification plans"
++    for job in jobs:
++        add_gpu_run(job["plan"], "--output-dir", job["label"])
++    model = add_gpu_run(OUT / "model-off-plan.json", "--output")
++    add(model["comparison_reference"])
++
++    # Preserve initial failures and final CPU evidence, without pytest-tmp trees.
++    for label in (
++        "server08-p3-14-registration-matrix",
++        "server08-p3-14-registration-matrix-02",
++        "server08-p3-14-test-hardening",
++        "server08-p3-14-test-hardening-02",
++    ):
++        run_root = PRIMARY / label
++        add_top(run_root)
++        add_top(run_root / "cpu-evidence")
++    for name in ("registration.json", "source-manifest.json", "copy-proof.json"):
++        add(PRIMARY / "server08-p3-14-source" / name)
++
++    for path in sorted(OUT.rglob("*")):
++        if path.is_file() and path.name not in EXCLUDED_DELIVERY_NAMES and not path.name.startswith("delivery-"):
++            add(path)
++    assert_idle(ledger_path)
++    assert sha(ledger_path) == ledger_digest, "GPU budget changed while gathering evidence"
++    assert_locks_unchanged()
++
++    manifest = dict(
++        schema_version=1, created_unix=time.time(),
++        project_root=str(ROOT), auxiliary_root=str(AUX),
++        report="docs/prefix_io_v1/SERVER08_P3_PRIMARY_QUALIFICATION_REPORT.md",
++        destination=str(DESTINATION), reservation_bytes=RESERVATION_BYTES,
++        source_lock=str(lock_path), source_lock_sha256=lock_digest,
++        version_lock_sha256=version_digest,
++        notes=("Model weights and cache .bin payloads remain on server. Includes 13 cost "
++               "qualification runs, one native/off model acceptance, initial/final CPU evidence, "
++               "PRIMARY source metadata, locks, patches and provenance. No efficacy claim. "
++               "Completed labels and delivery commands are append-only; do not rerun them."),
++        files=[dict(path=name, server_path=str(path), bytes=path.stat().st_size, sha256=sha(path))
++               for name, path in sorted(files.items())],
++    )
++    manifest_path = OUT / "delivery-manifest.json"
++    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
++    # Reserve conservatively for ZIP overhead before any archive write.
++    assert sum(item["bytes"] for item in manifest["files"]) + manifest_path.stat().st_size + 1024**2 <= RESERVATION_BYTES, "evidence exceeds frozen ZIP reservation"
++    DESTINATION.parent.mkdir(parents=True, exist_ok=True)
++    assert not DESTINATION.parent.is_symlink()
++    assert_idle(ledger_path)
++    assert sha(ledger_path) == ledger_digest
++    assert_locks_unchanged()
++    # Revalidate the same reservation immediately before creating the archive.
++    preflight(DESTINATION, RESERVATION_BYTES)
++    with zipfile.ZipFile(DESTINATION, "x", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
++        for name, path in sorted(files.items()):
++            archive.write(path, name)
++        archive.write(manifest_path, "delivery-manifest.json")
++    assert DESTINATION.stat().st_size <= RESERVATION_BYTES, "ZIP exceeded frozen reservation"
++    with zipfile.ZipFile(DESTINATION) as archive:
++        assert archive.testzip() is None
++        names = archive.namelist()
++        assert len(names) == len(files) + 1 and len(names) == len(set(names))
++        for item in manifest["files"]:
++            contents = archive.read(item["path"])
++            assert len(contents) == item["bytes"]
++            assert hashlib.sha256(contents).hexdigest() == item["sha256"], item["path"]
++        assert archive.read("delivery-manifest.json") == manifest_path.read_bytes()
++    assert_idle(ledger_path)
++    assert sha(ledger_path) == ledger_digest
++    assert_locks_unchanged()
++    receipt = dict(
++        path=str(DESTINATION), bytes=DESTINATION.stat().st_size, sha256=sha(DESTINATION),
++        manifest_files=len(files), source_lock_files=len(lock),
++        package_script_sha256=own_digest, source_lock_sha256=lock_digest,
++        version_lock_sha256=version_digest, zip_roundtrip_all_hashes_verified=True,
++        gpu_budget_idle=True, storage_before=storage_before,
++        storage_after=preflight(PRIMARY / "deliveries/next", 0),
++    )
++    (OUT / "delivery-receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
++    print(json.dumps(receipt, indent=2))
++
++
++if __name__ == "__main__":
++    main()
+--- /dev/null
++++ b/artifacts/prefix_io_v1/server08-p3-14/run_concurrent_pilot-before.py
+@@ -0,0 +1,170 @@
++"""Two-sequence P3 development replay using the existing native driver helpers."""
++import argparse,dataclasses,hashlib,json,os,shutil,time,traceback
++from pathlib import Path
++from experiment_storage import authorized_path,preflight
++import native_gpu_prefix_smoke as base
++from run_p3_native_pilot import worker_probe
++from run_long_calibration_replay import worker_trace,clone_private_storage,verify_source
++from concurrent_pilot_contract import validate,required_new_bytes
++from qualify_concurrent_pilot import verify_gate
++from prefix_io_control.token_timeline import TokenTimeline,percentile
++
++def main():
++    global worker_probe
++    ap=argparse.ArgumentParser()
++    for name in ["output","model-dir","model-plan","curves","manifest","storage-source"]:
++        ap.add_argument("--"+name,type=Path,required=True)
++    ap.add_argument("--qualification",type=Path,required=True)
++    ap.add_argument("--flush-cause-probe",action="store_true")
++    ap.add_argument("--store-readiness-probe",action="store_true")
++    ap.add_argument("--start-budget-config",type=Path)
++    a=ap.parse_args();out=a.output.resolve();source=a.storage_source.resolve()
++    if a.flush_cause_probe:
++        from flush_cause_worker_probe import worker_probe as diagnostic_probe
++        worker_probe=diagnostic_probe
++    if a.store_readiness_probe:
++        base.require(a.flush_cause_probe and a.start_budget_config is None,
++                     "readiness requires passive flush diagnostics without a start policy")
++        from store_readiness_worker_probe import worker_probe as readiness_probe
++        worker_probe=readiness_probe
++    authorized_path(out);authorized_path(source)
++    start_options = None
++    if a.start_budget_config is not None:
++        base.require(not a.flush_cause_probe, "combine probes only after separate qualification")
++        from start_budget_model_contract import validate_config
++        from start_budget_worker_probe import worker_probe as start_probe
++        start_options = validate_config(a.start_budget_config)
++        worker_probe = start_probe
++    permit=verify_gate(a.qualification)
++    manifest=json.loads(a.manifest.read_text());candidate=json.loads(a.curves.read_text())
++    base.require(permit["candidate_sha256"]==hashlib.sha256(a.curves.read_bytes()).hexdigest(),"candidate changed")
++    item=permit["manifests"][manifest["profile"]]
++    base.require(item["sha256"]==hashlib.sha256(a.manifest.read_bytes()).hexdigest(),"workload changed")
++    base.require(source==Path("/root/prefix-io-v1-validation/storage/heldout-long"),"unexpected published source")
++    engine_config=validate(manifest,candidate,os.environ.get("CUDA_VISIBLE_DEVICES"))
++    base.require(manifest.get("io_depth",4)==permit.get("connector_delta",{}).get("iodepth",4),"I/O setting differs from qualification")
++    disk_contract=preflight(out,required_new_bytes(manifest["profile"]))
++    expected_files=3048
++    out.mkdir(parents=True,exist_ok=False);(out/"driver-source.py").write_text(Path(__file__).read_text())
++    (out/"probe-source.py").write_text((Path(__file__).parent/"run_p3_native_pilot.py").read_text())
++    inventory=clone_private_storage(source,out/"storage",expected_files)
++    base.write_new_json(out/"storage-source-manifest.json",inventory)
++    base.configure_runtime_environment();os.environ["PYTHONHASHSEED"]="0"
++    base.require(os.environ.get("HF_HUB_OFFLINE")=="1" and os.environ.get("TRANSFORMERS_OFFLINE")=="1","offline wrapper")
++    report=dict(status="FAILED",scope=manifest["scope"],
++        formal_performance_claim=False,independent_content_validation=False,cache_resets=0,
++        ordinary_quota_installed=False,policy_mode="shadow",cuda_timeline_requested=False,
++        flush_cause_probe=a.flush_cause_probe,store_readiness_probe=a.store_readiness_probe,
++        rows=[],manifest_sha256=hashlib.sha256(a.manifest.read_bytes()).hexdigest(),
++        curves_sha256=hashlib.sha256(a.curves.read_bytes()).hexdigest(),
++        initial_cache="published SSD corpus via hardlinks; new engine GPU/staging cold; private suffix writes",
++        source_shared_physical_bytes=sum(r["bytes"] for r in inventory))
++    report["disk_contract"]=disk_contract
++    if start_options is not None:
++        report.update(start_budget_config=start_options,
++            ordinary_quota_installed=start_options["mode"] in ("fixed","pressure"),
++            policy_mode=start_options["mode"],full_per_stage_caps=False,
++            scope="P3 real-model start-allowance qualification; not research policy efficacy")
++    report.update(profile=manifest["profile"],engine_delta={"max_num_seqs":2},
++        previously_seen_validation_families=3,new_development_families=2,qualification=permit,steps=[])
++    (out/"manifest.json").write_bytes(a.manifest.read_bytes())
++    (out/"contract-source.py").write_text((Path(__file__).parent/"concurrent_pilot_contract.py").read_text())
++    llm=None;installed=False;tracing=False;trace_path=out/"native-cohort.trace.json"
++    try:
++        model,identity=base.validate_local_model(a.model_dir,a.model_plan)
++        alias=out/base.MODEL_ID;alias.parent.mkdir(parents=True);alias.symlink_to(model,target_is_directory=True)
++        extra=dict(candidate["provenance"]["engine"]["kv_transfer_config"]["kv_connector_extra_config"])
++        extra.update(shared_storage_path=str(out/"storage"),load_planner="on",iodepth=manifest.get("io_depth",4),
++            prefix_cache_break_even_path=str(a.curves.resolve()),
++            prefix_io_observation_mode="shadow",prefix_io_observation_run_id=out.parent.name,
++            prefix_io_observation_interval_ns=10_000_000)
++        if start_options is not None:
++            extra["prefix_io_start_budget"]=dict(start_options["options"],run_id=out.parent.name)
++            if start_options["mode"]=="off":
++                extra["prefix_io_start_budget"]={"mode":"off"}
++        config=dict(engine_config,kv_transfer_config=dict(kv_connector="OffloadingConnector",kv_role="kv_both",
++                                                         kv_connector_extra_config=extra))
++        sampling=dict(base.SAMPLING,max_tokens=128,min_tokens=128)
++        base.write_new_json(out/"frozen-config.json",dict(model=identity,engine=config,sampling=sampling,
++            manifest=manifest,gpu_uuid=os.environ["CUDA_VISIBLE_DEVICES"],pythonhashseed="0",
++            flush_cause_probe=a.flush_cause_probe,store_readiness_probe=a.store_readiness_probe))
++        os.chdir(out)
++        from vllm import LLM,SamplingParams
++        llm=LLM(model=base.MODEL_ID,**config);engine=llm.llm_engine
++        report["native_kv"]=llm.collective_rpc(worker_probe,timeout=30,
++            args=("install",dict(kv_budget_bytes=2147483648,staging_budget_bytes=1073741824)))[0];installed=True
++        llm.generate([{"prompt_token_ids":[30000]+list(range(1000,1128))}],SamplingParams(**base.SAMPLING),use_tqdm=False)
++        report["warmup_drain"]=llm.collective_rpc(worker_probe,timeout=60,args=("drain",))[0]
++        report["cohort_probe_start"]=llm.collective_rpc(worker_probe,timeout=30,args=("start",))[0]
++        tracing=True
++        report["trace_start"]=llm.collective_rpc(worker_trace,timeout=45,args=("start",str(trace_path),False))[0]
++        requests=manifest["requests"];families=manifest["families"];timelines={};records={};finished=set();cursor=0
++        start=time.monotonic();report["cohort_start_monotonic"]=start
++        while cursor<len(requests) or engine.has_unfinished_requests():
++            now=time.monotonic();base.require(now-start<180,"bounded cohort deadline")
++            while cursor<len(requests) and requests[cursor]["scheduled_time"]<=now-start:
++                item=requests[cursor];family=families[item["family_index"]];rid="c2-"+str(item["request_id"]);sent=time.monotonic()
++                internal=engine.add_request(rid,{"prompt_token_ids":family["tokens"]},SamplingParams(**sampling))
++                timelines[rid]=TokenTimeline()
++                records[rid]=dict(request_id=rid,internal_request_id=internal,family=family["name"],initial_ssd_present=family["initial_ssd_present"],
++                    scheduled_arrival_seconds=item["scheduled_time"],actual_send_seconds=sent-start,
++                    client_queue_seconds=sent-start-item["scheduled_time"],prompt_tokens=len(family["tokens"]))
++                cursor+=1
++            if not engine.has_unfinished_requests():
++                if cursor<len(requests):time.sleep(min(.002,max(0,requests[cursor]["scheduled_time"]-(time.monotonic()-start))))
++                continue
++            step_start=time.monotonic()
++            responses=engine.step()
++            step_end=time.monotonic()
++            report["steps"].append(dict(start=step_start,end=step_end,seconds=step_end-step_start,
++                outstanding_frontend_requests=cursor-len(finished),emitted_request_ids=[r.request_id for r in responses]))
++            for response in responses:
++                base.require(len(response.outputs)==1,"one sample only")
++                timeline=timelines[response.request_id]
++                timeline.append(response.outputs[0].token_ids,response.metrics.last_token_ts)
++                if response.finished:
++                    base.require(response.request_id not in finished,"duplicate completion")
++                    finished.add(response.request_id);record=records[response.request_id];record.update(timeline.export())
++                    record.update(num_cached_tokens=response.num_cached_tokens,metrics=dataclasses.asdict(response.metrics),
++                                  response_end_seconds=time.monotonic()-start)
++                    base.require(record["per_token_complete"] and len(record["output_tokens"])==128 and not response.metrics.is_corrupted,
++                                 "incomplete/corrupted token evidence")
++                    record["itl_p95_seconds"]=percentile(record["itl_seconds"],.95);report["rows"].append(record)
++        report["response_seconds"]=time.monotonic()-start-requests[0]["scheduled_time"]
++        drain=time.monotonic();report["probe"]=llm.collective_rpc(worker_probe,timeout=60,args=("drain",))[0]
++        report["tail_drain_seconds"]=time.monotonic()-drain
++        report["cohort_seconds_including_drain"]=time.monotonic()-start-requests[0]["scheduled_time"]
++        base.require(len(finished)==len(requests),"unfinished requests")
++        for h in report["probe"]["handlers"]:
++            base.require(h["aio"]["outstanding"]==0 and h["aio"]["accepted"]==h["aio"]["reaped"] and
++                         h["observation_failures"]==0,"I/O/observation failure")
++        if a.flush_cause_probe:
++            diagnostic=report["probe"]["flush_diagnostic"]
++            base.require(not diagnostic["faulted"] and diagnostic["errors"]==0 and
++                         diagnostic["allocations"]>0,"flush ownership diagnostic failed or not co-located")
++        before=report["cohort_probe_start"];after=report["probe"]
++        report["cohort_read_bytes"]=after["read_bytes"]-before["read_bytes"]
++        report["cohort_write_bytes"]=after["write_bytes"]-before["write_bytes"]
++        base.require(report["cohort_read_bytes"]>0,"no actual SSD read")
++        report["trace_stop"]=llm.collective_rpc(worker_trace,timeout=90,args=("stop",str(trace_path),False))[0]
++        tracing=False
++        report["status"]="PASSED_NATIVE_C2_DEVELOPMENT_REPLAY"
++    except BaseException as e:
++        report.update(error=str(e),traceback=traceback.format_exc())
++        if "timelines" in locals():
++            report["unfinished_token_events"]={k:v.export() for k,v in timelines.items() if k not in finished}
++    finally:
++        if llm is not None:
++            try:
++                if tracing:report["trace_stop"]=llm.collective_rpc(worker_trace,timeout=90,args=("stop",str(trace_path),False))[0]
++                if installed:report["final_probe"]=llm.collective_rpc(worker_probe,timeout=60,args=("finish",))[0]
++                llm.llm_engine.engine_core.shutdown(timeout=15);report["engine_shutdown"]="completed"
++            except BaseException as e:report.update(status="FAILED",shutdown_error=str(e))
++        try:report["source_preservation"]=verify_source(source,inventory)
++        except BaseException as e:report.update(status="FAILED",source_verification_error=str(e))
++        try:report["storage_after"]=preflight(out,0)
++        except BaseException as e:report.update(status="FAILED",storage_budget_error=str(e))
++        base.write_new_json(out/"result.json",report)
++    print(json.dumps({k:v for k,v in report.items() if k not in ("rows","steps","qualification","probe","final_probe","warmup_drain","cohort_probe_start")},indent=2))
++    return 0 if report["status"].startswith("PASSED") else 1
++if __name__=="__main__":raise SystemExit(main())
+--- /dev/null
++++ b/artifacts/prefix_io_v1/server08-p3-14/copy_frozen_primary_source.py
+@@ -0,0 +1,50 @@
++"""Bounded byte-exact PRIMARY copy of the frozen published source. No deletion."""
++from pathlib import Path
++import hashlib,json,sys,time,shutil
++ROOT=Path(__file__).resolve().parents[3]
++sys.path[:0]=[str(ROOT/"experiments/prefix_io_v1/scripts"),str(ROOT/"src")]
++from experiment_storage import preflight,permission
++ORIGIN=Path("/root/prefix-io-v1-validation/storage/heldout-long")
++MANIFEST=Path("/root/prefix-io-v1-validation/runs/server07-p3-12-mixed-order-01-off/details/storage-source-manifest.json")
++FROZEN="c03381abb29e21b54a62a4815892553b58e4ef39cc8087761cc4d173cf75d274"
++OUT=ROOT/"experiments/prefix_io_v1/runs/server08-p3-14-source"
++SOURCE=OUT/"heldout-long"
++def digest(p):
++ h=hashlib.sha256()
++ with p.open("rb") as f:
++  for b in iter(lambda:f.read(1024*1024),b""):h.update(b)
++ return h.hexdigest()
++def main():
++ start=time.monotonic();raw=MANIFEST.read_bytes();assert hashlib.sha256(raw).hexdigest()==FROZEN
++ rows=json.loads(raw);assert len(rows)==3048 and sum(r["bytes"] for r in rows)==2796552192
++ assert permission(ROOT)["approved_gpu_ids"]==["GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8"]
++ before=preflight(SOURCE,3*1024**3);OUT.mkdir(parents=True,exist_ok=False);SOURCE.mkdir()
++ seen=set()
++ for row in rows:
++  rel=Path(row["path"]);assert not rel.is_absolute() and ".." not in rel.parts and rel.suffix==".bin"
++  assert row["path"] not in seen;seen.add(row["path"])
++  src=ORIGIN/rel;dst=SOURCE/rel
++  assert src.is_file() and not any(p.is_symlink() for p in [src,*src.parents])
++  assert src.stat().st_size==row["bytes"]
++  dst.parent.mkdir(parents=True,exist_ok=True)
++  h=hashlib.sha256();n=0
++  with src.open("rb") as fi,dst.open("xb") as fo:
++   for b in iter(lambda:fi.read(1024*1024),b""):h.update(b);n+=len(b);fo.write(b)
++  assert n==row["bytes"] and h.hexdigest()==row["sha256"]
++  assert dst.stat().st_size==row["bytes"] and digest(dst)==row["sha256"]
++ assert set(p.relative_to(SOURCE).as_posix() for p in SOURCE.rglob("*") if p.is_file())==seen
++ assert all(digest(ORIGIN/r["path"])==r["sha256"] for r in rows)
++ assert MANIFEST.read_bytes()==raw and SOURCE.stat().st_dev!=(ORIGIN.stat().st_dev)
++ source_manifest=OUT/"source-manifest.json";source_manifest.write_bytes(raw)
++ reg=dict(schema_version=1,gpu_uuid="GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
++  source_root=str(SOURCE),origin_root=str(ORIGIN),origin_manifest=str(MANIFEST),origin_manifest_sha256=FROZEN,
++  source_manifest=str(source_manifest),source_manifest_sha256=FROZEN,file_count=3048,total_bytes=2796552192)
++ with (OUT/"registration.json").open("x") as f:json.dump(reg,f,indent=2)
++ proof=dict(status="PASS_BYTE_EXACT_PRIMARY_COPY",files=len(rows),total_bytes=reg["total_bytes"],
++  original_unchanged=True,source_device=SOURCE.stat().st_dev,origin_device=ORIGIN.stat().st_dev,
++  copied_not_cross_device_hardlinked=True,manifest_sha256=FROZEN,
++  registration_sha256=digest(OUT/"registration.json"),before=before,after=preflight(SOURCE,0),
++  seconds=time.monotonic()-start)
++ with (OUT/"copy-proof.json").open("x") as f:json.dump(proof,f,indent=2)
++ print(json.dumps(proof))
++if __name__=="__main__":main()
+--- /dev/null
++++ b/artifacts/prefix_io_v1/server08-p3-14/compare_model_off_v2.py
+@@ -0,0 +1,38 @@
++"""P314 exact full-output comparison; empty ambiguity-list schema is explicit."""
++from pathlib import Path
++import hashlib,json
++R=Path(__file__).resolve().parents[3]
++O=R/"artifacts/prefix_io_v1/server08-p3-14"
++def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
++def main():
++ model=R/"experiments/prefix_io_v1/runs/server08-p3-14-model-off-01/details/result.json"
++ reference=R/"experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json"
++ m=json.loads(model.read_text());ref=json.loads(reference.read_text())
++ indexed={(r["family"],r["kind"]):r for r in ref["rows"]}
++ manifest=json.loads((O/"d8/mixed_readwrite-manifest.json").read_text())
++ families={f["name"]:f["tokens"] for f in manifest["families"]};rows=[]
++ for row in m["rows"]:
++  kind="cold" if row["num_cached_tokens"]==0 else "gpu_hot";rr=indexed[(row["family"],kind)]
++  assert rr["prompt_token_ids"]==families[row["family"]]
++  assert type(row["ambiguous_events"]) is list
++  rows.append(dict(request_id=row["request_id"],family=row["family"],reference_kind=kind,
++   num_cached_tokens=row["num_cached_tokens"],output_tokens=len(row["output_tokens"]),
++   output_exact=row["output_tokens"]==rr["output_tokens"],per_token_complete=row["per_token_complete"],
++   token_timestamps=len(row["engine_token_timestamps"]),ambiguous_event_count=len(row["ambiguous_events"])))
++ good=(m["status"]=="PASSED_NATIVE_C2_DEVELOPMENT_REPLAY" and len(rows)==10
++  and {r["request_id"] for r in rows}=={"c2-"+str(i) for i in range(10)}
++  and all(r["output_exact"] and r["per_token_complete"] and r["output_tokens"]==r["token_timestamps"]==128
++   and r["ambiguous_event_count"]==0 for r in rows))
++ proof=dict(status="PASS_FULL_MODEL_MIGRATION_REFERENCE" if good else "FAILED_FULL_MODEL_MIGRATION_REFERENCE",
++  comparison_scope="Previously seen five families; single native/off replay; no method efficacy claim",
++  source_result=str(model),source_result_sha256=sha(model),reference=str(reference),reference_sha256=sha(reference),
++  requests=len(rows),output_tokens=sum(r["output_tokens"] for r in rows),comparisons=rows,
++  ordinary_quota_installed=m["ordinary_quota_installed"],cohort_read_bytes=m["cohort_read_bytes"],
++  cohort_write_bytes=m["cohort_write_bytes"],source_preservation=m["source_preservation"],
++  native_engine_shutdown=m["engine_shutdown"],formal_performance_claim=False,
++  retained_initial_analysis=str(O/"model-off-comparison.json"),
++  initial_analysis_error="Compared the empty ambiguous_events list with integer 0. v2 checks its list schema/count; raw GPU result unchanged.",
++  gpu_rerun_performed=False)
++ with (O/"model-off-comparison-v2.json").open("x") as f:json.dump(proof,f,indent=2)
++ print(json.dumps(proof,indent=2));assert good
++if __name__=="__main__":main()

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "status": "CPU_ONLY_G2_SOURCE_CANDIDATE",
+  "whole_file": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-20261001/gpu-source-lock-candidate.json",
+    "bytes": 895738,
+    "sha256": "f3d21df27310ce2c5199ab69f2a62f80b2111390f3ad160aba6ea843dd06f1d9"
+  },
+  "parts_directory": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-20261001/source-lock-upload-parts",
+  "encoding": "raw byte slices; no text or newline conversion",
+  "maximum_part_bytes": 60000,
+  "part_count": 15,
+  "parts": [
+    {
+      "path": "part-0001.bin",
+      "offset": 0,
+      "bytes": 60000,
+      "sha256": "4cc57b65a48514bd538b8d3a94ce8f45d175dbfae0ff167f43289bad294f32c2"
+    },
+    {
+      "path": "part-0002.bin",
+      "offset": 60000,
+      "bytes": 60000,
+      "sha256": "d906278a310dda1575f88589c9aa6a4b94a01c7a1a784d326ae31b44ca5c8797"
+    },
+    {
+      "path": "part-0003.bin",
+      "offset": 120000,
+      "bytes": 60000,
+      "sha256": "a06cf2e79c4333137822e00e37c02b7bbcc49b385c8c2d53e3848cb15e1e2649"
+    },
+    {
+      "path": "part-0004.bin",
+      "offset": 180000,
+      "bytes": 60000,
+      "sha256": "287fe4b9fbe9a5239612bdb60b8fb28914e3a6247b941ee830a94ab9de6a7b28"
+    },
+    {
+      "path": "part-0005.bin",
+      "offset": 240000,
+      "bytes": 60000,
+      "sha256": "09d65d345c0edef4ac9d40dbf46a1df9bdaaaecf8e32c71809d037ad0791824e"
+    },
+    {
+      "path": "part-0006.bin",
+      "offset": 300000,
+      "bytes": 60000,
+      "sha256": "1b354c3a3542c1fb00138ac278ff53e52c7656e4492f52f889e5d4ef5b0e484d"
+    },
+    {
+      "path": "part-0007.bin",
+      "offset": 360000,
+      "bytes": 60000,
+      "sha256": "a59a66b8780f1807eb369a2b65d65a0d6721473d363c4a282d9cfc15186e2b71"
+    },
+    {
+      "path": "part-0008.bin",
+      "offset": 420000,
+      "bytes": 60000,
+      "sha256": "a6bb902bc6beb9f474ecb16ebbfa6a456a7077df5919e1972e673ed17b41f596"
+    },
+    {
+      "path": "part-0009.bin",
+      "offset": 480000,
+      "bytes": 60000,
+      "sha256": "27cccde005cdc92f339387273a7c810d25cc92e598d3e1507a3e5774c1889c4c"
+    },
+    {
+      "path": "part-0010.bin",
+      "offset": 540000,
+      "bytes": 60000,
+      "sha256": "11558f159a3389bd75ffca16fc83ceed1976d4c8ad3c482109493af80cd8658d"
+    },
+    {
+      "path": "part-0011.bin",
+      "offset": 600000,
+      "bytes": 60000,
+      "sha256": "d72046e67582a7625592e6c8abef9ae8d35c316a26814f9609290e77be7fd876"
+    },
+    {
+      "path": "part-0012.bin",
+      "offset": 660000,
+      "bytes": 60000,
+      "sha256": "38e7e15ff541df2f26eecec78d183bf27f9dcb651c13c54be553f944f89421d1"
+    },
+    {
+      "path": "part-0013.bin",
+      "offset": 720000,
+      "bytes": 60000,
+      "sha256": "cf2c3338cb26c349726f0eb8d782e5e2728a4454a69e79e3801f72a9d83cf7f7"
+    },
+    {
+      "path": "part-0014.bin",
+      "offset": 780000,
+      "bytes": 60000,
+      "sha256": "1a547452587c3d2a7e63ff27c1ccca0420f8d0e3002b7fc93b46057f764f1bd2"
+    },
+    {
+      "path": "part-0015.bin",
+      "offset": 840000,
+      "bytes": 55738,
+      "sha256": "d990da0eb50d91cfcbb851faecaff1f7d21883b367e20db2d94b595ab24ccdc7"
+    }
+  ],
+  "reconstruction": "Verify each manifest-ordered part's exact bytes/SHA and contiguous offset, concatenate raw bytes, verify whole bytes/SHA before append-new publication.",
+  "allow_gpu_initialization": false,
+  "allow_gpu_runs": false,
+  "actual_GPU_runs": 0,
+  "remote_upload_performed": false,
+  "original_G1_lock_modified": false,
+  "original_G2_lock_modified": false
+}

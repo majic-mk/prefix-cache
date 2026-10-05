@@ -1,0 +1,211 @@
+{
+  "candidate_ref": {
+    "bytes": 1979,
+    "path": "prepared-candidate.json",
+    "sha256": "1fb334fafa3f3bf5eb714af8f528195ce54d73fb22ac6bad07bc3fbf819ba7d2"
+  },
+  "cells": [
+    {
+      "calibration_pairs": 2,
+      "cell_id": "cell-1",
+      "clock_domain": "cuda_event_elapsed",
+      "complete_trace_refs": [
+        {
+          "bytes": 103076,
+          "path": "complete-baseline-p0.json",
+          "sha256": "688efde41a52c85c90e83b6037aa57502836537f6fcf60ffcd7983c86af3291b"
+        },
+        {
+          "bytes": 103556,
+          "path": "complete-baseline-p1.json",
+          "sha256": "a5101d933e6731fad76c43c90b1ca3897dc86d44ffaf04af46b3a992ceea1177"
+        },
+        {
+          "bytes": 103556,
+          "path": "complete-baseline-p2.json",
+          "sha256": "4f56e2c219675ad34d9033e8311696328ae7f44df73b741f95773312503ae378"
+        },
+        {
+          "bytes": 103302,
+          "path": "complete-action-p0.json",
+          "sha256": "a70cd7a34bd6bdf4836320fc1748304074b361b8aa5a88eb75b8cfb7c10bc0d1"
+        },
+        {
+          "bytes": 103558,
+          "path": "complete-action-p1.json",
+          "sha256": "b89efebe0d2611bd0e6276a2e24fd5ac436fccefef7cef199325e05bcbd284f7"
+        },
+        {
+          "bytes": 103558,
+          "path": "complete-action-p2.json",
+          "sha256": "74dbcc89b13420b3a04c5c6b85b90a71936dc74dc4a57a80126ba66de9a88d06"
+        }
+      ],
+      "cost": {
+        "baseline_ns": 101,
+        "basis": "existing_io_plus_delta",
+        "existing_io": [
+          {
+            "nbytes": 8,
+            "ops": 1
+          },
+          {
+            "nbytes": 0,
+            "ops": 0
+          },
+          {
+            "nbytes": 0,
+            "ops": 0
+          },
+          {
+            "nbytes": 0,
+            "ops": 0
+          }
+        ],
+        "incremental_or_joint_ns": 12,
+        "load_signature": [
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "GPU-CPU-FIXTURE",
+          "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "eager",
+          1,
+          1,
+          0,
+          128,
+          8
+        ],
+        "physical_bytes": 16,
+        "stage": "h2d",
+        "uncertainty_ns": 6
+      },
+      "max_positive_residual_ns": 6,
+      "measured_windows": 3,
+      "origin": "native_gpu_recording",
+      "paired_runs": 3,
+      "schema_version": 2,
+      "timing_scope": "model_forward",
+      "validation_pairs": 1,
+      "warmup_windows": 3
+    }
+  ],
+  "context": {
+    "cost_basis": "existing_io_plus_delta",
+    "cuda_version": "cuda-fixture",
+    "driver_version": "driver-fixture",
+    "gpu_pool_bytes": 128,
+    "gpu_uuid": "GPU-CPU-FIXTURE",
+    "internal_step_budget_ns": 200,
+    "kernel_mode": "eager",
+    "kv_layout_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "model_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "native_source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "run_id": "cpu-semantic-fixture",
+    "stage_capacity_bytes": 64,
+    "torch_version": "torch-fixture",
+    "transfer_quantum_bytes": 8,
+    "uncertainty_method": "paired_residual_margin",
+    "vllm_source_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "evidence_refs": [
+    {
+      "bytes": 5813,
+      "path": "action_observations.json",
+      "sha256": "a6dbd04c8dfbe4734c51dde359d1a7152e50d2588be5a56a1aaceaf45aab11c8"
+    },
+    {
+      "bytes": 3957,
+      "path": "action_wrapper.json",
+      "sha256": "893e7fab6c096febeacad06b68fec07d2c19cd4326481791153d9d5b9315dc89"
+    },
+    {
+      "bytes": 5797,
+      "path": "baseline_observations.json",
+      "sha256": "1dd124c0beb1b098e80a1ec0b5abfa28aa85460f8f0858dc828b9f934093d79c"
+    },
+    {
+      "bytes": 3954,
+      "path": "baseline_wrapper.json",
+      "sha256": "4c201b7a59c8a4a29b4806931c80482ca5c39341f7d071fc874f533662f1025c"
+    },
+    {
+      "bytes": 103302,
+      "path": "complete-action-p0.json",
+      "sha256": "a70cd7a34bd6bdf4836320fc1748304074b361b8aa5a88eb75b8cfb7c10bc0d1"
+    },
+    {
+      "bytes": 103558,
+      "path": "complete-action-p1.json",
+      "sha256": "b89efebe0d2611bd0e6276a2e24fd5ac436fccefef7cef199325e05bcbd284f7"
+    },
+    {
+      "bytes": 103558,
+      "path": "complete-action-p2.json",
+      "sha256": "74dbcc89b13420b3a04c5c6b85b90a71936dc74dc4a57a80126ba66de9a88d06"
+    },
+    {
+      "bytes": 103076,
+      "path": "complete-baseline-p0.json",
+      "sha256": "688efde41a52c85c90e83b6037aa57502836537f6fcf60ffcd7983c86af3291b"
+    },
+    {
+      "bytes": 103556,
+      "path": "complete-baseline-p1.json",
+      "sha256": "a5101d933e6731fad76c43c90b1ca3897dc86d44ffaf04af46b3a992ceea1177"
+    },
+    {
+      "bytes": 103556,
+      "path": "complete-baseline-p2.json",
+      "sha256": "4f56e2c219675ad34d9033e8311696328ae7f44df73b741f95773312503ae378"
+    },
+    {
+      "bytes": 56,
+      "path": "cuda-event-reference-source.py",
+      "sha256": "2d82e8ef6d0e7e1581c6794aee89899d879378ba878e6add586bf145e023507b"
+    },
+    {
+      "bytes": 1650,
+      "path": "plan.json",
+      "sha256": "e3acd82141e60b45cba3b969f2298f9a32aabf49f7e4a9a153a188807dafd0cd"
+    },
+    {
+      "bytes": 1979,
+      "path": "prepared-candidate.json",
+      "sha256": "1fb334fafa3f3bf5eb714af8f528195ce54d73fb22ac6bad07bc3fbf819ba7d2"
+    },
+    {
+      "bytes": 1803,
+      "path": "prepared-qualification.json",
+      "sha256": "012357765517c6cdbef95f529d350c502b112644b880a54bf3713012f6b234b5"
+    },
+    {
+      "bytes": 2095,
+      "path": "recomputed-analysis.json",
+      "sha256": "ef0399d02a542ddc11a91a5fbc5748651b9ae10ecc9948841f2e8d203a7fe527"
+    },
+    {
+      "bytes": 1222,
+      "path": "split.json",
+      "sha256": "1f77b62127562d4aab06a5d2b2dce708cd8b98971007a5e3556a360cb20067bb"
+    },
+    {
+      "bytes": 58,
+      "path": "verifier.py",
+      "sha256": "f79f23f1ef61d86b21a8d4cfe4aadb6e76bfb69e179c667a0fc6d34251dc143f"
+    }
+  ],
+  "formula": "ceil_calibration_means_plus_max_positive_residual_v1",
+  "gpu_execution_proved": false,
+  "gpu_verified": false,
+  "method_is_confidence_interval": false,
+  "plan_ref": {
+    "bytes": 1650,
+    "path": "plan.json",
+    "sha256": "e3acd82141e60b45cba3b969f2298f9a32aabf49f7e4a9a153a188807dafd0cd"
+  },
+  "production_qualified": false,
+  "remaining_gate": "trusted_real_native_GPU_execution_and_control_qualification",
+  "schema_version": 1,
+  "scope": "p4_cpu_semantic_recomputation",
+  "status": "PASS_CPU_SEMANTICS_NOT_GPU_QUALIFICATION",
+  "validation_role": "margin_validation_not_independent_effect_evaluation"
+}

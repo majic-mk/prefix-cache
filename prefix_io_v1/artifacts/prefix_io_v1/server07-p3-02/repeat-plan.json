@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "scope": "P3 repeated 16K point diagnosis, not a full runtime curve",
+  "created_before_new_runs": true,
+  "discovery": [
+    "server07-p3-16k-cold-01",
+    "server07-p3-16k-populate-01",
+    "server07-p3-16k-paired-01"
+  ],
+  "fit_sessions": [
+    {
+      "cold": "server07-p3-16k-cold-02",
+      "paired": "server07-p3-16k-paired-02"
+    },
+    {
+      "cold": "server07-p3-16k-cold-03",
+      "paired": "server07-p3-16k-paired-03"
+    }
+  ],
+  "validation_sessions": [
+    {
+      "cold": "server07-p3-16k-cold-04",
+      "paired": "server07-p3-16k-paired-04"
+    }
+  ],
+  "order": [
+    "cold-02",
+    "paired-02",
+    "paired-03",
+    "cold-03",
+    "cold-04",
+    "paired-04"
+  ],
+  "prefix_tokens": 16384,
+  "reps": 3,
+  "warmup_rep": 0,
+  "storage": "server07-p3-16k-storage-01",
+  "new_storage": false,
+  "model_or_runtime_changes": false,
+  "acceptance": {
+    "all_output_tokens_identical_including_warmup": true,
+    "actual_ssd_read_bytes_per_load": 939524096,
+    "all_physical_drains_complete": true,
+    "identity_and_budgets_equal": true,
+    "performance": "report all session medians, ranges and prediction errors; no statistical significance or production threshold inferred"
+  },
+  "limitations": [
+    "Only two measured prompt families; repeat sessions share prompts/KV files",
+    "Validation is temporal, not held-out content",
+    "No fitted curve will be installed from a single 16K point",
+    "Diagnostic logprobs excluded from latency fitting"
+  ],
+  "stop": "Any correctness/budget failure stops qualification; no outlier filtering"
+}

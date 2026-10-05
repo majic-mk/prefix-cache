@@ -1,0 +1,35 @@
+{
+  "schema": "raw_capture_diagnostics_append_only_source_manifest_v1",
+  "files": [
+    {
+      "path": "runner/strong_native_cost_runner_v5.py",
+      "bytes": 37645,
+      "sha256": "e05921ea213a9b6c6d8da15e9fea2c22ccef62020a934a1ddb3c36859c47978f"
+    },
+    {
+      "path": "raw_capture_diagnostics/append_v5_cpu.py",
+      "bytes": 5427,
+      "sha256": "bbae0aeda660557faf3c0ea091c05416c4a8f2a108aef7f69d2250a236d6aae8"
+    },
+    {
+      "path": "raw_capture_diagnostics/test_failure_diagnostics_cpu.py",
+      "bytes": 11408,
+      "sha256": "a602cd63e3d28c1e33d9ea9e7a914162f26ffe8e8c7f1c97d9a81f819c88b263"
+    },
+    {
+      "path": "raw_capture_diagnostics/README.md",
+      "bytes": 1917,
+      "sha256": "20c1b9a544213db48bb6de73f087a5feb996b847ac2ee3b62cc2e4625be939e2"
+    }
+  ],
+  "previous_v4_sha256": "3f97053f9638a9e58faf8cfa3f560762e294015111b1c92e8b88a379dbc9193a",
+  "modified_functions": [
+    "source_patch"
+  ],
+  "original_assertion_preserved": true,
+  "original_cleanup_preserved": true,
+  "original_collector_unchanged": true,
+  "CPU_tests": 5,
+  "actual_GPU_runs": 0,
+  "production_qualified": false
+}

@@ -1,0 +1,255 @@
+{
+  "schema": "independent_CAL06_actual_CPU_audit_v1",
+  "classification": "INDEPENDENT_SINGLE_FAMILY_DEVELOPMENT_CALIBRATION",
+  "old_three_family_input_contract_rejection": "frozen original input/arrival/cache/source contract",
+  "old_P316_qualification_claim": false,
+  "effect_sample": false,
+  "GPU_operations_this_audit": 0,
+  "SSH_operations": 0,
+  "evidence_files": {
+    "config": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\CONFIG_CAL06.json",
+      "bytes": 30220,
+      "sha256": "87d868639fd248e19d74b5f5e536ba3df5e574a03031d518aa4dc3e477656bff"
+    },
+    "source_lock": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\DR_SOURCE_LOCK_05.json",
+      "bytes": 1213913,
+      "sha256": "4984e79181b57558af2f416dee0790d36e77619fbe09426814923df84fac0076"
+    },
+    "result": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\runs\\server14-dr-cal06\\details\\result.json",
+      "bytes": 901967,
+      "sha256": "4a1ceb5f7b1dfa311abf4f31291203067e3a0e372e3509c5cf5a8165ca48287b"
+    },
+    "adapter": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\runs\\server14-dr-cal06\\current-device-adapter-evidence.json",
+      "bytes": 313529,
+      "sha256": "d8befd98027bc3d75f5905354667b8231f707c55a7117ea79abe71de54b049ff"
+    },
+    "guard": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\runs\\server14-dr-cal06\\result.json",
+      "bytes": 1518,
+      "sha256": "468f9d82ba3b5d8da49c022d184c300aef30a4acfb5464afd5f079cbc07fb445"
+    },
+    "frozen_config": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\runs\\server14-dr-cal06\\details\\frozen-config.json",
+      "bytes": 1342880,
+      "sha256": "394378a088184620abdf60f0cd00005828625c6e3154c3d9d07ad5758f76b7ea"
+    }
+  },
+  "clock_proof_ref": {
+    "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\MONOTONIC_TOKEN_CLOCK_SOURCE_01.json",
+    "bytes": 3285,
+    "sha256": "e35ffef6702ea8dd00ca31b5d73608a3a1de9aa8012f1b3c3ce0a5f4193b52b6"
+  },
+  "loader_result_ref": {
+    "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\ACTUAL_CAL06_LOADER_CPU_RESULT_01.json",
+    "bytes": 1405,
+    "sha256": "459613cf8844bad7f01abf894e1bee2635a24c8d12edc18610e458585219e640"
+  },
+  "actual_full_requests": 10,
+  "actual_generated_tokens": 1280,
+  "primary_response_seconds": 11.900263849380462,
+  "cohort_seconds_including_drain": 11.90289232480809,
+  "tail_drain_seconds": 0.0026260558515787125,
+  "native_stage_deltas": {
+    "ssd_read": {
+      "accepted_ops": 1016,
+      "accepted_bytes": 932184064
+    },
+    "ssd_write": {
+      "accepted_ops": 14,
+      "accepted_bytes": 12845056
+    },
+    "h2d": {
+      "accepted_ops": 148,
+      "accepted_bytes": 932184064
+    },
+    "d2h": {
+      "accepted_ops": 14,
+      "accepted_bytes": 12845056
+    }
+  },
+  "requests": [
+    {
+      "request_id": "c2-0",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 0.9213114141346523,
+      "actual_send_seconds": 0.9213699549436569,
+      "client_queue_seconds": 5.854080900458136e-05,
+      "ttft_from_scheduled_arrival_seconds": 4.583218978452533,
+      "completion_from_scheduled_arrival_seconds": 6.433589489865153,
+      "in_request_itl_p95_seconds": 0.020306905172765254,
+      "nominal_num_cached_tokens": 16256
+    },
+    {
+      "request_id": "c2-1",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 1.0630811602010424,
+      "actual_send_seconds": 1.063124768435955,
+      "client_queue_seconds": 4.360823491267318e-05,
+      "ttft_from_scheduled_arrival_seconds": 2.431427787976057,
+      "completion_from_scheduled_arrival_seconds": 4.402126735062987,
+      "in_request_itl_p95_seconds": 0.027380677685141557,
+      "nominal_num_cached_tokens": 0
+    },
+    {
+      "request_id": "c2-2",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 1.3296495302432327,
+      "actual_send_seconds": 1.7576717752963305,
+      "client_queue_seconds": 0.4280222450530977,
+      "ttft_from_scheduled_arrival_seconds": 2.186977006602928,
+      "completion_from_scheduled_arrival_seconds": 4.150780221555278,
+      "in_request_itl_p95_seconds": 0.027380677685141557,
+      "nominal_num_cached_tokens": 16256
+    },
+    {
+      "request_id": "c2-3",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 1.4249034928136477,
+      "actual_send_seconds": 1.7658903803676367,
+      "client_queue_seconds": 0.340986887553989,
+      "ttft_from_scheduled_arrival_seconds": 4.099809511194287,
+      "completion_from_scheduled_arrival_seconds": 5.953684442306219,
+      "in_request_itl_p95_seconds": 0.02042035963386297,
+      "nominal_num_cached_tokens": 16256
+    },
+    {
+      "request_id": "c2-4",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 1.5294073208864016,
+      "actual_send_seconds": 1.7746251225471497,
+      "client_queue_seconds": 0.24521780166074802,
+      "ttft_from_scheduled_arrival_seconds": 5.876694891259523,
+      "completion_from_scheduled_arrival_seconds": 7.7185551073704675,
+      "in_request_itl_p95_seconds": 0.019957962445914745,
+      "nominal_num_cached_tokens": 16256
+    },
+    {
+      "request_id": "c2-5",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 4.337322779302316,
+      "actual_send_seconds": 4.34699491225183,
+      "client_queue_seconds": 0.009672132949513745,
+      "ttft_from_scheduled_arrival_seconds": 3.0883328259691423,
+      "completion_from_scheduled_arrival_seconds": 4.932273316825909,
+      "in_request_itl_p95_seconds": 0.020016109570860863,
+      "nominal_num_cached_tokens": 16256
+    },
+    {
+      "request_id": "c2-6",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 4.872547126519124,
+      "actual_send_seconds": 4.875348459929228,
+      "client_queue_seconds": 0.002801333410103801,
+      "ttft_from_scheduled_arrival_seconds": 4.423694304046591,
+      "completion_from_scheduled_arrival_seconds": 6.260830313754638,
+      "in_request_itl_p95_seconds": 0.019410499557852744,
+      "nominal_num_cached_tokens": 16256
+    },
+    {
+      "request_id": "c2-7",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 5.520722027244806,
+      "actual_send_seconds": 5.52483125589788,
+      "client_queue_seconds": 0.004109228653073949,
+      "ttft_from_scheduled_arrival_seconds": 3.79451233024633,
+      "completion_from_scheduled_arrival_seconds": 5.635944219929338,
+      "in_request_itl_p95_seconds": 0.019498820789158343,
+      "nominal_num_cached_tokens": 16256
+    },
+    {
+      "request_id": "c2-8",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 6.649151013555626,
+      "actual_send_seconds": 6.650343580171466,
+      "client_queue_seconds": 0.0011925666158401071,
+      "ttft_from_scheduled_arrival_seconds": 4.52804759764423,
+      "completion_from_scheduled_arrival_seconds": 6.17158019417276,
+      "in_request_itl_p95_seconds": 0.01315455213189125,
+      "nominal_num_cached_tokens": 16256
+    },
+    {
+      "request_id": "c2-9",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 7.60930992061615,
+      "actual_send_seconds": 7.618619428947568,
+      "client_queue_seconds": 0.00930950833141786,
+      "ttft_from_scheduled_arrival_seconds": 3.5807661977189778,
+      "completion_from_scheduled_arrival_seconds": 5.212248830549717,
+      "in_request_itl_p95_seconds": 0.01315455213189125,
+      "nominal_num_cached_tokens": 16256
+    }
+  ],
+  "token_clock_verified": true,
+  "actual_closed_lifecycle_prior_checks_passed": true,
+  "actual_eta_history": {
+    "schema_version": 1,
+    "run_id": "server14-dr-cal06",
+    "reason": "no_pending_native_closure",
+    "observations": 1,
+    "successful_measurements": 1,
+    "failed_or_unknown_discarded": 0,
+    "omissions": 0,
+    "pending_count": 0,
+    "cell_count": 1,
+    "retained_cell_samples": 1,
+    "history_max_age_ns": 600000000000,
+    "minimum_samples": 4,
+    "pending_limit": 32,
+    "cell_limit": 32,
+    "samples_per_cell_limit": 16,
+    "recent_measurements": [
+      {
+        "run_id": "server14-dr-cal06",
+        "parent_id": 2,
+        "geometry": {
+          "rows": [
+            [
+              "h2d",
+              917504,
+              917504,
+              6
+            ]
+          ]
+        },
+        "context": [
+          "native-ready-closure-v1",
+          917504,
+          917504,
+          1,
+          0,
+          6,
+          0,
+          6,
+          0,
+          0,
+          8,
+          "scheduler-source-unknown",
+          "scheduled-work-unknown"
+        ],
+        "first_observed_ns": 12111131733326380,
+        "completed_ns": 12111131734515216,
+        "elapsed_ns": 1188836,
+        "sequence": 1,
+        "prior_forecast_duration_ns": null,
+        "prior_forecast_error_ns": null,
+        "prior_forecast_sample_count": 0,
+        "causal_absolute_residual_ns": null,
+        "gpu_qualified": false
+      }
+    ],
+    "production_qualified": false,
+    "gpu_qualified": false,
+    "held_job_or_resource_owners": false,
+    "new_work_queues": 0,
+    "eta_is_allocator_release": false,
+    "error_is_empirical_not_a_coverage_guarantee": true
+  },
+  "exact_cell_minimum_samples": 4,
+  "qualifying_pure_SSD_exact_cells": 0,
+  "calibration_coverage_status": "VALID_CLOSED_BUT_COVERAGE_MISSING",
+  "production_prediction_qualified": false
+}

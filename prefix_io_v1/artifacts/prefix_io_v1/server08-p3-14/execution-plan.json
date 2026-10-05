@@ -1,0 +1,113 @@
+{
+  "scope": "P314 new hardware and PRIMARY source qualification; no method efficacy run",
+  "gpu_uuid": "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+  "total_gpu_jobs_maximum": 13,
+  "maximum_seconds_per_job": 240,
+  "termination_reserve_per_job": 20,
+  "maximum_reserved_envelope_seconds": 3380,
+  "inherited_budget_hours": 8,
+  "budget_not_reset": true,
+  "numeric_top5_tolerance": 0,
+  "heldout_maximum_absolute_relative_median_error": 0.25,
+  "stop_rules": [
+    "Any nonzero wrapper/acquisition exit stops dependent jobs",
+    "Exact cached reference must pass before fitting/heldout costs",
+    "Fit failure stops heldout",
+    "Heldout gate failure stops model replay; no retuning thresholds or heldout refit",
+    "Fresh UUID/idle/process/space/input hash checks each job",
+    "No parallel tests or heavy CPU/storage work during cost timing"
+  ],
+  "source_origin_unchanged": true,
+  "heldout_copy_registration": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-source/registration.json",
+  "calibration_source": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-calibration/storage",
+  "heldout_source": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-source/heldout-long",
+  "fitting_order": [
+    "fit-native-ref",
+    "fit-populate",
+    "fit-cached-ref",
+    "EXACT_REFERENCE_GATE",
+    "fit-cold-01",
+    "fit-paired-01",
+    "fit-paired-02",
+    "fit-cold-02",
+    "CANDIDATE_EXPORT"
+  ],
+  "heldout_order": [
+    "d8-native-ref",
+    "d8-cached-ref",
+    "EXACT_REFERENCE_GATE",
+    "d8-cold-01",
+    "d8-paired-01",
+    "d8-paired-02",
+    "d8-cold-02",
+    "C2_D8_PREDICTION_GATE"
+  ],
+  "heldout_cost_plan_materialization": "Append-only candidate SHA after fit success, before heldout acquisition",
+  "jobs": [
+    {
+      "name": "fit-native-ref",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/fit-native-ref.json",
+      "label": "server08-p3-14-fit-native-ref"
+    },
+    {
+      "name": "fit-populate",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/fit-populate.json",
+      "label": "server08-p3-14-fit-populate"
+    },
+    {
+      "name": "fit-cached-ref",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/fit-cached-ref.json",
+      "label": "server08-p3-14-fit-cached-ref"
+    },
+    {
+      "name": "fit-cold-01",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/fit-cold-01.json",
+      "label": "server08-p3-14-fit-cold-01"
+    },
+    {
+      "name": "fit-paired-01",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/fit-paired-01.json",
+      "label": "server08-p3-14-fit-paired-01"
+    },
+    {
+      "name": "fit-paired-02",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/fit-paired-02.json",
+      "label": "server08-p3-14-fit-paired-02"
+    },
+    {
+      "name": "fit-cold-02",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/fit-cold-02.json",
+      "label": "server08-p3-14-fit-cold-02"
+    },
+    {
+      "name": "d8-native-ref",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/d8-native-ref.json",
+      "label": "server08-p3-14-d8-native-ref"
+    },
+    {
+      "name": "d8-cached-ref",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/d8-cached-ref.json",
+      "label": "server08-p3-14-d8-cached-ref"
+    },
+    {
+      "name": "d8-cold-01",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/d8-cold-01.json",
+      "label": "server08-p3-14-d8-cold-01"
+    },
+    {
+      "name": "d8-paired-01",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/d8-paired-01.json",
+      "label": "server08-p3-14-d8-paired-01"
+    },
+    {
+      "name": "d8-paired-02",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/d8-paired-02.json",
+      "label": "server08-p3-14-d8-paired-02"
+    },
+    {
+      "name": "d8-cold-02",
+      "plan": "artifacts/prefix_io_v1/server08-p3-14/jobs/d8-cold-02.json",
+      "label": "server08-p3-14-d8-cold-02"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "all_hit": {
+    "path": "artifacts/prefix_io_v1/server07-p3-06/all_hit-manifest.json",
+    "sha256": "94920aae8ccd747dfd3affaf9f7f462016a96d702dad9385a00986902bf9ab4e"
+  },
+  "mixed_readwrite": {
+    "path": "artifacts/prefix_io_v1/server07-p3-06/mixed_readwrite-manifest.json",
+    "sha256": "026d2d1691572eda2b4228dea6f826daa5f5b61836cc31bbf6cf4e0541fd7273"
+  }
+}

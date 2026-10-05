@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_FINITE_DOMAIN_PROPOSAL_NOT_EXECUTED",
+  "scope": "P3 finite simple-baseline completion only; no P4 joint strategy, new cache engine, model executor, GPU operation, test run, source modification or cache-payload read in this task",
+  "root_direction": "Keep the existing six same-capacity U,F,P,P,F,U fair repetitions. Do not reallocate those runs. Register a new 960MiB capacity domain with unchanged qualification criteria and at least one independent native-U development screen.",
+  "immutability": {
+    "p315": "All P315 root/source snapshots and old run evidence remain frozen; this task made no writes to them",
+    "p315_frozen_snapshot": "artifacts/prefix_io_v1/server08-p3-15/qualified-source-snapshot-v3.json",
+    "snapshot_sha256": "f17cb85cb4e98c4a0d4f6b5df98174944661642ce0b759e51c142e73f85a1e32",
+    "p316_source_changes_by_this_plan": 0,
+    "cache_changes": 0,
+    "exceptions": "The separate root-authorized missing-_stop fixture compatibility fix preceded this plan and has its own stop-fixture-compatibility.json receipt."
+  },
+  "requirement": {
+    "path": "docs/prefix_io_v1/03_IMPLEMENTATION_AND_EXPERIMENTS.md",
+    "lines": [
+      55,
+      59,
+      152,
+      187,
+      219
+    ],
+    "meaning": "Finite tuning of batch, iodepth, cache/preload capacity and buffer reserve; common correctness/admission equal in all arms. Finite screening is not global optimality."
+  },
+  "native_capacity": {
+    "io_quantum_bytes": 917504,
+    "kv_bytes_per_token": 57344,
+    "storage_block_tokens": 16,
+    "alignment_overhead_bytes": 4095,
+    "io_depth": 8,
+    "copy_headroom": 4,
+    "whole_prefix_tokens": 16256,
+    "whole_prefix_pages": 1016,
+    "whole_prefix_bytes": 932184064,
+    "slot_formula": "floor((staging_bytes - 4095) / 917504)",
+    "cache_and_preload_capacity_formula": "slot_count - iodepth",
+    "author_physical_coupling": "Existing native cache and preload ceilings both derive from the same staging pool. There is no separate cache-capacity extra-config knob. Keep this coupling; change the capacity axis independently of batch and iodepth.",
+    "cache_kind": "lru",
+    "share_staging": true,
+    "load_planner": "on in development; off in original heldout point acquisition",
+    "author_lookahead_absent_default": 0,
+    "current_explicit_lookahead_requests": 1,
+    "author_lookahead_source": "third_party/work/vllm-author-build/vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py:46-57,270-272,646-654",
+    "planner_mirror_source": "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/vllm.py:744-754",
+    "paired_contract_source": "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py:251-259",
+    "paired_contract": "After each GPU-only reset, g_mem must restore all 1016 files from original staging with zero SSD read. Native g_mem proof is not satisfiable by a smaller pool that cannot retain the complete prefix.",
+    "capacity_candidates": [
+      {
+        "id": "C2-d8-staging1024-lookahead1",
+        "kind": "existing_reference",
+        "staging_mib": 1024,
+        "staging_bytes": 1073741824,
+        "staging_mem_gib": 1,
+        "slot_count": 1170,
+        "cache_preload_ceiling_slots": 1162,
+        "paired_full_prefix_possible": true
+      },
+      {
+        "id": "C2-d8-staging960-lookahead1",
+        "kind": "minimal_new_capacity_domain",
+        "staging_mib": 960,
+        "staging_bytes": 1006632960,
+        "staging_mem_gib": 0.9375,
+        "slot_count": 1097,
+        "cache_preload_ceiling_slots": 1089,
+        "ceiling_bytes": 999161856,
+        "paired_full_prefix_possible": true,
+        "spare_cached_slots_after_prefix": 73,
+        "selection_basis": "Natural 15/16 of existing 1GiB capacity; retain 1016-file whole-prefix proof plus native iodepth/copy headroom. It reduces the original coupled cache/preload ceiling by 73 slots without enlarging the memory budget. This is a finite sensitivity candidate, not an optimum."
+      }
+    ],
+    "static_pruned_candidates": [
+      {
+        "staging_mib": 512,
+        "slots": 585,
+        "cache_preload_ceiling_slots": 577,
+        "reason": "Cannot satisfy unchanged original whole-prefix g_mem qualification; do not replace it with smaller prefix or redefine g_mem"
+      },
+      {
+        "staging_mib": 768,
+        "slots": 877,
+        "cache_preload_ceiling_slots": 869,
+        "reason": "Cannot satisfy unchanged original whole-prefix g_mem qualification"
+      },
+      {
+        "staging_mib": 896,
+        "slots": 1023,
+        "cache_preload_ceiling_slots": 1015,
+        "reason": "Alignment overhead plus d8 leaves one fewer cached slot than the 1016-file prefix; qualification is structurally impossible"
+      }
+    ],
+    "optional_horizon_candidate": {
+      "preload_lookahead_requests": 2,
+      "capacity_bytes": 1073741824,
+      "technically_legal": true,
+      "source_behavior": "Scheduler considers the first two queued candidates, while unchanged native planner/pool limits actual physical reservations. Two complete prefixes need not fit simultaneously, and this must not authorize extra slots.",
+      "status": "not scheduled; separate-domain space-prune pending fresh budget",
+      "reason": "It cannot be folded into the 960MiB change without confounding physical capacity and scheduling horizon. Independent six-phase point gate plus U screen would require another conservative 3.75GiB, exceeding the current residual space."
+    }
+  },
+  "lineage": {
+    "batch": "C1 original candidate -> C2 exact-native/heldout point gates, already explicit; keep max_num_seqs=2",
+    "iodepth": "2 rejected; 4 original candidate; 8 qualified P314 d8 lineage. Do not claim an unbounded iodepth optimum.",
+    "current_candidate_path": "artifacts/prefix_io_v1/server08-p3-14/calibration-candidate/curves-v2.json",
+    "current_candidate_sha256": "fd05683418e851d5130ba2ab646e9e33cbb0ea490584787dca3d019abff6d451",
+    "reference_plan": "artifacts/prefix_io_v1/server08-p3-14/d8/reference-plan.json",
+    "reference_plan_sha256": "8ba38f673e3a4d225a9b0eb8ec3c4dba93573e175ddd63a34f6221446c06e8d3",
+    "cost_plan": "artifacts/prefix_io_v1/server08-p3-14/d8/cost-plan.json",
+    "cost_plan_sha256": "dc91752b08ca15a7b1d89bc30a76ddf5202c028efbe81fb5b5ef7709d16411b5",
+    "old_d8_permit": "artifacts/prefix_io_v1/server08-p3-14/d8/permit.json",
+    "old_d8_permit_sha256": "a2ce576188eae969b8ef5948c832d02b9ed80d8a1ae3c221a58428b8c2bf17a4",
+    "old_permit_scope": "Only C2 plus iodepth8 under the existing 1GiB acquisition configuration. It does not authorize a changed capacity/horizon.",
+    "original_manifest": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+    "original_manifest_sha256": "1128f0b4c5481837f87c689e29f1b0f92fc80d29d8d13573fe08714bef58c197"
+  },
+  "point_gate": {
+    "standards_unchanged": true,
+    "point_tokens": 16256,
+    "reps": 3,
+    "warmup_rep": 0,
+    "two_fresh_engine_sessions_per_path": true,
+    "native_reference": "GPU-only cold/hot selected-token plus top-5 diagnosis; do not substitute cold numerical values for hot/cached reference",
+    "cached_reference": "paired g_ssd and g_mem top-5/selected-token exact equality against native hot; tolerance 0",
+    "prediction": {
+      "paths": [
+        "f",
+        "g_ssd",
+        "g_mem"
+      ],
+      "maximum_absolute_relative_median_error": 0.25,
+      "denominator": "frozen candidate prediction",
+      "refit": false,
+      "full_domain_qualification": false,
+      "formal_evaluation": false
+    },
+    "sampling": "Original one-token acquisition, deterministic seed 0, max_num_seqs2, KV2GiB, same model/GPU/runtime identity. Acquisition load_planner off; exact shape/byte/medium/drain requirements retained.",
+    "new_plan_directory": "artifacts/prefix_io_v1/server08-p3-16/cap960/",
+    "source_storage": "Existing registered PRIMARY server08-p3-14-source/heldout-long corpus; no populate, no recopy/new bin corpus, source byte preservation required",
+    "phase_labels": [
+      {
+        "label": "server08-p3-16-cap960-native-ref",
+        "mode": "cold",
+        "flags": [
+          "--native-hot-diagnostic",
+          "--diagnostic-logprobs"
+        ],
+        "purpose": "new exact native reference",
+        "gpu_envelope_seconds": 240,
+        "reservation_bytes": 134217728
+      },
+      {
+        "label": "server08-p3-16-cap960-cached-ref",
+        "mode": "paired",
+        "flags": [
+          "--cached-reference-logprobs"
+        ],
+        "purpose": "new capacity exact cached/reference proof",
+        "gpu_envelope_seconds": 240,
+        "reservation_bytes": 134217728
+      },
+      {
+        "label": "server08-p3-16-cap960-cold-01",
+        "mode": "cold",
+        "purpose": "f session1",
+        "gpu_envelope_seconds": 240,
+        "reservation_bytes": 134217728
+      },
+      {
+        "label": "server08-p3-16-cap960-paired-01",
+        "mode": "paired",
+        "purpose": "g_ssd/g_mem session1",
+        "gpu_envelope_seconds": 240,
+        "reservation_bytes": 134217728
+      },
+      {
+        "label": "server08-p3-16-cap960-paired-02",
+        "mode": "paired",
+        "purpose": "g_ssd/g_mem session2",
+        "gpu_envelope_seconds": 240,
+        "reservation_bytes": 134217728
+      },
+      {
+        "label": "server08-p3-16-cap960-cold-02",
+        "mode": "cold",
+        "purpose": "f session2",
+        "gpu_envelope_seconds": 240,
+        "reservation_bytes": 134217728
+      }
+    ],
+    "common_arguments": {
+      "domain": 16384,
+      "sizes": [
+        16256
+      ],
+      "reps": 3,
+      "max_num_seqs": 2,
+      "iodepth": 8,
+      "staging_mib": 960,
+      "preload_lookahead_requests": 1,
+      "prompt_manifest": "artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json"
+    },
+    "gate_outputs": [
+      "reference-plan.json",
+      "reference-result.json",
+      "cost-plan.json",
+      "cost-result.json",
+      "capacity-permit.json",
+      "source hashes and guarded phase receipts"
+    ],
+    "loaded_minimum_after_pass": {
+      "label": "server08-p3-16-cap960-mixed-U-01",
+      "arm": "U/off controller with common admission/correctness/accounting",
+      "profile": "frozen 10-request mixed_readwrite pattern",
+      "output_tokens": 128,
+      "gpu_envelope_seconds": 240,
+      "reservation_bytes": 3221225472,
+      "claim": "Single native-capacity development sensitivity screen; no F/P superiority or confidence-interval claim"
+    },
+    "source_receipts": "Every phase must capture the exact NEW acquirer/validator/contract/probe/native hashes and original candidate/prompt/source-registration hashes. Fresh source freeze precedes GPU dispatch."
+  },
+  "new_adapter_scope": {
+    "no_native_cache_or_executor_change_needed": true,
+    "new_files_only": [
+      {
+        "role": "capacity acquisition adapter",
+        "suggested_path": "experiments/prefix_io_v1/scripts/acquire_native_aio_costs_capacity_p316.py",
+        "changes": "Explicit strict staging_mib in {1024,960} and lookahead_requests in registered domain. Replace original hardcoded 1GiB extra only in NEW file; actual frozen config must contain 0.9375 for cached/paired runs. Keep all original numerical, medium, byte coverage, shape, drain and one-token checks."
+      },
+      {
+        "role": "exact point validator",
+        "suggested_path": "experiments/prefix_io_v1/scripts/validate_heldout_costs_capacity_p316.py",
+        "changes": "Validate exact registered combined connector variant (iodepth8, staging_mem0.9375, lookahead1), actual config vs declared capacity, original model/GPU/candidate/curve/prompt identity and original 25%/zero tolerance. No arbitrary delta dictionary or old permit fallback."
+      },
+      {
+        "role": "strict finite manifest contract",
+        "suggested_path": "experiments/prefix_io_v1/scripts/concurrent_capacity_contract_p316.py",
+        "changes": "NEW schema for capacity_domain_id/staging_bytes/staging_mem_gib/native expected slots/cache-preload ceiling/lookahead, original manifest SHA lineage and exact input equality except the registered capacity fields. Keep original five families, ten requests, seed1704, timestamps, KV2GiB, C2,d8,128 output tokens, no artificial delay/cache reset/SLO/formal claim. No retokenization/regenerated arrivals."
+      },
+      {
+        "role": "capacity permit issuer/verifier",
+        "suggested_path": "experiments/prefix_io_v1/scripts/qualify_capacity_p316.py",
+        "changes": "Issue NEW status and digest-bound capacity-domain permit from independently recomputed exact-reference and point-cost results; retain original permit as provenance only."
+      },
+      {
+        "role": "NEW capacity concurrent driver",
+        "suggested_path": "experiments/prefix_io_v1/scripts/run_concurrent_capacity_p316.py",
+        "changes": "Use NEW capacity permit/contract, set actual connector staging_mem and probe staging budget from exact registered manifest, derive slot assertions from native formula. Preserve original request loop, original private-source hardlink protocol, actual outputs/IO/resource/unknown/owner/drain checks and source preservation."
+      },
+      {
+        "role": "NEW base probe adapter",
+        "suggested_path": "experiments/prefix_io_v1/scripts/run_p3_native_pilot_capacity_p316.py",
+        "changes": "Original base probe accepts only (KV256MiB,staging128MiB) or (KV2GiB,staging1GiB); add only the explicitly registered (KV2GiB,staging960MiB) tuple in NEW adapter. Current wrapper limits alone cannot bypass this old hardcoded tuple validation. Reuse installed actual native metadata, no fake accounting/free credit."
+      },
+      {
+        "role": "NEW CPU contract tests",
+        "suggested_path": "tests/prefix_io_v1_finite_capacity/",
+        "changes": "Reject old permit for cap960; reject declaration/config/budget/slot/ceiling/hash mismatch; accept only finite registered tuples; assert whole-prefix geometry pruning, frozen prompt/arrival equality and no broad/unknown connector changes. Owner validation and real STOP correctness remain common."
+      }
+    ],
+    "old_interfaces_that_reject_change": [
+      "acquire_native_aio_costs.py:147 hardcodes 1GiB for domain16384",
+      "concurrent_pilot_contract[_p316].py requires staging_bytes=1073741824 and accepts connector_delta only iodepth",
+      "validate_heldout_costs.py:66-70 only delegates old iodepth variant",
+      "qualify_concurrent_pilot.py recomputes original gate and old manifest/config digest",
+      "run_concurrent_pilot_p316.py:154 hardcodes staging probe budget1GiB",
+      "run_p3_native_pilot.py:13 rejects unapproved probe budget tuples"
+    ],
+    "preserve": "Do not edit old locked P314/P315 sources/contracts, weaken old gate standards, generate a new permit before real evidence, or silently reuse baseline capacity settings."
+  },
+  "space_and_write_bounds": {
+    "units": "GiB = 2^30 bytes",
+    "root_reported_free_gib": 26.69,
+    "root_floor_gib": 8,
+    "existing_planned_maximum_gib": 14,
+    "residual_before_new_gib": 4.69,
+    "new_capacity_qualification_reserved_bytes": 805306368,
+    "new_U_screen_reserved_bytes": 3221225472,
+    "new_total_reserved_gib": 3.75,
+    "residual_after_proposal_gib": 0.94,
+    "qualification_new_payload_bound": "No populate. One-token outputs cannot complete another 16-token file after the 16257-token frozen prompt; existing full-prefix final paths use link/no-replace publication. Conservatively reserve one additional file per prompt and at most iodepth8 live temporary write files.",
+    "qualification_external_phase_maximum_new_payload_bytes": 2752512,
+    "qualification_live_temp_peak_bytes": 7340032,
+    "qualification_conservative_logical_write_bytes_per_paired_session": 5598609408,
+    "qualification_three_external_sessions_logical_write_bound_bytes": 16795828224,
+    "note_logical_vs_space": "Possible repeated temp writes count as real SSD writes even when os.link finds an existing final file and original unlink retires temp. Do not conflate logical writes with permanently new files or free-space recovery.",
+    "mixed_new_file_upper_bound": {
+      "new_prompt_families": 2,
+      "prompt_files_each": 1016,
+      "requests": 10,
+      "maximum_suffix_files_per_request_including_conservative_extra": 9,
+      "warmup_files_conservative": 10,
+      "total_new_files": 2132,
+      "payload_bytes": 1956118528,
+      "payload_gib": 1.82177734375,
+      "live_temp_peak_files": 8,
+      "live_temp_peak_bytes": 7340032,
+      "metadata_allowance_percent": 2,
+      "log_allowance_bytes": 67108864,
+      "combined_estimate_bytes": 2069836596,
+      "driver_reservation_bytes": 3221225472
+    },
+    "mixed_conservative_logical_store_bytes": 9413591040,
+    "conditions": [
+      "Existing registered initial three families must already have full intended prefix files; otherwise the new-domain static/preflight contract must reject the 3GiB claim rather than assume them.",
+      "Source files stay byte-identical; original final publication uses os.link and never replaces a shared existing file. Temporary payload ownership remains original native flow.",
+      "Payload bounds are structural; 64/128MiB metadata/log reservations are allocation envelopes, not measured or proven automatic byte hard caps. Before scheduling, root must enforce/validate bounded artifact growth or reserve a verified larger envelope. A receipt exceeding this envelope is a budget failure, not an excuse to reduce the recorded actual write count.",
+      "The 14GiB existing-plan estimate and 26.69GiB current free are root-reported planning values, not freshly measured here. Root preflights actual PRIMARY filesystem and aggregate reservations before every phase.",
+      "No old cache merges, deletion, relocation or duplicate consolidation authorized by this plan. If needed, freeze the actual new exact file manifest and obtain limited authorization before changing cache storage."
+    ],
+    "gate": "No GPU phase if free minus all preserved outstanding reservations would fall below8GiB. Stop/prune on source mutation, budget overflow, unknown drain, unapproved GPU, model/GPU mismatch or timeout. All prior receipts remain immutable."
+  },
+  "optional_simple_policy_candidates": {
+    "current_configs_unchanged": true,
+    "current_epoch_ns": 10000000,
+    "current_ordinary_units": 16,
+    "current_pressure_reserve_units": 4,
+    "F8": {
+      "technically_legal": true,
+      "change_only": "SSD_read,SSD_write,D2H cumulative ops/bytes16->8 units; shared SSD cumulative32->16; shared copy cumulative80->72 units. Keep H2D cumulative64, all inflight allowances, max accepted parents64, epoch10ms, sample age20ms and age escape200ms unchanged. Fixed reserve stays0.",
+      "rationale": "Ordinary native read and D2H issue one storage file each. Half ordinary epoch capacity is ~0.6836GiB/s per stage, close to the original natural ~0.665GiB/s heldout SSD rate, rather than zero or extreme starvation. Retain fused H2D capacity and original mandatory continuation charging.",
+      "theoretical_epoch_capacity_gib_per_second": 0.68359375,
+      "validity": "Use actual config parser/CPU contracts, owner snapshots, all accepted four-stage ops/bytes and continuation/mandatory/age charging. No forced gain, no synthetic delay and no changed native copy executor.",
+      "current_budget_status": "Do not schedule outside current total without fresh remaining-space/GPU check; one full mixed replay reserves3GiB and would exceed the ~0.94GiB residual after the cap960 minimum."
+    },
+    "P512": {
+      "technically_legal": true,
+      "reserve_units": 512,
+      "reserve_bytes": 469762048,
+      "reserve_gib": 0.4375,
+      "reserve_fraction_of_1170_slots": 0.4376068376068376,
+      "meaning": "About44% of native1GiB pool's 1170 IO slots, not exactly half the1GiB byte budget. Global foreground clean-reclaimable watermark; not speculative-preload eligibility or hard allocation capacity.",
+      "change_only": "Pressure reserve4->512 native quanta; keep all cumulative/inflight quotas16/64, epoch10ms, physical1GiB pool, native eviction, max accepted parents64 and age/mandatory/continuation behavior unchanged.",
+      "validity": "512Q is quantized, nonnegative and smaller than the actual hard pool. Performance defer only when original native eligibility is already true and known foreground reclaimable after the new reservation is below reserve. Continuation need0, shutdown/mandatory/age/support keep original escape and are fully charged. Unknown metadata falls back without physical release credit.",
+      "interpretation": "Real ordinary performance denials may remain zero. Report that fact; do not manufacture pressure or treat absence of denials as failure requiring new candidate thresholds.",
+      "current_budget_status": "An extra3GiB mixed run likewise needs fresh budget or separately authorized cache consolidation; it is not hidden inside the cap960 U run."
+    },
+    "capacity_and_horizon_separation": "Do not combine F8/P512/lookahead2 with the first960MiB U screen. Pre-register independent manifests/config digests and keep the baseline six U,F,P,P,F,U unchanged.",
+    "completion_limit": "If F8/P512 or any required finite baseline dimension remains merely proposed/resource-pruned without permitted comparable validation, do not claim fully tuned P3 or global best baseline. Record completed qualification, rejected candidates, evidence and exact remaining stage."
+  },
+  "failure_pruning": [
+    {
+      "stage": "CPU/domain",
+      "reason": "Unchanged paired whole-prefix geometry impossible, nonfinite/unaligned capacity, budget tuple mismatch, unregistered horizon or extra config, C2/KV/source/model/GPU/prompt/hash mismatch",
+      "action": "Reject before GPU with explicit static evidence; no smaller qualification point or alternative g_mem route"
+    },
+    {
+      "stage": "numeric reference",
+      "reason": "Cached selected token/top5 differs from native hot with tolerance0, source mutation, wrong full-prefix/medium bytes or missing native physical drain",
+      "action": "Prune candidate; retain raw results, no tolerance relaxation"
+    },
+    {
+      "stage": "cost point",
+      "reason": "Any frozen f/g_ssd/g_mem median relative error exceeds0.25 or fewer than two fresh sessions/path, or measurements use diagnostic logprobs for latency fit",
+      "action": "Prune capacity as unqualified for the frozen curve; no refit/domain enlargement or declaring old permit sufficient"
+    },
+    {
+      "stage": "loaded U",
+      "reason": "Real source/read/write/content/resource/parent/accounting/unknown proof fails or replay times out",
+      "action": "Retain failure; no F/P policy performance interpretation on that unqualified capacity"
+    },
+    {
+      "stage": "resource",
+      "reason": "Aggregate preserved storage plus new phase reserve violates8GiBfloor or remaining GPU/time/UUID permission",
+      "action": "Do not dispatch; future cache consolidation requires new exact manifest/limited authorization. Budget pruning does not establish capacity performance or finish missing P3 proof."
+    }
+  ],
+  "gpu_budget": {
+    "root_remaining_hours": 4.36,
+    "new_maximum_gate_seconds": 1440,
+    "new_U_seconds": 240,
+    "new_total_seconds": 1680,
+    "new_total_hours": 0.4666666666666667,
+    "historical_d8_phase_elapsed_seconds": [
+      74.84042438212782,
+      80.65588660212234,
+      75.07257480081171,
+      78.40053266705945,
+      74.51928491983563,
+      73.13374937977642
+    ],
+    "history_scope": "Historical wall times are planning evidence only, not P316 results or a guarantee. Every actual phase still goes through current permissions/resource wrapper and an independently frozen GPU source/domain permit.",
+    "no_parallel_gpu_or_tests": true
+  },
+  "execution_in_this_task": {
+    "gpu_runs": 0,
+    "tests_run": 0,
+    "source_edits": 0,
+    "bin_reads": 0,
+    "created_artifacts": [
+      "finite-baseline-domain-plan.json",
+      "native-commands/finite-domain-plan-01.json"
+    ],
+    "static_only": true
+  }
+}

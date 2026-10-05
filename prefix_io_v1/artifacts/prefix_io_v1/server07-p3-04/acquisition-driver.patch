@@ -1,0 +1,59 @@
+--- a/experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py
++++ b/experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py
+@@ -83,6 +83,7 @@
+     ap.add_argument("--model-plan",required=True,type=Path)
+     ap.add_argument("--mode",choices=["cold","populate","restore","paired","planned"],required=True)
+     ap.add_argument("--curves",type=Path)
++    ap.add_argument("--prompt-manifest",type=Path)
+     ap.add_argument("--sizes",default="16,64,128,256,512,1024")
+     ap.add_argument("--reps",type=int,default=6)
+     ap.add_argument("--domain",type=int,choices=[1024,4096,8192,16384],default=1024)
+@@ -101,10 +102,21 @@
+     base.require(all(16<=n<=args.domain and n%16==0 for n in sizes) and 1<=args.reps<=8,"unbounded acquisition")
+     base.require(args.domain==1024 or args.mode!="planned","extended domain is acquisition only; export/qualification required")
+     base.require(shutil.disk_usage(base.ROOT).free>=8*1024**3,"cost acquisition disk guard")
++    prompt_rows=None;prompt_identity=None;disk_contract=None
++    if args.prompt_manifest:
++        from heldout_manifest import load_manifest,check_disk
++        base.require(args.mode!="planned","heldout acquisition does not install planner")
++        prompt_rows,prompt_identity=load_manifest(args.prompt_manifest,sizes,args.reps)
++        disk_contract=check_disk(shutil.disk_usage(base.ROOT).free,sizes,args.reps,args.mode=="populate")
++    def selected_prompt(n,rep):
++        return prompt(n,rep) if prompt_rows is None else list(prompt_rows[(n,rep)])
+     if args.mode=="populate":storage.mkdir(parents=True,exist_ok=False)
+     elif args.mode!="cold":base.require(storage.is_dir(),"no published storage")
+     out.mkdir(parents=True,exist_ok=False)
+     (out/"driver-source.py").write_text(Path(__file__).read_text())
++    if args.prompt_manifest:
++        (out/"prompt-manifest.json").write_bytes(args.prompt_manifest.read_bytes())
++        (out/"manifest-validator-source.py").write_text((Path(__file__).parent/"heldout_manifest.py").read_text())
+     curves=args.curves.resolve() if args.curves else None
+     base.configure_runtime_environment()
+     os.environ["PYTHONHASHSEED"]="0"  # Author-supported stable NONE_HASH across engine restarts.
+@@ -112,7 +124,8 @@
+     base.require(os.environ.get("CUDA_VISIBLE_DEVICES","").startswith("GPU-"),"UUID runner required")
+     report=dict(status="FAILED",mode=args.mode,performance_claim=False,full_P1_pass=False,
+         scope="native TTFT cost acquisition; resets are diagnostic only",rows=[],native_hot_diagnostic=args.native_hot_diagnostic,
+-        cached_reference_logprobs=args.cached_reference_logprobs)
++        cached_reference_logprobs=args.cached_reference_logprobs,
++        prompt_manifest=prompt_identity,disk_contract=disk_contract)
+     llm=None
+     try:
+         model,identity=base.validate_local_model(args.model_dir,args.model_plan)
+@@ -139,6 +152,7 @@
+         base.write_new_json(out/"frozen-config.json",dict(model=identity,model_alias=base.MODEL_ID,
+             alias_target=str(model),engine=config,sampling=sampling,sizes=sizes,reps=args.reps,acquisition_domain=args.domain,
+             gpu_uuid=os.environ["CUDA_VISIBLE_DEVICES"],pythonhashseed="0",planned_request_batch=3 if args.mode=="planned" else 1,cost_acquisition_only=args.mode!="planned",
++            prompt_manifest=prompt_identity,
+             measured_axis="reusable prefix N; identical request has N+1 tokens, output one token",
+             native_hot_diagnostic=args.native_hot_diagnostic,cached_reference_logprobs=args.cached_reference_logprobs,terminal_knot_note="context includes terminal prefix plus query; extended samples are not exported runtime curves"))
+         os.chdir(out)
+@@ -152,7 +166,7 @@
+             path=out/f"{kind}-{n}-{rep}.trace.json"
+             if profile:llm.collective_rpc(worker_control,timeout=45,args=("begin",str(path)))
+             started=time.perf_counter()
+-            inputs=[{"prompt_token_ids":prompt(n,rep)}]
++            inputs=[{"prompt_token_ids":selected_prompt(n,rep)}]
+             if args.mode=="planned":
+                 # A real cold leading request occupies the sole running slot,
+                 # leaving the two persisted-prefix requests in the waiting queue.

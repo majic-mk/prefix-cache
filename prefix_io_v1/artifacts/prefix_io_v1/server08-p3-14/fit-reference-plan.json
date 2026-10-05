@@ -1,0 +1,32 @@
+{
+  "scope": "Fresh same-budget exact cached reference on server08 PRIMARY; synthetic calibration only",
+  "gpu_uuid": "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+  "domain": 16384,
+  "kv_budget_bytes": 2147483648,
+  "staging_budget_bytes": 1073741824,
+  "reps": 3,
+  "sizes": [
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "native_label": "server08-p3-14-fit-native-ref",
+  "external_groups": [
+    {
+      "label": "server08-p3-14-fit-cached-ref",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "primary-all-knots",
+      "storage_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-calibration/storage"
+    }
+  ],
+  "run_details": {
+    "server08-p3-14-fit-native-ref": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-fit-native-ref/details",
+    "server08-p3-14-fit-cached-ref": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-fit-cached-ref/details"
+  }
+}

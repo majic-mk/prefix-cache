@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+  "job_names": {
+    "off": "server10-g2-normal-off-01",
+    "shadow": "server10-g2-normal-shadow-01"
+  },
+  "permissions_ref": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+    "bytes": 685,
+    "sha256": "aa54897390dd18c71f4578d45c87b74a3d26a3c63daea2660bf752c41be3be50"
+  },
+  "sdk_inventory_ref": {
+    "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CUDA13_SOURCE_INVENTORY.json",
+    "bytes": 692329,
+    "sha256": "0e7cc1df1d8d7aed7271841d6e9f1e4188785f40ad4c74b4c6c78f670b7794b6"
+  },
+  "sdk_proof_ref": {
+    "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CPU_COMPILE_LINK_RESULT.json",
+    "bytes": 5588,
+    "sha256": "ef7a7482cc1cae539e2425d6aefc82ea8160e398ab7d8b14926f76537e614a25"
+  },
+  "source_lock": "artifacts/prefix_io_v1/server10-g2-migration-v1-20261003/gpu-source-lock-server10-g2.json",
+  "scope_record": "artifacts/prefix_io_v1/server10-g2-migration-v1-20261003/SERVER10_G2_AUTHORIZED_SCOPE.json"
+}

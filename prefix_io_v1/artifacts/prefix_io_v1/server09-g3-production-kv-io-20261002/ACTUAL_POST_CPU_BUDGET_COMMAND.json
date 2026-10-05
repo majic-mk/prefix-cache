@@ -1,0 +1,11 @@
+{
+  "request": {
+    "cmd": "CUDA_VISIBLE_DEVICES='' /root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python -B -I -S -c 'import pathlib,json,hashlib,os,datetime\nroot=pathlib.Path('\\''/root/autodl-tmp/prefix-io-v1-handoff/project'\\'')\nraw=(root/'\\''experiments/prefix_io_v1/gpu-budget-ledger.json'\\'').read_bytes(); d=json.loads(raw)\nassert len(raw)==347318 and hashlib.sha256(raw).hexdigest()=='\\''7dd465ef868fb6cc4fbacddd8cc58045cc47b11aa0768765325613b454c6b744'\\''\nassert len(d['\\''events'\\''])==229 and d['\\''active_reservation'\\''] is None\nout=dict(status='\\''PASS_CPU_PHASE_LEDGER_BYTE_UNCHANGED'\\'',utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),ledger_bytes=len(raw),ledger_sha256=hashlib.sha256(raw).hexdigest(),events=len(d['\\''events'\\'']),active_reservation=d['\\''active_reservation'\\''],gpu_wall_seconds=d['\\''gpu_wall_seconds'\\''],remaining_original_28800_seconds=28800-d['\\''gpu_wall_seconds'\\''],free_bytes=os.statvfs(root).f_bavail*os.statvfs(root).f_frsize,GPU_operations_this_CPU_phase=0,GPU_authorized_for_next_phase=False,driver_system_changes=0,existing_experiment_data_deletions=0)\np=root/'\\''artifacts/prefix_io_v1/server09-g3-production-kv-io-20261002/SERVER_POST_CPU_BUDGET_AND_STORAGE.json'\\''\nwith p.open('\\''x'\\'') as f:json.dump(out,f,indent=2)\nprint(json.dumps(out))\n'",
+    "timeout": 60
+  },
+  "result": {
+    "stdout": "{\"status\": \"PASS_CPU_PHASE_LEDGER_BYTE_UNCHANGED\", \"utc\": \"2026-10-01T17:59:07.835161+00:00\", \"ledger_bytes\": 347318, \"ledger_sha256\": \"7dd465ef868fb6cc4fbacddd8cc58045cc47b11aa0768765325613b454c6b744\", \"events\": 229, \"active_reservation\": null, \"gpu_wall_seconds\": 17206.34363487875, \"remaining_original_28800_seconds\": 11593.65636512125, \"free_bytes\": 12789006336, \"GPU_operations_this_CPU_phase\": 0, \"GPU_authorized_for_next_phase\": false, \"driver_system_changes\": 0, \"existing_experiment_data_deletions\": 0}\n",
+    "stderr": "",
+    "exit": 0
+  }
+}

@@ -1,0 +1,140 @@
+
+==================================== ERRORS ====================================
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_break_even.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_break_even.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_break_even'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_cost_model.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_cost_model.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_cost_model'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_e2e_kvcache.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_e2e_kvcache.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_e2e_kvcache'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_fs_layout.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_fs_layout.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_fs_layout'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_load_planner.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_load_planner.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_load_planner'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_planner_manager.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_planner_manager.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_planner_manager'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_py_kvcache_async_open.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_py_kvcache_async_open.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_py_kvcache_async_open'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_py_kvcache_copy_batch.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_py_kvcache_copy_batch.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_py_kvcache_copy_batch'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_py_kvcache_lookup_cache.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_py_kvcache_lookup_cache.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_py_kvcache_lookup_cache'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_py_kvcache_ntensor.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_py_kvcache_ntensor.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_py_kvcache_ntensor'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_py_kvcache_preload_handler.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_py_kvcache_preload_handler.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_py_kvcache_preload_handler'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_py_kvcache_preload_reactor.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_py_kvcache_preload_reactor.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_py_kvcache_preload_reactor'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_py_kvcache_shared_preload.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_py_kvcache_shared_preload.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_py_kvcache_shared_preload'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_staging_cache.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_staging_cache.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_staging_cache'
+_ ERROR collecting third_party/work/py-kvcache-progress/tests/test_vllm_compat.py _
+ImportError while importing test module '/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/tests/test_vllm_compat.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'tests.test_vllm_compat'
+=========================== short test summary info ============================
+ERROR third_party/work/py-kvcache-progress/tests/test_break_even.py
+ERROR third_party/work/py-kvcache-progress/tests/test_cost_model.py
+ERROR third_party/work/py-kvcache-progress/tests/test_e2e_kvcache.py
+ERROR third_party/work/py-kvcache-progress/tests/test_fs_layout.py
+ERROR third_party/work/py-kvcache-progress/tests/test_load_planner.py
+ERROR third_party/work/py-kvcache-progress/tests/test_planner_manager.py
+ERROR third_party/work/py-kvcache-progress/tests/test_py_kvcache_async_open.py
+ERROR third_party/work/py-kvcache-progress/tests/test_py_kvcache_copy_batch.py
+ERROR third_party/work/py-kvcache-progress/tests/test_py_kvcache_lookup_cache.py
+ERROR third_party/work/py-kvcache-progress/tests/test_py_kvcache_ntensor.py
+ERROR third_party/work/py-kvcache-progress/tests/test_py_kvcache_preload_handler.py
+ERROR third_party/work/py-kvcache-progress/tests/test_py_kvcache_preload_reactor.py
+ERROR third_party/work/py-kvcache-progress/tests/test_py_kvcache_shared_preload.py
+ERROR third_party/work/py-kvcache-progress/tests/test_staging_cache.py
+ERROR third_party/work/py-kvcache-progress/tests/test_vllm_compat.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 15 errors during collection !!!!!!!!!!!!!!!!!!!
+15 errors in 2.90s

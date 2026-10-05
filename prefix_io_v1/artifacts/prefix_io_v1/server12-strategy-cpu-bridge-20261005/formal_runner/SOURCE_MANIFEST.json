@@ -1,0 +1,85 @@
+{
+  "schema": "formal_runner_CPU_candidate_source_manifest_v1",
+  "files": [
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/FORMAL_RUNNER_REVIEW.json",
+      "bytes": 5440,
+      "sha256": "35caa5db74188ccd67402f7c228fc4db42c173314bfb740c09f2ac81e469e673"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/FORMAL_RUNNER_REVIEW.md",
+      "bytes": 2063,
+      "sha256": "e8d961bbd5b7728b6fd59689a4a74721fe3a098f7d9a7721b87de208ecee8fd1"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_RESULT.json",
+      "bytes": 613,
+      "sha256": "3049b0a832b318444935e0469a0479aa9cb97573f33e63d190f5242dfd67369e"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_RESULT_02.json",
+      "bytes": 613,
+      "sha256": "076bc0a44feb43b6d7420c1a9390a9ed77c2e9cd9753a8782b6ac6e0599f182b"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_RESULT_03.json",
+      "bytes": 613,
+      "sha256": "fb259fc5e71eb245b90e0b46c7ac4c43d1bd021bfacf4890cff674e221a5fba0"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_STDERR.log",
+      "bytes": 4748,
+      "sha256": "280890debf465d9912f7f1682dc63b172c2751335f28be1c0cc5f6dcbf6df3ec"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_STDERR_02.log",
+      "bytes": 4907,
+      "sha256": "2935297f2f7b2e53bd161dbe9d0b16259a8517b157574a270630b211278ed8f3"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_STDERR_03.log",
+      "bytes": 5265,
+      "sha256": "089d64e19556a9f68c95456bee6b5abcaf43c06d7eb246ea55a72b8b84a991bd"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_STDOUT_02.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/LOCAL_CPU_TEST_STDOUT_03.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/namespace_bridge.py",
+      "bytes": 11414,
+      "sha256": "30d6aa7aaae0808fd021c2d6c629066854a7b651a8de9b683eeb025788013ab3"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/README.md",
+      "bytes": 3360,
+      "sha256": "45bdf7d174bcb0081ddab769ce2d8d5557099e1903b4a5e5608042ebb2528c63"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/strong_trace_runner_v3.py",
+      "bytes": 50244,
+      "sha256": "81772121227dc8f205a7acaa3247367a2a48bf383353e130c7ee818bee0d43e1"
+    },
+    {
+      "path": "C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server12_candidates/strategy_cpu_bridge_20261005/formal_runner/test_formal_runner_cpu.py",
+      "bytes": 31963,
+      "sha256": "cd6eddb2a4b75cb5084cd6f4af9fca33ec82bad45a5ef93ec964143d6f917afd"
+    }
+  ],
+  "actual_GPU_operations": 0,
+  "source_locked": false,
+  "GPU_eligible": false,
+  "formal_effect_qualified": false,
+  "server_deployment_and_full_inherited_source_verification_required": true
+}

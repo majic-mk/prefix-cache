@@ -1,0 +1,11 @@
+{
+  "request": {
+    "cmd": "cd '/root/autodl-tmp/prefix-io-v1-handoff/project' && CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S -c 'import pathlib,json,hashlib,os; r=pathlib.Path('\\''/root/autodl-tmp/prefix-io-v1-handoff/project'\\''); p=r/'\\''experiments/prefix_io_v1/gpu-budget-ledger.json'\\''; b=p.read_bytes(); d=json.loads(b); assert len(b)==342596 and hashlib.sha256(b).hexdigest()=='\\''9a4c7bd1f030ed236d2461b9e3ba3521d4ded139c6a5fc818aa05332cd15f8b1'\\''; assert d.get('\\''active_reservation'\\'') is None; assert all(not (r/'\\''experiments/prefix_io_v1/runs'\\''/n).exists() for n in ('\\''server09-g2-normal-off-04'\\'','\\''server09-g2-normal-shadow-04'\\'')); print(json.dumps(dict(status='\\''PASS_CPU_REMOTE_NEW04_UNCHANGED_BUDGET_AND_UNUSED_NAMES'\\'',gpu_wall_seconds=d['\\''gpu_wall_seconds'\\''],events=len(d['\\''events'\\'']),PRIMARY_free_bytes=os.statvfs(r).f_bavail*os.statvfs(r).f_frsize,new_GPU_jobs=0)))'",
+    "timeout": 120
+  },
+  "result": {
+    "stdout": "{\"status\": \"PASS_CPU_REMOTE_NEW04_UNCHANGED_BUDGET_AND_UNUSED_NAMES\", \"gpu_wall_seconds\": 16802.03327032877, \"events\": 226, \"PRIMARY_free_bytes\": 12884754432, \"new_GPU_jobs\": 0}\n",
+    "stderr": "",
+    "exit": 0
+  }
+}

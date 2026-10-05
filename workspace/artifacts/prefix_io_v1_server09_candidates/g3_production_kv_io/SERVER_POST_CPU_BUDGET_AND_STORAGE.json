@@ -1,0 +1,15 @@
+{
+  "status": "PASS_CPU_PHASE_LEDGER_BYTE_UNCHANGED",
+  "utc": "2026-10-01T17:59:07.835161+00:00",
+  "ledger_bytes": 347318,
+  "ledger_sha256": "7dd465ef868fb6cc4fbacddd8cc58045cc47b11aa0768765325613b454c6b744",
+  "events": 229,
+  "active_reservation": null,
+  "gpu_wall_seconds": 17206.34363487875,
+  "remaining_original_28800_seconds": 11593.65636512125,
+  "free_bytes": 12789006336,
+  "GPU_operations_this_CPU_phase": 0,
+  "GPU_authorized_for_next_phase": false,
+  "driver_system_changes": 0,
+  "existing_experiment_data_deletions": 0
+}

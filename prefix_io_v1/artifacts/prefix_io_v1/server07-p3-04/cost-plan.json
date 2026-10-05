@@ -1,0 +1,33 @@
+{
+  "scope": "Single held-out point; two fresh engines per measured path; retain warmups for correctness",
+  "reference_plan": "artifacts/prefix_io_v1/server07-p3-04/reference-plan.json",
+  "reference_result": "artifacts/prefix_io_v1/server07-p3-04/heldout-reference-result.json",
+  "prompt_manifest": "artifacts/prefix_io_v1/server07-p3-04/heldout-prompts.json",
+  "prompt_manifest_sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600",
+  "candidate": "artifacts/prefix_io_v1/server07-p3-03/calibration-candidate/curves-v2.json",
+  "candidate_sha256": "892a979b1b1136409e258537f85e9355f6c7bb88e5de1d3f636bf23caf119c2f",
+  "maximum_absolute_relative_median_error": 0.25,
+  "error_denominator": "frozen candidate prediction",
+  "threshold_scope": "Pre-registered diagnostic acceptance at N=2048 only; not runtime qualification or statistical confidence",
+  "jobs": [
+    {
+      "label": "server07-p3-heldout-cold-cost-01",
+      "mode": "cold"
+    },
+    {
+      "label": "server07-p3-heldout-paired-cost-01",
+      "mode": "paired"
+    },
+    {
+      "label": "server07-p3-heldout-paired-cost-02",
+      "mode": "paired"
+    },
+    {
+      "label": "server07-p3-heldout-cold-cost-02",
+      "mode": "cold"
+    }
+  ],
+  "storage": "server07-p3-heldout-storage-01",
+  "used_for_fit": false,
+  "formal_evaluation": false
+}

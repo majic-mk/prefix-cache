@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_ACTUAL_OFF02_FAILURE_AND_REAL_CPU_SAMPLER_BUILD_EVIDENCE",
+  "files": [
+    {
+      "path": "ACTUAL_AUTHORIZED_OFF_CPU_PREFLIGHT.json",
+      "bytes": 777,
+      "sha256": "74c087e251842c7d30f74cb6b1ea484ef6fe1c728440df7c60c3dbf434101471"
+    },
+    {
+      "path": "ACTUAL_CPU_BUILD_LAUNCHER_AUDIT.json",
+      "bytes": 15438,
+      "sha256": "edcbefe014178bec50a66b13f3b8358f6cc1550f6159cd971936c197b2645f36"
+    },
+    {
+      "path": "ACTUAL_CPU_COMPILER_EVIDENCE_REMOTE_MIRROR.json",
+      "bytes": 6681,
+      "sha256": "4eb43aac3c8652fd531e432974a13f22b620945e1fa425eba3d4bc2b66e8a4ad"
+    },
+    {
+      "path": "ACTUAL_CPU_NINJA_VERSION_AND_GENERATED_COMMANDS.json",
+      "bytes": 17821,
+      "sha256": "b89450bd4890339a5f85d19898d4398ae14470cb9b48725c1007ed37fcbc9b49"
+    },
+    {
+      "path": "ACTUAL_CPU_REAL_SAMPLER_BUILD_LAUNCH.json",
+      "bytes": 7648,
+      "sha256": "c8fe95aefebee2f655cb4d787f3d77d750b605dd07c6ac852b9d14bd9c00fa27"
+    },
+    {
+      "path": "ACTUAL_CPU_SAMPLER_PROOF_AND_BUDGET_CLOSURE.json",
+      "bytes": 4992,
+      "sha256": "a179f449a9931ca44aef8bc48355592e086a45a75646ce02fc88fce984817957"
+    },
+    {
+      "path": "ACTUAL_DOWNLOAD_REFS.json",
+      "bytes": 1081,
+      "sha256": "96fd2eb1400be4825adad02b1dcb8bceea048efc6e074b4e8716f682d5167715"
+    },
+    {
+      "path": "ACTUAL_NEW_HUMAN_SCOPE_CREATION.json",
+      "bytes": 6423,
+      "sha256": "8b1f3b2ca4c315523e34911af4dc93fbc4920bd144765706013ffc12abe1e9d9"
+    },
+    {
+      "path": "ACTUAL_OFF_LAUNCH_RECEIPT.json",
+      "bytes": 2124,
+      "sha256": "765c1a79820daf0ac92230f7b23db7cf23ba41c1918a435c5db64ae747541ffe"
+    },
+    {
+      "path": "GPU_BUDGET_LEDGER_AFTER_OFF.json",
+      "bytes": 341046,
+      "sha256": "2d9dbb06280e10aa395f4d9eb1fba7606c401d1ff0c8d4d6a474c454f5c16276"
+    },
+    {
+      "path": "GPU_STAGE_AUTHORIZATION.json",
+      "bytes": 7136,
+      "sha256": "cfced875bd91a92f949bc66cae85717f66b8742308166ceb441ba1f8f9111b4a"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD_G2.json",
+      "bytes": 2206,
+      "sha256": "68945a16fed76846a20cd25b2e8125b96c5469e17af2d170c969711ec737788d"
+    },
+    {
+      "path": "INDEPENDENT_OFF02_FAILURE_REVIEW.json",
+      "bytes": 8233,
+      "sha256": "083bb7cc75c0cd87a3cf1d44c674047d8a1a7d163e7767e66865e7960c643a85"
+    },
+    {
+      "path": "ninja-cpu/compiler-dependencies.txt",
+      "bytes": 403748,
+      "sha256": "5a4c6c9f3bb866026ae618a65b4d0004b32362f00e54313d9b4977c8cd81e18d"
+    },
+    {
+      "path": "ninja-cpu/compiler.log",
+      "bytes": 7907,
+      "sha256": "6303712915c25ffda7b66b9b30eb6aa2b25075944842ef3bd8ef11344b3b8ab8"
+    },
+    {
+      "path": "ninja-cpu/CPU_REAL_SAMPLER_COMPILE_LINK_RESULT.json",
+      "bytes": 12660,
+      "sha256": "617d505ea40e66ca12493915c4c992fa9fda68658b51292c34f01189a79562a4"
+    },
+    {
+      "path": "ninja-cpu/original-off02-build.ninja",
+      "bytes": 5049,
+      "sha256": "ef69f2b7ad3570fbc9ba42de3eed9e1c7def990915b077a5bb17ad5516e930ee"
+    },
+    {
+      "path": "ninja-cpu/sampling-build/.ninja_deps",
+      "bytes": 214108,
+      "sha256": "ed4a8b3feb9745fe591a2702d63e82f9906c14ba8a362519e136293ae8a53505"
+    },
+    {
+      "path": "ninja-cpu/sampling-build/.ninja_log",
+      "bytes": 747,
+      "sha256": "c977a6ec2a3b098f93d21c996d57b1d5e8f4efb4326a58b324545ea02aab3535"
+    },
+    {
+      "path": "ninja-cpu/sampling-build/build.ninja",
+      "bytes": 4337,
+      "sha256": "373c0119e4e329c9db51ae050a8419348714390fd35d5e5ed9a3bcb3aa25f45c"
+    },
+    {
+      "path": "ninja-cpu/sampling-build/csrc_flashinfer_sampling_binding.cuda.o",
+      "bytes": 684352,
+      "sha256": "769e03903b908bcb25f8775871bba491896ef1a453cfd177c63f0200b1cbd014"
+    },
+    {
+      "path": "ninja-cpu/sampling-build/csrc_renorm.cuda.o",
+      "bytes": 3203216,
+      "sha256": "09588c0bd3ea3bbbb0e608bae98ef4650e2d34a0521de703f6f72d90a8e41975"
+    },
+    {
+      "path": "ninja-cpu/sampling-build/csrc_sampling.cuda.o",
+      "bytes": 10578480,
+      "sha256": "34dcc9d929ff419f75b6d260bb06ba332ee8f0d6cb36408642ae0973bde6bb0d"
+    },
+    {
+      "path": "ninja-cpu/sampling-build/sampling.so",
+      "bytes": 13184480,
+      "sha256": "89a017e07ff41d9e3afceb6b550f8e09eed94528319bf781f2165c2f0fadd858"
+    },
+    {
+      "path": "POST_OFF_READONLY_RESULT.json",
+      "bytes": 23319,
+      "sha256": "c12296e3fd769beaed7111b19bfc0200b96ffba175d08c28d014d552f2e2866f"
+    },
+    {
+      "path": "runs/off/details/normal-model-lifecycle-result.json",
+      "bytes": 7697,
+      "sha256": "bcb151ed00be7377089a1121572e3259ba350a2ab375e23a75987cd99f9c4095"
+    },
+    {
+      "path": "runs/off/process.log",
+      "bytes": 9093,
+      "sha256": "9240cc5b0f52d3d362e1d103cedaadadb146e8d9b07b992f7aeb43c991742879"
+    },
+    {
+      "path": "runs/off/result.json",
+      "bytes": 1376,
+      "sha256": "0179b8980558dbed9b6f3c6f4256115fc175150e2378b103bd2b5b040565de9f"
+    },
+    {
+      "path": "SERVER09_G2_CUDA13_FAILURE_AND_CPU_SAMPLER_REPORT.md",
+      "bytes": 6897,
+      "sha256": "120c700fc545adb49e4c98cc998cad698cda93cce550d2b1f236eb7d1cdc4b47"
+    }
+  ],
+  "file_count": 29,
+  "actual_GPU_jobs": 1,
+  "actual_shadow_GPU_jobs": 0,
+  "actual_off_GPU_wall_seconds": 66.00550774950534,
+  "GPU_model_qualification_passed": false,
+  "CPU_real_sampler_compile_link_passed": true,
+  "CPU_sampling_shared_library_loaded": false,
+  "performance_claim": false,
+  "scope_off02_failed_shadow02_blocked": true
+}

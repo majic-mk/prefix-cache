@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "scope": "SERVER09_CPU_COMPLETE_TRACE_CONTEXT_V3_CANDIDATE",
+  "status": "IMPLEMENTED_SOURCE_BOUND_CPU_SEMANTICS_ONLY",
+  "candidate_files": [
+    "p4_complete_trace_context_v3.py",
+    "test_p4_complete_trace_context_v3.py",
+    "P4_COMPLETE_TRACE_CONTEXT_V3_PLAN.json"
+  ],
+  "base_source_root": "third_party/work/prefix-io-p4-02-cpu/src",
+  "original_source_refs": [
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/__init__.py",
+      "bytes": 149,
+      "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dispatch_budget.py",
+      "bytes": 11021,
+      "sha256": "412c43761cb2f59636240e15c884b25d2a1d0ee708684d496259baf2f34d667c"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_cost_table.py",
+      "bytes": 5071,
+      "sha256": "4caae858778182f5575ce2d5807bdc72520ef4c5f32a2c18f02ff2628155d0f8"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_production_table_contract.py",
+      "bytes": 14365,
+      "sha256": "ae244d09c2fc1eb077e6af8df3ae378b6b3504b4f71ff10eb26f0ada7d2c71fd"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_paired_measurement_verifier.py",
+      "bytes": 48136,
+      "sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac"
+    }
+  ],
+  "original_verifier_sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac",
+  "purpose": "Accept a genuine cold-prefill prior context of zero in a separately versioned complete original step/output trace while preserving the prior-context cost feature and every original trace row.",
+  "exact_reuse": {
+    "source_function": "locked _v2_complete_trace",
+    "strategy": "Compile only the locked original function AST into independent globals; never modify the old file, module globals, function identity, loader, or history.",
+    "required_target_match_counts": {
+      "trace_schema_comparison": 1,
+      "complete_row_load_call": 1
+    },
+    "transformations": [
+      "exact trace['schema_version'] == 2 becomes == 3",
+      "exact _valid_load(row['load']) becomes _valid_complete_trace_load_v3(row)",
+      "private function name changed for the separate candidate"
+    ],
+    "forbidden": [
+      "broad integer or schema replacement",
+      "module-global _valid_load replacement",
+      "zero to one conversion",
+      "substitution of computed+scheduled input seq length into prior-context feature",
+      "frame/output omission",
+      "production qualification from a native-looking origin or PASS label"
+    ]
+  },
+  "schemas": {
+    "wrapper_schema_version": 3,
+    "wrapper_scope": "paired_measurement_wrapper",
+    "complete_trace_schema_version": 3,
+    "complete_trace_scope": "p4_complete_step_output_trace",
+    "selection_timing_plan_schema_version": 2,
+    "cost_loader_schema_migration_implemented": false,
+    "context_basis": "pre_computed_tokens",
+    "zero_context_legal_only": "complete trace row: exact integer 0; step_kind='prefill'; active_decode=0; prefill_tokens>0; batch>=1",
+    "positive_context_rule": "Reuse original _valid_load unchanged",
+    "decode_rule": "The original complete-trace predicate and original positive-context validator remain; zero/negative/bool decode contexts are rejected",
+    "selection_rule": "Original plan, selection load, selected-window validator and cost loader remain unchanged and positive-context only. New standalone candidate checks actual warmup/measured complete rows are pure decode, and measured load/count exactly matches the pinned v2 selection.",
+    "cold_warmup_rule": "Do not reuse historical warmup offset 0 after adding a genuine cold frame. Freeze a new v2 selection/timing plan with warmup offset>=1 on an actual pure-decode row. Preserve cold offset0 in the full trace; do not silently alter old plan bytes.",
+    "timer_scope_rule": "This standalone full-step candidate requires a pinned full_decode_step timer plan. model_forward-only plans/rows cannot be relabelled as full step."
+  },
+  "public_api": {
+    "constructor": "CompleteTraceContextV3Verifier(<verified control source root>)",
+    "verify": "verify(<project/evidence root>, wrapper_ref=<independently pinned path/bytes/SHA mapping>, selection_plan_ref=<independently pinned unchanged v2 plan mapping>, arm=<baseline|action>, cell_id=<exact frozen cell>)",
+    "preconditions_reused": [
+      "five original source files checked by exact bytes/SHA before import and before/after verification",
+      "private CPU-only original package import",
+      "original load_verification_plan verifies plan, timing-source bytes, frozen split and global independent split constraints",
+      "original _measurement validates pinned schema3 wrapper strict keys/origin/arm/cell/context/bounds",
+      "original _v2_runs validates run keys/native counts/full output counters/exit/accepted completed IO totals/drain",
+      "each arm exactly covers frozen cell workloads with independent run intervals and balanced frozen calibration AB/BA"
+    ],
+    "complete_trace_checks_reused": [
+      "trace file bytes/SHA reverified",
+      "strict schema/scope/origin/context/arm/cell/pair matching",
+      "all native step offsets/ordinals contiguous",
+      "host windows ordered inside original run",
+      "ordinary prefill/decode shape and batch bounds",
+      "complete actual per-request sampled token IDs reconstruct full outputs",
+      "all four physical existing/new IO vectors",
+      "outside-window added IO included in accepted/completed totals",
+      "baseline added IO prohibited",
+      "explicit source-bound GPU elapsed scope/domain/reference/fallback fields",
+      "normal successful accepted-I/O drain"
+    ],
+    "extra_selection_domain_checks": [
+      "frozen offsets exist within complete raw trace",
+      "original positive _valid_load on every selected warmup/measured row",
+      "each selected row is actual ordinary pure decode",
+      "measured load exactly matches frozen load without context bucketing",
+      "selected token count computed from full actual sampled IDs"
+    ],
+    "not_implemented": [
+      "paired baseline/action output/order comparison and per-cell cost estimation",
+      "reading selected observation evidence refs and validating exact per-window IO projection/one-stage cost geometry",
+      "new version3 paired-cost loader or production candidate",
+      "real installed runner/input/output/native-IO hook",
+      "real GPU timer/reference/source authenticity qualification"
+    ],
+    "partial_prefill_boundary": "Existing complete trace has no per-request prompt/scheduled-input rows. This candidate does not infer partial versus complete prefill or manufacture token eligibility. The separate full-step frame adapter checks actual prompt/input rows; later runtime/GPU qualification must bind that observation."
+  },
+  "unchanged_path": {
+    "old_v2_function_globals_source_bytes": true,
+    "original_model_executor": true,
+    "original_cache_engine": true,
+    "original_io_engine": true,
+    "original_cost_context_dimension": true,
+    "observation_only_no_policy_activation": true
+  },
+  "tests": {
+    "final_local_command": "PYTHONDONTWRITEBYTECODE=1 C:/Users/mamengkui/AppData/Roaming/uv/python/cpython-3.12.14-windows-x86_64-none/python.exe -I -S artifacts/prefix_io_v1_server09_candidates/context_v3/test_p4_complete_trace_context_v3.py",
+    "python_version": "3.12.14 already installed through uv; no installation performed",
+    "origin": "cpu_fixture",
+    "final_tests": 27,
+    "final_passed": 27,
+    "final_failed": 0,
+    "final_runtime_seconds": 4.819,
+    "final_exit_code": 0,
+    "final_tool_wall_time_seconds": 5.9306925,
+    "final_stdout_stderr_combined": "test_action_full_extra_physical_io_totals_and_drain_are_reused (__main__.CompleteTraceV3Contracts.test_action_full_extra_physical_io_totals_and_drain_are_reused) ... ok\r\ntest_all_real_cold_frames_and_128_tokens_remain_in_complete_trace (__main__.CompleteTraceV3Contracts.test_all_real_cold_frames_and_128_tokens_remain_in_complete_trace) ... ok\r\ntest_cold_first_frame_cannot_be_selected_as_warmup (__main__.CompleteTraceV3Contracts.test_cold_first_frame_cannot_be_selected_as_warmup) ... ok\r\ntest_decode_zero_negative_or_boolean_remains_rejected (__main__.CompleteTraceV3Contracts.test_decode_zero_negative_or_boolean_remains_rejected) ... ok\r\ntest_forward_only_plan_and_rows_cannot_be_relabelled_as_full_step (__main__.CompleteTraceV3Contracts.test_forward_only_plan_and_rows_cannot_be_relabelled_as_full_step) ... ok\r\ntest_four_stage_physical_totals_unknown_stages_and_completion_mismatch_are_rejected (__main__.CompleteTraceV3Contracts.test_four_stage_physical_totals_unknown_stages_and_completion_mismatch_are_rejected) ... ok\r\ntest_host_order_run_membership_or_exit_and_drain_is_rejected (__main__.CompleteTraceV3Contracts.test_host_order_run_membership_or_exit_and_drain_is_rejected) ... ok\r\ntest_import_and_verification_do_not_import_gpu_or_executor_modules (__main__.CompleteTraceV3Contracts.test_import_and_verification_do_not_import_gpu_or_executor_modules) ... ok\r\ntest_independent_frozen_workload_split_cannot_be_relabelled_or_reused (__main__.CompleteTraceV3Contracts.test_independent_frozen_workload_split_cannot_be_relabelled_or_reused) ... ok\r\ntest_measured_exact_load_context_is_not_bucketted_or_renamed (__main__.CompleteTraceV3Contracts.test_measured_exact_load_context_is_not_bucketted_or_renamed) ... ok\r\ntest_missing_reordered_duplicate_or_invented_native_ordinal_is_rejected (__main__.CompleteTraceV3Contracts.test_missing_reordered_duplicate_or_invented_native_ordinal_is_rejected) ... ok\r\ntest_native_looking_origin_remains_gpu_unverified (__main__.CompleteTraceV3Contracts.test_native_looking_origin_remains_gpu_unverified) ... ok\r\ntest_old_source_globals_function_identity_and_strict_load_remain_unchanged (__main__.CompleteTraceV3Contracts.test_old_source_globals_function_identity_and_strict_load_remain_unchanged) ... ok\r\ntest_original_base_source_sha_drift_is_rejected_before_import (__main__.CompleteTraceV3Contracts.test_original_base_source_sha_drift_is_rejected_before_import) ... ok\r\ntest_original_v2_still_rejects_real_zero_prefill_context (__main__.CompleteTraceV3Contracts.test_original_v2_still_rejects_real_zero_prefill_context) ... ok\r\ntest_pinned_bytes_cannot_hide_deletion_or_context_zero_to_one_conversion (__main__.CompleteTraceV3Contracts.test_pinned_bytes_cannot_hide_deletion_or_context_zero_to_one_conversion) ... ok\r\ntest_positive_prefill_cannot_be_selected_as_pure_decode_warmup (__main__.CompleteTraceV3Contracts.test_positive_prefill_cannot_be_selected_as_pure_decode_warmup) ... ok\r\ntest_positive_prefill_keeps_original_load_rules (__main__.CompleteTraceV3Contracts.test_positive_prefill_keeps_original_load_rules) ... ok\r\ntest_real_timing_source_bytes_must_still_match_pinned_reference (__main__.CompleteTraceV3Contracts.test_real_timing_source_bytes_must_still_match_pinned_reference) ... ok\r\ntest_schema_three_trace_is_rejected_by_original_v2 (__main__.CompleteTraceV3Contracts.test_schema_three_trace_is_rejected_by_original_v2) ... ok\r\ntest_schema_two_trace_is_rejected_by_v3 (__main__.CompleteTraceV3Contracts.test_schema_two_trace_is_rejected_by_v3) ... ok\r\ntest_selected_counts_remain_actual_and_cannot_replace_full_128_counts (__main__.CompleteTraceV3Contracts.test_selected_counts_remain_actual_and_cannot_replace_full_128_counts) ... ok\r\ntest_timing_source_scope_domain_reference_or_invalid_elapsed_is_rejected (__main__.CompleteTraceV3Contracts.test_timing_source_scope_domain_reference_or_invalid_elapsed_is_rejected) ... ok\r\ntest_truncated_full_outputs_hidden_token_or_wrong_request_is_rejected (__main__.CompleteTraceV3Contracts.test_truncated_full_outputs_hidden_token_or_wrong_request_is_rejected) ... ok\r\ntest_wrapper_schema_scope_origin_or_context_drift_is_rejected (__main__.CompleteTraceV3Contracts.test_wrapper_schema_scope_origin_or_context_drift_is_rejected) ... ok\r\ntest_zero_cannot_enter_original_frozen_selection_load (__main__.CompleteTraceV3Contracts.test_zero_cannot_enter_original_frozen_selection_load) ... ok\r\ntest_zero_requires_explicit_prefill_kind_and_actual_prefill_load (__main__.CompleteTraceV3Contracts.test_zero_requires_explicit_prefill_kind_and_actual_prefill_load) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 27 tests in 4.819s\r\n\r\nOK\r\n",
+    "previous_attempts": [
+      {
+        "runtime": "system Python 3.8.7",
+        "tests_executed": 0,
+        "status": "existing locked source generic type syntax incompatible; not a test pass"
+      },
+      {
+        "runtime": "existing uv Python3.12.14",
+        "tests": 26,
+        "passed": 25,
+        "failed": 1,
+        "status": "fixture used a Windows short path when directly calling the old internal helper; corrected fixture canonical root, no old source change"
+      },
+      {
+        "runtime": "existing uv Python3.12.14",
+        "tests": 26,
+        "passed": 26,
+        "failed": 0,
+        "status": "passed before adding an additional forward-only timer-plan rejection test"
+      }
+    ],
+    "server_command": "CUDA_VISIBLE_DEVICES='' PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -I -S <append-new context_v3 dir>/test_p4_complete_trace_context_v3.py --control-source third_party/work/prefix-io-p4-02-cpu/src",
+    "server_result": null,
+    "coverage": [
+      "cold prior-context0 retains all128 outputs and native first frame",
+      "zero only explicit prefill; missing/wrong kind, active decode, empty prefill, negative/bool rejected",
+      "old selection/selected cost scope never sees zero exception",
+      "warmup0 cold prefill rejected; actual pure-decode warmup required",
+      "old v2 rejects zero and schema3, new v3 rejects schema2",
+      "unchanged original source/globals/functions and isolated exact AST patch",
+      "pinned bytes/source/timer references and invalid GPU duration metadata rejected",
+      "all native ordinal/output/host/run/drain/stage totals constraints remain",
+      "global independently frozen workload/split/AB-BA and selected-load/count checks",
+      "native-looking origin always remains GPU unverified",
+      "no torch/vLLM/NVML import or execution"
+    ]
+  },
+  "subtask_actual_operations": {
+    "remote_writes": 0,
+    "GPU_runs_performed": 0,
+    "gpu_initialized": false,
+    "model_loaded": false,
+    "native_IO_submitted": 0,
+    "downloads": 0,
+    "GPU_budget_reserved_seconds": 0
+  },
+  "runtime_hook_status": "not_installed",
+  "paired_cost_verification_performed": false,
+  "gpu_verified": false,
+  "production_qualified": false,
+  "P4_complete": false,
+  "effect_verified": false,
+  "P5_allowed": false
+}

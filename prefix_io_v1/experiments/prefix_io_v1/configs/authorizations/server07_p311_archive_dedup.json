@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "approved": true,
+  "action": "deduplicate_completed_private_cache_copies_preserving_paths_and_bytes",
+  "audit_sha256": "79dedf7944ba9a85848c75729b41583d053c85cbc4560655636125e69d51b211",
+  "audit": "/root/prefix-io-v1-validation/audits/server07-p3-11-four-runs-audit.json",
+  "target_files": 8231,
+  "possible_reclaim_bytes": 7551975424,
+  "user_instruction": "允许合并这 8,231 份缓存并继续",
+  "authorization_scope": "Only the exact frozen manifest; retain every path and byte. Existing shared canonical data unchanged.",
+  "general_permissions_changed": false
+}

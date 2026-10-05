@@ -1,0 +1,563 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_THREE_REAL_GPU_JOBS_POINT_PATH_PASS_PERFORMANCE_NOT_QUALIFIED",
+  "files": [
+    {
+      "path": "G3_GPU02_FINAL_STATUS_AND_NEXT_ALLOWED_STAGE.json",
+      "bytes": 2942,
+      "sha256": "f51e67601b801a88cc8de20ccdecbcb6e050bbc1b2e8cf4d56bc1fa06ce14b04"
+    },
+    {
+      "path": "G3_METRICS_V3_AUTHORIZED_SCOPE_20261002.json",
+      "bytes": 4931,
+      "sha256": "f0d3cb7b11b0fadae50a6274c8484e87095e6082581633f9a94fc429208aa7ea"
+    },
+    {
+      "path": "G3_METRICS_V3_AUTHORIZED_SCOPE_REF.json",
+      "bytes": 230,
+      "sha256": "27517ad13d40e9712c2e0770cc0ac5acc244899e2708a27fc15f09d57f7dab75"
+    },
+    {
+      "path": "G3_METRICS_V3_AUTHORIZED_SCOPE_V2_20261002.json",
+      "bytes": 4934,
+      "sha256": "74bb817fbc34db38064ed6b0b7de7065f2bea101f3faa9a8f16c300fb821eb3c"
+    },
+    {
+      "path": "G3_METRICS_V3_AUTHORIZED_SCOPE_V2_REF.json",
+      "bytes": 233,
+      "sha256": "5e70588381a99d229bf1ce8c00f4f118abfa1fb53a799e1e156f0e4650e346c7"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD_G3_METRICS_V3_CONTINUE_20261002.json",
+      "bytes": 6399,
+      "sha256": "f2c6e8d865da0486b9d25a340021737ff54e9588780692e4cab379416c6b6cd2"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD_G3_METRICS_V3_CONTINUE_V2_20261002.json",
+      "bytes": 6548,
+      "sha256": "e646d35c53a0267c9727f6b9cd433154e98ff84f337c1bbe5bb561fc1cd4d873"
+    },
+    {
+      "path": "SERVER09_G3_METRICS_V3_THREE_GPU_JOB_REPORT.md",
+      "bytes": 8688,
+      "sha256": "85b7ef5655409070d3900973d16a82043983fdf27278a6bfad3131eeff2f5d02"
+    },
+    {
+      "path": "gpu-actual-20261002/metrics-common-fix-cpu/INDEPENDENT_G3_METRICS_V3_SCOPE_TYPE_CHECK_FAILED.json",
+      "bytes": 2402,
+      "sha256": "89e581607fedb95933165b992f2b18d64f629d46363a674a97a27ab12f7fe992"
+    },
+    {
+      "path": "gpu-actual-20261002/metrics-common-fix-cpu/INDEPENDENT_G3_METRICS_V3_SCOPE_V2_REVIEW.json",
+      "bytes": 2907,
+      "sha256": "8b5948a612bb803d8f65c2bc9e8b26341d32835072bb7137c7b3324fb756aedc"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/ACTUAL_GPU02_AUTHORITY_UPLOAD_RESULT.json",
+      "bytes": 622,
+      "sha256": "a7c42cd5dd6b11a65ea34ebbe7c1f8a4206d6da741551d88d331599e98a0208e"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/ACTUAL_GPU02_AUTHORITY_V2_UPLOAD_RESULT.json",
+      "bytes": 631,
+      "sha256": "fe1755e766fa3ebdcdd3e3101bdeba838786cb16aee82797cc633da89f9b017f"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/ACTUAL_GPU02_EVIDENCE_DOWNLOAD_RECEIPTS.json",
+      "bytes": 10190,
+      "sha256": "7d705285a0544d8a1038db88777fc1888016a6b1a2234492f37dabe3ec63b0ae"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/ACTUAL_GPU02_EVIDENCE_ORIGIN_COMMAND.json",
+      "bytes": 2587,
+      "sha256": "08d9bd8b1db1aa3e82e3b0bcb347105e27c5bb00e507832c67b4c46f15ce0227"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/ACTUAL_GPU02_EVIDENCE_ORIGIN_MANIFEST.json",
+      "bytes": 21127,
+      "sha256": "4baf5c96e8e3e3bef437f18b8cc6f5ffea6c5185bac701cc6e203ec2857213f8"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/ACTUAL_GPU02_EVIDENCE_ORIGIN_RPC_RESULT.json",
+      "bytes": 19852,
+      "sha256": "3b751a90b1a1bf95f1bd3de2b5cbdcafb76ef4509adfd27f010047fe6586badd"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/ACTUAL_GPU_AND_AUTHORIZED_PREFLIGHT.json",
+      "bytes": 2413,
+      "sha256": "c3143e6c1720d9112551ab651d0edf54717fc374607abedc9e208fdef21923c8"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/ACTUAL_THREE_GPU_JOBS_AND_JOINT_CPU_RECHECK.json",
+      "bytes": 27077,
+      "sha256": "c86f523f1dbb19478e305aa133694151862e1802b7465a772e90197c2f0965ab"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/COLD02_LAUNCH_COMMAND.json",
+      "bytes": 3828,
+      "sha256": "61ec51eacd0c17999103dc36707da025642f1a1f04640f44b5a044f5573c5847"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/COLD02_LAUNCH_RPC_RESULT.json",
+      "bytes": 489,
+      "sha256": "ef064a6c39d32fb4010dc5068808a303e1cc069fc4cb69c0b88b523effa0e760"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/COLD02_RAW_READ_COMMAND.json",
+      "bytes": 1969,
+      "sha256": "50a15bf3334ef77faa04d7a1eb56b213bcea15486708dcc4d3abdccceccec4c4"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/COLD02_RAW_READ_RPC_RESULT.json",
+      "bytes": 11539,
+      "sha256": "fc294164f2ff1de32eab5948c30e126c2cdc702df9fa9ec9cc26345004ac2244"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/G3_METRICS_V3_ACTUAL_PRECHECK_V2_COMMAND.json",
+      "bytes": 4351,
+      "sha256": "608eb5c6da20633514c4b98a0261ed9ca25cfd5cfeb36fdb83dba08fa2ee8f0a"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/G3_METRICS_V3_ACTUAL_PRECHECK_V2_RPC_RESULT.json",
+      "bytes": 1017,
+      "sha256": "8f0a94a0da94095b9582d826148a7889150bd4337097acd09febe5eba7dddd92"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/INDEPENDENT_ACTUAL_GPU02_THREE_JOB_REVIEW.json",
+      "bytes": 49609,
+      "sha256": "ca742a0008e79ae45f703e80f972ee4a88e336587a7821ee5dc976e6017743c8"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/NEXT_MINIMAL_GPU_PACKAGE_CPU_AUDIT.json",
+      "bytes": 9331,
+      "sha256": "663edf7e138d20c4487f59061ed0cfcdec7a4446b79eb457057d9ff47f24de75"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/PAIRED02_LAUNCH_COMMAND.json",
+      "bytes": 3838,
+      "sha256": "3245abebad1ebb7a937bdf334d7cc29bc2bb18a9c8aca92e678f110af7457720"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/PAIRED02_LAUNCH_RPC_RESULT.json",
+      "bytes": 875,
+      "sha256": "bdc786d8eb47dd177597b73fdb771dca7e7f7b05dfc766081ff3724c1b6298be"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/POPULATE02_LAUNCH_COMMAND.json",
+      "bytes": 3848,
+      "sha256": "0ef73b2b069d76c5a64f86924206b72a36d8081af161dd4acb88a86b4223b408"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/POPULATE02_LAUNCH_RPC_RESULT.json",
+      "bytes": 685,
+      "sha256": "d930da33c281c583fee132461e9127683b292e658fc4224408717b5e1386d374"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/POPULATE02_RAW_READ_COMMAND.json",
+      "bytes": 2943,
+      "sha256": "1e467915f8e857e2d76e5ad6619fe798366b3d08a8d28f871680f6a3874bc944"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/POPULATE02_RAW_READ_RPC_RESULT.json",
+      "bytes": 8967,
+      "sha256": "44fcfb2d1007760e447f03e1410cac7bf30930007bd55d2dd632a4b1bb60bf4c"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/PRECHECK_01_FAILED_TYPED_HUMAN_RECORD_COMMAND.json",
+      "bytes": 4351,
+      "sha256": "92e4a86b41e23207f53f0a08e9db2501ded7549d0bc384a0ba8f37d3e20a1ef6"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/PRECHECK_01_FAILED_TYPED_HUMAN_RECORD_RPC_RESULT.json",
+      "bytes": 417,
+      "sha256": "ca48eada0839b800bc438b19e44a43d5b0587165406c4d4d23f8ce36d34a54d5"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/THREE_JOB_JOINT_CPU_RECHECK_COMMAND.json",
+      "bytes": 6201,
+      "sha256": "ab2e57717c9ed79c26a5cd2849f1f96792e432bce4c46702cd7b63584a23b63f"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/THREE_JOB_JOINT_CPU_RECHECK_RPC_RESULT.json",
+      "bytes": 2257,
+      "sha256": "c30560b6d493908ec45d8ec5595ed7c51f2d10fd0430a62dffe4a5cac4f6c9d0"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold-parent-execution.json",
+      "bytes": 2831,
+      "sha256": "c7500399de98a010ac550a50b6e749f90ed26c146cbcc27352702574532bc16f"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold-parent.log",
+      "bytes": 1388,
+      "sha256": "f2ad2563e5e55fb0872eee2ea007d1399d0909fe080a9581e01efcbbc27ae747"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/acquisition/driver-source.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/acquisition/f-128-0.trace.json",
+      "bytes": 1131,
+      "sha256": "279b64544d769d4e8cf0c682c1ac170626b07e9d1000923e301a5db0907e9652"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/acquisition/f-128-1.trace.json",
+      "bytes": 1116,
+      "sha256": "a3e1b370c154446d4a5dac2ec2057a1a4f96cf37d9311025911bd4ff1a9799f1"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/acquisition/f-128-2.trace.json",
+      "bytes": 1118,
+      "sha256": "8700581de082229e0f0279c7f14bf685ce93b0f7a27ca58a6e836b3a9c4d4abd"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/acquisition/frozen-config.json",
+      "bytes": 7120,
+      "sha256": "16262847134f3bf4318fcf6d036d1650446b983274c9cb6b660a004b01b87f9a"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/acquisition/partial.json",
+      "bytes": 10122,
+      "sha256": "36e957311bbd78c30a2c0839f2f543cf9ca2cbdf7df9bd1862326e4b73e69c1f"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/acquisition/result.json",
+      "bytes": 10830,
+      "sha256": "8926cb41727d40863db113a842cc557ce3c962f09ab27379351ec834f3259fc0"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/calibration-runtime-result.json",
+      "bytes": 25998,
+      "sha256": "2802a24acfd56224420746549dc8fa9c6e63705b43206d2adc4c74013fd0aed6"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/original-generate-00.json",
+      "bytes": 899,
+      "sha256": "9e901485bd9a11b7f8dad2f5eae262fb667b91feca314d5825c80b8fab045219"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/original-generate-01.json",
+      "bytes": 899,
+      "sha256": "5baecad69b3aaadfedd6ef1b568e569b784d3ae3b4e73403355287f459c857a7"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/original-generate-02.json",
+      "bytes": 899,
+      "sha256": "369c89a4a7635e3e4eecc5acf3dd0f054be941e32f1a524e78e0f88c707f4bcb"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/details/post-source-verification.json",
+      "bytes": 501,
+      "sha256": "7cd24bd7918279bf9dd5bc2995528f1b165109209dc4f2a4365ed02422b65358"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/process.log",
+      "bytes": 14029,
+      "sha256": "02612d27c9d4c0d74ee1ab56b7fe8bd8fecfe772d283f0f31b1a8e94d15beec4"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/cold/result.json",
+      "bytes": 1388,
+      "sha256": "f2ad2563e5e55fb0872eee2ea007d1399d0909fe080a9581e01efcbbc27ae747"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/gpu-budget-ledger-after-three-jobs.json",
+      "bytes": 354993,
+      "sha256": "be14eb7e34ccde501481777340ec3baf62e1f8511436614324ff976585ebf0f3"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired-parent-execution.json",
+      "bytes": 5928,
+      "sha256": "932910bf03a8131689f65e84f3a59ff075a81494ef6a60b13b977ef6a3734a63"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired-parent.log",
+      "bytes": 1393,
+      "sha256": "e61304d64f3fda4ebb024092bb36502cd9166509116b94a3d701a0cad1cf2397"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/driver-source.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/frozen-config.json",
+      "bytes": 7808,
+      "sha256": "e16f2f01228812afac7f12f9c7a80f4789509e91044aca553c60ee0caf5db695"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/g_mem-128-0.trace.json",
+      "bytes": 5995,
+      "sha256": "00029de63294877d7a2cf6264f6bac2efb479dfa09240b203a8d870cdad0bc51"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/g_mem-128-1.trace.json",
+      "bytes": 5987,
+      "sha256": "111743753e0f3ad156cb2c89e9fdc3457952a10836aa2aad3ab99ded2a1b9362"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/g_mem-128-2.trace.json",
+      "bytes": 5990,
+      "sha256": "32bc4be1b0aa8a8be484b2e75bccd0401d3ee853dd923b9a9df69c7e22f82307"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/g_ssd-128-0.trace.json",
+      "bytes": 14231,
+      "sha256": "ab48b53a5832da853c732ebd766fa8d8270f6cd856ca93c3f0b1b08de46c40dd"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/g_ssd-128-1.trace.json",
+      "bytes": 14288,
+      "sha256": "268be81a88b9bc906ccb41fc65a79964d5408bf0e4c423960b505e8c12617863"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/g_ssd-128-2.trace.json",
+      "bytes": 14798,
+      "sha256": "2aa9d931bb897b3639d82d4931b256af80b92d3dce7d32105406dda87b037631"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/partial.json",
+      "bytes": 26952,
+      "sha256": "483de6eeac09e838f6b7ff334c18d645d3d2e7938885244d2dbac633fb0ae892"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/acquisition/result.json",
+      "bytes": 28435,
+      "sha256": "c408a65a3a3cd63c322f062e7de25b7eadf1c86e6f986e6a597589defc890a14"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/calibration-runtime-result.json",
+      "bytes": 36752,
+      "sha256": "e61e2ea7e06c3b5af7ff2f1840a22b799ef8e150f93ef822d308abf7eda56156"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/original-generate-00.json",
+      "bytes": 901,
+      "sha256": "66c011cad5b8635e987be636e3555210f42c2d4bbd43d79200f8a56f2eea7a28"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/original-generate-01.json",
+      "bytes": 901,
+      "sha256": "5007fa4fb6b500bf2754ec3b4e795fe44290673c8cee58936b88fa180ffc556e"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/original-generate-02.json",
+      "bytes": 901,
+      "sha256": "1a4ef671b32b00085ad6abd231cb8267e19b3297593b1aac627536cca7ded49c"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/original-generate-03.json",
+      "bytes": 901,
+      "sha256": "3ae7514df2d66c4b8b4077e2917e2e9b5e3eb9e1a6b9d7ab20cd9ab6d5e274b4"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/original-generate-04.json",
+      "bytes": 901,
+      "sha256": "7477999c802601a7273889ca5afe651426b18b4f97af42b55b9bbdfa1e74668a"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/original-generate-05.json",
+      "bytes": 901,
+      "sha256": "84ca440888423f101dfcd8a88717f4041f95d79529619da9f0f0da5526b225b7"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/details/post-source-verification.json",
+      "bytes": 503,
+      "sha256": "4290d0957c2ae6abd7b3bc4350c60b6598387ff89bf69477c38f6ba6dd212195"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/process.log",
+      "bytes": 19739,
+      "sha256": "d0095495300e1805d55a20db436901daeb8a24d71661a943f1d27f06a10be1df"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/paired/result.json",
+      "bytes": 1393,
+      "sha256": "e61304d64f3fda4ebb024092bb36502cd9166509116b94a3d701a0cad1cf2397"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate-parent-execution.json",
+      "bytes": 4391,
+      "sha256": "8fc9c6a9e27f686acf2482dd756783dea82ef40eb7ccb74406885645b1d2c34c"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate-parent.log",
+      "bytes": 1400,
+      "sha256": "70cf011d4df0530a515c8a7607a69ae250dcd31379d87acbebcb48b525919a87"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/driver-source.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/frozen-config.json",
+      "bytes": 7808,
+      "sha256": "e16f2f01228812afac7f12f9c7a80f4789509e91044aca553c60ee0caf5db695"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/g_mem-128-0.trace.json",
+      "bytes": 5986,
+      "sha256": "da2167be2633d738ba9c997d3b9a78d288a4a58c5e3be712b9bcba8ae8d1e8a6"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/g_mem-128-1.trace.json",
+      "bytes": 5982,
+      "sha256": "4ee5411c9219634e5903ca486f28414e46ff0fd8b948716f6235060fc2af14c5"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/g_mem-128-2.trace.json",
+      "bytes": 5995,
+      "sha256": "999acc25f7b1bfe10a2def16017f5aec8b8019ab6215c9c1ab5f30cf8a7524aa"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/partial.json",
+      "bytes": 25866,
+      "sha256": "23d761ce2e516f0b80cab6d7171d0ccaab36a11e299191a9fcbce8d9e236602c"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/result.json",
+      "bytes": 27351,
+      "sha256": "1564606b8d48545505ecdb5a4b3f612d2ffb6755cc33cc0498482e908696257d"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/store-128-0.trace.json",
+      "bytes": 7851,
+      "sha256": "a78ac4ce4b4c900437bc431fe3d19c4c0c5d17b4c837ef5ebeb869f9af03779b"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/store-128-1.trace.json",
+      "bytes": 7796,
+      "sha256": "20223adb53144f6d2fe3a966c6919e949295b7ce4a6e9eff37d3302248174fa3"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/acquisition/store-128-2.trace.json",
+      "bytes": 7787,
+      "sha256": "2133b2fbe4da858839b725ed7873405d7f89bb765ca2e3eff226f97a19d2ef99"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/calibration-runtime-result.json",
+      "bytes": 38120,
+      "sha256": "bb13ce2add9787add5d80d170bc9e4b5c5e5990b67ee2ea4f3164ae5afca1b0c"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-00.json",
+      "bytes": 899,
+      "sha256": "9e901485bd9a11b7f8dad2f5eae262fb667b91feca314d5825c80b8fab045219"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-01.json",
+      "bytes": 131,
+      "sha256": "5f77c58d72f29e5223e842f7d0d35423e88e70a0b46641370223238d739e2653"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-02.json",
+      "bytes": 901,
+      "sha256": "d45e663f1b099a1d3efccadd28840f8baa91d23b9c3edbdc8ab25be7efbc9ecc"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-03.json",
+      "bytes": 899,
+      "sha256": "2af16a02002f9ac54fbfbd24a2a3f2bda499bcc90c9cb61732e06c97296bd94b"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-04.json",
+      "bytes": 133,
+      "sha256": "b242695b5c21b1f5d78842a55918f2478beecd3512950b2b2aff2b2867a376bb"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-05.json",
+      "bytes": 901,
+      "sha256": "442624a0d47d9984bb6a26aec91d1133c86c4eb999aa1fcb852dd9eb36c1e2c9"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-06.json",
+      "bytes": 899,
+      "sha256": "57cd3cd0d68f17b9c5eb4f21ffe288f524cdeeadd94cc76f9949e5a451a2064d"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-07.json",
+      "bytes": 132,
+      "sha256": "b77103dd3ee1927e68ea105344fe7aed0b586ba64592c692e9bd683724fc0c28"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/original-generate-08.json",
+      "bytes": 901,
+      "sha256": "3e82a5555c8aa0d839bcd19eafd0be5efe5eca37f4d49b517b445edf793998c2"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/post-source-verification.json",
+      "bytes": 505,
+      "sha256": "7c89bd15a9600de63ad328a1b0985e19d9b8bac8708d531c57e704995cef63b9"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/details/storage-publication.json",
+      "bytes": 8051,
+      "sha256": "1707c51847e41fce2e5a46b4d84ee41490ad65fd84997c2b9077ae833c099efc"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/process.log",
+      "bytes": 19577,
+      "sha256": "6534e7462373f29759b9cc6d39e05926daab8bca84033edb0f395db6b45e84a5"
+    },
+    {
+      "path": "gpu-metrics-v3-actual-20261002/populate/result.json",
+      "bytes": 1400,
+      "sha256": "70cf011d4df0530a515c8a7607a69ae250dcd31379d87acbebcb48b525919a87"
+    }
+  ],
+  "total_files": 101,
+  "total_bytes": 1110735,
+  "source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-metrics-v3-final.json",
+    "bytes": 910009,
+    "sha256": "b8ad831c294d978e36a0b1a6343118516af5c55a6e0a9c4380ff6644ec91092b"
+  },
+  "final_scope": {
+    "path": "G3_METRICS_V3_AUTHORIZED_SCOPE_V2_20261002.json",
+    "bytes": 4934,
+    "sha256": "74bb817fbc34db38064ed6b0b7de7065f2bea101f3faa9a8f16c300fb821eb3c"
+  },
+  "actual_GPU_jobs": 3,
+  "maximum_authorized_GPU_jobs": 3,
+  "extra_GPU_jobs": 0,
+  "raw_GPU_evidence_files": 66,
+  "original_guard_GPU_budget_seconds": 362.05815589241683,
+  "remaining_original_GPU_budget_seconds": 10990.859632367734,
+  "old_delivery_integrity": [
+    {
+      "manifest": {
+        "path": "DELIVERY_MANIFEST.json",
+        "bytes": 17361,
+        "sha256": "398e2e1ccfbab3f15170a05207c8e2a640a09b909f6054b85656927ee9bb9bae"
+      },
+      "files": 97,
+      "all_bytes_SHA_match": true
+    },
+    {
+      "manifest": {
+        "path": "G3_CONTINUE_V2_DELIVERY_MANIFEST.json",
+        "bytes": 5059,
+        "sha256": "142bf4ec2a93b5bc0f98128040cc9c2010e981e31bebbe9feab63d2d66fba522"
+      },
+      "files": 24,
+      "all_bytes_SHA_match": true
+    },
+    {
+      "manifest": {
+        "path": "G3_GPU_ACTUAL_METRICS_V3_DELIVERY_MANIFEST.json",
+        "bytes": 18379,
+        "sha256": "00b7a8dc7bd056bd0947755ed144c8f284b0ed38a6d127a7c1507222e3315b69"
+      },
+      "files": 90,
+      "all_bytes_SHA_match": true
+    }
+  ],
+  "source_code_changed_this_turn": false,
+  "author_files_changed": false,
+  "new_GPU_scope_required": true,
+  "performance_claim": false,
+  "P4_performance_verified": false
+}

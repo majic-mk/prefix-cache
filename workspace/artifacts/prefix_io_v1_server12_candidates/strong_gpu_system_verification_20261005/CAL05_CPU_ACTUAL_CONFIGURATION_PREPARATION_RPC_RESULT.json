@@ -1,0 +1,5 @@
+{
+  "stdout": "{\"status\": \"ACTUAL_CPU_CONFIG_WITH_LIVE_DEVICE_METADATA_BOUND\", \"plan_ref\": {\"path\": \"artifacts/prefix_io_v1/server12-strong-gpu-system-verification-20261005/raw05/BOUND_PLAN.json\", \"bytes\": 166947, \"sha256\": \"1538d6529653a17bd1b8322b40b6b21589b5db79837544dd50f3d8981211776c\"}, \"config_ref\": {\"path\": \"artifacts/prefix_io_v1/server12-strong-gpu-system-verification-20261005/raw05/CONFIG.json\", \"bytes\": 2600, \"sha256\": \"73e859330320250754a67aff383cb79fa59a0110e9cf5ca5cbf7ff17821c92a7\"}, \"model_execution_started\": false, \"formal_performance_experiment\": false}\n",
+  "stderr": "",
+  "exit": 0
+}

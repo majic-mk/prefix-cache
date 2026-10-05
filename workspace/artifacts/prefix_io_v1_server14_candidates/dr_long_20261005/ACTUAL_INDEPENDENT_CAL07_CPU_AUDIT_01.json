@@ -1,0 +1,190 @@
+{
+  "schema": "independent_CAL07_actual_CPU_audit_v1",
+  "classification": "INDEPENDENT_SINGLE_FAMILY_DEVELOPMENT_CALIBRATION",
+  "old_three_family_input_rejection": "frozen original input/arrival/cache/source contract",
+  "old_P316_qualification_claim": false,
+  "effect_sample": false,
+  "GPU_operations": 0,
+  "SSH_operations": 0,
+  "actual_full_requests": 10,
+  "actual_generated_tokens": 1280,
+  "guard_exit": 0,
+  "OS_session_drained": true,
+  "prior_native_and_source_closure_checks_passed": true,
+  "primary_response_seconds": 13.128706948566286,
+  "cohort_seconds_including_drain": 13.131335770445911,
+  "tail_drain_seconds": 0.0026267170906066895,
+  "native_stage_deltas": {
+    "ssd_read": {
+      "accepted_ops": 1016,
+      "accepted_bytes": 932184064
+    },
+    "ssd_write": {
+      "accepted_ops": 14,
+      "accepted_bytes": 12845056
+    },
+    "h2d": {
+      "accepted_ops": 148,
+      "accepted_bytes": 932184064
+    },
+    "d2h": {
+      "accepted_ops": 14,
+      "accepted_bytes": 12845056
+    }
+  },
+  "actual_eta_history": {
+    "schema_version": 1,
+    "run_id": "server14-dr-cal07",
+    "reason": "no_pending_native_closure",
+    "observations": 1,
+    "successful_measurements": 1,
+    "failed_or_unknown_discarded": 0,
+    "omissions": 0,
+    "pending_count": 0,
+    "cell_count": 1,
+    "retained_cell_samples": 1,
+    "history_max_age_ns": 600000000000,
+    "minimum_samples": 4,
+    "pending_limit": 32,
+    "cell_limit": 32,
+    "samples_per_cell_limit": 16,
+    "recent_measurements": [
+      {
+        "run_id": "server14-dr-cal07",
+        "parent_id": 2,
+        "geometry": {
+          "rows": [
+            [
+              "h2d",
+              917504,
+              917504,
+              2
+            ]
+          ]
+        },
+        "context": [
+          "native-ready-closure-v1",
+          917504,
+          917504,
+          1,
+          0,
+          2,
+          0,
+          5,
+          0,
+          0,
+          8,
+          "scheduler-source-unknown",
+          "scheduled-work-unknown"
+        ],
+        "first_observed_ns": 12111872375648963,
+        "completed_ns": 12111872377005645,
+        "elapsed_ns": 1356682,
+        "sequence": 1,
+        "prior_forecast_duration_ns": null,
+        "prior_forecast_error_ns": null,
+        "prior_forecast_sample_count": 0,
+        "causal_absolute_residual_ns": null,
+        "gpu_qualified": false
+      }
+    ],
+    "production_qualified": false,
+    "gpu_qualified": false,
+    "held_job_or_resource_owners": false,
+    "new_work_queues": 0,
+    "eta_is_allocator_release": false,
+    "error_is_empirical_not_a_coverage_guarantee": true
+  },
+  "loader_result": {
+    "calibration_guard_ref": {
+      "bytes": 1518,
+      "path": "experiments/prefix_io_v1/runs/server14-dr-cal07/result.json",
+      "sha256": "4ece5ad089d800608ce96dde1104d45ef80f8af20cea0f3358458fd3cbff3e22"
+    },
+    "calibration_result_ref": {
+      "bytes": 910900,
+      "path": "experiments/prefix_io_v1/runs/server14-dr-cal07/details/result.json",
+      "sha256": "bd9abfe89b61f73d0ed7f25440d91142bf6a77cc4c12527c838071169b244994"
+    },
+    "config_ref": {
+      "bytes": 30624,
+      "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/CONFIG_DR01_02.json",
+      "sha256": "9c06b53fcd7827d57f8ada7973ed6eb8321023fa7c2437d0c7bed7ec6a92c8b4"
+    },
+    "exact_cell_counts": [
+      [
+        [
+          [
+            "h2d",
+            917504,
+            917504,
+            2
+          ]
+        ],
+        [
+          "native-ready-closure-v1",
+          917504,
+          917504,
+          1,
+          0,
+          2,
+          0,
+          5,
+          0,
+          0,
+          8,
+          "scheduler-source-unknown",
+          "scheduled-work-unknown"
+        ],
+        1
+      ]
+    ],
+    "gpu_operations": 0,
+    "reason": "valid_closed_calibration_no_actionable_exact_cell",
+    "sample_count": 1,
+    "source_lock_ref": {
+      "bytes": 1214994,
+      "path": "artifacts/prefix_io_v1/server14-dr-long-20261005/DR_SOURCE_LOCK_07.json",
+      "sha256": "ff6823d4ea719a7d35d2b37ff9283e0f85934627ce4feeb0c3f50e7c1dada2f5"
+    },
+    "status": "VALID_CLOSED_BUT_COVERAGE_MISSING"
+  },
+  "loader_ref": {
+    "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\ACTUAL_CAL07_LOADER_CPU_RESULT_01.json",
+    "bytes": 1408,
+    "sha256": "dc1190325588dd8dba778773c3d27d282cf6344d5e293c3e83f86f117c647af7"
+  },
+  "evidence_refs": {
+    "config": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\CONFIG_CAL07.json",
+      "bytes": 30220,
+      "sha256": "459b15fe7d126d25b05938e0cd997c265f9d73f17c3055652a26525c196d2b4c"
+    },
+    "source_lock": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\DR_SOURCE_LOCK_05.json",
+      "bytes": 1213913,
+      "sha256": "4984e79181b57558af2f416dee0790d36e77619fbe09426814923df84fac0076"
+    },
+    "result": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\runs\\server14-dr-cal07\\details\\result.json",
+      "bytes": 910900,
+      "sha256": "bd9abfe89b61f73d0ed7f25440d91142bf6a77cc4c12527c838071169b244994"
+    },
+    "adapter": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\runs\\server14-dr-cal07\\current-device-adapter-evidence.json",
+      "bytes": 313523,
+      "sha256": "cfe113f8f0c5c28cc1558f20652aaf5aa615937c482c5acecce0c6786a106a3b"
+    },
+    "guard": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\runs\\server14-dr-cal07\\result.json",
+      "bytes": 1518,
+      "sha256": "4ece5ad089d800608ce96dde1104d45ef80f8af20cea0f3358458fd3cbff3e22"
+    },
+    "frozen_config": {
+      "path": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server14_candidates\\dr_long_20261005\\actual_server14\\runs\\server14-dr-cal07\\details\\frozen-config.json",
+      "bytes": 1342880,
+      "sha256": "691b8d37306681b883346065588ec66f886cd87002846e2542283e207f55842d"
+    }
+  },
+  "token_clock_verified": true
+}

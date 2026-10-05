@@ -1,0 +1,38 @@
+{
+  "schema": "raw_uuid_minor_append_only_source_manifest_v1",
+  "files": [
+    {
+      "path": "raw_device_binding/uuid_minor_device.py",
+      "bytes": 6990,
+      "sha256": "f43769e132a1fe28c5d1c244f93785e63cc895c8a991b89ae6e4205c4308d427"
+    },
+    {
+      "path": "raw_device_binding/test_uuid_minor_device_cpu.py",
+      "bytes": 6251,
+      "sha256": "1e7dd90bfd57032b09c16c2d5bb76d494e5ca5221b3cd70114b8211ee778850b"
+    },
+    {
+      "path": "raw_device_binding/README.md",
+      "bytes": 1735,
+      "sha256": "e4a211ffdc45750dad472b9517c6b6795559eadbf0aed4e8e61fc30bad1f658d"
+    },
+    {
+      "path": "runner/strong_native_cost_runner_v2.py",
+      "bytes": 32499,
+      "sha256": "36b1f20a106a823cef372795b9e65323cce6f7944ddc756d792878d74cbe0d7b"
+    }
+  ],
+  "original_wrapper_ref": {
+    "path": "runner/strong_native_cost_runner.py",
+    "bytes": 32289,
+    "sha256": "524ff8a93e84609865a8e6adf7c89dc2d941906f968f7285d87f06e0b2e1cdcc"
+  },
+  "modified_AST_functions": [
+    "bind_live_plan"
+  ],
+  "original_sealed_16_files_unchanged": true,
+  "CPU_tests": 8,
+  "actual_GPU_runs": 0,
+  "actual_GPU_queries": 0,
+  "production_qualified": false
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASS_INDEPENDENT_ARM_CONFIG_BEFORE_AFTER_BINDING",
+  "mode": "off",
+  "config_ref": {
+    "path": "artifacts/prefix_io_v1/server11-p4-single-file-runtime-v2-20261003/CONFIG_off.json",
+    "bytes": 1271,
+    "sha256": "264c006d6274ccdd5156012084909716ec34ad86d3b5a10a1ec93e82546727c1"
+  },
+  "GPU_operations": 0
+}

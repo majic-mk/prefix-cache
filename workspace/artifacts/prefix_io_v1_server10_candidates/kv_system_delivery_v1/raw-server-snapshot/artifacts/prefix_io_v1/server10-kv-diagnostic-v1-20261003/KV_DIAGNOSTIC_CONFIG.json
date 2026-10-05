@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+  "job_names": {
+    "populate": "server10-kv-byte-populate-01",
+    "paired": "server10-kv-byte-paired-01"
+  },
+  "storage": "experiments/prefix_io_v1/runs/server10-kv-byte-01-private-storage",
+  "permissions_ref": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+    "bytes": 685,
+    "sha256": "aa54897390dd18c71f4578d45c87b74a3d26a3c63daea2660bf752c41be3be50"
+  },
+  "ancestor_ref": {
+    "path": "artifacts/prefix_io_v1/server10-reference-migration-v1-20261003/gpu-source-lock-server10-reference.json",
+    "bytes": 914772,
+    "sha256": "ae3bf8437a41c4c531bf211689b4f7f68af7f8dd558a42914f2eef733988aa54"
+  },
+  "capture_ref": {
+    "path": "artifacts/prefix_io_v1/server10-kv-capture-v1-20261003/production_kv_capture.py",
+    "bytes": 33422,
+    "sha256": "a9091d288015c3afb3344553ec0f1ba7c3f373e60d13716cda21f3fb12a2a9dd"
+  },
+  "sdk_inventory_ref": {
+    "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CUDA13_SOURCE_INVENTORY.json",
+    "bytes": 692329,
+    "sha256": "0e7cc1df1d8d7aed7271841d6e9f1e4188785f40ad4c74b4c6c78f670b7794b6"
+  },
+  "sdk_proof_ref": {
+    "path": "artifacts/prefix_io_v1/server10-cuda13-cpu-20261003/CPU_COMPILE_LINK_RESULT.json",
+    "bytes": 5588,
+    "sha256": "ef7a7482cc1cae539e2425d6aefc82ea8160e398ab7d8b14926f76537e614a25"
+  },
+  "mode": "diagnostic-only",
+  "load_planner": "off",
+  "production_qualified": false,
+  "performance_claim": false,
+  "latency_fit_allowed": false,
+  "seconds_limit_per_job": 300,
+  "reserved_seconds_per_job": 320,
+  "storage_reserve_bytes_per_job": 536870912,
+  "total_storage_reserve_bytes": 1073741824,
+  "storage_floor_bytes": 8589934592,
+  "maximum_capture_binary_bytes": 22020096,
+  "maximum_original_cache_bytes": 22020096,
+  "expected_capture_job_counts": {
+    "populate": {
+      "store": 3,
+      "load": 3
+    },
+    "paired": {
+      "store": 0,
+      "load": 6
+    }
+  },
+  "warmup_included_in_byte_capture": true,
+  "flush_dummy_excluded_from_byte_comparison_only": true,
+  "actual_GPU_runs": 0
+}

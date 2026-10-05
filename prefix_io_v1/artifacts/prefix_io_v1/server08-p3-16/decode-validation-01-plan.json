@@ -1,0 +1,28 @@
+{
+  "label": "server08-p3-16-decode-validation-01",
+  "output": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-decode-validation-01/details",
+  "reservation_bytes": 1610612736,
+  "maximum_seconds": 600,
+  "environment_file": "artifacts/prefix_io_v1/server08-p3-16/gpu-environment.json",
+  "cpu_qualification": "artifacts/prefix_io_v1/server08-p3-16/cpu-qualification.json",
+  "scope": "P3 conditional sparse owned BF16 native I/O; not production state",
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "--label",
+    "server08-p3-16-decode-validation-01",
+    "--seconds",
+    "600",
+    "--",
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_decode_interference_calibration_p316.py",
+    "--output",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-decode-validation-01/details",
+    "--model-dir",
+    "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "--model-plan",
+    "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "--spec",
+    "artifacts/prefix_io_v1/server08-p3-16/decode-validation-01-spec.json"
+  ]
+}

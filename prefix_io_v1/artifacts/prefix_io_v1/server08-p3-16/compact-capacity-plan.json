@@ -1,0 +1,22 @@
+{
+  "label": "server08-p3-16-compact-capacity-01",
+  "output": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-compact-capacity-01/details",
+  "reservation_bytes": 134217728,
+  "maximum_seconds": 240,
+  "environment_file": "artifacts/prefix_io_v1/server08-p3-16/gpu-environment.json",
+  "cpu_qualification": "artifacts/prefix_io_v1/server08-p3-16/cpu-qualification.json",
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "--label",
+    "server08-p3-16-compact-capacity-01",
+    "--seconds",
+    "240",
+    "--",
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/qualify_compact_staging_gpu_p316.py",
+    "--output",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-16-compact-capacity-01/details"
+  ],
+  "scope": "Owned native >64 cached/shared exact capacity and held-real-event STOP safety, synthetic hostpending only; no performance experiment"
+}

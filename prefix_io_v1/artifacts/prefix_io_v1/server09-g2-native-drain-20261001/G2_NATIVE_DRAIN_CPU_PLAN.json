@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "scope": "server09_independent_native_drain_cpu_candidate",
+  "candidate_refs": [
+    {
+      "path": "g2_native_drain_provider.py",
+      "bytes": 21997,
+      "sha256": "261f8cd2438a4941d41077b20c95bfab4ca4418858bbab09aa7a3ef459353a44"
+    },
+    {
+      "path": "test_g2_native_drain_provider.py",
+      "bytes": 31615,
+      "sha256": "f29d5801781775f3b56610baa131d03e42fcfd5cef50c70227e788d73e96e47c"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/vllm.py",
+      "bytes": 33693,
+      "sha256": "901cc5b9a20245e60d2200ef190979b80adb77ca5a049624c6bc4ec171a712d1"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "bytes": 169906,
+      "sha256": "2b0ac1e8e68f82adb42ade03b74b49843eabe55361a00f0ac1f7a738ac423e18"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/linux_aio.py",
+      "bytes": 17646,
+      "sha256": "0a987479722c7d6b520b99c9b283febb55c5145fc17c5623b8b1151c4f45a6d7"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/stage_accounting.py",
+      "bytes": 3580,
+      "sha256": "11a736586a9278e2c373d4fc1bfe0faf9cd166b81e9d9c3f658500a51ab954aa"
+    },
+    {
+      "path": "runtime_connector/p4_runtime_scalar_connector.py",
+      "bytes": 14795,
+      "sha256": "347fb842989e8e14c73968528396721b546a11d7312206aae2efbb3739b0f3cb"
+    },
+    {
+      "path": "collector/p4_full_step_frame_adapter.py",
+      "bytes": 16067,
+      "sha256": "bea850fd60831010c2ac0bf88c1f5f121f3ffca50d63ab56759319ed6e512582"
+    }
+  ],
+  "cpu_fixture_reuses_exact_original_method_ast_refs": [
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/vllm.py",
+      "qualname": "NoopSharedStorageOffloadingHandler.shutdown",
+      "sha256": "02e206a43e7a250df73d2157e6b334b30061204a12c104d6f67c563e270bd31d"
+    },
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "qualname": "IoReactor.parent_admission_snapshot",
+      "sha256": "cd60eca64bc6b49b176b5444cd78dc8f02f498b595a49d5a7abf7d965075ea32"
+    },
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "qualname": "IoReactor.inspect_snapshot",
+      "sha256": "fc972a9f22147855a9dedb54222e64bb3bbf3f3f3fdb4da1751ae95aadcc9cc5"
+    },
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "qualname": "IoReactor._capture_owner_snapshot",
+      "sha256": "a62291a11391854e6292a8453a15e85d3ed70c775ebe617be55e49deef802862"
+    },
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "qualname": "IoReactor.shutdown",
+      "sha256": "c9b2a5d3e53ef0759733817f7ef7b3891d90191207d8787f79881ab38b35a5ce"
+    },
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "qualname": "TransferCoordinator.inspect_snapshot",
+      "sha256": "46e15c1912afb6c84cf92923e61601fbf7fb82a4d782c61acb140aa8b269cd71"
+    },
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "qualname": "TransferCoordinator.shutdown",
+      "sha256": "0d9e8ae3fec898948b39b11efc8ab5c1ee63937551abc03a449940e8f6b9aa3a"
+    },
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/linux_aio.py",
+      "qualname": "LinuxAioRing.snapshot",
+      "sha256": "6e70cc48049e54f0988703fd3484fea7ed4db30116434a5e031d94460bf0d009"
+    },
+    {
+      "source": "third_party/work/py-kvcache-p4-02-cpu/py_kvcache/linux_aio.py",
+      "qualname": "LinuxAioRing.close",
+      "sha256": "b8e14b2bcdaede6b964970ff9926c53fcfad0a4805bd6424ec10a55d5b3f1128"
+    },
+    {
+      "source": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/stage_accounting.py",
+      "qualname": "StageAccounting.snapshot",
+      "sha256": "d4b89cfeeabf817a8d996a0db3e0bc7b8377394a0b0ec6136e85036b368b2de2"
+    }
+  ],
+  "direct_field_repair_ref": {
+    "path": "G2_NATIVE_DRAIN_DIRECT_FIELD_REPAIR.json",
+    "bytes": 6374,
+    "sha256": "be46c0507576a2f610fe192b2b806c3dfba0d89158e99e4a10ebe2c87c33608a"
+  },
+  "deployment_path_repair_ref": {
+    "path": "G2_NATIVE_DRAIN_DEPLOYMENT_PATH_REPAIR.json",
+    "bytes": 4710,
+    "sha256": "8a0ed9b066114e9cf690d18b3dcff5f8537da7a4829c513f5081b04804d9c089"
+  },
+  "historical_refs": [
+    {
+      "path": "historical-before-direct-field-repair/g2_native_drain_provider.py",
+      "bytes": 16164,
+      "sha256": "0849aa43e85f2c0cbdeb1435a0dc96390304e4fbd546d0f2593fba19b429356e"
+    },
+    {
+      "path": "historical-before-direct-field-repair/test_g2_native_drain_provider.py",
+      "bytes": 21119,
+      "sha256": "c8ed04094db7bb05e0fa933d01fed948749ec5cd66df0e796911505f6f37da9c"
+    },
+    {
+      "path": "historical-before-direct-field-repair/G2_NATIVE_DRAIN_CPU_PLAN.json",
+      "bytes": 8480,
+      "sha256": "a698a99bb33920148a25adf7da921eb163172ee51bdf89a75246a3b94cf70214"
+    },
+    {
+      "path": "historical-before-direct-field-repair/LOCAL_CPU_DRAIN_TEST_RESULT.json",
+      "bytes": 8516,
+      "sha256": "8b4029c208acf5e5f21664acb0df70a0e47dac9595570faa56bb71a97914717e"
+    },
+    {
+      "path": "historical-before-direct-field-repair/README_G2_NATIVE_DRAIN.md",
+      "bytes": 2455,
+      "sha256": "563184e0268ec744e40f7070ef1d7f1feb0ecfbfff8f32ad9d48b76ab1873c89"
+    }
+  ],
+  "historical_before_cli_path_repair_refs": [
+    {
+      "path": "historical-before-cli-path-repair/g2_native_drain_provider.py",
+      "bytes": 21997,
+      "sha256": "261f8cd2438a4941d41077b20c95bfab4ca4418858bbab09aa7a3ef459353a44"
+    },
+    {
+      "path": "historical-before-cli-path-repair/test_g2_native_drain_provider.py",
+      "bytes": 30002,
+      "sha256": "37298ccaf066c15a0c65a75e47c1f0475eeff18368da98fdc60acfc5c2ce7bb3"
+    },
+    {
+      "path": "historical-before-cli-path-repair/G2_NATIVE_DRAIN_CPU_PLAN.json",
+      "bytes": 11213,
+      "sha256": "00313edc93b47b26f2372ef8eede6cb276b0e537ec3f5e9b0548d2f0f9923314"
+    },
+    {
+      "path": "historical-before-cli-path-repair/G2_NATIVE_DRAIN_DIRECT_FIELD_REPAIR.json",
+      "bytes": 6018,
+      "sha256": "1e2ea683bbb65257590efc33c5c7bd7f72decf928536100ab52ac1a6a088904a"
+    },
+    {
+      "path": "historical-before-cli-path-repair/LOCAL_CPU_DRAIN_TEST_RESULT.json",
+      "bytes": 11763,
+      "sha256": "4d2d0e7db7a5c1ac98784d16ea24d5176a23537d159f45065fa8c8858bdecc91"
+    },
+    {
+      "path": "historical-before-cli-path-repair/README_G2_NATIVE_DRAIN.md",
+      "bytes": 3215,
+      "sha256": "0d12581405772a968fa984dc724939bdb83932f9954723b8f3af2a7158485006"
+    }
+  ],
+  "server_replay": {
+    "cwd": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "-I",
+      "-S",
+      "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-native-drain-20261001/test_g2_native_drain_provider.py",
+      "--source-root",
+      "/root/autodl-tmp/prefix-io-v1-handoff/project",
+      "--connector-source",
+      "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-runtime-connector-20261001/p4_runtime_scalar_connector.py",
+      "--adapter-source",
+      "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-migration-20261001/collector-candidate/p4_full_step_frame_adapter.py"
+    ],
+    "environment": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "executed": false,
+    "existing_dependencies": "Use exact existing frozen connector/collector paths via CLI; do not change provider defaults or copy a third engine"
+  },
+  "api": {
+    "default": "disabled; immediately returns original handler.shutdown identity without reading snapshot/source/runtime fields",
+    "enabled_constructor": "origin cpu_fixture only; source4 plus frozen adapter/connector hashes; no live installation",
+    "original_call": "observe_original_shutdown(handler) invokes original handler.shutdown exactly once; returns exact result or original exception object",
+    "snapshot": "only after successful source-bound original Handler->Coordinator->IoReactor shutdown and matching boundary identities; original coordinator.inspect_snapshot once",
+    "output": "last_drain exact same frozen adapter private DrainEvidence type; last_receipt immutable CPU-only primitive totals/ref summary",
+    "example": "provider = NativeDrainCPUProvider(enabled=True, origin='cpu_fixture', run_id=run_id, source_root=project_root); result = provider.observe_original_shutdown(handler)",
+    "consumer": "Use provider.last_drain in the frozen adapter/connector only after that one original shutdown; do not call shutdown again to obtain evidence"
+  },
+  "mapping": {
+    "run_id": "actual inspect_snapshot.run_id from original _prefix_progress, not supplied default",
+    "accounting": "actual vars fields valid/bound/error/max_records/records/stats and all ten counters in each of four stages must exist, be strict and agree with original StageAccounting.snapshot",
+    "native": "actual original active_parents/ring_ops/pending_copies/copy_ready/ready_fds plus sixteen direct native owner collection/count fields",
+    "aio": "actual LinuxAioRing vars closed/drained/fatal/worker/queue/stats drain inputs must exist, be strict and agree with original snapshot closed/drained/fatal/outstanding/pending/ready/unreaped/accepted/completed/reaped",
+    "worker_join": "inspect_snapshot has no worker_joined field: source-bound original wait=True shutdown normal return proves original join was called; exact bool False from actual reactor._worker.is_alive is additionally required",
+    "handler": "actual is_shutdown True and empty original _active after original shutdown",
+    "observation_failures": "actual reactor._observation_failures; absent is unknown, never default zero",
+    "parent_admission": "all original default-getattr inputs read from vars(actual reactor), never inherited/default zero; exact type/value including nested failure map and both admission aliases; valid parent accepted/count_lower_bound/waiting must be zero",
+    "parent_snapshot_to_actual_fields": {
+      "count_valid": "_parent_count_valid",
+      "accepted_parents": "_accepted_parent_count",
+      "accepted_count_lower_bound": "_accepted_parent_count",
+      "max_accepted_parents": "_max_accepted_parents",
+      "peak_accepted_parents": "_parent_peak",
+      "retired_parents": "_parent_retired_count",
+      "waiting_submitters": "_parent_waiters",
+      "backpressure_waits": "_parent_backpressure_waits",
+      "native_drain_unknown": "_native_drain_unknown",
+      "fatal_drain_verified": "_native_fatal_drain_verified",
+      "fatal_reason": "_native_fatal_reason",
+      "failure_stream_syncs": "_native_failure_sync_total",
+      "failure_sync_by_stage": "_native_failure_syncs"
+    },
+    "explicit_unlimited_limit": "actual _max_accepted_parents=None is a known explicitly present native value, not an absent default; count_valid still must be bool True",
+    "no_Future_done_inference": true,
+    "no_observer_release": true,
+    "no_observer_join_close_sync_submit": true,
+    "unknown_or_observer_error": "no valid receipt; original path remains once and transparent",
+    "tail_conversion_available_only_during_successful_original_return": true
+  },
+  "cpu_validation": {
+    "actual_tests": 53,
+    "failures": 0,
+    "errors": 0,
+    "command": [
+      "C:\\Users\\mamengkui\\AppData\\Roaming\\uv\\python\\cpython-3.12.14-windows-x86_64-none\\python.exe",
+      "-X",
+      "utf8",
+      "-B",
+      "-I",
+      "-S",
+      "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server09_candidates\\g2_native_drain\\test_g2_native_drain_provider.py",
+      "--source-root",
+      "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server09_candidates\\g2_source_readonly",
+      "--connector-source",
+      "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server09_candidates\\runtime_connector\\p4_runtime_scalar_connector.py",
+      "--adapter-source",
+      "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server09_candidates\\collector\\p4_full_step_frame_adapter.py"
+    ],
+    "fixtures": "Exact original shutdown and snapshot function ASTs run with CPU fake workers/OS/backend and original StageAccounting methods; no torch/native framework module imported",
+    "same_private_drain_class_consumed_by_frozen_FullStepFrameAdapter": true
+  },
+  "qualification": {
+    "origin": "cpu_fixture",
+    "actual_native_shutdown_verified": false,
+    "GPU_collector_verified": false,
+    "gpu_verified": false,
+    "production_qualified": false,
+    "effect_verified": false,
+    "P4_complete": false,
+    "runtime_hook_status": "not_installed",
+    "executable_native_G2": false,
+    "actual_GPU_runs": 0,
+    "remote_writes": 0,
+    "old_frozen_six_batches_modified": false,
+    "original_native_source_modified": false,
+    "permissions_modified": false,
+    "budget_ledger_modified": false
+  },
+  "limits": [
+    "Native source bytes and method file/qualname guard are a CPU compatibility gate, not live worker/native backend provenance qualification.",
+    "The actual native handler with real CUDA/AIO resources has not been constructed or shut down by this candidate; all backend actions in tests are explicit CPU fixtures.",
+    "A supplied Future.done, empty queue, completed_requested bytes or dead worker alone cannot qualify drain.",
+    "G2 native GPU stage still requires separate source/scope freeze, explicit permission and unchanged-ledger reservation; G1 jobs are exhausted."
+  ],
+  "next_allowed": "Independent source review and server stdlib CPU replay; no live hook, model/GPU load or native experiment"
+}

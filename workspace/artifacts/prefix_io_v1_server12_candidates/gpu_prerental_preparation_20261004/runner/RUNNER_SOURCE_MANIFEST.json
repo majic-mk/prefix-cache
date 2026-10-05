@@ -1,0 +1,90 @@
+{
+  "actual_CPU_tests": 47,
+  "actual_GPU_runs": 0,
+  "cost_cells_qualified": 0,
+  "files": [
+    {
+      "bytes": 10348,
+      "path": "runner/activation_request.py",
+      "sha256": "30d62062a7297e90a18ff9691ce08be4d286a29266817d1a114b3bd9a4c9065a"
+    },
+    {
+      "bytes": 843,
+      "path": "runner/BOUNDED_COLLECTOR_CPU_SOURCE_PROOF.json",
+      "sha256": "d0f4c78e2c19140bc906d048c9cc52552e17e8aefefbc28408f37bd4278db849"
+    },
+    {
+      "bytes": 25070,
+      "path": "runner/bounded_native_full_step_collector.py",
+      "sha256": "9915ca0c18147eb26f44e2292f541da95e33d0321c6236b224d19d4446e09e9d"
+    },
+    {
+      "bytes": 7140,
+      "path": "runner/build_private_pair_cpu.py",
+      "sha256": "94f7e9e16eecd1c7a781529bfb6b33ac6398b7857de01059bbd7e23ed91d16e2"
+    },
+    {
+      "bytes": 25212,
+      "path": "runner/finite_current_binding.py",
+      "sha256": "d2b0c9163650376ff452aa0bc58df1590a116cb4559c0b09f3ed3aef80a4aad4"
+    },
+    {
+      "bytes": 9000,
+      "path": "runner/finite_startup.py",
+      "sha256": "50cb7cfa916ee40ff833f070d6d27e0ed25da37fe0eac563f1bf5fbe6a58109d"
+    },
+    {
+      "bytes": 5343,
+      "path": "runner/host_boundary_binding.py",
+      "sha256": "76b73409acdddf7da1460b4b789383b9caaf2b054a0b07fd5d24e52788d1f2e6"
+    },
+    {
+      "bytes": 32781,
+      "path": "runner/native_runtime.py",
+      "sha256": "a293f98841e34bb9357e8dacb62cda43be7dfc7da66167f3df5577c4b5b11709"
+    },
+    {
+      "bytes": 5296,
+      "path": "runner/prepare_bounded_collector_cpu.py",
+      "sha256": "d9c87a9a61c1f683bb5bdc349b10eaed6f7ca9d46b4c7416d8c2d88fef69e7de"
+    },
+    {
+      "bytes": 6305,
+      "path": "runner/README.md",
+      "sha256": "fb2f2605be3fa7e3ae61e549e79feba8e283a73c5808b7bfb487e6f31daaf275"
+    },
+    {
+      "bytes": 32289,
+      "path": "runner/strong_native_cost_runner.py",
+      "sha256": "524ff8a93e84609865a8e6adf7c89dc2d941906f968f7285d87f06e0b2e1cdcc"
+    },
+    {
+      "bytes": 35006,
+      "path": "runner/strong_trace_runner.py",
+      "sha256": "239771d85459b795d82624e23aa96510954ce301b2fc6554b2e575057edb9ce9"
+    },
+    {
+      "bytes": 9756,
+      "path": "runner/test_finite_current_binding_cpu.py",
+      "sha256": "bd5a9cf09b5d42de07ecc671179405e630a3e0cb60be6e2ffed05003f943af03"
+    },
+    {
+      "bytes": 17366,
+      "path": "runner/test_runner_activation_cpu.py",
+      "sha256": "c4a77b0611928166cb466c6212614f89b4b39d56ccdc1975afc8bfbb23f6a9b9"
+    },
+    {
+      "bytes": 18051,
+      "path": "runner/test_strong_trace_runner_cpu.py",
+      "sha256": "20c7c833100789c59da9f447a8364a986c58e7641fe7c1dc70db39a2bb3bab3a"
+    },
+    {
+      "bytes": 2290,
+      "path": "runner/verify_runner_cpu.py",
+      "sha256": "43105ec2d9351a8816a90617b2d1ad63b587a0b11ed7cbea1aac8e32e33c9113"
+    }
+  ],
+  "formal_effect_qualified": false,
+  "original_frozen_directory_modified": false,
+  "schema": "gpu_prerental_runner_source_manifest_v1"
+}

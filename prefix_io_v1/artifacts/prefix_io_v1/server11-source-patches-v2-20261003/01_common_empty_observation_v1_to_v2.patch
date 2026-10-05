@@ -1,0 +1,31 @@
+--- a/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
++++ b/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
+@@ -2452,6 +2452,12 @@
+         if bridge is None:
+             return None
+         try:
++            # Empty native candidate windows need no owner publication. Bound
++            # this precheck; oversized windows retain the original rejection.
++            if len(self._ready_fds_load) <= 64 and not any(
++                    r.job is not None and r.job.failed is None
++                    for r in self._ready_fds_load):
++                return None
+             view = self._prefix_p4_collect()
+             if view is None:
+                 return None
+@@ -2659,6 +2665,15 @@
+         if bridge is None:
+             return entries  # off before clock, snapshot or candidate iteration
+         try:
++            # Retained staging may keep the original reactor pumping after all
++            # ready work drained. Do not rebuild an empty policy publication.
++            # The original collect still checks every nonempty/oversized view.
++            limit = 32 if kind == "stores" else 64
++            if len(entries) <= limit and not any(
++                    (x.is_store and x.failed is None and x.next_file_index < x.total_files)
++                    if kind == "stores" else (x.job is not None and x.job.failed is None)
++                    for x in entries):
++                return entries
+             view = self._prefix_p4_collect()
+             if view is None:
+                 return entries

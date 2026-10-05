@@ -1,0 +1,11 @@
+{
+  "CUDA_VISIBLE_DEVICES": "",
+  "argv": [
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python",
+    "-B",
+    "-I",
+    "-S",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server12-natural-source-audit-20261005/replay_actual_public_manifest_cpu.py"
+  ],
+  "cwd": "/root/autodl-tmp/prefix-io-v1-handoff/project"
+}

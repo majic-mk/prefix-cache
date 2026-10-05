@@ -1,0 +1,29 @@
+{
+  "scope": "P3 independent-content 2K validation only; not curve refitting, no policy performance claim",
+  "gpu_uuid": "GPU-f8744916-1693-fa6a-93b6-7f503c03459c",
+  "domain": 16384,
+  "kv_budget_bytes": 2147483648,
+  "staging_budget_bytes": 1073741824,
+  "reps": 3,
+  "sizes": [
+    2048
+  ],
+  "native_label": "server07-p3-heldout-native-ref-01",
+  "external_groups": [
+    {
+      "label": "server07-p3-heldout-cached-ref-01",
+      "sizes": [
+        2048
+      ],
+      "storage": "server07-p3-heldout-storage-01"
+    }
+  ],
+  "prompt_manifest": "artifacts/prefix_io_v1/server07-p3-04/heldout-prompts.json",
+  "prompt_manifest_sha256": "9499988298349508cba88ded3611eb1d05228333259d8bbd1ed38c5a5270f600",
+  "independent_content_validation": true,
+  "acceptance": {
+    "cached_top5_and_selected_tokens": "zero tolerance equality to native GPU hot",
+    "cold_hot": "retain all differences",
+    "drains": "all physical I/O settled"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "origin": "direct_human_instruction",
+  "credentials_omitted": true,
+  "user_instruction": "又为你申请了一个新的服务器，代码全部克隆到新的服务器，在新的服务器完成剩余的操作",
+  "target": {
+    "host": "connect.westc.seetacloud.com",
+    "port": 26909,
+    "gpu_uuid": "GPU-38c1d1c7-2aba-3fa9-e1cd-fe4d3ae569c9"
+  },
+  "bounded_interpretation": "One initial native sustained-decode calibration/holdout job, six 128-token windows plus three one-token warmups; later work requires its own concrete bounded scope within this same human instruction and original budget.",
+  "maximum_initial_jobs": 1,
+  "initial_job_label": "server11-native-cost-six-window-01",
+  "seconds_limit": 600,
+  "reserved_seconds": 620,
+  "PRIMARY_reserve_bytes": 1073741824,
+  "PRIMARY_minimum_free_bytes": 8589934592,
+  "cumulative_gpu_limit_seconds": 28800,
+  "permission_ref": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server11.native-cost.yaml",
+    "bytes": 675,
+    "sha256": "4a42c67a3e6f51fd28dae1ad27fdd3424b7d21194d4fcae6cc19140cd738b0c1"
+  },
+  "source_ledger_ref": {
+    "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+    "bytes": 368568,
+    "sha256": "74bf74b2d90f6da4ba4ed70ad68d500cab1e415400c844820ed665e1729cc607"
+  },
+  "no_downloads": true,
+  "no_system_or_driver_changes": true,
+  "no_deletions": true,
+  "formal_SLO_or_performance_claim": false
+}

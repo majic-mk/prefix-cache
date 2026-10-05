@@ -1,0 +1,222 @@
+{
+  "schema": "strong_native_u_i_cpu_configuration_v1",
+  "configurations": {
+    "U": {
+      "engine": {
+        "dtype": "bfloat16",
+        "kv_cache_dtype": "auto",
+        "quantization": null,
+        "load_format": "safetensors",
+        "trust_remote_code": false,
+        "skip_tokenizer_init": true,
+        "tensor_parallel_size": 1,
+        "distributed_executor_backend": "uni",
+        "max_model_len": 1024,
+        "max_num_seqs": 4,
+        "max_num_batched_tokens": 1024,
+        "block_size": 16,
+        "kv_cache_memory_bytes": 268435456,
+        "gpu_memory_utilization": 0.7,
+        "enable_prefix_caching": true,
+        "enable_chunked_prefill": true,
+        "cpu_offload_gb": 0,
+        "offload_group_size": 0,
+        "kv_offloading_size": null,
+        "kv_transfer_config": {
+          "kv_connector": "OffloadingConnector",
+          "kv_role": "kv_both",
+          "kv_connector_extra_config": {
+            "spec_name": "PyKvCacheOffloadingSpec",
+            "spec_module_path": "py_kvcache.vllm",
+            "block_size": 16,
+            "staging_mem": 0.125,
+            "iodepth": 4,
+            "sync_on_store": false,
+            "enable_preload": true,
+            "preload_share_staging": true,
+            "preload_lookahead_requests": 1,
+            "staging_cache": "lru",
+            "load_planner": "on",
+            "io_backend": "linux_aio",
+            "prefix_io_observation_mode": "shadow",
+            "prefix_io_observation_interval_ns": 10000000,
+            "prefix_cache_break_even_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server07-calibration-01/curves-paired/curves-v2.json",
+            "prefix_io_observation_run_id": "server13-public-development-uoff01",
+            "shared_storage_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server13-public-development-uoff01/storage",
+            "prefix_io_parent_admission": {
+              "schema_version": 1,
+              "run_id": "server13-public-development-uoff01",
+              "max_accepted_parents": 8
+            },
+            "prefix_io_p4_policy": {
+              "mode": "off"
+            }
+          }
+        },
+        "attention_config": {
+          "backend": "TRITON_ATTN"
+        },
+        "enforce_eager": true,
+        "compilation_config": 0,
+        "generation_config": "vllm",
+        "disable_log_stats": true,
+        "seed": 0,
+        "async_scheduling": false,
+        "speculative_config": null,
+        "prefix_caching_hash_algo": "sha256"
+      },
+      "sampling": {
+        "temperature": 0.0,
+        "seed": 0,
+        "max_tokens": 128,
+        "min_tokens": 128,
+        "ignore_eos": true,
+        "detokenize": false
+      }
+    },
+    "I": {
+      "engine": {
+        "dtype": "bfloat16",
+        "kv_cache_dtype": "auto",
+        "quantization": null,
+        "load_format": "safetensors",
+        "trust_remote_code": false,
+        "skip_tokenizer_init": true,
+        "tensor_parallel_size": 1,
+        "distributed_executor_backend": "uni",
+        "max_model_len": 1024,
+        "max_num_seqs": 4,
+        "max_num_batched_tokens": 1024,
+        "block_size": 16,
+        "kv_cache_memory_bytes": 268435456,
+        "gpu_memory_utilization": 0.7,
+        "enable_prefix_caching": true,
+        "enable_chunked_prefill": true,
+        "cpu_offload_gb": 0,
+        "offload_group_size": 0,
+        "kv_offloading_size": null,
+        "kv_transfer_config": {
+          "kv_connector": "OffloadingConnector",
+          "kv_role": "kv_both",
+          "kv_connector_extra_config": {
+            "spec_name": "PyKvCacheOffloadingSpec",
+            "spec_module_path": "py_kvcache.vllm",
+            "block_size": 16,
+            "staging_mem": 0.125,
+            "iodepth": 4,
+            "sync_on_store": false,
+            "enable_preload": true,
+            "preload_share_staging": true,
+            "preload_lookahead_requests": 1,
+            "staging_cache": "lru",
+            "load_planner": "on",
+            "io_backend": "linux_aio",
+            "prefix_io_observation_mode": "shadow",
+            "prefix_io_observation_interval_ns": 10000000,
+            "prefix_cache_break_even_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server07-calibration-01/curves-paired/curves-v2.json",
+            "prefix_io_observation_run_id": "server13-public-development-ishadow-future01",
+            "shared_storage_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server13-public-development-ishadow-future01/storage",
+            "prefix_io_parent_admission": {
+              "schema_version": 1,
+              "run_id": "server13-public-development-ishadow-future01",
+              "max_accepted_parents": 8
+            },
+            "prefix_io_p4_policy": {
+              "schema_version": 1,
+              "run_id": "server13-public-development-ishadow-future01",
+              "mode": "interference",
+              "sample_max_age_ns": 100000000,
+              "max_wait_ns": 100000000,
+              "internal_step_budget_ns": null,
+              "candidate_batches": [
+                1
+              ],
+              "fixed_stage_policy": null,
+              "cost_table": null
+            }
+          }
+        },
+        "attention_config": {
+          "backend": "TRITON_ATTN"
+        },
+        "enforce_eager": true,
+        "compilation_config": 0,
+        "generation_config": "vllm",
+        "disable_log_stats": true,
+        "seed": 0,
+        "async_scheduling": false,
+        "speculative_config": null,
+        "prefix_caching_hash_algo": "sha256"
+      },
+      "sampling": {
+        "temperature": 0.0,
+        "seed": 0,
+        "max_tokens": 128,
+        "min_tokens": 128,
+        "ignore_eos": true,
+        "detokenize": false
+      }
+    }
+  },
+  "contract": {
+    "common_runtime_equal": true,
+    "policy_changes_only": "off versus interference",
+    "independent_workload_deadline_gate_required": true,
+    "new_strong_domain_cost_gate_required": true,
+    "gpu_effect_qualified": false
+  },
+  "gpu_uuid": "GPU-bff07e52-6cfb-5828-bb80-9aa47a3a4a9b",
+  "GPU_operations": 0,
+  "native_execution_verified": false,
+  "gpu_effect_qualified": false,
+  "formal_goodput_allowed": false,
+  "independent_internal_step_budget_ns": null,
+  "development_deadline_ns": null,
+  "SLO": null,
+  "cost_receipt": null,
+  "source_inputs": [
+    {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server12-i-pilot-cpu-preparation-20261004/source_inputs/native_gpu_prefix_smoke.py",
+      "bytes": 21990,
+      "sha256": "7d31cce851ca2334fedbe6b66c4e2d9bfff19e8768bafaa52f68e414518d77e2"
+    },
+    {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server12-i-pilot-cpu-preparation-20261004/source_inputs/run_p3_native_pilot.py",
+      "bytes": 14157,
+      "sha256": "ff0905821eddc368dbfe168fdb735603dcfedbddcec96d86dfd01614dfbdf855"
+    },
+    {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/source_inputs/low_contention.json",
+      "bytes": 94011,
+      "sha256": "3ef3b7a65d87cb8f4d1cb88c885137ec29e1eebdfebe0aedf420e803d9d0a5d9"
+    },
+    {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/source_inputs/ORIGINAL_PLANNER_CURVES_V2.json",
+      "bytes": 11757,
+      "sha256": "f7cd071cde00aa18edcc463be0b83886bb4240291acabb4c9f4adb30b8c6311e"
+    },
+    {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server12-i-pilot-cpu-preparation-20261004/strong_baseline/strong_baseline_config.py",
+      "bytes": 11619,
+      "sha256": "d2d1d8e35c582df3a6f4857f91b21c224d524ed2cb0ca9a35948f19195396478"
+    }
+  ],
+  "original_planner_curve_ref": {
+    "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server07-calibration-01/curves-paired/curves-v2.json",
+    "bytes": 11757,
+    "sha256": "f7cd071cde00aa18edcc463be0b83886bb4240291acabb4c9f4adb30b8c6311e"
+  },
+  "original_planner_curve_status": "STRUCTURAL_ORIGINAL_LOADPLANNER_INPUT_ONLY_NOT_CURRENT_GPU_COST_COVERAGE",
+  "original_recompute_overpriced_warning_preserved": true,
+  "qualification_workload_kind": "same_real_development_input_new_GPU_Uoff_collection_only",
+  "natural_trace_bound": true,
+  "future_effect_activation": "requires independently frozen budget and newly qualified finite strong-domain cells",
+  "source_pair_ref": {
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_DEVELOPMENT_U_I_CONFIG_01.json",
+    "bytes": 8946,
+    "sha256": "b2df43c34f5f194d448eb596e8edea0392d5005ced7b76f40ab62edbb6de4596"
+  },
+  "development_diagnostic_only": true,
+  "shadow_engineering_budget_status": "UNBOUND_REQUIRES_ACTUAL_U_COSTS_AND_A_FROZEN_ENGINEERING_SETTING",
+  "production_request_arrivals_claim": false
+}

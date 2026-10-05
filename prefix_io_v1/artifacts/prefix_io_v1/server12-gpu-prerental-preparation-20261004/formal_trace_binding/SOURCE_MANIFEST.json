@@ -1,0 +1,71 @@
+{
+  "GPU_effect_entry_integrated": false,
+  "GPU_operations": 0,
+  "actual_local_CPU_tests": 21,
+  "created_client_date": "2026-10-05",
+  "files": [
+    {
+      "bytes": 1669,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/formal_trace_binding/CURRENT_FORMAL_INPUT_DECISION.json",
+      "sha256": "4667bb29f0513343126586f231c1ab9d0bee97082973053267f48f5a29cfb4b5"
+    },
+    {
+      "bytes": 30578,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/formal_trace_binding/formal_trace_binding.py",
+      "sha256": "bab370bf83cf4736b03dc3fdc80f07b6efc40b15425ed43e3581fbcfe14f2d9b"
+    },
+    {
+      "bytes": 1821,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/formal_trace_binding/LOCAL_CPU_TEST_RESULT.json",
+      "sha256": "faabc3375abb564fb6bd130121367c79e055d0af3a3ad95c55db0f3e5a211f46"
+    },
+    {
+      "bytes": 3606,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/formal_trace_binding/LOCAL_CPU_TEST_STDERR.log",
+      "sha256": "835e5c883267387d5b60ab4ea6f4996e24cfa7cf8f2e2d7a234319415852aee4"
+    },
+    {
+      "bytes": 0,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/formal_trace_binding/LOCAL_CPU_TEST_STDOUT.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 7083,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/formal_trace_binding/README.md",
+      "sha256": "97b684f773083ad3ebb8a49b2d84f0020c51773e2a4ae9bc7581c756b1f43601"
+    },
+    {
+      "bytes": 13345,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/formal_trace_binding/test_formal_trace_binding_cpu.py",
+      "sha256": "7931c7d609ea2c8582c2ef30d858a53cf2a437f0f17f2f55881b8d1a3c78472d"
+    }
+  ],
+  "formal_inputs_status": "UNBOUND",
+  "original_qualification_validator_modified": false,
+  "reference_only_existing_files": [
+    {
+      "bytes": 34760,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/protocol/prerental_protocol.py",
+      "sha256": "7fbc544597c9abe334122d354e7494b590e810ab0682f1d2d155408cc4f618eb"
+    },
+    {
+      "bytes": 35006,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/runner/strong_trace_runner.py",
+      "sha256": "239771d85459b795d82624e23aa96510954ce301b2fc6554b2e575057edb9ce9"
+    },
+    {
+      "bytes": 32781,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/runner/native_runtime.py",
+      "sha256": "a293f98841e34bb9357e8dacb62cda43be7dfc7da66167f3df5577c4b5b11709"
+    },
+    {
+      "bytes": 11619,
+      "path": "artifacts/prefix_io_v1_server12_candidates/i_pilot_cpu_preparation_20261004/strong_baseline/strong_baseline_config.py",
+      "sha256": "d2d1d8e35c582df3a6f4857f91b21c224d524ed2cb0ca9a35948f19195396478"
+    }
+  ],
+  "schema": "formal_trace_binding_additive_CPU_source_manifest_v1",
+  "scope": "only_formal_trace_binding_directory_new_files",
+  "source_manifest_is_not_GPU_authority": true,
+  "trace_files_created": 0
+}

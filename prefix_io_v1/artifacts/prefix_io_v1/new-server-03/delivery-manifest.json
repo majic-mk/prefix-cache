@@ -1,0 +1,3496 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-26T16:00:56.676979+00:00",
+  "server": "connect.westc.seetacloud.com:24801",
+  "project_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "phase": "P1_native_GPU_Prefix_passed_SSD_blocked",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "archive_path": "project/.gitattributes",
+      "bytes": 186,
+      "sha256": "dab7906bcc80252b4fa53ec8a2d0d6886e38c3811beb193759f8596501a55b11"
+    },
+    {
+      "path": ".gitignore",
+      "archive_path": "project/.gitignore",
+      "bytes": 547,
+      "sha256": "93fc25c767890c77b3c68a945822d541162214c33cb8bd291a04eb10e8aef17c"
+    },
+    {
+      "path": "DELIVERY_EXTRA_FILES.json",
+      "archive_path": "DELIVERY_EXTRA_FILES.json",
+      "bytes": 3903,
+      "sha256": "cdea75144796bec4b89043a8bda0a5858e6a7364d4099cf068bead389c9612c7"
+    },
+    {
+      "path": "DELIVERY_REDACTION_MANIFEST.json",
+      "archive_path": "DELIVERY_REDACTION_MANIFEST.json",
+      "bytes": 307738,
+      "sha256": "fe47faa8ea6cc6d6da195c58d76b6c9d7bd079e7108591bdd9c1fb72d04b3e2f"
+    },
+    {
+      "path": "README.md",
+      "archive_path": "project/README.md",
+      "bytes": 12115,
+      "sha256": "5f453cb19295eb06e31c0860e26aaebdec7e221d11b9ddf7cdf24a010507926c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/command-log.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/command-log.jsonl",
+      "bytes": 343614,
+      "sha256": "d5224c6c057a738a7837c42fc0fea763b792b57fc91f5d0e229cadfbf4241294"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/commands.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/commands.txt",
+      "bytes": 101856,
+      "sha256": "cf1c79f47f4b1b217ec074cf9b12ed5b96b4114f3a4671409a0d16f3b1da33c9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/commands.jsonl",
+      "bytes": 547954,
+      "sha256": "2979b0426b37168a245baf0b336ff9d92286e14a7d661fb92ea16165bec7b647"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/cpu-combined.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/cpu-combined.txt",
+      "bytes": 10402,
+      "sha256": "d8d240eec0fe05c630a9d5765f2645df1805457e74594e2605f9d6187a158ee0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/cpu-combined.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/cpu-combined.xml",
+      "bytes": 10387,
+      "sha256": "2194afaaaaf4004ba44ed5585cbc9e09e3b29e2cb8dc462db489b0a262f9d22e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/cpu-verified.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/cpu-verified.txt",
+      "bytes": 1616,
+      "sha256": "b7dec6281d3d63aedec8005f63c23d6a5556ac53fac8a2b302c2bfa2dd40c3bc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/cpu-verified.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/cpu-verified.xml",
+      "bytes": 59758,
+      "sha256": "c973de3592e5db0d1ad73259546161fbbfde92cb1959796e075c4044c12ebc82"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/delivery-manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/delivery-manifest.json",
+      "bytes": 17085,
+      "sha256": "1a75c2af23be0414bbb9bb927333ae40ea121efcd67751fab68cc286e6532628"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/delivery-validation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/delivery-validation.json",
+      "bytes": 189,
+      "sha256": "1ba04cac6beaec349a0845caf44b628e216aed831487338866dfe5af402229fe"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/dependency-lock-before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/dependency-lock-before.json",
+      "bytes": 2674,
+      "sha256": "3d9fb7b986c6fdbc0db427593a7e24e3d919b2b7341289b51e0f45bb256052eb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/environment-current.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/environment-current.json",
+      "bytes": 615,
+      "sha256": "aca5712b756bbb96f1afe4326113dad9212e8003533e6f5659a052352e4386b7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/execution-state-before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/execution-state-before.json",
+      "bytes": 4601,
+      "sha256": "b7e51a97061249367abcaddbab840946b11666bf78e8babcc35e3094fa5fd8fd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/native-path-preservation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/native-path-preservation.json",
+      "bytes": 6109,
+      "sha256": "abcd451bad0a11264817f7222472ba37f4cb400f3774b3e6494364853d3a552a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/patch-checks.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/patch-checks.json",
+      "bytes": 396,
+      "sha256": "7b57ba760e8c1a293d21f0253b9aa54eb012cccb804097d60e679717f2231231"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/preflight.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/preflight.json",
+      "bytes": 562,
+      "sha256": "217655c9cf839cb29a232a490e5f5fc0218dd3144727fb3564770be561097e69"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/progress-first.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/progress-first.txt",
+      "bytes": 6558,
+      "sha256": "919b65eb5612946a6cc3fb2ed6be1fc8951f51b8745f087e75f22eb92d96ebb3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/progress-first.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/progress-first.xml",
+      "bytes": 7407,
+      "sha256": "c8b465e36c16a8f96c58bf29c0f78a9c8254298e1117c2f50a37468a81782020"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/progress-reviewed.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/progress-reviewed.txt",
+      "bytes": 99,
+      "sha256": "18f19e31c883f61bd5b4e48942604614b2c62ac5740ca8eb12ffdd57fa44f1af"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/progress-reviewed.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/progress-reviewed.xml",
+      "bytes": 3640,
+      "sha256": "5d44f51cacd5e195a40f3a8daae98c2b4f2f7c00cf6331dc42bbd9f2fbc02176"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/progress-second.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/progress-second.txt",
+      "bytes": 99,
+      "sha256": "f1f412709edfc3cc3041cd3ba302ab94033149cd33b23ec8c4104fd712f04539"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/progress-second.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/progress-second.xml",
+      "bytes": 3035,
+      "sha256": "8b815023585420cda584338b9a2f16822bd8c05388130c8befa48a7487de6146"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-01/test-results.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-01/test-results.json",
+      "bytes": 461,
+      "sha256": "e3151b648b029f70e406ebb73a663ccbf0c3c09aaae3ffa8deacbc6b0d11cebc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/commands.jsonl",
+      "bytes": 647059,
+      "sha256": "8c2c0c85c33f1bae00a09b0ba7092f9fd7588751ebd048b416617772c6c7e47b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/cpu-verified.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/cpu-verified.txt",
+      "bytes": 1696,
+      "sha256": "0614107d94818a7ff6c1588c5928feac1de539dec1ff890276a4d438b6e48d15"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/cpu-verified.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/cpu-verified.xml",
+      "bytes": 64777,
+      "sha256": "88662d01d76e3172907da3b00fbaadf7c06f4582efd0a6ab4a142a2016538632"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/delivery-manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/delivery-manifest.json",
+      "bytes": 22276,
+      "sha256": "f99e3a410d7e4580ae02603dda88012ec385203dd330e5e959f2487b53eacfcc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/delivery-validation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/delivery-validation.json",
+      "bytes": 675,
+      "sha256": "27553efdff2e3aed83a622e3840a20f47fa2a3139189695fd8903577378a17ac"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/dependencies-before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/dependencies-before.py",
+      "bytes": 4633,
+      "sha256": "4d83c691770f3fe5be5b6a29c3964d9a0888a42db462871f1b15f42e0bb1e081"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/dependency-lock-before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/dependency-lock-before.json",
+      "bytes": 3187,
+      "sha256": "bc5f19d70f68f786034c4a3dba09888897ee0e374482cd56a507e6c7c8a7fae7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/environment-current.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/environment-current.json",
+      "bytes": 431,
+      "sha256": "1bd2eabe05636dd3d03b8053c3d583e4f6a44ef561fc29c59aa7ce749c70c62d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/execution-state-before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/execution-state-before.json",
+      "bytes": 4847,
+      "sha256": "21fb2a0ef68cfe57c563baae065b602f7bfa849441bcf712c2775e36fe70f88f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/native-path-preservation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/native-path-preservation.json",
+      "bytes": 901,
+      "sha256": "9d3807f79b15fb675d3340f004b6bb9aeb5c6341889aef5ffb7399d3d0ff21b0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/observation-before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/observation-before.py",
+      "bytes": 2421,
+      "sha256": "55e7a358238a3342fde6de7c31d3ca1119df243e5d7a61ba5cad621edd568ce4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/observation-overhead-cpu.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/observation-overhead-cpu.json",
+      "bytes": 8833,
+      "sha256": "6cf3f45ce4edc4ea1f19d3698589f215833128d920ef3b7886ba55c385f0bce7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/observer-first.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/observer-first.txt",
+      "bytes": 99,
+      "sha256": "3f35c91fd86c9c01332da1034e167ce43035bf0787db7982db5e15ad6ffacb01"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/observer-first.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/observer-first.xml",
+      "bytes": 8189,
+      "sha256": "9debb5ccd3d389bf558b58fa51e5c3ffb7f554b56ef62f5ecde270a8c5672c84"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/patch-checks.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/patch-checks.json",
+      "bytes": 383,
+      "sha256": "8be27b424839e459220cca33abe87f519727bcde4bd0f8c771ebfe6299a98d19"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/preflight.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/preflight.json",
+      "bytes": 562,
+      "sha256": "217655c9cf839cb29a232a490e5f5fc0218dd3144727fb3564770be561097e69"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/project-changes.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/project-changes.patch",
+      "bytes": 25658,
+      "sha256": "bdd9a31a2b400683ab2c8c4867aa9f359ecd3c3e4233022a108787462ab06e3a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/project-patch-checks.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/project-patch-checks.json",
+      "bytes": 643,
+      "sha256": "d5f57b06a22cdb1704e97ec192a4803f3539e2c6e723dceeb2537be44d59f33f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/test-dependencies-before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/test-dependencies-before.py",
+      "bytes": 3846,
+      "sha256": "0787e0ac8109a9405e4778a560233db2342e4474f20fc82a2fb58f13002ee127"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/continuation-02/test-results.json",
+      "archive_path": "project/artifacts/prefix_io_v1/continuation-02/test-results.json",
+      "bytes": 351,
+      "sha256": "52b161485d7c1af27d2b5176d6a0b29b1e6c8ef3b9b87c259a4ea0d9d635832b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/delivery-manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/delivery-manifest.json",
+      "bytes": 7989,
+      "sha256": "1e10d43b2518c3e43ba8b2549a903c3910ed44545b5b9ba1ccef8332c9af9477"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/commands.jsonl",
+      "bytes": 775283,
+      "sha256": "2526770f569ab704b226331e8cecf2915cf51e811f34a5603f2ab9b56a0f300c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/cpu-migration.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/cpu-migration.txt",
+      "bytes": 1696,
+      "sha256": "ac27d188a27b23da92e8b94046cf874a28abc571b78bbb9eced18013be68df4b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/cpu-migration.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/cpu-migration.xml",
+      "bytes": 64777,
+      "sha256": "cacdc105792c24ab69a477def50d2df3627614d214ed4eac85a42eb7fa7b6aaa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/delivery-manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/delivery-manifest.json",
+      "bytes": 32562,
+      "sha256": "47ff9cd4a324d4f01a6ef49c2678e12f3a6ea9b8f5408d51cefe021f94c6f57b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/delivery-validation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/delivery-validation.json",
+      "bytes": 325,
+      "sha256": "f89839ccae68e2cab272f00ba2fdb6ae82e1c2d3a367bfb8ccfc8c5831d2e147"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/dependency-lock.json.before",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/dependency-lock.json.before",
+      "bytes": 3903,
+      "sha256": "589cf8486fd31a8c89719fa5fae303fc416f5e975d670d8fa3c03e2305185d52"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/environment-current.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/environment-current.json",
+      "bytes": 1120,
+      "sha256": "a7f92cdf29c510ed516d1e25684cc97006e4aea04ac9c1f66bfe6a0cf0cdf94c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/environment.json.before",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/environment.json.before",
+      "bytes": 1319,
+      "sha256": "335bf052415f9e13c7b808976d49be13cd2f73f3e5bb42f86999995c2de667cb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/execution-state.before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/execution-state.before.json",
+      "bytes": 5291,
+      "sha256": "c5df000cbf9a46deffd7872f5cdcc59d5f94c9b4bb544c9e5626ad0075012890"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/io-uring-diagnostic.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/io-uring-diagnostic.json",
+      "bytes": 376,
+      "sha256": "80693e8ff00cce145e830dcdc9976a9e1cd988144821b275a6f1b0e6f15844a9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/migration-audit.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/migration-audit.json",
+      "bytes": 1302,
+      "sha256": "21940d34adccf86d26555390a16fbfdbba2630d55d310a8a74e36e100edaef5e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/observation-overhead-cpu.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/observation-overhead-cpu.json",
+      "bytes": 8820,
+      "sha256": "e5126b1418bc03f359ba818e20e44b5aed5800b72795b229543e57257ec51b1b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/odirect-probe.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/odirect-probe.json",
+      "bytes": 170,
+      "sha256": "9b2c5bdee50791063afc1b436ca0f9f5244c8d87757861f9e99044faa8e0bdc3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/permission-request.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/permission-request.json",
+      "bytes": 574,
+      "sha256": "e03f3136df1447550c94426a663c8d0e167f2c536aa1ba73eef62a102ddb610c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/preflight.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/preflight.json",
+      "bytes": 562,
+      "sha256": "217655c9cf839cb29a232a490e5f5fc0218dd3144727fb3564770be561097e69"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/add-regression.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/add-regression.txt",
+      "bytes": 72,
+      "sha256": "1c62fcb332e88e4537ff6a9ba9a65cdb85b1f4762e96408e73303250de9efc90"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/apply-minimal-fix.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/apply-minimal-fix.txt",
+      "bytes": 94,
+      "sha256": "3b034d10c5c8742444d3e802eaf7a471ae93efb0668628c2df877e3f478a674b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/commands.jsonl",
+      "bytes": 9248,
+      "sha256": "048e6385cf9ec109bf6cc10eb8313b7143d4a21559b2ce114011af7b1d655229"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/cpu-regression-after.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/cpu-regression-after.txt",
+      "bytes": 1696,
+      "sha256": "e8b8b6283013bf502b46f6812425985a7729d40a3b67981b3f0d3d919aa5556a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/cpu-regression-after.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/cpu-regression-after.xml",
+      "bytes": 65255,
+      "sha256": "b9b733577e37f384da58c7aa735345a2f29ded6a987b48e908c00f6a5f60fcc9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/patch-checks.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/patch-checks.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/publication-after.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/publication-after.txt",
+      "bytes": 99,
+      "sha256": "68ad1a382b16de77da75627d9fb2009788488d1f4484131fe34cfe1d405a5193"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/publication-after.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/publication-after.xml",
+      "bytes": 5770,
+      "sha256": "da7903073f1a2c67f21f4342908ffcda6a29f819dab562d825fc03ea318a4d1a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/regression-before.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/regression-before.txt",
+      "bytes": 6577,
+      "sha256": "36d0cadaa77d180b16333eae0a94a9d4f6b7854c46f4ace8e9ffaa25d798b2fb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/regression-before.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/regression-before.xml",
+      "bytes": 8704,
+      "sha256": "c5f37b5e8696b0868d01dd30ed1a0a5d2c7d7d26211e2f23ca2aa0722dd2824e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/results.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/results.json",
+      "bytes": 1793,
+      "sha256": "c9048875aea5890926aaed2ea3b199ba895b7ceb878590f4532a7254e140769f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/review-diff.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/review-diff.txt",
+      "bytes": 6258,
+      "sha256": "75c6fc957159a2c496916856fecb87f20e24b7740fb03eed3ab173dc370b7cec"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix/review-fix.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix/review-fix.patch",
+      "bytes": 4464,
+      "sha256": "b56dd275b40d32496a46290c136a31dc21ce33a30a8e5e8b61398b7c28e8db58"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix-before/manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix-before/manifest.json",
+      "bytes": 463,
+      "sha256": "33fc5237a1fc9418a9d7218ead8a974504d10e53313f67d0e7a30db40b9009f5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix-before/patches/prefix_io_v1/observer/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix-before/patches/prefix_io_v1/observer/README.md",
+      "bytes": 341,
+      "sha256": "18766649e1e4eca3767909ae1991643862dc437231ae600bcc9ec3d6c75f5a92"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix-before/src/prefix_io_control/publication.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix-before/src/prefix_io_control/publication.py",
+      "bytes": 3650,
+      "sha256": "8964541ef991c6992c8c6d92cf44aac8cb84f78e79edc5afdb47a071057bde35"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/review-fix-before/tests/prefix_io_v1_observer/test_publication.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/review-fix-before/tests/prefix_io_v1_observer/test_publication.py",
+      "bytes": 9308,
+      "sha256": "147dd7196fdd4edc3b583e5260ad574f07be6ed860f6fd33ef6c496ab94883ae"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/run-runtime-install.sh",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/run-runtime-install.sh",
+      "bytes": 515,
+      "sha256": "12ca39de2b27c888e41e6a8ede1c06fa532d1d2544797001562faa0ad0b05db5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-candidate-hashed.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-candidate-hashed.txt",
+      "bytes": 391581,
+      "sha256": "102385a3e813635b612e002e01ad466d76fc9cda051469c497b8b5b01f877cba"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-candidate-mirror.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-candidate-mirror.txt",
+      "bytes": 17539,
+      "sha256": "674f977edfa6e8dbbb24f21c8abe1cb28667b9099878c6d6d640ca0f1bd41122"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-hash-resolution.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-hash-resolution.txt",
+      "bytes": 391611,
+      "sha256": "91518b4fb6473586758f648f78c48bfc4afa4d3ca79b7659dd4ce95fa6aaac36"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-install-process.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-install-process.json",
+      "bytes": 247,
+      "sha256": "2783ce9a8319fbcb5aa1dc6bbac743bdd86d3cba47c85fa338a201097eb28361"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-install-summary.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-install-summary.json",
+      "bytes": 996,
+      "sha256": "d7a932428341edcb8525d2b1b503f1c29ccca57a659b3a92402f402e7f8319e5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-install.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-install.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-install.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-install.log",
+      "bytes": 8614,
+      "sha256": "a2e01e55a8cea25344600b8cfb1006c861fd8287e1d8efee086a7425856e2753"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-installed-freeze.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-installed-freeze.txt",
+      "bytes": 3988,
+      "sha256": "83886354be8279235d955ffb2cc8fdd167e5d0b93b09d0ec0800854b1c42eee7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-pip-check.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-pip-check.txt",
+      "bytes": 66,
+      "sha256": "3bbde3a31533999da9ecf9c064c27f659d2d59ffb3a6a7b23110218f56a32644"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-resolution-mirror.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-resolution-mirror.txt",
+      "bytes": 17570,
+      "sha256": "4736931b8acafe87f8e5a0a90c49b0bf56e14c08b5b0f32d8b4f0d323af81ea9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/runtime-resolution.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/runtime-resolution.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/source-runtime-audit/capability-report.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/source-runtime-audit/capability-report.json",
+      "bytes": 1099,
+      "sha256": "479c60b392f03fcbe64c5428541f54a89e41a07db1902dcdd11b362e626d51ea"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/source-runtime-audit/dependency-lock.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/source-runtime-audit/dependency-lock.json",
+      "bytes": 1505,
+      "sha256": "07b1b80358da2f1132fa6cca29e79c318c62e0c4f47c9d2d0e54b8dbf3723507"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/source-runtime-audit/odirect-probe.bin",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/source-runtime-audit/odirect-probe.bin",
+      "bytes": 4096,
+      "sha256": "c8f5d0341d54d951a71b136e6e2afcb14d11ed8489a7ae126a8fee0df6ecf193"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/source-runtime-audit/source-symbols.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/source-runtime-audit/source-symbols.json",
+      "bytes": 12470,
+      "sha256": "6b7f9bb588b70c416e6487c08617a87a8cf318d6de592bf986eb541fb78f215c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-01/uv-bootstrap.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-01/uv-bootstrap.txt",
+      "bytes": 497,
+      "sha256": "eb60856637609dfc0c144b11eb650d92303333f71cca2ddb6f79672efd9f2933"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-01.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-01.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-01.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-01.log",
+      "bytes": 10244,
+      "sha256": "f63199bba04dfd332338cc0a3fe93c05c0a5dc4fd728cfab57569a939d996515"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-02.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-02.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-02.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-02.log",
+      "bytes": 10214,
+      "sha256": "0062d5d1562a5cc3cb95c706d2cb818d0aca27b6d70e5881b66a48da59ccb4ab"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-03-CMakeCache_txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-03-CMakeCache_txt",
+      "bytes": 63339,
+      "sha256": "b1d7ef379ea99508cd4f208fd6aee7e32e77a52ae2717a8bb37a6966f8ef6e91"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-03-_ninja_log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-03-_ninja_log",
+      "bytes": 598,
+      "sha256": "b6529d02d2748c36e2a673a5d347d313bb880b88c01bde76e1a07e55c7290b04"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-03-stopped.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-03-stopped.json",
+      "bytes": 639,
+      "sha256": "c68e05f10527dd3587843e346253a607f92f9be062bf3e822f5bc681816c3d7c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-03.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-03.log",
+      "bytes": 223,
+      "sha256": "c4fc1483720b15610763fd6d416081ee7aef625c78788c90ab50e340436e5b04"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-04-command.sh",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-04-command.sh",
+      "bytes": 1201,
+      "sha256": "249e4adf21718e33517c670107b6e877ba25a4f8daa6f61e4edc1d4c6a602130"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-04-detail/CMakeCache.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-04-detail/CMakeCache.txt",
+      "bytes": 63339,
+      "sha256": "b22e577ecce01275840334bc9c4459ffec4eca85f43b1444a88a897b0824647d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-04-detail/CMakeFiles-CMakeConfigureLog.yaml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-04-detail/CMakeFiles-CMakeConfigureLog.yaml",
+      "bytes": 2162311,
+      "sha256": "d4afba79beba993982a80c1192709c805b27232624403fa78bc2add5406760b3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-04-detail/build.ninja",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-04-detail/build.ninja",
+      "bytes": 1136549,
+      "sha256": "e387abe10977957fa60f9079a73354112e9daaaebfa6be7732b187a2b4e35e18"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-04-detail/ninja-execution.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-04-detail/ninja-execution.log",
+      "bytes": 55132,
+      "sha256": "725b5234ab9d7d691a813da285e833f7694ef9f7d09e2e9a3a145a107846d8c9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-04-detail/preservation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-04-detail/preservation.json",
+      "bytes": 258,
+      "sha256": "7588f241f12fa7382361e7834404a5f15e78c1ac9fa80b16014157a4fe3a2ec1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-04.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-04.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-build-04.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-build-04.log",
+      "bytes": 837,
+      "sha256": "b1d504967cceba9079e6813f93977eaaf539e38c82bd356661edac3dc1a9eb15"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-copy-abi.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-copy-abi.json",
+      "bytes": 855,
+      "sha256": "75a33aa6a72b4de857b86c8fb69ac508a532b7b5100b28b8f745ab2cd18eb5fe"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-copy-abi.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-copy-abi.log",
+      "bytes": 855,
+      "sha256": "75a33aa6a72b4de857b86c8fb69ac508a532b7b5100b28b8f745ab2cd18eb5fe"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/author-python-adapters-install.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/author-python-adapters-install.log",
+      "bytes": 1115,
+      "sha256": "fb8b2487da754ec2dfd658ab9e926d42ff25b63799fe7fa2a40cdfcdc80e5fef"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/authorization.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/authorization.json",
+      "bytes": 642,
+      "sha256": "1d448e2f5c4b9d98a4c74b43297c8e7457a5f260ca09957ff43d47e6fc9d7385"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/before-GPU_STAGE_REPORT.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/before-GPU_STAGE_REPORT.md",
+      "bytes": 3724,
+      "sha256": "262436223fbcc9172ed5f51eb0f0c6b5bd5f9ebaee40389d35b3b42d8e28ad28"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/before-dependency-lock.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/before-dependency-lock.json",
+      "bytes": 4632,
+      "sha256": "46c1f633ec23b73cb6baeb6686aee487bab70193de19bf77f50169ca3b85690a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/before-environment.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/before-environment.json",
+      "bytes": 1319,
+      "sha256": "335bf052415f9e13c7b808976d49be13cd2f73f3e5bb42f86999995c2de667cb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/before-execution_state.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/before-execution_state.json",
+      "bytes": 5694,
+      "sha256": "aa5ddd51a901839ec9fa7d5e737f4d0ec2964690f3fd62846d639663ec9e6a68"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/build-dependencies.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/build-dependencies.txt",
+      "bytes": 984,
+      "sha256": "5550937250864e1b3fa9f11e2078796c10998cf2e0a03063c29ae7b15c6fdeaf"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/build-source-lock.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/build-source-lock.json",
+      "bytes": 1598,
+      "sha256": "cb94d603d9053130188272a15fa9de4083542e833105611d937fb3b34fe8b2c1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/capability-report.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/capability-report.json",
+      "bytes": 555,
+      "sha256": "4507d545b8ebc5718064fdd6fcf4b787ff2d04a5ac7391a4d3728ddc4adc713e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/command-snapshot.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/command-snapshot.json",
+      "bytes": 448,
+      "sha256": "12664b8870dae6ac380c6fb76ac1d6865634a8db9d58449a099a1a9c8c2c69ff"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/commands.jsonl",
+      "bytes": 1297265,
+      "sha256": "68c47befea7cba1da16e6b7e196750b5ae401673dc60489dfc96efec0a40bc84"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/copy-review/CPU_SOURCE_REVIEW.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/copy-review/CPU_SOURCE_REVIEW.md",
+      "bytes": 4746,
+      "sha256": "acc637031f89ac037625afd0a23daf488989adc81c7c9f5eedf220b9a889e901"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/copy-review/cli-help.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/copy-review/cli-help.txt",
+      "bytes": 879,
+      "sha256": "8249688fa3cd6e179a91edb0cb74e594bf5c8b05558a64ac3b8758f75614d9a3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/copy-review/cli-uuid-binding-rejection.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/copy-review/cli-uuid-binding-rejection.txt",
+      "bytes": 266,
+      "sha256": "0c0182838757ac8c2464b0d9562f615917bf8981f9d862e74df46ae176366c09"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/copy-review/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/copy-review/commands.jsonl",
+      "bytes": 4041,
+      "sha256": "3037cc70c2dbc870ed0fe8e820e8741cbef1d3f55e10de5a04375c41d485fcab"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/copy-review/cpu-source-check.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/copy-review/cpu-source-check.txt",
+      "bytes": 186,
+      "sha256": "b175568a6a3cca93f2ad521ef21f206b13a15bb1d470c4cf37fe6b37c8cf3c10"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/copy-review/source-manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/copy-review/source-manifest.json",
+      "bytes": 1266,
+      "sha256": "a342d3746006c1815ab312365cb9c0b394c10f8d6073818e18060b233ff17797"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/copy-review/source-manifest.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/copy-review/source-manifest.txt",
+      "bytes": 1266,
+      "sha256": "a342d3746006c1815ab312365cb9c0b394c10f8d6073818e18060b233ff17797"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/cuda-toolchain-pin.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/cuda-toolchain-pin.log",
+      "bytes": 736,
+      "sha256": "33f5d6e02c0abeda8aa2ab5c74cd072e4405b75edb20fea0481495ec04592225"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/cuda-toolkit-links.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/cuda-toolkit-links.json",
+      "bytes": 40086,
+      "sha256": "75f7052bafc1aade9a1f9ea9734f9451a61f78e66d75366a3562698c9f2fa27c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/current-cpu-results-summary.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/current-cpu-results-summary.json",
+      "bytes": 779,
+      "sha256": "021acb543f7ad7f2265ccc701c6714c95f289afac5155895b8ad716e4dd065f7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/delivery-manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/delivery-manifest.json",
+      "bytes": 65525,
+      "sha256": "d71769f6a63cb4bb908c654ad1f2a247fcb5c5997b1678dff8e514d89e24cee9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/final-process-and-budget-check.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/final-process-and-budget-check.json",
+      "bytes": 309,
+      "sha256": "78c1e41df6b7aa42d25ee4e8c800803cbe61babf147a3ed37b336712106df0b1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/final-upstream-verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/final-upstream-verification.json",
+      "bytes": 434,
+      "sha256": "ff884c3fd6ab440330d6fd84dd6e7272702ec229e93c33f16bcf2920cd0b3895"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/import-review/0001-author-import-qualification.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/import-review/0001-author-import-qualification.patch",
+      "bytes": 9819,
+      "sha256": "7f1d2cd7d4e717eccb711f8613edce5831970f0652330d879efe1caed87f52d6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/import-review/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/import-review/README.md",
+      "bytes": 1936,
+      "sha256": "d389ee976a5006f7f54d006a6f093a832b989bbf5e9ad89d2e76755a994f968b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/import-review/script-sha256.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/import-review/script-sha256.json",
+      "bytes": 135,
+      "sha256": "bb0d033071071e0acdd289a036e75d5df2a31b0e343168dc4a1b8ab3395e3388"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/import-review/static-check.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/import-review/static-check.json",
+      "bytes": 124,
+      "sha256": "76163923e345bf5f337fd7995775c25b096b1eecb6b28c0717f607194532fef6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/io-uring-current.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/io-uring-current.json",
+      "bytes": 199,
+      "sha256": "975306797b96a0f688bb24fb52386bb59617645dd79eeeac5d02eb44f3f08cc0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/MODEL_DOWNLOAD_REVIEW.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/MODEL_DOWNLOAD_REVIEW.md",
+      "bytes": 4061,
+      "sha256": "df378bc305713bce9a1232995b6aaed46d054687effb9ced8ee5f6e4515890c6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/cache-inventory.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/cache-inventory.json",
+      "bytes": 515,
+      "sha256": "2894a6273a642d161674a4be9064af655dc8799adfa961b15b80e01980c08bfc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/clarify-hash-documentation.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/clarify-hash-documentation.txt",
+      "bytes": 65,
+      "sha256": "b279a90ddf54e4c9428cbff0edde08274f14cb5c5ba623a2d4ca85b209dcb338"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/commands.jsonl",
+      "bytes": 5403,
+      "sha256": "67712db860978229a2ed84bc5c094d567d9c9aeb6b756f17fda6973fb78fabf5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/correct-test-fixture-root.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/correct-test-fixture-root.txt",
+      "bytes": 88,
+      "sha256": "63dde81ea56a13b2285af396df198ed19211c627f514cd000f1d14b1dcde4cb9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/hf-address-diagnostic.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/hf-address-diagnostic.json",
+      "bytes": 669,
+      "sha256": "0097fefc2ad6f3fce64a8275b3790d760503ec2c88ff6b9f815c645c0e86e123"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/hf-connectivity.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/hf-connectivity.json",
+      "bytes": 282,
+      "sha256": "f5f7947e7df123f7e205db975ab4e883662e229f3d0fcfbe5daa71d5d4f47a9e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/hf-doh-diagnostic.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/hf-doh-diagnostic.json",
+      "bytes": 293,
+      "sha256": "4a47ad5dd86ef105856e9b63fe40294840408cf075ffc24a13342a92b1012d0a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/pending-model-plan.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/pending-model-plan.json",
+      "bytes": 572,
+      "sha256": "6962fcf4d442cc7672767fa66806c6c036cdb30e3896272e1e443a9e8845feff"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/plan-cli-help.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/plan-cli-help.txt",
+      "bytes": 999,
+      "sha256": "85e193f2cc653738deee26ce078a9df8c192c8a4a3b7a022e4f99fb833feb4a7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/plan-cpu-tests.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/plan-cpu-tests.txt",
+      "bytes": 921,
+      "sha256": "ff623b7d5588f26c58dbfa05c5f8b41273c3b30667af14132a328b7444d2d56d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/plan-cpu-tests.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/plan-cpu-tests.xml",
+      "bytes": 947,
+      "sha256": "9a6cce7bc4f5ef95bcaa67e44d2995b31568e84ddac9613d1cc56972ef3e6b36"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/plan-cpu-verified.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/plan-cpu-verified.txt",
+      "bytes": 99,
+      "sha256": "65d8a7f431d729f4f7887c83a2395ca869ffd1d6236d1a205d62cd6130cfccde"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/plan-cpu-verified.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/plan-cpu-verified.xml",
+      "bytes": 4724,
+      "sha256": "2b0b3244e9cdba07d659c74b88e621c0829ebb913d100d8d7cf643df1dad92c9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/record-review-status.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/record-review-status.txt",
+      "bytes": 300,
+      "sha256": "0cb9050393ac2602769b862718d38076a55716b80d72b6d2faea5efe71324213"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/review-result.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/review-result.json",
+      "bytes": 300,
+      "sha256": "0cb9050393ac2602769b862718d38076a55716b80d72b6d2faea5efe71324213"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/model-review/test_download_plan_cpu.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/model-review/test_download_plan_cpu.py",
+      "bytes": 5392,
+      "sha256": "6f19931b6b41aec7acd84fc2e1b3b2f9fed2000e6f9b2b43cedb636a5223e640"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/0001-native-gpu-prefix-smoke.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/0001-native-gpu-prefix-smoke.patch",
+      "bytes": 12931,
+      "sha256": "dae0dd56a52e3484fe5741cc281390507243d4c5ba357d66c3f116bae44d8d8e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/README.md",
+      "bytes": 7018,
+      "sha256": "d114e37d0e1a597bab57bd65f82296425beda12a37607b058511e09145cc99ad"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/commands.jsonl",
+      "bytes": 415,
+      "sha256": "b6b9082f59e3a51908e06cf6b2ad195efc25c26eaee50279960ffafacd361995"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/cpu-check-0.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/cpu-check-0.log",
+      "bytes": 779,
+      "sha256": "41d87dc324eac86e2d225eb7374642700ecf9e86fb4a85f8064c534674b495c9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/cpu-check-1.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/cpu-check-1.log",
+      "bytes": 700,
+      "sha256": "918a301162fa807bc8524b1b9bf9299a250070ee7d3f24a53bbcf1f4158b15d5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/cpu-verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/cpu-verification.json",
+      "bytes": 2143,
+      "sha256": "0daec676c2f38313efa09fb1d38a7d38fa136edf20b72186afe14de57c3dc578"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/cpu_review.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/cpu_review.py",
+      "bytes": 5258,
+      "sha256": "0b3b7c357ed40949763832b12aa1e9d551b72165a99ddf2df50b0b6894258881"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/frozen-pending-plan.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/native-prefix-preparation/frozen-pending-plan.json",
+      "bytes": 3274,
+      "sha256": "a8b63c057c5f4d9966e98f0519dbc09bedf8bac04bdc7e35118d25c128efe52e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/nvcc-pin-install.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/nvcc-pin-install.log",
+      "bytes": 568,
+      "sha256": "76c76d352f3c1892728b5eefdf3ceffaabb3a8faee689987ceeeacf9180d4ab5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/package-check.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/package-check.json",
+      "bytes": 423,
+      "sha256": "6fbceae5e4d7375e35508ddbd6120be09e3643e972d64b6a1ae8d7e6a6ecabaa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/permissions-before.yaml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/permissions-before.yaml",
+      "bytes": 561,
+      "sha256": "148eb81627a8c862eb549e33e0c05eeeb4b10f50747265c4260356634c5c6452"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/README.md",
+      "bytes": 3132,
+      "sha256": "a748ae8e35d21ab1849ee4fbaeba68823c9b3a546ad72ac0debe7301b6323c1a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/commands.jsonl",
+      "bytes": 3726,
+      "sha256": "84a0df1936a467a3335b2e959c92d09dffa1230be8025537d258c9f0234b6ac7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/cpu-after.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/cpu-after.txt",
+      "bytes": 99,
+      "sha256": "dba147114f275ae0f2e9c99e2ca6e034b73a99d3a3f72cbac85fef6cb2d486e1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/cpu-after.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/cpu-after.xml",
+      "bytes": 3055,
+      "sha256": "3b58bfa74adbab00c5b1a5d0971a0e3c9e9d33c66283c31bc5e075324b2bfec3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/cpu-before.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/cpu-before.txt",
+      "bytes": 16777,
+      "sha256": "5d159a3074adf4f0e6b0a5a281972a008c92ed71c6d581a1866c6a9bd7a82976"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/cpu-before.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/cpu-before.xml",
+      "bytes": 18723,
+      "sha256": "c1cb3a8351c6898d77fe27af8faa5a71d3d60c4a2d66398c2532792634ce09e3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/cuda.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/cuda.before.py",
+      "bytes": 32236,
+      "sha256": "911f5b3c66f4c6e173370d30a81af494f273b90e6832e4c6d1747e625c7f89e3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/gpu-before-process.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/gpu-before-process.log",
+      "bytes": 1414,
+      "sha256": "d949f0c259070f73ed64a11b0bc2734d1ecc77cd9fef78e72bfabdf6993dab80"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/lint-initialization-stop.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/lint-initialization-stop.json",
+      "bytes": 219,
+      "sha256": "2c3262a262aeafae402b350881dd7376f027025dfe89e7605da440d06e45485a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/protected-before.sha256",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/protected-before.sha256",
+      "bytes": 230,
+      "sha256": "4ef6688f838dd786fe782c36ef195a895e6dd9bcace30ec3d3c33b8c14ca84d0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/ruff-check.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/ruff-check.txt",
+      "bytes": 241,
+      "sha256": "323f231dceb94fdd2ad9bfb657ff740a296b6b29b6ea7aa7d8b1d3387b0778be"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/ruff-isolated.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/ruff-isolated.txt",
+      "bytes": 333,
+      "sha256": "6d34258ac32feeb4c0e5f1e3a332e06174907bdc5e2511e12a987472f230ca74"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/ruff-only.yaml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/ruff-only.yaml",
+      "bytes": 166,
+      "sha256": "0456cf926076047f2e09250e0b9459ce85a4e8843b6e630cf1ec963309593483"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/platform-fix/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/platform-fix/verification.json",
+      "bytes": 1631,
+      "sha256": "74fc8be4e5e566c04b966c3304f9b1cdf2b7de045d191d18913c4a94329f486c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/preflight-command.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/preflight-command.json",
+      "bytes": 363,
+      "sha256": "d6bca18219668dcb95c21d1ca293039371e383138e1af9bcd10d759467075385"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/preflight.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/preflight.json",
+      "bytes": 223,
+      "sha256": "484cb50076221d024acba5e4be406af10b8b50ccda6fff7348c9e7803ddae5b1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/0001-durable-gpu-budget-runner.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/0001-durable-gpu-budget-runner.patch",
+      "bytes": 25836,
+      "sha256": "dafccf29da5bc04b2324c2566ef50d21a89bef2f8139965faa5b62499a1ec3d4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/0002-session-aware-gpu-budget-runner.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/0002-session-aware-gpu-budget-runner.patch",
+      "bytes": 28523,
+      "sha256": "8bb9a40588b50b1f031720f06e84844f1a1f8b87d8ac863dba7a394a7bb9c7b1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/REVIEW.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/REVIEW.md",
+      "bytes": 4473,
+      "sha256": "759c87a9b19d70a12904acf5f328f19fb40d6763729a65d429be074d24bc3f38"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/SESSION_REVIEW.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/SESSION_REVIEW.md",
+      "bytes": 2328,
+      "sha256": "ef38fbbb4155546c5a511ccc885470f3a403c3a61202d3771ad7f3ee30fd5fde"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/commands.jsonl",
+      "bytes": 4532,
+      "sha256": "0441b12884bd3a3ca3050316efa5a3251f8a54667f8eb69889a8ccbbd82dc6fa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/final.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/final.txt",
+      "bytes": 99,
+      "sha256": "cd2c0fd5dbc62079bae08ee833e42ca4fed48d7dce96f27ee6c5c0f217c52e09"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/final.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/final.xml",
+      "bytes": 2842,
+      "sha256": "d1108dd9b7b20a92117718aa96e0fee8d6a4000e3402dff22958a943667637c2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/first.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/first.txt",
+      "bytes": 99,
+      "sha256": "a804dd2107c7ebdf71198892c2b6aabaad03da53870c05e9ce1196b3373e981e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/first.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/first.xml",
+      "bytes": 2376,
+      "sha256": "2cfa73f848edad5293c76f05983ac958faa7037aae2bb0974ef52d1b3eca0bfa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/launch-race-before.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/launch-race-before.txt",
+      "bytes": 1744,
+      "sha256": "e2398bb6fe0f7f230133a2bdfb959089a95bfbc357c37f619667e891daebe5f1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/launch-race-before.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/launch-race-before.xml",
+      "bytes": 1753,
+      "sha256": "22df5afcc681d6e1df222d28593f1ee97f4a2bfc9e4c541526cc8857bff4c5f9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/launch-race-final.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/launch-race-final.txt",
+      "bytes": 99,
+      "sha256": "9f62eb9a78d0bfe9e0618cab50609c459867338134f48430b253d60776c8eb9d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/launch-race-final.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/launch-race-final.xml",
+      "bytes": 3000,
+      "sha256": "ef4049e08357caed138efb02cfcebe7fd9cb548b2c9bfd21c9746250246a4991"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/launch_race_proof.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/launch_race_proof.py",
+      "bytes": 12196,
+      "sha256": "2967d8ddfb03f1527611afcd95061c048dbb24cd4e37efd6ae15bcfd2054b50b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/protected-before.sha256",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/protected-before.sha256",
+      "bytes": 348,
+      "sha256": "bff39590cf65650e3398aa746b762f85d4f42074149d912c95a28c15020e45af"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/protected-session-before.sha256",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/protected-session-before.sha256",
+      "bytes": 348,
+      "sha256": "bff39590cf65650e3398aa746b762f85d4f42074149d912c95a28c15020e45af"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/run_gpu_stage.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/run_gpu_stage.before.py",
+      "bytes": 3347,
+      "sha256": "fc315b3dcd1bd5da3ce54b7efb392bb6828adea22aa7895c3c3d915bb28390ff"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/run_gpu_stage.pre-launch-race.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/run_gpu_stage.pre-launch-race.py",
+      "bytes": 9594,
+      "sha256": "0a241ac0b512319107f9eb07d0f499c5a8adc6c7f8a1dce4b403b3c21d001c90"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/run_gpu_stage.pre-session.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/run_gpu_stage.pre-session.py",
+      "bytes": 10240,
+      "sha256": "4af6c0b1c5516cdb11b0d2dc2debc3ae3d82bc9b5f176d1e4c36828cca70de72"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/session-before.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/session-before.txt",
+      "bytes": 1827,
+      "sha256": "81e3cade350f676d78e4c984288cee32e9a54237ae69a91dcf617e0007554979"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/session-before.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/session-before.xml",
+      "bytes": 2151,
+      "sha256": "911fd76f929efc9dd5c4730686e365483932429ab369f2580a075689dfaba664"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/session-commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/session-commands.jsonl",
+      "bytes": 3295,
+      "sha256": "1effd03376cdacfa6370b8774c1ad7bde6d20311bb0462f089118f806d7e41ed"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/session-final.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/session-final.txt",
+      "bytes": 99,
+      "sha256": "1d296449566d02234f6f8a2d38d3f3ffe9714d39106851fd6d377e0e0c232879"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/session-final.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/session-final.xml",
+      "bytes": 3278,
+      "sha256": "df77098f72b846b26a63eae9da41ffff2aef4728de65c09fb68ff9c365dd4bcf"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/session-verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/session-verification.json",
+      "bytes": 1075,
+      "sha256": "8dee61003337b7a11be2f869e1354f5239ee2a207135e6d648778fafacbf9cac"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/session_proof.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/session_proof.py",
+      "bytes": 14207,
+      "sha256": "6b1220ca6be416e95aec5e0b7d076cb4205ef2e47cea5ccd595a4bfc0f31a5af"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/test_run_gpu_stage.pre-session.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/test_run_gpu_stage.pre-session.py",
+      "bytes": 12227,
+      "sha256": "14342ca3808c7dab95d34fce477459ebd432395d79cb026a52ccb356d4ac1701"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runner-review/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runner-review/verification.json",
+      "bytes": 1075,
+      "sha256": "8071854bea4aa7765696bcde4533648cbab275971563275c7480c868310a2f4b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runtime-build-freeze.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runtime-build-freeze.txt",
+      "bytes": 4345,
+      "sha256": "5a3d618fb7d4fa7c1a655d8414797522bec089f88a5dafa4cd5f6e85107ece97"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runtime-build-hash-lock.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runtime-build-hash-lock.log",
+      "bytes": 402636,
+      "sha256": "78a5f202459fc14dee9cba39b0f7ce372a08d252a9b050dcb42f9405cc240c95"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runtime-build-hashed.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runtime-build-hashed.txt",
+      "bytes": 402605,
+      "sha256": "ae3e456822d4e7dc0c3d4794867bb640a641a869d5293270d4d72c4e450f0fa0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runtime-build-pip-check.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runtime-build-pip-check.txt",
+      "bytes": 66,
+      "sha256": "1013d81373467c38451d50ae705ce872a994aa2fbb0035a797d183bd421dcc98"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runtime-installed-final-check.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runtime-installed-final-check.txt",
+      "bytes": 66,
+      "sha256": "51a57eb488a868a2a42c6fab56bc1f8e83c7e983dc5d1db1bb6796cf63e81dfc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/runtime-installed-final.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/runtime-installed-final.txt",
+      "bytes": 4620,
+      "sha256": "de0c05403b29b416964025f86cf6747d7e884846613cd1a46a66c0210bf04550"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-02/source-and-build-verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-02/source-and-build-verification.json",
+      "bytes": 2233,
+      "sha256": "7566f7b4e7adb1dc377424a4d3846b2c98d5ec8001b1b829dbba48d9a8e894a4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/FINAL_EVIDENCE_REVIEW.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/FINAL_EVIDENCE_REVIEW.md",
+      "bytes": 10067,
+      "sha256": "055617997998458c1dfb7f57b20f5a5ecaca24ca1518a343fab725667f41d2d5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/MODEL_PREPARATION_REPORT.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/MODEL_PREPARATION_REPORT.md",
+      "bytes": 9975,
+      "sha256": "c85cce4726edafd79ec1f261553f77b511e9969b1ed1de4dcf8068150f4b931e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/accounting-review.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/accounting-review.md",
+      "bytes": 4462,
+      "sha256": "cc4390e1efcda3fc8b9d4c5f70f995e79541c5bddb54e1da8ae46fa82ce61fdb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/canonical-before/BASELINE_REPORT.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/canonical-before/BASELINE_REPORT.md",
+      "bytes": 2990,
+      "sha256": "19e65131e448c6d457f6734bea1b9784c17a011eba9029d619f3b60341fb2307"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/canonical-before/CAPABILITY_MATRIX.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/canonical-before/CAPABILITY_MATRIX.md",
+      "bytes": 3793,
+      "sha256": "59f7562f2a22d54317149cc66a49a0a3f0bdfe43865a21d598ed9799f2d0250c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/canonical-before/GPU_STAGE_REPORT.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/canonical-before/GPU_STAGE_REPORT.md",
+      "bytes": 2631,
+      "sha256": "3d5d8099c5886a21e9cc9c076b0e7ede57445eb395e39ec4d9b62e8de70e7f6c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/canonical-before/LIFECYCLE_REPORT.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/canonical-before/LIFECYCLE_REPORT.md",
+      "bytes": 4148,
+      "sha256": "1b9ac772ca1fcbe66b279c3cee34679d272bd92979a58dcdaeed7f51c4bd6dd9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/canonical-before/PATCH_MAP.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/canonical-before/PATCH_MAP.md",
+      "bytes": 4378,
+      "sha256": "685a401fad57567b7f2bc3a11ce1c487e4f8ae87f19fb6875e42a6cd2704ac8f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/canonical-before/environment.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/canonical-before/environment.json",
+      "bytes": 1360,
+      "sha256": "ba7ff1128c51b16f9456e200fea971a067a24a8349c4cd30d159190cfc93c417"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/capability-report.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/capability-report.json",
+      "bytes": 739,
+      "sha256": "12c99d442a588ecfa976087ba895b39373eceec5c3d959a4422a09eab6e85a9d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/cpu-results-summary-before-resume.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/cpu-results-summary-before-resume.json",
+      "bytes": 599,
+      "sha256": "3e8d1d9c18c16cbccf53655246329b51fe2bf3432e4d90f631614d2cd2cc649b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/cpu-results-summary-before-runtime-config.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/cpu-results-summary-before-runtime-config.json",
+      "bytes": 821,
+      "sha256": "3761cf9ddb1ff6402cd64396f64e62f156a9777a0e1b76da4ccc93be061c212d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/cpu-results-summary.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/cpu-results-summary.json",
+      "bytes": 834,
+      "sha256": "cb04597615d33cc63e1154aa871eeefdb24d9ef93008d7e749c9cb3d1dce3ad6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/README.md",
+      "bytes": 4668,
+      "sha256": "a43b108b5076cdd4d24a23f5525889539910bece6a66b050f4f0144988d0352e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/commands.jsonl",
+      "bytes": 3177,
+      "sha256": "1bb10bc0d45a8f6677dfda23b90cd39263109cefe17e450c6b16fceca033c0e9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/cpu-tests-final.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/cpu-tests-final.txt",
+      "bytes": 99,
+      "sha256": "1bcc44011bf78a58bc505eb612ef283786f7b4e7ea8747b915963e5b06958e4c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/cpu-tests.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/cpu-tests.txt",
+      "bytes": 99,
+      "sha256": "5a61e4ee64f45a5805babffca8a5919e844227a781cea12f4f08477742675d17"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/pack_new_server_03.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/pack_new_server_03.py",
+      "bytes": 6173,
+      "sha256": "69ac60f5898f09b15ff79795263cf654234897eb2c31e00c1e15b0f868ed716f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/redact_delivery.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/redact_delivery.py",
+      "bytes": 15591,
+      "sha256": "8eded41eb54b5ce59d3f8972eeff033cf0727946daefc76d38af0c87b05ea006"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/scan-plan-final.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/scan-plan-final.txt",
+      "bytes": 410,
+      "sha256": "3bce7eeb6d317a8b5ba164639fc5300a9f0898c1942a9bf53c36ac49a9199cd0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/scan-plan.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/scan-plan.txt",
+      "bytes": 440,
+      "sha256": "b7393da6ad4c2f5f530c66efbe72e086af4cdb4fe438805d6df620ccf9fbe639"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/test_redact_delivery.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/test_redact_delivery.py",
+      "bytes": 5937,
+      "sha256": "8bb08272d741860d2ec75bf443e64627c2ba2513ea5da6f9b131b0eca82e297a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/delivery-redaction/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/delivery-redaction/verification.json",
+      "bytes": 2100,
+      "sha256": "02166824afe2ac7998821360e22685242ea9084cb627b501451587d58619ccc2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/dependency-lock-before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/dependency-lock-before.json",
+      "bytes": 6607,
+      "sha256": "3f9a6b96b46f5b21e4542d0b8c9110fcf9882decbfecd741e46e7206706107f6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-launch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-launch.json",
+      "bytes": 907,
+      "sha256": "865252a23d2d3c7adb7384c8c5a89b0f17183f516a0401762af64ce0274052cb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-manifest-precheck.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-manifest-precheck.json",
+      "bytes": 208,
+      "sha256": "d63af2b99f6dc8edde3bb442d01242e4abb2e5ab4fa8e8d47b757531e3bc312f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-retry-launch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-retry-launch.json",
+      "bytes": 1141,
+      "sha256": "2caac7fbaf00a104bec14e07076fff10604712f1a9cff8461c7d9d82dbbeaafd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/0001-bounded-response-download.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/0001-bounded-response-download.patch",
+      "bytes": 21282,
+      "sha256": "9b9cb89e59216911ce489056e33dcc9fbbb9e296b97e6008c60b7684a4d3ac98"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/0002-evidenced-cdn-redirect.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/0002-evidenced-cdn-redirect.patch",
+      "bytes": 12685,
+      "sha256": "090f479364ba370e5fc1f4a85258d6d2e2e6a792e97d63e8ae1bb3ec2784e8cb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/README.md",
+      "bytes": 3495,
+      "sha256": "aa15b09090ec433f070d31f26f198cdade6733f46d451cb65c0c8129391a2456"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/REDIRECT_REVIEW.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/REDIRECT_REVIEW.md",
+      "bytes": 2986,
+      "sha256": "737d1c965d2bc5ffa218291e0f1fdc25a7fa691f94927a593e0e78c477982422"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/after.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/after.txt",
+      "bytes": 99,
+      "sha256": "d5e78efa2a82eb31c4852bae5faf72c83fad8a8c6ddecdca7768f54ae8fafe83"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/after.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/after.xml",
+      "bytes": 6648,
+      "sha256": "b92c122c9c47c7ad52734e2c86f9d2cf954a28698894d1a23ed3fd3eba9551da"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/before.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/before.txt",
+      "bytes": 13675,
+      "sha256": "136d0f1addd2ee263b43f70d83d9fde436223fdf414099bedb3c208ba729e6e3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/before.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/before.xml",
+      "bytes": 19271,
+      "sha256": "919105fe72d5969befd43096f2d0c0267dd742b136052768e327d800b4d1b993"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/commands.jsonl",
+      "bytes": 988,
+      "sha256": "36e493b0926965e1af5b8a7a2d9e159a9f2613447f3f1d7c011cb1b1ba450dfe"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/download_pinned_model.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/download_pinned_model.before.py",
+      "bytes": 13930,
+      "sha256": "1af1bd26d34d2678b981c33b0fcfcf388fc8e2909f455761aad6d5d797836c1c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/download_pinned_model.pre-redirect.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/download_pinned_model.pre-redirect.py",
+      "bytes": 14243,
+      "sha256": "d97a2b10ba180c43fead379fa82f602207980dc2bbf06706e6881658b68c5f7e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/protected-before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/protected-before.json",
+      "bytes": 370,
+      "sha256": "439520b40bef113ecb6c36826a8636f1fd549c4e68fc93fb0fe4fd467f4ad214"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/recorded-route-validation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/recorded-route-validation.json",
+      "bytes": 1409,
+      "sha256": "583a6107c4bbaea8f8575f7f7e5671d4f0bb2f3a92688636e153798708608746"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/redirect-after.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/redirect-after.txt",
+      "bytes": 99,
+      "sha256": "334c14cf4a482377f2194f35ab739f0d53eda4d58a0df623f03f418ed9f96f23"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/redirect-after.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/redirect-after.xml",
+      "bytes": 11099,
+      "sha256": "1b160ccb943c472e7ce176c44fe8f279fc5dcbdbdda17da79a306cc899ee74b2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/redirect-before.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/redirect-before.txt",
+      "bytes": 23471,
+      "sha256": "6a6eb2208059c17b0696e509d64673d7a98d53757e55df67f170a4b7eceafce6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/redirect-before.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/redirect-before.xml",
+      "bytes": 31423,
+      "sha256": "d8ade6d5d1a48e5270c1e634a6770a027312c450e831ba1c87258a199c708dea"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/redirect-commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/redirect-commands.jsonl",
+      "bytes": 929,
+      "sha256": "e5eb7752498bdd68411a1aee9ad0a67f2ce3d72f5e78df2fa29da7778791ca02"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/redirect-verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/redirect-verification.json",
+      "bytes": 1083,
+      "sha256": "cb7ac4cd5f283b600a3fb6fa4a349ac51a9e8856d264bd572a12ed31507a6c93"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-review/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-review/verification.json",
+      "bytes": 1572,
+      "sha256": "5e3c7fd58087229a68a82ccfe852715a22fc97ee926f5601e76cdda2e42b0f0e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/download-timeout-settlement.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/download-timeout-settlement.json",
+      "bytes": 1353,
+      "sha256": "b388aa8a7a725f66a4c79ce658b538bb3fbc049629e6683a2f27395418a785f5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/downloads/qwen-ms-01/result.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/downloads/qwen-ms-01/result.json",
+      "bytes": 2893,
+      "sha256": "33d8646b26db2d7f63bca28c9b4821f65918cd31f38486fc67d06eb700f9a39e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/downloads/qwen-ms-02/result.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/downloads/qwen-ms-02/result.json",
+      "bytes": 3712,
+      "sha256": "2b2f572d6534a88b5d015b967ed3472b51fb0e7b5a15422de793c218b151c27e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/downloads/qwen-ms-final-04/result.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/downloads/qwen-ms-final-04/result.json",
+      "bytes": 2475,
+      "sha256": "e0900bba5237baab647f5be1ab1153c2698b5bd149e059ecb75e1059b7f42783"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/downloads/qwen-ms-resume-03/result.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/downloads/qwen-ms-resume-03/result.json",
+      "bytes": 2100,
+      "sha256": "a1b8357d58bfcfb56d3b48d46aa2bd4ce2abade1d1c2e07a3cbf8e2a1e75f873"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/execution-state-before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/execution-state-before.json",
+      "bytes": 7722,
+      "sha256": "0de820b90e8a2468c0a7998b78d0f7160262c519ed913d5b705c436d39ddbd59"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/final-budget-summary.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/final-budget-summary.json",
+      "bytes": 2193,
+      "sha256": "5bebfcaefbfe1a8a38f47d90a404679ec2a908668042a152907542e8931407fb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/final-delivery-consistency.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/final-delivery-consistency.json",
+      "bytes": 2171,
+      "sha256": "51131a445b2c14f8e4863c19301dd5e2eb0b2c2e5e71cf679a61e3eef3ab3a38"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/final-download-launch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/final-download-launch.json",
+      "bytes": 542,
+      "sha256": "d8e216c7a9186be022f09b789cfe31df36729140e20c4ef70bf6891775ab8311"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/final-source-preservation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/final-source-preservation.json",
+      "bytes": 770,
+      "sha256": "a9be0d9d994a4cd2cf3faec963d03fca575617c89a2b3182329af3ee04749e30"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/io-uring-current.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/io-uring-current.json",
+      "bytes": 245,
+      "sha256": "0c4082ad835c34a3129d697cd7c5301f143b18a87daca34df616cf0f9f24b1aa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/jit-build-proof/build.ninja",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/jit-build-proof/build.ninja",
+      "bytes": 4555,
+      "sha256": "08e1aa2c13a1885b8d11d3aa3590827280389339bf8a4f2a30ffaf7b8813e97a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/jit-build-proof/flashinfer_jit.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/jit-build-proof/flashinfer_jit.log",
+      "bytes": 216,
+      "sha256": "e9c17f633ebcfd096532deaf071a059b4f318c496eb6a050acb28867602953fd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/jit-build-proof/ninja_log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/jit-build-proof/ninja_log",
+      "bytes": 898,
+      "sha256": "e3684a9278472ab6bb6e4f3c88b23917affccc9e675efcce6575a912f508b677"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/jit-build-proof/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/jit-build-proof/verification.json",
+      "bytes": 1394,
+      "sha256": "2779ee528d5ac91aae7d141abb6a3e7c8bf815108af5074507dd1a3420f9d1a7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/jit-path-preflight.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/jit-path-preflight.json",
+      "bytes": 2954,
+      "sha256": "bdf78442d60a761313845c5c49c9b9121c807120a1203a384a58d6b44d2b6d39"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/ledger-before.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/ledger-before.json",
+      "bytes": 4979,
+      "sha256": "0619c21b5e8da05b5ff6f41c442ae9e6d523ea77513949b61d3354cc4df3bac5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/model-completion-accounting.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/model-completion-accounting.json",
+      "bytes": 1536,
+      "sha256": "e8f1407d5631663f0404678a8e959c4532206dac24cb66c8c7f7723585f58d3a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/model-header-audit.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/model-header-audit.json",
+      "bytes": 1220,
+      "sha256": "87fc23a94917333db7ec90f9c95a15c8abef3b1dcf8e9c270ec8596aebf65efe"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/model-header-audit.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/model-header-audit.log",
+      "bytes": 1220,
+      "sha256": "87fc23a94917333db7ec90f9c95a15c8abef3b1dcf8e9c270ec8596aebf65efe"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/SOURCE_REVIEW.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/SOURCE_REVIEW.md",
+      "bytes": 5025,
+      "sha256": "3467ee4bf4c952ecee5d4dbe9c697e7b987757fe782b742bae6c733e561acf70"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/budget-settlement.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/budget-settlement.json",
+      "bytes": 625,
+      "sha256": "f4f60d10c96057ae450c831dc33a9f3230f49e1bf5eba02ed90bb03501ac5ee9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/config.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/config.json",
+      "bytes": 663,
+      "sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/document-source-constraints.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/document-source-constraints.json",
+      "bytes": 23152,
+      "sha256": "eaa2a47c33e5106235a110cb300ea8093e8a56bf4246cfc5a3e511fffe831816"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/fetch_metadata.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/fetch_metadata.py",
+      "bytes": 2272,
+      "sha256": "086d0c5f9d70d16ef021640cfa54ec85e8b9cef2713644bcff97cff99d4abb8e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/invalid-revision-rejection.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/invalid-revision-rejection.json",
+      "bytes": 328,
+      "sha256": "c0dc9183d856925afa2469a438cfcea7919669ccfa448329b9f4861e48ae8a3c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/local-preseed.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/local-preseed.json",
+      "bytes": 259,
+      "sha256": "aa7fe91cc587cf1cc73e74646ffe30c2877cf82c2614ce21d64ca4020cef5c17"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/metadata-accounting.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/metadata-accounting.json",
+      "bytes": 376,
+      "sha256": "73dee808132eff9822e067545a759f000cfdca4761ed6522923f40b8ba0f75ea"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/metadata-requests.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/metadata-requests.jsonl",
+      "bytes": 6107,
+      "sha256": "ac9c33d20a3a81967631b19ffa98fc2e957c9f3b02edc5e241625fbbbb4c0717"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/model.safetensors.index.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/model.safetensors.index.json",
+      "bytes": 27752,
+      "sha256": "624bf7c47cd12468fdc16e38a47cf4f19e0415b859a223ba3c027eed2f0e1028"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+      "bytes": 7310,
+      "sha256": "9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-files-master.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-files-master.json",
+      "bytes": 6065,
+      "sha256": "87195f757b9b0ff6a531f6056f95a9550ed5fd88dd9bd2d51aa603da3fb311a1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-files-pinned.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-files-pinned.json",
+      "bytes": 6065,
+      "sha256": "e84a0c966b2e295e3182e47e13c678765381503ba4819e2176c3589f7352d6e4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-git-refs.bin",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-git-refs.bin",
+      "bytes": 49,
+      "sha256": "94f853231f058d318a6d1b02908eab19b77ddff6ce145f365eea8b0bda9e5e65"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-model.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-model.json",
+      "bytes": 16155,
+      "sha256": "c8c71e8ddf33eea4f0102b52fa4ccb401a71bc2d3b5a32cf0be0f3665e9ad6e8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-revisions.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-revisions.json",
+      "bytes": 322,
+      "sha256": "1ec9f09dfc51773339f6243d57eab4919bc2999e67a9acc1ec48ee33f128ca62"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/qwen25-release-blog.html",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/qwen25-release-blog.html",
+      "bytes": 51224,
+      "sha256": "feca9bb5e0bcbd95b4030c9b490ba26ebe4576d7899cc633814a42e0c2c52bcf"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/requests-started.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/requests-started.jsonl",
+      "bytes": 921,
+      "sha256": "10658db1d4914e1732948808aac65e5f6a844b68cc960bc2439e427e02c951de"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/tokenizer_config.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/tokenizer_config.json",
+      "bytes": 7305,
+      "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/weight-head-only.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/modelscope-source/weight-head-only.json",
+      "bytes": 532,
+      "sha256": "50f45fbbe6059f0d6bb84642aba3a2d2f6422e4220fd36aed48c9db86e6327d7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-capacity-01.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-capacity-01.log",
+      "bytes": 715,
+      "sha256": "66a5f9fcdcba797a546e24be55d114546a8fdb38653c186e8d3b547683affe65"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-integration-review/P1_NATIVE_INTEGRATION_REVIEW.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-integration-review/P1_NATIVE_INTEGRATION_REVIEW.md",
+      "bytes": 13192,
+      "sha256": "7d7cde99389a29af2d0868cb410426495eca862179df9c952e69e634cf1fb36f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-integration-review/capture_source_evidence.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-integration-review/capture_source_evidence.py",
+      "bytes": 3696,
+      "sha256": "60076eb10ca1f61a7566334854ed725bcf97c79d456e89dcbf41ca377d581547"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-integration-review/python-launch-source.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-integration-review/python-launch-source.txt",
+      "bytes": 2547,
+      "sha256": "dc35d316e40f69f0c27be4152bb5e93edbde7819572143f09111fe9886aa99bf"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-integration-review/source-review.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-integration-review/source-review.json",
+      "bytes": 5183,
+      "sha256": "fef227742f0a043bb3710880c89cac7729f73e40216ca823ce86910fb7802775"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-01.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-01.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-01.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-01.log",
+      "bytes": 997,
+      "sha256": "cea386edb3be0846a0b66a64f3aff3f6f948c2dd9f542f91cda0ef29e504b2e5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-02-launch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-02-launch.json",
+      "bytes": 1345,
+      "sha256": "c0ea804e4298bc4d8166a90e79ae9dec6d1bf8665a13e4625de2808c28d3a0a1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-02.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-02.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-02.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-02.log",
+      "bytes": 995,
+      "sha256": "5d4c2b2fd0535076d5b372bf9286bc2034355b3fd26d284fdbd624865b451b2a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-03-launch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-03-launch.json",
+      "bytes": 1687,
+      "sha256": "5850db87a27545f1918e334989af9f803523bbedd804781a3c731f7b7ed6d884"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-03.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-03.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-03.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-03.log",
+      "bytes": 997,
+      "sha256": "b2805087cd63ae710045e58506468c7c685e2976c6bedb056b3a07491731adc2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-04-launch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-04-launch.json",
+      "bytes": 1686,
+      "sha256": "8a74443c343e2277c429a736a7e90abfef8e47b5881b43617d0b0b49a55e1053"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-04.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-04.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-04.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-04.log",
+      "bytes": 996,
+      "sha256": "4ae0ec52d903f6784703f9076357f26fabc085d965b6006adb275439934db49e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/0001-provider-provenance.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/0001-provider-provenance.patch",
+      "bytes": 16438,
+      "sha256": "e8bec3b4c71ebfbbab4cd5f2d5ca0093bbcce5a8d04ce062f658b72e3ae0b238"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/README.md",
+      "bytes": 5806,
+      "sha256": "914adec19f11424ba9f681e607122c03f38bcd837c4c0552b41d5a21013b0ee9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cli-0.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cli-0.log",
+      "bytes": 780,
+      "sha256": "ca14568603baf4c6b24aa937340d8bb01224a4fd63877be346532379a4bc4136"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cli-1.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cli-1.log",
+      "bytes": 700,
+      "sha256": "14ab18a4abce85a34976580746f002e1ce6edf87c2d35913ba998d71427eccd9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/commands.jsonl",
+      "bytes": 449,
+      "sha256": "8074abe6feba568c6a19cd8333a8134d0993258757b3c883187a0b9068172048"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cpu-tests.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cpu-tests.log",
+      "bytes": 99,
+      "sha256": "ea65c7d0dfcc1c0ad9af137bd2c08e6c0b20d558e81ca57551eb61e8d5e026e4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cpu-tests.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cpu-tests.xml",
+      "bytes": 3786,
+      "sha256": "49d0bfc7ede3d7fcab8936ef7e99fe8b49e056e622ccff8b4a6168f80003401a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cpu-verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/cpu-verification.json",
+      "bytes": 2238,
+      "sha256": "08df8cc8912d47467ae5e619c37a0d0613001e3bbac91255479883d4f38f7d90"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/native_gpu_prefix_smoke.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/native_gpu_prefix_smoke.before.py",
+      "bytes": 12396,
+      "sha256": "6747fd0e0a7e5f454139e7254d0cf77b03be6340f80267b2df127fde3a622c7f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/runtime-paths-cpu.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/runtime-paths-cpu.json",
+      "bytes": 786,
+      "sha256": "1abc417383c851667b747d99fa927411e638e4151b74a8bce39ec510e093e283"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/verify_cpu.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-adaptation/verify_cpu.py",
+      "bytes": 5003,
+      "sha256": "f7559341650e018fe51819f37e2484c7c916003243d4edcc7fa11ba17b8c4a14"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/0002-native-prefix-run-directory.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/0002-native-prefix-run-directory.patch",
+      "bytes": 790,
+      "sha256": "66687178ff75c6af8d455eb4a29714a5a2d3600826eedb8a134a313766e368f4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/README.md",
+      "bytes": 1656,
+      "sha256": "d9605f153f0c128ea810a6318960028a0520c22f174079c652ea2a5249558497"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/cpu-tests.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/cpu-tests.log",
+      "bytes": 99,
+      "sha256": "dbec255dff3ea655611e0b5af6d7a01b19e6a9e60a40542837e7bbc5e693320f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/cpu-tests.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/cpu-tests.xml",
+      "bytes": 3786,
+      "sha256": "0db80b2376515659a2038b5657b2031960982e66d607b51e6a91dcdad060b82d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/native_gpu_prefix_smoke.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/native_gpu_prefix_smoke.before.py",
+      "bytes": 16984,
+      "sha256": "e2badf5a54ed9240dd3a103fc0b05e8814f28923454ed3c9570b2f8d074b5e0d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/verification.json",
+      "bytes": 587,
+      "sha256": "610f157262889eed7ddaef7b16c66b84f515bf35fb5e9254ba33d3115df53a72"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/verify_source.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-cwd/verify_source.py",
+      "bytes": 1702,
+      "sha256": "89b74ff6dfbbfbd0caafca8f148b797da142f1d3350e35d6729bbf50ef8fd5d4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-flashinfer-review/review.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-flashinfer-review/review.json",
+      "bytes": 6844,
+      "sha256": "eaf3a899ba0ecae3bef42d2053f17023dfc614bb734117a6a0bdf6a7dc6f7094"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/0004-native-prefix-short-ipc-and-prefill.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/0004-native-prefix-short-ipc-and-prefill.patch",
+      "bytes": 1306,
+      "sha256": "6025c22f783d8e389c2f5eb038d42de04e68a5ac25e5fd71abb0ce0852c427a2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/README.md",
+      "bytes": 4557,
+      "sha256": "df9505e2aceed63c998e9ea2fbdd9065a09f574ac2ee9af52126de1086b531f2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/cli-help.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/cli-help.log",
+      "bytes": 780,
+      "sha256": "ca14568603baf4c6b24aa937340d8bb01224a4fd63877be346532379a4bc4136"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/cpu-tests.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/cpu-tests.log",
+      "bytes": 99,
+      "sha256": "bd1d9695697bc055f96542ed46336315c1b53a5ab2042bb5a4b04ca7c2d5ee57"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/cpu-tests.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/cpu-tests.xml",
+      "bytes": 7847,
+      "sha256": "1ad6fc69e8103c7e3f5d094b443f5925ede4aa7ee5f6125a4c105641bd6af404"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/native_gpu_prefix_smoke.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/native_gpu_prefix_smoke.before.py",
+      "bytes": 21216,
+      "sha256": "ae8ffb8320785d582d6991672b8132918f1c616032c04e7aabc40bd605f8dfc2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/patch-forward-check/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/patch-forward-check/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "bytes": 21216,
+      "sha256": "ae8ffb8320785d582d6991672b8132918f1c616032c04e7aabc40bd605f8dfc2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/test_model_provenance.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/test_model_provenance.before.py",
+      "bytes": 8254,
+      "sha256": "8d698a73b0c6e5236a40f9edcf65d1476dc4a1fef0cdc8c47e1c61f8f35a685c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/verification.json",
+      "bytes": 1077,
+      "sha256": "b3ad36dc6cf94610c705c7b9b595811d0f15055611b747abd456a1f4999ab662"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/verification.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/verification.log",
+      "bytes": 1077,
+      "sha256": "b3ad36dc6cf94610c705c7b9b595811d0f15055611b747abd456a1f4999ab662"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/verify_cpu.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-ipc-path/verify_cpu.py",
+      "bytes": 4098,
+      "sha256": "60023db2dc9b453cbd2b529f717cfdc880c5933d1eb402b5a83478d6e1050612"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/0005-native-prefix-auto-kv-bf16.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/0005-native-prefix-auto-kv-bf16.patch",
+      "bytes": 3644,
+      "sha256": "2ada5b01178e8427eafb7e3b956ed9c3459c87cfe04551ce78d9db1b3010018c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/README.md",
+      "bytes": 4320,
+      "sha256": "a48dfc5911901e753a94058782cded4918e2b885c372f9f91aa9149c4ff3fcb5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/cli-help.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/cli-help.log",
+      "bytes": 780,
+      "sha256": "ca14568603baf4c6b24aa937340d8bb01224a4fd63877be346532379a4bc4136"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/cpu-tests.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/cpu-tests.log",
+      "bytes": 99,
+      "sha256": "7594fc19ca9752c876e4d8d93e5d33d3cbc6752c6f6bfb3fa21204847977ea23"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/cpu-tests.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/cpu-tests.xml",
+      "bytes": 9333,
+      "sha256": "fdf5fd8ebafdc29f65c722d8428593f02100f183f3868d22a0cc230f25d179cd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/native_gpu_prefix_smoke.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/native_gpu_prefix_smoke.before.py",
+      "bytes": 21381,
+      "sha256": "6c2c679c672c41401c2ed82ecbf5fd2804777aabf695a280f84b83bf7d86f042"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/patch-forward-check/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/patch-forward-check/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "bytes": 21381,
+      "sha256": "6c2c679c672c41401c2ed82ecbf5fd2804777aabf695a280f84b83bf7d86f042"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/verification.json",
+      "bytes": 1910,
+      "sha256": "4be88c8054c9ab439662b750cbccb5aefb39d7cb4435df200416b70892161102"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/verification.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/verification.log",
+      "bytes": 1910,
+      "sha256": "4be88c8054c9ab439662b750cbccb5aefb39d7cb4435df200416b70892161102"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/verify_cpu.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-dtype/verify_cpu.py",
+      "bytes": 4664,
+      "sha256": "7bfcdf23a6f1bf2e8ae78c9ab38b389b470d0705430355a905b7a0ee6da4adc3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/0003-native-prefix-kv-storage-metadata.before-env.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/0003-native-prefix-kv-storage-metadata.before-env.patch",
+      "bytes": 4844,
+      "sha256": "71f46f9f8e2eaf5156550fa7e5541a70da9b511a33e40dd53260b0b80e737c20"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/0003-native-prefix-kv-storage-metadata.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/0003-native-prefix-kv-storage-metadata.patch",
+      "bytes": 6176,
+      "sha256": "657efb3d30e7ab02df30a9f4e4b4fe89897904ac8f2b95ce7462cabc7913db46"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/README.md",
+      "bytes": 5134,
+      "sha256": "27a31c408aa17901a8bdd3f9da9526ec7107e52f4c07317ab502d9edd283b0c5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/cli-help.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/cli-help.log",
+      "bytes": 780,
+      "sha256": "ca14568603baf4c6b24aa937340d8bb01224a4fd63877be346532379a4bc4136"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/cpu-tests.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/cpu-tests.log",
+      "bytes": 99,
+      "sha256": "d559c8bea60eb8697c13a54e21190cdcc399b5ea31c94bfe3232abd5cbe56e38"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/cpu-tests.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/cpu-tests.xml",
+      "bytes": 7597,
+      "sha256": "2af8aef511e25492f18a9cc07324d7408b3879c93151c88b509148f57843a0c3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/native_gpu_prefix_smoke.before-env.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/native_gpu_prefix_smoke.before-env.py",
+      "bytes": 20976,
+      "sha256": "a9c95af960073d387db58b8da470be41c8c76e8995b300904b8f6d8f9bb05ea2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/native_gpu_prefix_smoke.before.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/native_gpu_prefix_smoke.before.py",
+      "bytes": 17134,
+      "sha256": "37eebb38bfa2d79af8219172c55838e2f4ad01f6d8a6cbc0e938ae1600e9d569"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/patch-forward-check/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/patch-forward-check/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "bytes": 17134,
+      "sha256": "37eebb38bfa2d79af8219172c55838e2f4ad01f6d8a6cbc0e938ae1600e9d569"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/verification.before-env.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/verification.before-env.json",
+      "bytes": 815,
+      "sha256": "80162a22ce9ccd898833409a0f76158e4ef434986f1ae4ce012cdea6b855bff2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/verification.json",
+      "bytes": 815,
+      "sha256": "7ce94dce965135d89d39c2b9d17d8201c8b837f67be39f11bfad7833e2e774c7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/verification.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/verification.log",
+      "bytes": 815,
+      "sha256": "7ce94dce965135d89d39c2b9d17d8201c8b837f67be39f11bfad7833e2e774c7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/verify_cpu.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-kv-metadata/verify_cpu.py",
+      "bytes": 3415,
+      "sha256": "163bac953d968d3bc7a6a5c2725d7f36f7025d3f85d01f46cd5fbba198d27ce6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/native-prefix-launch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/native-prefix-launch.json",
+      "bytes": 1344,
+      "sha256": "fc4aedbbc550e4b844a600b880ff339060737d1ef85922b270f9faa853ff3808"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/permissions-before.yaml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/permissions-before.yaml",
+      "bytes": 672,
+      "sha256": "77cbc07bcc9026be94fe91116dc48c3d2d44e130ef72e67aac6939a45c1848a0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/PLATFORM_IO_URING_REQUEST-before.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/PLATFORM_IO_URING_REQUEST-before.md",
+      "bytes": 2182,
+      "sha256": "77d95affa2975f0ca9cb615ec83e27e9a05bd429edbae55d87ac4a38d6b0dfeb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/README.md",
+      "bytes": 3923,
+      "sha256": "f067499ce91f08186ca5102b7be3c890486a84afe71061dc58d38187668988f2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/commands.jsonl",
+      "bytes": 2950,
+      "sha256": "c206705aaa7e981659177299d78c099730ebd531924211584f32fedbad55d2b2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/io_uring_setup_probe.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/io_uring_setup_probe.py",
+      "bytes": 5637,
+      "sha256": "97d75b973783d83c4c36a2701f3e6261b40bed775c9c52a25094ea33ecd27dc9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/probe-manifest.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/probe-manifest.json",
+      "bytes": 1354,
+      "sha256": "c6cfc0edd09a4e9fe4cc61c7bf24448da20861b09ef3623dbd5d70eb23939848"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/record-probe-manifest.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/record-probe-manifest.txt",
+      "bytes": 1354,
+      "sha256": "c6cfc0edd09a4e9fe4cc61c7bf24448da20861b09ef3623dbd5d70eb23939848"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/setup-probe-once.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/setup-probe-once.txt",
+      "bytes": 1115,
+      "sha256": "1b9f157253da5e1f421b11fe19743902e3d03301a573af0a15b6e943e883f259"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/setup-probe.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/setup-probe.json",
+      "bytes": 1115,
+      "sha256": "1b9f157253da5e1f421b11fe19743902e3d03301a573af0a15b6e943e883f259"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/source-check.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/source-check.txt",
+      "bytes": 107,
+      "sha256": "0c19f776269fab98863f1c40143190d86f718074efd0ba90d54b06a90bbd7717"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/preflight-command.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/preflight-command.json",
+      "bytes": 386,
+      "sha256": "b7af5e2a9936d2c6124046a37dd9a9e684307157b8285c1379fd77b59808b406"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/preflight.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/preflight.json",
+      "bytes": 223,
+      "sha256": "484cb50076221d024acba5e4be406af10b8b50ccda6fff7348c9e7803ddae5b1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/qwen-download-01.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/qwen-download-01.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/qwen-download-01.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/qwen-download-01.log",
+      "bytes": 1158,
+      "sha256": "57e17d96889dc777d404212b42e56f809cf5ab0594e09d8ab6d73dc3e27f9271"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/qwen-download-02.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/qwen-download-02.exit",
+      "bytes": 4,
+      "sha256": "ca2ebdf97d7469496b1f4b78958f9dc8447efdcb623953fee7b6996b762f6fff"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/qwen-download-02.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/qwen-download-02.log",
+      "bytes": 1262,
+      "sha256": "532220ec66fb3a33bf6c05f7410140752725ce31930e2f48e82daa3dda7e8840"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/qwen-final-04.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/qwen-final-04.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/qwen-final-04.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/qwen-final-04.log",
+      "bytes": 411,
+      "sha256": "f47c3a74d9e2403d5310baae89ea3110d90ddb68316daaaea2ffac9121ada648"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/qwen-resume-03.exit",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/qwen-resume-03.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/qwen-resume-03.log",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/qwen-resume-03.log",
+      "bytes": 2100,
+      "sha256": "a1b8357d58bfcfb56d3b48d46aa2bd4ce2abade1d1c2e07a3cbf8e2a1e75f873"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/redirect-review/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/redirect-review/README.md",
+      "bytes": 1047,
+      "sha256": "0ffcb6305d2c0475e32da16311e14d774c62c7f1ab8e28ec5fbad651365a361f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/redirect-review/allowlist-evidence.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/redirect-review/allowlist-evidence.json",
+      "bytes": 1998,
+      "sha256": "aba16d5bd8a45055def342627efac29ad1f24e3a567b467ec7b02b28fe95c544"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/redirect-review/budget-settlement.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/redirect-review/budget-settlement.json",
+      "bytes": 556,
+      "sha256": "ed4985129b6c21b2e832d41bf880dc22c22bee334d46dce1cf4b1024234e419f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/redirect-review/content-address-check.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/redirect-review/content-address-check.json",
+      "bytes": 1695,
+      "sha256": "84b091cc280ace237909ff03d0f9a5fafae08d66cee35f102aed33d284eeca8f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/redirect-review/redirect-review-public.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/redirect-review/redirect-review-public.json",
+      "bytes": 24706,
+      "sha256": "bb4c856a221b5b1de17599d524d3cf4eca113ba8a75f058350fd4a12cdf381d9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/redirect-review/review_headers.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/redirect-review/review_headers.py",
+      "bytes": 6265,
+      "sha256": "aec6948dc57d30c2a748aac7574a35af435e701af103e69dc8bf514da3767678"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/resume-launch.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/resume-launch.json",
+      "bytes": 1037,
+      "sha256": "bf659331632e2728c1e3d57c116d4d02e77efe4de5c8ad5f7cc1e66cea890526"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/resume-review/0001-explicit-resume.patch",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/resume-review/0001-explicit-resume.patch",
+      "bytes": 29678,
+      "sha256": "37f3d0016756ef19f42196aa69a6ca47fd5c2a71f976e33ff8d2f3bd623071c2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/resume-review/README.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/resume-review/README.md",
+      "bytes": 6561,
+      "sha256": "33eac406673faf868ed07eda5b2fed0adf0e15f683b2f51b43e895e485d63b16"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/resume-review/commands.jsonl",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/resume-review/commands.jsonl",
+      "bytes": 1092,
+      "sha256": "8dbfda33a66dd70b8a8203fdb7bb41aa26f318443e12f207b514327697301b05"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/resume-review/first.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/resume-review/first.txt",
+      "bytes": 180,
+      "sha256": "699ee9e7b71f4b868d51e6eca885cf30da4a977ea025c07155758c2e01d94a97"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/resume-review/first.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/resume-review/first.xml",
+      "bytes": 18477,
+      "sha256": "23f04b6c4d187de9c53837e4f87d894e37b5c339f538dce740ecabcf9bf0c443"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/resume-review/verification.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/resume-review/verification.json",
+      "bytes": 1398,
+      "sha256": "b8b6bbe1624ac5e61656228a0e3138e6befa09dd5e4f6efb26a8945603fc6a3a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/source-preservation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/source-preservation.json",
+      "bytes": 629,
+      "sha256": "5dfd53e2aba2f472956c4bd107e74fe06eccc54735d9aaaa5f60d78d2b605287"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/author-branches.json",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/author-branches.json",
+      "bytes": 16484,
+      "sha256": "fc327b2c62eb93cd1b417df2f03573f9dda1a4b2013ed67a38b844f80626937f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/author-lifecycle-comparison.json",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/author-lifecycle-comparison.json",
+      "bytes": 206,
+      "sha256": "e4732b1ab0ac16666f3a2171fb8cd4e052192a29f0c23e212204fa8ad067ecd6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/capability-report.json",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/capability-report.json",
+      "bytes": 1099,
+      "sha256": "479c60b392f03fcbe64c5428541f54a89e41a07db1902dcdd11b362e626d51ea"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/cpu-venv-freeze.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/cpu-venv-freeze.txt",
+      "bytes": 45,
+      "sha256": "7c5641905a2aa57d2bf241c8b4cc99f7cabd020ca5dedfff518f3ae231abfb90"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/local-status-before.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/local-status-before.txt",
+      "bytes": 10583,
+      "sha256": "b243a25d313a9b0e9e9517adba0736066f56b52dfa00698dd9fc6ccbd7a974f7"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/odirect-probe.bin",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/odirect-probe.bin",
+      "bytes": 4096,
+      "sha256": "c8f5d0341d54d951a71b136e6e2afcb14d11ed8489a7ae126a8fee0df6ecf193"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/source-symbols.json",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/source-symbols.json",
+      "bytes": 12470,
+      "sha256": "6b7f9bb588b70c416e6487c08617a87a8cf318d6de592bf986eb541fb78f215c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/upstream-baseline.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/upstream-baseline.txt",
+      "bytes": 3709,
+      "sha256": "ca77a7e6d2badef620a76d9a274ee5f8dfaa628ae72e9adb9d18d8247bebd047"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p0/upstream-baseline.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/p0/upstream-baseline.xml",
+      "bytes": 39735,
+      "sha256": "9d279c83faa97b95e605d496181c16ddf7c899a14d71889b5f8560de730aad29"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/cpu-final.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/cpu-final.txt",
+      "bytes": 1544,
+      "sha256": "be6bf0417f7b7d740ee8f0fb98888101496d0c83513aa3eaec980320d595d8e4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/cpu-final.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/cpu-final.xml",
+      "bytes": 53625,
+      "sha256": "4de3f120f3bf34d0b614f6154ac083f4f526f8146836a64db7c2d9dfecc96514"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/cpu-verified.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/cpu-verified.txt",
+      "bytes": 1544,
+      "sha256": "a4b6b44738d96a32af1bd465f9578d71c5b30d64b93dae2a4c9069409eadcd0d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/cpu-verified.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/cpu-verified.xml",
+      "bytes": 53898,
+      "sha256": "1f347157f27ab8b6763c7105845e44bf7ecc72cd13c15e1ac097b3eaae657f8c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/native-path-preservation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/native-path-preservation.json",
+      "bytes": 423,
+      "sha256": "545b2404b02138089536fc5a6a622ec1dad1ed3a2f99eb2339bb42bc63558bde"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/preflight.json",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/preflight.json",
+      "bytes": 562,
+      "sha256": "217655c9cf839cb29a232a490e5f5fc0218dd3144727fb3564770be561097e69"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/project-cpu.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/project-cpu.txt",
+      "bytes": 99,
+      "sha256": "ce618b36ad02cd6cef55cce4ea8779227f902b67b8c8995f646116fe4b4efc93"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/project-cpu.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/project-cpu.xml",
+      "bytes": 8041,
+      "sha256": "921c4b2d59fb98cb2132e7ba3f515a9b456dcd700d8c4fde1872fce8ef798e92"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/python-packages.json",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/python-packages.json",
+      "bytes": 9785,
+      "sha256": "9e7bde7633ca9b86f73059adabc15b76cead8daccf7fb4b88068b546bbb28efb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/test-results.json",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/test-results.json",
+      "bytes": 147,
+      "sha256": "d1b12513c6e21a37d8ccf9b5fc8282a8e359da451b509e58e635dae72a61ab9f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/upstream-common.txt",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/upstream-common.txt",
+      "bytes": 2470,
+      "sha256": "41ffe994e9734110e8eba7b5b570c87a7592c7b20631702b7bee71dbb1df75e9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/p1/upstream-common.xml",
+      "archive_path": "project/artifacts/prefix_io_v1/p1/upstream-common.xml",
+      "bytes": 38465,
+      "sha256": "c5b37315d28c409ff63decdbbfa85bbb25679e8e21a6ceded0a02d449da3a822"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/workspace-protection.json",
+      "archive_path": "project/artifacts/prefix_io_v1/workspace-protection.json",
+      "bytes": 356,
+      "sha256": "d4cbce37acdb2f22e367568ccc0f10babcce1df418cac36cf8613c7e6a32d01c"
+    },
+    {
+      "path": "docs/prefix_io_v1/00_START_HERE.md",
+      "archive_path": "project/docs/prefix_io_v1/00_START_HERE.md",
+      "bytes": 3009,
+      "sha256": "6f80fd7e52907d76640b6cc989ee2a75b33ceb7bbfb43e2c9dc984c467328793"
+    },
+    {
+      "path": "docs/prefix_io_v1/01_ARCHITECTURE.md",
+      "archive_path": "project/docs/prefix_io_v1/01_ARCHITECTURE.md",
+      "bytes": 17528,
+      "sha256": "7a88ab1bfe3ba74766904900a594b99e89e55076d82ce92a81a5810a959ff00a"
+    },
+    {
+      "path": "docs/prefix_io_v1/02_CONTROL_AND_CONTRACTS.md",
+      "archive_path": "project/docs/prefix_io_v1/02_CONTROL_AND_CONTRACTS.md",
+      "bytes": 19725,
+      "sha256": "b016ca08f1ffcfe7f41a322c3a7a5ee6e1dbf5874b2b784045e145774516234c"
+    },
+    {
+      "path": "docs/prefix_io_v1/03_IMPLEMENTATION_AND_EXPERIMENTS.md",
+      "archive_path": "project/docs/prefix_io_v1/03_IMPLEMENTATION_AND_EXPERIMENTS.md",
+      "bytes": 19535,
+      "sha256": "6d35bb47d4ec21ceb08aeeca8959cfcc60e79c2091bb2173c414f82cf47cdc17"
+    },
+    {
+      "path": "docs/prefix_io_v1/04_CODEX_EXECUTION.md",
+      "archive_path": "project/docs/prefix_io_v1/04_CODEX_EXECUTION.md",
+      "bytes": 4557,
+      "sha256": "49e1ba757c99a8a1e872d56bd519ed10b450d8960f3390a54d1f0c32a5d3e5f2"
+    },
+    {
+      "path": "docs/prefix_io_v1/05_SOURCES_AND_AUDIT.md",
+      "archive_path": "project/docs/prefix_io_v1/05_SOURCES_AND_AUDIT.md",
+      "bytes": 7843,
+      "sha256": "ec5d53fe1509bdc04511ed6d2e6d418ec06de815a374d7beba0e3b0de5fb0e7a"
+    },
+    {
+      "path": "docs/prefix_io_v1/BASELINE_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/BASELINE_REPORT.md",
+      "bytes": 3555,
+      "sha256": "025b4787ab2b18ee87b4afffc01a56c5f6da1c0d83421561d33d8296754f2339"
+    },
+    {
+      "path": "docs/prefix_io_v1/CAPABILITY_MATRIX.md",
+      "archive_path": "project/docs/prefix_io_v1/CAPABILITY_MATRIX.md",
+      "bytes": 4912,
+      "sha256": "00476281d78b80c40b53918c426f24074b5c3d08e55e19b4fafb335bff6b1132"
+    },
+    {
+      "path": "docs/prefix_io_v1/CONTINUATION_01_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/CONTINUATION_01_REPORT.md",
+      "bytes": 6676,
+      "sha256": "73c7ba629bb64f90d2798381912d31804baa0eaf9a3e4ae5eff666945e9727c6"
+    },
+    {
+      "path": "docs/prefix_io_v1/CONTINUATION_02_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/CONTINUATION_02_REPORT.md",
+      "bytes": 7967,
+      "sha256": "b740a300860dc7f532c6c6823f8597beceed9d516db6c874a932c4ec42e0c5fb"
+    },
+    {
+      "path": "docs/prefix_io_v1/DELIVERY_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/DELIVERY_REPORT.md",
+      "bytes": 5341,
+      "sha256": "edb74556c3abe85cc497b617d4fd34bde460786ccc0ce580450f9c7c80da8622"
+    },
+    {
+      "path": "docs/prefix_io_v1/FULL_PLAN.md",
+      "archive_path": "project/docs/prefix_io_v1/FULL_PLAN.md",
+      "bytes": 83132,
+      "sha256": "cbfca04a7bd48b0f31e572f8352ddd05c640397953b58e556b0fbaab270b5360"
+    },
+    {
+      "path": "docs/prefix_io_v1/GPU_STAGE_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/GPU_STAGE_REPORT.md",
+      "bytes": 2284,
+      "sha256": "39b59b7f5b3db0139c872d17d43a25fd8f92833bc2428a6d674ec0a58c2c2141"
+    },
+    {
+      "path": "docs/prefix_io_v1/LIFECYCLE_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/LIFECYCLE_REPORT.md",
+      "bytes": 7456,
+      "sha256": "91968a7929af29657e60f07d4ec271511ec22121c3ebd4b7b8edea4822622d38"
+    },
+    {
+      "path": "docs/prefix_io_v1/NEW_SERVER_01_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/NEW_SERVER_01_REPORT.md",
+      "bytes": 5561,
+      "sha256": "90fc6ff5c3b83b5b015b0d75887d5213f6ba9307fdbdbaf71cfbf0f8b16c022a"
+    },
+    {
+      "path": "docs/prefix_io_v1/NEW_SERVER_02_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/NEW_SERVER_02_REPORT.md",
+      "bytes": 8251,
+      "sha256": "daf15610c783f8dbd06f55e8db4729544859ca783a1ac8debff52afc2213335e"
+    },
+    {
+      "path": "docs/prefix_io_v1/NEW_SERVER_03_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/NEW_SERVER_03_REPORT.md",
+      "bytes": 8618,
+      "sha256": "11d1afbd1febb8bf49900d650de3ba53cb4434348c927f2cb897ba85f433c5c2"
+    },
+    {
+      "path": "docs/prefix_io_v1/PACKAGE_CHECK.json",
+      "archive_path": "project/docs/prefix_io_v1/PACKAGE_CHECK.json",
+      "bytes": 2161,
+      "sha256": "5c8d57463ccb03569527d0a05799305229ca33f9e691e64651807c0a7df92494"
+    },
+    {
+      "path": "docs/prefix_io_v1/PATCH_MAP.md",
+      "archive_path": "project/docs/prefix_io_v1/PATCH_MAP.md",
+      "bytes": 5761,
+      "sha256": "9b17ca77a846f04bdfd179e0ec1cd51e1ab72e1152eccc18c8c871668595b7e3"
+    },
+    {
+      "path": "docs/prefix_io_v1/PLATFORM_IO_URING_REQUEST.md",
+      "archive_path": "project/docs/prefix_io_v1/PLATFORM_IO_URING_REQUEST.md",
+      "bytes": 3125,
+      "sha256": "fedfab823a5ab48296e8185d545965f02a03afb3247c9d5687f84e32259bf3cc"
+    },
+    {
+      "path": "docs/prefix_io_v1/REPRODUCE_CPU.md",
+      "archive_path": "project/docs/prefix_io_v1/REPRODUCE_CPU.md",
+      "bytes": 3542,
+      "sha256": "5bd4213b142a29f79138fcc029bcda1c3f8c72e43740f4a3e58769c9e4300882"
+    },
+    {
+      "path": "docs/prefix_io_v1/REPRODUCE_NEW_SERVER_02.md",
+      "archive_path": "project/docs/prefix_io_v1/REPRODUCE_NEW_SERVER_02.md",
+      "bytes": 4302,
+      "sha256": "70296288de6f99add27074c52678e453071589ad4d9e81cbc32ca8c70d199132"
+    },
+    {
+      "path": "docs/prefix_io_v1/REPRODUCE_NEW_SERVER_03.md",
+      "archive_path": "project/docs/prefix_io_v1/REPRODUCE_NEW_SERVER_03.md",
+      "bytes": 7708,
+      "sha256": "e64a6c237444e89c296747da73900834993dda947046001b4477a8d0975a38b2"
+    },
+    {
+      "path": "docs/prefix_io_v1/TEST_MATRIX.md",
+      "archive_path": "project/docs/prefix_io_v1/TEST_MATRIX.md",
+      "bytes": 3164,
+      "sha256": "89ce1d4ecbf6ee7efa15af8bdb3827f89eb653412f424c8204c63bd313dde05e"
+    },
+    {
+      "path": "docs/prefix_io_v1/TEST_MATRIX_CONTINUATION_01.md",
+      "archive_path": "project/docs/prefix_io_v1/TEST_MATRIX_CONTINUATION_01.md",
+      "bytes": 1932,
+      "sha256": "fe48cc717c5f432bebdeee698b5ec8d5835bcc3333b71d805b6672a747caa2c0"
+    },
+    {
+      "path": "docs/prefix_io_v1/WORKSPACE_AUDIT.md",
+      "archive_path": "project/docs/prefix_io_v1/WORKSPACE_AUDIT.md",
+      "bytes": 2216,
+      "sha256": "eff3f8604df2c520feaf83e3cd6405ea90fb15bbac2d0760a501b778acad12d3"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/controller_spec.yaml",
+      "archive_path": "project/docs/prefix_io_v1/templates/controller_spec.yaml",
+      "bytes": 1751,
+      "sha256": "e7893f55761aff905ba595726a420e399567bbda7512db740d275e38a4e767a2"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/dependency_lock.candidate.json",
+      "archive_path": "project/docs/prefix_io_v1/templates/dependency_lock.candidate.json",
+      "bytes": 2262,
+      "sha256": "245a0ca4041aeb7401c4382e4fe5a48af71a9e11974052dd68e12f8db00d515d"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/execution_state.initial.json",
+      "archive_path": "project/docs/prefix_io_v1/templates/execution_state.initial.json",
+      "bytes": 3286,
+      "sha256": "f19a2c9169b5d2a6c8d9cd0289a218fd5d3353b4961723eaa2437f36a5fb24f1"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/experiment_spec.yaml",
+      "archive_path": "project/docs/prefix_io_v1/templates/experiment_spec.yaml",
+      "bytes": 1912,
+      "sha256": "040946aa63fd29384c8eb7b32c1753dd8bde9e242a44173977ffcf478ec015a0"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/permissions.yaml",
+      "archive_path": "project/docs/prefix_io_v1/templates/permissions.yaml",
+      "bytes": 561,
+      "sha256": "148eb81627a8c862eb549e33e0c05eeeb4b10f50747265c4260356634c5c6452"
+    },
+    {
+      "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+      "archive_path": "project/experiments/prefix_io_v1/configs/permissions.yaml",
+      "bytes": 672,
+      "sha256": "77cbc07bcc9026be94fe91116dc48c3d2d44e130ef72e67aac6939a45c1848a0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/execution_state.json",
+      "archive_path": "project/experiments/prefix_io_v1/execution_state.json",
+      "bytes": 9673,
+      "sha256": "43f04fa4a3381f5654d38fc3a262b50f8d694f8ebe7eef513e6ef62d1046775e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+      "archive_path": "project/experiments/prefix_io_v1/gpu-budget-ledger.json",
+      "bytes": 21979,
+      "sha256": "9e8fe2682aca1e528f068c1feb114b75d91e3fca91e4fede981cd6eedd00d8a8"
+    },
+    {
+      "path": "experiments/prefix_io_v1/locks/dependency-lock.json",
+      "archive_path": "project/experiments/prefix_io_v1/locks/dependency-lock.json",
+      "bytes": 11960,
+      "sha256": "b7dc91c207eadccbe053d7a4aca5cad8e5c241b666134d9fb5f927d0e217074f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/locks/environment.json",
+      "archive_path": "project/experiments/prefix_io_v1/locks/environment.json",
+      "bytes": 2032,
+      "sha256": "552f990c6919b4e5f30c78e55472db87c44c7d26792bafa80dfb9abc7eca9f01"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-copy-01/copy.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-copy-01/copy.json",
+      "bytes": 1651,
+      "sha256": "036b4e9574f742cc8186ae115de46707bc757385bfa54c7845423052afd78199"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-copy-01/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-copy-01/process.log",
+      "bytes": 1651,
+      "sha256": "036b4e9574f742cc8186ae115de46707bc757385bfa54c7845423052afd78199"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-copy-01/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-copy-01/result.json",
+      "bytes": 917,
+      "sha256": "6778f15a8ff0594d131588558eb6bc449a053f9c1a5f31ae96f5253b5b112f1b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-import-01/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-import-01/process.log",
+      "bytes": 7346,
+      "sha256": "f99c3d5f4337211f3a4db45cc835c6a10aa5dda2bc582c0c0e2188d387a6d61a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-import-01/qualification.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-import-01/qualification.json",
+      "bytes": 7088,
+      "sha256": "73a5e71165d55000f3d248cb88f7db6891743856d5c63397b169529e312dcba1"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-import-01/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-import-01/result.json",
+      "bytes": 705,
+      "sha256": "cdfea9008d6cb5381211d33519ef89638d08247904df8a2420ec4cf2e7145100"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-import-02/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-import-02/process.log",
+      "bytes": 7389,
+      "sha256": "2e08f589e2c9d6e85f80fddc56a88978d2e8a17654c52a8abf3dba5ee739c45e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-import-02/qualification.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-import-02/qualification.json",
+      "bytes": 7131,
+      "sha256": "077ddcb5d0ced53c62ce0f4ef44e351b294e76bb8f8c19b4f1c248c2511692ce"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-import-02/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-import-02/result.json",
+      "bytes": 705,
+      "sha256": "7376489184d022452837595e32ba9f67d75c32b75c9334337adf98673fe44cbf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-platform-01/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-platform-01/process.log",
+      "bytes": 1414,
+      "sha256": "d949f0c259070f73ed64a11b0bc2734d1ecc77cd9fef78e72bfabdf6993dab80"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-platform-01/qualification.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-platform-01/qualification.json",
+      "bytes": 1414,
+      "sha256": "d949f0c259070f73ed64a11b0bc2734d1ecc77cd9fef78e72bfabdf6993dab80"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-platform-01/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-platform-01/result.json",
+      "bytes": 775,
+      "sha256": "8d316793fef045ac6d950a80f894be1de269721e9908895546f0119612a317ac"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-platform-02/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-platform-02/process.log",
+      "bytes": 384,
+      "sha256": "103d6831a75dfcb2c2ae07fd7cb8568c2d2becf34edb6b2acbc1f24952535e49"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-platform-02/qualification.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-platform-02/qualification.json",
+      "bytes": 384,
+      "sha256": "103d6831a75dfcb2c2ae07fd7cb8568c2d2becf34edb6b2acbc1f24952535e49"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/author-platform-02/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/author-platform-02/result.json",
+      "bytes": 775,
+      "sha256": "9c7b78ef906e663c9ed68f09f75ffc669bf290caf1caab9ac0d1bf55974b0c27"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/cuda-base-01/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/cuda-base-01/process.log",
+      "bytes": 497,
+      "sha256": "80b160ee048b8bbe5642749f8ae29c8b39d8189a34ef855336f8af3169b45f2a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/cuda-base-01/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/cuda-base-01/result.json",
+      "bytes": 438,
+      "sha256": "1c76a1aa3bc2b372a4f0397c77b048779ceaec0d5d1bc30cf4c8b572c227537f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-capacity-01/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-capacity-01/process.log",
+      "bytes": 316,
+      "sha256": "14778fbfb836a9f72cddf7fdfe602c41ccf312e7b4de98b824f8a5bb76f7e542"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-capacity-01/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-capacity-01/result.json",
+      "bytes": 715,
+      "sha256": "66a5f9fcdcba797a546e24be55d114546a8fdb38653c186e8d3b547683affe65"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-capacity-02/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-capacity-02/process.log",
+      "bytes": 316,
+      "sha256": "14778fbfb836a9f72cddf7fdfe602c41ccf312e7b4de98b824f8a5bb76f7e542"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-capacity-02/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-capacity-02/result.json",
+      "bytes": 714,
+      "sha256": "899ce3fa9997b19a42e47c7cfd8ae6aeff3ef95d5ab3539c65363c7e4e1aafe3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-capacity-03/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-capacity-03/process.log",
+      "bytes": 316,
+      "sha256": "14778fbfb836a9f72cddf7fdfe602c41ccf312e7b4de98b824f8a5bb76f7e542"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-capacity-03/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-capacity-03/result.json",
+      "bytes": 713,
+      "sha256": "e7af72b83da819756ea3947ba0f028561af07cc3f28b7ca0abad6022774aaa67"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-capacity-04/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-capacity-04/process.log",
+      "bytes": 316,
+      "sha256": "14778fbfb836a9f72cddf7fdfe602c41ccf312e7b4de98b824f8a5bb76f7e542"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-capacity-04/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-capacity-04/result.json",
+      "bytes": 715,
+      "sha256": "62e9335922b9a44ed7dcd90c512f9cacc8e4673cf17590f8e6155035e458d747"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-postrun-01/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-postrun-01/process.log",
+      "bytes": 316,
+      "sha256": "14778fbfb836a9f72cddf7fdfe602c41ccf312e7b4de98b824f8a5bb76f7e542"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-postrun-01/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-postrun-01/result.json",
+      "bytes": 712,
+      "sha256": "5711ee67af2a8af7313c9fb9312da35ba46482af1624ff390f3b54e92a96d115"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-01/details/frozen-config.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-01/details/frozen-config.json",
+      "bytes": 9087,
+      "sha256": "5ac4b63f891f0f8fe403ef6056dafa455c1d72f3c8d582634e14a6843eed08a5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-01/details/smoke-result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-01/details/smoke-result.json",
+      "bytes": 3705,
+      "sha256": "9b92d454ec55946ff45861a266993ce72167949c30bc87d08db05649b004b188"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-01/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-01/process.log",
+      "bytes": 7431,
+      "sha256": "e941b12b8324f54e84c376e9b19cf24436faf42bef962fa6ce69d5e361222170"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-01/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-01/result.json",
+      "bytes": 997,
+      "sha256": "cea386edb3be0846a0b66a64f3aff3f6f948c2dd9f542f91cda0ef29e504b2e5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-02/details/frozen-config.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-02/details/frozen-config.json",
+      "bytes": 9138,
+      "sha256": "85f7b745b07802081612f8b884919d9772404e4bfef77643d2882797e651839a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-02/details/merge.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-02/details/merge.json",
+      "bytes": 52,
+      "sha256": "8060ea659e1e99deaad1f59b9f98704a2acc2ead5ee813336d42580b11bb1071"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-02/details/results_engine_core_0.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-02/details/results_engine_core_0.json",
+      "bytes": 52,
+      "sha256": "8060ea659e1e99deaad1f59b9f98704a2acc2ead5ee813336d42580b11bb1071"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-02/details/smoke-result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-02/details/smoke-result.json",
+      "bytes": 2924,
+      "sha256": "6e98456a307e924a82739093c9e19c408611307e603e1e8be55f03af89c376d0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-02/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-02/process.log",
+      "bytes": 36406,
+      "sha256": "3ee560c0ffa0ecf8d40e17251d7cc3529b53a72430820a411291eaec5a2669da"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-02/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-02/result.json",
+      "bytes": 995,
+      "sha256": "5d4c2b2fd0535076d5b372bf9286bc2034355b3fd26d284fdbd624865b451b2a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-03/details/frozen-config.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-03/details/frozen-config.json",
+      "bytes": 9138,
+      "sha256": "c42acfdb89fad77004885dc1a403bf23107ba2c022cfd0800cf8a5e4416edfd9"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-03/details/merge.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-03/details/merge.json",
+      "bytes": 52,
+      "sha256": "d128cfe867c51805b4769e933f6152123797720f621808a96566e6bc1e3f046c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-03/details/results_engine_core_0.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-03/details/results_engine_core_0.json",
+      "bytes": 52,
+      "sha256": "d128cfe867c51805b4769e933f6152123797720f621808a96566e6bc1e3f046c"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-03/details/smoke-result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-03/details/smoke-result.json",
+      "bytes": 2924,
+      "sha256": "6e98456a307e924a82739093c9e19c408611307e603e1e8be55f03af89c376d0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-03/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-03/process.log",
+      "bytes": 37544,
+      "sha256": "b49cde4fdecf86fea2306de9ee9d0f075b0b6154f519ff62b31bbc2cd640f84b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-03/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-03/result.json",
+      "bytes": 997,
+      "sha256": "b2805087cd63ae710045e58506468c7c685e2976c6bedb056b3a07491731adc2"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/details/cold.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/details/cold.json",
+      "bytes": 1563,
+      "sha256": "e16f6a6e1180703a0dcacad0f15309696cfe32371dc49a643c40cf8866abf250"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/details/frozen-config.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/details/frozen-config.json",
+      "bytes": 9134,
+      "sha256": "6c3ba3ba8cdab49e8db5a1fae3111ba6b7dd38b74d9830b73913a86db9766581"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/details/kv-tensor-storage-metadata.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/details/kv-tensor-storage-metadata.json",
+      "bytes": 2096,
+      "sha256": "064376188bf0eaf5e678e72fa2101d22644b7f7fc181aa5145d11f631a9a26d4"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/details/merge.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/details/merge.json",
+      "bytes": 16236,
+      "sha256": "f802768e85e23900f2716a78efc6967b0032dd003d5f40979a3f1493aad5f289"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/details/repeat.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/details/repeat.json",
+      "bytes": 1567,
+      "sha256": "939ee00201462858c7384a0ec05a1fbea9ded567d787d4183288300932785a4a"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/details/results_engine_core_0.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/details/results_engine_core_0.json",
+      "bytes": 16236,
+      "sha256": "cdbeec9222ae6eacc5729e6193a57b1d5344fe711baa7980eef1aa044fcc5558"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/details/smoke-result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/details/smoke-result.json",
+      "bytes": 7656,
+      "sha256": "fbb7a4a26198fab0450e9ffb2cb2e4ff87e1550454bc2bf4c6f0ff36fbc19b74"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/process.log",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/process.log",
+      "bytes": 20515,
+      "sha256": "a68e63f9738c08c6fcd574de87391c7cae36a5acac811807d4dfba8b8a1ee411"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/result.json",
+      "bytes": 996,
+      "sha256": "4ae0ec52d903f6784703f9076357f26fabc085d965b6006adb275439934db49e"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/audit.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/audit.py",
+      "bytes": 5660,
+      "sha256": "85553cc8c53817592367842613386e77de8a7838dff011f8c677c37d0076bb24"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/audit_local_model_headers.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/audit_local_model_headers.py",
+      "bytes": 2956,
+      "sha256": "ac972b7682502d54d638bbe5639b4a3ac0519bb63dd980e3eae12f9bb96f9b6d"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/build_author_vllm.sh",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/build_author_vllm.sh",
+      "bytes": 1629,
+      "sha256": "8682e2d43ffa819827bd48be647e4d832b7b094fef49893b0d027425dd291a8b"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/check_selected_gpu_capacity.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/check_selected_gpu_capacity.py",
+      "bytes": 1135,
+      "sha256": "f0388cc6886c03d8704d2118dd7033df8e1c46c2622066b7399fca86532e83c5"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/cuda_base_smoke.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/cuda_base_smoke.py",
+      "bytes": 1077,
+      "sha256": "607f21ea6dd03e559f1e1933eff2f3242815f63a2fde24969d1be0064deeeb72"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/download_pinned_model.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/download_pinned_model.py",
+      "bytes": 16672,
+      "sha256": "c39562e4b2a6450f355b52210dc06ebd5ae499e6693349509ce6532718e08ded"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/measure_observation_cpu.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/measure_observation_cpu.py",
+      "bytes": 6029,
+      "sha256": "b42387b277452408fec6459a5e9f9a6220a11784d7081063727c9309b0173123"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+      "bytes": 21990,
+      "sha256": "7d31cce851ca2334fedbe6b66c4e2d9bfff19e8768bafaa52f68e414518d77e2"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_cuda_toolkit.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/prepare_cuda_toolkit.py",
+      "bytes": 1447,
+      "sha256": "b402765637c2d5ef7dd4d3e9555d6f7f66fb38f9fe8275b1ef80ed6e9471848f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_qwen_download.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/prepare_qwen_download.py",
+      "bytes": 10082,
+      "sha256": "02d19f88d283a162fe5b8f0e68e682dd28a32f1623e4cf48f97583453f0d10fd"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/preserve_build_evidence.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/preserve_build_evidence.py",
+      "bytes": 1273,
+      "sha256": "8d03abde1b1ec6133b656b1cae00e0fa3f98e467e06e7100f8dc98b78606d027"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/qualify_author_copy.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/qualify_author_copy.py",
+      "bytes": 10636,
+      "sha256": "a491b7041c8664ad7de887006652573f4eea56858931bfe93e0c87ca35764799"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/qualify_author_imports.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/qualify_author_imports.py",
+      "bytes": 9567,
+      "sha256": "17cd55f4acffcdb3ba13b4d7a0d6c7aec2c74582201d4b9f8028c204e14ce868"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/qualify_author_platform.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/qualify_author_platform.py",
+      "bytes": 1239,
+      "sha256": "12e216235ea52a2feea6cc30e9df62b8cb21b6bbf6de8fddc29c510743368fcf"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/reproduce_cpu.sh",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/reproduce_cpu.sh",
+      "bytes": 456,
+      "sha256": "7ed8cec9daf7646f2c8b678b9dc432aaaa85b63de63a18b12c9438bfbbd99bd0"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/reproduce_observer_cpu.sh",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/reproduce_observer_cpu.sh",
+      "bytes": 864,
+      "sha256": "bbba70f7c7706ab5009f1840dad49e89b5b02078a4e83fb2accadacbec3f0d13"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/reproduce_progress_cpu.sh",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/reproduce_progress_cpu.sh",
+      "bytes": 671,
+      "sha256": "01aa4ad3ea118ec77ee32f6367d89b58fca4d11e48ed904c52c066522fdbbffc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/resume_pinned_model.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/resume_pinned_model.py",
+      "bytes": 13203,
+      "sha256": "86b1f6ad71e0f5fbdea689ea2efe7ae092407ee4b3b1a9bbb096b45ffe6a0ddc"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+      "archive_path": "project/experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+      "bytes": 10863,
+      "sha256": "0786442f4104f3dc54e2006b0e7b3ed2dd3501dcf6410fa2e2c52201dd05559f"
+    },
+    {
+      "path": "patches/prefix_io_v1/common/0001-cpu-torch-import.patch",
+      "archive_path": "project/patches/prefix_io_v1/common/0001-cpu-torch-import.patch",
+      "bytes": 1316,
+      "sha256": "6178460f607905d932fc20e2695e2e1c641553322372357235cd856947c11e3f"
+    },
+    {
+      "path": "patches/prefix_io_v1/common/0002-staging-backing-budget.patch",
+      "archive_path": "project/patches/prefix_io_v1/common/0002-staging-backing-budget.patch",
+      "bytes": 3428,
+      "sha256": "00ad1086faf09c9b2328cbee2998d022df324c32ce9abb80f2e2bc7a6f557e45"
+    },
+    {
+      "path": "patches/prefix_io_v1/common/vllm-author/0001-full-gpu-uuid.patch",
+      "archive_path": "project/patches/prefix_io_v1/common/vllm-author/0001-full-gpu-uuid.patch",
+      "bytes": 1261,
+      "sha256": "661805f65fde5ed80f8f81faf963ac103ac4bda00238268a10d90ba7d1227ac5"
+    },
+    {
+      "path": "patches/prefix_io_v1/observer/0001-mandatory-progress-bridge.patch",
+      "archive_path": "project/patches/prefix_io_v1/observer/0001-mandatory-progress-bridge.patch",
+      "bytes": 6180,
+      "sha256": "fa78bea558c181d69d683f257c3e3861f96e587c5e2e63dd38c23486fd0c0e69"
+    },
+    {
+      "path": "patches/prefix_io_v1/observer/0002-bounded-snapshot-hook.patch",
+      "archive_path": "project/patches/prefix_io_v1/observer/0002-bounded-snapshot-hook.patch",
+      "bytes": 2876,
+      "sha256": "99884ff106c04a2abf8f1554518deb0ec481561418a2261c78a23dd61a5bb476"
+    },
+    {
+      "path": "patches/prefix_io_v1/observer/README.md",
+      "archive_path": "project/patches/prefix_io_v1/observer/README.md",
+      "bytes": 1123,
+      "sha256": "ec63f190218a2cf15afd2e85035884183f1b65c5e22a601aab2ea2b1b03b1c3d"
+    },
+    {
+      "path": "patches/prefix_io_v1/policy/README.md",
+      "archive_path": "project/patches/prefix_io_v1/policy/README.md",
+      "bytes": 365,
+      "sha256": "8b8f5da7d784854166579b74c6ab72fa8cfea7e34a53f9502dc1526d87942d69"
+    },
+    {
+      "path": "pyproject.toml",
+      "archive_path": "project/pyproject.toml",
+      "bytes": 488,
+      "sha256": "7e81fc04f290f75670d50d792fda451c3a0251de1d09986039ea6f63324d3617"
+    },
+    {
+      "path": "server-root/commands.jsonl",
+      "archive_path": "server-root/commands.jsonl",
+      "bytes": 1949456,
+      "sha256": "e6c773b030652edd39e30d7da90c6f876228465ca9f6949ff2f7a7d45be7427d"
+    },
+    {
+      "path": "setup.cfg",
+      "archive_path": "project/setup.cfg",
+      "bytes": 424,
+      "sha256": "b80623ce336f3b26b187b28cc33a32a26be85a2de54a2aa7575aa9f8cc9f24a9"
+    },
+    {
+      "path": "setup.py",
+      "archive_path": "project/setup.py",
+      "bytes": 38,
+      "sha256": "843ac26c38a41abae578250bc0f9419194b320a0f67327d941037a4268f6cfe7"
+    },
+    {
+      "path": "src/prefix_io_control/__init__.py",
+      "archive_path": "project/src/prefix_io_control/__init__.py",
+      "bytes": 149,
+      "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+    },
+    {
+      "path": "src/prefix_io_control/bridge.py",
+      "archive_path": "project/src/prefix_io_control/bridge.py",
+      "bytes": 852,
+      "sha256": "c1e1a5454ebeda338f37deebdccf9293374e9e9002c472377ae483438071ecb5"
+    },
+    {
+      "path": "src/prefix_io_control/config.py",
+      "archive_path": "project/src/prefix_io_control/config.py",
+      "bytes": 8880,
+      "sha256": "5a250e2ffb233f6252ecfc5e1209c23e141d00f9c2295712ff44087bafcf93b6"
+    },
+    {
+      "path": "src/prefix_io_control/dependencies.py",
+      "archive_path": "project/src/prefix_io_control/dependencies.py",
+      "bytes": 5772,
+      "sha256": "41cc50163c51a2f02486230fcfa36c348af95ef687c3f2cb815bdd6797f29481"
+    },
+    {
+      "path": "src/prefix_io_control/observation.py",
+      "archive_path": "project/src/prefix_io_control/observation.py",
+      "bytes": 2890,
+      "sha256": "8ddf5634f46b254f9e539187caa964503d44954637edfeb5c385b2b369b706f2"
+    },
+    {
+      "path": "src/prefix_io_control/preflight.py",
+      "archive_path": "project/src/prefix_io_control/preflight.py",
+      "bytes": 2140,
+      "sha256": "a4cff5d15308bb3b51b9a1e959851d34f8fbc72e34b697d1a70dfdb71e01a126"
+    },
+    {
+      "path": "src/prefix_io_control/publication.py",
+      "archive_path": "project/src/prefix_io_control/publication.py",
+      "bytes": 3688,
+      "sha256": "bcaaa49d78f44d692cab89ad86fa5197cbab59491dab85b902d9fe4ef7baa0b7"
+    },
+    {
+      "path": "tests/prefix_io_v1/test_common_and_bridge.py",
+      "archive_path": "project/tests/prefix_io_v1/test_common_and_bridge.py",
+      "bytes": 3447,
+      "sha256": "4bc4b5c1002bd8de8c0bf7414603a0145e3c22b571ae345f0129ab7b5c258ce7"
+    },
+    {
+      "path": "tests/prefix_io_v1/test_config.py",
+      "archive_path": "project/tests/prefix_io_v1/test_config.py",
+      "bytes": 3738,
+      "sha256": "0692817d6937449287413b7e81ebaa451c98f39694d860d1dd65dcd8ad2317a2"
+    },
+    {
+      "path": "tests/prefix_io_v1/test_dependencies.py",
+      "archive_path": "project/tests/prefix_io_v1/test_dependencies.py",
+      "bytes": 3960,
+      "sha256": "0ad0ae0293eb175ec60bc6f5f2738fd934efd9f7ea711a161ee8d1cba2f17002"
+    },
+    {
+      "path": "tests/prefix_io_v1/test_observation.py",
+      "archive_path": "project/tests/prefix_io_v1/test_observation.py",
+      "bytes": 2262,
+      "sha256": "f638903a172e87ade3848984d21fc22f6522b9a113461a2edbbcf7f0f15c3639"
+    },
+    {
+      "path": "tests/prefix_io_v1_download/test_download_boundaries.py",
+      "archive_path": "project/tests/prefix_io_v1_download/test_download_boundaries.py",
+      "bytes": 19274,
+      "sha256": "b4aa297f079c896a7a2bd38a9703299841ad075330ad20e3bb3a65a8ecb3f4b7"
+    },
+    {
+      "path": "tests/prefix_io_v1_download/test_redirect_routes.py",
+      "archive_path": "project/tests/prefix_io_v1_download/test_redirect_routes.py",
+      "bytes": 7869,
+      "sha256": "eda9adfdc4f3089f65fa194f9e51275e650605e46d627bac2f0d808788357e56"
+    },
+    {
+      "path": "tests/prefix_io_v1_download/test_resume_boundaries.py",
+      "archive_path": "project/tests/prefix_io_v1_download/test_resume_boundaries.py",
+      "bytes": 15421,
+      "sha256": "aa4b24d60cb127897b217a0d4dd391589bf11ab93facbd522920f1985cbbc06d"
+    },
+    {
+      "path": "tests/prefix_io_v1_native_prefix/test_effective_dtype.py",
+      "archive_path": "project/tests/prefix_io_v1_native_prefix/test_effective_dtype.py",
+      "bytes": 2286,
+      "sha256": "72a245d6576e6885650f568efd366215a2409e4e3d87633e380728228a1a1894"
+    },
+    {
+      "path": "tests/prefix_io_v1_native_prefix/test_ipc_path.py",
+      "archive_path": "project/tests/prefix_io_v1_native_prefix/test_ipc_path.py",
+      "bytes": 2060,
+      "sha256": "89578b6e56ea1ec0fd052acbb523d241a0aa58971f67ace87b76547005d66720"
+    },
+    {
+      "path": "tests/prefix_io_v1_native_prefix/test_kv_storage_metadata.py",
+      "archive_path": "project/tests/prefix_io_v1_native_prefix/test_kv_storage_metadata.py",
+      "bytes": 5633,
+      "sha256": "5c0864f32731bda6d1637b2b9a16da04c84436107581d68337f1af6a37be1aa3"
+    },
+    {
+      "path": "tests/prefix_io_v1_native_prefix/test_model_provenance.py",
+      "archive_path": "project/tests/prefix_io_v1_native_prefix/test_model_provenance.py",
+      "bytes": 8249,
+      "sha256": "232637f1d899f79765f61af891de178b9d7c8cdd8bc75623681ddb197a185b1b"
+    },
+    {
+      "path": "tests/prefix_io_v1_observer/__init__.py",
+      "archive_path": "project/tests/prefix_io_v1_observer/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/prefix_io_v1_observer/test_publication.py",
+      "archive_path": "project/tests/prefix_io_v1_observer/test_publication.py",
+      "bytes": 10446,
+      "sha256": "b6d31d286b59bf18f2f7e26de93f27b35b8e9b24b4e52d0015757a59491264f7"
+    },
+    {
+      "path": "tests/prefix_io_v1_progress/__init__.py",
+      "archive_path": "project/tests/prefix_io_v1_progress/__init__.py",
+      "bytes": 74,
+      "sha256": "71fd037b4f11f05882403095801a4252062c28f6f0ea70543fa9a0665e57d17d"
+    },
+    {
+      "path": "tests/prefix_io_v1_progress/_cpu_backend.py",
+      "archive_path": "project/tests/prefix_io_v1_progress/_cpu_backend.py",
+      "bytes": 8501,
+      "sha256": "6d8eb8296964700f4124232a8c69159ee8719af75b0a06af416ca480f75377e6"
+    },
+    {
+      "path": "tests/prefix_io_v1_progress/test_mandatory_bridge.py",
+      "archive_path": "project/tests/prefix_io_v1_progress/test_mandatory_bridge.py",
+      "bytes": 10707,
+      "sha256": "2e903e7e9c182be28878581b9e3d537021d9db9beb843ac7ef4b626209a480ef"
+    },
+    {
+      "path": "tests/prefix_io_v1_runner/test_run_gpu_stage.py",
+      "archive_path": "project/tests/prefix_io_v1_runner/test_run_gpu_stage.py",
+      "bytes": 14242,
+      "sha256": "71b2dcf90dd7220e006b28ff324984e0c76d2c4a810255d3b5d2ad58d56e15f8"
+    },
+    {
+      "path": "tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py",
+      "archive_path": "project/tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py",
+      "bytes": 7190,
+      "sha256": "757c62a452b43ae589906567737188fb1e3c1e6a5cbb13c7c3c4a8ac00ec7e89"
+    }
+  ],
+  "file_count": 579,
+  "source_redaction_manifest": "DELIVERY_REDACTION_MANIFEST.json",
+  "additional_exact_file_manifest": "DELIVERY_EXTRA_FILES.json",
+  "snapshot_note": "Parent commands log ends before this packaging invocation; original raw evidence stays on server.",
+  "excludes": [
+    "model weights and failed partials",
+    "virtual environments",
+    "SDK and runtime JIT cache",
+    "full third-party repository bodies and .git",
+    "three raw ephemeral redirect evidence files",
+    "working prose drafts",
+    "Python bytecode"
+  ]
+}

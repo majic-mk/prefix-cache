@@ -1,0 +1,6 @@
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple
+Collecting uv
+  Downloading http://mirrors.aliyun.com/pypi/packages/0d/8d/e45565a046bd2592b75cb96fded9a7ab0cd6d470152fec713c82ee83ddbb/uv-0.12.17-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (20.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 20.4/20.4 MB 865.2 kB/s eta 0:00:00
+Installing collected packages: uv
+Successfully installed uv-0.12.17

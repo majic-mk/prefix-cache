@@ -1,0 +1,188 @@
+# A800 v6 dual-model rental-readiness checklist
+
+Four states must remain separate:
+
+1. CPU artifacts are frozen and hash-bound.
+2. Concrete Mistral and Qwen runtime sources exist.
+3. Renting an A800 for runtime qualification is allowed.
+4. H1/H2 is allowed only after real CUDA qualification.
+
+The repository preserves the earlier source hooks under patch mode
+`probekv_v6_staggered_runtime` and uses the explicit hardened mode
+`probekv_v6_prefix_hardened_runtime` for this qualification. This is not a claim that they already work on
+an A800. Before GPU execution, the final gate must report:
+
+```text
+artifact_preparation_ready = true
+mistral_runtime_source_ready = true
+qwen_runtime_source_ready = true
+gpu_rental_ready_for_runtime_qualification = true
+gpu_runtime_qualified = false
+h1_h2_execution_allowed = false
+failures = []
+```
+
+## Frozen inputs
+
+- Python 3.10, PyTorch 2.2.1+cu121, xformers 0.0.25, vLLM 0.4.1.
+- CacheBlend commit `b72d7945e6d6306f12be66520196e0f081fa2b0c`.
+- Mistral revision `c170c708c41dac9275d15a8fff4eca08d52bab71`.
+- Qwen revision `a09a35458c702b33eeacc393d103063234e8bc28`.
+- Mistral adapter `mistral_cacheblend_llama_v041`.
+- Qwen adapter `qwen2_5_vllm041`.
+- One A800 80GB, compute capability 8.0, 16 CPU cores and 110GiB RAM.
+- Transformers remains 4.40.2; no silent stack upgrade is allowed.
+
+## 130GB storage policy
+
+The old 250GiB single-disk gate is removed. The server must have at least:
+
+- 70GiB free across unique writable filesystems;
+- 50GiB free on the largest writable filesystem;
+- 15GiB free on the system filesystem.
+
+At 90GiB or more free, retain both selective snapshots. At 70-89GiB, qualify
+Mistral first, preserve audits/results, purge only its verified regenerable HF
+snapshot, then download Qwen in CPU-only mode. Below 70GiB, stop before renting
+a GPU and do not delete user files.
+
+The Mistral downloader excludes `consolidated.safetensors`; only the three HF
+weight shards are allowed. Qwen uses only its four weight shards. One venv and
+one final CacheBlend tree are retained, pip caching is disabled, build objects
+are removed after installation, datasets stream, and full-dataset KV is never
+stored.
+
+The 70/50GiB admission thresholds are evaluated and archived before model
+download. After download, a separate steady-state audit enforces the 15GiB
+system-filesystem reserve; it does not reapply the pre-download thresholds to
+space intentionally occupied by the frozen snapshots.
+
+## CPU-only preparation
+
+```bash
+export PROBEKV_SRC=/data/src/ProbeKV
+export STAGE_ROOT=/data/probekv-stage
+export FROZEN_SHA=<pushed-clean-commit>
+
+git -C "$PROBEKV_SRC" fetch origin
+git -C "$PROBEKV_SRC" checkout --detach "$FROZEN_SHA"
+bash "$PROBEKV_SRC/scripts/server/setup_a800_env.sh" \
+  "$PROBEKV_SRC" "$STAGE_ROOT"
+source "$STAGE_ROOT/envs/probekv-py310/bin/activate"
+
+# A reused server may select one already verified Python 3.10 environment:
+# export PROBEKV_PYTHON_BIN=/absolute/stage/envs/existing/bin/python
+# export PROBEKV_ENV_DIR=/absolute/stage/envs/existing
+# export PROBEKV_NVCC_BIN=/usr/local/cuda/bin/nvcc
+# export PROBEKV_CACHEBLEND_SOURCE=/absolute/clean/CacheBlend-mirror
+# PROBEKV_CUDA_ARCH_LIST defaults to the frozen A800 capability: 8.0
+# If the CPU-only container cannot compile under its cgroup memory limit:
+# export PROBEKV_PREBUILT_VLLM_SOURCE=/absolute/same-commit/sm80-build
+
+# Use `both` when storage.json selects dual_model_resident. In sequential mode
+# use `mistral` now and `qwen` after Mistral qualification and verified purge.
+bash "$PROBEKV_SRC/scripts/server/prepare_dual_model_snapshots.sh" \
+  "$PROBEKV_SRC" "$STAGE_ROOT" both
+
+bash "$PROBEKV_SRC/scripts/server/run_v6_no_gpu_preflight.sh" \
+  "$PROBEKV_SRC" "$STAGE_ROOT" "$FROZEN_SHA" \
+  "$STAGE_ROOT/artifacts/model_audits/model_audit_mistral.json" \
+  "$STAGE_ROOT/artifacts/model_audits/model_audit_qwen.json" \
+  "$STAGE_ROOT/artifacts/v6_setup/cacheblend_patch.json"
+```
+
+`PROBEKV_ENV_DIR` is accepted only below the selected stage's `envs/`
+directory. This avoids keeping a second multi-gigabyte environment solely for
+renaming consistency.
+
+The prebuilt path is permitted only when both trees have the frozen CacheBlend
+base commit, neither tree changes native/build sources, and `cuobjdump` reports
+only `sm_80` cubins. `_C` and `_moe_C` SHA256 values plus the import path are
+written to `vllm_install.json`. This saves compilation memory; it does not count
+as GPU qualification and cannot unlock H1/H2.
+The CPU-only image may expose only a placeholder `libcuda.so.1`, so `_C` and
+`_moe_C` dynamic loading is deliberately deferred to the first A800 hardware
+gate. File validation must not be reported as a successful CUDA import.
+When qualifying a revised patch without destroying the prior audited tree, set
+`PROBEKV_CACHEBLEND_TARGET` to a new directory under the stage `src/` folder.
+The installer rejects targets outside that boundary and records the selected
+tree in the extension audit.
+
+The preflight compiles sources, runs all tests, validates the experiment
+contract, runs both A and C local v6 configurations, audits storage and runtime
+sources, and writes:
+
+```text
+jobs_mistral/jobs_mistral.jsonl
+jobs_mistral/manifest_mistral.json
+jobs_qwen/jobs_qwen.jsonl
+jobs_qwen/manifest_qwen.json
+readiness.json
+```
+
+Each matrix contains 140 non-paper qualification jobs and binds the ProbeKV
+commit, CacheBlend base/patch/tree, model revision, tokenizer hash,
+config/contract/server-lock hashes, adapter and job digest.
+
+## GPU sequence
+
+First rent: Mistral only, at most four hours. Run hardware/stack gate, then A
+and C `1 Segment, K=1, r=1` sentinels, then all 140 Mistral jobs. Stop on any
+token, first-32-logit, RoPE, mask, Source digest or CUDA-event failure.
+
+The frozen real runner first writes `native_prefix_cache_audit.json`, then the
+ordinary `sentinel.json`, and refuses to start the 140 jobs unless both pass.
+It reads vLLM scheduler `computed_block_nums`; a TTFT-only hit is rejected.
+The runner is resumable and refuses a dirty checkout, a different
+ProbeKV SHA, a different model revision, a different patch digest, a modified
+job JSONL, fake timing or fewer/more than 140 planned jobs:
+
+```bash
+python scripts/server/run_v6_a800_qualification.py \
+  --jobs /absolute/artifacts/v6_no_gpu_preflight/jobs_mistral/jobs_mistral.jsonl \
+  --job-manifest /absolute/artifacts/v6_no_gpu_preflight/jobs_mistral/manifest_mistral.json \
+  --model-audit /absolute/artifacts/model_audits/model_audit_mistral.json \
+  --patch-audit /absolute/artifacts/cacheblend_v6_prefix_hardened/runtime_extension_audit.json \
+  --model-key mistral \
+  --output /absolute/artifacts/v6_a800_qualification/mistral \
+  --sentinel-only
+```
+
+Remove only `--sentinel-only` to execute the matrix. If the process is
+preempted, rerun the same command with `--resume`; the runner accepts only an
+immutable successful result prefix. A failed job is durably recorded and must
+be diagnosed in a new output directory rather than overwritten.
+
+Second rent: Qwen only after the Mistral runtime passed and the Qwen handoff is
+complete. Run dense smoke, native Prefix Cache plus A/C r=1 sentinels and all
+140 Qwen jobs. Mistral and Qwen both require the same non-zero block-metadata
+sentinel; every layer's pre-RoPE prefix shadow must be present, read-only and
+absolute-position aligned. Only a full pass may unlock that model's H1 sentinel.
+
+The runtime audit must prove:
+
+```text
+r=1 generated token IDs == dense generated token IDs
+max first-32-token teacher-forced logit relative-L2 <= 1e-4
+canonical Source digests unchanged
+all 140 jobs completed, failed = 0
+```
+
+Validate the audit with:
+
+```bash
+python scripts/server/verify_v6_runtime_qualification.py \
+  --server-lock configs/a800_server_lock.json \
+  --job-manifest /absolute/manifest_MODEL.json \
+  --runtime-audit /absolute/runtime_audit.json \
+  --prefix-audit /absolute/native_prefix_cache_audit.json \
+  --output /absolute/qualification_gate.json
+```
+
+The H1 sentinel additionally requires `--qualification-gate` and validates it
+before importing vLLM or constructing the model. Run only `--case-limit 1
+--pass primary --max-hours 1`; success is exactly one case, four Source groups
+and 36 rows. Full 150-case H1 is a separate later decision.
+Fake timing, a different SHA, partial jobs, a different model/adapter or a
+different CacheBlend tree is rejected. Qualification remains
+`paper_evidence:false`; formal matched-stack measurements start only afterward.

@@ -1,0 +1,37 @@
+test_real_stop_unblocks_get_retained_shared_and_plain_release_once (__main__.NativeQueueIntegrationTests.test_real_stop_unblocks_get_retained_shared_and_plain_release_once) ... ok
+test_real_submit_mandatory_fifo_and_stop_preserve_native_ownership (__main__.NativeQueueIntegrationTests.test_real_submit_mandatory_fifo_and_stop_preserve_native_ownership) ... ok
+test_each_actual_progress_or_invalid_state_forbids_parking (__main__.OriginalPredicateTests.test_each_actual_progress_or_invalid_state_forbids_parking) ... ok
+test_every_accounted_stage_inflight_ops_and_bytes_forbid_parking (__main__.OriginalPredicateTests.test_every_accounted_stage_inflight_ops_and_bytes_forbid_parking) ... ok
+test_original_age_bound_never_reset_by_repeat_or_check (__main__.OriginalPredicateTests.test_original_age_bound_never_reset_by_repeat_or_check) ... ok
+test_original_released_capacity_matches_cached_reserve_once (__main__.OriginalPredicateTests.test_original_released_capacity_matches_cached_reserve_once) ... ok
+test_detach_restores_only_its_own_bridge_wrapper (__main__.QueueRaceTests.test_detach_restores_only_its_own_bridge_wrapper) ... ok
+test_disarm_failure_does_not_consume_original_message (__main__.QueueRaceTests.test_disarm_failure_does_not_consume_original_message) ... ok
+test_disarm_failure_does_not_mask_original_intake_error (__main__.QueueRaceTests.test_disarm_failure_does_not_mask_original_intake_error) ... ok
+test_duplicate_notifications_are_coalesced (__main__.QueueRaceTests.test_duplicate_notifications_are_coalesced) ... ok
+test_end_after_blocking_get_wakes (__main__.QueueRaceTests.test_end_after_blocking_get_wakes) ... ok
+test_end_after_final_check_before_queue_get_is_retained (__main__.QueueRaceTests.test_end_after_final_check_before_queue_get_is_retained) ... ok
+test_end_before_registration_never_blocks (__main__.QueueRaceTests.test_end_before_registration_never_blocks) ... ok
+test_end_during_registration_lock_no_loss_or_lock_cycle (__main__.QueueRaceTests.test_end_during_registration_lock_no_loss_or_lock_cycle) ... ok
+test_end_record_precedes_queue_publication (__main__.QueueRaceTests.test_end_record_precedes_queue_publication) ... ok
+test_existing_queue_work_and_fifo_remain_native (__main__.QueueRaceTests.test_existing_queue_work_and_fifo_remain_native) ... ok
+test_fault_and_detach_unblock_real_queue (__main__.QueueRaceTests.test_fault_and_detach_unblock_real_queue) ... ok
+test_frozen_observer_fault_entrypoints_wake_without_end_record (__main__.QueueRaceTests.test_frozen_observer_fault_entrypoints_wake_without_end_record) ... ok
+test_frozen_observer_wrappers_restored_and_foreign_override_preserved (__main__.QueueRaceTests.test_frozen_observer_wrappers_restored_and_foreign_override_preserved) ... ok
+test_notification_failure_does_not_skip_original_event_record (__main__.QueueRaceTests.test_notification_failure_does_not_skip_original_event_record) ... ok
+test_off_uninstalled_does_not_touch_clock_queue_or_capture (__main__.QueueRaceTests.test_off_uninstalled_does_not_touch_clock_queue_or_capture) ... ok
+test_old_pending_wake_cannot_swallow_new_end_forever (__main__.QueueRaceTests.test_old_pending_wake_cannot_swallow_new_end_forever) ... ok
+test_old_run_step_duplicate_messages_do_not_clear_current_arm (__main__.QueueRaceTests.test_old_run_step_duplicate_messages_do_not_clear_current_arm) ... ok
+test_original_deadline_timeout_ends_wait_without_end_event (__main__.QueueRaceTests.test_original_deadline_timeout_ends_wait_without_end_event) ... ok
+test_original_intake_exception_is_not_optional_observer_failure (__main__.QueueRaceTests.test_original_intake_exception_is_not_optional_observer_failure) ... ok
+test_original_record_error_survives_notification_failure (__main__.QueueRaceTests.test_original_record_error_survives_notification_failure) ... ok
+test_scheduled_publication_and_conflict_after_check_wake (__main__.QueueRaceTests.test_scheduled_publication_and_conflict_after_check_wake) ... ok
+test_unarmed_end_and_fail_do_not_publish_empty_control_messages (__main__.QueueRaceTests.test_unarmed_end_and_fail_do_not_publish_empty_control_messages) ... ok
+test_wake_put_failure_is_bounded_and_disables_future_parking (__main__.QueueRaceTests.test_wake_put_failure_is_bounded_and_disables_future_parking) ... ok
+test_wrong_token_arm_rejected (__main__.QueueRaceTests.test_wrong_token_arm_rejected) ... ok
+test_original_decision_calls_never_use_released_capacity_mode (__main__.SourceBoundaryTests.test_original_decision_calls_never_use_released_capacity_mode) ... ok
+test_original_intake_tail_is_identical (__main__.SourceBoundaryTests.test_original_intake_tail_is_identical) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 0.370s
+
+OK

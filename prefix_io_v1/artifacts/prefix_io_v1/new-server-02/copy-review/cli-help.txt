@@ -1,0 +1,17 @@
+usage: qualify_author_copy.py [-h] --library LIBRARY
+                              (--abi-only | --gpu-uuid GPU_UUID)
+                              [--output OUTPUT]
+
+Qualify the author's actual copy ABI or a tiny, explicit GPU byte copy. This
+script loads the supplied extension directly. It never imports vLLM, allocates
+a model, downloads data, or substitutes another transfer operator. The caller
+must run GPU mode through the approved budget/UUID runner.
+
+options:
+  -h, --help           show this help message and exit
+  --library LIBRARY    Exact freshly built author _C*.so to load with
+                       torch.ops.load_library
+  --abi-only           CPU zero-length schema check; no real copy
+  --gpu-uuid GPU_UUID  Full GPU UUID already bound by the external budget
+                       runner
+  --output OUTPUT      New JSON evidence file; refuses to overwrite

@@ -1,0 +1,17 @@
+[
+  {
+    "path": "docs/prefix_io_v1/CAPABILITY_MATRIX.md",
+    "sha256": "00476281d78b80c40b53918c426f24074b5c3d08e55e19b4fafb335bff6b1132",
+    "bytes": 4912
+  },
+  {
+    "path": "docs/prefix_io_v1/PATCH_MAP.md",
+    "sha256": "9b17ca77a846f04bdfd179e0ec1cd51e1ab72e1152eccc18c8c871668595b7e3",
+    "bytes": 5761
+  },
+  {
+    "path": "docs/prefix_io_v1/GPU_STAGE_REPORT.md",
+    "sha256": "39b59b7f5b3db0139c872d17d43a25fd8f92833bc2428a6d674ec0a58c2c2141",
+    "bytes": 2284
+  }
+]

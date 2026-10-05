@@ -1,0 +1,45 @@
+--- a/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py
++++ b/experiments/prefix_io_v1/scripts/run_concurrent_pilot.py
+@@ -16,11 +16,19 @@
+         ap.add_argument("--"+name,type=Path,required=True)
+     ap.add_argument("--qualification",type=Path,required=True)
+     ap.add_argument("--flush-cause-probe",action="store_true")
++    ap.add_argument("--start-budget-config",type=Path)
+     a=ap.parse_args();out=a.output.resolve();source=a.storage_source.resolve()
+     if a.flush_cause_probe:
+         from flush_cause_worker_probe import worker_probe as diagnostic_probe
+         worker_probe=diagnostic_probe
+     authorized_path(out);authorized_path(source)
++    start_options = None
++    if a.start_budget_config is not None:
++        base.require(not a.flush_cause_probe, "combine probes only after separate qualification")
++        from start_budget_model_contract import validate_config
++        from start_budget_worker_probe import worker_probe as start_probe
++        start_options = validate_config(a.start_budget_config)
++        worker_probe = start_probe
+     permit=verify_gate(a.qualification)
+     manifest=json.loads(a.manifest.read_text());candidate=json.loads(a.curves.read_text())
+     base.require(permit["candidate_sha256"]==hashlib.sha256(a.curves.read_bytes()).hexdigest(),"candidate changed")
+@@ -46,6 +54,11 @@
+         initial_cache="published SSD corpus via hardlinks; new engine GPU/staging cold; private suffix writes",
+         source_shared_physical_bytes=sum(r["bytes"] for r in inventory))
+     report["disk_contract"]=disk_contract
++    if start_options is not None:
++        report.update(start_budget_config=start_options,
++            ordinary_quota_installed=start_options["mode"] in ("fixed","pressure"),
++            policy_mode=start_options["mode"],full_per_stage_caps=False,
++            scope="P3 real-model start-allowance qualification; not research policy efficacy")
+     report.update(profile=manifest["profile"],engine_delta={"max_num_seqs":2},
+         previously_seen_validation_families=3,new_development_families=2,qualification=permit,steps=[])
+     (out/"manifest.json").write_bytes(a.manifest.read_bytes())
+@@ -59,6 +72,10 @@
+             prefix_cache_break_even_path=str(a.curves.resolve()),
+             prefix_io_observation_mode="shadow",prefix_io_observation_run_id=out.parent.name,
+             prefix_io_observation_interval_ns=10_000_000)
++        if start_options is not None:
++            extra["prefix_io_start_budget"]=dict(start_options["options"],run_id=out.parent.name)
++            if start_options["mode"]=="off":
++                extra["prefix_io_start_budget"]={"mode":"off"}
+         config=dict(engine_config,kv_transfer_config=dict(kv_connector="OffloadingConnector",kv_role="kv_both",
+                                                          kv_connector_extra_config=extra))
+         sampling=dict(base.SAMPLING,max_tokens=128,min_tokens=128)

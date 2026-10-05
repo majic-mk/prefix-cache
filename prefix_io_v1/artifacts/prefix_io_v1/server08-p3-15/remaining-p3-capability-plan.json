@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "created_from_snapshot_utc": "2026-09-30T09:26:17.046086+00:00",
+  "status": "PROPOSED_CAPABILITY_COMPLETION_PLAN_NOT_EXECUTION_AUTHORIZATION",
+  "scope": "Read-only P315 evidence audit plus this new planning artifact. No GPU execution, CPU tests, cache merges, source edits, or system edits performed by the reviewing agent.",
+  "parent_review_required": true,
+  "new_time_cap_seconds": null,
+  "total_new_gpu_seconds": null,
+  "new_quota_values": null,
+  "source_artifacts_sha256": {
+    "p3-execution-plan.json": "e1faf9f07d44c2dfe995b8924b7940774b78a3cceb1ae2336a2d9e3daf7c6f4a",
+    "execution-lock-01.json": "8ec0a23c4ec8378ceae0b69d854702c0ac10664f74c002fecab9246ea65409fb",
+    "execution-lock-02.json": "d0f3fc971084d107b286d6d226b69cc60b2d55fa0aa769bb1576d32fc0314f3c",
+    "execution-lock-03.json": "0d3d633b2939995e388e3ec0172c44b04e506e10ac89a09120b9cb89c6890c12",
+    "tuning-lineage-summary.json": "da54d7a2795e9c764d1848722b8ccbec1caeadc634d4823b93a2448c1104883a",
+    "conditional-interference-table.json": "81e55aff055634fa1b0cd0df52c90093083713c5567fac469728d44cee34e7a8",
+    "interference-table-criterion.json": "46fd189fc585915256c9c6d410538b0163681a22cf786a71feee2f434d98db9c",
+    "isolated-cpu-overhead.json": "67ec4fce28c9deae0a58991d61a19e3ea6c890eb37647a87f6146f0a20ad3174"
+  },
+  "source_contracts": [
+    {
+      "path": "docs/prefix_io_v1/03_IMPLEMENTATION_AND_EXPERIMENTS.md",
+      "sha256": "6d35bb47d4ec21ceb08aeeca8959cfcc60e79c2091bb2173c414f82cf47cdc17"
+    },
+    {
+      "path": "docs/prefix_io_v1/04_CODEX_EXECUTION.md",
+      "sha256": "49e1ba757c99a8a1e872d56bd519ed10b450d8960f3390a54d1f0c32a5d3e5f2"
+    },
+    {
+      "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+      "sha256": "795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50"
+    }
+  ],
+  "inherited_permission_boundaries": {
+    "approved_gpu_uuid": "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+    "gpu_total_cap_seconds": 28800,
+    "gpu_consumed_seconds_at_snapshot": 13006.245161345694,
+    "gpu_remaining_seconds_before_any_new_reservation": 15793.754838654306,
+    "active_reservation_at_snapshot": null,
+    "approved_primary_runs_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+    "primary_device": 2304,
+    "primary_free_bytes_at_snapshot": 28762050560,
+    "primary_minimum_free_bytes": 8589934592,
+    "auxiliary_root": "/root/prefix-io-v1-validation",
+    "auxiliary_max_bytes": 21474836480,
+    "auxiliary_minimum_free_bytes": 8589934592,
+    "proposed_auxiliary_new_writes_bytes": 0,
+    "budget_reset": false,
+    "cache_delete_or_merge": false,
+    "driver_or_system_changes": false,
+    "new_cloud_rental": false,
+    "rule": "Use the existing cumulative ledger and wrapper. Re-read ledger, active reservations, storage floors, GPU UUID and source locks before every serial GPU run. A snapshot is not a reservation. Never reuse previous manifest-specific cache merge grants for new paths."
+  },
+  "preserved_evidence": {
+    "original_p315_runs": "Keep original sources, execution locks, plans, receipts, raw outputs, failed/corrected analyses and caches unchanged.",
+    "repaired_source": "P316 must have a distinct frozen source/version and patch audit; do not overwrite P315 and silently compare different code under the same version.",
+    "conditional_table": "P315 seven-cell synthetic continuous-decode table passed its frozen validation. Its source and resource domain include reduced model KV plus owned synthetic allocations. It is not a production-state interference table and is not silently valid for changed P316 source.",
+    "current_fixed_pressure_observations": [
+      {
+        "run": "mixed-02-fixed",
+        "denied_performance": 0,
+        "native_fallbacks": 0,
+        "performance_override_ops": 5
+      },
+      {
+        "run": "mixed-03-pressure",
+        "denied_performance": 0,
+        "native_fallbacks": 8820,
+        "performance_override_ops": 6
+      },
+      {
+        "run": "mixed-04-pressure",
+        "denied_performance": 0,
+        "native_fallbacks": 9114,
+        "performance_override_ops": 6
+      },
+      {
+        "run": "mixed-05-fixed",
+        "denied_performance": 0,
+        "native_fallbacks": 0,
+        "performance_override_ops": 4
+      }
+    ],
+    "bounded_record_sample": "All 96 retained record samples per listed run contained unknown free_staging_bytes. F does not require the pressure watermark; the P fallback counts are native fallback events, not failed requests or physically released resources.",
+    "no_effect_inference": "Ordinary denied_performance=0 can be a nonbinding candidate. It does not prove that other legal finite candidates are ineffective. Large-registry unknown capacity is not zero capacity."
+  },
+  "observation_repair_gate": {
+    "allowed_change": "Compact scalar clean/busy staging observations maintained by the existing cache owners. No new engine, allocator, model executor, scheduler queue, eviction/admission policy or resource-release semantics.",
+    "cpu_before_gpu": [
+      "Validate exact unique slot ownership, clean/busy transitions, shared aliases, pin/unpin, insertion/pop/eviction, preloader/fusion aliases, failure and shutdown.",
+      "Exercise registry sizes below, at and above 64 and prove the scalar agrees with a test-only full owner oracle without production scans.",
+      "Preserve unknown None when ownership, event completion or capacity is genuinely unproved.",
+      "Run appropriate complete CPU qualification with GPU initialization disabled and preserve frozen old source/off-path compatibility checks."
+    ],
+    "gpu_witness": [
+      "Actual native SSD/H2D/D2H operations and full native drain remain valid after the scalar change.",
+      "Live pressure model runs include the naturally occurring registry>64 state, fresh owner generation and known capacity when provable; remaining None cases have explicit reasons.",
+      "Every request produces the complete expected output; original model/cache executor and streams remain in use.",
+      "Staging clean/free capacity is never reported as reusable GPU KV capacity or real DMA completion without its own witness."
+    ],
+    "rollback": "A failure returns to the frozen P315/off path and is recorded. Do not weaken guards or relabel unknown counts to make the pressure policy active."
+  },
+  "proposed_gpu_waves": [
+    {
+      "id": "repair_engineering_capability_only",
+      "recommended_run_count": 3,
+      "entries": [
+        {
+          "kind": "native protocol primitive qualification",
+          "count": 1
+        },
+        {
+          "kind": "same-resource live pressure model repetition",
+          "count": 2
+        }
+      ],
+      "time_cap_seconds_each": null,
+      "total_seconds_reservation": null,
+      "purpose": "Minimum repaired native/observation capability verification; not complete P3 and not an efficacy study.",
+      "inheritance": "Use the same already-qualified PRIMARY media, registered source, model, C2/d8 cost permit, common fixes, GPU KV and staging budgets. Any domain change needs its own qualification.",
+      "acceptance": "Exact outputs, unchanged source, no stranded Future/event/slot, actual native drain, resource caps and valid >64 registry pressure observations."
+    },
+    {
+      "id": "renewed_comparable_development_and_negative_control",
+      "recommended_total_run_count_including_primitive": 11,
+      "primitive_runs": 1,
+      "normal_development_sequence": [
+        "U",
+        "F",
+        "P",
+        "P",
+        "F",
+        "U"
+      ],
+      "normal_model_runs": 6,
+      "selected_baseline_all_hit_sequence": [
+        "U",
+        "B",
+        "B",
+        "U"
+      ],
+      "all_hit_model_runs": 4,
+      "selection": "B must be selected from the frozen development rule before the all-hit control. State the candidate and source version explicitly.",
+      "time_cap_seconds_each": null,
+      "total_seconds_reservation": null,
+      "reuse_condition": "The two engineering P runs may be the P/P entries of this six-run sequence only if their manifest, candidate, source, order and acceptance rule were frozen prospectively as that same sequence; no implementation change between them. Do not mix P315 and P316 results as if the arms had identical common code.",
+      "limitation": "Eleven runs qualify a repaired limited comparison. Additional eligible tuning and production observer CPU measurement are not included; this number is not a promise of full P3 completion."
+    },
+    {
+      "id": "production_observer_cost",
+      "recommended_repeat_order": [
+        "observation_off",
+        "observation_on",
+        "observation_on",
+        "observation_off"
+      ],
+      "recommended_run_count_if_separate": 4,
+      "frozen_design": null,
+      "time_cap_seconds_each": null,
+      "overlap_with_other_waves": null,
+      "purpose": "Measure actual production observation off/on CPU cost and cohort end-to-end cost under identical control, model state and workload. Record the relevant frontend/core/worker process CPU at agreed cohort boundaries and measurement instrumentation cost.",
+      "limitation": "P315 isolated controller microbenchmarks are not observer or model CPU decomposition. U/B all-hit compares controller modes with common observations and cannot by itself fill this requirement. Reuse another run only when its prospectively frozen toggle and measurement design genuinely measure this off/on pair."
+    },
+    {
+      "id": "finite_candidate_development",
+      "additional_gpu_run_count": null,
+      "candidate_values": null,
+      "time_cap_seconds_each": null,
+      "required_before_full_p3": true,
+      "scope": "A small prospectively frozen eligible set rather than a Cartesian grid. Audit/prune candidates on CPU first and document every excluded dimension.",
+      "dimensions": [
+        "batch",
+        "IO depth",
+        "cache/preload capacity",
+        "buffer reserve and finite performance quota"
+      ],
+      "eligibility": [
+        "Retain original LoadPlanner/break-even, exact Prefix Cache, original asynchronous pipelines, shared staging, preload and fusion.",
+        "Keep common admission/correctness changes identical across U/F/P and preserve physical resource budgets.",
+        "The current new-GPU C2/d8 permit is qualified. P314 seq1/d4 calibration does not qualify C2/d4; a new concurrency/depth domain needs the original cost gate, not a reused or relaxed permit.",
+        "Prior d2 rejection stays evidence; do not loosen its frozen cost threshold.",
+        "A different model batch, KV state, source media, preload capacity or staging reserve may alter the cost/interference domain; bound and qualify it explicitly.",
+        "No new quota values are proposed or authorized here."
+      ],
+      "outcome": "Record binding and nonbinding quotas, fallback reasons, actual waits, exact output and drain. Pick the simple baseline using development evidence, then freeze it for subsequent comparison."
+    },
+    {
+      "id": "conditional_table_source_disposition",
+      "additional_gpu_run_count": null,
+      "time_cap_seconds_each": null,
+      "decision": "First audit whether the changed source participates in the existing calibration code path. Keep the old table scoped to its old exact source/domain. It must not silently match a new source.",
+      "if_fresh_table_needed": "Refreeze the existing two-calibration plus independent-validation design under the changed source and conditional resource domain. Schedule additional runs only after root confirms necessity and inherited budget/storage feasibility.",
+      "production_table_supported": false,
+      "p4_enablement": false
+    }
+  ],
+  "storage_feasibility": {
+    "snapshot_tail_status": "No all-hit raw results existed at the snapshot. Four all-hit runs remain in the original plan; verify current tail status before using these arithmetic scenarios.",
+    "historical_per_model_preflight_reserve_bytes": 3221225472,
+    "historical_primitive_example_reserve_bytes": 134217728,
+    "four_tail_conservative_new_bytes": 12884901888,
+    "headroom_above_floor_at_snapshot_bytes": 20172115968,
+    "headroom_after_four_tail_conservative_bytes": 7287214080,
+    "repair_three_run_conservative_new_bytes": 6576668672,
+    "eleven_run_comparison_conservative_new_bytes": 32346472448,
+    "eleven_run_wave_total_free_required_with_floor_bytes": 40936407040,
+    "arithmetic_is_new_authorization": false,
+    "interpretation": "These scenarios conservatively treat each model reserve as retained new bytes. They do not measure actual tail growth or include unfrozen P316 source, CPU logs and additional tuning/calibration bytes. Even the three-run repair wave needs a fresh complete preflight. Reserving the entire eleven-run comparison under these historical envelopes is not feasible at the snapshot.",
+    "execution_rule": "Wait for the P315 tail to finish, measure actual PRIMARY free space, freeze the next wave's maximum new writes including evidence and source worktree, then run serially with each original storage guard. Stop before the floor; no new AUX writes, automatic cache deletion, cache merge or budget reset.",
+    "constrained_exit": "Storage/budget exhaustion means P3 capability work remains blocked/incomplete. It is not evidence that the method is scientifically infeasible."
+  },
+  "full_p3_gate_audit": {
+    "current_classification": "LIMITED_PILOT_WITH_CONDITIONAL_CALIBRATION_AND_PENDING_PRESSURE_OBSERVATION_REPAIR; FULL_P3_NOT_ESTABLISHED",
+    "established": [
+      "CPU/native limited qualification evidence is preserved.",
+      "True native primitive transfers and synthetic fault-path cases were recorded without substituting CPU mocks for GPU execution.",
+      "Normal model targets and sparse continuous-decode conditional calibration were observed without artificial throttling.",
+      "The conditional seven-cell table passed its own frozen criterion."
+    ],
+    "missing_or_not_yet_sufficient": [
+      "Correct pressure free-capacity observations above the bounded registry size and repaired live same-resource qualification.",
+      "Sufficient documented finite development of batch, IO depth, cache/preload capacity and buffer reserve; current singleton F/P quota pilot does not establish a tuned strong simple baseline.",
+      "Actual production observer off/on CPU and end-to-end overhead; isolated controller operation averages are insufficient.",
+      "Final prospective selected-baseline all-hit control and source-consistent normal comparisons.",
+      "Updated PILOT_PROBLEM_REPORT with normal target evidence, limitations, candidate lineage, table domain, unsupported/fallback cases and a justified stage disposition."
+    ],
+    "valid_dispositions": [
+      "Full P3 complete only when its capability and baseline-development gates are evidenced, with no claim of P4/P5 study efficacy.",
+      "A justified P3 negative stop after a properly observed reasonable simple baseline/candidate plan shows the documented stop condition.",
+      "Incomplete/blocked if observation, budget, storage or required measurements prevent the gates."
+    ],
+    "invalid_stops": [
+      "No normal target, when the frozen normal runs actually recorded pending I/O/wait targets.",
+      "No method benefit based only on one nonbinding quota or an unknown-capacity pressure fallback.",
+      "Full phase complete solely because seven synthetic conditional cells passed.",
+      "Negative scientific conclusion from budget or storage exhaustion."
+    ],
+    "future_boundaries": "P4 candidate scheduling/debt policy, production interference lookup, unseen evaluation, multi-workload efficacy, goodput/SLO and formal uncertainty claims remain closed. Descriptive small-run comparisons are not token/window-based confidence intervals."
+  },
+  "this_action": {
+    "gpu_runs": 0,
+    "cpu_tests": 0,
+    "system_changes": 0,
+    "payload_reads": 0,
+    "modified_existing_files": 0,
+    "new_artifact_only": "remaining-p3-capability-plan.json"
+  }
+}

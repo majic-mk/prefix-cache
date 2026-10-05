@@ -1,0 +1,48 @@
+{
+  "arm": "U",
+  "gpu_uuid": "GPU-b2de2c25-cdc7-a350-267f-56e7763a287f",
+  "mode": "off",
+  "off_qualification_ref": null,
+  "output_relative": "experiments/prefix_io_v1/runs/server12-strong-u-qual-off01/details",
+  "pair_config_ref": {
+    "bytes": 8456,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/PRIVATE_U_I_CONFIG.json",
+    "sha256": "4c1cd7b91ec80085c1968318582a52a2be53d4d64a72dc8bbd1018232166e1dc"
+  },
+  "permissions_ref": {
+    "bytes": 677,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/live-off01/EFFECTIVE_GPU_PERMISSION.json",
+    "sha256": "ea2848a46776a196878f0cf665ca2284225861e3e46b919c8b2c100905b7e35f"
+  },
+  "phase": "qualification",
+  "run_id": "server12-strong-u-qual-off01",
+  "runner_ref": {
+    "bytes": 35006,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/strong_trace_runner.py",
+    "sha256": "239771d85459b795d82624e23aa96510954ce301b2fc6554b2e575057edb9ce9"
+  },
+  "runtime_ref": {
+    "bytes": 32781,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/native_runtime.py",
+    "sha256": "a293f98841e34bb9357e8dacb62cda43be7dfc7da66167f3df5577c4b5b11709"
+  },
+  "schema": "strong_native_trace_run_v1",
+  "seconds_limit": 300,
+  "source_lock_ref": {
+    "bytes": 1125605,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/live-off01/BOUND_SOURCE_LOCK.json",
+    "sha256": "4d6c62286ca20d4cfb0e22350371c4edac311efb1bc06ed2d59b2d116b3aece7"
+  },
+  "source_proof_ref": {
+    "bytes": 983,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/live-off01/BOUND_SOURCE_PROOF.json",
+    "sha256": "65a8c8b79b0e140e013c531a2ede32bb34cba04782c9fe1a57c121405b0de296"
+  },
+  "storage_floor_bytes": 8589934592,
+  "storage_reserve_bytes": 134217728,
+  "workload_ref": {
+    "bytes": 98506,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/protocol/CONTROLLED_P3_OFF_QUALIFICATION_WORKLOAD.json",
+    "sha256": "342e965f509c81ce4702b4f1ea42142aa2176630c4aa691c56a39ea92d0630b7"
+  }
+}

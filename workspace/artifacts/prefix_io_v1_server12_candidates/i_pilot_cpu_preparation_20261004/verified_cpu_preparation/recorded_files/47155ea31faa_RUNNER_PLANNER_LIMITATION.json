@@ -1,0 +1,29 @@
+{
+  "GPU_operations": 0,
+  "complete_strong_U_baseline_ready": false,
+  "current_calibration_is_only_mechanism_diagnostic": true,
+  "formal_effect_runner_bound": false,
+  "schema": "i_pilot_actual_retained_planner_limitation_v1",
+  "sources": [
+    {
+      "actual_load_planner": "off",
+      "function": "config_for_engine",
+      "origin": "actual_source_AST_no_import",
+      "source_ref": {
+        "bytes": 43067,
+        "path": "artifacts/prefix_io_v1_server12_candidates/native_recalibration_cpu/run_native_cost_experiment.py",
+        "sha256": "2cb5d75d18066a83d1e9bf5e496a0f6c7555b599f476b5b0ab572a5c4f979391"
+      }
+    },
+    {
+      "actual_load_planner": "off",
+      "function": "config_for_engine",
+      "origin": "actual_source_AST_no_import",
+      "source_ref": {
+        "bytes": 49792,
+        "path": "artifacts/prefix_io_v1_server12_candidates/normal_repeatability_v1/run_p4_single_file_experiment.py",
+        "sha256": "4b3ce819b19f2da96911134672bd39d49cb8fcdefe956f8cfc917de92be199c9"
+      }
+    }
+  ]
+}

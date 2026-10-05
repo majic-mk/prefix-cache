@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "status": "CPU_RUNTIME_SCALAR_WIRING_CANDIDATE",
+  "runtime_hook_status": "not_installed",
+  "GPU_collector_verified": false,
+  "production_qualified": false,
+  "gpu_verified": false,
+  "live_native_installation": false,
+  "scope": {
+    "new_files_only": true,
+    "changes_to_frozen_v2": false,
+    "changes_to_context_v3": false,
+    "changes_to_collector_adapter": false,
+    "changes_to_author_executor_or_cache_engine": false,
+    "remote_operations": 0,
+    "gpu_operations": 0,
+    "new_policies": 0
+  },
+  "files": [
+    {
+      "name": "p4_runtime_scalar_connector.py",
+      "nbytes": 14795,
+      "sha256": "347fb842989e8e14c73968528396721b546a11d7312206aae2efbb3739b0f3cb"
+    },
+    {
+      "name": "test_p4_runtime_scalar_connector.py",
+      "nbytes": 30659,
+      "sha256": "ecd508f484d277e9f51c6141c8696edf8837fa329390293d4e801614c9c3714c"
+    }
+  ],
+  "frozen_adapter": {
+    "relative_source": "../collector/p4_full_step_frame_adapter.py",
+    "server_source": "collector-candidate/p4_full_step_frame_adapter.py",
+    "nbytes": 16067,
+    "sha256": "bea850fd60831010c2ac0bf88c1f5f121f3ffca50d63ab56759319ed6e512582",
+    "loaded_only_after_exact_bytes_sha": true
+  },
+  "original_author_source_audit": {
+    "head": "817a7e3124f817cd6e549581d3e5483207a753a4",
+    "basis": "Previously read-only audited server09 source SHA; no real runner constructed or hooked by this candidate",
+    "refs": [
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/v1/worker/gpu_model_runner.py",
+        "nbytes": 329690,
+        "sha256": "61828af13a5f523c9683df560374d75bc1df93254a9ac4a449c95447100e9075"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/v1/engine/core.py",
+        "nbytes": 92611,
+        "sha256": "e9e522b559d1c79fd3e2943bbb42203180d8341823834fa3e202912b7e48945d"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/v1/worker/gpu_worker.py",
+        "nbytes": 49164,
+        "sha256": "bcbdfba6d0846f4151551c39140b370cba33a1af6401e0a2362f5be1de3cfd3b"
+      },
+      {
+        "path": "third_party/work/vllm-author-p4-02-cpu/vllm/config/vllm.py",
+        "nbytes": 99170,
+        "sha256": "23ed05ff149f36dba4701076fed1ebb882e2c3693dfc0aa83ed17f05250c4af7"
+      }
+    ],
+    "actual_torch_inference_mode_decorator_file_refs_frozen": false,
+    "actual_runtime_ABI_verified": false
+  },
+  "interfaces": {
+    "load_frozen_adapter": "load_frozen_adapter(path): verify exact adapter bytes/SHA before private stdlib import",
+    "SourceRef": "absolute regular source path, exact int bytes in [1,4MiB], exact lowercase SHA; stat then read at most nbytes+1",
+    "MethodBinding": "refs <=8; exact execute_model/_prepare_inputs/sample_tokens underlying qualnames; every __wrapped__ code source pinned; no existing instance override; native_candidate raw source must be frozen author GPUModelRunner",
+    "connect_runtime_scalar_observer": "off: immediately return inactive handle before touching runner/adapter/source/binding/clock; on: CPU source preflight and synchronous domain gate then optional instance wrappers",
+    "detach": "delete only our wrapper attributes, preserve foreign later overrides; restore original class descriptor lookup",
+    "observe_shutdown": "ephemeral original_shutdown() call once; only after success consume scalar snapshot_factory and expected complete outputs; original result identity unchanged; no handler hook installed"
+  },
+  "boundaries": {
+    "execute": "begin host order and real _profile_step before original; original execute_model once; original None return awaits sample and never closes frame",
+    "prepare": "original _prepare_inputs once then copy actual CPU metadata only; prepared seq_lens pre_context+scheduled separate from pre_context cost dimension",
+    "sample": "original sample_tokens once then copy actual synchronous req IDs/index and sampled_token_ids; original object returned unchanged",
+    "original_error": "bare raise same original exception object; observation cleanup cannot replace it or retry original",
+    "ordinary_observer_error": "Exception invalidates bounded observation and returns to original mandatory path; no exception/traceback retained",
+    "control_signals": "KeyboardInterrupt/SystemExit from observations remain control signals; if original has already failed, diagnostic cleanup cannot replace original",
+    "disabled_installed": "wrappers directly call original once without reading adapter/clock/scheduler/output metadata; detach removes wrappers entirely",
+    "ownership": "runner and all original bound methods only weak references; CPU test clocks weak references; no closure/default/global ownership retained through clock; no scheduler/output/tensor/Future/IO owner retained; bounded scalar adapter and closed-run copies only",
+    "clock": "native_candidate only builtin time.monotonic_ns; CPU test closure-free functions only weakly referenced, expired clock invalidates observation; host ns only member/order, gpu_elapsed_ns remains None",
+    "drain": "original shutdown owns release/join; snapshot after successful original return only; no Future.done inference; adapter requires all four accepted==completed plus actual transferred bytes and failed ops, all outstanding/active/inflight empty",
+    "resource_bounds": {
+      "max_steps": 4096,
+      "max_requests": 128,
+      "max_full_output_tokens": 262144,
+      "max_expected_tokens_per_request": 4096,
+      "max_source_refs": 8,
+      "max_source_bytes": 4194304,
+      "max_reason_characters": 160,
+      "max_original_methods": 3,
+      "max_decorator_chain": 8
+    }
+  },
+  "domain": {
+    "async_scheduling": "must be explicitly False in resolved original runner, never inferred from default",
+    "speculative_config": "None",
+    "is_pooling_model": false,
+    "TP": 1,
+    "PP": 1,
+    "DP": 1,
+    "ordinary_homogeneous_prefill_decode_only": true,
+    "unsupported_direct_execute_return": "original identity preserved; observation invalidated; no extra sampling"
+  },
+  "cold_prefill_contract": {
+    "first_context_length": 0,
+    "context_basis": "pre_computed_tokens",
+    "step_kind": "prefill",
+    "active_decode": 0,
+    "actual_input_seq_lens": "pre_context+scheduled",
+    "partial_prefill_outputs": "empty until actual prompt completion",
+    "complete_run_128_outputs": "actual cold completed prefill 1 output plus 127 decode outputs; keep every frame and token",
+    "old_v2_zero_context_support": false,
+    "v3_needed_for_complete_trace_zero": true,
+    "selected_cost_window": "actual pure decode context>=1 and warmup offset>=1; do not send cold frame to old selection/cost loader"
+  },
+  "CPU_validation": {
+    "python": "3.12.14 local installed uv runtime",
+    "command": "& \"$env:APPDATA/uv/python/cpython-3.12.14-windows-x86_64-none/python.exe\" -B -I -S \"artifacts/prefix_io_v1_server09_candidates/runtime_connector/test_p4_runtime_scalar_connector.py\"",
+    "tests": 38,
+    "expected_server_command": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S <runtime-connector-dir>/test_p4_runtime_scalar_connector.py --collector-source <collector-candidate-dir>/p4_full_step_frame_adapter.py",
+    "fake_fixture_only": true,
+    "observed_GPU_results": [],
+    "coverage": [
+      "off poison objects",
+      "posargs/kwargs original identities and once counts",
+      "original return/exception object identity",
+      "cold prefill plus 127 decode complete 128-token lifecycle",
+      "partial prefill no token",
+      "execute None does not close",
+      "observer begin/prepared/executed/sampled and clock failures",
+      "original-error priority even invalidator control signal",
+      "source bytes/SHA/qualname/codefile/decorator drift refusal",
+      "async/spec/pooling/parallel/mixed/ordinal unsupported observation invalidation",
+      "bounded step overflow retains original calls",
+      "detach and foreign override",
+      "weakref GC of runner/scheduler/output/owner and error tracebacks",
+      "weak CPU clock defaults owner GC",
+      "original shutdown before provider",
+      "provider/drain/pending/output truncation refusal",
+      "native custom CPU clock rejected before any runner read"
+    ]
+  },
+  "unimplemented_and_unqualified": [
+    "No native hook installation, runner construction, model execution, CUDA/NVML initialization or actual GPU evidence in this subtask.",
+    "No native CUDA event timer or GPU_elapsed_ns; host elapsed must never become GPU cost.",
+    "No source-pinned real NativeWindowJournal snapshot provider connected to each frame; existing_io/new_io remain None.",
+    "No real NativeWindowJournal post-shutdown drain provider installed; only scalar helper contract replayed.",
+    "No compact native fulltrace serialization/v3 evidence producer or selected-window/paired cost qualification.",
+    "No guarantee a same-filename/qualname Python function or already loaded adapter runtime code is ABI/authentic solely from these source bindings; independent runtime/source/ABI qualification still required.",
+    "No off/shadow GPU effect, interference allowance effect or performance advantage inferred from CPU fixtures."
+  ],
+  "next_allowed_CPU_work": [
+    "Freeze actual model/author/native/journal/timer source refs for a separate G2 startup plan without importing CUDA.",
+    "Source-only inspect real NativeWindowJournal accepted/completed/actual transfer/error fields and original shutdown order; prepare safe copied scalar provider or document exact gap.",
+    "Design explicit full execute-to-sample CUDA-event scope as a separate unqualified candidate and test fake-event lifecycle only; never use host duration for GPU cost."
+  ],
+  "next_GPU_gate": "G1 off/shadow authorization does not authorize a new G2 startup. Real normal model fulltrace requires separately frozen G2 scope, actual source/ABI/ref checks, explicit async=False, native event timing, each frame real existing/new I/O counters and original shutdown drain evidence within new user budget."
+}

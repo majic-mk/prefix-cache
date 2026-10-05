@@ -1,0 +1,223 @@
+.FF.F............................F.....                                  [100%]
+=================================== FAILURES ===================================
+_____________ test_no_content_length_complete_response_is_verified _____________
+
+rig = <test_download_boundaries.Rig object at 0x7fe404d233b0>
+
+    def test_no_content_length_complete_response_is_verified(rig):
+        rig.response_factory = lambda req, rec: Response(
+            rig.payloads[rec["path"]], req.full_url, length=None)
+>       assert rig.run()["status"] == "VERIFIED_LOCAL_FILES"
+               ^^^^^^^^^
+
+tests/prefix_io_v1_download/test_download_boundaries.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/prefix_io_v1_download/test_download_boundaries.py:148: in run
+    return dl.execute(self.root, self.manifest, self.target, label)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/tmp/pytest-of-root/pytest-15/test_no_content_length_complet0/project')
+plan_path = PosixPath('/tmp/pytest-of-root/pytest-15/test_no_content_length_complet0/project/manifest.json')
+target = PosixPath('/tmp/pytest-of-root/pytest-15/test_no_content_length_complet0/project/models/qwen')
+label = 'cpu-review'
+
+    def execute(root, plan_path, target, label):
+        root = root.resolve(strict=True)
+        plan_path = real_project_path(root, plan_path)
+        target = real_project_path(root, target)
+        require(re.fullmatch("[a-zA-Z0-9_-]+", label), "safe unique label required")
+        raw_plan = plan_path.read_bytes()
+        require(len(raw_plan) <= 2 * 1024 ** 2, "manifest too large")
+        plan = json.loads(raw_plan)
+        files = validate_manifest(plan)
+        from prefix_io_control.config import read_yaml, validate_permissions
+        permissions = validate_permissions(read_yaml(root / "experiments/prefix_io_v1/configs/permissions.yaml"))
+        require(permissions["allow_model_downloads"], "model download is not authorized")
+        limit_gib = permissions["max_model_download_gib"]
+        require(limit_gib is not None, "finite model budget required")
+        ceiling = min(int(limit_gib * GIB), 20 * GIB)
+        require(Path(permissions["approved_dependency_root"]).resolve() == root,
+                "approved dependency root mismatch")
+        ledger = root / "experiments/prefix_io_v1/gpu-budget-ledger.json"
+        out = root / "artifacts/prefix_io_v1/new-server-03/downloads" / label
+        opener = make_opener()
+        with ledger.with_suffix(".lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            budget = json.loads(ledger.read_text())
+            require(budget.get("active_reservation") is None, "unfinished reservation; inspect and reconcile first")
+            used = budget.get("model_download_bytes")
+            require(type(used) is int and used >= 0, "invalid cumulative model charge")
+            require(type(budget.get("model_payload_received_bytes", used)) is int, "invalid actual payload ledger")
+            out.mkdir(parents=True, exist_ok=False)
+            target.mkdir(parents=True, exist_ok=True)
+            # Reuse only complete, previously verified regular files.
+            pending = []
+            reused = []
+            for rec in files:
+                dest = target / rec["path"]
+                if dest.exists() or dest.is_symlink():
+                    verify_file(dest, rec)
+                    reused.append(rec["path"])
+                else:
+                    pending.append(rec)
+            planned = sum(r["bytes"] + 1 for r in pending)  # One-byte overrun probe per response.
+            require(used + planned <= ceiling, "insufficient cumulative budget for all remaining files")
+            require(shutil.disk_usage(target).free >= sum(r["bytes"] for r in pending) + RESERVE_DISK,
+                    "insufficient disk space with explicit 2 GiB reserve")
+            job = {"label": label, "model_id": MODEL_ID, "revision": plan["revision"],
+                   "source": plan["source"], "manifest": str(plan_path),
+                   "manifest_sha256": hashlib.sha256(raw_plan).hexdigest(),
+                   "target": str(target), "reused_verified_files": reused,
+                   "files": [], "status": "RUNNING", "gpu_execution": False,
+                   "accounting": "response payload bytes; failed requests conservatively charged full reservation"}
+            atomic_json(out / "result.json", job)
+            budget.setdefault("download_events", [])
+            budget.setdefault("model_payload_received_bytes", used)
+            for index, rec in enumerate(pending):
+                require(shutil.disk_usage(target).free >= rec["bytes"] + RESERVE_DISK,
+                        "insufficient free disk before file request")
+                dest = target / rec["path"]
+                partial = target / (rec["path"] + "." + label + ".partial")
+                require(not partial.exists() and not partial.is_symlink() and not dest.exists(),
+                        "partial or destination already exists; no implicit resume/overwrite")
+                amount = rec["bytes"] + 1
+                require(budget["model_download_bytes"] + amount <= ceiling, "remaining download budget exceeded")
+                reservation = {"kind": "model_download", "id": uuid.uuid4().hex,
+                               "label": label, "file": rec["path"], "url": rec["url"],
+                               "reserved_bytes": amount, "runner_pid": os.getpid(),
+                               "started_unix": time.time(), "manifest_sha256": job["manifest_sha256"]}
+                budget["active_reservation"] = reservation
+                atomic_json(ledger, budget)  # Durable before opening the network request.
+                actual = 0
+                error = None
+                try:
+                    req = urllib.request.Request(rec["url"], headers={
+                        "Accept-Encoding": "identity", "User-Agent": "prefix-io-v1-fixed-model"})
+                    with opener.open(req, timeout=60) as response:
+                        valid_url(response.geturl())
+                        require(response.status == 200, "only complete HTTP 200 responses accepted")
+                        require(response.headers.get("Content-Encoding", "identity").lower() == "identity",
+                                "compressed responses are not allowed")
+                        length = response.headers.get("Content-Length")
+                        require(length is not None and int(length) == rec["bytes"],
+                                "response Content-Length differs from frozen manifest")
+                        with partial.open("xb") as f:
+                            while actual < amount:
+                                chunk = response.read(min(8 * 1024 ** 2, amount - actual))
+                                if not chunk:
+                                    break
+                                actual += len(chunk)
+                                f.write(chunk)
+                                require(actual <= rec["bytes"], "response exceeds frozen size")
+                            f.flush()
+                            os.fsync(f.fileno())
+                    require(actual == rec["bytes"], "short response")
+                    verify_file(partial, rec)
+                    # Same-directory hard-link publication fails if a destination appeared.
+                    os.link(partial, dest)
+                    partial.unlink()
+                    fd = os.open(str(target), os.O_DIRECTORY)
+                    try:
+                        os.fsync(fd)
+                    finally:
+                        os.close(fd)
+                except BaseException as exc:
+                    error = type(exc).__name__ + ": " + str(exc)
+                charge = actual if error is None else amount
+                budget["model_download_bytes"] += charge
+                budget["model_payload_received_bytes"] += actual
+                event = dict(reservation, actual_payload_bytes=actual, charged_bytes=charge,
+                             ended_unix=time.time(), error=error, published=error is None)
+                budget["download_events"].append(event)
+                budget["active_reservation"] = None
+                atomic_json(ledger, budget)
+                job["files"].append(event)
+                job["status"] = "FAILED" if error else "RUNNING"
+                atomic_json(out / "result.json", job)
+                print(json.dumps({"file": rec["path"], "actual_bytes": actual,
+                                  "charged_bytes": charge, "error": error}), flush=True)
+                if error:
+>                   raise RuntimeError(error)
+E                   RuntimeError: RuntimeError: response Content-Length differs from frozen manifest
+
+experiments/prefix_io_v1/scripts/download_pinned_model.py:257: RuntimeError
+----------------------------- Captured stdout call -----------------------------
+{"file": "config.json", "actual_bytes": 0, "charged_bytes": 60, "error": "RuntimeError: response Content-Length differs from frozen manifest"}
+_______ test_short_stream_charged_conservatively_and_keeps_partial[None] _______
+
+rig = <test_download_boundaries.Rig object at 0x7fe404a54110>, length = None
+
+    @pytest.mark.parametrize("length", [None, True])
+    def test_short_stream_charged_conservatively_and_keeps_partial(rig, length):
+        rec = rig.plan["files"][0]
+        body = rig.payloads[rec["path"]][:-3]
+        rig.response_factory = lambda req, _rec: Response(
+            body, req.full_url, length=None if length is None else rec["bytes"])
+>       with pytest.raises(RuntimeError, match="short response"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'short response'
+E         Actual message: 'RuntimeError: response Content-Length differs from frozen manifest'
+
+tests/prefix_io_v1_download/test_download_boundaries.py:190: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"file": "config.json", "actual_bytes": 0, "charged_bytes": 60, "error": "RuntimeError: response Content-Length differs from frozen manifest"}
+___________ test_overlong_body_reads_at_most_expected_plus_one[None] ___________
+
+rig = <test_download_boundaries.Rig object at 0x7fe404a577d0>, length = None
+
+    @pytest.mark.parametrize("length", [None, True])
+    def test_overlong_body_reads_at_most_expected_plus_one(rig, length):
+        rec = rig.plan["files"][0]
+        body = rig.payloads[rec["path"]] + b"x" * 1000
+        rig.response_factory = lambda req, _rec: Response(
+            body, req.full_url, length=None if length is None else rec["bytes"])
+>       with pytest.raises(RuntimeError, match="exceeds frozen size"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'exceeds frozen size'
+E         Actual message: 'RuntimeError: response Content-Length differs from frozen manifest'
+
+tests/prefix_io_v1_download/test_download_boundaries.py:208: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"file": "config.json", "actual_bytes": 0, "charged_bytes": 60, "error": "RuntimeError: response Content-Length differs from frozen manifest"}
+________ test_automatic_redirect_never_reads_unmetered_response_payload ________
+
+    def test_automatic_redirect_never_reads_unmetered_response_payload():
+        class RedirectBody:
+            closed = False
+            def read(self, *args):
+                pytest.fail("urllib redirect read would consume unmetered payload")
+            def close(self):
+                self.closed = True
+        class Parent:
+            def open(self, *args, **kwargs):
+                pytest.fail("redirect must stop until an explicit provider route is approved")
+        handler = dl.VerifiedRedirect()
+        handler.add_parent(Parent())
+        req = urllib.request.Request("https://huggingface.co/first")
+        req.timeout = 10
+        body = RedirectBody()
+        with pytest.raises(RuntimeError, match="redirect"):
+>           handler.http_error_302(req, body, 302, "Found",
+                                   {"location": "https://huggingface.co/second"})
+
+tests/prefix_io_v1_download/test_download_boundaries.py:434: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/root/miniconda3/lib/python3.12/urllib/request.py:742: in http_error_302
+    fp.read()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_download_boundaries.test_automatic_redirect_never_reads_unmetered_response_payload.<locals>.RedirectBody object at 0x7fe404a4f890>
+args = ()
+
+    def read(self, *args):
+>       pytest.fail("urllib redirect read would consume unmetered payload")
+E       Failed: urllib redirect read would consume unmetered payload
+
+tests/prefix_io_v1_download/test_download_boundaries.py:422: Failed
+=========================== short test summary info ============================
+FAILED tests/prefix_io_v1_download/test_download_boundaries.py::test_no_content_length_complete_response_is_verified
+FAILED tests/prefix_io_v1_download/test_download_boundaries.py::test_short_stream_charged_conservatively_and_keeps_partial[None]
+FAILED tests/prefix_io_v1_download/test_download_boundaries.py::test_overlong_body_reads_at_most_expected_plus_one[None]
+FAILED tests/prefix_io_v1_download/test_download_boundaries.py::test_automatic_redirect_never_reads_unmetered_response_payload
+4 failed, 35 passed in 0.57s

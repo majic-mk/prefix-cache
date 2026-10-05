@@ -1,0 +1,192 @@
+--- a/py_kvcache/reactor.py
++++ b/py_kvcache/reactor.py
+@@ -190,6 +190,7 @@
+         storage_block_tokens: int = 0,
+         progress_run_id: str | None = None,
+         observation_sink: Any = None,
++        start_budget: Any = None,
+     ) -> None:
+         if progress_run_id is not None and (
+             type(progress_run_id) is not str or not progress_run_id.strip()
+@@ -197,6 +198,13 @@
+             raise ValueError("progress_run_id must be a nonempty string or None")
+         if observation_sink is not None and not callable(observation_sink):
+             raise TypeError("observation_sink must be callable or None")
++        if start_budget is not None:
++            from prefix_io_control.start_budget import StartBudget
++            if not isinstance(start_budget, StartBudget):
++                raise TypeError("start_budget must be StartBudget or None")
++            if progress_run_id is None:
++                raise ValueError("ordinary starts require the native mandatory bridge")
++            start_budget.bind()
+         if not TORCH_COPY_AVAILABLE:
+             raise RuntimeError("vLLM and torch are required for the I/O reactor")
+         self.config = config
+@@ -340,6 +348,7 @@
+         self._prefix_progress = (
+             _ProgressState(progress_run_id) if progress_run_id is not None else None
+         )
++        self._prefix_start_budget = start_budget
+         self._observation_sink = observation_sink
+         self._observation_failures = 0
+         self._worker = threading.Thread(target=self._run, name="py-kvcache-reactor", daemon=True)
+@@ -643,6 +652,10 @@
+             # blocking forever waiting on this dead thread.
+             logger.exception("py-kvcache reactor thread crashed; failing all outstanding transfers")
+             self._fail_everything(exc)
++        finally:
++            budget = getattr(self, "_prefix_start_budget", None)
++            if budget is not None:
++                budget.clear()
+ 
+     def _observe_once(self) -> None:
+         """Optional bounded CPU observer; native work/completion has already run."""
+@@ -1409,6 +1422,40 @@
+             self._staging_cache.unpin(cache_slot)
+             self._file_terminal(job, ok=False, exc=exc)
+ 
++    def _prefix_allow_start(self, kind, job=None):
++        budget = getattr(self, "_prefix_start_budget", None)
++        if budget is None:
++            return None  # Off: no ticket, clock, counter, or policy import.
++        if budget.faulted:
++            return None  # A failed optional gate stays on the native path.
++        try:
++            state = self._prefix_progress
++            return budget.allow(
++                kind, job.future if job is not None else None,
++                now_ns=time.monotonic_ns(), free_slots=self.staging_pool.free_count,
++                mandatory=job is not None and self.is_mandatory(job.future),
++                # Conservative support superset, not a release-dependency policy:
++                # any active mandatory wait permits native stores to make progress.
++                support=kind == "store" and bool(state.required),
++                continuation=(
++                    kind == "load" and self._has_inflight_preload(
++                        job.block_hashes[job.next_file_index]
++                    )
++                ), shutdown=self._stop,
++            )
++        except Exception as exc:
++            budget.fail(type(exc).__name__)
++            return None  # Optional performance gate cannot fail native work.
++
++    def _prefix_commit_start(self, ticket):
++        if ticket is None:
++            return
++        budget = self._prefix_start_budget
++        try:
++            budget.commit(ticket)
++        except Exception as exc:
++            budget.fail(type(exc).__name__)
++
+     def _schedule_work(self) -> bool:
+         made = False
+ 
+@@ -1422,42 +1469,53 @@
+             while job.failed is None and job.next_file_index < job.total_files:
+                 file_index = job.next_file_index
+                 h = job.block_hashes[file_index]
++                ticket = self._prefix_allow_start("load", job)
++                if ticket is False:
++                    break
+                 if self._staging_cache is not None:
+                     cs = self._staging_cache.get(h)
+                     if cs is not None:
++                        self._prefix_commit_start(ticket)
+                         self._schedule_cache_hit(job, file_index, cs)
+                         made = True
+                         continue
+                 if self._share_preload:
+                     if h in self._shared_cached:
++                        self._prefix_commit_start(ticket)
+                         self._shared_claim_from_cache(job, file_index)
+                         made = True
+                     elif self._has_inflight_preload(h):
+                         # One read serves all waiters, so no waiter_room cap here.
++                        self._prefix_commit_start(ticket)
+                         self._schedule_preload_inflight(job, file_index)
+                         made = True
+                     elif self._preload_pending_count.get(h, 0) > 0:
+                         # Queued but unopened: promote to a shared read, don't wait on the gate.
+                         if not self._can_open():
+                             break
++                        self._prefix_commit_start(ticket)
+                         self._promote_pending_to_shared_read(job, file_index)
+                         made = True
+                     else:
+                         if not self._can_open():
+                             break
++                        self._prefix_commit_start(ticket)
+                         self._submit_open_read(job, file_index)
+                         self._shared_decref(job.profile.req_id, h)
+                         made = True
+                     continue
+                 if self._has_cached_preload(h):
++                    self._prefix_commit_start(ticket)
+                     self._schedule_preload_done(job, file_index)
+                     made = True
+                 elif self._has_inflight_preload(h) and self._preload_waiter_room(h):
++                    self._prefix_commit_start(ticket)
+                     self._schedule_preload_inflight(job, file_index)
+                     made = True
+                 else:
+                     if not self._can_open():
+                         break
++                    self._prefix_commit_start(ticket)
+                     self._submit_open_read(job, file_index)
+                     self._cancel_one_pending(h)
+                     made = True
+@@ -1506,6 +1564,10 @@
+                         args=self._preload_event_args(h, info),
+                     )
+                     continue
++                ticket = self._prefix_allow_start("preload")
++                if ticket is False:
++                    break
++                self._prefix_commit_start(ticket)
+                 self._preload_pending.popleft()
+                 self._pending_dec(h)
+                 self._submit_open_preload(info)
+@@ -1635,9 +1697,13 @@
+         return made
+ 
+     def _schedule_one(self, job: _ReactorJob) -> bool:
++        ticket = self._prefix_allow_start("store", job)
++        if ticket is False:
++            return False
+         slot = self._reserve_foreground_slot()
+         if slot is None:
+             return False
++        self._prefix_commit_start(ticket)
+         self._schedule_store_copy(job, job.next_file_index, slot.index)
+         return True
+ 
+@@ -2140,6 +2206,12 @@
+                 if state is not None:
+                     # A failed Future can settle before other I/O drains.
+                     state.required.discard(job.future)
++                budget = getattr(self, "_prefix_start_budget", None)
++                if budget is not None and not budget.faulted:
++                    try:
++                        budget.retire(job.future)
++                    except Exception as exc:
++                        budget.fail(type(exc).__name__)
+                 removed = True
+                 continue
+             remaining.append(job)
+@@ -2181,6 +2253,7 @@
+         storage_block_tokens: int = 0,
+         progress_run_id: str | None = None,
+         observation_sink: Any = None,
++        start_budget: Any = None,
+     ) -> None:
+         self.layout = layout
+         self.reactor = IoReactor(
+@@ -2191,6 +2264,7 @@
+             storage_block_tokens=storage_block_tokens,
+             progress_run_id=progress_run_id,
+             observation_sink=observation_sink,
++            start_budget=start_budget,
+         )
+ 
+     @property

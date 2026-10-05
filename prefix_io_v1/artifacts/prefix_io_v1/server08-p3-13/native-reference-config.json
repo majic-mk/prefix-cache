@@ -1,0 +1,33 @@
+{
+  "engine": {
+    "dtype": "bfloat16",
+    "kv_cache_dtype": "auto",
+    "quantization": null,
+    "load_format": "safetensors",
+    "trust_remote_code": false,
+    "skip_tokenizer_init": true,
+    "tensor_parallel_size": 1,
+    "distributed_executor_backend": "uni",
+    "max_model_len": 16400,
+    "max_num_seqs": 2,
+    "max_num_batched_tokens": 16400,
+    "block_size": 16,
+    "kv_cache_memory_bytes": 2147483648,
+    "gpu_memory_utilization": 0.7,
+    "enable_prefix_caching": true,
+    "enable_chunked_prefill": true,
+    "cpu_offload_gb": 0,
+    "offload_group_size": 0,
+    "kv_offloading_size": null,
+    "kv_transfer_config": null,
+    "attention_config": {
+      "backend": "TRITON_ATTN"
+    },
+    "enforce_eager": true,
+    "compilation_config": 0,
+    "generation_config": "vllm",
+    "disable_log_stats": false,
+    "seed": 0,
+    "prefix_caching_hash_algo": "sha256"
+  }
+}

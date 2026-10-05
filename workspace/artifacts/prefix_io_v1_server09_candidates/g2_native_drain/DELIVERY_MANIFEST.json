@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_CPU_EVIDENCE_ONLY",
+  "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-native-drain-20261001",
+  "actual_GPU_runs": 0,
+  "production_qualified": false,
+  "effect_verified": false,
+  "files": [
+    {
+      "path": "cli-development-evidence/LOCAL_CLI_FIXTURE_FAILURE.json",
+      "bytes": 1284,
+      "sha256": "84832e5af2ef8c30b310a8c13d52d2d0e24508548b839ff1ee47ce751fe28e09"
+    },
+    {
+      "path": "G2_NATIVE_DRAIN_CPU_PLAN.json",
+      "bytes": 14096,
+      "sha256": "04d97daf3b3d72102947f711f2aa8ee331f797deccfed853e3acee42bd9b2fe6"
+    },
+    {
+      "path": "G2_NATIVE_DRAIN_DEPLOYMENT_PATH_REPAIR.json",
+      "bytes": 4710,
+      "sha256": "8a0ed9b066114e9cf690d18b3dcff5f8537da7a4829c513f5081b04804d9c089"
+    },
+    {
+      "path": "G2_NATIVE_DRAIN_DIRECT_FIELD_REPAIR.json",
+      "bytes": 6374,
+      "sha256": "be46c0507576a2f610fe192b2b806c3dfba0d89158e99e4a10ebe2c87c33608a"
+    },
+    {
+      "path": "g2_native_drain_provider.py",
+      "bytes": 21997,
+      "sha256": "261f8cd2438a4941d41077b20c95bfab4ca4418858bbab09aa7a3ef459353a44"
+    },
+    {
+      "path": "historical-before-cli-path-repair/G2_NATIVE_DRAIN_CPU_PLAN.json",
+      "bytes": 11213,
+      "sha256": "00313edc93b47b26f2372ef8eede6cb276b0e537ec3f5e9b0548d2f0f9923314"
+    },
+    {
+      "path": "historical-before-cli-path-repair/G2_NATIVE_DRAIN_DIRECT_FIELD_REPAIR.json",
+      "bytes": 6018,
+      "sha256": "1e2ea683bbb65257590efc33c5c7bd7f72decf928536100ab52ac1a6a088904a"
+    },
+    {
+      "path": "historical-before-cli-path-repair/g2_native_drain_provider.py",
+      "bytes": 21997,
+      "sha256": "261f8cd2438a4941d41077b20c95bfab4ca4418858bbab09aa7a3ef459353a44"
+    },
+    {
+      "path": "historical-before-cli-path-repair/LOCAL_CPU_DRAIN_TEST_RESULT.json",
+      "bytes": 11763,
+      "sha256": "4d2d0e7db7a5c1ac98784d16ea24d5176a23537d159f45065fa8c8858bdecc91"
+    },
+    {
+      "path": "historical-before-cli-path-repair/README_G2_NATIVE_DRAIN.md",
+      "bytes": 3215,
+      "sha256": "0d12581405772a968fa984dc724939bdb83932f9954723b8f3af2a7158485006"
+    },
+    {
+      "path": "historical-before-cli-path-repair/test_g2_native_drain_provider.py",
+      "bytes": 30002,
+      "sha256": "37298ccaf066c15a0c65a75e47c1f0475eeff18368da98fdc60acfc5c2ce7bb3"
+    },
+    {
+      "path": "historical-before-direct-field-repair/G2_NATIVE_DRAIN_CPU_PLAN.json",
+      "bytes": 8480,
+      "sha256": "a698a99bb33920148a25adf7da921eb163172ee51bdf89a75246a3b94cf70214"
+    },
+    {
+      "path": "historical-before-direct-field-repair/g2_native_drain_provider.py",
+      "bytes": 16164,
+      "sha256": "0849aa43e85f2c0cbdeb1435a0dc96390304e4fbd546d0f2593fba19b429356e"
+    },
+    {
+      "path": "historical-before-direct-field-repair/LOCAL_CPU_DRAIN_TEST_RESULT.json",
+      "bytes": 8516,
+      "sha256": "8b4029c208acf5e5f21664acb0df70a0e47dac9595570faa56bb71a97914717e"
+    },
+    {
+      "path": "historical-before-direct-field-repair/README_G2_NATIVE_DRAIN.md",
+      "bytes": 2455,
+      "sha256": "563184e0268ec744e40f7070ef1d7f1feb0ecfbfff8f32ad9d48b76ab1873c89"
+    },
+    {
+      "path": "historical-before-direct-field-repair/test_g2_native_drain_provider.py",
+      "bytes": 21119,
+      "sha256": "c8ed04094db7bb05e0fa933d01fed948749ec5cd66df0e796911505f6f37da9c"
+    },
+    {
+      "path": "INDEPENDENT_BOUNDARY_REVIEW.json",
+      "bytes": 8710,
+      "sha256": "b59205b6773498a6c03a8d47cbeff6dde395644f4d8ba5f62e16f438c9ebe542"
+    },
+    {
+      "path": "LOCAL_CPU_DRAIN_TEST_RESULT.json",
+      "bytes": 12510,
+      "sha256": "d32a2facfc2c65ddb339c18ddb4359fc0457ced9ecfe64f0c72244aa9045652e"
+    },
+    {
+      "path": "README_G2_NATIVE_DRAIN.md",
+      "bytes": 3768,
+      "sha256": "d066be809461eb65e0050ce9889724a857775149c5eeb91d7f51f4ea4081b99e"
+    },
+    {
+      "path": "SERVER_CPU_TEST_RESULT.json",
+      "bytes": 9647,
+      "sha256": "6c3a2b54d997630289c48c9287970f1fb87f5ba912467f8c8813ca5110c42ca1"
+    },
+    {
+      "path": "test_g2_native_drain_provider.py",
+      "bytes": 31615,
+      "sha256": "f29d5801781775f3b56610baa131d03e42fcfd5cef50c70227e788d73e96e47c"
+    }
+  ]
+}

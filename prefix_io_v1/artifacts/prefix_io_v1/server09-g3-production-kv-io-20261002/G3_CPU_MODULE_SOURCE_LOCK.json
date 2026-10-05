@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "status": "CPU_CANDIDATE_MODULES_ONLY_NOT_GPU_SOURCE_OR_AUTHORIZATION",
+  "original_G2_source_lock": {
+    "path": "../g2_normal_worker_site_cache_v4_final/gpu-source-lock-candidate.json",
+    "bytes": 899396,
+    "sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b"
+  },
+  "expected_model_gpu_context": {
+    "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+    "model_name": "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "kv_dtype": "auto",
+    "kv_bytes_per_token": 57344,
+    "source_lock_sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b"
+  },
+  "existing_curve_refs": [
+    {
+      "path": "artifacts/prefix_io_v1/server07-calibration-01/curves-paired/curves-v2.json",
+      "bytes": 11757,
+      "sha256": "f7cd071cde00aa18edcc463be0b83886bb4240291acabb4c9f4adb30b8c6311e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server07-calibration-01/curves/curves-v2.json",
+      "bytes": 11693,
+      "sha256": "a81d360b730bccf801286d95e0b448778a1e68c81205ba3723e5c84d03c99fac"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server07-p3-03/calibration-candidate/curves-v2.json",
+      "bytes": 12010,
+      "sha256": "892a979b1b1136409e258537f85e9355f6c7bb88e5de1d3f636bf23caf119c2f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json",
+      "bytes": 11927,
+      "sha256": "13ea532044c2dcb5cb213ba17e885c274177704f71ac8b9f5ef134a5381f0e86"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-14/calibration-candidate/curves-v2.json",
+      "bytes": 10978,
+      "sha256": "fd05683418e851d5130ba2ab646e9e33cbb0ea490584787dca3d019abff6d451"
+    }
+  ],
+  "GPU_operations": 0,
+  "gpu_authorized": false,
+  "production_qualified": false,
+  "CPU_candidate_files": [
+    {
+      "path": "g3_native_pilot_contract.py",
+      "bytes": 21649,
+      "sha256": "57124544b31a033b4d641d1a7cf991145b5dad8000a372d5b84a543d3e910720"
+    },
+    {
+      "path": "g3_curve_context_audit.py",
+      "bytes": 5608,
+      "sha256": "cebecca4de29c409ce76caf92d35aa9625c921076019b240dd23b1772ba8c540"
+    },
+    {
+      "path": "g3_native_owner_observer.py",
+      "bytes": 25158,
+      "sha256": "0e5d4eed310abffc1f2aacc2d4a20a87936686b87ec8eba9a8369d3dc0d4803c"
+    },
+    {
+      "path": "g3_kv_byte_evidence.py",
+      "bytes": 16751,
+      "sha256": "ceee25a71ed7fb47d75a87ca15d4b842d8a5f145558a3b4a6f40c693111b97f0"
+    },
+    {
+      "path": "run_g3_cpu_checks.py",
+      "bytes": 7303,
+      "sha256": "42bdd6cf870a5cc8bd1aa8a7f3f3f7ec1883116a4bc899a35a478992fcbb980e"
+    },
+    {
+      "path": "test_g3_native_pilot_contract.py",
+      "bytes": 11840,
+      "sha256": "b37a4c0669945bac3f1f609d723127d770fb4a2200248df8771d3ba4adee84dc"
+    },
+    {
+      "path": "test_g3_curve_context_audit.py",
+      "bytes": 4695,
+      "sha256": "fb58661e7673850e449c3e6ae34fa4f64c9e3c65d5b88f6d492f1537a3c120d4"
+    },
+    {
+      "path": "test_g3_native_owner_observer.py",
+      "bytes": 24624,
+      "sha256": "be45413bf5cf9ec215ee28f86b38660dd78ebe4576061227da95f454c2e2a295"
+    },
+    {
+      "path": "test_g3_kv_byte_evidence.py",
+      "bytes": 18741,
+      "sha256": "73370e58746ecb101bd6a89aaa93f219682d8986929deafd4b2111fc9ea4807c"
+    }
+  ]
+}

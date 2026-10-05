@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "status": "plan_not_executed",
+  "phases": [
+    {
+      "id": "P0",
+      "title": "工作区与兼容审计",
+      "dependencies": [],
+      "has_gpu_subtasks": false,
+      "gpu_subtasks_require_explicit_permission": false,
+      "status": "not_started",
+      "expected_outputs": [
+        "WORKSPACE_AUDIT.md",
+        "CAPABILITY_MATRIX.md",
+        "PATCH_MAP.md",
+        "dependency-lock.json"
+      ],
+      "actual_outputs": [],
+      "test_evidence": []
+    },
+    {
+      "id": "P1",
+      "title": "原版复现与共同基础",
+      "dependencies": [
+        "P0"
+      ],
+      "has_gpu_subtasks": true,
+      "gpu_subtasks_require_explicit_permission": true,
+      "status": "not_started",
+      "expected_outputs": [
+        "BASELINE_REPORT.md",
+        "environment.json"
+      ],
+      "actual_outputs": [],
+      "test_evidence": []
+    },
+    {
+      "id": "P2",
+      "title": "观测与正确性进展",
+      "dependencies": [
+        "P1"
+      ],
+      "has_gpu_subtasks": true,
+      "gpu_subtasks_require_explicit_permission": true,
+      "status": "not_started",
+      "expected_outputs": [
+        "LIFECYCLE_REPORT.md",
+        "observation-overhead.json"
+      ],
+      "actual_outputs": [],
+      "test_evidence": []
+    },
+    {
+      "id": "P3",
+      "title": "简单基线与稀疏标定",
+      "dependencies": [
+        "P2"
+      ],
+      "has_gpu_subtasks": true,
+      "gpu_subtasks_require_explicit_permission": true,
+      "status": "not_started",
+      "expected_outputs": [
+        "calibration-manifest.json",
+        "PILOT_PROBLEM_REPORT.md"
+      ],
+      "actual_outputs": [],
+      "test_evidence": []
+    },
+    {
+      "id": "P4",
+      "title": "最小策略增量",
+      "dependencies": [
+        "P3"
+      ],
+      "has_gpu_subtasks": true,
+      "gpu_subtasks_require_explicit_permission": true,
+      "status": "not_started",
+      "expected_outputs": [
+        "IMPLEMENTATION_REPORT.md",
+        "test-results.json"
+      ],
+      "actual_outputs": [],
+      "test_evidence": []
+    },
+    {
+      "id": "P5",
+      "title": "单模型端到端评估",
+      "dependencies": [
+        "P4"
+      ],
+      "has_gpu_subtasks": true,
+      "gpu_subtasks_require_explicit_permission": true,
+      "status": "not_started",
+      "expected_outputs": [
+        "single-model-report.md",
+        "raw-results-manifest.json"
+      ],
+      "actual_outputs": [],
+      "test_evidence": []
+    },
+    {
+      "id": "P6",
+      "title": "双模型与健壮性",
+      "dependencies": [
+        "P5"
+      ],
+      "has_gpu_subtasks": true,
+      "gpu_subtasks_require_explicit_permission": true,
+      "status": "not_started",
+      "expected_outputs": [
+        "cross-model-report.md",
+        "negative-results.md"
+      ],
+      "actual_outputs": [],
+      "test_evidence": []
+    },
+    {
+      "id": "P7",
+      "title": "冻结复现交付",
+      "dependencies": [
+        "P6"
+      ],
+      "has_gpu_subtasks": false,
+      "gpu_subtasks_require_explicit_permission": false,
+      "status": "not_started",
+      "expected_outputs": [
+        "REPRODUCE.md",
+        "FINAL_REPORT.md",
+        "claim-evidence-map.json"
+      ],
+      "actual_outputs": [],
+      "test_evidence": []
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+usage: prepare_qwen_download.py [-h] --metadata METADATA --revision REVISION
+                                --config CONFIG [--index INDEX] --permissions
+                                PERMISSIONS --output OUTPUT
+
+Prepare a fixed Qwen download plan from already obtained official HF metadata.
+Plan only: no network, downloads, GPU, model import, reservations, or ledger
+edits. An external budget runner must atomically verify permissions and
+reserve remaining download bytes before executing this plan. This script
+cannot authorize execution.
+
+options:
+  -h, --help            show this help message and exit
+  --metadata METADATA   Official HF blobs=true model metadata, already saved
+  --revision REVISION   Explicit frozen 40-hex commit
+  --config CONFIG       config.json fetched from this same revision
+  --index INDEX         model.safetensors.index.json fetched from this same
+                        revision
+  --permissions PERMISSIONS
+  --output OUTPUT       New plan JSON; no overwrite

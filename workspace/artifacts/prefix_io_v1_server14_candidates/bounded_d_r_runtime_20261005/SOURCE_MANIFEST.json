@@ -1,0 +1,44 @@
+{
+  "schema": "bounded_restore_private_candidate_source_v1",
+  "files": [
+    {
+      "path": "control/p4_restore_forecast.py",
+      "bytes": 11900,
+      "sha256": "d4849e0af75eed039bcdc6961876db05615c383eacd78a49c3a850df15a82efb"
+    },
+    {
+      "path": "control/p4_restore_order_journal.py",
+      "bytes": 9559,
+      "sha256": "e89edeac43b6321bcf7c95c8e9329cdcaa3794a50f5da0740c1de04dfaf8c4ae"
+    },
+    {
+      "path": "control/p4_policy.py",
+      "bytes": 25721,
+      "sha256": "71ff8481023197e8aec8d352f53e127b8a2372d412672021d6d70924151bcfd6"
+    },
+    {
+      "path": "control/p4_bridge.py",
+      "bytes": 28796,
+      "sha256": "99c445084e937eb5691a2711cf429cac7f0cc0cacaef4851a3efff95bec501ae"
+    },
+    {
+      "path": "native/py_kvcache/reactor.py",
+      "bytes": 188003,
+      "sha256": "2fa42b5a8065c6015d68870289584e90c9b91cd918d95ca36641600f13fca6d2"
+    },
+    {
+      "path": "test_restore_development_cpu.py",
+      "bytes": 13083,
+      "sha256": "d78af94946a2b7f3760df050249647c838fc9884c229fa761451c21ead041a1a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5530,
+      "sha256": "ad644ee8645d0f6a729a6d848f8d9003e0cb5e23cace4cd2698badd9d0294491"
+    }
+  ],
+  "actual_GPU_operations": 0,
+  "actual_RPC_operations": 0,
+  "CPU_fixture_tests": 9,
+  "production_qualified": false
+}

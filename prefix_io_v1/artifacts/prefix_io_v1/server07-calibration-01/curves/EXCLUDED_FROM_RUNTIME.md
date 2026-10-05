@@ -1,0 +1,1 @@
+Provisional independent-run aggregation is NOT approved for runtime: g_mem > g_ssd at 128 tokens and large staging variance. Paired no-write measurements required. This file preserves the initial result, including all negative observations.

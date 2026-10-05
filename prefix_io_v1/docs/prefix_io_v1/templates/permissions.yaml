@@ -1,0 +1,18 @@
+# 项目自定义权限模板，不是 vLLM 配置。
+# 修改必须来自用户明确授权，不能由 Codex 自行扩大。
+schema_version: 1
+allow_project_local_edits: true
+allow_cpu_tests: true
+allow_public_source_read: true
+allow_remote_push: false
+allow_new_cloud_rental: false
+allow_payment: false
+allow_driver_or_system_changes: false
+allow_shared_data_deletion: false
+allow_gpu_runs: false
+allow_model_downloads: false
+max_gpu_hours: null
+max_model_download_gib: null
+approved_gpu_ids: []
+approved_experiment_root: null
+approved_dependency_root: null

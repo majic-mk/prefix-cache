@@ -1,0 +1,26 @@
+{
+  "native_label": "server09-g3-reference-native-01",
+  "sizes": [
+    128
+  ],
+  "reps": 3,
+  "domain": 1024,
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "kv_budget_bytes": 268435456,
+  "staging_budget_bytes": 134217728,
+  "external_groups": [
+    {
+      "label": "server09-g3-reference-paired-01",
+      "sizes": [
+        128
+      ],
+      "storage": "server09-g3-calibration-02-private-storage",
+      "storage_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-02-private-storage"
+    }
+  ],
+  "run_details": {
+    "server09-g3-reference-native-01": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-reference-native-01/details/acquisition",
+    "server09-g3-reference-paired-01": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-reference-paired-01/details/acquisition"
+  },
+  "native_storage_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-reference-native-01-unused-storage"
+}

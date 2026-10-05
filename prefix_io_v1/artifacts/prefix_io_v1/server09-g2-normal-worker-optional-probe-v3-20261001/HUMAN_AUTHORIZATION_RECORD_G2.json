@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "authorization_origin": "direct_human_reply",
+  "question": "是否授权能力查询修复版 G2 验证：当前服务器先 off04，成功且正常 shutdown/会话排空后再 shadow04，最多 2 次；每次 300 秒加 20 秒收尾，总预留 640 秒，沿用原 8 小时累计 GPU 预算（剩余约 3.33 小时）？每次 cold/repeat 各完整生成 128 tokens，只使用现有 Qwen2.5-7B、CUDA 13、Ninja 和冻结代码；PRIMARY 预留 128 MiB、保留 8 GiB 空间，不下载、不修改系统/驱动/已安装包/作者文件、不删除已有数据。off04 失败即停止，不运行 shadow04，不使用同一授权重试。\n\n服务器 66/66 CPU 测试、4,045 个冻结引用和两侧 44 文件交付核验已通过。新源锁 SHA-256：678aa560117eae06e9e8fd4fc1cb9f3cdf483766bfbf1658c70dcc55b3b5ea15。本轮仍只验证完整模型输出与生命周期，不是 P4 性能提升实验。\n\n需要新的限定授权，因为 off03 已失败、shadow03 的先决条件未满足；修复版更换了进程内能力查询适配、冻结源码和作业名称，不能复用旧授权。",
+  "verbatim_user_answer": "授权这 2 次能力查询修复版 G2 验证并继续",
+  "reply_observed_utc": "2026-10-01 16:00:33 UTC",
+  "question_item_id": "[\"request_user_input_async\",\"call_hb3C9ZGsu8wzfuX5FbeJH9Yt\",0]",
+  "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "allow_gpu_initialization": true,
+  "allow_gpu_runs": true,
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "permitted_run_names": {
+    "off": "server09-g2-normal-off-04",
+    "shadow": "server09-g2-normal-shadow-04"
+  },
+  "maximum_jobs": 2,
+  "maximum_total_planned_reserve_seconds": 640,
+  "seconds_limit_per_job": 300,
+  "guard_reserve_seconds_per_job": 20,
+  "source_lock_sha256": "678aa560117eae06e9e8fd4fc1cb9f3cdf483766bfbf1658c70dcc55b3b5ea15",
+  "storage_reserve_bytes": 134217728,
+  "storage_floor_bytes": 8589934592,
+  "cumulative_gpu_budget_seconds": 28800,
+  "budget_reset": false,
+  "off_must_pass_before_shadow": true,
+  "off_failure_blocks_shadow_and_same_scope_retry": true,
+  "new_executor": false,
+  "allow_model_downloads": false,
+  "allow_system_or_driver_modification": false,
+  "allow_installed_package_or_author_file_modification": false,
+  "allow_data_deletion": false,
+  "CPU_sampler_so_reused": false,
+  "performance_claim": false
+}

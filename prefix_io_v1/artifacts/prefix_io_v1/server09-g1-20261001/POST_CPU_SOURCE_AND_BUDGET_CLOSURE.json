@@ -1,0 +1,56 @@
+{
+  "status": "PASS_SERVER09_G1_AND_CONTEXT_V3_POST_CPU_CLOSURE",
+  "utc": "2026-10-01T12:31:07.872770+00:00",
+  "current_source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g1-20261001/gpu-source-lock.json",
+    "bytes": 444671,
+    "sha256": "5b438ebc1ec014c22d1d501915600b4cd9bc777ad9f05da1f7ac9b1a18cc1181"
+  },
+  "source_refs_verified": 2052,
+  "scope": {
+    "path": "artifacts/prefix_io_v1/server09-g1-20261001/GPU_STAGE_AUTHORIZATION.json",
+    "bytes": 1559,
+    "sha256": "94a015f51a24d87b4e4e35e5256c40293974c8f0e6fb03781c793ca5b1b134e4"
+  },
+  "permissions_original": {
+    "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+    "bytes": 1307,
+    "sha256": "795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50"
+  },
+  "permissions_g1": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml",
+    "bytes": 671,
+    "sha256": "eebc8ff9b3ca09c844514847e615099cf96c80d0361c7a493e0d5fdfc5a10e20"
+  },
+  "ledger": {
+    "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+    "bytes": 337999,
+    "sha256": "32770dbca6f2e37d274f5007d151692e0a4c910a688d352abec79d60318ffaae"
+  },
+  "ledger_events": 223,
+  "active_reservation": null,
+  "total_billed_seconds": 16538.664544709492,
+  "g1_billed_seconds": 18.10165806300938,
+  "remaining_8h_seconds": 12261.335455290508,
+  "context_v3_refs": [
+    {
+      "path": "artifacts/prefix_io_v1/server09-context-v3-20261001/p4_complete_trace_context_v3.py",
+      "bytes": 12962,
+      "sha256": "07dd3af5932395dcc07b325b52be53ed624f4b4af8cfc4bf47dd0b7c58bbb477"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-context-v3-20261001/test_p4_complete_trace_context_v3.py",
+      "bytes": 21769,
+      "sha256": "45cb847949b7ece2f9ac3b3ad011e0db5924f98da97853384a0e83427b153d36"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-context-v3-20261001/P4_COMPLETE_TRACE_CONTEXT_V3_PLAN.json",
+      "bytes": 14930,
+      "sha256": "1a2571b6a823c30bae553b66bbbf294993403df7ab02ae025e88b05c00fff8e9"
+    }
+  ],
+  "context_v3_original_source_refs_verified": 5,
+  "PRIMARY_free_bytes": 12988403712,
+  "this_check_GPU_runs": 0,
+  "this_check_GPU_initialized": false
+}

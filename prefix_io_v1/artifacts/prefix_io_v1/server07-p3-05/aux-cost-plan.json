@@ -1,0 +1,107 @@
+{
+  "scope": "Fresh auxiliary-filesystem cost acquisition; historical failed table is retained",
+  "reference_plan": "artifacts/prefix_io_v1/server07-p3-05/aux-reference-plan.json",
+  "reference_result": "artifacts/prefix_io_v1/server07-p3-05/aux-reference-result.json",
+  "domain": 16384,
+  "reps": 3,
+  "sizes": [
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "fit_sessions": 2,
+  "measurements_per_point_per_path": 4,
+  "jobs": [
+    {
+      "label": "server07-p3-aux-cold-cost-01",
+      "group": "cold",
+      "mode": "cold",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "aux-calibration-16k"
+    },
+    {
+      "label": "server07-p3-aux-long-cost-01",
+      "group": "long",
+      "mode": "paired",
+      "sizes": [
+        2048,
+        4096
+      ],
+      "storage": "aux-calibration-long"
+    },
+    {
+      "label": "server07-p3-aux-8k-cost-01",
+      "group": "8k",
+      "mode": "paired",
+      "sizes": [
+        8192
+      ],
+      "storage": "aux-calibration-8k"
+    },
+    {
+      "label": "server07-p3-aux-16k-cost-01",
+      "group": "16k",
+      "mode": "paired",
+      "sizes": [
+        16384
+      ],
+      "storage": "aux-calibration-16k"
+    },
+    {
+      "label": "server07-p3-aux-16k-cost-02",
+      "group": "16k",
+      "mode": "paired",
+      "sizes": [
+        16384
+      ],
+      "storage": "aux-calibration-16k"
+    },
+    {
+      "label": "server07-p3-aux-8k-cost-02",
+      "group": "8k",
+      "mode": "paired",
+      "sizes": [
+        8192
+      ],
+      "storage": "aux-calibration-8k"
+    },
+    {
+      "label": "server07-p3-aux-long-cost-02",
+      "group": "long",
+      "mode": "paired",
+      "sizes": [
+        2048,
+        4096
+      ],
+      "storage": "aux-calibration-long"
+    },
+    {
+      "label": "server07-p3-aux-cold-cost-02",
+      "group": "cold",
+      "mode": "cold",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "aux-calibration-16k"
+    }
+  ],
+  "run_details": {
+    "server07-p3-aux-cold-cost-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-cold-cost-01/details",
+    "server07-p3-aux-long-cost-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-long-cost-01/details",
+    "server07-p3-aux-8k-cost-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-8k-cost-01/details",
+    "server07-p3-aux-16k-cost-01": "/root/prefix-io-v1-validation/runs/server07-p3-aux-16k-cost-01/details",
+    "server07-p3-aux-16k-cost-02": "/root/prefix-io-v1-validation/runs/server07-p3-aux-16k-cost-02/details",
+    "server07-p3-aux-8k-cost-02": "/root/prefix-io-v1-validation/runs/server07-p3-aux-8k-cost-02/details",
+    "server07-p3-aux-long-cost-02": "/root/prefix-io-v1-validation/runs/server07-p3-aux-long-cost-02/details",
+    "server07-p3-aux-cold-cost-02": "/root/prefix-io-v1-validation/runs/server07-p3-aux-cold-cost-02/details"
+  }
+}

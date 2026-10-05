@@ -1,0 +1,429 @@
+--- /root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-single-file-candidate-v4-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
++++ /root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
+@@ -6,6 +6,7 @@
+ import queue
+ import threading
+ import time
++import weakref
+ from concurrent.futures import Future
+ from dataclasses import dataclass, field
+ from typing import Any
+@@ -45,6 +46,12 @@
+     TORCH_COPY_AVAILABLE = False
+ 
+ logger = logging.getLogger(__name__)
++
++
++@dataclass(frozen=True)
++class _SingleFileWake:
++    """Bounded value-only condition invalidation, never a completion/credit."""
++    token: tuple[str, str, int, int]
+ 
+ 
+ class NativeDrainUnknown(RuntimeError):
+@@ -1058,7 +1065,8 @@
+     def _run(self) -> None:
+         try:
+             while not (self._stop and not self._has_work()):
+-                self._drain_incoming(block=not self._has_poll_work())
++                woke = self._prefix_wait_single_file_retry()
++                self._drain_incoming(block=not woke and not self._has_poll_work())
+                 if self._stop and not self._has_work():
+                     break
+                 self._pump_once()
+@@ -1251,6 +1259,12 @@
+             self._intake(item)
+ 
+     def _intake(self, item: Any) -> None:
++        if type(item) is _SingleFileWake:
++            # Old/duplicate wake values neither retire work nor clear a newer arm.
++            with self._submit_lock:
++                if getattr(self, "_prefix_single_file_wake_pending", None) == item.token:
++                    self._prefix_single_file_wake_pending = None
++            return
+         state = getattr(self, "_prefix_progress", None)
+         if isinstance(item, (_P4Inspect,_P4Publish)):
+             try:
+@@ -2253,7 +2267,8 @@
+                 p4.fail(type(exc).__name__ + ": " + str(exc))
+             return None  # Failed optional performance control uses original dispatch.
+ 
+-    def _prefix_single_file_retry_key(self, ready, bridge, sample, now_ns, progress):
++    def _prefix_single_file_retry_key(self, ready, bridge, sample, now_ns, progress,
++                                     *, released_slot=False):
+         """Fresh narrow owner facts for reusing one immutable I-only observation."""
+         from prefix_io_control.dispatch_budget import ZERO
+         receipt = bridge.policy.single_file
+@@ -2286,7 +2301,8 @@
+                 not 0 < state[1] <= state[2] <= now_ns or
+                 now_ns - state[2] > bridge.policy.config.sample_max_age_ns or
+                 type(capacity) is not tuple or len(capacity) != 12 or any(type(x) is not int for x in capacity) or
+-                sample.free_staging_bytes != capacity[-1] * self.file_store.io_size + self.file_store.io_size or
++                sample.free_staging_bytes != capacity[-1] * self.file_store.io_size +
++                    (0 if released_slot else self.file_store.io_size) or
+                 receipt.cost_upper_ns <= receipt.step_budget_ns):
+             return None
+         info = ready.preload_info
+@@ -2294,11 +2310,124 @@
+                 type(info.preload_id) is not str or type(info.req_id) is not str or
+                 type(info.file_index) is not int or type(info.total_files) is not int):
+             return None
++        if released_slot:
++            # Compare the exact previous post-reserve capacity after its original
++            # release. This is metadata arithmetic, never a reservation or credit.
++            if capacity[2] < 1 or capacity[-1] < 1:
++                return None
++            capacity = capacity[:2] + (capacity[2] - 1,) + capacity[3:11] + (capacity[-1] - 1,)
+         return (state, bridge._epoch, sequence, capacity,
+             (ready.sequence, ready.fd, ready.preload_hash, ready.open_start_ns,
+              info.preload_id, info.req_id, info.file_index, info.total_files),
+             (receipt.signature, receipt.cost_upper_ns, receipt.step_budget_ns,
+              bridge.policy.config.sample_max_age_ns, bridge.policy.config.max_wait_ns))
++
++    def install_p4_single_file_wait(self, capture):
++        """Explicit optional on-only CPU candidate; capture is weakly borrowed."""
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if (bridge is None or bridge.single_file_shadow or bridge.mode != "interference" or
++                bridge.policy.single_file is None or bridge.run_id != capture.run_id):
++            raise ValueError("single-file waiting requires the explicit active bridge")
++        with self._submit_lock:
++            if getattr(self, "_prefix_single_file_wait_capture", None) is not None:
++                raise ValueError("single-file wait is already installed")
++            self._prefix_single_file_wait_capture = weakref.ref(capture)
++            self._prefix_single_file_wait_generation = 0
++            self._prefix_single_file_wait_armed = None
++            self._prefix_single_file_wake_pending = None
++            self._prefix_single_file_wait_faulted = False
++
++    def _prefix_wake_single_file_locked(self, token=None):
++        armed = getattr(self, "_prefix_single_file_wait_armed", None)
++        if (armed is not None and (token is None or token == armed) and
++                getattr(self, "_prefix_single_file_wake_pending", None) is None):
++            self._prefix_single_file_wake_pending = armed
++            try:
++                self._incoming.put(_SingleFileWake(armed))
++            except Exception:
++                self._prefix_single_file_wake_pending = None
++                self._prefix_single_file_wait_faulted = True
++
++    def notify_p4_single_file_wait(self, token=None):
++        with self._submit_lock:
++            self._prefix_wake_single_file_locked(token)
++
++    def _prefix_single_file_wait_deadline(self, cached):
++        """Revalidate original narrow retry facts with no reserved native slot."""
++        if getattr(self, "_prefix_single_file_wait_faulted", False):
++            return None
++        if type(cached) is not tuple or len(cached) != 3 or cached is not getattr(
++                self, "_prefix_single_file_retry", None):
++            return None
++        bridge = getattr(self, "_prefix_p4_bridge", None)
++        if (bridge is None or getattr(self, "_prefix_dispatch_controller", None) is not None or
++                self.accepted_parent_count() != 0 or len(self._ready_fds_preload) != 1):
++            return None
++        from prefix_io_control.dispatch_budget import STAGES
++        accounting = self._prefix_stage_accounting
++        if any(accounting.stats[name][key] != 0 for name in STAGES
++               for key in ("inflight_ops", "inflight_bytes")):
++            return None
++        now = time.monotonic_ns()
++        ready = self._ready_fds_preload[0]
++        key, snapshot, _work = cached
++        current = self._prefix_single_file_retry_key(
++            ready, bridge, snapshot.native_state, now, None, released_slot=True)
++        if (current != key or not snapshot.fresh(run_id=bridge.run_id, now_ns=now,
++                expected_epoch=bridge._epoch, max_age_ns=bridge.policy.config.sample_max_age_ns)):
++            return None
++        age = bridge.policy.config.sample_max_age_ns
++        deadline = min(ready.open_start_ns + bridge.policy.config.max_wait_ns,
++                       snapshot.monotonic_ns + age,
++                       snapshot.native_state.captured_ns + age, key[0][2] + age)
++        return deadline if deadline > now else None
++
++    def _prefix_wait_single_file_retry(self):
++        """One original Queue wait; every wake returns through original live dispatch."""
++        ref = getattr(self, "_prefix_single_file_wait_capture", None)
++        if ref is None:
++            return False  # Off/uninstalled: no imports, clock, lock or live query.
++        capture = ref()
++        cached = getattr(self, "_prefix_single_file_retry", None)
++        token = None
++        try:
++            if capture is None or self._prefix_single_file_wait_deadline(cached) is None:
++                return False
++            state = cached[0][0]
++            with self._submit_lock:
++                self._prefix_single_file_wait_generation += 1
++                token = (capture.run_id, capture.wait_nonce, state[0],
++                         self._prefix_single_file_wait_generation)
++                self._prefix_single_file_wait_armed = token
++            # Never hold the submit lock across the collector's short lock.
++            if not capture.arm_single_file_wait(token, state):
++                return False
++            deadline = self._prefix_single_file_wait_deadline(cached)
++            if deadline is None or not capture.single_file_wait_current(token, state):
++                return False
++            remaining = deadline - time.monotonic_ns()
++            if remaining <= 0:
++                return False
++            try:
++                item = self._incoming.get(timeout=remaining / 1_000_000_000)
++            except queue.Empty:
++                return True
++        except Exception:
++            # An optional observation cannot make native work unavailable.
++            return False
++        finally:
++            if token is not None:
++                try:
++                    capture.disarm_single_file_wait(token)
++                except Exception:
++                    pass  # No optional unregister failure may consume native work.
++                finally:
++                    with self._submit_lock:
++                        if self._prefix_single_file_wait_armed == token:
++                            self._prefix_single_file_wait_armed = None
++        # Original intake errors must reach _run's native failure/drain handler.
++        self._intake(item)
++        return True
+ 
+     def _prefix_stage_settle(self, dispatch, outcome, exc=None):
+         if dispatch is None or dispatch.attempt is None:
+@@ -2506,9 +2635,11 @@
+                     return False
+                 # Conflicting same-step metadata invalidates the previous view.
+                 self._prefix_p4_load_frame = None
++                self._prefix_wake_single_file_locked()
+                 raise ValueError("conflicting same-sequence scheduled work")
+             self._prefix_p4_load_frame = observation
+             self._prefix_p4_load_sequence = observation.sequence
++            self._prefix_wake_single_file_locked()
+         return True
+ 
+     def _prefix_p4_load_values(self, now_ns):
+--- /root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-single-file-candidate-v4-20261003/native_full_step_collector.py
++++ /root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/native_full_step_collector.py
+@@ -12,6 +12,8 @@
+ import math
+ from pathlib import Path
+ import time
++import threading
++import uuid
+ import weakref
+ 
+ 
+@@ -45,17 +47,30 @@
+         self.completed_query_ns = None
+         self.elapsed_ns = None
+         self.elapsed_target = None
++        self._wait_capture_ref = None
++        self._wait_ordinal = None
+ 
+     def record(self):
+         require(self.record_before_ns is None, "event record must occur once")
+-        self.record_before_ns = self.clock()
+-        result = self.raw.record()
+-        self.record_after_ns = self.clock()
+-        require(type(self.record_before_ns) is int and
+-                type(self.record_after_ns) is int and
+-                0 < self.record_before_ns <= self.record_after_ns,
+-                "real monotonic event-record bracket")
+-        return result
++        capture = self._wait_capture_ref() if self._wait_capture_ref is not None else None
++        token = None
++        if capture is None:
++            self.record_before_ns = self.clock()
++        else:
++            token = capture._record_wait_boundary(self)
++        try:
++            result = self.raw.record()
++            self.record_after_ns = self.clock()
++            require(type(self.record_before_ns) is int and
++                    type(self.record_after_ns) is int and
++                    0 < self.record_before_ns <= self.record_after_ns,
++                    "real monotonic event-record bracket")
++            return result
++        finally:
++            # Close arm atomically at record_before, but preserve original end
++            # recording/bracket before publishing its host-condition wake.
++            if capture is not None:
++                capture._emit_single_file_wake(token)
+ 
+     def query(self):
+         ready = self.raw.query()
+@@ -159,11 +174,134 @@
+         self.runner_ref = None
+         self.original_prepare = self.prepare_wrapper = None
+         self._detached = False
++        self._wait_lock = threading.Lock()
++        self._wait_reactor_ref = None
++        self._wait_registration = None
++        self._wait_failed = False
++        self.wait_failures = []
++        self.wait_nonce = None
++        self._wait_bridge_ref = self._wait_original_fail = self._wait_fail_wrapper = None
++        self._wait_observer_bindings = []
+ 
+     def fail(self, reason):
+-        self.valid = False
+-        if len(self.failures) < 16:
+-            self.failures.append(str(reason)[:256])
++        with self._wait_lock:
++            self.valid = False
++            if len(self.failures) < 16:
++                self.failures.append(str(reason)[:256])
++            token, self._wait_registration = self._wait_registration, None
++        self._emit_single_file_wake(token)
++
++    def attach_single_file_wait(self, reactor):
++        """Explicit experimental on-only notification; no GPU API is added.
++
++        This interface is deliberately not invoked by install(). A changed
++        candidate requires its own future source/calibration qualification.
++        """
++        require(self._wait_reactor_ref is None and not self._detached and self.valid,
++                "one live notification attachment")
++        require(reactor._prefix_p4_bridge is not None, "active bridge required")
++        bridge = reactor._prefix_p4_bridge
++        self.wait_nonce = uuid.uuid4().hex
++        reactor.install_p4_single_file_wait(self)
++        self._wait_reactor_ref = weakref.ref(reactor)
++        self._wait_bridge_ref = weakref.ref(bridge)
++        # NativeP4Bridge.fail has no owner-thread requirement. Preserve exactly
++        # one call and wake even when an external caller invalidates the bridge.
++        original = bridge.fail
++        self._wait_original_fail = original.__func__
++        bridge_ref, capture_ref = weakref.ref(bridge), weakref.ref(self)
++        original_function = original.__func__
++        def fail(reason):
++            target = bridge_ref()
++            try:
++                if target is not None:
++                    return original_function(target, reason)
++            finally:
++                capture = capture_ref()
++                if capture is not None:
++                    capture._invalidate_single_file_wait()
++        self._wait_fail_wrapper = fail
++        bridge.fail = fail
++        # Existing observer failures can close a step without end.record. These
++        # are observation methods, never model execute/prepare/sample methods.
++        for target, name in ((self.observer, 'invalidate'), (self.observer, 'detach'),
++                             (self.observer.scalar, '_fail'), (self.observer.scalar, 'detach')):
++            self._attach_wait_invalidator(target, name)
++
++    def _attach_wait_invalidator(self, target, name):
++        original = getattr(target, name, None)
++        if not inspect.ismethod(original) or original.__self__ is not target:
++            return  # Minimal CPU scalar fixtures need not implement this source.
++        target_ref, capture_ref = weakref.ref(target), weakref.ref(self)
++        function = original.__func__
++        def invalidate(*args, **kwargs):
++            owner = target_ref()
++            try:
++                if owner is not None:
++                    return function(owner, *args, **kwargs)
++            finally:
++                capture = capture_ref()
++                if capture is not None:
++                    capture._invalidate_single_file_wait()
++        self._wait_observer_bindings.append((target_ref, name, function, invalidate))
++        setattr(target, name, invalidate)
++
++    def _emit_single_file_wake(self, token):
++        # Never acquire submit_lock while holding the collector lock.
++        reactor = self._wait_reactor_ref() if self._wait_reactor_ref is not None else None
++        if reactor is not None and token is not None:
++            try:
++                reactor.notify_p4_single_file_wait(token)
++            except Exception as exc:
++                # Optional diagnostics must not suppress original end.record,
++                # fault handling or detach. Existing wait has its old deadline.
++                with self._wait_lock:
++                    self._wait_failed = True
++                    self._wait_registration = None
++                    if len(self.wait_failures) < 16:
++                        self.wait_failures.append(type(exc).__name__ + ": notification unavailable")
++
++    def _invalidate_single_file_wait(self):
++        with self._wait_lock:
++            token, self._wait_registration = self._wait_registration, None
++        self._emit_single_file_wake(token)
++
++    def _record_wait_boundary(self, event):
++        with self._wait_lock:
++            event.record_before_ns = event.clock()
++            token = self._wait_registration
++            if token is not None and token[2] == event._wait_ordinal:
++                self._wait_registration = None
++            else:
++                token = None
++        return token
++
++    def arm_single_file_wait(self, token, state):
++        with self._wait_lock:
++            if (type(token) is not tuple or len(token) != 4 or
++                    self._wait_failed or
++                    token[:2] != (self.run_id, self.wait_nonce) or token[2] != state[0] or
++                    type(token[3]) is not int or token[3] <= 0 or
++                    self.current_single_file_step() != state):
++                return False
++            active = self.observer.events.active
++            end = active[2]
++            if (end._wait_capture_ref is None or end._wait_capture_ref() is not self or
++                    end._wait_ordinal != state[0]):
++                return False
++            self._wait_registration = token
++            return True
++
++    def single_file_wait_current(self, token, state):
++        with self._wait_lock:
++            return (self._wait_registration == token and
++                    not self._wait_failed and
++                    self.current_single_file_step() == state)
++
++    def disarm_single_file_wait(self, token):
++        with self._wait_lock:
++            if self._wait_registration == token:
++                self._wait_registration = None
+ 
+     def after_prepare(self):
+         observer = self.observer
+@@ -172,6 +310,10 @@
+         active = observer.events.active
+         require(active is not None, "matching CUDA event pair is open")
+         ordinal, start, end = active
++        if self._wait_reactor_ref is not None:
++            with self._wait_lock:
++                require(end.record_before_ns is None, "notification attaches before original end")
++                end._wait_capture_ref, end._wait_ordinal = weakref.ref(self), ordinal
+         pending = observer.scalar._adapter._pending
+         require(type(pending) is dict and pending["phase"] == "prepared" and
+                 pending["ordinal"] == ordinal, "actual prepared frame and event ordinal agree")
+@@ -282,13 +424,25 @@
+         return value
+ 
+     def detach(self):
++        with self._wait_lock:
++            self._detached = True
++            token, self._wait_registration = self._wait_registration, None
++        self._emit_single_file_wake(token)
++        bridge = self._wait_bridge_ref() if self._wait_bridge_ref is not None else None
++        if bridge is not None and vars(bridge).get("fail") is self._wait_fail_wrapper:
++            bridge.fail = self._wait_original_fail.__get__(bridge, type(bridge))
++        self._wait_original_fail = self._wait_fail_wrapper = None
++        for target_ref, name, function, wrapper in self._wait_observer_bindings:
++            target = target_ref()
++            if target is not None and vars(target).get(name) is wrapper:
++                setattr(target, name, function.__get__(target, type(target)))
++        self._wait_observer_bindings.clear()
+         runner = self.runner_ref() if self.runner_ref is not None else None
+         if runner is not None and vars(runner).get("_prepare_inputs") is self.prepare_wrapper:
+             runner._prepare_inputs = self.original_prepare
+         if self.observer is not None:
+             self.observer.detach()
+         self.action = self.original_prepare = self.prepare_wrapper = None
+-        self._detached = True
+ 
+ 
+ def install(worker, *, common, root, refs, run_id, event_class, selected_offsets=(16,),

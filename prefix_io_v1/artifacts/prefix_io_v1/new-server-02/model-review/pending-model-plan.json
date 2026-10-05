@@ -1,0 +1,17 @@
+{
+  "artifact_kind": "blocked_request_not_download_manifest",
+  "status": "BLOCKED",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": null,
+  "files": null,
+  "total_bytes": null,
+  "lfs_sha256_verified": false,
+  "download_execution": "UNEXECUTED",
+  "download_ready": false,
+  "budget_reservation": "NOT_RESERVED",
+  "ledger_status": "NOT_VERIFIED",
+  "max_model_download_gib": 20,
+  "actual_model_weight_download_bytes": 0,
+  "gpu_operations": 0,
+  "reason": "Official model metadata unavailable via current network; no trusted DNS override address obtained."
+}

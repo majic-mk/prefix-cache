@@ -1,0 +1,9 @@
+{
+  "actual_used_seconds": 27397.30749167828,
+  "additional_preparation_GPU_runs": 0,
+  "final_pair_max_reserved_seconds": 640,
+  "one_final_pair_only": true,
+  "prior_failure_retained": true,
+  "reason": "post_model_owner_snapshot_evidence_read_repair",
+  "remaining_seconds": 1402.692508321721
+}

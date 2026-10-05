@@ -1,0 +1,138 @@
+{
+  "scope": "p4_single_file_candidate_v5_cpu",
+  "GPU_operations": 0,
+  "GPU_qualified": false,
+  "generic_production_qualified": false,
+  "performance_effect_verified": false,
+  "source_changed": [
+    "source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+    "native_full_step_collector.py"
+  ],
+  "previous_candidate_manifest_sha256": "90bb96b41a077f4872293245090732ba66f820297d1376aa01171c00f5ae1601",
+  "local_cpu_suite_tests_passed": 106,
+  "local_original_policy_abi_tests_passed": 101,
+  "separate_C4_idle_tests_passed": 15,
+  "server_cpu_tests_passed": null,
+  "native_integration_tests_passed": null,
+  "calibration": "No C5 native calibration; frozen C4 native-v6 receipt is not C5 qualification",
+  "default": "Off/shadow/uninstalled do not install notification waiting",
+  "source_scope": "Original reactor plus existing thin observation wrapper only; native pump/policy/arrival/borrowed state unchanged",
+  "historical_copied_notes": "Provenance only; prior revision counts/receipts are not C5 results",
+  "files": [
+    {
+      "path": "ENRICHED_CHANGE_NOTES.md",
+      "bytes": 1832,
+      "sha256": "2034d706f2e0abc8f0c6d1a80bdc84f1f553f060e628c4fd437e77b3da8b6910"
+    },
+    {
+      "path": "IDLE_CHANGE_NOTES.md",
+      "bytes": 3485,
+      "sha256": "6a1e212c2d600115dc940e3cca0b3452f441562492540128212dfb4294bc24e2"
+    },
+    {
+      "path": "LOCAL_CPU_QUALIFICATION.json",
+      "bytes": 10983,
+      "sha256": "f584e6302b1dbc3e0f2357d53b7cd929ce16a539476d5c1ece84397798be26bf"
+    },
+    {
+      "path": "native_full_step_collector.py",
+      "bytes": 24553,
+      "sha256": "bcb58a9c812c2f7dc846013348cdca2de3a641e8c8a0515b4d7307e0fc8676bf"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7193,
+      "sha256": "905723a17a8bc75df905c5be37a9b8d4fc47a76d1ab0b0c88d37956dc0166e9e"
+    },
+    {
+      "path": "run_cpu_candidate_qualification.py",
+      "bytes": 4968,
+      "sha256": "03a4f6d699943e2b522aafb2cb619fc5ce59d71260b1dfebce5b72eb76f7238f"
+    },
+    {
+      "path": "run_original_cpu_regression.py",
+      "bytes": 2640,
+      "sha256": "8d85612477f10b59c00621e85f996b6e0622bbea6d4ba0f87769dd49268d40e2"
+    },
+    {
+      "path": "single_file_runtime_binding.py",
+      "bytes": 10790,
+      "sha256": "8b66b3aba1c936b85f4d82fe73c568650b712acf250aae454823cd35da060d60"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py",
+      "bytes": 25553,
+      "sha256": "6bec5dd57e25cfc2c0e62540742a781d656ba528cb6c8057cd2402197db93e1a"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_policy.py",
+      "bytes": 24976,
+      "sha256": "bce19c96c7651f69ebb91a515ea3e9e3d6855636b4bd4aa84e60fb2fbc10d673"
+    },
+    {
+      "path": "source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_single_file_receipt.py",
+      "bytes": 14761,
+      "sha256": "11312ab7a6f5c7823e77b22cf17c93bd255438af7f886568e693f76fc5b9825d"
+    },
+    {
+      "path": "source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "bytes": 185744,
+      "sha256": "a2390db63df27366f60dce6b81e0affa0c1272727a3b6b60e86bff367e23db47"
+    },
+    {
+      "path": "test_empty_p4_window.py",
+      "bytes": 8483,
+      "sha256": "c2b12ac9bc42140a9b9033dee26dc11d1c7d0c9fc3f78a28b0f033cc6a63cf1c"
+    },
+    {
+      "path": "test_enriched_snapshot_reuse.py",
+      "bytes": 10728,
+      "sha256": "68f3c1143bd6d36b7b6b8bfca2792a75b57af2da270b8dc0a33c073806214201"
+    },
+    {
+      "path": "test_reactor_single_file.py",
+      "bytes": 12384,
+      "sha256": "d7387e98bcceb5568eae9827fad3ff2dacc7b2d9bf0a5901322a63eb32cf02a8"
+    },
+    {
+      "path": "test_retained_idle_wait.py",
+      "bytes": 15943,
+      "sha256": "aa7c372d70cb5d52bb1a259b9f211d17fc213bcbb382826787915f2eb5773462"
+    },
+    {
+      "path": "test_single_file_policy.py",
+      "bytes": 10312,
+      "sha256": "ec61e8c381604e1ee9c7d387a8a8006231af92b9520767276f0d82fd0e633d45"
+    },
+    {
+      "path": "test_single_file_receipt.py",
+      "bytes": 10389,
+      "sha256": "102f45a1363ae7266fad3f1f72f3c09833b10e839dbfb71797f709ba8cf4735c"
+    },
+    {
+      "path": "test_single_file_retry_observation.py",
+      "bytes": 12888,
+      "sha256": "a24eb1c3d9aadb6e491ad0bfa3f6b123d349ec58a8fb3952fa06f4806e306c71"
+    },
+    {
+      "path": "test_single_file_runtime_binding.py",
+      "bytes": 5226,
+      "sha256": "24c9640f17815b0f5d7f5183e2ff8981902cb1def95e5cbe031e42a88108e47b"
+    },
+    {
+      "path": "test_single_file_wait.py",
+      "bytes": 21605,
+      "sha256": "7ece9dfb6d7542f467ee08a50897a20b4fe068a0d66d85d3bf020f3433c70a94"
+    },
+    {
+      "path": "V2_CHANGE_NOTES.md",
+      "bytes": 2028,
+      "sha256": "fddf9432b415eaacabdc9507a486f4c666349aa7c9b0a10a4f57cd41e17b0b46"
+    },
+    {
+      "path": "V3_CHANGE_NOTES.md",
+      "bytes": 2740,
+      "sha256": "492d70ba34635237d3893aee15b7795e42734e230d0400da15fa4a000fb85a39"
+    }
+  ]
+}

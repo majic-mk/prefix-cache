@@ -1,0 +1,398 @@
+--- before/experiments/prefix_io_v1/execution_state.json
++++ experiments/prefix_io_v1/execution_state.json
+@@ -1,6 +1,6 @@
+ {
+   "schema_version": 1,
+-  "status": "P3_independent_long_validation_pass_full_P3_pending",
++  "status": "P3_concurrent_correctness_pass_IO_depth_screen_partial",
+   "phases": [
+     {
+       "id": "P0",
+@@ -120,7 +120,7 @@
+       ],
+       "has_gpu_subtasks": true,
+       "gpu_subtasks_require_explicit_permission": true,
+-      "status": "in_progress_independent_long_validation_pass_strong_baselines_pending",
++      "status": "in_progress_concurrent_output_pass_partial_IO_baselines",
+       "expected_outputs": [
+         "calibration-manifest.json",
+         "PILOT_PROBLEM_REPORT.md"
+@@ -143,7 +143,11 @@
+         "docs/prefix_io_v1/SERVER07_P3_AUXILIARY_REPORT.md",
+         "artifacts/prefix_io_v1/server07-p3-05/long-validation-permit.json",
+         "artifacts/prefix_io_v1/server07-p3-05/long-cost-result.json",
+-        "artifacts/prefix_io_v1/server07-p3-05/long-service-result.json"
++        "artifacts/prefix_io_v1/server07-p3-05/long-service-result.json",
++        "docs/prefix_io_v1/SERVER07_P3_CONCURRENT_REPORT.md",
++        "artifacts/prefix_io_v1/server07-p3-06/qualification-summary.json",
++        "artifacts/prefix_io_v1/server07-p3-06/io-baseline-result.json",
++        "artifacts/prefix_io_v1/server07-p3-06/native-wait-recurrence.json"
+       ],
+       "test_evidence": [
+         "artifacts/prefix_io_v1/server07-p3-01/final-cpu-tests.xml",
+@@ -152,7 +156,8 @@
+         "artifacts/prefix_io_v1/server07-p3-02/cpu-tests.xml",
+         "artifacts/prefix_io_v1/server07-p3-03/final-cpu-verified.xml",
+         "artifacts/prefix_io_v1/server07-p3-04/final-cpu.xml",
+-        "artifacts/prefix_io_v1/server07-p3-05/final-cpu.xml"
++        "artifacts/prefix_io_v1/server07-p3-05/final-cpu.xml",
++        "artifacts/prefix_io_v1/server07-p3-06/io-baseline-cpu.xml"
+       ],
+       "full_stage_complete": false
+     },
+@@ -222,16 +227,16 @@
+       "test_evidence": []
+     }
+   ],
+-  "gpu_hours_consumed": 1.8377330061369057,
++  "gpu_hours_consumed": 2.2766638281848284,
+   "model_download_gib": 18.088890912011266,
+   "current_server": "connect.westd.seetacloud.com:38819",
+   "current_server_blockers": [
+     "original io_uring path: setup EPERM; authorized AIO route GPU functional checks pass"
+   ],
+   "latest_cpu_test_evidence": [
+-    "artifacts/prefix_io_v1/server07-p3-05/final-cpu.xml"
++    "artifacts/prefix_io_v1/server07-p3-06/io-baseline-cpu.xml"
+   ],
+-  "latest_cpu_passed": 143,
++  "latest_cpu_passed": 182,
+   "latest_cpu_skipped": 0,
+   "gpu_permission_status": "explicit_new_server_07_grant_verified_current_UUID_budget_preserved",
+   "gpu_basic_qualification": {
+@@ -271,7 +276,7 @@
+     "gpu_physical_release_witness": false,
+     "cost_curves": true
+   },
+-  "latest_delivery_report": "docs/prefix_io_v1/SERVER07_P3_AUXILIARY_REPORT.md",
++  "latest_delivery_report": "docs/prefix_io_v1/SERVER07_P3_CONCURRENT_REPORT.md",
+   "model_preparation": {
+     "status": "VERIFIED_LOCAL_FILES",
+     "model_id": "Qwen/Qwen2.5-7B-Instruct",
+@@ -294,7 +299,7 @@
+     "evidence": "artifacts/prefix_io_v1/new-server-01/review-fix/cpu-regression-after.xml",
+     "rerun_this_delivery": false
+   },
+-  "latest_cpu_scope": "143 CPU config/pilot/native-cost tests; intermediate counts not additive",
++  "latest_cpu_scope": "182 CPU config/pilot/native-cost tests; historical suites not added again",
+   "latest_additional_cpu_tests_new_server_03": {
+     "suites": {
+       "resume-review/first.xml": {
+@@ -350,14 +355,13 @@
+     "export_script": "experiments/prefix_io_v1/scripts/export_native_aio_costs.py"
+   },
+   "environment_feasibility": {
+-    "status": "GPU_AIO_NATIVE_BASELINE_FEASIBLE",
+-    "evidence": "artifacts/prefix_io_v1/server07-calibration-01/qualification-summary.json",
+-    "scope": "Native model connector paths and measured original LoadPlanner verified; research benefit and source release witness unverified",
++    "status": "GPU_AIO_CONCURRENT_NATIVE_BASELINE_FEASIBLE",
++    "evidence": "artifacts/prefix_io_v1/server07-p3-06/qualification-summary.json",
++    "scope": "Two-sequence bounded exact-output development replays; research policy benefit unmeasured",
+     "model_download_bytes_this_delivery": 0,
+     "actual_system_changes": [],
+-    "gpu_budgeted_jobs_this_delivery": 10,
+-    "gpu_workload_runs": 10,
+-    "imports_qualification_budgeted_separately": false
++    "gpu_budgeted_jobs_this_delivery": 19,
++    "gpu_workload_runs": 19
+   },
+   "latest_cpu_test_suite_rerun_this_delivery": true,
+   "limited_system_authorization": "experiments/prefix_io_v1/configs/authorizations/io_uring_20260927.json",
+@@ -395,9 +399,10 @@
+     ]
+   },
+   "current_remaining_work": [
+-    "P3 higher-concurrency and normal mixed hit/miss development traces, with configuration-specific numerical and cost validation",
+-    "Preserve previous 2K held-out cost failure; current 16256-token pass does not validate the full domain",
+-    "Strong fixed/pressure baselines and production owner/freshness and ordinary quota integration remain incomplete; P4 gate remains closed"
++    "P3: recheck stronger depth-8 baseline on frozen representative loads; current two-repeat controlled burst is not formal evaluation",
++    "P3: bounded scheduler flush reason and real owner/generation evidence; IO/token correlation does not prove causal interference",
++    "Preserve depth-2 SSD +39.37% and earlier 2K staging cost failures; no gate relaxation or full-domain qualification",
++    "Native fixed/pressure ordinary quotas and research policies remain uninstalled; P4 gate closed"
+   ],
+   "p2_native_qualification": {
+     "worktree": "third_party/work/py-kvcache-p2-aio",
+@@ -539,5 +544,217 @@
+     "evidence": "artifacts/prefix_io_v1/server07-p3-05/long-service-result.json",
+     "cost_evidence": "artifacts/prefix_io_v1/server07-p3-05/long-cost-result.json",
+     "authorization": "experiments/prefix_io_v1/configs/authorizations/system_disk_validation_20260929.json"
++  },
++  "p3_concurrent_validation": {
++    "status": "P3_CONCURRENT_CORRECTNESS_PASS_SIMPLE_IO_SCREEN_PARTIAL",
++    "full_P3_complete": false,
++    "cpu": {
++      "tests": 182,
++      "failures": 0,
++      "errors": 0,
++      "skipped": 0
++    },
++    "gpu_successes": 19,
++    "gpu_failures": 0,
++    "offline_cost_gate_failures": 1,
++    "gpu_new_seconds": 1580.1509593725204,
++    "gpu_total_seconds": 8195.989781465381,
++    "gpu_remaining_hours": 5.723336171815172,
++    "downloads_new_bytes": 0,
++    "source_lock_files": 99,
++    "previous_source_unchanged": 88,
++    "changed_existing_sources": [
++      "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py",
++      "experiments/prefix_io_v1/scripts/validate_heldout_costs.py"
++    ],
++    "new_experiment_scripts": [
++      "concurrent_pilot_contract",
++      "prepare_concurrent_pilot",
++      "qualify_concurrent_pilot",
++      "run_concurrent_pilot",
++      "run_concurrent_native_reference",
++      "analyze_concurrent_pilot",
++      "analyze_fixed_io_baselines"
++    ],
++    "new_unit_test_files": 2,
++    "actual_model_outputs_exact": 60,
++    "actual_token_timestamps": 7680,
++    "raw_cache_numeric_comparisons": 18,
++    "io_depth_2_status": "BLOCKED_BY_UNCHANGED_COST_GATE",
++    "io_depth_2_blocked_replays": 2,
++    "descriptive_depth8_cohort_reduction": 0.15331630431646448,
++    "new_policy_installed": false,
++    "research_benefit_measured": false,
++    "formal_goodput": false,
++    "budget_idle": true,
++    "gpu_compute_processes": "",
++    "auxiliary_storage": {
++      "used_bytes": 16138338304,
++      "free_bytes": 15198687232,
++      "reserved_new_bytes": 0,
++      "max_bytes": 21474836480,
++      "minimum_free_bytes": 8589934592,
++      "root": "/root/prefix-io-v1-validation",
++      "device": 59,
++      "path": "/root/prefix-io-v1-validation/runs",
++      "unique_files": 17765
++    },
++    "primary_storage": {
++      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/next-check",
++      "root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
++      "free_bytes": 8669925376,
++      "reserved_new_bytes": 0
++    },
++    "runs": [
++      {
++        "label": "server07-p3-c2-all-hit-01",
++        "cohort_seconds": 22.257242580610363,
++        "tail_drain_seconds": 0.0024259015917778015,
++        "ssd_read_bytes": 5474746368,
++        "ssd_write_bytes": 19267584,
++        "counters": {
++          "wait_calls": 1,
++          "flush_wait_calls": 0,
++          "pending_flush_wait_calls": 0,
++          "pending_flush_wait_seconds": 0.0,
++          "foreground_slot_attempts": 2516,
++          "foreground_slot_unavailable": 0
++        },
++        "itl": {
++          "n": 1270,
++          "median": 0.019667191430926323,
++          "p95": 0.03155385460704564,
++          "max": 0.727285847067833
++        },
++        "native_reference_exact_count": 10,
++        "steps_emitting_two_requests": 593
++      },
++      {
++        "label": "server07-p3-c2-mixed-01",
++        "cohort_seconds": 29.30815898786768,
++        "tail_drain_seconds": 0.0027430355548858643,
++        "ssd_read_bytes": 6255542272,
++        "ssd_write_bytes": 1896480768,
++        "counters": {
++          "wait_calls": 2,
++          "flush_wait_calls": 1,
++          "pending_flush_wait_calls": 1,
++          "pending_flush_wait_seconds": 1.079709604382515,
++          "foreground_slot_attempts": 3801,
++          "foreground_slot_unavailable": 0
++        },
++        "itl": {
++          "n": 1270,
++          "median": 0.01968744769692421,
++          "p95": 0.05924590174108739,
++          "max": 1.5144443064928055
++        },
++        "native_reference_exact_count": 10,
++        "steps_emitting_two_requests": 578
++      },
++      {
++        "label": "server07-p3-c2-mixed-02",
++        "cohort_seconds": 29.832833172488062,
++        "tail_drain_seconds": 0.0029155947268009186,
++        "ssd_read_bytes": 6254624768,
++        "ssd_write_bytes": 1896480768,
++        "counters": {
++          "wait_calls": 1,
++          "flush_wait_calls": 0,
++          "pending_flush_wait_calls": 0,
++          "pending_flush_wait_seconds": 0.0,
++          "foreground_slot_attempts": 3799,
++          "foreground_slot_unavailable": 0
++        },
++        "itl": {
++          "n": 1270,
++          "median": 0.019572768360376358,
++          "p95": 0.08937619533389804,
++          "max": 1.5731355212628841
++        },
++        "native_reference_exact_count": 10,
++        "steps_emitting_two_requests": 567
++      },
++      {
++        "label": "server07-p3-c2-all-hit-02",
++        "cohort_seconds": 20.792670728373377,
++        "tail_drain_seconds": 0.002237580716609955,
++        "ssd_read_bytes": 5475663872,
++        "ssd_write_bytes": 19267584,
++        "counters": {
++          "wait_calls": 1,
++          "flush_wait_calls": 0,
++          "pending_flush_wait_calls": 0,
++          "pending_flush_wait_seconds": 0.0,
++          "foreground_slot_attempts": 2525,
++          "foreground_slot_unavailable": 0
++        },
++        "itl": {
++          "n": 1270,
++          "median": 0.01957022212445736,
++          "p95": 0.030659566633403298,
++          "max": 0.3405795022845268
++        },
++        "native_reference_exact_count": 10,
++        "steps_emitting_two_requests": 575
++      },
++      {
++        "label": "server07-p3-c2-d8-mixed-01",
++        "cohort_seconds": 26.674204105245916,
++        "tail_drain_seconds": 0.002335190773010254,
++        "ssd_read_bytes": 6399590400,
++        "ssd_write_bytes": 1896480768,
++        "counters": {
++          "wait_calls": 1,
++          "flush_wait_calls": 0,
++          "pending_flush_wait_calls": 0,
++          "pending_flush_wait_seconds": 0.0,
++          "foreground_slot_attempts": 4824,
++          "foreground_slot_unavailable": 0
++        },
++        "itl": {
++          "n": 1270,
++          "median": 0.020260214805603027,
++          "p95": 0.043669432401657104,
++          "max": 1.4591402374207973
++        },
++        "native_reference_exact_count": 10,
++        "steps_emitting_two_requests": 508
++      },
++      {
++        "label": "server07-p3-c2-d8-mixed-02",
++        "cohort_seconds": 23.399509703475086,
++        "tail_drain_seconds": 0.00251644104719162,
++        "ssd_read_bytes": 5983961088,
++        "ssd_write_bytes": 1896480768,
++        "counters": {
++          "wait_calls": 2,
++          "flush_wait_calls": 1,
++          "pending_flush_wait_calls": 1,
++          "pending_flush_wait_seconds": 0.3517318293452263,
++          "foreground_slot_attempts": 4770,
++          "foreground_slot_unavailable": 0
++        },
++        "itl": {
++          "n": 1270,
++          "median": 0.019223427399992943,
++          "p95": 0.047358978539705276,
++          "max": 1.5508747175335884
++        },
++        "native_reference_exact_count": 10,
++        "steps_emitting_two_requests": 559
++      }
++    ],
++    "created_unix": 1790689607.4172218
++  },
++  "environment_feasibility_calibration_history": {
++    "status": "GPU_AIO_NATIVE_BASELINE_FEASIBLE",
++    "evidence": "artifacts/prefix_io_v1/server07-calibration-01/qualification-summary.json",
++    "scope": "Native model connector paths and measured original LoadPlanner verified; research benefit and source release witness unverified",
++    "model_download_bytes_this_delivery": 0,
++    "actual_system_changes": [],
++    "gpu_budgeted_jobs_this_delivery": 10,
++    "gpu_workload_runs": 10,
++    "imports_qualification_budgeted_separately": false
+   }
+ }
+--- before/docs/prefix_io_v1/CAPABILITY_MATRIX.md
++++ docs/prefix_io_v1/CAPABILITY_MATRIX.md
+@@ -116,3 +116,8 @@
+ ## P3 辅助存储与独立长前缀验证（2026-09-29）
+ 
+ 授权辅助根通过真实 O_DIRECT AIO 读回与额度检查。新存储 24 项标定缓存参考、独立长内容 6 项缓存参考、12 个完整 128-token 服务输出均通过严格比较。16256-token 独立成本预测在原定 25% 内通过；不覆盖旧 2K 失败、不授予全域资格。普通策略仍未接线，max_num_seqs=1，P3 未完成。详见 [本轮报告](SERVER07_P3_AUXILIARY_REPORT.md)。
++
++
++## Server07 P3 两并发与 I/O 深度验证（2026-09-29）
++
++本轮 max_num_seqs=2，6 次连续重放共 60 个完整输出与原生参考一致；真实 token 时刻 7680 个。现有 iodepth=8 候选基线两轮中位耗时比 4 低约 15.33%，无正式 SLO/置信区间。iodepth=2 数值正确但成本误差 39.37% 超过 25%，其重放未运行。普通 fixed/pressure/依赖/干扰/joint 尚未接入，P3 未完成。 详见 [本轮报告](SERVER07_P3_CONCURRENT_REPORT.md)。
+--- before/docs/prefix_io_v1/PATCH_MAP.md
++++ docs/prefix_io_v1/PATCH_MAP.md
+@@ -93,3 +93,8 @@
+ ## P3 辅助存储与独立验证增量（2026-09-29）
+ 
+ config.py 增加向后兼容的可选辅助存储权限对象；新增 experiment_storage/probe_auxiliary_storage/copy_calibration_to_aux 及边界测试。采集与离线分析器支持显式 run_details/storage_path。新增 prepare_long_heldout_validation、long_validation_contract、run_long_native_reference、qualify_long_validation、analyze_long_validation；run_long_calibration_replay 增加 opt-in 资格检查，默认标定分支保持。新增内容为实验设施，没有缓存引擎/模型/reactor 新补丁。29 个 P2 锁定文件仅 config.py 改变；旧候选和失败结果哈希不变。精确差异、新增源文件及 SHA 见 server07-p3-05/existing-files.patch、source-lock.json。
++
++
++## Server07 P3 两并发与 I/O 深度验证（2026-09-29）
++
++本轮仅扩展 acquire_native_aio_costs.py、validate_heldout_costs.py 的显式并发/I/O 深度实验分支，并新增受限 contract、manifest 准备、资格检查、重放、原生参考、离线分析和 2 个 CPU 测试文件。旧默认路径和既有资格结果已回归。既有 90 个源锁条目仅 2 个实验脚本变化；无新缓存引擎、模型执行器、reactor 或生命周期补丁。 详见 [本轮报告](SERVER07_P3_CONCURRENT_REPORT.md)。
+--- before/docs/prefix_io_v1/LIFECYCLE_REPORT.md
++++ docs/prefix_io_v1/LIFECYCLE_REPORT.md
+@@ -53,3 +53,8 @@
+ ## P3 独立长请求的生命周期证据（2026-09-29）
+ 
+ 两次连续 cohort 各 6 请求/768 token，原异步执行器和原 LoadPlanner；无逐请求重置/人为暂停。每轮 SSD 实读 4777443328B、实写 19267584B；3048 个来源文件哈希不变，关闭时 accepted=completed=reaped、全部在途/待确认计数为零，进程会话已排空。pending_flush_wait 与前台 staging 失败均为 0，仅限 max_num_seqs=1。本轮不提供新的生产 owner/freshness 或并发释放阻塞证据，不改变早先 mandatory/failed-draining 有界资格。详见 server07-p3-05/long-service-result.json 与本轮报告。
++
++
++## Server07 P3 两并发与 I/O 深度验证（2026-09-29）
++
++4 次混合请求重放中 2 次观测到小后缀 store 父任务的原生 flush 等待（1.079710 s / 0.351732 s）；分别涉及 3 / 4 个 917504 字节父任务。具体 scheduler 触发原因、GPU 物理块 generation 和全部保护者未记录，不能据此推导提前可释放字节。未提前 complete_store。所有已运行作业排空成功；生产 owner 控制器仍未安装。 详见 [本轮报告](SERVER07_P3_CONCURRENT_REPORT.md)。
+--- before/docs/prefix_io_v1/PILOT_PROBLEM_REPORT.md
++++ docs/prefix_io_v1/PILOT_PROBLEM_REPORT.md
+@@ -115,3 +115,8 @@
+ ## P3 统一预算与长请求集成增量
+ 
+ 详见 [SERVER07_P3_UNIFORM_REPORT.md](SERVER07_P3_UNIFORM_REPORT.md)。24 个缓存参考比较零容差通过；生成单独的标定候选表并完成两次原始准入下的长请求集成诊断，每次 6 请求/768 token。实际 CUDA 复制与计算有约 1.016 ms 重叠，pending flush 等待仍为零。候选仅用于标定集成，独立数据与强简单基线未完成；P3 继续，joint 关闭。
++
++
++## Server07 P3 两并发与 I/O 深度验证（2026-09-29）
++
++本轮观察到跨配置相似的小 store 等待形态及 I/O 与 token 间隔的时间相关性，但单配置重复性不足、并发混杂因素未排除。简单 iodepth=8 已出现描述性改善，后续新策略必须与更强候选基线对照。60/60 连续输出正确；深度 2 的成本失败完整保留。当前证据不支持宣称新增研究收益或直接开启 P4。 详见 [本轮报告](SERVER07_P3_CONCURRENT_REPORT.md)。
+--- before/docs/prefix_io_v1/GPU_STAGE_REPORT.md
++++ docs/prefix_io_v1/GPU_STAGE_REPORT.md
+@@ -29,3 +29,8 @@
+ ## 2026-09-29 server07 原生标定与规划器验证
+ 
+ 详见 SERVER07_CALIBRATION_REPORT.md 和 REPRODUCE_SERVER07_CALIBRATION.md。本轮完成有界 P1 AIO 原生路径、实测成本、原 LoadPlanner 调用与自然 GPU 复用。短前缀 SSD 成本不利；未改变原准入或缓存执行器，未启用研究策略。P2 mandatory/release witness 和观察开销仍待验证。
++
++
++## Server07 P3 两并发与 I/O 深度验证（2026-09-29）
++
++本轮 19 个真实 GPU 作业全部完成，CPU 测试 182 passed/0 failed/0 skipped；另有一次离线成本门槛失败，阻止深度 2 两次计划重放。新增 GPU 记账 1580.150959 s，累计 8195.989781 s / 8 h，新增下载 0。收尾 GPU 计算进程为空、active_reservation=null。GPU 环境可行；当前阻塞为 P3 研究/集成证据未齐。 详见 [本轮报告](SERVER07_P3_CONCURRENT_REPORT.md)。
+--- before/docs/prefix_io_v1/DELIVERY_REPORT.md
++++ docs/prefix_io_v1/DELIVERY_REPORT.md
+@@ -73,3 +73,8 @@
+ permissions.yaml 未扩大；没有租机、付款、改驱动／系统策略、清理共享数据或远端推送。
+ 
+ 下一阶段仍是 **P1 原版真实环境／GPU smoke 验收**，前提是明确 GPU 授权和预算、可用设备、io_uring 权限、足够内存及真实依赖安装。随后才允许 P2 mandatory/off-shadow 验证、P3 标定和 pilot、P4 研究调度。当前不运行 GPU，不宣称性能收益、新颖性或论文结论。
++
++
++## Server07 P3 两并发与 I/O 深度验证（2026-09-29）
++
++本轮交付 99 文件源锁、实验驱动和分析器、182 项 CPU 测试、19 个真实 GPU 作业与 60 请求完整输出检查。现有 I/O 深度调优出现约 15.33% 的描述性整轮耗时下降；不能作为新策略收益。下一允许阶段仍为 P3 强基线复核及有界释放原因/所有权观测；P4–P7 未开启。 详见 [本轮报告](SERVER07_P3_CONCURRENT_REPORT.md)。

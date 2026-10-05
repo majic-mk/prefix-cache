@@ -1,0 +1,8 @@
+
+补充：最终CPU报告字段修正版v3通过30项守卫测试及50项子检查；先前v2的28项为重复验证，不再次相加。CPU去重总数为1613，仍保留16skip和基数中12个历史fixture的范围限定。v3确认核心模型、真实普通等待、稀疏条件标定、quiet观测、原生transfer/shutdown、CPU及补丁往返门禁通过；未满足项仍来自8次GPU未执行及有限开发未闭合。首次/二次报告适配失败原样保留，不改任何真实GPU结果。
+
+本报告表中的P4仅指pressure reserve4Q候选，不代表实施阶段P4获准开启。quiet观察PASS仍受安静域限制，不授予normal-I/O≤2%的工程资格。
+
+缓存合并dry-run实际exit0、apply=false、仍10269目标/9421848576B预计回收；六根被审计，目标替换分布在五根，第一根作为canonical保留。没有auth或applyjournal。待精确人类授权。
+
+冻结输入快照v2含2599项，ZIP SHA dcefc31e51208f8ff4e91de34389bd032642d20f43946595617506c07c42fa59；其中一份已锁定AUX历史参考用external_aux_inputs映射，仅复制读取，未写AUX。另有16个ELF完整流式SHA身份审计；不打包模型/私有cache/库二进制。

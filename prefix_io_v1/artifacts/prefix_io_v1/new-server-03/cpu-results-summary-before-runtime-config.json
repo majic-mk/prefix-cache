@@ -1,0 +1,28 @@
+{
+  "suites": {
+    "resume-review/first.xml": {
+      "tests": 109,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "23f04b6c4d187de9c53837e4f87d894e37b5c339f538dce740ecabcf9bf0c443"
+    },
+    "native-prefix-kv-metadata/cpu-tests.xml": {
+      "tests": 49,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "2af8aef511e25492f18a9cc07324d7408b3879c93151c88b509148f57843a0c3"
+    },
+    "delivery-redaction/cpu-tests-final.txt": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "1bcc44011bf78a58bc505eb612ef283786f7b4e7ea8747b915963e5b06958e4c"
+    }
+  },
+  "total": 173,
+  "scope": "CPU/synthetic checks; 109 includes previous 65, 49 includes previous 24; no repeated pass double-counting",
+  "gpu_execution": false
+}

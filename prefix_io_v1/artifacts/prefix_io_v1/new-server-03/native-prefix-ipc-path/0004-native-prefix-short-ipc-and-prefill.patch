@@ -1,0 +1,31 @@
+--- a/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py
++++ b/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py
+@@ -39,7 +39,7 @@
+     "kv_cache_memory_bytes": 67108864,
+     "gpu_memory_utilization": 0.70,
+     "enable_prefix_caching": True,
+-    "enable_chunked_prefill": False,
++    "enable_chunked_prefill": True,
+     "cpu_offload_gb": 0,
+     "offload_group_size": 0,
+     "kv_offloading_size": None,
+@@ -151,7 +151,7 @@
+     "XDG_CACHE_HOME": "xdg",
+     "HF_HOME": "huggingface",
+ }
+-RUNTIME_PATH_ENV_KEYS = (*RUNTIME_CACHE_SUBDIRS, "TMPDIR")
++RUNTIME_PATH_ENV_KEYS = (*RUNTIME_CACHE_SUBDIRS, "TMPDIR", "VLLM_RPC_BASE_PATH")
+ 
+ 
+ def configure_runtime_environment():
+@@ -163,7 +163,9 @@
+     os.environ["VLLM_ALLOW_INSECURE_SERIALIZATION"] = "1"
+     base = ROOT / "experiments/prefix_io_v1"
+     paths = {key: base / "runtime-cache" / name for key, name in RUNTIME_CACHE_SUBDIRS.items()}
+-    paths["TMPDIR"] = base / "runtime-tmp"
++    paths["TMPDIR"] = ROOT / ".p1tmp"
++    paths["VLLM_RPC_BASE_PATH"] = paths["TMPDIR"]
++    require(not paths["TMPDIR"].is_symlink(), "runtime temporary directory must not be a symlink")
+     for key, path in paths.items():
+         path = path.resolve()
+         require(path.is_relative_to(ROOT), "runtime cache/temp path escapes project")

@@ -1,0 +1,77 @@
+{
+  "CPU_fixture_outputs_are_not_actual_source_or_receipts": true,
+  "GPU_launch_allowed": false,
+  "actual_GPU_operations": 0,
+  "actual_RPC_operations": 0,
+  "actual_network_operations": 0,
+  "actual_official_dataset_acquisitions": 0,
+  "files": [
+    {
+      "bytes": 1264,
+      "path": "LOCAL_CLI_HELP_RESULT.json",
+      "sha256": "8ca87e3f01a7d85d21f3946279a630f7652610ab06be10cb1860b08c346bb2fb"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CLI_HELP_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1196,
+      "path": "LOCAL_CLI_HELP_STDOUT.log",
+      "sha256": "0ffc1979052c5c8fb9c977d292dca2e8b8f9bd6f2652e5e10fdda373ecab4d89"
+    },
+    {
+      "bytes": 1634,
+      "path": "LOCAL_CLI_UNBOUND_RESULT.json",
+      "sha256": "4d8afa6b3cb732d99bdbeb11c407a6d6b3cefb09a27155d8b3e5ed23cb8b7958"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CLI_UNBOUND_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 314,
+      "path": "LOCAL_CLI_UNBOUND_STDOUT.log",
+      "sha256": "516f30624a4d0bf998fa5ed4bc8817120e79ba295fc5da9a4bc26f3c4871bf95"
+    },
+    {
+      "bytes": 1310,
+      "path": "LOCAL_CPU_TEST_RESULT.json",
+      "sha256": "212a69fae18166896f072f81288edd5f561a0a70f849c203e8622355e1428fd2"
+    },
+    {
+      "bytes": 3340,
+      "path": "LOCAL_CPU_TEST_STDERR.log",
+      "sha256": "76a2c9ebda1137818eff42b71ce9cbc790332c8590c0f5c9d26fcd21a7d86960"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CPU_TEST_STDOUT.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4540,
+      "path": "README.md",
+      "sha256": "16d90f2d12c87cc0e0323ac9d7d4784fbb0053651d7f506a013bf7c0a79b7732"
+    },
+    {
+      "bytes": 14651,
+      "path": "squad_source_adapter_cpu.py",
+      "sha256": "a41d48c8f179a9f77b753f92c13033c055dab1dec039141159f7abfdebaa11e9"
+    },
+    {
+      "bytes": 17755,
+      "path": "test_squad_source_adapter_cpu.py",
+      "sha256": "9a739f1f83fbcadc3a9d5122f2ad5f2546864cfd9ce9451f42cfc7d2a63001a6"
+    }
+  ],
+  "formal_receipt_ready": false,
+  "local_CPU_tests_passed": 20,
+  "old_frozen_sources_unchanged": true,
+  "schema": "CPU_squad_source_adapter_source_manifest_v1",
+  "source_commit": "eee5fdbf62f8613a7812b03419e6b29617b74fd1",
+  "source_repository": "rajpurkar/SQuAD-explorer",
+  "suggested_server_relative_base": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/natural_source_audit/squad_adapter"
+}

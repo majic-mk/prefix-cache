@@ -1,0 +1,14 @@
+--- a/py_kvcache/linux_aio.py
++++ b/py_kvcache/linux_aio.py
+@@ -232,7 +232,10 @@
+     def submit_pending(self):
+         with self._cv:
+             self._check()
+-            self._flush_locked()
++            # The author reactor calls this every pump, including while only
++            # awaiting completions. Accepted work already has its own wake.
++            if self._pending:
++                self._flush_locked()
+ 
+     @staticmethod
+     def _metadata(req):

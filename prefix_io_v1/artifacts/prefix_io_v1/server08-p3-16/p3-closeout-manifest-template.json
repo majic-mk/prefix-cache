@@ -1,0 +1,1519 @@
+{
+  "schema_version": 1,
+  "gpu_uuid": "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+  "requirements_review": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/p3-closeout-requirements-review.json",
+    "sha256": null
+  },
+  "preregistration": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/finite-grid-preregistration.json",
+    "sha256": null
+  },
+  "core_runs": [
+    {
+      "label": "server08-p3-16-mixed-01-off",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-01-off/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-01-off/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-01-off/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-01-off-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-mixed-02-fixed",
+      "arm": "F16",
+      "policy_mode": "fixed",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-02-fixed/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-02-fixed/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-02-fixed/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-02-fixed-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/fixed-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-mixed-03-pressure",
+      "arm": "P4",
+      "policy_mode": "pressure",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-03-pressure/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-03-pressure/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-03-pressure/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-03-pressure-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/pressure-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-mixed-04-pressure",
+      "arm": "P4",
+      "policy_mode": "pressure",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-04-pressure/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-04-pressure/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-04-pressure/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-04-pressure-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/pressure-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-mixed-05-fixed",
+      "arm": "F16",
+      "policy_mode": "fixed",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-05-fixed/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-05-fixed/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-05-fixed/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-05-fixed-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/fixed-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-mixed-06-off",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-06-off/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-06-off/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-06-off/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-06-off-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      }
+    }
+  ],
+  "finite_runs": [
+    {
+      "label": "server08-p3-16-mixed-07-fixed8",
+      "arm": "F8",
+      "policy_mode": "fixed",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-07-fixed8/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-07-fixed8/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-07-fixed8/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-07-fixed8-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/fixed8-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-mixed-08-pressure512",
+      "arm": "P512",
+      "policy_mode": "pressure",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-08-pressure512/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-08-pressure512-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/pressure512-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-mixed-09-pressure512",
+      "arm": "P512",
+      "policy_mode": "pressure",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-09-pressure512/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-09-pressure512-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/pressure512-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-mixed-10-fixed8",
+      "arm": "F8",
+      "policy_mode": "fixed",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-mixed-10-fixed8/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/mixed-10-fixed8-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-14/d8/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/fixed8-control.json",
+        "sha256": null
+      }
+    }
+  ],
+  "capacity_gates": [
+    {
+      "capacity_domain_id": "cap960-l1",
+      "capacity_domain": {
+        "capacity_domain_id": "cap960-l1",
+        "staging_bytes": 1006632960,
+        "staging_mem_gib": 0.9375,
+        "preload_lookahead_requests": 1,
+        "io_depth": 8,
+        "slot_count": 1097,
+        "cache_preload_ceiling_slots": 1089
+      },
+      "disposition": null,
+      "phases": [
+        {
+          "label": "server08-p3-16-cap960-l1-native-ref",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-native-ref/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-native-ref/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-native-ref/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap960-l1-cached-ref",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cached-ref/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cached-ref/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cached-ref/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap960-l1-cold-01",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cold-01/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cold-01/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cold-01/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap960-l1-paired-01",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-paired-01/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-paired-01/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-paired-01/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap960-l1-paired-02",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-paired-02/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-paired-02/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-paired-02/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap960-l1-cold-02",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cold-02/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cold-02/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-cold-02/details/frozen-config.json",
+            "sha256": null
+          }
+        }
+      ],
+      "reference_result": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/reference-result.json",
+        "sha256": null
+      },
+      "cost_result": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cost-result.json",
+        "sha256": null
+      },
+      "permit": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/capacity-permit.json",
+        "sha256": null
+      }
+    },
+    {
+      "capacity_domain_id": "cap1024-l2",
+      "capacity_domain": {
+        "capacity_domain_id": "cap1024-l2",
+        "staging_bytes": 1073741824,
+        "staging_mem_gib": 1,
+        "preload_lookahead_requests": 2,
+        "io_depth": 8,
+        "slot_count": 1170,
+        "cache_preload_ceiling_slots": 1162
+      },
+      "disposition": null,
+      "phases": [
+        {
+          "label": "server08-p3-16-cap1024-l2-native-ref",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-native-ref/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-native-ref/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-native-ref/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap1024-l2-cached-ref",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cached-ref/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cached-ref/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cached-ref/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap1024-l2-cold-01",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cold-01/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cold-01/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cold-01/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap1024-l2-paired-01",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-paired-01/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-paired-01/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-paired-01/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap1024-l2-paired-02",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-paired-02/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-paired-02/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-paired-02/details/frozen-config.json",
+            "sha256": null
+          }
+        },
+        {
+          "label": "server08-p3-16-cap1024-l2-cold-02",
+          "wrapper": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cold-02/result.json",
+            "sha256": null
+          },
+          "result": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cold-02/details/result.json",
+            "sha256": null
+          },
+          "config": {
+            "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-cold-02/details/frozen-config.json",
+            "sha256": null
+          }
+        }
+      ],
+      "reference_result": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/reference-result.json",
+        "sha256": null
+      },
+      "cost_result": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cost-result.json",
+        "sha256": null
+      },
+      "permit": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/capacity-permit.json",
+        "sha256": null
+      }
+    }
+  ],
+  "capacity_runs": [
+    {
+      "label": "server08-p3-16-cap960-l1-mixed-U-01",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-01/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-01/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap960-l1-mixed-U-01/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1-mixed-U-01-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      },
+      "capacity_domain_id": "cap960-l1"
+    },
+    {
+      "label": "server08-p3-16-cap1024-l2-mixed-U-01",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "mixed_readwrite",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-cap1024-l2-mixed-U-01/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2-mixed-U-01-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed_readwrite-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      },
+      "capacity_domain_id": "cap1024-l2"
+    }
+  ],
+  "hot_runs": [
+    {
+      "label": "server08-p3-16-gpu-hot-01-U",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "gpu_hot",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-01-U/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-01-U/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-01-U/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu-hot-01-U-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-gpu-hot-02-B",
+      "arm": null,
+      "policy_mode": null,
+      "profile": "gpu_hot",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-02-B/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu-hot-02-B-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/__FILL_SELECTED_COMMON_ARM_CONTROL_FILE__.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-gpu-hot-03-B",
+      "arm": null,
+      "policy_mode": null,
+      "profile": "gpu_hot",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-03-B/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu-hot-03-B-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/__FILL_SELECTED_COMMON_ARM_CONTROL_FILE__.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-gpu-hot-04-U",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "gpu_hot",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-gpu-hot-04-U/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu-hot-04-U-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      }
+    }
+  ],
+  "observation_runs": [
+    {
+      "label": "server08-p3-16-observer-01-off",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "gpu_hot",
+      "native_observation": "off",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-01-off/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-01-off/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-01-off/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/observer-01-off-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-observer-02-on",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "gpu_hot",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-02-on/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-02-on/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-02-on/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/observer-02-on-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-observer-03-on",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "gpu_hot",
+      "native_observation": "on",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-03-on/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-03-on/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-03-on/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/observer-03-on-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-observer-04-off",
+      "arm": "U",
+      "policy_mode": "off",
+      "profile": "gpu_hot",
+      "native_observation": "off",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-04-off/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-04-off/details/result.json",
+        "sha256": null
+      },
+      "config": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-observer-04-off/details/frozen-config.json",
+        "sha256": null
+      },
+      "analysis": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/observer-04-off-analysis.json",
+        "sha256": null
+      },
+      "workload_manifest": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-manifest.json",
+        "sha256": null
+      },
+      "reference": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details/result.json",
+        "sha256": null
+      },
+      "control_config": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/off-control.json",
+        "sha256": null
+      }
+    }
+  ],
+  "calibration_runs": [
+    {
+      "label": "server08-p3-16-decode-calibration-01",
+      "partition": "calibration",
+      "required_status": null,
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-decode-calibration-01/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-decode-calibration-01/details/result.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-decode-calibration-02",
+      "partition": "calibration",
+      "required_status": null,
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-decode-calibration-02/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-decode-calibration-02/details/result.json",
+        "sha256": null
+      }
+    },
+    {
+      "label": "server08-p3-16-decode-validation-01",
+      "partition": "validation",
+      "required_status": null,
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-decode-validation-01/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-decode-validation-01/details/result.json",
+        "sha256": null
+      }
+    }
+  ],
+  "conditional_table": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/conditional-interference-table.json",
+    "sha256": null
+  },
+  "cpu_receipts": [
+    {
+      "kind": "matrix",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cpu-qualification.json",
+        "sha256": null
+      }
+    },
+    {
+      "kind": "command",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/finite-capacity-cpu-03-command.json",
+        "sha256": null
+      },
+      "guard": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/finite-capacity-cpu-03-cuda-guard.json",
+        "sha256": null
+      }
+    },
+    {
+      "kind": "command",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/patch-roundtrip-guards-cpu-01-command.json",
+        "sha256": null
+      },
+      "guard": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/patch-roundtrip-guards-cpu-01-cuda-guard.json",
+        "sha256": null
+      }
+    },
+    {
+      "kind": "command",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/capacity-analysis-cpu-01-command.json",
+        "sha256": null
+      },
+      "guard": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/capacity-analysis-cpu-01-cuda-guard.json",
+        "sha256": null
+      }
+    }
+  ],
+  "patch_roundtrip": {
+    "path": "artifacts/prefix_io_v1/server08-p3-16/patch-roundtrip-01/result.json",
+    "sha256": null
+  },
+  "native_qualifications": [
+    {
+      "label": "server08-p3-16-simple-primitive-01",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-simple-primitive-01/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-simple-primitive-01/details/result.json",
+        "sha256": null
+      },
+      "required_status": null,
+      "checks": [
+        {
+          "field": [
+            "exact_content"
+          ],
+          "equals": true
+        },
+        {
+          "field": [
+            "common_admission"
+          ],
+          "equals": true
+        },
+        {
+          "field": [
+            "full_stage_caps_installed"
+          ],
+          "equals": true
+        },
+        {
+          "field": [
+            "physical_capacity_hard"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "label": "server08-p3-16-compact-capacity-01",
+      "wrapper": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-compact-capacity-01/result.json",
+        "sha256": null
+      },
+      "result": {
+        "path": "experiments/prefix_io_v1/runs/server08-p3-16-compact-capacity-01/details/result.json",
+        "sha256": null
+      },
+      "required_status": null,
+      "checks": [
+        {
+          "field": [
+            "actual_gpu_run"
+          ],
+          "equals": true
+        },
+        {
+          "field": [
+            "cache_registry_over_64"
+          ],
+          "equals": true
+        },
+        {
+          "field": [
+            "shared_registry_over_64"
+          ],
+          "equals": true
+        },
+        {
+          "field": [
+            "compact_known_pressure_qualified"
+          ],
+          "equals": true
+        },
+        {
+          "field": [
+            "exact_content"
+          ],
+          "equals": true
+        },
+        {
+          "field": [
+            "original_stop_and_drain"
+          ],
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "lineage_receipts": [
+    {
+      "name": "batch",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-closeout-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "dimensions",
+            "batch",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "iodepth",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-closeout-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "dimensions",
+            "iodepth",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "cache_capacity",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-closeout-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "dimensions",
+            "cache_capacity",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "preload_capacity",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-closeout-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "dimensions",
+            "preload_capacity",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "reserve",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-closeout-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "dimensions",
+            "reserve",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "stage_quota",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-closeout-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "dimensions",
+            "stage_quota",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "delivery_receipts": [
+    {
+      "name": "source_lock",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-delivery-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "checks",
+            "source_lock",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "version_lock",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-delivery-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "checks",
+            "version_lock",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "GPU_budget_idle",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-delivery-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "checks",
+            "GPU_budget_idle",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "storage_and_source_preserved",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-delivery-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "checks",
+            "storage_and_source_preserved",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "problem_report",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-delivery-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "checks",
+            "problem_report",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    {
+      "name": "reproduction",
+      "receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-delivery-receipt.json",
+        "sha256": null
+      },
+      "checks": [
+        {
+          "field": [
+            "checks",
+            "reproduction",
+            "evidence_complete"
+          ],
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "native_source_hashes": {
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/__init__.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/_pchip.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/break_even.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/cost_model.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/file_mapper.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/fs_config.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/liburing_file.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/load_planner.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/profiling.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/reactor.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/staging.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/staging_cache.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/transfer.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/vllm.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/py_kvcache/linux_aio.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/__init__.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_break_even.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_cost_model.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_e2e_kvcache.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_fs_layout.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_load_planner.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_planner_manager.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_py_kvcache_async_open.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_py_kvcache_copy_batch.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_py_kvcache_lookup_cache.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_py_kvcache_ntensor.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_py_kvcache_preload_handler.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_py_kvcache_preload_reactor.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_py_kvcache_shared_preload.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_staging_cache.py": null,
+    "third_party/work/py-kvcache-p3-16-cpu/tests/test_vllm_compat.py": null
+  },
+  "_template": {
+    "execution_ready": false,
+    "scope": "Schema/path skeleton only; no result, efficacy disposition, budget reset or authorization is recorded.",
+    "analyzer_path": "experiments/prefix_io_v1/scripts/analyze_p3_closeout_p316.py",
+    "analyzer_expected_sha256": "648265d5ca9a94188d175b3ea51ca65c0e333a0567d6141203db4bdf277513d7",
+    "analyzer_last_write_utc": "2026-09-30T11:09:35.874317+00:00",
+    "output_final_manifest_hint": "artifacts/prefix_io_v1/server08-p3-16/p3-closeout-manifest-final.json",
+    "output_analysis_hint": "artifacts/prefix_io_v1/server08-p3-16/p3-closeout-analysis.json",
+    "all_FileRef_sha256_values_are_null": true,
+    "completion_instructions": [
+      "Root must write a separate final manifest after collecting actual completed evidence; do not execute this template.",
+      "Fill each FileRef sha256 from that exact unchanged file. Native source hash values are also null and must come from the applicable frozen execution/source lock.",
+      "Confirm future analysis output paths against actual analyzer command receipts; the listed future filenames are path hints, not claims that files exist.",
+      "Set each calibration/native required_status only from the actual successful producer result after auditing the child wrapper/session-drain evidence.",
+      "Resolve both B entries to the actual selected U/F16/P4/F8/P512 arm and its exact common-domain control file. Selection uses two independent common-domain run medians with frozen tie order; no capacity result enters this pool.",
+      "Arm label P4 means the four-unit pressure candidate, not authorization for implementation stage P4.",
+      "For each capacity domain use only its v2 loaded-U plan with the original full128 reference. Do not use its one-token cost reference for a model cohort.",
+      "Set capacity disposition from real original-threshold numeric/cost gate evidence: PASS, FAILED_NUMERIC_GATE, or FAILED_COST_GATE. Resource-blocked/unattempted phases remain incomplete.",
+      "If numeric qualification really fails, retain the two executed reference phases only. If cost qualification really fails, retain all six phases and the genuine failed cost result.",
+      "Keep exactly one loaded-U sensitivity per passed capacity and none for a genuinely pruned capacity; future placeholders in capacity_runs must be removed only on that proven branch.",
+      "Typed selector equals values below are prospective audit predicates, not recorded observations. Build new normalized lineage/delivery receipts only from actual source-bound evidence; do not fill a successful predicate from a plan alone.",
+      "Lineage receipts must disclose finite candidate/source/gate disposition per all six dimensions and do not imply a Cartesian or global-optimum search.",
+      "Final delivery receipt must retain original lock/source/version paths and SHAs, actual idle GPU ledger, storage/source preservation, final problem report and exact reproduction commands. It must not infer budget renewal or GPU permission.",
+      "After final-manifest assembly, root runs the locked analyzer on CPU; missing fields/paths/null SHA remain INCOMPLETE.",
+      "Engineering evidence completeness is separate from efficacy and final P3 closure. P4 is never enabled by this template or analyzer."
+    ],
+    "capacity_v2_plan_refs": [
+      {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-01-v2-plan.json",
+        "sha256": null
+      },
+      {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-v2-plan.json",
+        "sha256": null
+      }
+    ],
+    "supporting_metadata_refs": {
+      "finite_CPU": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/finite-capacity-cpu-qualification.json",
+        "sha256": null
+      },
+      "additional_CPU": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/additional-closeout-cpu-qualification.json",
+        "sha256": null
+      },
+      "historical_lineage": {
+        "path": "artifacts/prefix_io_v1/server08-p3-15/tuning-lineage-summary.json",
+        "sha256": null
+      },
+      "capacity_structure": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/finite-baseline-domain-plan.json",
+        "sha256": null
+      },
+      "source_lock_final": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/source-lock-final.json",
+        "sha256": null
+      },
+      "version_lock": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/version-lock.json",
+        "sha256": null
+      },
+      "final_problem_report_receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-problem-report-receipt.json",
+        "sha256": null
+      },
+      "reproduction_receipt": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-reproduction-receipt.json",
+        "sha256": null
+      }
+    },
+    "normalized_receipt_schemas": {
+      "lineage": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-tuning-lineage-closeout-receipt.json",
+        "object_fields": [
+          "dimensions"
+        ],
+        "dimension_fields": [
+          "batch",
+          "iodepth",
+          "cache_capacity",
+          "preload_capacity",
+          "reserve",
+          "stage_quota"
+        ],
+        "per_dimension_fields": [
+          "evidence_complete",
+          "disposition",
+          "source_refs",
+          "candidate_refs",
+          "executed_gate_refs",
+          "limitations"
+        ],
+        "selector_example": [
+          "dimensions",
+          "batch",
+          "evidence_complete"
+        ],
+        "selector_expected_type": "bool"
+      },
+      "delivery": {
+        "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-delivery-receipt.json",
+        "object_fields": [
+          "checks"
+        ],
+        "check_names": [
+          "source_lock",
+          "version_lock",
+          "GPU_budget_idle",
+          "storage_and_source_preserved",
+          "problem_report",
+          "reproduction"
+        ],
+        "per_check_fields": [
+          "evidence_complete",
+          "producer_refs",
+          "actual_paths",
+          "actual_sha256",
+          "limitations"
+        ],
+        "selector_example": [
+          "checks",
+          "GPU_budget_idle",
+          "evidence_complete"
+        ],
+        "selector_expected_type": "bool",
+        "GPU_budget_idle_must_bind_actual_active_operation_value": null
+      }
+    },
+    "missing_values_now": [
+      "every FileRef.sha256",
+      "every native_source_hashes value",
+      "both capacity disposition values",
+      "all calibration/native required_status values",
+      "selected B arm/mode/control file",
+      "future normalized lineage/delivery receipts"
+    ]
+  }
+}

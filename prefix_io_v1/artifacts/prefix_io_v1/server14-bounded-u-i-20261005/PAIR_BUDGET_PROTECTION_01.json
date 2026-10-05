@@ -1,0 +1,11 @@
+{
+  "current_used_seconds": 26954.199066789355,
+  "remaining_seconds": 1845.8009332106449,
+  "pair_protected_seconds": 640,
+  "preparation_ceiling_seconds": 1205.8009332106449,
+  "mandatory_guards_unchanged": true,
+  "ledger_reservation_for_pair_created": false,
+  "cost_windows_max": 2,
+  "pair_arms_max": 2,
+  "no_new_strategy": true
+}

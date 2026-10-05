@@ -1,0 +1,27 @@
+{
+  "GPU_qualified": false,
+  "actual_GPU_operations": 0,
+  "files": [
+    {
+      "bytes": 11515,
+      "path": "append_public_source_lock_v13.py",
+      "sha256": "63db22e5cb91a117e6f65c3558309b0c5854861de963cff70866f8df1b4cefc7"
+    },
+    {
+      "bytes": 8919,
+      "path": "test_append_public_source_lock_v13_cpu.py",
+      "sha256": "477f0b7224e1457562262eb8d832f0f5c439db33b183915343a515493196e14d"
+    },
+    {
+      "bytes": 3542,
+      "path": "README.md",
+      "sha256": "40d5d9a8f739af881f9cb162bc35fb34b53a32bed16423fb1b4a1854ebd76356"
+    },
+    {
+      "bytes": 1623,
+      "path": "LOCAL_CPU_RESULT.json",
+      "sha256": "b668dac122a99aaa67aac11b0b2464344afab58c3d00aa7db22c8012f12fae09"
+    }
+  ],
+  "schema": "V13_CPU_append_freezer_delivery_manifest_v1"
+}

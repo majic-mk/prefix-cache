@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "RESTRICTED_SUBSET_OF_HUMAN_APPROVED_FROZEN_MANIFEST",
+  "created_utc": "2026-10-01T04:32:51.806060+00:00",
+  "approved_manifest_sha256": "b0c347fc4fc50384c088b8539b63ac09d77446a9563f33fba83f7844514c410e",
+  "no_new_paths": true,
+  "skipped_files": [
+    {
+      "path": "experiments/prefix_io_v1/runs/server08-p3-15-cpu-01/cpu-evidence/shadow-pytest-tmp/test_actual_alignment_error_pr0/aligned",
+      "frozen_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "before": 4096,
+      "observed": 0,
+      "reason": "Retain on allocated-block metadata drift; content, inode, size and other metadata unchanged"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server08-p3-15-cpu-02/cpu-evidence/shadow-pytest-tmp/test_actual_alignment_error_pr0/aligned",
+      "frozen_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "before": 4096,
+      "observed": 0,
+      "reason": "Retain on allocated-block metadata drift; content, inode, size and other metadata unchanged"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server08-p3-16-cpu-01/cpu-evidence/shadow-pytest-tmp/test_actual_alignment_error_pr0/aligned",
+      "frozen_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "before": 4096,
+      "observed": 0,
+      "reason": "Retain on allocated-block metadata drift; content, inode, size and other metadata unchanged"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server08-p3-16-cpu-02/cpu-evidence/shadow-pytest-tmp/test_actual_alignment_error_pr0/aligned",
+      "frozen_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "before": 4096,
+      "observed": 0,
+      "reason": "Retain on allocated-block metadata drift; content, inode, size and other metadata unchanged"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server08-p4-02-current-integration-01/cpu-evidence/pytest-tmp/test_actual_alignment_error_pr0/aligned",
+      "frozen_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "before": 4096,
+      "observed": 0,
+      "reason": "Retain on allocated-block metadata drift; content, inode, size and other metadata unchanged"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/server08-p4-cpu-current-integration-01/cpu-evidence/pytest-tmp/test_actual_alignment_error_pr0/aligned",
+      "frozen_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "before": 4096,
+      "observed": 0,
+      "reason": "Retain on allocated-block metadata drift; content, inode, size and other metadata unchanged"
+    }
+  ],
+  "skipped_directories": [
+    "experiments/prefix_io_v1/runs/server08-p3-15-cpu-01/cpu-evidence/shadow-pytest-tmp",
+    "experiments/prefix_io_v1/runs/server08-p3-15-cpu-01/cpu-evidence/shadow-pytest-tmp/test_actual_alignment_error_pr0",
+    "experiments/prefix_io_v1/runs/server08-p3-15-cpu-02/cpu-evidence/shadow-pytest-tmp",
+    "experiments/prefix_io_v1/runs/server08-p3-15-cpu-02/cpu-evidence/shadow-pytest-tmp/test_actual_alignment_error_pr0",
+    "experiments/prefix_io_v1/runs/server08-p3-16-cpu-01/cpu-evidence/shadow-pytest-tmp",
+    "experiments/prefix_io_v1/runs/server08-p3-16-cpu-01/cpu-evidence/shadow-pytest-tmp/test_actual_alignment_error_pr0",
+    "experiments/prefix_io_v1/runs/server08-p3-16-cpu-02/cpu-evidence/shadow-pytest-tmp",
+    "experiments/prefix_io_v1/runs/server08-p3-16-cpu-02/cpu-evidence/shadow-pytest-tmp/test_actual_alignment_error_pr0",
+    "experiments/prefix_io_v1/runs/server08-p4-02-current-integration-01/cpu-evidence/pytest-tmp",
+    "experiments/prefix_io_v1/runs/server08-p4-02-current-integration-01/cpu-evidence/pytest-tmp/test_actual_alignment_error_pr0",
+    "experiments/prefix_io_v1/runs/server08-p4-cpu-current-integration-01/cpu-evidence/pytest-tmp",
+    "experiments/prefix_io_v1/runs/server08-p4-cpu-current-integration-01/cpu-evidence/pytest-tmp/test_actual_alignment_error_pr0"
+  ],
+  "expected_deleted": {
+    "regular": 8417,
+    "symlink": 822,
+    "synthetic_test_FIFO": 6,
+    "directory": 11300
+  },
+  "expected_absent_roots": 72,
+  "expected_retained_roots": 6,
+  "conservative_regular_reclaim_bytes": 3221491712,
+  "retained_regular_bytes": 0,
+  "retained_directory_allocated_bytes": 139264,
+  "GPU_runs": 0,
+  "deletions_so_far": 0
+}

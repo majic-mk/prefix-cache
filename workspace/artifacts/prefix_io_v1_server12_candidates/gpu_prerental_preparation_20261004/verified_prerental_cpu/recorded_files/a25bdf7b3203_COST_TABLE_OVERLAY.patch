@@ -1,0 +1,68 @@
+--- frozen/control/p4_cost_table.py
++++ activation/source/prefix_io_control/p4_cost_table.py
+@@ -73,11 +73,14 @@
+     frozen compatible source/geometry identity. It must not be enabled by a
+     synthetic boolean or a P3 conditional receipt.
+     """
+-    __slots__ = ("cells", "scope", "source_sha256")
++    __slots__ = ("cells", "scope", "source_sha256", "_gpu_proof")
+ 
+     @property
+     def production_qualified(self):
+-        return False
++        if self.scope != "gpu_verified_exact_cells":
++            return False
++        from .gpu_cell_issuer import _table_proof_valid
++        return _table_proof_valid(self._gpu_proof, self.cells, self.source_sha256)
+ 
+     def __setattr__(self, name, value):
+         raise AttributeError("cost tables are immutable")
+@@ -95,6 +98,7 @@
+         object.__setattr__(self, "cells", cells)
+         object.__setattr__(self, "scope", scope)
+         object.__setattr__(self, "source_sha256", source_sha256)
++        object.__setattr__(self, "_gpu_proof", None)
+ 
+     def lookup(self, load_signature, existing_io, stage, physical_bytes, *, execution="production"):
+         signature(load_signature)
+@@ -104,7 +108,10 @@
+         integer(physical_bytes, "physical bytes", 1)
+         if execution not in ("production", "cpu_mock"):
+             raise ValueError("explicit production/CPU mock lookup scope required")
+-        if execution == "production" or self.scope != "mock_only":
++        if execution == "production":
++            if not self.production_qualified:
++                return None
++        elif self.scope != "mock_only":
+             return None
+         key = (load_signature, existing_io, stage, physical_bytes)
+         matches = [c for c in self.cells if c.key == key]
+@@ -112,7 +119,9 @@
+             return None
+         c = matches[0]
+         return CostEstimate(c.total_ns, c.basis, c.baseline_ns, c.incremental_or_joint_ns,
+-                            c.uncertainty_ns, self.source_sha256)
++                            c.uncertainty_ns, self.source_sha256,
++                            mock_only=execution == "cpu_mock",
++                            production_qualified=execution == "production" and self.production_qualified)
+ 
+ 
+ def load_conditional_table(path):
+@@ -123,3 +132,17 @@
+         raise ValueError("conditional table must be a JSON object")
+     # A self-declared qualification cannot bypass the missing P4 GPU validator.
+     return CostTable((), scope="conditional", source_sha256=sha256(data).hexdigest())
++
++
++def _from_verified_gpu_capability(proof):
++    """Private entry; a JSON flag or CPU candidate cannot provide this capability."""
++    from .gpu_cell_issuer import _table_material
++    cells, source_sha256, identity = _table_material(proof)
++    if type(cells) is not tuple or not 1 <= len(cells) <= 8:
++        raise ValueError("finite verified GPU cells required")
++    table = CostTable(cells, scope="conditional", source_sha256=source_sha256)
++    object.__setattr__(table, "scope", "gpu_verified_exact_cells")
++    object.__setattr__(table, "_gpu_proof", proof)
++    if not table.production_qualified:
++        raise ValueError("raw GPU issuer capability rejected")
++    return table

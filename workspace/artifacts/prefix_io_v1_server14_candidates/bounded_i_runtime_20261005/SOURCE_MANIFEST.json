@@ -1,0 +1,69 @@
+{
+  "GPU_operations": 0,
+  "actual_GPU_AB_validation": false,
+  "files": [
+    {
+      "bytes": 25806,
+      "path": "artifacts/prefix_io_v1_server14_candidates/bounded_i_runtime_20261005/control/p4_bridge.py",
+      "sha256": "fc38e58362e3403418abc1109a38308f2a8f0d0157ec633993582c7e184b39e8"
+    },
+    {
+      "bytes": 14843,
+      "path": "artifacts/prefix_io_v1_server14_candidates/bounded_i_runtime_20261005/control/p4_cost_table.py",
+      "sha256": "618ba04ad9c884e636a9caab410afb403b4b1a8cb3195ab318b199bd6ccee87b"
+    },
+    {
+      "bytes": 25403,
+      "path": "artifacts/prefix_io_v1_server14_candidates/bounded_i_runtime_20261005/control/p4_policy.py",
+      "sha256": "574b977ce128592faa643a40beac5d78467ec89f1da978f1feac714a1fab7d16"
+    },
+    {
+      "bytes": 4286,
+      "path": "artifacts/prefix_io_v1_server14_candidates/bounded_i_runtime_20261005/README.md",
+      "sha256": "5e1b2e6cb6284ae7a034f74390e594bba82da59b2bb38bad8a9ab3a00ca66ab5"
+    },
+    {
+      "bytes": 26948,
+      "path": "artifacts/prefix_io_v1_server14_candidates/bounded_i_runtime_20261005/runner/finite_current_binding.py",
+      "sha256": "0623ac6b1ac4ac51790e58470ea705b53f1fa8b44abe81fc276e2736e635347b"
+    },
+    {
+      "bytes": 9303,
+      "path": "artifacts/prefix_io_v1_server14_candidates/bounded_i_runtime_20261005/runner/finite_startup.py",
+      "sha256": "2f505f92abf508d00de80ee5a0341f317a2fcd359d6aa002b9711c0cbe97f14f"
+    },
+    {
+      "bytes": 13175,
+      "path": "artifacts/prefix_io_v1_server14_candidates/bounded_i_runtime_20261005/test_bounded_i_cpu.py",
+      "sha256": "293ae56491e5f85b09fc93efcf3de3e3df0e8acd9d77d8b7d3f01012fb3ba201"
+    }
+  ],
+  "original_sources": [
+    {
+      "bytes": 6267,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/activation/source/prefix_io_control/p4_cost_table.py",
+      "sha256": "7e76581c628cead0f02f9cab34164bf7b45a7797b90ce66265394fe0a7bffc47"
+    },
+    {
+      "bytes": 24976,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/activation/source/prefix_io_control/p4_policy.py",
+      "sha256": "bce19c96c7651f69ebb91a515ea3e9e3d6855636b4bd4aa84e60fb2fbc10d673"
+    },
+    {
+      "bytes": 25553,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/activation/source/prefix_io_control/p4_bridge.py",
+      "sha256": "6bec5dd57e25cfc2c0e62540742a781d656ba528cb6c8057cd2402197db93e1a"
+    },
+    {
+      "bytes": 25212,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/runner/finite_current_binding.py",
+      "sha256": "d2b0c9163650376ff452aa0bc58df1590a116cb4559c0b09f3ed3aef80a4aad4"
+    },
+    {
+      "bytes": 9000,
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/runner/finite_startup.py",
+      "sha256": "50cb7cfa916ee40ff833f070d6d27e0ed25da37fe0eac563f1bf5fbe6a58109d"
+    }
+  ],
+  "schema": "bounded_I_private_source_candidate_manifest_v1"
+}

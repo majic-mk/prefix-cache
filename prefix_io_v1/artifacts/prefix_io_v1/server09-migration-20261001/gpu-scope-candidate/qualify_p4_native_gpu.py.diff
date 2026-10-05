@@ -1,0 +1,193 @@
+--- a/experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py
++++ b/experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py
+@@ -34,6 +34,15 @@
+ TIME_LIMIT = 180
+ FLOOR = 8 * 1024**3
+ BINARY_NAMES = ("_C.abi3.so","_C_stable_libtorch.abi3.so")
++PERMISSION = "experiments/prefix_io_v1/configs/permissions.yaml"
++
++def permission_relative(args):
++    return getattr(args, "permissions_path", PERMISSION)
++
++def permission_arguments(relative):
++    # Omit the default argument to preserve the original guarded child argv.
++    return [] if relative == PERMISSION else ["--permissions-path", relative]
++
+ 
+ def require(ok, message):
+     if not ok:
+@@ -89,7 +98,10 @@
+         require(BINARY+"/"+name in refs,"precise old compiled binary ref required")
+     return refs
+ 
+-def preview(root, mode, name, source_lock=None,scope_record=GPU_SCOPE):
++def preview(root, mode, name, source_lock=None,scope_record=GPU_SCOPE,
++            permissions_path=PERMISSION):
++    safe(root, permissions_path)
++    permission_args=permission_arguments(permissions_path)
+     require(mode in ("off","shadow"),"off/shadow G1 scope")
+     require(type(name) is str and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,79}",name),
+             "safe append-new run name")
+@@ -99,18 +111,18 @@
+                                                        "experiments/prefix_io_v1/scripts")),
+          "PYTHONDONTWRITEBYTECODE":"1","HF_HUB_OFFLINE":"1","TRANSFORMERS_OFFLINE":"1"}
+     child=[".venv/bin/python",SCRIPT,"--mode",mode,"--name",name,"--execute",
+-           "--scope-record",scope_record,"--source-lock",source_lock or SOURCE_LOCK]
++           "--scope-record",scope_record,"--source-lock",source_lock or SOURCE_LOCK,*permission_args]
+     guard=[".venv/bin/python","experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+-           "--label",name,"--seconds",str(TIME_LIMIT),"--",*child]
++           *permission_args,"--label",name,"--seconds",str(TIME_LIMIT),"--",*child]
+     launch=[".venv/bin/python",SCRIPT,"--mode",mode,"--name",name,"--launch",
+-            "--scope-record",scope_record,"--source-lock",source_lock or SOURCE_LOCK]
++            "--scope-record",scope_record,"--source-lock",source_lock or SOURCE_LOCK,*permission_args]
+     return dict(schema_version=1,status="P4_NATIVE_GPU_DRY_RUN_BLOCKED",mode=mode,name=name,
+         new_gpu_runs=0,gpu_initialized=False,gpu_availability_probed=False,budget_reserved_seconds=0,
+         child_argv=child,guard_argv=guard,environment_preview=env,
+         launch_argv=launch,internal_guard_argv_requires_prior_launch_gates=True,
+         shell_preview=" ".join(shlex.quote(k+"="+v) for k,v in env.items())+" "+shlex.join(launch),
+         source_template=SOURCE_TEMPLATE,source_lock_pending=lock is None,
+-        source_lock=source_lock,output=str(out),ordinary_policy_controller=False,
++        source_lock=source_lock,permissions_path=permissions_path,output=str(out),ordinary_policy_controller=False,
+         staging_budget_bytes=16*1024**2,staging_iodepth=1,
+         new_storage_reserve_bytes=STORAGE_RESERVE,
+         seconds_limit=TIME_LIMIT,termination_reserve_seconds=20,
+@@ -137,10 +149,11 @@
+     require(scope.get("allowed_modes")==["off","shadow"],"bounded native G1 modes")
+     require(scope.get("new_executor") is False and scope.get("allow_model_downloads") is False,
+             "native qualification/download scope")
+-    permission_path=safe(root,"experiments/prefix_io_v1/configs/permissions.yaml")
++    relative=permission_relative(args)
++    permission_path=safe(root,relative)
+     raw=permission_path.read_bytes()
+     require(scope.get("base_permissions")==dict(
+-        path="experiments/prefix_io_v1/configs/permissions.yaml",bytes=len(raw),
++        path=relative,bytes=len(raw),
+         sha256=hashlib.sha256(raw).hexdigest()),"scope/permissions binding")
+     from prepare_p4_gpu_next_day import permission_fields
+     permit=permission_fields(raw.decode())
+@@ -149,11 +162,14 @@
+     require(scope.get("source_lock")==args.source_lock,"scope binds final source-lock path")
+     require(type(args.source_lock) is str and args.source_lock,"frozen final source-lock required")
+     refs=source_refs(root,args.source_lock)
++    if relative != PERMISSION:
++        require(relative in refs and refs[relative] == scope["base_permissions"],
++                "effective permissions must be in the frozen source lock")
+     require(scope.get("source_lock_sha256")==sha_file(safe(root,args.source_lock)),
+             "scope binds final source-lock bytes")
+     require(scope.get("qualification_context")==qualification_context(),
+             "receipt must bind precise native primitive/source context")
+-    return dict(scope=scope,source_refs=refs),"SCOPE_SOURCE_VALIDATED_WITHOUT_GPU"
++    return dict(scope=scope,source_refs=refs,permit=permit),"SCOPE_SOURCE_VALIDATED_WITHOUT_GPU"
+ 
+ def qualification_context():
+     return dict(native=NATIVE,control=CONTROL,author=AUTHOR,compiled_binary=BINARY,
+@@ -166,7 +182,7 @@
+     if gates is None:return None,reason
+     from prepare_p4_gpu_next_day import permission_fields,number
+     import shutil
+-    permit=permission_fields(safe(root,"experiments/prefix_io_v1/configs/permissions.yaml").read_text())
++    permit=gates["permit"]
+     primary=root/"experiments/prefix_io_v1/runs"
+     require(Path(permit["approved_experiment_root"]).resolve()==primary,
+             "scope PRIMARY root differs")
+@@ -185,10 +201,11 @@
+ def invoke_existing_guard(root,args,gates):
+     # This is the only launcher side effect, reached after pure CPU gates.
+     import subprocess
++    permission_args=permission_arguments(permission_relative(args))
+     child=[".venv/bin/python",SCRIPT,"--mode",args.mode,"--name",args.name,"--execute",
+-           "--scope-record",args.scope_record,"--source-lock",args.source_lock]
++           "--scope-record",args.scope_record,"--source-lock",args.source_lock,*permission_args]
+     command=[".venv/bin/python","experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+-             "--label",args.name,"--seconds",str(TIME_LIMIT),"--",*child]
++             *permission_args,"--label",args.name,"--seconds",str(TIME_LIMIT),"--",*child]
+     env=dict(os.environ,PYTHONPATH=":".join(str(root/p) for p in (CONTROL,NATIVE,AUTHOR,
+         "experiments/prefix_io_v1/scripts")),CUDA_VISIBLE_DEVICES=gates["scope"]["gpu_uuid"],
+         PYTHONDONTWRITEBYTECODE="1",HF_HUB_OFFLINE="1",TRANSFORMERS_OFFLINE="1")
+@@ -199,7 +216,7 @@
+     if gates is None:return None,reason
+     scope=gates["scope"];refs=gates["source_refs"]
+     from prepare_p4_gpu_next_day import permission_fields
+-    permit=permission_fields(safe(root,"experiments/prefix_io_v1/configs/permissions.yaml").read_text())
++    permit=gates["permit"]
+     ledger=json.loads(safe(root,"experiments/prefix_io_v1/gpu-budget-ledger.json").read_text())
+     active=ledger.get("active_reservation")
+     require(type(active) is dict and active.get("label")==args.name and
+@@ -210,15 +227,39 @@
+     require(ledger["gpu_wall_seconds"]+active["reserved_seconds"]<=permit["max_gpu_hours"]*3600,
+             "GPU budget no longer fits")
+     expected=[".venv/bin/python",SCRIPT,"--mode",args.mode,"--name",args.name,"--execute",
+-              "--scope-record",args.scope_record,"--source-lock",args.source_lock]
++              "--scope-record",args.scope_record,"--source-lock",args.source_lock,
++              *permission_arguments(permission_relative(args))]
+     require(active.get("command")==expected,"exact guarded child argv required")
++    if permission_relative(args) != PERMISSION:
++        require(active.get("permissions")==scope["base_permissions"],
++                "actual guard effective-permissions binding required")
+     require(os.environ.get("CUDA_VISIBLE_DEVICES")==scope["gpu_uuid"],
+             "actual guard UUID environment")
+     for key in ("HF_HUB_OFFLINE","TRANSFORMERS_OFFLINE"):
+         require(os.environ.get(key)=="1","offline guarded native qualification")
+     out=root/"experiments/prefix_io_v1/runs"/args.name/"details"
+     require(not out.exists(),"append-new native output")
+-    return dict(scope=scope,source_refs=refs,out=out),"READY_FOR_AUTHORIZED_NATIVE_GPU"
++    return dict(scope=scope,source_refs=refs,out=out,permit=permit),"READY_FOR_AUTHORIZED_NATIVE_GPU"
++
++def storage_contract(root,args,gates):
++    if permission_relative(args) == PERMISSION:
++        from experiment_storage import preflight
++        return preflight(gates["out"],STORAGE_RESERVE,project=root)
++    # G1 only writes PRIMARY. Do not borrow an old GPU's AUX authorization.
++    import shutil
++    primary=safe(root,"experiments/prefix_io_v1/runs")
++    require(Path(gates["permit"]["approved_experiment_root"]).resolve()==primary,
++            "effective permission PRIMARY root differs")
++    out=safe(root,gates["out"].relative_to(root).as_posix())
++    require(out==primary/args.name/"details" and primary.is_dir(),
++            "effective G1 storage must remain under PRIMARY")
++    free=shutil.disk_usage(primary).free
++    require(type(free) is int and free-STORAGE_RESERVE>=FLOOR,
++            "effective PRIMARY storage floor would be crossed")
++    return dict(path=str(out),root=str(primary),free_bytes=free,
++                reserved_new_bytes=STORAGE_RESERVE,
++                permissions=gates["scope"]["base_permissions"],auxiliary_scope_used=False)
++
+ 
+ class LockedSourceLoader(importlib.machinery.SourceFileLoader):
+     """Read individually pinned source bytes directly; do not execute cached pyc."""
+@@ -417,6 +458,7 @@
+     ap.add_argument("--name",required=True)
+     ap.add_argument("--scope-record",default=GPU_SCOPE)
+     ap.add_argument("--source-lock")
++    ap.add_argument("--permissions-path",default=PERMISSION)
+     actions=ap.add_mutually_exclusive_group()
+     actions.add_argument("--dry-run",action="store_true")
+     actions.add_argument("--check-launch",action="store_true")
+@@ -424,7 +466,7 @@
+     actions.add_argument("--launch",action="store_true")
+     ap.add_argument("--receipt",type=Path)
+     args=ap.parse_args(argv);root=args.project.resolve()
+-    result=preview(root,args.mode,args.name,None if args.launch else args.source_lock,args.scope_record)
++    result=preview(root,args.mode,args.name,None if args.launch else args.source_lock,args.scope_record,args.permissions_path)
+     if args.check_launch or not (args.execute or args.dry_run or args.launch):
+         result["status"]="BLOCKED_CPU_ONLY_NO_GPU_LAUNCH";code=78
+     elif args.dry_run:
+@@ -437,7 +479,7 @@
+         if gates is None:
+             result["status"]=reason;code=78
+         else:
+-            result=preview(root,args.mode,args.name,args.source_lock,args.scope_record)
++            result=preview(root,args.mode,args.name,args.source_lock,args.scope_record,args.permissions_path)
+             code=invoke_existing_guard(root,args,gates)
+             result.update(status="AUTHORIZED_EXISTING_GUARD_RETURNED",guard_invoked=True,
+                 guard_exit=code,new_gpu_runs=None,gpu_initialized=None,
+@@ -447,8 +489,7 @@
+         if gates is None:
+             result["status"]=reason;code=78
+         else:
+-            from experiment_storage import preflight
+-            contract=preflight(gates["out"],STORAGE_RESERVE,project=root)
++            contract=storage_contract(root,args,gates)
+             gates["out"].mkdir(parents=True,exist_ok=False)
+             start=time.monotonic()
+             try:

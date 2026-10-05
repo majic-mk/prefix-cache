@@ -1,0 +1,84 @@
+--- a/experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py
++++ b/experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py
+@@ -7,6 +7,7 @@
+ import json
+ import os
+ import re
++import shutil
+ from pathlib import Path
+ import time
+ import traceback
+@@ -84,23 +85,29 @@
+     ap.add_argument("--curves",type=Path)
+     ap.add_argument("--sizes",default="16,64,128,256,512,1024")
+     ap.add_argument("--reps",type=int,default=6)
++    ap.add_argument("--domain",type=int,choices=[1024,4096,8192,16384],default=1024)
++    ap.add_argument("--native-hot-diagnostic",action="store_true")
+     args=ap.parse_args()
++    base.require(not args.native_hot_diagnostic or args.mode=="cold","native hot diagnostic requires external cache disabled")
+     out=args.output_dir.resolve(); storage=args.storage.resolve()
+     for p in [out,storage]:
+         base.require(p.is_relative_to(base.ROOT/"experiments/prefix_io_v1/runs"),"path outside runs")
+     base.require(args.mode!="planned" or args.curves,"planned mode requires measured curves")
+     sizes=[int(x) for x in args.sizes.split(",")]
+-    base.require(all(16<=n<=1024 and n%16==0 for n in sizes) and 1<=args.reps<=8,"unbounded acquisition")
++    base.require(all(16<=n<=args.domain and n%16==0 for n in sizes) and 1<=args.reps<=8,"unbounded acquisition")
++    base.require(args.domain==1024 or args.mode!="planned","extended domain is acquisition only; export/qualification required")
++    base.require(shutil.disk_usage(base.ROOT).free>=8*1024**3,"cost acquisition disk guard")
+     if args.mode=="populate":storage.mkdir(parents=True,exist_ok=False)
+     elif args.mode!="cold":base.require(storage.is_dir(),"no published storage")
+     out.mkdir(parents=True,exist_ok=False)
++    (out/"driver-source.py").write_text(Path(__file__).read_text())
+     curves=args.curves.resolve() if args.curves else None
+     base.configure_runtime_environment()
+     os.environ["PYTHONHASHSEED"]="0"  # Author-supported stable NONE_HASH across engine restarts.
+     base.require(os.environ.get("HF_HUB_OFFLINE")=="1" and os.environ.get("TRANSFORMERS_OFFLINE")=="1","offline runner required")
+     base.require(os.environ.get("CUDA_VISIBLE_DEVICES","").startswith("GPU-"),"UUID runner required")
+     report=dict(status="FAILED",mode=args.mode,performance_claim=False,full_P1_pass=False,
+-        scope="native TTFT cost acquisition; resets are diagnostic only",rows=[])
++        scope="native TTFT cost acquisition; resets are diagnostic only",rows=[],native_hot_diagnostic=args.native_hot_diagnostic)
+     llm=None
+     try:
+         model,identity=base.validate_local_model(args.model_dir,args.model_plan)
+@@ -108,12 +115,12 @@
+         alias.symlink_to(model,target_is_directory=True)
+         extra=dict(spec_name="PyKvCacheOffloadingSpec",spec_module_path="py_kvcache.vllm",
+             shared_storage_path=str(storage),block_size=16,sync_on_store=False,
+-            staging_mem=128/1024,iodepth=4,enable_preload=True,
++            staging_mem=(128 if args.domain==1024 else (1024 if args.domain==16384 else 512))/1024,iodepth=4,enable_preload=True,
+             preload_lookahead_requests=1,preload_share_staging=True,staging_cache="lru",
+             load_planner="on" if args.mode=="planned" else "off",io_backend="linux_aio")
+         if curves:extra["prefix_cache_break_even_path"]=str(curves)
+-        config=dict(base.ENGINE,max_model_len=1040,max_num_batched_tokens=1040,
+-            kv_cache_memory_bytes=268435456,disable_log_stats=False,prefix_caching_hash_algo="sha256")
++        config=dict(base.ENGINE,max_model_len=args.domain+16,max_num_batched_tokens=args.domain+16,
++            kv_cache_memory_bytes=268435456 if args.domain==1024 else (2147483648 if args.domain==16384 else 1073741824),disable_log_stats=False,prefix_caching_hash_algo="sha256")
+         if args.mode=="planned":
+             measured=json.loads(curves.read_text())
+             base.require(measured["model_name"]==base.MODEL_ID and measured["provenance"]["gpu_uuid"]==os.environ["CUDA_VISIBLE_DEVICES"],"curve identity mismatch")
+@@ -124,10 +131,10 @@
+             config["kv_transfer_config"]=dict(kv_connector="OffloadingConnector",kv_role="kv_both",kv_connector_extra_config=extra)
+         sampling=dict(base.SAMPLING,max_tokens=1,min_tokens=1)
+         base.write_new_json(out/"frozen-config.json",dict(model=identity,model_alias=base.MODEL_ID,
+-            alias_target=str(model),engine=config,sampling=sampling,sizes=sizes,reps=args.reps,
++            alias_target=str(model),engine=config,sampling=sampling,sizes=sizes,reps=args.reps,acquisition_domain=args.domain,
+             gpu_uuid=os.environ["CUDA_VISIBLE_DEVICES"],pythonhashseed="0",planned_request_batch=3 if args.mode=="planned" else 1,cost_acquisition_only=args.mode!="planned",
+             measured_axis="reusable prefix N; identical request has N+1 tokens, output one token",
+-            terminal_knot_note="1040 context only accommodates N=1024 plus query; exported planner domain at most 1024"))
++            native_hot_diagnostic=args.native_hot_diagnostic,terminal_knot_note="context includes terminal prefix plus query; extended samples are not exported runtime curves"))
+         os.chdir(out)
+         import torch,vllm
+         from vllm import LLM,SamplingParams
+@@ -183,6 +190,12 @@
+                 row=generate(n,rep,kind)
+                 base.require(row["metrics"] and row["metrics"]["first_token_latency"]>0,"native TTFT absent")
+                 if args.mode=="cold":base.require(row["num_cached_tokens"]==0,"cold cache hit")
++                if args.native_hot_diagnostic:
++                    hot=generate(n,rep,"gpu_hot")
++                    base.require(hot["num_cached_tokens"]==n,"native GPU hot route absent")
++                    hot["matches_cold_output"]=hot["output_token_ids"]==row["output_token_ids"]
++                    report["scope"]="Native GPU-only cold/hot correctness diagnosis; no external connector; excluded from cost fitting"
++
+                 if args.mode=="planned":
+                     base.require(row["trace"]["planner_events"],"original planner not called")
+                     hot=generate(n,rep,"gpu_hot")

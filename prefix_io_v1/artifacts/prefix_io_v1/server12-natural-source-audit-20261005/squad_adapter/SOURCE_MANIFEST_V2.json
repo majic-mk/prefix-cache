@@ -1,0 +1,73 @@
+{
+  "GPU_launch_allowed": false,
+  "actual_GPU_operations": 0,
+  "actual_RPC_operations": 0,
+  "actual_network_operations": 0,
+  "files": [
+    {
+      "bytes": 15302,
+      "path": "squad_source_adapter_cpu_v2.py",
+      "sha256": "b309bd1d8b08c52e9541b9f9c7738441546afbee3bc6bc50b790cc7ab7900649"
+    },
+    {
+      "bytes": 18808,
+      "path": "test_squad_source_adapter_cpu_v2.py",
+      "sha256": "101a2fea0a5787d2253e5454ff060e627413c3c63eb769e6e853cbe2617b3dcd"
+    },
+    {
+      "bytes": 1817,
+      "path": "README_V2.md",
+      "sha256": "04a129e8ec9ce37659e4c75dfdafe0d360dc01be990975afdc66d54fe85cfb38"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_V2_CPU_TEST_STDOUT.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3346,
+      "path": "LOCAL_V2_CPU_TEST_STDERR.log",
+      "sha256": "a8dd671f5f4d73795ed0e25989bab87995e214f595b4e90ac4098f12ebd41261"
+    },
+    {
+      "bytes": 1150,
+      "path": "LOCAL_V2_CPU_TEST_RESULT.json",
+      "sha256": "0a27420d44ce45fafd421d94608f0466754cc83eb4fecc0c96ff2f5f9ccba5db"
+    },
+    {
+      "bytes": 1220,
+      "path": "LOCAL_V2_CLI_HELP_STDOUT.log",
+      "sha256": "01da22b8f8c8edc81e8fff430fb33ba6796783381d485fe62a4064f8876c4ea0"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_V2_CLI_HELP_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1106,
+      "path": "LOCAL_V2_CLI_HELP_RESULT.json",
+      "sha256": "59b3f3812a36cd025b172427553230c110ac4b46058066aed33ef9b682d5d5ca"
+    },
+    {
+      "bytes": 314,
+      "path": "LOCAL_V2_CLI_UNBOUND_STDOUT.log",
+      "sha256": "4880e566c60d4740d63babe080f074e9fdb034c963afdb59023629d3312ccf1e"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_V2_CLI_UNBOUND_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1098,
+      "path": "LOCAL_V2_CLI_UNBOUND_RESULT.json",
+      "sha256": "4cdb8a3d61d0e139956f796fdfeff6e99e1fbb9d47ae079e5b938a6f95ae31f2"
+    }
+  ],
+  "fixed_selection_contract_unchanged": true,
+  "formal_receipt_ready": false,
+  "local_CPU_tests_passed": 20,
+  "schema": "CPU_squad_source_adapter_v2_source_manifest_v1",
+  "v1_delivery_preserved_unchanged": true
+}

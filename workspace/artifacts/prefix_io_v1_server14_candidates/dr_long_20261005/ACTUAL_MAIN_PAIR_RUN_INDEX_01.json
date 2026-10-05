@@ -1,0 +1,22 @@
+[
+  {
+    "label": "U1",
+    "arm": "U",
+    "config": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/CONFIG_U07.json",
+    "result": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-u04/details/result.json",
+    "adapter": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-u04/current-device-adapter-evidence.json",
+    "guard": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-u04/result.json",
+    "frozen_config": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-u04/details/frozen-config.json",
+    "source_lock": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/DR_SOURCE_LOCK_05.json"
+  },
+  {
+    "label": "DR1",
+    "arm": "F8+D_R",
+    "config": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/CONFIG_DR01_02.json",
+    "result": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/details/result.json",
+    "adapter": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/current-device-adapter-evidence.json",
+    "guard": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/result.json",
+    "frozen_config": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/details/frozen-config.json",
+    "source_lock": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/DR_SOURCE_LOCK_07.json"
+  }
+]

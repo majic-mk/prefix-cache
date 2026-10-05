@@ -1,0 +1,48 @@
+{
+  "native_reference": "/root/prefix-io-v1-validation/runs/server07-p3-c2-fullref-01/details",
+  "performance_order": [
+    "server07-p3-c2-d8-mixed-01",
+    "server07-p3-c2-d8-mixed-02"
+  ],
+  "groups": [
+    {
+      "io_depth": 4,
+      "permit": "artifacts/prefix_io_v1/server07-p3-06/c2-permit.json",
+      "runs": [
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-mixed-01/details",
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-mixed-02/details"
+      ]
+    },
+    {
+      "io_depth": 8,
+      "permit": "artifacts/prefix_io_v1/server07-p3-06/d8/permit.json",
+      "runs": [
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-d8-mixed-01/details",
+        "/root/prefix-io-v1-validation/runs/server07-p3-c2-d8-mixed-02/details"
+      ]
+    }
+  ],
+  "planned_performance_order": [
+    "server07-p3-c2-d8-mixed-01",
+    "server07-p3-c2-d2-mixed-01",
+    "server07-p3-c2-d2-mixed-02",
+    "server07-p3-c2-d8-mixed-02"
+  ],
+  "blocked_configurations": [
+    {
+      "time_unix": 1790689218.8564408,
+      "io_depth": 2,
+      "status": "BLOCKED_BY_UNCHANGED_COST_GATE",
+      "reason": "SSD median absolute relative error 0.3937455448627585 exceeds frozen 0.25; native admission would use an unqualified cost table.",
+      "skipped_runs": [
+        "server07-p3-c2-d2-mixed-01",
+        "server07-p3-c2-d2-mixed-02"
+      ],
+      "numeric_gate": "PASSED_EXACT_CACHED_REFERENCE",
+      "raw_cost_data_retained": true,
+      "no_threshold_relaxation": true,
+      "no_runtime_refit": true,
+      "no_performance_result_for_skipped_runs": true
+    }
+  ]
+}

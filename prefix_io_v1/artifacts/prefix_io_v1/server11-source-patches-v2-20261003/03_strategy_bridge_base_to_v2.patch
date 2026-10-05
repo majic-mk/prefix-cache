@@ -1,0 +1,154 @@
+--- a/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py
++++ b/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py
+@@ -6,6 +6,10 @@
+ """
+ from dataclasses import dataclass, replace, asdict
+ from threading import get_ident
++import weakref
++import hashlib
++import inspect
++from pathlib import Path
+ from .p4_policy import P4Policy
+ from .p4_types import SystemSnapshot, WorkDescriptor, ReleaseWitness
+ 
+@@ -81,6 +85,80 @@
+         self._batch_key = None
+         self.prepared_cost_summary = (("status","NO_PREPARED_TABLE"),)
+         self.declared_common_fixed_base = False
++        self._single_file_capture = None
++        self._single_file_runtime = None
++        self.single_file_shadow = True
++        self.single_file_previews = self.single_file_deferrals = 0
++        self.single_file_blocked_attempts = 0
++        self.single_file_reasons = {}
++        self._last_single_file_step = None
++        self.single_file_decisions = []
++
++    def attach_single_file_capture(self, capture, *, runtime_identity, runtime_refs, shadow=True):
++        """Setup-only weak binding to the source-pinned native full-step probe.
++
++        The surrounding guarded experiment verifies actual device/model and
++        common source refs, and records this candidate overlay separately.
++        A Python private/type boundary prevents accidental promotion; it is
++        not a cryptographic security boundary against arbitrary process code.
++        """
++        receipt = self.policy.single_file
++        from single_file_runtime_binding import RuntimeSingleFileIdentity
++        if (type(runtime_identity) is not RuntimeSingleFileIdentity or
++                not runtime_identity.matches_runner(capture.runner_ref()) or receipt is None or
++                runtime_identity.signature_prefix != receipt.signature[:4]):
++            raise ValueError("actual runner/model/layout/GPU/kernel identity must match calibrated condition")
++        if (receipt is None or type(shadow) is not bool or self._single_file_capture is not None or
++                getattr(capture, "origin", None) != "native_gpu_recording" or
++                getattr(capture, "valid", None) is not True or
++                capture.event_source.get("sha256") != receipt.cuda_event_source_sha256 or
++                not callable(getattr(capture, "current_single_file_step", None))):
++            raise ValueError("verified single-file receipt and actual source-bound full-step capture required")
++        binding = receipt.binding_ref
++        if (type(runtime_refs) is not dict or runtime_refs.get(binding.path) !=
++                dict(path=binding.path, bytes=binding.bytes, sha256=binding.sha256)):
++            raise ValueError("independently frozen runtime closure must include receipt binding")
++        root = Path(capture.project_root).resolve()
++        for kind in (type(capture), type(runtime_identity)):
++            source = Path(inspect.getsourcefile(kind)).resolve()
++            data = source.read_bytes()
++            if not any(source == (root / ref.path).resolve() and len(data) == ref.bytes and
++                       hashlib.sha256(data).hexdigest() == ref.sha256
++                       for ref in receipt.runtime_overlay_refs):
++                raise ValueError("actual live collector/identity helper must match the declared runtime overlay")
++        self._single_file_capture = weakref.ref(capture)
++        self._single_file_runtime = runtime_identity
++        self.single_file_shadow = shadow
++
++    def _single_file_state(self):
++        capture = self._single_file_capture() if self._single_file_capture is not None else None
++        if (capture is None or self._single_file_runtime is None or
++                not self._single_file_runtime.matches_runner(capture.runner_ref())):
++            return None
++        return capture.current_single_file_step()
++
++    def record_single_file_deferral(self, work_id, *, at_ns):
++        """Compact real owner decision evidence, not hypothetical issue credit."""
++        self._owner()
++        state = self._last_single_file_step
++        if (self.single_file_shadow or state is None or self._single_file_state() != state or
++                type(at_ns) is not int or at_ns < state[2]):
++            return False
++        key = (state[0], str(work_id))
++        row = next((r for r in self.single_file_decisions if r["key"] == key), None)
++        if row is None:
++            if len(self.single_file_decisions) >= 8:
++                self.fail("single-file decision evidence bound exceeded")
++                return False
++            row = dict(key=key, native_step_ordinal=state[0],
++                start_record_before_ns=state[1], start_completed_query_ns=state[2],
++                first_defer_ns=at_ns, last_defer_ns=at_ns, count=0,
++                resource_release_credit=False, production_qualified=False)
++            self.single_file_decisions.append(row)
++        row["last_defer_ns"] = at_ns
++        row["count"] += 1
++        self.single_file_blocked_attempts += 1
++        return True
+ 
+     @property
+     def mode(self):
+@@ -311,9 +389,35 @@
+         if self.fault is not None:
+             from .p4_types import IssuePreview
+             return IssuePreview("native_fallback","optional_bridge_fault")
++        state = None
++        if self.policy.single_file is not None:
++            state = self._single_file_state()
++            if state is not None:
++                receipt = self.policy.single_file
++                # attach checked this actual runtime prefix, not merely labels
++                # copied from the historical receipt.
++                prefix = self._single_file_runtime.signature_prefix
++                signature = prefix + state[3:] + (917504,)
++                snapshot = replace(snapshot, load_signature=signature,
++                    capabilities=snapshot.capabilities | frozenset(("conditional_single_file_live_step",)))
+         preview = self.policy.issue_preview(work,snapshot,now_ns=now_ns,
+-            expected_epoch=snapshot.snapshot_epoch,execution="production")
++            expected_epoch=snapshot.snapshot_epoch,execution="production", _single_file_state=state)
++        if self.policy.single_file is not None:
++            from .p4_types import IssuePreview
++            if state is not None and self._single_file_state() != state:
++                preview = IssuePreview("native_fallback", "single_file_step_ended_during_preview")
++            if preview.reason == "verified_single_file_experimental_condition":
++                self.single_file_previews += 1
++                self.single_file_deferrals += preview.action == "defer"
++            reason = preview.reason
++            if reason not in self.single_file_reasons and len(self.single_file_reasons) >= 16:
++                reason = "other_bounded_reason"
++            self.single_file_reasons[reason] = self.single_file_reasons.get(reason, 0) + 1
+         self.last_preview = preview
++        self._last_single_file_step = (state if preview.reason ==
++            "verified_single_file_experimental_condition" and preview.action == "defer" else None)
++        if self.policy.single_file is not None and self.single_file_shadow and preview.action == "defer":
++            return IssuePreview("native_fallback", "single_file_shadow_preserves_native_issue")
+         return preview
+ 
+     def snapshot(self, *, native_shutdown=False):
+@@ -335,11 +439,20 @@
+             prepared_cost_summary=dict(self.prepared_cost_summary),
+             declared_common_fixed_base=self.declared_common_fixed_base,
+             scheduled_load_is_active_gpu_state=False,
++            conditional_single_file=dict(enabled=self.policy.single_file is not None,
++                shadow=self.single_file_shadow, previews=self.single_file_previews,
++                proposed_deferrals=self.single_file_deferrals,
++                actual_blocked_attempts=self.single_file_blocked_attempts,
++                reason_counts=tuple(sorted(self.single_file_reasons.items())),
++                actual_decisions=tuple(dict(row) for row in self.single_file_decisions),
++                evidence_binding_sha256=(self.policy.single_file.binding_ref.sha256
++                    if self.policy.single_file is not None else None),
++                generic_production_qualified=False),
+             held_job_or_resource_owners=False, new_work_queues=0,
+             gpu_release_credit=None, gpu_qualified=False,
+             interference_production_qualified=self.policy.production_interference_qualified)
+ 
+-def make_native_bridge(run_id, config, *, table=None):
++def make_native_bridge(run_id, config, *, table=None, single_file=None):
+     from .p4_policy import make_p4_policy
+-    policy = make_p4_policy(run_id, config, table=table)
++    policy = make_p4_policy(run_id, config, table=table, single_file=single_file)
+     return NativeP4Bridge(policy) if policy is not None else None

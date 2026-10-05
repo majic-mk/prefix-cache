@@ -1,0 +1,18 @@
+# User-designated server10 migration, 2026-10-03; original cumulative budget and restrictions preserved.
+schema_version: 1
+allow_project_local_edits: true
+allow_cpu_tests: true
+allow_public_source_read: true
+allow_remote_push: false
+allow_new_cloud_rental: false
+allow_payment: false
+allow_driver_or_system_changes: false
+allow_shared_data_deletion: false
+allow_gpu_runs: true
+allow_model_downloads: false
+max_gpu_hours: 8
+max_model_download_gib: 20
+approved_gpu_ids:
+- GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f
+approved_experiment_root: /root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs
+approved_dependency_root: /root/autodl-tmp/prefix-io-v1-handoff/project

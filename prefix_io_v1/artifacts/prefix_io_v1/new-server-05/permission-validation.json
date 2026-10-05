@@ -1,0 +1,17 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "from prefix_io_control.config import read_yaml,validate_permissions; from pathlib import Path; import json; a=validate_permissions(read_yaml('experiments/prefix_io_v1/configs/permissions.yaml')); b=validate_permissions(read_yaml('artifacts/prefix_io_v1/new-server-05/before-permissions.yaml')); assert a==b; print(json.dumps({'parsed_permissions_equal': True,'schema_valid':True,'general_system_flag':a['allow_driver_or_system_changes'],'max_gpu_hours':a['max_gpu_hours'],'max_model_download_gib':a['max_model_download_gib']}))"
+  ],
+  "env": {
+    "PYTHONPATH": "src",
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "exit": 0,
+  "stdout": "{\"parsed_permissions_equal\": true, \"schema_valid\": true, \"general_system_flag\": false, \"max_gpu_hours\": 8, \"max_model_download_gib\": 20}\n",
+  "stderr": "",
+  "gpu_execution": false,
+  "permission_sha256": "480a7dc14150ef7ac19fae4635e859d3ff980419c4998340922bb0d6d54fc981",
+  "supplement_sha256": "902a723373740491463b488cadb3f0a7d1ddd2787d15bdd7928188532441a977"
+}

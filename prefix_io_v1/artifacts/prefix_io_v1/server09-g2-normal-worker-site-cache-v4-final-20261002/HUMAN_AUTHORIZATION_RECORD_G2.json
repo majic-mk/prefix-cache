@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "authorization_origin": "direct_human_reply",
+  "question": "是否授权正常启动缓存修复版 G2 验证：当前服务器先 off05，成功且原 shutdown 返回、OS 会话排空后再 shadow05，最多 2 次；每次执行 300 秒加 20 秒收尾，总预留 640 秒，沿用原 8 小时累计 GPU 预算（剩余约 3.30 小时）？每次 cold/repeat 各完整生成 128 tokens，只使用现有 Qwen2.5-7B、CUDA 13、Ninja 和冻结代码；PRIMARY 预留 128 MiB、保留 8 GiB 空间，不下载、不修改系统/驱动/已安装包/作者文件、不删除已有数据。off05 失败即停止，不运行 shadow05，不使用同一授权重试。\n\n服务器真实正常 site 启动下 67/67 CPU 测试、4,050 个冻结引用和两侧 40 文件交付核验已通过；正常 site 缺包查询 CPU 回放也通过，但没有导入真实模型，不能当作模型验证。源锁 SHA-256：0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b。本轮只验证完整模型输出与生命周期，尚不是 P4 策略真机验证或 P5 性能实验。\n\n需要新的限定授权，因为 off04 已真实失败，shadow04 的先决条件未满足；本次修复改变了缓存查找器校验、冻结代码和作业名称，原 off04 授权已结束，不能用于重试。",
+  "verbatim_user_answer": "授权这 2 次正常启动修复版 G2 验证并继续",
+  "reply_observed_utc": "2026-10-01 16:41:45 UTC",
+  "question_item_id": "[\"request_user_input_async\",\"call_yaI7LpXW6Zun7uDu8gkf1oQt\",0]",
+  "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "allow_gpu_initialization": true,
+  "allow_gpu_runs": true,
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "permitted_run_names": {
+    "off": "server09-g2-normal-off-05",
+    "shadow": "server09-g2-normal-shadow-05"
+  },
+  "maximum_jobs": 2,
+  "maximum_total_planned_reserve_seconds": 640,
+  "seconds_limit_per_job": 300,
+  "guard_reserve_seconds_per_job": 20,
+  "source_lock_sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b",
+  "storage_reserve_bytes": 134217728,
+  "storage_floor_bytes": 8589934592,
+  "cumulative_gpu_budget_seconds": 28800,
+  "budget_reset": false,
+  "off_must_pass_before_shadow": true,
+  "off_failure_blocks_shadow_and_same_scope_retry": true,
+  "new_executor": false,
+  "allow_model_downloads": false,
+  "allow_system_or_driver_modification": false,
+  "allow_installed_package_or_author_file_modification": false,
+  "allow_data_deletion": false,
+  "CPU_sampler_so_reused": false,
+  "performance_claim": false
+}

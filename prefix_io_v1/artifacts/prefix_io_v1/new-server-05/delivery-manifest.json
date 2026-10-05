@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-26T16:41:43.691042+00:00",
+  "delivery_type": "standalone feasibility evidence; not complete engine release",
+  "verdict": "NO_GO_CURRENT_CONTAINER",
+  "architecture_feasibility": "UNDETERMINED",
+  "gpu_execution_this_delivery": false,
+  "model_download_this_delivery": false,
+  "historical_gpu_evidence_explicitly_not_rerun": true,
+  "files": [
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/final-budget-summary.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/final-budget-summary.json",
+      "bytes": 2193,
+      "sha256": "5bebfcaefbfe1a8a38f47d90a404679ec2a908668042a152907542e8931407fb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-03/platform-probe/io_uring_setup_probe.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-03/platform-probe/io_uring_setup_probe.py",
+      "bytes": 5637,
+      "sha256": "97d75b973783d83c4c36a2701f3e6261b40bed775c9c52a25094ea33ecd27dc9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/authorization.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/authorization.json",
+      "bytes": 1111,
+      "sha256": "4cc53275ced0ef6858439fef0ad5f08159a68aa3815aa526ef75f0293b6ca8b2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/before-execution_state.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/before-execution_state.json",
+      "bytes": 10961,
+      "sha256": "da7afb03fc9a915d00e0f238770dec44c8b081d893f9d308c3ddcf1539529a1d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/before-gpu-budget-ledger.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/before-gpu-budget-ledger.json",
+      "bytes": 21979,
+      "sha256": "9e8fe2682aca1e528f068c1feb114b75d91e3fca91e4fede981cd6eedd00d8a8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/before-permissions.yaml",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/before-permissions.yaml",
+      "bytes": 672,
+      "sha256": "77cbc07bcc9026be94fe91116dc48c3d2d44e130ef72e67aac6939a45c1848a0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/canonical-before/CAPABILITY_MATRIX.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/canonical-before/CAPABILITY_MATRIX.md",
+      "bytes": 5394,
+      "sha256": "0edcabc07aa6ceca47da9f8aa6be9bf50718f8bcf9435d52b91795b6c22a6e7c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/canonical-before/GPU_STAGE_REPORT.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/canonical-before/GPU_STAGE_REPORT.md",
+      "bytes": 2691,
+      "sha256": "3aaf3d987bbce4425288a30f13924ee186ad3a7f02347856b7192baa08216291"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/capability-decode.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/capability-decode.json",
+      "bytes": 391,
+      "sha256": "9116a6a15cdff7cea4dc61c07dd422d1ca4ba96027000e06ea374803204ea895"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/compile-probe.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/compile-probe.json",
+      "bytes": 348,
+      "sha256": "c839bd68f0929878131fbcb4041874c1213d285759b22932f9911ff9b04b2529"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/feasibility-verdict.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/feasibility-verdict.json",
+      "bytes": 1242,
+      "sha256": "263cfd977a2b24b12a812fdb7522ad3c6de740821b93478f44f5aa3dca938e0e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/final-consistency.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/final-consistency.json",
+      "bytes": 685,
+      "sha256": "062b7c581b037e7530b51746a73c498586652b61a44f0ba8af529acacba87596"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/independent-review.md",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/independent-review.md",
+      "bytes": 1030,
+      "sha256": "f837c4442822aaaca0e525a9b497a51255c7b70fe63ae9d90c14c0bce6bbd550"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/io_uring_syscall_probe.c",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/io_uring_syscall_probe.c",
+      "bytes": 1343,
+      "sha256": "a3fd34713c3078cb2c34e53a67454d0e0b3ebe9af4e17ab4c6ef88cc39882231"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/native-ring-result.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/native-ring-result.json",
+      "bytes": 562,
+      "sha256": "d22503f4716cca8e03ad1e3caeb6ce6cfec638911796fb648e008bc0041f4d92"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/native-ring.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/native-ring.json",
+      "bytes": 1228,
+      "sha256": "00391a602854daf7e8bab5ec039453e84dfb8839fa0581e97c5e875907cae81f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/native_ring_probe.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/native_ring_probe.py",
+      "bytes": 1131,
+      "sha256": "3a4b3d9921b95a498faf30e0cd6df3cd5604ab3a0acdee4b785f9f43b4071095"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/pack_evidence.py",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/pack_evidence.py",
+      "bytes": 3130,
+      "sha256": "4162ed198edccecee7f0cbfa7a0f3e728bd832530603a8f6cdf33fbcf7ba2337"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/permission-validation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/permission-validation.json",
+      "bytes": 1063,
+      "sha256": "c497b59ece29529f2ae3b4121fa29c0ca3caa9830ef6ee716227dee801988502"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/platform-audit.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/platform-audit.json",
+      "bytes": 3958,
+      "sha256": "8b3977245b46334ef2954449da632f4201f96fc99abb4c6e8422f4dd691ebff2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/probe-build-provenance.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/probe-build-provenance.json",
+      "bytes": 341,
+      "sha256": "1ec8ff12a6f4369fffb69cbde63fb32a5ee9feac8f40b71e63399ead4e6339d5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/public-reference-sources.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/public-reference-sources.json",
+      "bytes": 627,
+      "sha256": "edeb576b962bf3d0a8c20cbd3e6405c5326d96f6ea76b7eaf65b126ac4d4bc80"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/raw-syscalls.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/raw-syscalls.json",
+      "bytes": 521,
+      "sha256": "26438328772abbf8cf2a8af5aaca2deb725bf8bc39ccbc4b22785183fc133d16"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/source-preservation.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/source-preservation.json",
+      "bytes": 578,
+      "sha256": "c5495ed8f202a22f9aabd3b63ded6b602d6d9c9164c9f2433e4fe603f8c55e3a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/workspace-head.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/workspace-head.json",
+      "bytes": 148,
+      "sha256": "3fe5cebb92f7f8fa06fab2e5e6239f4e19d4f1cc3c950bff747b5a0524ace642"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/new-server-05/workspace-status.json",
+      "archive_path": "project/artifacts/prefix_io_v1/new-server-05/workspace-status.json",
+      "bytes": 489,
+      "sha256": "c2510348f8a58db1103d1fb44b01bd95993629d1111e8669a72a156f28fdcc98"
+    },
+    {
+      "path": "docs/prefix_io_v1/CAPABILITY_MATRIX.md",
+      "archive_path": "project/docs/prefix_io_v1/CAPABILITY_MATRIX.md",
+      "bytes": 5886,
+      "sha256": "70582605baca28f72da8b3a6923e22af8c45c2b97d3510b1e3be4c3ea77d6fb5"
+    },
+    {
+      "path": "docs/prefix_io_v1/GPU_STAGE_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/GPU_STAGE_REPORT.md",
+      "bytes": 3183,
+      "sha256": "5428b52e982424ebf1b2fe69b91de23f91fdf54b03792cf7395ee9ee63c7e033"
+    },
+    {
+      "path": "docs/prefix_io_v1/NEW_SERVER_05_FEASIBILITY_REPORT.md",
+      "archive_path": "project/docs/prefix_io_v1/NEW_SERVER_05_FEASIBILITY_REPORT.md",
+      "bytes": 6800,
+      "sha256": "f130e758c654af04d3ed5febc35a262228453e9a3242e536d2c96099bc3b6ff7"
+    },
+    {
+      "path": "docs/prefix_io_v1/PLATFORM_IO_URING_FEASIBILITY_REQUEST.md",
+      "archive_path": "project/docs/prefix_io_v1/PLATFORM_IO_URING_FEASIBILITY_REQUEST.md",
+      "bytes": 2582,
+      "sha256": "d78574b1e522820305368a58d5cca2fcd1594368079bfbe722f0e962cb0324b9"
+    },
+    {
+      "path": "docs/prefix_io_v1/REPRODUCE_NEW_SERVER_05.md",
+      "archive_path": "project/docs/prefix_io_v1/REPRODUCE_NEW_SERVER_05.md",
+      "bytes": 1957,
+      "sha256": "bb3df9528070c0284928f5748d30f023efd99787ee7653ef9f756c07bb88d6f7"
+    },
+    {
+      "path": "experiments/prefix_io_v1/configs/authorizations/io_uring_20260927.json",
+      "archive_path": "project/experiments/prefix_io_v1/configs/authorizations/io_uring_20260927.json",
+      "bytes": 1457,
+      "sha256": "902a723373740491463b488cadb3f0a7d1ddd2787d15bdd7928188532441a977"
+    },
+    {
+      "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+      "archive_path": "project/experiments/prefix_io_v1/configs/permissions.yaml",
+      "bytes": 880,
+      "sha256": "480a7dc14150ef7ac19fae4635e859d3ff980419c4998340922bb0d6d54fc981"
+    },
+    {
+      "path": "experiments/prefix_io_v1/execution_state.json",
+      "archive_path": "project/experiments/prefix_io_v1/execution_state.json",
+      "bytes": 12676,
+      "sha256": "c8c4e0dd8cd053996ec7a57b5b008db57e5abb255f03f1d111f6598cb48213fa"
+    },
+    {
+      "path": "experiments/prefix_io_v1/runs/native-prefix-04/details/smoke-result.json",
+      "archive_path": "project/experiments/prefix_io_v1/runs/native-prefix-04/details/smoke-result.json",
+      "bytes": 7656,
+      "sha256": "fbb7a4a26198fab0450e9ffb2cb2e4ff87e1550454bc2bf4c6f0ff36fbc19b74"
+    }
+  ],
+  "file_count": 35
+}

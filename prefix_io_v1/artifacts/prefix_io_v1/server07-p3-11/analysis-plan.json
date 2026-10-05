@@ -1,0 +1,37 @@
+{
+  "runs": [
+    {
+      "label": "server07-p3-11-mixed-readiness-01",
+      "depth": 8,
+      "probe": true,
+      "command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "--label",
+        "server07-p3-11-mixed-readiness-01",
+        "--seconds",
+        "240",
+        "--",
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_concurrent_pilot.py",
+        "--output",
+        "/root/prefix-io-v1-validation/runs/server07-p3-11-mixed-readiness-01/details",
+        "--model-dir",
+        "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--curves",
+        "artifacts/prefix_io_v1/server07-p3-05/aux-calibration-candidate/curves-v2.json",
+        "--manifest",
+        "artifacts/prefix_io_v1/server07-p3-06/d8/mixed_readwrite-manifest.json",
+        "--storage-source",
+        "/root/prefix-io-v1-validation/storage/heldout-long",
+        "--qualification",
+        "artifacts/prefix_io_v1/server07-p3-06/d8/permit.json",
+        "--flush-cause-probe",
+        "--store-readiness-probe"
+      ]
+    }
+  ],
+  "native_reference": "/root/prefix-io-v1-validation/runs/server07-p3-c2-fullref-01/details"
+}

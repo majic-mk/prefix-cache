@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "source": "direct user request in current turn",
+  "user_message": "登录新的服务器继续，旧服务器已经被占用，所有数据已经被克隆过来",
+  "endpoint": "connect.westd.seetacloud.com:20739",
+  "gpu_uuid_verified_by_nvidia_smi": "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+  "previous_gpu_uuid": "GPU-f8744916-1693-fa6a-93b6-7f503c03459c",
+  "ssh_host_key_md5": "34afaa28d40dc70c5179bbe25ee2d6c5",
+  "scope": "Continue current P3 on newly designated cloned instance within unchanged phase gates and budgets",
+  "budget_not_reset": true,
+  "gpu_wall_seconds_at_migration": 10156.08361550793,
+  "model_download_bytes_at_migration": 19422798722,
+  "driver_or_system_changes": false,
+  "GPU_availability": "100 percent utilization and 2 MiB with no visible compute process; only bounded correctness probe permitted until diagnosed; performance eligibility not established"
+}

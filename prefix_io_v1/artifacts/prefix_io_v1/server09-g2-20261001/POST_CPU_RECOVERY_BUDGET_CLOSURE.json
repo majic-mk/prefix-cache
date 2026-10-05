@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "request": {
+    "cmd": "cd '/root/autodl-tmp/prefix-io-v1-handoff/project' && CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S -c 'import pathlib,json,hashlib,os\nroot=pathlib.Path(\"/root/autodl-tmp/prefix-io-v1-handoff/project\");dst=root/'\\''artifacts/prefix_io_v1/server09-g2-20261001/cuda13-cpu'\\'';dst.mkdir(exist_ok=True)\nsource=root/'\\''artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CUDA13_SOURCE_INVENTORY.json'\\''\ndata=source.read_bytes();assert len(data)==692329 and hashlib.sha256(data).hexdigest()=='\\''2ed079701c53d3e37005cf33432937e6c442f06cad16c5aded06efffcc7c36e0'\\''\ntarget=dst/source.name;assert not target.is_symlink()\nif target.exists():assert target.read_bytes()==data\nelse:\n with target.open('\\''xb'\\'') as f:f.write(data)\noriginal=root/'\\''experiments/prefix_io_v1/configs/permissions.yaml'\\'';assert hashlib.sha256(original.read_bytes()).hexdigest()=='\\''795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50'\\''\nledger=(root/'\\''experiments/prefix_io_v1/gpu-budget-ledger.json'\\'').read_bytes()\nassert len(ledger)==339513 and hashlib.sha256(ledger).hexdigest()=='\\''1e5b29fbc7fb66f84f3554149e5ac24f5a342b349f02700062d9a1bf53a0679e'\\''\nv=os.statvfs(root);assert v.f_bavail*v.f_frsize>8*1024**3+128*1024**2\nprint(json.dumps(dict(status='\\''PASS_APPEND_SAME_CPU_INVENTORY_BYTES_AND_BUDGET_CLOSURE'\\'',inventory_bytes=len(data),inventory_sha256=hashlib.sha256(data).hexdigest(),ledger_sha256=hashlib.sha256(ledger).hexdigest(),CPU_compile_new_GPU_jobs=0,primary_free_bytes=v.f_bavail*v.f_frsize,original_permissions_unchanged=True,system_modified=False)))'",
+    "timeout": 60
+  },
+  "result": {
+    "stdout": "{\"status\": \"PASS_APPEND_SAME_CPU_INVENTORY_BYTES_AND_BUDGET_CLOSURE\", \"inventory_bytes\": 692329, \"inventory_sha256\": \"2ed079701c53d3e37005cf33432937e6c442f06cad16c5aded06efffcc7c36e0\", \"ledger_sha256\": \"1e5b29fbc7fb66f84f3554149e5ac24f5a342b349f02700062d9a1bf53a0679e\", \"CPU_compile_new_GPU_jobs\": 0, \"primary_free_bytes\": 12983316480, \"original_permissions_unchanged\": true, \"system_modified\": false}\n",
+    "stderr": "",
+    "exit": 0
+  }
+}

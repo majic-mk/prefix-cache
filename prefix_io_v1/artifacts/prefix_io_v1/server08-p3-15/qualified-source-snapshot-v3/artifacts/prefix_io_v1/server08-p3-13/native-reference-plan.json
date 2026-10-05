@@ -1,0 +1,29 @@
+{
+  "label": "server08-p3-13-native-fullref-01",
+  "output": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details",
+  "reservation_bytes": 67108864,
+  "maximum_seconds": 240,
+  "scope": "New GPU-only 10 full-output cold/hot references; no cost fit, SSD offload or performance claim",
+  "old_content_manifest_sha256": "6e156f020f63cb29333c6250cb2236dde6dc52ba387754f878c5c70df9357caf",
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "--label",
+    "server08-p3-13-native-fullref-01",
+    "--seconds",
+    "240",
+    "--",
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_concurrent_native_reference.py",
+    "--output",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-13-native-fullref-01/details",
+    "--manifest",
+    "artifacts/prefix_io_v1/server08-p3-13/native-reference-manifest.json",
+    "--native-config",
+    "artifacts/prefix_io_v1/server08-p3-13/native-reference-config.json",
+    "--model-dir",
+    "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "--model-plan",
+    "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json"
+  ]
+}

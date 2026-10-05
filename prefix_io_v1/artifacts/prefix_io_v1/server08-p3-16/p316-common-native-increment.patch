@@ -1,0 +1,500 @@
+--- a/py_kvcache/reactor.py
++++ b/py_kvcache/reactor.py
+@@ -438,6 +438,7 @@
+         self._prefix_store_order = store_order
+         self._prefix_dispatch_shadow = dispatch_shadow
+         self._prefix_dispatch_controller = dispatch_controller
++        self._prefix_init_capacity_observation()
+         self._observation_sink = observation_sink
+         self._observation_failures = 0
+         self._worker = threading.Thread(target=self._run, name="py-kvcache-reactor", daemon=True)
+@@ -628,6 +629,7 @@
+         accounting = getattr(self, "_prefix_stage_accounting", None)
+         admission = self.parent_admission_snapshot(native_shutdown=native_shutdown)
+         aio_snapshot = getattr(self.ring, "snapshot", None)
++        capacity = self._prefix_capacity_snapshot(native_shutdown=native_shutdown)
+         return dict(
+             captured_ns=time.monotonic_ns(),
+             run_id=self._prefix_progress.run_id if self._prefix_progress is not None else None,
+@@ -641,9 +643,8 @@
+             ),
+             stage_accounting=accounting.snapshot() if accounting is not None else None,
+             controller=controller.snapshot(native_shutdown=native_shutdown) if controller is not None else None,
+-            free_reclaimable_staging_bytes=(
+-                None if native_shutdown else self._prefix_clean_reclaimable_bytes()
+-            ),
++            free_reclaimable_staging_bytes=capacity["free_reclaimable_staging_bytes"],
++            staging_capacity=capacity,
+             physical_drain_inferred=False, gpu_release_credit=False,
+         )
+ 
+@@ -841,11 +842,92 @@
+             total_files=job.total_files,
+         )
+ 
++    def _prefix_invalidate_capacity(self, reason) -> None:
++        try:
++            message = str(reason)[:160] or "capacity observation unavailable"
++        except Exception:
++            message = "capacity observation unavailable"
++        self._prefix_capacity_valid = False
++        if getattr(self, "_prefix_capacity_error", None) is None:
++            self._prefix_capacity_error = message
++
++    def _prefix_init_capacity_observation(self) -> None:
++        if hasattr(self, "_prefix_capacity_valid"):
++            return  # Only a fresh reactor may initialize; invalidity is sticky.
++        # Init is not a scan/reconstruction of pre-existing shared busy ownership.
++        self._prefix_capacity_valid = True
++        self._prefix_capacity_error = None
++        self._prefix_shared_cached_pinned_slots = 0
++        self._prefix_shared_cached_observed_count = 0
++        try:
++            if (len(getattr(self, "_shared_cached", {})) or
++                    len(getattr(self, "_preload_slots", {})) or
++                    getattr(self, "_preload_cached_total", 0) != 0):
++                raise ValueError("capacity observation requires empty preload seed")
++        except Exception as exc:
++            self._prefix_invalidate_capacity(type(exc).__name__ + ": " + str(exc))
++
++    def _prefix_observe_capacity(self, callback, *args) -> None:
++        try:
++            callback(*args)
++        except Exception as exc:
++            self._prefix_invalidate_capacity(type(exc).__name__ + ": " + str(exc))
++
++    def _prefix_observe_shared_copy(self, slot, delta) -> None:
++        if getattr(self, "_prefix_capacity_valid", False) is not True:
++            return
++        count = slot.copies_inflight
++        registered = self._shared_cached.get(slot.block_hash) is slot
++        if (type(count) is not int or count < 0 or
++                type(slot.cached) is not bool or registered != slot.cached or
++                (delta == 1 and count - 1 < 0) or
++                (delta == -1 and count + 1 <= 0)):
++            raise ValueError("stale/invalid shared copy reference")
++        if registered:
++            if delta == 1 and count == 1:
++                self._prefix_shared_cached_pinned_slots += 1
++            elif delta == -1 and count == 0:
++                self._prefix_shared_cached_pinned_slots -= 1
++        if (len(self._shared_cached) != self._prefix_shared_cached_observed_count or
++                type(self._prefix_shared_cached_pinned_slots) is not int or
++                not 0 <= self._prefix_shared_cached_pinned_slots <= len(self._shared_cached)):
++            raise ValueError("shared busy scalar/cardinality mismatch")
++
++    def _prefix_observe_shared_registry(self, slot, delta) -> None:
++        if getattr(self, "_prefix_capacity_valid", False) is not True:
++            return
++        if (type(slot.copies_inflight) is not int or slot.copies_inflight < 0 or
++                len(self._shared_cached) != self._prefix_shared_cached_observed_count + delta):
++            raise ValueError("unexpected shared registry mutation")
++        self._prefix_shared_cached_observed_count += delta
++        if slot.copies_inflight > 0:
++            self._prefix_shared_cached_pinned_slots += delta
++        if (type(self._prefix_shared_cached_pinned_slots) is not int or
++                not 0 <= self._prefix_shared_cached_pinned_slots <= len(self._shared_cached)):
++            raise ValueError("shared registry busy scalar mismatch")
++
++    def _shared_pin(self, slot: "_SharedPreloadSlot") -> None:
++        slot.copies_inflight += 1  # Native ref operation always runs exactly once.
++        self._prefix_observe_capacity(self._prefix_observe_shared_copy, slot, 1)
++
++    def _shared_unpin(self, slot: "_SharedPreloadSlot") -> None:
++        slot.copies_inflight -= 1
++        self._prefix_observe_capacity(self._prefix_observe_shared_copy, slot, -1)
++
++    def _shared_cache_insert(self, slot: "_SharedPreloadSlot") -> None:
++        slot.cached = True
++        self._shared_cached[slot.block_hash] = slot
++        self._preload_cached_total += 1
++        self._prefix_observe_capacity(self._prefix_observe_shared_registry, slot, 1)
++
+     def _shared_uncache(self, slot: "_SharedPreloadSlot") -> None:
+-        if self._shared_cached.get(slot.block_hash) is slot:
++        removed = self._shared_cached.get(slot.block_hash) is slot
++        if removed:
+             del self._shared_cached[slot.block_hash]
+             self._preload_cached_total -= 1
+         slot.cached = False
++        if removed:
++            self._prefix_observe_capacity(self._prefix_observe_shared_registry, slot, -1)
+ 
+     def _maybe_release_shared(self, slot: "_SharedPreloadSlot") -> None:
+         if slot.cached or slot.copies_inflight > 0:
+@@ -929,6 +1011,8 @@
+                 self._pump_once()
+                 if getattr(self, "_observation_sink", None) is not None:
+                     self._observe_once()
++            # Reachable only after normal STOP and original native work drains.
++            self._cleanup_retained_cache_after_stop()
+         except BaseException as exc:
+             # Failure can release worker protection only after all native
+             # stages have a physical drain witness; unknown drain is fail-closed.
+@@ -938,6 +1022,20 @@
+             budget = getattr(self, "_prefix_start_budget", None)
+             if budget is not None:
+                 budget.clear()
++
++    def _cleanup_retained_cache_after_stop(self) -> None:
++        if not self._stop or self._has_work():
++            raise RuntimeError("normal cache cleanup requires original work drain")
++        cache = self._staging_cache
++        if cache is None:
++            return
++        for slot_index in cache.drain_unpinned():
++            self.staging_pool.release(slot_index)
++        if len(cache):
++            # Orphan positive refs are not physical completion evidence.
++            self._freeze_native_drain_unknown("pinned cache remains after native STOP drain")
++            raise NativeDrainUnknown(self._native_fatal_reason)
++        cache.drain()  # Original final policy clear; no retained indices remain.
+ 
+     def _observe_once(self) -> None:
+         """Optional bounded CPU observer; native work/completion has already run."""
+@@ -1017,6 +1115,10 @@
+         self._shared_cached.clear()
+         if self._staging_cache is not None:
+             self._staging_cache._slots.clear()
++            invalidate = getattr(self._staging_cache, "invalidate_observation", None)
++            if callable(invalidate):
++                self._prefix_observe_capacity(invalidate, "verified fatal cleanup")
++        self._prefix_invalidate_capacity("verified fatal cleanup")
+         self._preload_pending.clear()
+         self._preload_inflight_hashes.clear()
+         self._preload_inflight_total = self._preload_cached_total = 0
+@@ -1140,12 +1242,13 @@
+                 for slot_index, _info in slots:
+                     self.staging_pool.release(slot_index)
+             self._preload_slots.clear()
+-            for slot in self._shared_cached.values():
+-                self.staging_pool.release(slot.slot_index)
+-            self._shared_cached.clear()
++            while self._shared_cached:
++                slot = next(iter(self._shared_cached.values()))
++                self._shared_uncache(slot)
++                self._maybe_release_shared(slot)
+             if self._staging_cache is not None:
+                 retained = len(self._staging_cache)
+-                for slot_index in self._staging_cache.drain():
++                for slot_index in self._staging_cache.drain_unpinned():
+                     self.staging_pool.release(slot_index)
+                 if retained:
+                     add_event(
+@@ -1157,7 +1260,7 @@
+                     )
+             self._preload_refcount.clear()
+             self._preload_cached_total = 0
+-            self._preload_inflight_total = 0
++            # Original open/read ownership retires via _preload_inflight_remove.
+             self._preload_pending.clear()
+             self._preload_pending_count.clear()
+             self._preload_pending_cancel.clear()
+@@ -1628,19 +1731,17 @@
+                         shared=True,
+                     ),
+                 )
+-                slot.copies_inflight += 1
++                self._shared_pin(slot)
+                 try:
+                     self._queue_load_copy(job, file_index, slot_index, shared=slot, source="preload")
+                 except BaseException as exc:
+-                    slot.copies_inflight -= 1
++                    self._shared_unpin(slot)
+                     self._file_terminal(job, ok=False, exc=exc)
+                 self._shared_decref(job.profile.req_id, block_hash)
+             if self._stop:
+                 self._maybe_release_shared(slot)
+             elif self._preload_refcount.get(block_hash, 0) > 0:
+-                slot.cached = True
+-                self._shared_cached[block_hash] = slot
+-                self._preload_cached_total += 1
++                self._shared_cache_insert(slot)
+             else:
+                 self._maybe_release_shared(slot)
+         except BaseException as exc:
+@@ -1779,7 +1880,7 @@
+         return slot
+ 
+     def _release_or_cache(self, block_hash: bytes, slot_index: int) -> None:
+-        if self._staging_cache is None:
++        if getattr(self, '_stop', False) or self._staging_cache is None:
+             self.staging_pool.release(slot_index)
+             return
+         to_release = self._staging_cache.put(block_hash, slot_index)
+@@ -1808,7 +1909,7 @@
+         elif shared is None:
+             self._release_or_cache(job.block_hashes[file_index], slot_index)
+         else:
+-            shared.copies_inflight -= 1
++            self._shared_unpin(shared)
+             self._maybe_release_shared(shared)
+ 
+     def _schedule_cache_hit(
+@@ -1863,28 +1964,86 @@
+         except Exception as exc:
+             accounting.invalidate(type(exc).__name__ + ": " + str(exc))
+ 
++    def _prefix_capacity_components(self):
++        """O(1) owner observation; future.done is never a resource witness."""
++        if getattr(self, "_prefix_capacity_valid", False) is False:
++            return None
++        try:
++            if type(self._prefix_capacity_valid) is not bool:
++                raise ValueError("capacity validity flag must be bool")
++            if getattr(self, "_worker", None) is None or self._worker.ident != threading.get_ident():
++                raise ValueError("capacity sample requires actual native owner")
++            if (self._stop or getattr(self.staging_pool, "_closed", False) or
++                    getattr(self, "_native_drain_unknown", False) or
++                    getattr(self, "_native_fatal_reason", None) is not None):
++                return None
++            cache = self._staging_cache
++            cache_count = len(cache) if cache is not None else 0
++            cache_pinned = cache.pinned_slot_count if cache is not None else 0
++            if cache is not None and not cache.observation_valid:
++                raise ValueError(cache.observation_error or "cache observation unavailable")
++            shared_count = len(self._shared_cached)
++            shared_pinned = self._prefix_shared_cached_pinned_slots
++            preload_total = self._preload_cached_total
++            free = self.staging_pool.free_count
++            slot_count = self.staging_pool.slot_count
++            io_size = self.file_store.io_size
++            if any(type(v) is not int for v in
++                   (cache_count, cache_pinned, shared_count, shared_pinned, preload_total,
++                    free, slot_count, io_size, self._prefix_shared_cached_observed_count)):
++                raise ValueError("capacity counts must be exact ints")
++            ordinary = preload_total - shared_count
++            if (slot_count <= 0 or io_size <= 0 or
++                    not 0 <= free <= slot_count or not 0 <= cache_pinned <= cache_count or
++                    not 0 <= shared_pinned <= shared_count or ordinary < 0 or
++                    self._prefix_shared_cached_observed_count != shared_count or
++                    len(self._preload_slots) > ordinary or
++                    cache_count + preload_total + free > slot_count):
++                raise ValueError("capacity scalar conservation/cardinality mismatch")
++            cache_clean = cache_count - cache_pinned
++            shared_clean = shared_count - shared_pinned
++            reclaimable = free + cache_clean + ordinary + shared_clean
++            if not 0 <= reclaimable <= slot_count:
++                raise ValueError("reclaimable capacity outside original pool")
++            return (slot_count, io_size, free, cache_count, cache_pinned, cache_clean,
++                    shared_count, shared_pinned, shared_clean, preload_total, ordinary,
++                    reclaimable)
++        except Exception as exc:
++            self._prefix_invalidate_capacity(type(exc).__name__ + ": " + str(exc))
++            return None
++
++    def _prefix_capacity_snapshot(self, *, native_shutdown=False):
++        keys = ("slot_count", "io_size", "free_slots", "cache_slots",
++                "cache_pinned_slots", "cache_clean_slots", "shared_cached_slots",
++                "shared_cached_pinned_slots", "shared_clean_slots", "preload_cached_slots",
++                "ordinary_preload_clean_slots", "foreground_reclaimable_slots")
++        values = None
++        if not native_shutdown:
++            try:
++                values = self._prefix_capacity_components()
++            except Exception as exc:
++                self._prefix_invalidate_capacity(type(exc).__name__ + ": " + str(exc))
++        valid = values is not None
++        result = dict(zip(keys, values if valid else (None,) * len(keys)))
++        sticky_valid = getattr(self, "_prefix_capacity_valid", False) is True
++        reason = getattr(self, "_prefix_capacity_error", None)
++        if not valid and reason is None:
++            reason = ("native_shutdown" if native_shutdown else
++                      "native_stop" if getattr(self, "_stop", False) else
++                      "native_capacity_unavailable")
++        result.update(valid=valid, observation_valid=sticky_valid, error=reason,
++                      free_reclaimable_staging_bytes=(values[-1] * values[1] if valid else None),
++                      capacity_semantics="foreground_clean_reclaimable",
++                      physical_release_credit=False)
++        return result
++
+     def _prefix_clean_reclaimable_bytes(self):
+-        """Owner-only complete bounded native clean-slot view; unknown if too large."""
+-        cache = getattr(self, "_staging_cache", None)
+-        shared = getattr(self, "_shared_cached", {})
+-        ordinary = getattr(self, "_preload_slots", {})
+-        ordinary_count = getattr(self, "_preload_cached_total", 0)
+-        total = (len(cache) if cache is not None else 0) + len(shared) + ordinary_count
+-        if total > 64 or len(ordinary) > 64:
++        try:
++            values = self._prefix_capacity_components()
++            return values[-1] * values[1] if values is not None else None
++        except Exception as exc:
++            self._prefix_invalidate_capacity(type(exc).__name__ + ": " + str(exc))
+             return None
+-        reclaimable = set()
+-        if cache is not None:
+-            for slot in cache._slots.values():
+-                if slot.copies_inflight == 0:
+-                    reclaimable.add(slot.slot_index)
+-        for slot in shared.values():
+-            if slot.copies_inflight == 0:
+-                reclaimable.add(slot.slot_index)
+-        for slots in ordinary.values():
+-            for index, _info in slots:
+-                reclaimable.add(index)
+-        # Existing native pool/cache invariants retain ownership. No eviction here.
+-        return (self.staging_pool.free_count + len(reclaimable)) * self.file_store.io_size
+ 
+     def _prefix_stage_decide(self, stage, nbytes, work_id, job=None, *,
+                              continuation=False, support=False, reserved_bytes=0):
+@@ -2467,11 +2626,11 @@
+         )
+         job.next_file_index += 1
+         job.inflight_files += 1
+-        slot.copies_inflight += 1
++        self._shared_pin(slot)
+         try:
+             self._queue_load_copy(job, file_index, slot.slot_index, shared=slot, source="preload")
+         except BaseException as exc:
+-            slot.copies_inflight -= 1
++            self._shared_unpin(slot)
+             self._file_terminal(job, ok=False, exc=exc)
+             self._maybe_release_shared(slot)
+         self._shared_decref(job.profile.req_id, h)
+--- a/py_kvcache/staging_cache.py
++++ b/py_kvcache/staging_cache.py
+@@ -153,6 +153,90 @@
+         self._capacity = max(0, capacity)
+         self._policy = make_policy(policy, self._capacity)
+         self._slots: dict[bytes, _CacheSlot] = {}
++        # Observation only: distinct resident slots, not number of copy refs.
++        self._pinned_slots = 0
++        self._observed_slots = 0
++        self._observation_valid = True
++        self._observation_error: str | None = None
++
++    @property
++    def observation_valid(self) -> bool:
++        return self._checked_observation()
++
++    @property
++    def observation_error(self) -> str | None:
++        return self._observation_error
++
++    def invalidate_observation(self, reason) -> None:
++        # Diagnostics must not change a native cache/refcount operation.
++        try:
++            message = str(reason)[:160] or "cache observation unavailable"
++        except Exception:
++            message = "cache observation unavailable"
++        self._observation_valid = False
++        if self._observation_error is None:
++            self._observation_error = message
++
++    def _checked_observation(self) -> bool:
++        if self._observation_valid is False:
++            return False
++        try:
++            if type(self._observation_valid) is not bool:
++                raise ValueError("cache validity flag must be bool")
++            size = len(self._slots)
++            if (type(self._pinned_slots) is not int or
++                    type(self._observed_slots) is not int or
++                    self._observed_slots != size or
++                    not 0 <= self._pinned_slots <= size):
++                raise ValueError("cache scalar/cardinality mismatch")
++            return True
++        except Exception as exc:
++            self.invalidate_observation(type(exc).__name__ + ": " + str(exc))
++            return False
++
++    @property
++    def pinned_slot_count(self) -> int | None:
++        return self._pinned_slots if self._checked_observation() else None
++
++    @property
++    def clean_slot_count(self) -> int | None:
++        return len(self._slots) - self._pinned_slots if self._checked_observation() else None
++
++    def _observe_safely(self, callback, *args) -> None:
++        # Also insulate the native operation from a failing observation hook.
++        try:
++            callback(*args)
++        except Exception as exc:
++            self.invalidate_observation(type(exc).__name__ + ": " + str(exc))
++
++    def _observe_size_delta(self, delta: int) -> None:
++        if not self._observation_valid:
++            return
++        try:
++            if len(self._slots) != self._observed_slots + delta:
++                raise ValueError("unexpected cache registry mutation")
++            self._observed_slots += delta
++            self._checked_observation()
++        except Exception as exc:
++            self.invalidate_observation(type(exc).__name__ + ": " + str(exc))
++
++    def _observe_copy_delta(self, slot: _CacheSlot, delta: int) -> None:
++        if not self._observation_valid:
++            return
++        try:
++            count = slot.copies_inflight
++            if (self._slots.get(slot.block_hash) is not slot or
++                    type(count) is not int or count < 0 or
++                    (delta == -1 and count + 1 <= 0) or
++                    (delta == 1 and count - 1 < 0)):
++                raise ValueError("stale/invalid cache copy reference")
++            if delta == 1 and count == 1:
++                self._pinned_slots += 1
++            elif delta == -1 and count == 0:
++                self._pinned_slots -= 1
++            self._checked_observation()
++        except Exception as exc:
++            self.invalidate_observation(type(exc).__name__ + ": " + str(exc))
+ 
+     def __contains__(self, block_hash: bytes) -> bool:
+         return block_hash in self._slots
+@@ -184,13 +268,16 @@
+             freed = self.evict_one()
+         self._slots[block_hash] = _CacheSlot(block_hash=block_hash, slot_index=slot_index)
+         self._policy.admit(block_hash)
++        self._observe_safely(self._observe_size_delta, 1)
+         return freed
+ 
+     def pin(self, slot: _CacheSlot) -> None:
+         slot.copies_inflight += 1
++        self._observe_safely(self._observe_copy_delta, slot, 1)
+ 
+     def unpin(self, slot: _CacheSlot) -> None:
+         slot.copies_inflight -= 1
++        self._observe_safely(self._observe_copy_delta, slot, -1)
+ 
+     def evict_one(self) -> int | None:
+         """Drop the policy victim with no in-flight copy; return its slot index
+@@ -201,13 +288,35 @@
+                 continue
+             del self._slots[block_hash]
+             self._policy.evict(block_hash)
++            self._observe_safely(self._observe_size_delta, -1)
++            if type(slot.copies_inflight) is not int or slot.copies_inflight != 0:
++                self.invalidate_observation("eviction with invalid copy reference")
+             return slot.slot_index
+         return None
++
++    def drain_unpinned(self) -> list[int]:
++        """Stop cleanup only. Preserve native pinned objects and their policy keys."""
++        indices = []
++        for block_hash, slot in list(self._slots.items()):
++            if type(slot.copies_inflight) is not int or slot.copies_inflight < 0:
++                self.invalidate_observation("invalid copy reference during clean drain")
++                continue
++            if slot.copies_inflight != 0:
++                continue
++            del self._slots[block_hash]
++            self._policy.evict(block_hash)
++            self._observe_safely(self._observe_size_delta, -1)
++            indices.append(slot.slot_index)
++        return indices
+ 
+     def drain(self) -> list[int]:
+         indices = [slot.slot_index for slot in self._slots.values()]
+         self._slots.clear()
+         self._policy.clear()
++        if self._observation_valid and self._pinned_slots == 0:
++            self._observed_slots = 0
++        else:
++            self.invalidate_observation("cache drain without a known unpinned state")
+         return indices
+ 
+ 

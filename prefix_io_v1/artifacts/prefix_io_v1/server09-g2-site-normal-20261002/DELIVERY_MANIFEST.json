@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_ACTUAL_G2_OFF05_SHADOW05_PASSED_MODEL_LIFECYCLE_DELIVERY",
+  "files": [
+    {
+      "path": "ACTUAL_AUTHORIZED_CPU_PREFLIGHT.json",
+      "bytes": 810,
+      "sha256": "621a6040114908d51f1aa75e7193166a4471e8f851badf4e601a58f6c30e21e8"
+    },
+    {
+      "path": "ACTUAL_HUMAN_SCOPE_CREATION.json",
+      "bytes": 3872,
+      "sha256": "f7054505a17a22d2bd9e5628a80a32d0e66b68eb5dffd040b00e700927d131bd"
+    },
+    {
+      "path": "ACTUAL_NEXT_P4_ORIGINAL_INTERFACE_CPU_AUDIT.json",
+      "bytes": 6024,
+      "sha256": "9077595bc767e16c22d3c01b48f174da4ac2bf22bdc8015c3ba44dcd99303bf0"
+    },
+    {
+      "path": "ACTUAL_OFF05_GPU_LAUNCH.json",
+      "bytes": 2202,
+      "sha256": "13e081f4cb5f40c6dedc48b79eed0e6f5655b4f4b9b48a209500ede5936b63ea"
+    },
+    {
+      "path": "ACTUAL_OFF05_POSTRUN_SNAPSHOT.json",
+      "bytes": 8893,
+      "sha256": "e3d436f0e6d32407c57fb466e3a28436683ede2a7ca53a19d0250bdb040477d8"
+    },
+    {
+      "path": "ACTUAL_OVERSIZED_SHADOW_METADATA_READ.json",
+      "bytes": 28551,
+      "sha256": "a910a13ab8510c3bedc9a8870055917c47320fb6f78b468d87bf30e6761aab48"
+    },
+    {
+      "path": "ACTUAL_POST_GPU_COMPLETE_SOURCE_PREFLIGHT.json",
+      "bytes": 790,
+      "sha256": "2cd35449fa46d0a60afac44ee592a3effc0e50a347847315ef7830f611f294e0"
+    },
+    {
+      "path": "ACTUAL_RAW_RUN_FILE_REFS.json",
+      "bytes": 1980,
+      "sha256": "871b9c11ab0657e09f0ec04ecb70ba1827710310baa39e331a758f67f7ed66ce"
+    },
+    {
+      "path": "ACTUAL_SHADOW05_GPU_LAUNCH.json",
+      "bytes": 2219,
+      "sha256": "a9a4b54330f14c4cd13ea9ebfda8ea8480759c48a1f708df3888dc50f26fe217"
+    },
+    {
+      "path": "ACTUAL_SHADOW05_POSTRUN_SNAPSHOT.json",
+      "bytes": 9515,
+      "sha256": "eb4c21697afecfe7235c6c24108e187e5e5fb06199bc7986346e52f9bddb69ee"
+    },
+    {
+      "path": "ACTUAL_SHADOW05_PREREQUISITE_CPU_PREFLIGHT.json",
+      "bytes": 816,
+      "sha256": "36b35aaea0d3c1f49efcd47a5e1eec606afee371353f8972ee4096de627d6add"
+    },
+    {
+      "path": "gpu-budget-ledger-after-off.json",
+      "bytes": 345735,
+      "sha256": "d575d5acc3f89a87e9ba727e81de271aa471b56e7f1f767a3739f131659170a5"
+    },
+    {
+      "path": "gpu-budget-ledger-after-shadow.json",
+      "bytes": 347318,
+      "sha256": "7dd465ef868fb6cc4fbacddd8cc58045cc47b11aa0768765325613b454c6b744"
+    },
+    {
+      "path": "gpu-budget-ledger-before.json",
+      "bytes": 344164,
+      "sha256": "a4e91c95ad640f1a1c1fda7bec3bcb3657e25276fa84522157ea43449e54ce55"
+    },
+    {
+      "path": "GPU_STAGE_AUTHORIZATION.json",
+      "bytes": 9609,
+      "sha256": "ea8f8162494716304bccf6da1f510c6287c76948f6941d89470f3e643ceea8f8"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD_G2.json",
+      "bytes": 2655,
+      "sha256": "8a16effa33d04dc76a784202c7f5882237d1f4b6e9d68af83d3d2767c6f25624"
+    },
+    {
+      "path": "INDEPENDENT_G2_OFF_SHADOW_05_REVIEW.json",
+      "bytes": 12339,
+      "sha256": "3b51f1782bd732b96c6d9adc08fab8d5d667a877f94bc131d464cd8fae87f913"
+    },
+    {
+      "path": "LOCAL_ACTUAL_G2_RAW_CLOSURE.json",
+      "bytes": 3584,
+      "sha256": "bd19b9b2fc373bf110d3788f296a919f8ebc1cce88380d9508d3f8620b703a74"
+    },
+    {
+      "path": "NEXT_ALLOWED_CPU_STAGE_NOT_GPU_AUTHORIZED.json",
+      "bytes": 2687,
+      "sha256": "81b4056314d3a0a60fe21e9c11ce3cdccff2a3753191e80ef7496c6b41358ae4"
+    },
+    {
+      "path": "runs/off/details/cold-frontend.json",
+      "bytes": 2535,
+      "sha256": "94dea91a3c86cd1a2982312cb008dead6da8677643db36a05967a02896b70b89"
+    },
+    {
+      "path": "runs/off/details/normal-model-lifecycle-result.json",
+      "bytes": 220434,
+      "sha256": "c3b0c3a2ea399808d55b8b5ba7149ae64c3d791cc1cfed5676ffaf8e1eeac40e"
+    },
+    {
+      "path": "runs/off/details/repeat-frontend.json",
+      "bytes": 2541,
+      "sha256": "29a676a89bda1199d8d33d2f88634499cc000ad1170248468591bd60b413f25c"
+    },
+    {
+      "path": "runs/off/process.log",
+      "bytes": 10880,
+      "sha256": "1a278412f7db57a21bec6efcd9113fe53d67458f78b069f5b21fc7ecdc86ef81"
+    },
+    {
+      "path": "runs/off/result.json",
+      "bytes": 1415,
+      "sha256": "c00e3b3582d5a542dab50bc7d106123c5df91892073ea5fb897428a606baeafa"
+    },
+    {
+      "path": "runs/shadow/details/cold-frontend.json",
+      "bytes": 2541,
+      "sha256": "3c9df611735c3ded4cd095f23530cd5bafe6ad814a0a9f858bc3aa01d8dff3d9"
+    },
+    {
+      "path": "runs/shadow/details/normal-model-lifecycle-result.json",
+      "bytes": 662076,
+      "sha256": "93fa77ff4e39eb3312364128a16bf3c1ee8e7a702fd1867fe4315ff39dab51db"
+    },
+    {
+      "path": "runs/shadow/details/repeat-frontend.json",
+      "bytes": 2547,
+      "sha256": "4c08b462139a836a6526acc80c30f7a421180371abbb4a78338869562155e4ec"
+    },
+    {
+      "path": "runs/shadow/process.log",
+      "bytes": 10880,
+      "sha256": "0b7057baa66405c2a222ffea39b843bd5ad5b3b1b8d1e469291b6eeb38351bd6"
+    },
+    {
+      "path": "runs/shadow/result.json",
+      "bytes": 1426,
+      "sha256": "9de297a37bdefaab6dbf2bd6ae4c1f8391d32a81452436b06bceb7f3a0df0fc1"
+    },
+    {
+      "path": "SERVER09_G2_OFF05_SHADOW05_REAL_RESULT_REPORT.md",
+      "bytes": 7651,
+      "sha256": "12f3c1810406e2ca8b71ca3f024885507077d4be4ab475afcedf9d1daa229f35"
+    },
+    {
+      "path": "VERIFY_ACTUAL_G2_RAW_CLOSURE.py",
+      "bytes": 7858,
+      "sha256": "2cee8d63ca38461a89d6d3a232d3b9592a592f5209afc620aa972d736c6996db"
+    }
+  ],
+  "file_count": 31,
+  "actual_GPU_jobs": 2,
+  "actual_GPU_guard_wall_seconds": 276.7985931793228,
+  "normal_model_full_output_qualified": true,
+  "total_frontend_tokens": 512,
+  "four_complete_arrays_identical": true,
+  "shadow_frames": 256,
+  "original_engine_shutdown_and_OS_session_drain_proven": true,
+  "post_GPU_source_refs": 4050,
+  "source_lock_sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b",
+  "remaining_original_GPU_seconds": 11593.65636512125,
+  "active_reservation": null,
+  "original_budget_not_reset": true,
+  "two_job_authorization_consumed": true,
+  "further_GPU_authorized": false,
+  "production_KV_IO_qualified": false,
+  "SSD_qualified": false,
+  "GPU_cost_clock_qualified": false,
+  "running_resource_release_qualified": false,
+  "new_strategy_effect_verified": false,
+  "P4_completed": false,
+  "P5_completed": false,
+  "performance_claim": false
+}

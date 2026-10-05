@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "status": "CPU_ONLY_G2_SOURCE_CANDIDATE",
+  "whole_file": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/gpu-source-lock-candidate.json",
+    "bytes": 896797,
+    "sha256": "7b8445363e985a7dc4bff08960b31ee4cc325e3d309322f7f4b15d5b0f8aa423"
+  },
+  "parts_directory": "artifacts/prefix_io_v1/server09-g2-normal-worker-cuda13-ninja-20261001/source-lock-upload-parts",
+  "encoding": "raw byte slices; no newline/text conversion",
+  "maximum_part_bytes": 60000,
+  "part_count": 15,
+  "parts": [
+    {
+      "path": "part-0001.bin",
+      "offset": 0,
+      "bytes": 60000,
+      "sha256": "43a9b263d82e4c741b832e0466e6183311c298d82b136ee196ed536df1283b6f"
+    },
+    {
+      "path": "part-0002.bin",
+      "offset": 60000,
+      "bytes": 60000,
+      "sha256": "5199c2880c1c1b9d9d9c617763e53da4900f19c1b85131de48b5b2a54701a0a9"
+    },
+    {
+      "path": "part-0003.bin",
+      "offset": 120000,
+      "bytes": 60000,
+      "sha256": "5ba864de2fe9b8c4778d16df50d08acd42c002b1f28090a0893fdbdf988907fe"
+    },
+    {
+      "path": "part-0004.bin",
+      "offset": 180000,
+      "bytes": 60000,
+      "sha256": "26530982f8a9abd6544d3325358ce9307def6ac08baf383bb1b2c89446881546"
+    },
+    {
+      "path": "part-0005.bin",
+      "offset": 240000,
+      "bytes": 60000,
+      "sha256": "40d10696008076749595af333078f0eaab1a1cbb38595da58000dd48e0eb345c"
+    },
+    {
+      "path": "part-0006.bin",
+      "offset": 300000,
+      "bytes": 60000,
+      "sha256": "b6765e842d1d7390f1f1fede4d138bd6b3c366f1b55ec635edb56320060464a4"
+    },
+    {
+      "path": "part-0007.bin",
+      "offset": 360000,
+      "bytes": 60000,
+      "sha256": "9d7e1e645b03ac8e6c1319ce553c525d5320e6a45591ffd97a60539971fec7a3"
+    },
+    {
+      "path": "part-0008.bin",
+      "offset": 420000,
+      "bytes": 60000,
+      "sha256": "e283db11cf2094049a0501840e9163fcb9e7065ad60cf335372bf802a6b1e6cf"
+    },
+    {
+      "path": "part-0009.bin",
+      "offset": 480000,
+      "bytes": 60000,
+      "sha256": "34f6134c7e14dc7e9665e72afb69e895928534d04ec0558d3e1ae9feae3d8e91"
+    },
+    {
+      "path": "part-0010.bin",
+      "offset": 540000,
+      "bytes": 60000,
+      "sha256": "07f444efbae2ff5e0fe4fdbcd415235cbc30f86657a14358d68eae3cf6b3afaa"
+    },
+    {
+      "path": "part-0011.bin",
+      "offset": 600000,
+      "bytes": 60000,
+      "sha256": "763fd352478b080c5b6f941e87da92f918270aeda5ebe9358b6b34dc62236824"
+    },
+    {
+      "path": "part-0012.bin",
+      "offset": 660000,
+      "bytes": 60000,
+      "sha256": "ad62cd410a6404f51ece832b0002e5d768d57bd9b88dc1da0fae49d9809de791"
+    },
+    {
+      "path": "part-0013.bin",
+      "offset": 720000,
+      "bytes": 60000,
+      "sha256": "94655425c270a0445dd7050f998fde8c5992f0aa2b55822570589555b78307a5"
+    },
+    {
+      "path": "part-0014.bin",
+      "offset": 780000,
+      "bytes": 60000,
+      "sha256": "d3221adca5f429df41026fd6db578f85235fc95aa1e8b2e8b09e89f17bc14440"
+    },
+    {
+      "path": "part-0015.bin",
+      "offset": 840000,
+      "bytes": 56797,
+      "sha256": "624fbe022db2cf9a97e962ae26e7e6062076d231eef9790879f4f21fb961ff76"
+    }
+  ],
+  "reconstruction": "Verify each manifest-ordered part bytes/SHA and contiguous offset; concatenate raw bytes and verify whole bytes/SHA before append-new publication.",
+  "allow_gpu_initialization": false,
+  "allow_gpu_runs": false,
+  "actual_GPU_runs": 0,
+  "remote_upload_performed": false,
+  "original_locks_modified": false
+}

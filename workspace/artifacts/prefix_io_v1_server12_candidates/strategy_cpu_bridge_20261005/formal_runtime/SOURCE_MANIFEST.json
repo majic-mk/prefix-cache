@@ -1,0 +1,52 @@
+{
+  "actual_GPU_operations": 0,
+  "files": [
+    {
+      "bytes": 21704,
+      "path": "build_native_runtime_v3.py",
+      "sha256": "e18aee243915b5e9d13b8ac59a46b0980a0906cf857b1d5424bb928188531c6a"
+    },
+    {
+      "bytes": 1538,
+      "path": "FORMAL_RUNTIME_CPU_REVIEW.json",
+      "sha256": "1a4043fac320a84533fddf438e1cd10b0f89d4705ca87d57c0ca860d0e0fa64e"
+    },
+    {
+      "bytes": 675,
+      "path": "LOCAL_CPU_TEST_RESULT.json",
+      "sha256": "9553585ff837c92b724d984c872b4a354b142090e82080f04455023df8d1b49e"
+    },
+    {
+      "bytes": 2457,
+      "path": "LOCAL_CPU_TEST_STDERR.log",
+      "sha256": "7fe8efe76128a2282388a7afb5beccab5ae1f364fe47d82622a49270d7473e32"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CPU_TEST_STDOUT.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 52056,
+      "path": "native_runtime_v3.py",
+      "sha256": "569e95d37e39adf6910bb6497163a5f5a349f5913c742c65393805619da9f9f6"
+    },
+    {
+      "bytes": 1951,
+      "path": "README.md",
+      "sha256": "18ac46cd2691cbce4962119cec634679b0bfad8db4ac44f3a8e6d67acf5d2210"
+    },
+    {
+      "bytes": 4277,
+      "path": "run_cpu_tests_and_manifest.py",
+      "sha256": "92a3710854000cd6b6e6608df80062a6eaba923aba2957faf805445515eea7ba"
+    },
+    {
+      "bytes": 17127,
+      "path": "test_formal_runtime_cpu.py",
+      "sha256": "c2fbb9981183f7fde83fbe87524911554952346c1544efd5c917acd1df81266b"
+    }
+  ],
+  "gpu_eligible": false,
+  "schema": "formal_runtime_v3_local_source_manifest_v1"
+}

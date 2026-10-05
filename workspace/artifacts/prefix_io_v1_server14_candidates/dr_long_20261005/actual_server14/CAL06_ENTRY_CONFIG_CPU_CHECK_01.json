@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "actual_cli_runner": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server14-dr-long-20261005/dr_p316_original_adapter_v5.py",
+  "config": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server14-dr-long-20261005/CONFIG_CAL06.json",
+  "config_sha256": "87d868639fd248e19d74b5f5e536ba3df5e574a03031d518aa4dc3e477656bff",
+  "checked": [
+    "exact_actual_cli_runner_identity",
+    "original_cal_runner",
+    "calibration_manifest",
+    "source_lock"
+  ],
+  "gpu_operations": 0,
+  "previous_error": "CAL05 runner_ref incorrectly pointed to V4; CAL06 uses actual V5",
+  "common_runtime_domain_sha256": "e75c3adff856be6dd9993dc1990a4709b5ea00971a35557bdf5731ee377fcd75"
+}

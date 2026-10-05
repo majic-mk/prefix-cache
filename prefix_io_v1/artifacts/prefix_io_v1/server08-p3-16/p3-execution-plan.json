@@ -1,0 +1,58 @@
+{
+  "stage": "P3",
+  "p4_enabled": false,
+  "fixed_route": "author cache/executor incremental only",
+  "original_P315_preserved": true,
+  "common_source": "py-kvcache-p3-16-cpu",
+  "cpu_unique_passed": 1333,
+  "off_controller": null,
+  "normal_sequence": [
+    "U",
+    "F",
+    "P",
+    "P",
+    "F",
+    "U"
+  ],
+  "normal_resources": {
+    "gpu_KV_bytes": 2147483648,
+    "staging_bytes": 1073741824,
+    "seqs": 2,
+    "iodepth": 8
+  },
+  "fixed_candidate": "Original P315 16-unit/10ms SSD+D2H,64-unit H2D; all original native physical limits remain hard",
+  "pressure_candidate": "Same fixed allowances plus original 4-unit reserve, now exact O(1) clean staging metadata",
+  "selected_baseline_rule": "minimum complete cohort duration median among U/F/P; tie U then F then P; descriptive development only",
+  "gpu_hot_sequence": [
+    "U",
+    "B",
+    "B",
+    "U"
+  ],
+  "gpu_hot_registration": "artifacts/prefix_io_v1/server08-p3-16/gpu_hot-supplemental-qualification.json",
+  "observer_CPU_end_to_end_sequence": [
+    "U-off",
+    "U-on",
+    "U-on",
+    "U-off"
+  ],
+  "cpu_timer": "on in all comparative arms; thread_time_ns outermost metadata only, no full model CPU claim",
+  "sparse_calibration": {
+    "calibration_runs": 2,
+    "validation_runs": 1,
+    "cells": 7,
+    "conditional_not_production_table": true,
+    "old_criterion_unmodified": true
+  },
+  "finite_capacity_and_quota_development": "separate prospectively frozen supplemental waves after exact domain/space qualification; unresolved, not omitted",
+  "minimum_planned_serial_GPU_sessions": 19,
+  "minimum_time_reservation_seconds": 5640,
+  "ledger_total_cap_seconds": 28800,
+  "ledger_start_seconds": 13099.88234744966,
+  "budget_reset": false,
+  "model_downloads": 0,
+  "new_auxiliary_writes": 0,
+  "minimum_free_bytes": 8589934592,
+  "no_cache_merge_authorized_by_this_plan": true,
+  "status": "FROZEN_INITIAL_CPU_QUALIFIED_PLAN_NOT_COMPLETED"
+}

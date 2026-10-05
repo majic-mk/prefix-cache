@@ -1,0 +1,54 @@
+{
+  "status": "CONFIRMED_CPU_ONLY_WAIT_GPU_START_NEW_REFERENCE_SCOPE_BOUND",
+  "files": [
+    {
+      "path": "CONFIRMED_CPU_MODE_AND_NEXT_STAGE.json",
+      "bytes": 4942,
+      "sha256": "9639f913e4f426835a9b8f165c84a3849687d7db62a5f7ad4b0cc9c23e8934d0"
+    },
+    {
+      "path": "ACTUAL_CONTINUATION_CPU_COMMANDS.json",
+      "bytes": 9231,
+      "sha256": "8a88a64f5647ea859fe566865dd4e765e3beac90f4af21b91a219e37b4eb6b25"
+    },
+    {
+      "path": "CONTINUATION_CPU_MODE_REPORT.md",
+      "bytes": 1682,
+      "sha256": "5506c9fdb3fcdb1ead8e9c88875788a72ef7135581813963967e573e2f510ae0"
+    },
+    {
+      "path": "DELIVERY_MANIFEST.json",
+      "bytes": 688,
+      "sha256": "8c1269d017bcfd6bf7590a7980d6fa35bb6da66e55ae1ad286fde3e02022b6a9"
+    },
+    {
+      "path": "REFERENCE_CONTINUE_AUTHORITY_CPU_VERIFICATION.json",
+      "bytes": 3029,
+      "sha256": "4817dd9969d4c958d442c438136c54e2a8d59ff149c2e84cf97ab48c335408ee"
+    },
+    {
+      "path": "REFERENCE_CONTINUE_AUTHORIZED_NEXT_STAGE.md",
+      "bytes": 2470,
+      "sha256": "afb3828c0538ac052d032523374d258e4c5c8f520918d6bd7ea887a5b0c4957f"
+    }
+  ],
+  "authority_refs": [
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/HUMAN_AUTHORIZATION_RECORD_G3_REFERENCE_CONTINUE_20261002.json",
+      "bytes": 7823,
+      "sha256": "4b862c229fdf6d1f93605e559527a0405c020f4fd0ea62a4ba2267d91cf4724f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/G3_REFERENCE_AUTHORIZED_SCOPE_20261002.json",
+      "bytes": 6278,
+      "sha256": "662addc25fdc883e352360b0742f7d71cfd615f44df6a45c3ef16d9f7ddeffcf"
+    }
+  ],
+  "actual_GPU_runs": 0,
+  "new_reference_scope_bound": true,
+  "original_gpu_source_lock_changed": false,
+  "cumulative_gpu_budget_changed": false,
+  "maximum_jobs": 2,
+  "maximum_reserved_seconds": 640,
+  "source_lock_sha256": "8443f45dd4dd6c1c64595199051f5e88449268af347bcbd836c927b754eabe30"
+}

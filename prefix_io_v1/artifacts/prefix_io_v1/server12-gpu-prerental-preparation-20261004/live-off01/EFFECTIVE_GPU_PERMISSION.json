@@ -1,0 +1,20 @@
+{
+  "allow_cpu_tests": true,
+  "allow_driver_or_system_changes": false,
+  "allow_gpu_runs": true,
+  "allow_model_downloads": false,
+  "allow_new_cloud_rental": false,
+  "allow_payment": false,
+  "allow_project_local_edits": true,
+  "allow_public_source_read": true,
+  "allow_remote_push": false,
+  "allow_shared_data_deletion": false,
+  "approved_dependency_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "approved_experiment_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+  "approved_gpu_ids": [
+    "GPU-b2de2c25-cdc7-a350-267f-56e7763a287f"
+  ],
+  "max_gpu_hours": 8,
+  "max_model_download_gib": 20,
+  "schema_version": 1
+}

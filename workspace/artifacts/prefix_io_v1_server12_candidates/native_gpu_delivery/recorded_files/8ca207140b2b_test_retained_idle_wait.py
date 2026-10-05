@@ -1,0 +1,386 @@
+"""CPU source/Queue tests for the common retained-cache idle correction.
+
+Actual reactor run/intake/submission/STOP methods are source-extracted. Backend
+work is a fixture: these tests do not import Torch, submit I/O, or prove DMA.
+"""
+from __future__ import annotations
+
+import ast
+import collections
+from concurrent.futures import Future
+from dataclasses import dataclass, field
+import logging
+import os
+from pathlib import Path
+import queue
+import sys
+import threading
+import time
+from types import SimpleNamespace
+from typing import Any
+import unittest
+
+
+HERE = Path(__file__).resolve().parent
+REL = Path('source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py')
+NEW = HERE / REL
+OLD = Path(os.environ.get('SERVER11_IDLE_PREVIOUS_CANDIDATE_DIR',
+                         str(HERE.with_name('p4_single_file_candidate_v3')))) / REL
+POLL_FIELDS = ('_active', '_inflight', '_pending_copies', '_copy_ready',
+               '_preload_pending', '_ready_fds_load', '_ready_fds_preload')
+METHODS = {
+    '_init_parent_admission', '_retire_accepted_parent', 'submit_job',
+    'request_owner_snapshot', 'request_mandatory', 'is_mandatory',
+    'enqueue_preload', 'shutdown', '_has_work', '_has_poll_work', '_run',
+    '_drain_incoming', '_intake', '_cleanup_retained_cache_after_stop',
+    '_shared_uncache', '_maybe_release_shared', '_release_or_cache',
+    '_preload_own', '_has_any_shared_state', '_pending_push',
+    'inspect_p4_view',
+}
+CLASSES = {'NativeDrainUnknown', '_ReactorJob', '_MandatoryWait',
+           '_AdmissionDrain', '_OwnerSnapshot', '_P4Inspect', '_P4Publish',
+           '_ProgressState', '_PreloadRequest', '_PreloadInfo', '_SharedPreloadSlot'}
+
+
+def source_tree(path):
+    module = ast.parse(path.read_text(encoding='utf-8-sig'))
+    owner = next(x for x in module.body if isinstance(x, ast.ClassDef)
+                 and x.name == 'IoReactor')
+    return module, owner, {x.name: x for x in owner.body
+                           if isinstance(x, ast.FunctionDef)}
+
+
+def extracted():
+    module, owner, methods = source_tree(NEW)
+    owner.body = [ast.Assign(targets=[ast.Name(id='_STOP', ctx=ast.Store())],
+                             value=ast.Call(func=ast.Name(id='object', ctx=ast.Load()),
+                                            args=[], keywords=[]))]
+    owner.body += [methods[name] for name in sorted(METHODS)]
+    module.body = [ast.ImportFrom(module='__future__',
+                      names=[ast.alias(name='annotations')], level=0)] + [
+        x for x in module.body if isinstance(x, ast.ClassDef) and x.name in CLASSES] + [owner]
+    namespace = dict(globals(), logger=logging.getLogger('retained-idle-cpu'),
+                     add_event=lambda *a, **k: None, now_ns=time.monotonic_ns)
+    exec(compile(ast.fix_missing_locations(module), str(NEW), 'exec'), namespace)
+    return namespace
+
+
+EXTRACTED = extracted()
+
+
+class RecordingQueue(queue.Queue):
+    def __init__(self, race_gate=None):
+        super().__init__()
+        self.entered = threading.Event()
+        self.race_gate = race_gate
+        self.blocking_timeouts = []
+        self.timeout_returns = 0
+
+    def get(self, block=True, timeout=None):
+        if block:
+            self.blocking_timeouts.append(timeout)
+            self.entered.set()
+            if self.race_gate is not None:
+                gate, self.race_gate = self.race_gate, None
+                if not gate.wait(2):
+                    raise RuntimeError('CPU queue race fixture did not release')
+        try:
+            return super().get(block=block, timeout=timeout)
+        except queue.Empty:
+            if block:
+                self.timeout_returns += 1
+            raise
+
+
+class Pool:
+    def __init__(self):
+        self.released = []
+        self.closed = 0
+
+    def release(self, index):
+        if index in self.released:
+            raise AssertionError('fixture slot released twice')
+        self.released.append(index)
+
+    def close(self):
+        self.closed += 1
+
+
+class Owner(EXTRACTED['IoReactor']):
+    def __init__(self, *, shared=True, race_gate=None):
+        self._incoming = RecordingQueue(race_gate)
+        self._submit_lock = threading.Lock()
+        self._stop = self._closed = False
+        self._init_parent_admission(8)
+        for name in POLL_FIELDS:
+            setattr(self, name, {} if name == '_inflight' else collections.deque())
+        self._share_preload = shared
+        self._preload_slots = collections.OrderedDict()
+        self._shared_cached = {}
+        if shared:
+            slot = EXTRACTED['_SharedPreloadSlot'](b'kept', 7, None)
+            self._shared_cached[b'kept'] = slot
+        else:
+            self._preload_slots[b'kept'] = collections.deque([(7, None)])
+        self._preload_cached_total = 1
+        self._staging_cache = None
+        self._preload_refcount = {b'kept': 1}
+        self._preload_inflight_hashes = {}
+        self._preload_pending_count = {}
+        self._preload_pending_cancel = {}
+        self._preload_owned = collections.OrderedDict()
+        self._max_preload_owned = 32
+        self._preload_blocked_on_write = {}
+        self._known_missing = {}
+        self._preload_waiters = {}
+        self._prefix_progress = EXTRACTED['_ProgressState']('idle-cpu')
+        self._prefix_start_budget = None
+        self._prefix_p4_controls_pending = 0
+        self._prefix_p4_bridge = SimpleNamespace(publish=lambda p, v, **kw: p)
+        self._observation_sink = None
+        self._break_even = SimpleNamespace(enabled=False)
+        self.staging_pool, self.ring = Pool(), Pool()
+        self.seen = queue.Queue()
+        self.failures = []
+        self.pump_count = 0
+        self.cleanup_count = 0
+        self.on_pump = None
+        self._worker = threading.Thread(target=self._run, daemon=True)
+
+    def start(self):
+        self._worker.start()
+        if not self._incoming.entered.wait(2):
+            raise AssertionError('owner did not enter native incoming wait')
+        return self
+
+    def _intake(self, item):
+        super()._intake(item)
+        self.seen.put(item)
+
+    def _pump_once(self):
+        # Explicit non-backend fixture: source immutability checks below cover
+        # that the actual pump was not edited by this correction.
+        self.pump_count += 1
+        if self.on_pump is not None:
+            self.on_pump(self)
+        while self._active:
+            job = self._active.popleft()
+            self._retire_accepted_parent(job)
+            job.future_set = True
+            job.future.set_result(0)
+        self._preload_pending.clear()
+        return False
+
+    def _prefix_observe_capacity(self, callback, *args):
+        pass  # Backend-independent fixture; no capacity or release credit.
+
+    def _prefix_observe_shared_registry(self, *args):
+        raise AssertionError('fixture must not invoke capacity observations')
+
+    def _prefix_p4_collect(self):
+        return 'actual-owner-view-fixture'
+
+    def _capture_owner_snapshot(self):
+        return {'retained': len(self._shared_cached) + len(self._preload_slots)}
+
+    def _cleanup_retained_cache_after_stop(self):
+        super()._cleanup_retained_cache_after_stop()
+        self.cleanup_count += 1
+
+    def _fail_everything(self, exc):
+        self.failures.append(exc)
+
+
+def job(number=1):
+    return EXTRACTED['_ReactorJob'](number, False, [], [],
+        SimpleNamespace(req_id='cpu'), Future(), 0, 0, 0)
+
+
+class RetainedIdleTests(unittest.TestCase):
+    def stopped(self, owner):
+        if owner._worker.is_alive():
+            owner.shutdown(wait=True)
+        self.assertFalse(owner._worker.is_alive())
+        self.assertEqual(owner.failures, [])
+
+    def test_only_run_wait_condition_and_new_predicate_changed(self):
+        old_module, old_owner, old = source_tree(OLD)
+        new_module, new_owner, new = source_tree(NEW)
+        self.assertEqual(set(new) - set(old), {'_has_poll_work'})
+        self.assertEqual({n for n in old if ast.dump(old[n]) != ast.dump(new[n])}, {'_run'})
+        # Normalize the sole call target; all other original source must match.
+        calls = [n for n in ast.walk(new['_run']) if isinstance(n, ast.Call)
+                 and isinstance(n.func, ast.Attribute) and n.func.attr == '_has_poll_work']
+        self.assertEqual(len(calls), 1)
+        calls[0].func.attr = '_has_work'
+        new_owner.body.remove(new['_has_poll_work'])
+        self.assertEqual(ast.dump(old_module), ast.dump(new_module))
+
+    def test_shutdown_has_work_intake_pump_and_timeout_unchanged(self):
+        _, _, old = source_tree(OLD)
+        _, _, new = source_tree(NEW)
+        for name in ('_has_work', '_pump_once', '_intake', 'shutdown',
+                     '_cleanup_retained_cache_after_stop', '_drain_incoming'):
+            self.assertEqual(ast.dump(old[name]), ast.dump(new[name]))
+        timeout_values = [kw.value.value for n in ast.walk(new['_drain_incoming'])
+                          if isinstance(n, ast.Call) for kw in n.keywords
+                          if kw.arg == 'timeout' and isinstance(kw.value, ast.Constant)]
+        self.assertEqual(timeout_values, [0.5])
+
+    def test_each_pending_kind_requires_original_pumping(self):
+        for name in POLL_FIELDS:
+            with self.subTest(field=name):
+                owner = Owner()
+                setattr(owner, name, [object()])
+                self.assertTrue(owner._has_poll_work())
+                self.assertTrue(owner._has_work())
+        # A policy-deferred ready preload is work; this fix does not park it.
+        owner = Owner()
+        owner._ready_fds_preload.append(SimpleNamespace(action='defer'))
+        self.assertTrue(owner._has_poll_work())
+
+    def test_stop_never_enters_new_blocking_path(self):
+        owner = Owner()
+        owner._stop = True
+        self.assertTrue(owner._has_poll_work())
+
+    def test_retained_shared_and_nonshared_cache_ownership_is_preserved(self):
+        for shared in (True, False):
+            with self.subTest(shared=shared):
+                owner = Owner(shared=shared).start()
+                try:
+                    self.assertTrue(owner._has_work())
+                    self.assertFalse(owner._has_poll_work())
+                    self.assertEqual(owner.pump_count, 0)
+                    self.assertEqual(owner.staging_pool.released, [])
+                    self.assertEqual(owner._preload_cached_total, 1)
+                    self.assertEqual(owner._incoming.blocking_timeouts, [0.5])
+                finally:
+                    self.stopped(owner)
+
+    def test_original_submit_job_wakes_existing_queue(self):
+        owner = Owner().start()
+        try:
+            item = job()
+            owner.submit_job(item)
+            self.assertIs(owner.seen.get(timeout=2), item)
+            self.assertEqual(item.future.result(timeout=2), 0)
+            self.assertEqual(owner._accepted_parent_count, 0)
+            self.assertEqual(owner.staging_pool.released, [])
+        finally:
+            self.stopped(owner)
+
+    def test_original_preload_enqueue_wakes_existing_queue(self):
+        owner = Owner().start()
+        try:
+            owner.enqueue_preload([b'new'], req_id='next-request')
+            item = owner.seen.get(timeout=2)
+            self.assertIsInstance(item, EXTRACTED['_PreloadRequest'])
+            self.assertEqual(item.block_hashes, [b'new'])
+            self.assertEqual(owner.staging_pool.released, [])
+        finally:
+            self.stopped(owner)
+
+    def test_original_snapshot_and_p4_inspect_wake_existing_queue(self):
+        owner = Owner().start()
+        try:
+            snapshot = owner.request_owner_snapshot()
+            self.assertEqual(snapshot.result(timeout=2), {'retained': 1})
+            self.assertIsInstance(owner.seen.get(timeout=2), EXTRACTED['_OwnerSnapshot'])
+            view = owner.inspect_p4_view()
+            self.assertEqual(view.result(timeout=2), 'actual-owner-view-fixture')
+            self.assertIsInstance(owner.seen.get(timeout=2), EXTRACTED['_P4Inspect'])
+            self.assertEqual(owner._owner_snapshot_pending, 0)
+            self.assertEqual(owner._prefix_p4_controls_pending, 0)
+        finally:
+            self.stopped(owner)
+
+    def test_existing_p4_publication_control_wakes_and_settles(self):
+        owner = Owner().start()
+        try:
+            future = Future()
+            item = EXTRACTED['_P4Publish'](owner._prefix_progress.token, 'publication', future)
+            with owner._submit_lock:
+                owner._prefix_p4_controls_pending += 1
+                owner._incoming.put(item)
+            self.assertEqual(future.result(timeout=2), 'publication')
+            self.assertIs(owner.seen.get(timeout=2), item)
+            self.assertEqual(owner._prefix_p4_controls_pending, 0)
+        finally:
+            self.stopped(owner)
+
+    def test_mandatory_unknown_future_wakes_without_creating_job(self):
+        owner = Owner().start()
+        try:
+            unknown = Future()
+            self.assertTrue(owner.request_mandatory([unknown]))
+            self.assertIsInstance(owner.seen.get(timeout=2), EXTRACTED['_MandatoryWait'])
+            self.assertEqual(owner._prefix_progress.required, set())
+            self.assertFalse(unknown.done())
+        finally:
+            self.stopped(owner)
+
+    def test_admission_drain_control_wakes_existing_queue(self):
+        owner = Owner().start()
+        try:
+            owner._admission_drain_pending = True
+            item = EXTRACTED['_AdmissionDrain'](owner._admission_token)
+            owner._incoming.put(item)
+            self.assertIs(owner.seen.get(timeout=2), item)
+            self.assertFalse(owner._admission_drain_pending)
+        finally:
+            self.stopped(owner)
+
+    def test_fifo_job_then_mandatory_before_original_pump(self):
+        gate = threading.Event()
+        owner = Owner(race_gate=gate).start()
+        seen_required = []
+        item = job()
+        owner.on_pump = lambda o: seen_required.append(item.future in o._prefix_progress.required)
+        try:
+            owner.submit_job(item)
+            self.assertTrue(owner.request_mandatory([item.future]))
+            gate.set()
+            self.assertIs(owner.seen.get(timeout=2), item)
+            self.assertIsInstance(owner.seen.get(timeout=2), EXTRACTED['_MandatoryWait'])
+            self.assertEqual(item.future.result(timeout=2), 0)
+            self.assertTrue(seen_required[0])
+        finally:
+            gate.set()
+            self.stopped(owner)
+
+    def test_enqueue_between_predicate_and_queue_get_cannot_lose_wakeup(self):
+        gate = threading.Event()
+        owner = Owner(race_gate=gate).start()
+        try:
+            future = owner.request_owner_snapshot()
+            self.assertFalse(future.done())
+            gate.set()
+            self.assertEqual(future.result(timeout=2), {'retained': 1})
+            self.assertIsInstance(owner.seen.get(timeout=2), EXTRACTED['_OwnerSnapshot'])
+            self.assertEqual(owner._incoming.timeout_returns, 0)
+        finally:
+            gate.set()
+            self.stopped(owner)
+
+    def test_stop_wakes_and_original_intake_releases_retained_slots_once(self):
+        for shared in (True, False):
+            with self.subTest(shared=shared):
+                owner = Owner(shared=shared).start()
+                owner.shutdown(wait=True)
+                self.assertIs(owner.seen.get(timeout=2), owner._STOP)
+                self.assertEqual(owner.staging_pool.released, [7])
+                self.assertEqual(owner.cleanup_count, 1)
+                self.assertEqual(owner._preload_cached_total, 0)
+                self.assertFalse(owner._has_work())
+                self.assertEqual(owner.staging_pool.closed, 1)
+                self.assertEqual(owner.ring.closed, 1)
+                self.stopped(owner)
+
+    def test_no_backend_modules_loaded_by_cpu_suite(self):
+        self.assertNotIn('torch', sys.modules)
+        self.assertNotIn('vllm', sys.modules)
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

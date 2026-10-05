@@ -1,0 +1,654 @@
+{
+  "schema": "actual_U04_DR01_mechanism_and_latency_supplement_v1",
+  "GPU_operations_this_audit": 0,
+  "SSH_operations": 0,
+  "scope": "one actual adjacent pair; original scheduled arrivals; no SLO or significance claim",
+  "actual_U_run_id": "server14-dr-long-u04",
+  "actual_method_run_id": "server14-dr-long-dr01",
+  "common_runtime_domain_sha256": "e75c3adff856be6dd9993dc1990a4709b5ea00971a35557bdf5731ee377fcd75",
+  "classification": "NOT_EXERCISED",
+  "complete_outputs_equal": true,
+  "primary_U_seconds": 28.295357869672625,
+  "primary_F8_DR_seconds": 33.101601665574165,
+  "primary_improvement_fraction": -0.16985979884187796,
+  "primary_method_slowdown_percent": 16.985979884187795,
+  "mean_request_metrics": {
+    "ttft_seconds": {
+      "U": 11.183555545690547,
+      "F8_D_R": 13.584381823833178,
+      "DR_minus_U": 2.400826278142631,
+      "improvement_fraction": -0.21467468626896224
+    },
+    "completion_seconds": {
+      "U": 15.511046887594352,
+      "F8_D_R": 18.223070172439407,
+      "DR_minus_U": 2.7120232848450545,
+      "improvement_fraction": -0.17484463199025693
+    },
+    "per_request_ITLp95_seconds": {
+      "U": 0.06131421972066161,
+      "F8_D_R": 0.09336753861978633,
+      "DR_minus_U": 0.03205331889912472,
+      "improvement_fraction": -0.5227713741633644
+    }
+  },
+  "all_ten_paired_requests": [
+    {
+      "request_id": "c2-0",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 0.9213114141346523,
+      "U": {
+        "ttft_seconds": 3.0318037175713473,
+        "completion_seconds": 8.386249968516676,
+        "per_request_ITLp95_seconds": 0.10335652586072677
+      },
+      "F8_D_R": {
+        "ttft_seconds": 3.318216988551467,
+        "completion_seconds": 9.150669840830414,
+        "per_request_ITLp95_seconds": 0.1729284919798374
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 0.2864132709801197,
+        "completion_seconds": 0.7644198723137379,
+        "per_request_ITLp95_seconds": 0.06957196611911062
+      },
+      "U_nominal_cached_tokens": 16256,
+      "DR_nominal_cached_tokens": 16256,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-1",
+      "family": "development-library-long",
+      "scheduled_arrival_seconds": 1.0630811602010424,
+      "U": {
+        "ttft_seconds": 1.8535082340107267,
+        "completion_seconds": 8.02883775344649,
+        "per_request_ITLp95_seconds": 0.10335652586072677
+      },
+      "F8_D_R": {
+        "ttft_seconds": 2.026096694158108,
+        "completion_seconds": 8.851505205021889,
+        "per_request_ITLp95_seconds": 0.23204449806362296
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 0.17258846014738105,
+        "completion_seconds": 0.8226674515753984,
+        "per_request_ITLp95_seconds": 0.12868797220289618
+      },
+      "U_nominal_cached_tokens": 0,
+      "DR_nominal_cached_tokens": 0,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-2",
+      "family": "validation-greenhouse-long",
+      "scheduled_arrival_seconds": 1.3296495302432327,
+      "U": {
+        "ttft_seconds": 8.015083668861434,
+        "completion_seconds": 11.835837371755288,
+        "per_request_ITLp95_seconds": 0.017791086062788963
+      },
+      "F8_D_R": {
+        "ttft_seconds": 8.770471781600163,
+        "completion_seconds": 12.64495195645456,
+        "per_request_ITLp95_seconds": 0.02081573195755481
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 0.7553881127387285,
+        "completion_seconds": 0.8091145846992731,
+        "per_request_ITLp95_seconds": 0.0030246458947658476
+      },
+      "U_nominal_cached_tokens": 16256,
+      "DR_nominal_cached_tokens": 16256,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-3",
+      "family": "validation-observatory-long",
+      "scheduled_arrival_seconds": 1.4249034928136477,
+      "U": {
+        "ttft_seconds": 7.856998213196455,
+        "completion_seconds": 9.603250990251361,
+        "per_request_ITLp95_seconds": 0.01759850997477769
+      },
+      "F8_D_R": {
+        "ttft_seconds": 8.633152651230155,
+        "completion_seconds": 10.39220968317455,
+        "per_request_ITLp95_seconds": 0.019053462706506232
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 0.7761544380337,
+        "completion_seconds": 0.7889586929231882,
+        "per_request_ITLp95_seconds": 0.0014549527317285413
+      },
+      "U_nominal_cached_tokens": 16256,
+      "DR_nominal_cached_tokens": 16256,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-4",
+      "family": "development-waterworks-long",
+      "scheduled_arrival_seconds": 1.5294073208864016,
+      "U": {
+        "ttft_seconds": 11.607312466606947,
+        "completion_seconds": 17.66969788971588,
+        "per_request_ITLp95_seconds": 0.11066631879657499
+      },
+      "F8_D_R": {
+        "ttft_seconds": 12.370978025377246,
+        "completion_seconds": 19.91719789023742,
+        "per_request_ITLp95_seconds": 0.2187992304563522
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 0.763665558770299,
+        "completion_seconds": 2.2475000005215406,
+        "per_request_ITLp95_seconds": 0.1081329116597772
+      },
+      "U_nominal_cached_tokens": 0,
+      "DR_nominal_cached_tokens": 0,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-5",
+      "family": "validation-railway-long",
+      "scheduled_arrival_seconds": 4.337322779302316,
+      "U": {
+        "ttft_seconds": 9.263356644357724,
+        "completion_seconds": 15.812752537126823,
+        "per_request_ITLp95_seconds": 0.11490941159427162
+      },
+      "F8_D_R": {
+        "ttft_seconds": 15.056983580510302,
+        "completion_seconds": 18.963691610540433,
+        "per_request_ITLp95_seconds": 0.07762464936822605
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 5.793626936152577,
+        "completion_seconds": 3.1509390734136105,
+        "per_request_ITLp95_seconds": -0.03728476222604557
+      },
+      "U_nominal_cached_tokens": 16256,
+      "DR_nominal_cached_tokens": 16256,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-6",
+      "family": "development-library-long",
+      "scheduled_arrival_seconds": 4.872547126519124,
+      "U": {
+        "ttft_seconds": 15.255496636820396,
+        "completion_seconds": 19.81692063887175,
+        "per_request_ITLp95_seconds": 0.03545695766806602
+      },
+      "F8_D_R": {
+        "ttft_seconds": 17.960568568525275,
+        "completion_seconds": 23.781007033628782,
+        "per_request_ITLp95_seconds": 0.06185912303626529
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 2.705071931704879,
+        "completion_seconds": 3.9640863947570324,
+        "per_request_ITLp95_seconds": 0.026402165368199268
+      },
+      "U_nominal_cached_tokens": 16256,
+      "DR_nominal_cached_tokens": 16256,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-7",
+      "family": "validation-greenhouse-long",
+      "scheduled_arrival_seconds": 5.520722027244806,
+      "U": {
+        "ttft_seconds": 20.056919646141292,
+        "completion_seconds": 23.35265872503555,
+        "per_request_ITLp95_seconds": 0.05739129651337861
+      },
+      "F8_D_R": {
+        "ttft_seconds": 24.56564440268016,
+        "completion_seconds": 27.809030678746463,
+        "per_request_ITLp95_seconds": 0.04635532684624191
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 4.508724756538868,
+        "completion_seconds": 4.456371953710914,
+        "per_request_ITLp95_seconds": -0.0110359696671367
+      },
+      "U_nominal_cached_tokens": 16256,
+      "DR_nominal_cached_tokens": 16256,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-8",
+      "family": "development-waterworks-long",
+      "scheduled_arrival_seconds": 6.649151013555626,
+      "U": {
+        "ttft_seconds": 14.987448409808179,
+        "completion_seconds": 18.996923482653997,
+        "per_request_ITLp95_seconds": 0.03556473646312952
+      },
+      "F8_D_R": {
+        "ttft_seconds": 18.4129330391561,
+        "completion_seconds": 24.30685387612631,
+        "per_request_ITLp95_seconds": 0.06846594028174874
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 3.425484629347922,
+        "completion_seconds": 5.309930393472314,
+        "per_request_ITLp95_seconds": 0.03290120381861922
+      },
+      "U_nominal_cached_tokens": 16256,
+      "DR_nominal_cached_tokens": 16256,
+      "complete_128_output_tokens_equal": true
+    },
+    {
+      "request_id": "c2-9",
+      "family": "validation-railway-long",
+      "scheduled_arrival_seconds": 7.60930992061615,
+      "U": {
+        "ttft_seconds": 19.907627819530965,
+        "completion_seconds": 21.60733951856971,
+        "per_request_ITLp95_seconds": 0.017050828412175156
+      },
+      "F8_D_R": {
+        "ttft_seconds": 24.728772506542803,
+        "completion_seconds": 26.413583949633242,
+        "per_request_ITLp95_seconds": 0.015728931501507743
+      },
+      "DR_minus_U": {
+        "ttft_seconds": 4.821144687011838,
+        "completion_seconds": 4.806244431063533,
+        "per_request_ITLp95_seconds": -0.0013218969106674125
+      },
+      "U_nominal_cached_tokens": 16256,
+      "DR_nominal_cached_tokens": 16256,
+      "complete_128_output_tokens_equal": true
+    }
+  ],
+  "actual_full_journal": {
+    "valid": true,
+    "fault": null,
+    "overflow": false,
+    "choices": 1314,
+    "reason_counts": {
+      "native_progress_before_policy": 1,
+      "no_observed_blocked_target": 753,
+      "no_proved_legal_closure:no_witness": 560
+    },
+    "first_parent_reason_windows": [
+      {
+        "sequence": 1,
+        "at_ns": 12112131042516517,
+        "owner_epoch": 1,
+        "action": "native",
+        "reason": "no_observed_blocked_target",
+        "dependency_parent_ids": [],
+        "complete_ready_parent_ids": [],
+        "eta_known_parent_ids": [],
+        "before_work_ids": [
+          [
+            1,
+            0,
+            "d2h"
+          ]
+        ],
+        "after_work_ids": [
+          [
+            1,
+            0,
+            "d2h"
+          ]
+        ],
+        "gpu_release_credit": null,
+        "production_qualified": false
+      },
+      {
+        "sequence": 2,
+        "at_ns": 12112146454282980,
+        "owner_epoch": 3085,
+        "action": "native_fallback",
+        "reason": "no_proved_legal_closure:no_witness",
+        "dependency_parent_ids": [
+          27
+        ],
+        "complete_ready_parent_ids": [],
+        "eta_known_parent_ids": [],
+        "before_work_ids": [
+          [
+            26,
+            59,
+            "d2h"
+          ]
+        ],
+        "after_work_ids": [
+          [
+            26,
+            59,
+            "d2h"
+          ]
+        ],
+        "gpu_release_credit": null,
+        "production_qualified": false
+      },
+      {
+        "sequence": 3,
+        "at_ns": 12112146464641645,
+        "owner_epoch": 3089,
+        "action": "native",
+        "reason": "native_progress_before_policy",
+        "dependency_parent_ids": [
+          27
+        ],
+        "complete_ready_parent_ids": [],
+        "eta_known_parent_ids": [],
+        "before_work_ids": [
+          [
+            26,
+            59,
+            "d2h"
+          ],
+          [
+            27,
+            401,
+            "h2d"
+          ],
+          [
+            27,
+            402,
+            "h2d"
+          ],
+          [
+            27,
+            403,
+            "h2d"
+          ],
+          [
+            27,
+            404,
+            "h2d"
+          ]
+        ],
+        "after_work_ids": [
+          [
+            26,
+            59,
+            "d2h"
+          ],
+          [
+            27,
+            401,
+            "h2d"
+          ],
+          [
+            27,
+            402,
+            "h2d"
+          ],
+          [
+            27,
+            403,
+            "h2d"
+          ],
+          [
+            27,
+            404,
+            "h2d"
+          ]
+        ],
+        "gpu_release_credit": null,
+        "production_qualified": false
+      }
+    ],
+    "pure_ssd_windows": 0,
+    "h2d_windows": 1,
+    "unknown_restore_eta_windows": 561,
+    "native_ready_calls": 93243,
+    "actual_order_changes": []
+  },
+  "actual_native_kernel_submission_operations": 8890,
+  "actual_kernel_order_changes": 0,
+  "actual_p4_last_reason": "native_observation_window_exceeded",
+  "actual_p4_publications": 0,
+  "actual_restore_development": {
+    "enabled": true,
+    "calibration_present": false,
+    "no_calibration_fallback_reason": "no_actionable_calibration_input",
+    "forecast_calls": 0,
+    "forecast_fallbacks": 3,
+    "production_qualified": false,
+    "gpu_release_credit": null,
+    "empirical_ordering_only": true,
+    "earliest_completion_guaranteed": false
+  },
+  "actual_forecast_disabled": true,
+  "actual_calibration_coverage_missing": {
+    "reason": "valid_closed_calibration_no_actionable_exact_cell",
+    "calibration_run_id": "server14-dr-cal07",
+    "sample_count": 1,
+    "exact_cell_counts": [
+      [
+        [
+          [
+            "h2d",
+            917504,
+            917504,
+            2
+          ]
+        ],
+        [
+          "native-ready-closure-v1",
+          917504,
+          917504,
+          1,
+          0,
+          2,
+          0,
+          5,
+          0,
+          0,
+          8,
+          "scheduler-source-unknown",
+          "scheduled-work-unknown"
+        ],
+        1
+      ]
+    ]
+  },
+  "actual_eta_history": {
+    "schema_version": 1,
+    "run_id": "server14-dr-long-dr01",
+    "reason": "successful_whole_parent_native_drain_measured",
+    "observations": 3,
+    "successful_measurements": 3,
+    "failed_or_unknown_discarded": 0,
+    "omissions": 0,
+    "pending_count": 0,
+    "cell_count": 3,
+    "retained_cell_samples": 3,
+    "history_max_age_ns": 600000000000,
+    "minimum_samples": 4,
+    "pending_limit": 32,
+    "cell_limit": 32,
+    "samples_per_cell_limit": 16,
+    "recent_measurements": [
+      {
+        "run_id": "server14-dr-long-dr01",
+        "parent_id": 2,
+        "geometry": {
+          "rows": [
+            [
+              "h2d",
+              917504,
+              917504,
+              8
+            ]
+          ]
+        },
+        "context": [
+          "native-ready-closure-v1",
+          917504,
+          917504,
+          1,
+          0,
+          8,
+          0,
+          8,
+          0,
+          0,
+          8,
+          "scheduler-source-unknown",
+          "scheduled-work-unknown"
+        ],
+        "first_observed_ns": 12112134677927843,
+        "completed_ns": 12112134679468972,
+        "elapsed_ns": 1541129,
+        "sequence": 1,
+        "prior_forecast_duration_ns": null,
+        "prior_forecast_error_ns": null,
+        "prior_forecast_sample_count": 0,
+        "causal_absolute_residual_ns": null,
+        "gpu_qualified": false
+      },
+      {
+        "run_id": "server14-dr-long-dr01",
+        "parent_id": 27,
+        "geometry": {
+          "rows": [
+            [
+              "h2d",
+              917504,
+              917504,
+              3
+            ]
+          ]
+        },
+        "context": [
+          "native-ready-closure-v1",
+          917504,
+          917504,
+          1,
+          0,
+          3,
+          0,
+          9,
+          0,
+          1,
+          8,
+          "scheduler-source-unknown",
+          "scheduled-work-unknown"
+        ],
+        "first_observed_ns": 12112150924920466,
+        "completed_ns": 12112150926277439,
+        "elapsed_ns": 1356973,
+        "sequence": 2,
+        "prior_forecast_duration_ns": null,
+        "prior_forecast_error_ns": null,
+        "prior_forecast_sample_count": 0,
+        "causal_absolute_residual_ns": null,
+        "gpu_qualified": false
+      },
+      {
+        "run_id": "server14-dr-long-dr01",
+        "parent_id": 45,
+        "geometry": {
+          "rows": [
+            [
+              "h2d",
+              917504,
+              917504,
+              5
+            ]
+          ]
+        },
+        "context": [
+          "native-ready-closure-v1",
+          917504,
+          917504,
+          1,
+          0,
+          5,
+          0,
+          5,
+          0,
+          0,
+          8,
+          "scheduler-source-unknown",
+          "scheduled-work-unknown"
+        ],
+        "first_observed_ns": 12112164533632444,
+        "completed_ns": 12112164534797707,
+        "elapsed_ns": 1165263,
+        "sequence": 3,
+        "prior_forecast_duration_ns": null,
+        "prior_forecast_error_ns": null,
+        "prior_forecast_sample_count": 0,
+        "causal_absolute_residual_ns": null,
+        "gpu_qualified": false
+      }
+    ],
+    "production_qualified": false,
+    "gpu_qualified": false,
+    "held_job_or_resource_owners": false,
+    "new_work_queues": 0,
+    "eta_is_allocator_release": false,
+    "error_is_empirical_not_a_coverage_guarantee": true
+  },
+  "no_reverse_repeat_executed_in_this_pair": true,
+  "combined_arm_attribution": "F8+D_R versus U; no isolated D_R timing effect established",
+  "data_sources": [
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/ACTUAL_MAIN_PAIR_ANALYSIS_01.json",
+      "json_pointer": "/run_rows",
+      "contains": "verified per-request scheduled-arrival metrics and native/source/guard validity"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/current-device-adapter-evidence.json",
+      "json_pointer": "/restore_order_journal",
+      "contains": "1314 decisions, exact reasons, 561 unknown ETA windows, 0 changed permutations"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/current-device-adapter-evidence.json",
+      "json_pointer": "/kernel_actual_submission_order",
+      "contains": "8890 successful original Linux syscall-prefix records; not completion/release proof"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/current-device-adapter-evidence.json",
+      "json_pointer": "/calibration_coverage_missing",
+      "contains": "fresh CAL07 H2D2 cell sample_count1 and no actionable calibration"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/details/result.json",
+      "json_pointer": "/probe/current_native_snapshots/0/p4/restore_development",
+      "contains": "forecast_calls0, forecast_fallbacks3, calibration_presentfalse"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/details/result.json",
+      "json_pointer": "/probe/current_native_snapshots/0/p4/eta_history",
+      "contains": "three distinct H2D exact cells with 1 sample each, minimum4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/details/result.json",
+      "json_pointer": "/probe/current_native_snapshots/0/p4/reason",
+      "contains": "native_observation_window_exceeded last reason"
+    }
+  ],
+  "evidence_refs": [
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/ACTUAL_MAIN_PAIR_ANALYSIS_01.json",
+      "bytes": 25085,
+      "sha256": "5ddeba111c0cff95713fbd5ba557f50cc3aeba71f8147a4fde66e11748856ffb"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/current-device-adapter-evidence.json",
+      "bytes": 2199137,
+      "sha256": "46c997a0fc34af89c96df0fee3c07b8a72c3a603ebc4f02547a289874aaa7258"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-long-dr01/details/result.json",
+      "bytes": 2794727,
+      "sha256": "07803e26e39124c182a4ac8955e2fa1a90dca0fe8df0be9b790a14b72e4dd6b2"
+    }
+  ],
+  "production_prediction_qualified": false,
+  "statistical_significance_claim": false,
+  "SLO": null
+}

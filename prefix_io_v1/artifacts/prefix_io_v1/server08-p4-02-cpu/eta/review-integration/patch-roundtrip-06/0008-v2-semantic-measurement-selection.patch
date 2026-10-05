@@ -1,0 +1,461 @@
+diff --git a/control/p4_paired_measurement_verifier.py b/control/p4_paired_measurement_verifier.py
+--- a/control/p4_paired_measurement_verifier.py
++++ b/control/p4_paired_measurement_verifier.py
+@@ -19,6 +19,8 @@
+ FORMULA = "ceil_calibration_means_plus_max_positive_residual_v1"
+ MAX_PAIRS = 64
+ MAX_WINDOWS = 4096
++MAX_FULL_OUTPUT_TOKENS = 262144
++TIMING_SCOPES = frozenset(("model_forward", "full_decode_step"))
+ MEASUREMENT_ROLES = ("baseline_wrapper", "action_wrapper",
+                      "baseline_observations", "action_observations")
+ 
+@@ -32,6 +34,9 @@
+     action_operations: tuple
+     min_calibration_pairs: int = 2
+     min_validation_pairs: int = 1
++    schema_version: int = 1
++    selections: tuple = ()
++    timing_contract: tuple = ()
+ 
+     @property
+     def gpu_verified(self):
+@@ -49,6 +54,10 @@
+     measured_windows: int
+     warmup_windows: int
+     max_positive_residual_ns: int
++    schema_version: int = 1
++    timing_scope: str = "historical_cpu_host_fixture"
++    clock_domain: str = "host_monotonic_ns_fixture"
++    complete_trace_refs: tuple = ()
+ 
+ 
+ @dataclass(frozen=True)
+@@ -116,11 +125,12 @@
+              "independently pinned plan path/ref required")
+     path = expected_plan_ref.verify(root)
+     data, _, _ = _read_json(path, expected_plan_ref)
++    version = data.get("schema_version") if type(data) is dict else None
++    _require(type(version) is int and version in (1, 2), "exact semantic plan schema 1 or 2 required")
++    extra = ("selections", "timing_contract") if version == 2 else ()
+     _keys(data, ("schema_version", "scope", "context", "workload_split_ref",
+                  "action_operations", "min_calibration_pairs", "min_validation_pairs",
+-                 "max_pairs", "max_windows", "formula"), "semantic plan")
+-    _require(type(data["schema_version"]) is int and data["schema_version"] == 1,
+-             "exact semantic plan schema 1 required")
++                 "max_pairs", "max_windows", "formula") + extra, "semantic plan")
+     _require(data["scope"] == "p4_paired_semantic_plan" and data["formula"] == FORMULA,
+              "frozen CPU semantic plan/formula required")
+     context = TableContext.from_mapping(data["context"])
+@@ -173,11 +183,13 @@
+         _text(name, "cell id")
+         _integer(count, "action operations", 1)
+     _require({e["cell_id"] for e in entries} == set(ops), "frozen split/operation cell map differs")
++    selections, timing = _v2_plan(root, data, ops) if version == 2 else ((), ())
+     expected_plan_ref.verify(root)
+     split_ref.verify(root)
+     return PairedVerificationPlan(context, expected_plan_ref, split_ref,
+                                   tuple(frozen_entries), tuple(sorted(ops.items())),
+-                                  data["min_calibration_pairs"], data["min_validation_pairs"])
++                                  data["min_calibration_pairs"], data["min_validation_pairs"],
++                                  version, selections, timing)
+ 
+ 
+ def _mapping_vector(obj):
+@@ -193,14 +205,14 @@
+     return tuple(result)
+ 
+ 
+-def _measurement(root, ref, *, scope, arm, cell_id, context):
++def _measurement(root, ref, *, scope, arm, cell_id, context, version=1):
+     path = ref.verify(root)
+     _require(path.suffix == ".json", "semantic v1 requires bounded JSON objects, not loose JSONL")
+     data, _, _ = _read_json(path, ref)
+     payload = "runs" if scope == "paired_measurement_wrapper" else "windows"
+     _keys(data, ("schema_version", "scope", "origin", "context", "arm", "cell_id", payload),
+           "raw " + scope)
+-    _require(type(data["schema_version"]) is int and data["schema_version"] == 1 and
++    _require(type(data["schema_version"]) is int and data["schema_version"] == version and
+              data["scope"] == scope, "raw measurement scope/schema mismatch")
+     _require(type(data["origin"]) is str and data["origin"] in ORIGINS, "explicit origin required")
+     _require(data["arm"] == arm and data["cell_id"] == cell_id, "raw measurement arm/cell mismatch")
+@@ -212,6 +224,8 @@
+ 
+ 
+ def _runs(data):
++    if data["schema_version"] == 2:
++        return _v2_runs(data)
+     runs = {}
+     for run in data["runs"]:
+         _keys(run, ("pair_id", "trace_sha256", "prefix_family_sha256", "seed", "split",
+@@ -307,7 +321,7 @@
+         arm = "baseline" if role.startswith("baseline") else "action"
+         scope = "paired_measurement_wrapper" if role.endswith("wrapper") else "paired_window_observations"
+         raw[role] = _measurement(root, refs[role], scope=scope, arm=arm,
+-                                 cell_id=bound.cell_id, context=plan.context)
++                                 cell_id=bound.cell_id, context=plan.context, version=plan.schema_version)
+     origins = {obj["origin"] for obj in raw.values()}
+     _require(len(origins) == 1, "mixed measurement origins")
+     baseline_runs = _runs(raw["baseline_wrapper"])
+@@ -323,7 +337,8 @@
+         entry = frozen.get((baseline["trace_sha256"], baseline["seed"]))
+         _require(entry is not None and all(entry[k] == baseline[k] for k in entry if k != "cell_id"),
+                  "raw workload differs from independently frozen split")
+-        matching = set(baseline) - {"start_ns", "end_ns", "completed_new_io"}
++        matching = set(baseline) - {"start_ns", "end_ns", "completed_new_io",
++                    "accepted_new_io", "complete_trace_ref", "first_step_ordinal"}
+         _require(all(baseline[k] == action[k] for k in matching), "paired seed/trace/work/order mismatch")
+         first, second = (baseline, action) if baseline["arm_order"] == "AB" else (action, baseline)
+         _require(first["end_ns"] <= second["start_ns"], "paired execution order/time mismatch")
+@@ -344,8 +359,15 @@
+         _require(not ({r[field] for r in by_split["calibration"]} &
+                       {r[field] for r in by_split["validation"]}),
+                  "calibration/held-out trace or prefix-family leakage")
+-    base = _windows(raw["baseline_observations"], baseline_runs, bound.cost, plan, False)
+-    action = _windows(raw["action_observations"], action_runs, bound.cost, plan, True)
++    extra_refs = ()
++    if plan.schema_version == 2:
++        base, base_refs, base_outputs = _v2_windows(root, raw["baseline_observations"], baseline_runs, bound.cost, plan, False)
++        action, action_refs, action_outputs = _v2_windows(root, raw["action_observations"], action_runs, bound.cost, plan, True)
++        _require(base_outputs == action_outputs, "paired complete output token IDs differ")
++        extra_refs = base_refs + action_refs
++    else:
++        base = _windows(raw["baseline_observations"], baseline_runs, bound.cost, plan, False)
++        action = _windows(raw["action_observations"], action_runs, bound.cost, plan, True)
+     _require(set(base) == set(action), "missing/misaligned paired windows")
+     pair_means = {}
+     action_step_durations = []
+@@ -360,9 +382,9 @@
+             if key[2] == "warmup":
+                 warmup += 1
+                 continue
+-            durations_base.append(a["end_ns"] - a["start_ns"])
+-            durations_action.append(b["end_ns"] - b["start_ns"])
+-            action_step_durations.append(b["end_ns"] - b["start_ns"])
++            durations_base.append(_duration_ns(a, plan))
++            durations_action.append(_duration_ns(b, plan))
++            action_step_durations.append(_duration_ns(b, plan))
+             measured += 1
+         # Run means retain trace/seed as the independent statistical unit.
+         pair_means[pair] = (_ceil_mean(durations_base), _ceil_mean(durations_action))
+@@ -375,7 +397,11 @@
+                     baseline_ns, incremental, residual)
+     result = VerifiedCell(bound.cell_id, cost, next(iter(origins)),
+                         len(by_split["calibration"]), len(by_split["validation"]),
+-                        len(baseline_runs), measured, warmup, residual)
++                        len(baseline_runs), measured, warmup, residual,
++                        plan.schema_version,
++                        dict(plan.timing_contract)["timing_scope"] if plan.schema_version == 2 else "historical_cpu_host_fixture",
++                        "cuda_event_elapsed" if plan.schema_version == 2 else "host_monotonic_ns_fixture",
++                        tuple(extra_refs))
+     if not check_declared:
+         return result
+     _require(cost == bound.cost and bound.paired_runs_reported == len(baseline_runs) and
+@@ -386,7 +412,7 @@
+                   "evidence_refs", "formula", "baseline_ns", "incremental_or_joint_ns",
+                   "uncertainty_ns", "calibration_pairs", "validation_pairs",
+                   "paired_runs_reported", "windows_reported"), "pair analysis")
+-    _require(type(report["schema_version"]) is int and report["schema_version"] == 1 and
++    _require(type(report["schema_version"]) is int and report["schema_version"] == plan.schema_version and
+              report["scope"] == "p4_paired_analysis_candidate" and report["formula"] == FORMULA,
+              "analysis does not identify exact recomputation method")
+     _require(report["origin"] == next(iter(origins)) and report["cell_id"] == bound.cell_id and
+@@ -453,8 +479,11 @@
+     bound = BoundCell(cell_id, geometry, refs, 0, 0)
+     result = _verify_cell(root, bound, pinned, check_declared=False)
+     cost = result.cost
++    all_refs += result.complete_trace_refs
++    if pinned.schema_version == 2:
++        all_refs += (dict(pinned.timing_contract)["reference_source_ref"],)
+     analysis = {
+-        "schema_version": 1, "scope": "p4_paired_analysis_candidate", "origin": result.origin,
++        "schema_version": pinned.schema_version, "scope": "p4_paired_analysis_candidate", "origin": result.origin,
+         "context": asdict(context), "cell_id": cell_id, "plan_ref": asdict(pinned.plan_ref),
+         "evidence_refs": {role: asdict(ref) for role, ref in refs}, "formula": FORMULA,
+         "baseline_ns": cost.baseline_ns, "incremental_or_joint_ns": cost.incremental_or_joint_ns,
+@@ -489,6 +518,9 @@
+     for ref in refs:
+         ref.verify(root)
+     cells = tuple(_verify_cell(root, cell, expected_plan) for cell in bound_candidate.cells)
++    refs.update(ref for cell in cells for ref in cell.complete_trace_refs)
++    if expected_plan.schema_version == 2:
++        refs.add(dict(expected_plan.timing_contract)["reference_source_ref"])
+     # Reverify every raw byte after arithmetic; no stale values/new source hash.
+     for ref in refs:
+         ref.verify(root)
+@@ -538,3 +570,275 @@
+ def write_semantic_verification_manifest(root, verification, relative_path):
+     data = semantic_manifest(verification)
+     return _write_json_evidence(root, data, relative_path, verification.evidence_refs)
++
++
++def _v2_plan(root, data, operations):
++    """Version 2 is finite, preregistered selection, never GPU qualification."""
++    timing = data["timing_contract"]
++    _keys(timing, ("timing_scope", "clock_domain", "reference_source_ref",
++                  "reference_valid", "fallback_used", "clock_domain_valid"), "frozen timing contract")
++    _require(timing["timing_scope"] in TIMING_SCOPES and
++             timing["clock_domain"] == "cuda_event_elapsed" and
++             timing["reference_valid"] is True and timing["fallback_used"] is False and
++             timing["clock_domain_valid"] is True, "explicit valid GPU elapsed duration contract required")
++    source_ref = EvidenceRef.from_mapping(timing["reference_source_ref"])
++    source_ref.verify(root)
++    selections = data["selections"]
++    _keys(selections, operations, "exact frozen selection cell map")
++    frozen = []
++    for cell_id, selection in selections.items():
++        _keys(selection, ("load", "warmup_step_offsets", "measured_step_offsets"),
++              "frozen step selection")
++        _valid_load(selection["load"])
++        warmup, measured = selection["warmup_step_offsets"], selection["measured_step_offsets"]
++        for values in (warmup, measured):
++            _require(type(values) is list and 1 <= len(values) <= MAX_WINDOWS,
++                     "finite nonempty preregistered step offsets required")
++            for ordinal in values:
++                _integer(ordinal, "frozen step offset")
++                _require(ordinal < MAX_WINDOWS, "step offset exceeds bounded complete trace")
++            _require(values == sorted(set(values)), "selected step offsets must be ordered and unique")
++        _require(max(warmup) < min(measured), "warmup selection must precede measured selection")
++        frozen.append((cell_id, tuple(sorted(selection["load"].items())),
++                       tuple(warmup), tuple(measured)))
++    pinned_timing = dict(timing)
++    pinned_timing["reference_source_ref"] = source_ref
++    return tuple(sorted(frozen)), tuple(sorted(pinned_timing.items()))
++
++
++def _valid_load(load):
++    _keys(load, ("active_decode", "batch", "prefill_tokens", "context_length"), "actual step load")
++    for name, value in load.items():
++        _integer(value, "actual " + name)
++    _require(load["batch"] >= 1 and 0 <= load["active_decode"] <= load["batch"] and
++             load["context_length"] >= 1, "actual decode/batch/context geometry invalid")
++
++
++def _v2_timing(row, plan):
++    timing = row["timing"]
++    _keys(timing, ("timing_scope", "clock_domain", "reference_source_ref",
++                  "reference_valid", "fallback_used", "clock_domain_valid", "gpu_elapsed_ns"),
++          "actual step timing")
++    expected = dict(plan.timing_contract)
++    for name in ("timing_scope", "clock_domain", "reference_valid", "fallback_used", "clock_domain_valid"):
++        _require(type(timing[name]) is type(expected[name]) and timing[name] == expected[name],
++                 "actual timing scope/domain/reference/fallback differs from frozen plan")
++    _require(EvidenceRef.from_mapping(timing["reference_source_ref"]) == expected["reference_source_ref"],
++             "actual timing source differs from frozen byte reference")
++    _integer(timing["gpu_elapsed_ns"], "GPU event elapsed duration", 1)
++    return timing["gpu_elapsed_ns"]
++
++
++def _duration_ns(row, plan):
++    # V1 remains a historical CPU host-duration fixture contract.
++    # V2 host boundaries only establish run membership/order. They never
++    # manufacture a GPU time axis or compare host owner events to GPU events.
++    return _v2_timing(row, plan) if plan.schema_version == 2 else row["end_ns"] - row["start_ns"]
++
++
++def _v2_runs(data):
++    runs = {}
++    for run in data["runs"]:
++        _keys(run, ("pair_id", "trace_sha256", "prefix_family_sha256", "seed", "split",
++                    "arm_order", "warmup_windows", "measured_windows", "input_tokens",
++                    "output_tokens", "request_count", "workload_sha256", "start_ns",
++                    "end_ns", "exit_code", "accepted_io_drained", "completed_new_io",
++                    "accepted_new_io", "complete_trace_ref", "first_step_ordinal",
++                    "full_steps", "full_output_tokens", "selected_output_tokens"), "version 2 paired run")
++        _text(run["pair_id"], "pair identity")
++        _require(run["pair_id"] not in runs, "duplicate run pair")
++        for key in ("trace_sha256", "prefix_family_sha256", "workload_sha256"):
++            _sha(run[key], key)
++        _integer(run["seed"], "trace seed")
++        _require(run["split"] in ("calibration", "validation") and run["arm_order"] in ("AB", "BA"),
++                 "explicit split and paired arm order required")
++        for key in ("warmup_windows", "measured_windows", "input_tokens", "request_count",
++                    "output_tokens", "full_steps", "full_output_tokens", "selected_output_tokens"):
++            _integer(run[key], key, 1)
++        _integer(run["first_step_ordinal"], "actual first native step ordinal")
++        _require(run["output_tokens"] == run["full_output_tokens"] >= 2 and
++                 run["full_output_tokens"] <= MAX_FULL_OUTPUT_TOKENS and
++                 run["full_steps"] <= MAX_WINDOWS and
++                 run["selected_output_tokens"] <= run["full_output_tokens"],
++                 "full actual output and finite selected counts must remain separate")
++        _require(run["request_count"] <= 128, "bounded actual request count")
++        for key in ("start_ns", "end_ns"):
++            _integer(run[key], key)
++        _require(run["end_ns"] > run["start_ns"], "positive host-monotonic run interval")
++        _require(type(run["exit_code"]) is int and run["exit_code"] == 0 and
++                 run["accepted_io_drained"] is True, "successful full accepted-I/O drain required")
++        accepted = _mapping_vector(run["accepted_new_io"])
++        _require(_mapping_vector(run["completed_new_io"]) == accepted,
++                 "all actual accepted extra I/O must be fully completed")
++        EvidenceRef.from_mapping(run["complete_trace_ref"])
++        runs[run["pair_id"]] = run
++    _require(sum(r["full_steps"] for r in runs.values()) <= MAX_WINDOWS and
++             sum(r["full_output_tokens"] for r in runs.values()) <= MAX_FULL_OUTPUT_TOKENS,
++             "whole cell complete trace/output exceeds finite bounds")
++    return runs
++
++
++def _v2_outputs(outputs, request_count):
++    _require(type(outputs) is list and len(outputs) <= request_count, "bounded sample output requests")
++    result = {}
++    total = 0
++    for output in outputs:
++        _keys(output, ("request_id", "token_ids"), "actual sample token output")
++        _text(output["request_id"], "sample request id")
++        _require(output["request_id"] not in result, "duplicate sample request id")
++        tokens = output["token_ids"]
++        _require(type(tokens) is list and len(tokens) <= MAX_FULL_OUTPUT_TOKENS,
++                 "bounded actual token IDs")
++        for token in tokens:
++            _integer(token, "actual token id")
++        result[output["request_id"]] = tokens
++        total += len(tokens)
++    _require(total <= MAX_FULL_OUTPUT_TOKENS, "bounded actual output token sum")
++    return result, total
++
++
++def _v2_complete_trace(root, run, data, plan):
++    ref = EvidenceRef.from_mapping(run["complete_trace_ref"])
++    trace, _, _ = _read_json(ref.verify(root), ref)
++    _keys(trace, ("schema_version", "scope", "origin", "context", "arm", "cell_id",
++                  "pair_id", "steps", "outputs", "outside_window_new_io",
++                  "accepted_new_io", "completed_new_io", "accepted_io_drained"),
++          "complete actual step/output trace")
++    _require(type(trace["schema_version"]) is int and trace["schema_version"] == 2 and
++             trace["scope"] == "p4_complete_step_output_trace" and
++             trace["origin"] == data["origin"] and trace["arm"] == data["arm"] and
++             trace["cell_id"] == data["cell_id"] and trace["pair_id"] == run["pair_id"] and
++             TableContext.from_mapping(trace["context"]) == plan.context,
++             "complete trace version/origin/context/arm/cell/pair differs")
++    rows = trace["steps"]
++    _require(type(rows) is list and len(rows) == run["full_steps"] and len(rows) <= MAX_WINDOWS,
++             "complete trace must include every actual step")
++    full_outputs, full_total = _v2_outputs(trace["outputs"], run["request_count"])
++    _require(len(full_outputs) == run["request_count"] and full_total == run["full_output_tokens"],
++             "complete raw output must cover all actual request token IDs/counts")
++    reconstructed = {name: [] for name in full_outputs}
++    io_total = list(_mapping_vector(trace["outside_window_new_io"]))
++    last_end = run["start_ns"]
++    for offset, row in enumerate(rows):
++        optional_kind = ("step_kind",) if type(row) is dict and "step_kind" in row else ()
++        _keys(row, ("step_offset", "native_step_ordinal", "start_ns", "end_ns", "load",
++                    "existing_io", "new_io", "outputs", "timing") + optional_kind, "complete actual step")
++        _require(type(row["step_offset"]) is int and row["step_offset"] == offset and
++                 type(row["native_step_ordinal"]) is int and
++                 row["native_step_ordinal"] == run["first_step_ordinal"] + offset,
++                 "actual step ordinal missing/reordered/duplicated")
++        for key in ("start_ns", "end_ns"):
++            _integer(row[key], "actual host " + key)
++        _require(last_end <= row["start_ns"] < row["end_ns"] <= run["end_ns"],
++                 "full trace host windows must be ordered within actual run")
++        last_end = row["end_ns"]
++        _valid_load(row["load"])
++        _require(row["load"]["batch"] <= run["request_count"],
++                 "actual trace batch cannot exceed complete run request count")
++        pure_decode = (row["load"]["active_decode"] == row["load"]["batch"] and
++                       row["load"]["prefill_tokens"] == 0)
++        _require((pure_decode and not optional_kind) or
++                 (row.get("step_kind") == "prefill" and row["load"]["active_decode"] == 0 and
++                  row["load"]["prefill_tokens"] > 0),
++                 "non-pure trace requires explicit actual prefill kind; mixed/spec/dummy/async unknown unsupported")
++        _mapping_vector(row["existing_io"])
++        extra = _mapping_vector(row["new_io"])
++        if data["arm"] == "baseline":
++            _require(extra == ZERO, "baseline cannot contain experimental extra I/O")
++        for i in range(4):
++            io_total[i] = Amount(io_total[i].ops + extra[i].ops, io_total[i].nbytes + extra[i].nbytes)
++        outputs, count = _v2_outputs(row["outputs"], run["request_count"])
++        _require(all(len(tokens) <= 1 for tokens in outputs.values()) and count <= row["load"]["batch"],
++                 "non-speculative actual forward permits at most one output token per request/batch")
++        _require(not pure_decode or count == row["load"]["active_decode"],
++                 "every actual pure-decode forward must include one sampled token per active request")
++        _require(set(outputs) <= set(full_outputs), "step output references unknown actual request")
++        for name, tokens in outputs.items():
++            reconstructed[name].extend(tokens)
++        _v2_timing(row, plan)
++    _require(reconstructed == full_outputs, "step sample token IDs do not reconstruct complete raw outputs")
++    _require(trace["accepted_io_drained"] is True and
++             _mapping_vector(trace["accepted_new_io"]) == tuple(io_total) and
++             _mapping_vector(trace["completed_new_io"]) == tuple(io_total) and
++             _mapping_vector(run["accepted_new_io"]) == tuple(io_total) and
++             _mapping_vector(run["completed_new_io"]) == tuple(io_total),
++             "complete run additional accepted I/O totals/drain are inconsistent")
++    if data["arm"] == "baseline":
++        _require(tuple(io_total) == ZERO, "baseline outside-window experimental I/O forbidden")
++    ref.verify(root)
++    return rows, ref, full_outputs
++
++
++def _v2_windows(root, data, runs, cost, plan, action):
++    selection = {item[0]: item[1:] for item in plan.selections}[data["cell_id"]]
++    frozen_load, warmup_offsets, measured_offsets = selection
++    expected_load = dict(zip(("active_decode", "batch", "prefill_tokens", "context_length"),
++                             cost.load_signature[4:8]))
++    _require(expected_load == dict(frozen_load) and
++             0 < expected_load["active_decode"] == expected_load["batch"] and
++             expected_load["prefill_tokens"] == 0,
++             "candidate load differs from preregistered pure-decode exact cell")
++    ops = dict(plan.action_operations)[data["cell_id"]]
++    _require(ops <= cost.physical_bytes // plan.context.transfer_quantum_bytes,
++             "frozen physical operation count exceeds transfer units")
++    expected_new = list(ZERO)
++    if action:
++        expected_new[STAGES.index(cost.stage)] = Amount(ops, cost.physical_bytes)
++    expected_new = tuple(expected_new)
++    expected_existing = cost.existing_io if action or cost.basis == "existing_io_plus_delta" else ZERO
++    full = {}
++    outputs_by_pair = {}
++    extra_refs = []
++    for pair, run in runs.items():
++        _require(run["warmup_windows"] == len(warmup_offsets) and
++                 run["measured_windows"] == len(measured_offsets),
++                 "wrapper selected counts differ from preregistered offsets")
++        rows, ref, outputs = _v2_complete_trace(root, run, data, plan)
++        _require(max(measured_offsets) < len(rows), "preregistered selection outside complete run")
++        full[pair] = rows
++        outputs_by_pair[pair] = outputs
++        extra_refs.append(ref)
++    windows = {}
++    selected_tokens = {pair: 0 for pair in runs}
++    for row in data["windows"]:
++        _keys(row, ("pair_id", "window_id", "phase", "step_offset", "native_step_ordinal",
++                    "start_ns", "end_ns", "load", "existing_io", "new_io", "output_tokens",
++                    "timing"), "version 2 selected raw window")
++        pair, offset = row["pair_id"], row["step_offset"]
++        _require(type(pair) is str and pair in runs, "selected window references unknown pair")
++        _integer(offset, "selected actual step offset")
++        _require(offset in warmup_offsets or offset in measured_offsets, "unregistered measured selection")
++        phase = "warmup" if offset in warmup_offsets else "measured"
++        _require(row["phase"] == phase and row["window_id"] == "step-" + str(offset),
++                 "selected phase/window identity differs from frozen offset")
++        key = (pair, row["window_id"], phase)
++        _require(key not in windows, "duplicate selected actual step")
++        actual = full[pair][offset]
++        for name in ("native_step_ordinal", "start_ns", "end_ns"):
++            _integer(row[name], "selected " + name)
++        _valid_load(row["load"])
++        _mapping_vector(row["existing_io"])
++        _mapping_vector(row["new_io"])
++        _v2_timing(row, plan)
++        _require(all(row[name] == actual[name] for name in
++                     ("step_offset", "native_step_ordinal", "start_ns", "end_ns", "load",
++                      "existing_io", "new_io", "timing")), "selected window is not exact full trace projection")
++        _, count = _v2_outputs(actual["outputs"], runs[pair]["request_count"])
++        _require(type(row["output_tokens"]) is int and row["output_tokens"] == count,
++                 "selected output count differs from actual sample token IDs")
++        if phase == "measured":
++            _require(actual["load"] == expected_load and count == expected_load["active_decode"],
++                     "measured non-speculative pure-decode output count must equal actual active batch")
++            _require(_mapping_vector(actual["existing_io"]) == expected_existing,
++                     "selected existing-I/O basis/action drift")
++            _require(_mapping_vector(actual["new_io"]) == expected_new,
++                     "selected extra action must exactly match one frozen physical stage")
++            selected_tokens[pair] += count
++        windows[key] = row
++    required = {(pair, "step-" + str(offset), "warmup" if offset in warmup_offsets else "measured")
++                for pair in runs for offset in warmup_offsets + measured_offsets}
++    _require(set(windows) == required, "selected observations must cover exactly every preregistered offset")
++    for pair, count in selected_tokens.items():
++        _require(runs[pair]["selected_output_tokens"] == count,
++                 "wrapper selected output must not replace complete output count")
++    return windows, tuple(extra_refs), outputs_by_pair

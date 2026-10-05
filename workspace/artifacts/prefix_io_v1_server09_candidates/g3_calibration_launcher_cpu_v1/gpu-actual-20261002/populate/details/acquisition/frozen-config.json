@@ -1,0 +1,193 @@
+{
+  "model": {
+    "source": "https://modelscope.cn",
+    "provider": "modelscope",
+    "revision_namespace": "modelscope_git_commit",
+    "provenance": {
+      "publisher": "Qwen",
+      "official_channel_url": "https://modelscope.cn/organization/qwen",
+      "publisher_github": "https://github.com/QwenLM",
+      "revision_namespace": "modelscope_git_commit",
+      "evidence": [
+        {
+          "role": "official_release",
+          "url": "https://qwenlm.github.io/blog/qwen2.5/",
+          "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/qwen25-release-blog.html",
+          "sha256": "feca9bb5e0bcbd95b4030c9b490ba26ebe4576d7899cc633814a42e0c2c52bcf",
+          "bytes": 51224
+        },
+        {
+          "role": "provider_model",
+          "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct",
+          "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-model.json",
+          "sha256": "c8c71e8ddf33eea4f0102b52fa4ccb401a71bc2d3b5a32cf0be0f3665e9ad6e8",
+          "bytes": 16155
+        },
+        {
+          "role": "pinned_files",
+          "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo/files?Revision=16c174980d8a1492910551634b4969e69cdc2444&Recursive=true",
+          "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-files-pinned.json",
+          "sha256": "e84a0c966b2e295e3182e47e13c678765381503ba4819e2176c3589f7352d6e4",
+          "bytes": 6065
+        },
+        {
+          "role": "config",
+          "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=config.json",
+          "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/config.json",
+          "sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c",
+          "bytes": 663
+        },
+        {
+          "role": "safetensors_index",
+          "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=model.safetensors.index.json",
+          "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/model.safetensors.index.json",
+          "sha256": "624bf7c47cd12468fdc16e38a47cf4f19e0415b859a223ba3c027eed2f0e1028",
+          "bytes": 27752
+        },
+        {
+          "role": "tokenizer_config",
+          "url": "https://modelscope.cn/api/v1/models/Qwen/Qwen2.5-7B-Instruct/repo?Revision=16c174980d8a1492910551634b4969e69cdc2444&FilePath=tokenizer_config.json",
+          "path": "artifacts/prefix_io_v1/new-server-03/modelscope-source/tokenizer_config.json",
+          "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "bytes": 7305
+        }
+      ]
+    },
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "revision": "16c174980d8a1492910551634b4969e69cdc2444",
+    "manifest_sha256": "9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017",
+    "plan_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "plan_sha256": "9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017",
+    "verified_local_files": {
+      "config.json": {
+        "bytes": 663,
+        "hash_algorithm": "sha256",
+        "hash": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c"
+      },
+      "generation_config.json": {
+        "bytes": 243,
+        "hash_algorithm": "sha256",
+        "hash": "3a8f9087e486054c8a4a08dae2e5a3ba62e23da212b5b8c08bc42cb983c3459f"
+      },
+      "merges.txt": {
+        "bytes": 1671839,
+        "hash_algorithm": "sha256",
+        "hash": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+      },
+      "model-00001-of-00004.safetensors": {
+        "bytes": 3945441440,
+        "hash_algorithm": "sha256",
+        "hash": "a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7"
+      },
+      "model-00002-of-00004.safetensors": {
+        "bytes": 3864726352,
+        "hash_algorithm": "sha256",
+        "hash": "f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185"
+      },
+      "model-00003-of-00004.safetensors": {
+        "bytes": 3864726424,
+        "hash_algorithm": "sha256",
+        "hash": "8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5"
+      },
+      "model-00004-of-00004.safetensors": {
+        "bytes": 3556377672,
+        "hash_algorithm": "sha256",
+        "hash": "1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd"
+      },
+      "model.safetensors.index.json": {
+        "bytes": 27752,
+        "hash_algorithm": "sha256",
+        "hash": "624bf7c47cd12468fdc16e38a47cf4f19e0415b859a223ba3c027eed2f0e1028"
+      },
+      "tokenizer.json": {
+        "bytes": 7031645,
+        "hash_algorithm": "sha256",
+        "hash": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+      },
+      "tokenizer_config.json": {
+        "bytes": 7305,
+        "hash_algorithm": "sha256",
+        "hash": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+      },
+      "vocab.json": {
+        "bytes": 2776833,
+        "hash_algorithm": "sha256",
+        "hash": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      }
+    }
+  },
+  "model_alias": "Qwen/Qwen2.5-7B-Instruct",
+  "alias_target": "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+  "engine": {
+    "dtype": "bfloat16",
+    "kv_cache_dtype": "auto",
+    "quantization": null,
+    "load_format": "safetensors",
+    "trust_remote_code": false,
+    "skip_tokenizer_init": true,
+    "tensor_parallel_size": 1,
+    "distributed_executor_backend": "uni",
+    "max_model_len": 1040,
+    "max_num_seqs": 1,
+    "max_num_batched_tokens": 1040,
+    "block_size": 16,
+    "kv_cache_memory_bytes": 268435456,
+    "gpu_memory_utilization": 0.7,
+    "enable_prefix_caching": true,
+    "enable_chunked_prefill": true,
+    "cpu_offload_gb": 0,
+    "offload_group_size": 0,
+    "kv_offloading_size": null,
+    "kv_transfer_config": {
+      "kv_connector": "OffloadingConnector",
+      "kv_role": "kv_both",
+      "kv_connector_extra_config": {
+        "spec_name": "PyKvCacheOffloadingSpec",
+        "spec_module_path": "py_kvcache.vllm",
+        "shared_storage_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-01-private-storage",
+        "block_size": 16,
+        "sync_on_store": false,
+        "staging_mem": 0.125,
+        "iodepth": 4,
+        "enable_preload": true,
+        "preload_lookahead_requests": 1,
+        "preload_share_staging": true,
+        "staging_cache": "lru",
+        "load_planner": "off",
+        "io_backend": "linux_aio"
+      }
+    },
+    "attention_config": {
+      "backend": "TRITON_ATTN"
+    },
+    "enforce_eager": true,
+    "compilation_config": 0,
+    "generation_config": "vllm",
+    "disable_log_stats": false,
+    "seed": 0,
+    "async_scheduling": false,
+    "prefix_caching_hash_algo": "sha256"
+  },
+  "sampling": {
+    "temperature": 0.0,
+    "seed": 0,
+    "max_tokens": 1,
+    "min_tokens": 1,
+    "ignore_eos": true,
+    "detokenize": false
+  },
+  "sizes": [
+    128
+  ],
+  "reps": 3,
+  "acquisition_domain": 1024,
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "pythonhashseed": "0",
+  "planned_request_batch": 1,
+  "cost_acquisition_only": true,
+  "prompt_manifest": null,
+  "measured_axis": "reusable prefix N; identical request has N+1 tokens, output one token",
+  "native_hot_diagnostic": false,
+  "cached_reference_logprobs": false,
+  "terminal_knot_note": "context includes terminal prefix plus query; extended samples are not exported runtime curves"
+}

@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_APPEND_DELIVERY_CPU_READY_USER_G3_SCOPE_RECORDED_NO_GPU",
+  "files": [
+    {
+      "path": "run_g3_calibration_pilot_v2.py",
+      "bytes": 17150,
+      "sha256": "d8da9e20ed4dc26d00b7aac7830dac0300503ca7d3da6800e155c6be5a261096"
+    },
+    {
+      "path": "test_run_g3_calibration_pilot_v2.py",
+      "bytes": 9127,
+      "sha256": "7ec92bd4c6a0673a26288ae7f4f6adb57413407d525b62c9d7e8f22e2478cf75"
+    },
+    {
+      "path": "G3_STORAGE_BINDING_REPAIR_DERIVATION.json",
+      "bytes": 2005,
+      "sha256": "7032aae34def1b0ea4f0263db956df18c32774202dbf870fc96dc92d5ffe6f5d"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD_G3_CONTINUE_20261002.json",
+      "bytes": 6794,
+      "sha256": "8de5cfbcc62638e969324dc9eb597c060426c022b632537080f4885058191df7"
+    },
+    {
+      "path": "G3_AUTHORIZED_SCOPE_20261002.json",
+      "bytes": 4788,
+      "sha256": "81ea2abb1e47bd8642c37460e05e433cffd744623d9d7233464de25f30f4560e"
+    },
+    {
+      "path": "GPU_SOURCE_LOCK_STORAGE_V2_REF.json",
+      "bytes": 219,
+      "sha256": "6d387fd16b9623de7bb42a0bbcec42c84efcc5c551c32aa63c4e8d8d0d5e5ad9"
+    },
+    {
+      "path": "G3_STORAGE_BINDING_V2.diff",
+      "bytes": 4768,
+      "sha256": "0e320ff1aa5dddb8a77a84384207cd857d4102d2dc5375f1a03dbddb03c32813"
+    },
+    {
+      "path": "G3_AUTHORIZED_LAUNCH_COMMANDS.json",
+      "bytes": 2574,
+      "sha256": "0e7c45875cf96bd3c0f01ee203c4c6e308e23c956180a1b0930fdbd7a46e7888"
+    },
+    {
+      "path": "gpu-source-lock-storage-v2.json",
+      "bytes": 904979,
+      "sha256": "7e1599a885f2bed8ad93e30057e34660e7aa0aa7d0b5888e5e53fe01feb4276d"
+    },
+    {
+      "path": "ACTUAL_G3_CONTINUE_INITIAL_NO_GPU_COMMAND.json",
+      "bytes": 1328,
+      "sha256": "2c441a7a2fca491b1b3c0d5e699547bb2f2bde85b185c763f1d17540eac62fe6"
+    },
+    {
+      "path": "ACTUAL_G3_CONTINUE_INITIAL_NO_GPU_RESULT.json",
+      "bytes": 562,
+      "sha256": "468139ff99118011b0aabcc3adb304c10f7c21851ce153a7c4b8a89982d9bdfd"
+    },
+    {
+      "path": "ACTUAL_G3_CONTINUE_V2_INITIAL_UPLOAD_RESULT.json",
+      "bytes": 1348,
+      "sha256": "1ad4aa208d910d42e22c868265dfa4bd4212ac3d143908bfd0f0d27ce1cb547f"
+    },
+    {
+      "path": "ACTUAL_G3_CONTINUE_V2_CPU_CHECK_COMMAND.json",
+      "bytes": 5646,
+      "sha256": "66b8bc876422d53821af13330ca06a77e4d8bbf30574587801e1cc7f8605185e"
+    },
+    {
+      "path": "ACTUAL_G3_CONTINUE_V2_CPU_CHECK_RESULT.json",
+      "bytes": 561,
+      "sha256": "fbef236ec44af639a1a2c1fba83ec24543b2e3deef58b81366433d504ee73c24"
+    },
+    {
+      "path": "ACTUAL_G3_STORAGE_V2_FULL_CPU_READINESS_COMMAND.json",
+      "bytes": 2461,
+      "sha256": "41b1f7dfd0bc1cb018e52ca27cf34ed92dbce80123c3245ba80a9c129dc49b74"
+    },
+    {
+      "path": "ACTUAL_G3_STORAGE_V2_FULL_CPU_READINESS_RPC_RESULT.json",
+      "bytes": 314,
+      "sha256": "39108a56f1f9229e11064dfa6a495bf0b5a2e0c816e0c26133220bd9f3c1a8b1"
+    },
+    {
+      "path": "ACTUAL_G3_CONTINUE_V2_DOWNLOAD_RECEIPTS.json",
+      "bytes": 599,
+      "sha256": "71bf7fb2c73783cfa7f91725e78fbe32edffc70f2c5a00e397882a5141104e9c"
+    },
+    {
+      "path": "ACTUAL_G3_STORAGE_V2_SERVER_CPU_TESTS.log",
+      "bytes": 1593,
+      "sha256": "f8184413813da49ae243ffaa8361c092d65d10b07900f3740063746b92be7b4b"
+    },
+    {
+      "path": "ACTUAL_G3_STORAGE_V2_SERVER_CPU_TESTS.json",
+      "bytes": 2107,
+      "sha256": "0cbdd8a86317c14bc958b84c535b9552437777b2c06d83b528783458c6acd433"
+    },
+    {
+      "path": "ACTUAL_G3_CONTINUE_SCOPE_AND_NO_GPU_CHECK.json",
+      "bytes": 2869,
+      "sha256": "9c27466aefef26fb0ce54fc1ed93879988b67314e7b954588383813dcdc9d060"
+    },
+    {
+      "path": "ACTUAL_G3_STORAGE_V2_FULL_CPU_READINESS.log",
+      "bytes": 1699,
+      "sha256": "f43733d235413e2d625247aa0eb4fd78668d72198ad01570686d95613e427e3a"
+    },
+    {
+      "path": "ACTUAL_G3_STORAGE_V2_FULL_CPU_READINESS.json",
+      "bytes": 4743,
+      "sha256": "8e192957e3edd276c5310d1d1e3379706af3f83a6193c386fb5dc25a64c14a6e"
+    },
+    {
+      "path": "INDEPENDENT_G3_STORAGE_V2_SCOPE_REVIEW.json",
+      "bytes": 2347,
+      "sha256": "1ac3c6c61d7e4c9563bb5c13bea6385f2464e1ecd96400d45775ebe44d1cacb4"
+    },
+    {
+      "path": "SERVER09_G3_CONTINUE_GPU_READY_REPORT.md",
+      "bytes": 6028,
+      "sha256": "187ff28825f75140a923cb9d1d40dd5634267fc1be814ef65485e8f6e4c5e2c6"
+    }
+  ],
+  "file_count": 24,
+  "total_bytes": 986609,
+  "existing_97_file_delivery_manifest_unchanged": true,
+  "current_execution_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-storage-v2.json",
+    "bytes": 904979,
+    "sha256": "7e1599a885f2bed8ad93e30057e34660e7aa0aa7d0b5888e5e53fe01feb4276d"
+  },
+  "authorization_origin": "direct_typed_user_continue_under_same_three_job_scope",
+  "physical_GPU_unavailable": true,
+  "actual_new_GPU_jobs": 0,
+  "cost_qualified": false,
+  "production_qualified": false,
+  "effect_verified": false,
+  "original_cumulative_8h_budget_unchanged": true,
+  "source_sha_is_derived_binding_not_user_verbatim_hash": true
+}

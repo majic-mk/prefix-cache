@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "USER_AUTHORIZED_P4_GPU_NATIVE_QUALIFICATION",
+  "allow_gpu_initialization": true,
+  "allow_gpu_runs": true,
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "new_executor": false,
+  "allow_model_downloads": false,
+  "gpu_uuid": "GPU-4b4d17ec-95a3-4efd-2bc4-1613333e949f",
+  "base_permissions": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server10.reference.yaml",
+    "bytes": 685,
+    "sha256": "aa54897390dd18c71f4578d45c87b74a3d26a3c63daea2660bf752c41be3be50"
+  },
+  "source_lock": "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/gpu-source-lock-native-qualification.json",
+  "source_lock_sha256": "4eda4ea59fa200c411a05b18efc50995a78d2bd62a544b2cb991e1d2c45964c0",
+  "qualification_context": {
+    "native": "third_party/work/py-kvcache-p4-02-cpu",
+    "control": "third_party/work/prefix-io-p4-02-cpu/src",
+    "author": "third_party/work/vllm-author-p4-02-cpu",
+    "compiled_binary": "third_party/work/vllm-author-build/vllm",
+    "storage_reserve_bytes": 134217728,
+    "seconds_limit": 180,
+    "staging_budget_bytes": 16777216,
+    "staging_iodepth": 1,
+    "new_executor": false,
+    "model_loaded": false
+  },
+  "permitted_run_names": {
+    "off": "server10-p4-native-off-01",
+    "shadow": "server10-p4-native-shadow-01"
+  },
+  "maximum_jobs": 2,
+  "maximum_total_planned_reserve_seconds": 400,
+  "retries": 0,
+  "required_order": [
+    "off",
+    "shadow"
+  ],
+  "shadow_requires_successful_off_and_shutdown": true,
+  "human_authorization_record": {
+    "path": "artifacts/prefix_io_v1/server10-native-qualification-v1-20261003/HUMAN_AUTHORIZATION_RECORD.json",
+    "bytes": 2765,
+    "sha256": "4edc3b83a485c98923e5dbcdc064522dc327514ebe1fa86c23a688ae813c8f96"
+  }
+}

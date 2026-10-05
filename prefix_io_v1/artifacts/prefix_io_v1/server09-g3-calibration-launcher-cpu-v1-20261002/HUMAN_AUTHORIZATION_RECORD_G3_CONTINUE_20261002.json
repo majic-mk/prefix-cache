@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "authorization_origin": "direct_human_reply",
+  "question": "CPU 准备已完成：服务器 86 项测试、4,063 项源码/资产核验、两侧 97 文件交付均通过。是否授权恢复有卡后执行 G3 的 cold → populate → paired，最多 3 次，每次 300 秒执行加 20 秒收尾，总预约 960 秒（16 分钟），沿用原 8 小时预算（剩约 3.22 小时）？先核验驱动、登记 GPU UUID 和显存；一致才运行。固定 18 个原请求、各输出 1 token；预留 3 GiB、保留 8 GiB 空间，不下载、不修改系统/驱动、不删除数据。任一次失败即停止，不重试。本轮验证原生 SSD/staging 路径与原 TTFT，尚不是 P4 性能提升实验。\n\n源码锁 SHA-256：263b3eea9560de916860fb3340e9421ad76a49d3a15d4008857773e342fc152e。\n\n需要这次限定授权，因为此前授权只覆盖已完成的 G2 off05/shadow05 两次作业，不能用于这 3 个新作业。",
+  "verbatim_user_answer": "继续",
+  "reply_observed_utc": "2026-10-01 19:42:04 UTC",
+  "question_item_id": "not_applicable:direct_typed_user_message",
+  "reply_medium": "direct_typed_user_message",
+  "observation_timestamp_is_not_user_sent_timestamp": true,
+  "form_response_id_fabricated": false,
+  "normalized_execution_binding_is_agent_record_not_verbatim_user_hash": true,
+  "original_proposal_source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-final.json",
+    "bytes": 904019,
+    "sha256": "263b3eea9560de916860fb3340e9421ad76a49d3a15d4008857773e342fc152e"
+  },
+  "execution_source_derivation_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/G3_STORAGE_BINDING_REPAIR_DERIVATION.json",
+    "bytes": 2005,
+    "sha256": "7032aae34def1b0ea4f0263db956df18c32774202dbf870fc96dc92d5ffe6f5d"
+  },
+  "interpretation": "The direct typed continuation approves the immediately preceding finite three-job proposal. The execution binding records a minimal append-only storage fix to honor its unchanged frozen context. The user did not recite or explicitly approve the derived hash; this is implementation follow-through under the same authorized scope, not a new GPU experiment or extra attempt.",
+  "allow_gpu_initialization": true,
+  "allow_gpu_runs": true,
+  "physical_GPU_must_be_present_and_strict_driver_UUID_VRAM_guards_must_pass": true,
+  "purpose": "CURRENT_CONTEXT_NATIVE_RAW_COST_PILOT_ONLY",
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "allowed_modes": [
+    "cold",
+    "populate",
+    "paired"
+  ],
+  "permitted_run_names": {
+    "cold": "server09-g3-calibration-cold-01",
+    "populate": "server09-g3-calibration-populate-01",
+    "paired": "server09-g3-calibration-paired-01"
+  },
+  "maximum_jobs": 3,
+  "maximum_total_planned_reserve_seconds": 960,
+  "seconds_limit_per_job": 300,
+  "guard_reserve_seconds_per_job": 20,
+  "qualification_context": {
+    "purpose": "CURRENT_CONTEXT_NATIVE_RAW_COST_PILOT_ONLY",
+    "project_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "model_relative": "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "model_plan_relative": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "model_alias": "Qwen/Qwen2.5-7B-Instruct",
+    "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+    "acquisition_source": {
+      "path": "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    "engine_source": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "acquisition_domain": 1024,
+    "sizes": [
+      128
+    ],
+    "reps": 3,
+    "max_num_seqs": 1,
+    "iodepth": 4,
+    "prompt_tokens_per_main_request": 129,
+    "reusable_prefix_tokens": 128,
+    "outputs_per_request": 1,
+    "requests_by_mode": {
+      "cold": 3,
+      "populate": 9,
+      "paired": 6
+    },
+    "total_requests": 18,
+    "total_outputs": 18,
+    "warmup_rep": 0,
+    "measured_samples_per_point_per_route": 2,
+    "engine_overrides": {
+      "async_scheduling": false,
+      "max_model_len": 1040,
+      "max_num_batched_tokens": 1040,
+      "kv_cache_memory_bytes": 268435456,
+      "prefix_caching_hash_algo": "sha256",
+      "disable_log_stats": false
+    },
+    "sampling": {
+      "temperature": 0.0,
+      "seed": 0,
+      "max_tokens": 1,
+      "min_tokens": 1,
+      "ignore_eos": true,
+      "detokenize": false
+    },
+    "connector": {
+      "io_backend": "linux_aio",
+      "sync_on_store": false,
+      "staging_mem": 0.125,
+      "enable_preload": true,
+      "preload_share_staging": true,
+      "preload_lookahead_requests": 1,
+      "staging_cache": "lru",
+      "load_planner": "off",
+      "prefix_cache_break_even_path": null
+    },
+    "shared_storage_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-01-private-storage",
+    "strategies": "off",
+    "asynchronous_author_io_preserved": true,
+    "new_executor": false,
+    "reset_scope": "original calibration GPU-only resets; reset_connector=False",
+    "timing_scope": "original metrics.first_token_latency wall-clock TTFT; not GPU event cost",
+    "curve_output": false,
+    "cost_qualified": false,
+    "production_qualified": false,
+    "performance_claim": false,
+    "budget_reset": false,
+    "cumulative_gpu_budget_seconds": 28800,
+    "seconds_limit_per_job": 300,
+    "guard_reserve_seconds_per_job": 20,
+    "total_reserved_seconds": 960,
+    "storage_reserve_bytes_per_job": 1073741824,
+    "total_storage_reserve_bytes": 3221225472,
+    "storage_floor_bytes": 8589934592,
+    "existing_assets_only": true,
+    "no_download": true,
+    "no_system_or_author_changes": true,
+    "no_data_deletion": true
+  },
+  "source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-storage-v2.json",
+    "bytes": 904979,
+    "sha256": "7e1599a885f2bed8ad93e30057e34660e7aa0aa7d0b5888e5e53fe01feb4276d"
+  },
+  "cpu_plan_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/G3_CALIBRATION_CPU_PLAN.json",
+    "bytes": 9516,
+    "sha256": "b33dd9e983dbfaaa615db53f621a6a53a5cb0768cbfa0fc94cabb9951a6527fb"
+  },
+  "base_permissions": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml",
+    "bytes": 671,
+    "sha256": "eebc8ff9b3ca09c844514847e615099cf96c80d0361c7a493e0d5fdfc5a10e20"
+  },
+  "baseline_source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261002/gpu-source-lock-candidate.json",
+    "bytes": 899396,
+    "sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b"
+  }
+}

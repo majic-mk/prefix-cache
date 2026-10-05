@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "USER_AUTHORIZED_P4_GPU_NATIVE_QUALIFICATION",
+  "authorization_record": {
+    "path": "artifacts/prefix_io_v1/server09-g1-20261001/HUMAN_AUTHORIZATION_RECORD.json",
+    "bytes": 1133,
+    "sha256": "2ec66c3243ddc98ed4c65c79aca927fed171dbb05fc63a838206499b677696a4"
+  },
+  "allow_gpu_initialization": true,
+  "allow_gpu_runs": true,
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "new_executor": false,
+  "allow_model_downloads": false,
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "base_permissions": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml",
+    "bytes": 671,
+    "sha256": "eebc8ff9b3ca09c844514847e615099cf96c80d0361c7a493e0d5fdfc5a10e20"
+  },
+  "source_lock": "artifacts/prefix_io_v1/server09-g1-20261001/gpu-source-lock.json",
+  "source_lock_sha256": "5b438ebc1ec014c22d1d501915600b4cd9bc777ad9f05da1f7ac9b1a18cc1181",
+  "qualification_context": {
+    "native": "third_party/work/py-kvcache-p4-02-cpu",
+    "control": "third_party/work/prefix-io-p4-02-cpu/src",
+    "author": "third_party/work/vllm-author-p4-02-cpu",
+    "compiled_binary": "third_party/work/vllm-author-build/vllm",
+    "storage_reserve_bytes": 134217728,
+    "seconds_limit": 180,
+    "staging_budget_bytes": 16777216,
+    "staging_iodepth": 1,
+    "new_executor": false,
+    "model_loaded": false
+  },
+  "maximum_jobs": 2,
+  "maximum_total_planned_reserve_seconds": 400,
+  "permitted_run_names": {
+    "off": "server09-p4-native-off-01",
+    "shadow": "server09-p4-native-shadow-01"
+  }
+}

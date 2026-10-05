@@ -1,0 +1,27 @@
+# New designated server grant: authorizations/new_server_07.json; budgets and system restrictions preserved.
+# Scope-limited user grant: authorizations/io_uring_20260927.json
+# General driver/system permission stays false; the exception applies only to supported io_uring changes in the named experimental container.
+# Project permission contract; authorization provenance in new-server-02/authorization.json.
+schema_version: 1
+allow_project_local_edits: true
+allow_cpu_tests: true
+allow_public_source_read: true
+allow_remote_push: false
+allow_new_cloud_rental: false
+allow_payment: false
+allow_driver_or_system_changes: false
+allow_shared_data_deletion: false
+allow_gpu_runs: true
+allow_model_downloads: true
+max_gpu_hours: 8
+max_model_download_gib: 20
+approved_gpu_ids:
+- GPU-f8744916-1693-fa6a-93b6-7f503c03459c
+approved_experiment_root: /root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs
+approved_dependency_root: /root/autodl-tmp/prefix-io-v1-handoff/project
+# Explicit user approval: system disk dedicated to bounded validation data.
+approved_auxiliary_storage:
+  root: /root/prefix-io-v1-validation
+  max_bytes: 21474836480
+  minimum_free_bytes: 8589934592
+  authorization_record: experiments/prefix_io_v1/configs/authorizations/system_disk_validation_20260929.json

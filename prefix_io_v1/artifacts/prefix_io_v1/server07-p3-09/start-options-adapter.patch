@@ -1,0 +1,24 @@
+--- a/third_party/work/py-kvcache-p3-quota-cpu/py_kvcache/vllm.py
++++ b/third_party/work/py-kvcache-p3-quota-cpu/py_kvcache/vllm.py
+@@ -628,8 +628,8 @@
+         # Project-owned optional P2 observer adapter; absent/off keeps native path.
+         self._prefix_io_options = None
+         if any(str(key).startswith("prefix_io_") for key in self.extra_config):
+-            from prefix_io_control.native_options import parse_options
+-            self._prefix_io_options = parse_options(self.extra_config)
++            from prefix_io_control.start_options import parse_start_options
++            self._prefix_io_options = parse_start_options(self.extra_config)
+         self.shared_file_config = SharedFileConfig.from_extra_config(self.extra_config)
+         self._manager: SharedStorageOffloadingManager | None = None
+         self._handler: NoopSharedStorageOffloadingHandler | None = None
+@@ -771,8 +771,8 @@
+             )
+             observer_kwargs = {}
+             if self._prefix_io_options is not None:
+-                from prefix_io_control.native_options import build_observer_kwargs
+-                observer_kwargs = build_observer_kwargs(self._prefix_io_options)
++                from prefix_io_control.start_options import build_start_kwargs
++                observer_kwargs = build_start_kwargs(self._prefix_io_options)
+             coordinator = TransferCoordinator(
+                 **observer_kwargs,
+                 config=self.shared_file_config,

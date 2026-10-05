@@ -1,0 +1,14 @@
+{
+  "src/prefix_io_control/publication.py": {
+    "sha256": "8964541ef991c6992c8c6d92cf44aac8cb84f78e79edc5afdb47a071057bde35",
+    "bytes": 3650
+  },
+  "tests/prefix_io_v1_observer/test_publication.py": {
+    "sha256": "147dd7196fdd4edc3b583e5260ad574f07be6ed860f6fd33ef6c496ab94883ae",
+    "bytes": 9308
+  },
+  "patches/prefix_io_v1/observer/README.md": {
+    "sha256": "18766649e1e4eca3767909ae1991643862dc437231ae600bcc9ec3d6c75f5a92",
+    "bytes": 341
+  }
+}

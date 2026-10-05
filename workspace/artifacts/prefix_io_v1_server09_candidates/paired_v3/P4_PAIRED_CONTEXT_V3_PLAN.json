@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "scope": "server09_independent_paired_context_v3_cpu_candidate",
+  "candidate_refs": [
+    {
+      "path": "p4_paired_context_v3.py",
+      "bytes": 12836,
+      "sha256": "00c069beda7bbe154ea006c622fc7301092c5f872efcc34acdc2e06c2da4d0f8"
+    },
+    {
+      "path": "test_p4_paired_context_v3.py",
+      "bytes": 30174,
+      "sha256": "dd51eac675066d3a97dfb121c432cd7b9e832b3b75af2c5bef3d85e2ac65dc13"
+    }
+  ],
+  "frozen_dependency_refs": [
+    {
+      "path": "control/prefix_io_control/__init__.py",
+      "bytes": 149,
+      "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+    },
+    {
+      "path": "control/prefix_io_control/dispatch_budget.py",
+      "bytes": 11021,
+      "sha256": "412c43761cb2f59636240e15c884b25d2a1d0ee708684d496259baf2f34d667c"
+    },
+    {
+      "path": "control/prefix_io_control/p4_cost_table.py",
+      "bytes": 5071,
+      "sha256": "4caae858778182f5575ce2d5807bdc72520ef4c5f32a2c18f02ff2628155d0f8"
+    },
+    {
+      "path": "control/prefix_io_control/p4_production_table_contract.py",
+      "bytes": 14365,
+      "sha256": "ae244d09c2fc1eb077e6af8df3ae378b6b3504b4f71ff10eb26f0ada7d2c71fd"
+    },
+    {
+      "path": "control/prefix_io_control/p4_paired_measurement_verifier.py",
+      "bytes": 48136,
+      "sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac"
+    },
+    {
+      "path": "context_v3/p4_complete_trace_context_v3.py",
+      "bytes": 12962,
+      "sha256": "07dd3af5932395dcc07b325b52be53ed624f4b4af8cfc4bf47dd0b7c58bbb477"
+    },
+    {
+      "path": "context_v3/test_p4_complete_trace_context_v3.py",
+      "bytes": 21769,
+      "sha256": "45cb847949b7ece2f9ac3b3ad011e0db5924f98da97853384a0e83427b153d36"
+    },
+    {
+      "path": "context_v3/P4_COMPLETE_TRACE_CONTEXT_V3_PLAN.json",
+      "bytes": 14930,
+      "sha256": "1a2571b6a823c30bae553b66bbbf294993403df7ab02ae025e88b05c00fff8e9"
+    },
+    {
+      "path": "control/prefix_io_control/p4_verified_cost_loader.py",
+      "bytes": 2686,
+      "sha256": "23fddf7c159ff2bdcb98c000ad18f90c804183f0a5af9bf08be24ac3b54d368d"
+    }
+  ],
+  "clone_proof": {
+    "role_wrapper_version": 1,
+    "complete_trace_call": 1,
+    "original_function_ast_sha256": {
+      "_verify_cell": "08540c8a1e20a127dd119f265e385f75cf615c23947c0543481f1e1b0b927de9",
+      "_v2_windows": "8be613bb04b7bd76a4993bef9c0e3f4a6ec37bdea6c52f76fcbc92d05aaa5569"
+    },
+    "cloned_function_ast_sha256": {
+      "_verify_cell": "a82d645048c8addd7ff97ba74b439ee02babdb6f6b00b4a43f3b604614e01017",
+      "_v2_windows": "08f26513d858b196df7d9805260a02af4d2ae9891bd603ed0bc377f8330a04cb"
+    },
+    "original_run_checker_reused": "_v2_runs",
+    "original_module_globals_changed": false
+  },
+  "compatibility": {
+    "wrapper_schema": 3,
+    "complete_trace_schema": 3,
+    "selected_observations_schema": 2,
+    "independent_analysis_schema": 2,
+    "selection_plan_schema": 2,
+    "context_basis": "pre_computed_tokens",
+    "selected_load": "pure decode; active_decode == batch > 0; prefill_tokens=0; context_length>=1",
+    "timing_scope": "full_decode_step",
+    "geometry": "original finite quantum units 1/2/4/8; one selected physical stage",
+    "cold_prefill": "retain original full frame with explicit prefill kind, active_decode=0, batch>=1, prefill_tokens>0, context_length=0"
+  },
+  "implementation": {
+    "original_source_modified": false,
+    "original_globals_modified": false,
+    "old_dispatch_modified": false,
+    "original_loader_modified": false,
+    "whole_verifier_copied": false,
+    "functions_ast_cloned": [
+      "_verify_cell",
+      "_v2_windows"
+    ],
+    "exact_ast_changes": [
+      "_verify_cell: expected version 3 only for exact baseline_wrapper/action_wrapper roles; remaining roles stay plan version 2",
+      "_v2_windows: route one exact complete trace call to frozen context_v3 clone"
+    ],
+    "private_run_checker": "unchanged original _v2_runs in independent globals",
+    "public_result": "immutable primitive CPU semantic summaries/source refs; no original CostCell/CostTable/result object",
+    "new_research_strategy": false,
+    "production_table_publish": false
+  },
+  "qualification": {
+    "origin_allowed": [
+      "cpu_fixture"
+    ],
+    "gpu_verified": false,
+    "production_qualified": false,
+    "effect_verified": false,
+    "P4_complete": false,
+    "model_loaded": false,
+    "runtime_hook_installed": false,
+    "gpu_launch_available": false,
+    "permissions_modified": false,
+    "budget_ledger_modified": false,
+    "paired_cost_verification_performed": "CPU paired semantic arithmetic only",
+    "residual_interpretation": "same original max positive empirical residual over action measured steps, including held-out margin validation; not a confidence interval or effectiveness result",
+    "fixture_values": {
+      "baseline_ns": 101,
+      "incremental_or_joint_ns": 12,
+      "empirical_residual_ns": 6,
+      "full_steps": 768,
+      "full_output_tokens": 768,
+      "cold_prefill_rows": 6
+    }
+  },
+  "limits": [
+    "Reported CUDA event fields are CPU fixture metadata; actual event timer source, worker provenance and model kernels remain unverified.",
+    "Pinned original bytes reject cold context 0-to-1 substitution. Fully re-pinned consistent positive-prefill records are legal; semantic validation alone cannot attest actual prompt/cache origin.",
+    "Only one existing cell geometry is recomputed per call; no production or native origin is accepted.",
+    "A new real GPU G2 stage needs explicit frozen scope and existing-ledger reservation; this candidate cannot authorize or launch it."
+  ],
+  "cpu_command": [
+    "C:\\Users\\mamengkui\\AppData\\Roaming\\uv\\python\\cpython-3.12.14-windows-x86_64-none\\python.exe",
+    "-B",
+    "-I",
+    "-S",
+    "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server09_candidates\\paired_v3\\test_p4_paired_context_v3.py",
+    "--control-source",
+    "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server08_p4_cpu_extended_20261001\\verified-v3\\source\\third_party\\work\\prefix-io-p4-02-cpu\\src",
+    "--context-source",
+    "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server09_candidates\\context_v3"
+  ],
+  "server_cpu_command_template": "CUDA_VISIBLE_DEVICES='' PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -I -S <PAIRED_DIR>/test_p4_paired_context_v3.py --control-source third_party/work/prefix-io-p4-02-cpu/src --context-source <CONTEXT_DIR>"
+}

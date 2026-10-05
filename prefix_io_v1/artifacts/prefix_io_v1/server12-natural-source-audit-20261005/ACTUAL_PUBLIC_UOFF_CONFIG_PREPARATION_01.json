@@ -1,0 +1,34 @@
+{
+  "schema": "actual_CPU_development_run_configuration_preparation_v1",
+  "status": "REAL_UOFF_CONFIG_CREATED_REQUIRES_ACTUAL_RUNNER_CPU_PREFLIGHT",
+  "config_ref": {
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_DEVELOPMENT_UOFF_RUN_CONFIG_01.json",
+    "bytes": 2669,
+    "sha256": "923ae77ab5bd5fa47a8ead8eb2d475a99c5a6250f7e2e5fc14b4a6ea00bf7551"
+  },
+  "config_outside_its_source_lock_avoids_hash_cycle": true,
+  "guarded_future_command": [
+    ".venv/bin/python",
+    "-B",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "--permissions-path",
+    "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/live-off01/EFFECTIVE_GPU_PERMISSION.json",
+    "--label",
+    "server12-public-development-uoff01",
+    "--seconds",
+    "300",
+    "--",
+    ".venv/bin/python",
+    "-B",
+    "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/strong_trace_runner_v4.py",
+    "--project",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "--config",
+    "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_DEVELOPMENT_UOFF_RUN_CONFIG_01.json",
+    "--execute"
+  ],
+  "no_command_launched": true,
+  "actual_GPU_operations": 0,
+  "service_SLO": null,
+  "formal_effect_qualified": false
+}

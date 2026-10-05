@@ -1,0 +1,19 @@
+# D_R 当前覆盖缺口的技术说明
+
+CAL06 已真实运行成功，但没有形成当前 D_R 入口可以使用的恢复排序预测。它不能证明 D_R 提升，也不能证明整个依赖调度方法无效。此说明只解释已有源码和已下载 CAL06 证据，不新增资格、策略或成本表；正在执行的 U02 / F8+D_R 对照结果不在本文预先填写。
+
+CAL06 的原 GPU guard `exit=child_exit=0`、未超时、会话自然排空，实际 GPU 作业耗时 **120.848959 秒**。单族独立开发请求流完成 **10 请求、每条输入 16,257 tokens、完整输出 128 tokens**，合计 1,280 输出；原 shutdown 返回、native tail 排空。cohort 含排空为 **11.902892 秒**，真实 SSD 读取 **932,184,064 B**。kernel tap 记录 **1,016 次 read、22 次 write**，不是“没有 I/O”。这些事实来自 [guard](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-cal06/result.json:1) 和 [实际模型结果](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/runs/server14-dr-cal06/details/result.json:1) 的 `rows`、`cohort_read_bytes`、`kernel_actual_submission_order`、`probe.current_native_snapshots`。
+
+真实 SSD 活动与可选择的恢复父任务 SSD 工作是两种观测。自然预加载走 `_ready_fds_preload`；当前 `_prefix_p4_collect` 从 `_ready_fds_load` 收集有实际恢复父任务的 SSD 工作，另收集 H2D 后继和原 D2H 工作，没有把所有 speculative preload 加入恢复父任务排序窗口。该窗口还要求原 native parent 的**全部剩余工作已经 ready**：所有文件已打开、尚未完成的数量与现有 ready 行一致、没有遗漏已提交的阶段；窗口超过原限额时保留原路径。见 [collect](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/upload_source_v2/runtime_source_v2/native/py_kvcache/reactor.py:2706) 与 [预加载路径](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/upload_source_v2/runtime_source_v2/native/py_kvcache/reactor.py:3209)。因此，SSD 读取很多不能自动成为很多 D_R 候选。
+
+CAL06 的 `restore_order_journal` 有效且未溢出，**实际父任务 SSD 签发记录为 0、重排为 0**；15 次 policy choice 全部是 `no_observed_blocked_target`。这些计数对应进入该排序入口的窗口，不是所有传输的总数。history 确实记录了一次 whole-parent 完成：parent 2 的几何是 **6 个 H2D**，从 complete-ready 到原父任务完成为 **1,188,836 ns**。它不能替代 SSD 恢复父任务的样本，也不是 GPU 内存提前释放或 DMA 重叠的证据。
+
+当前限定 forecaster 按完整几何和 **13 项原 context** 精确匹配，要求至少 4 条有效同单元测量；只为纯 SSD、`copy_ready=0` 的单元给经验预测。CAL06 只有上述 **1 条纯 H2D**，所以严格 loader 在确认真实 guard、源码、设备及原始字节后返回 **`VALID_CLOSED_BUT_COVERAGE_MISSING`**，原因是 `valid_closed_calibration_no_actionable_exact_cell`。见 [实际 loader CPU 结果](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/actual_server14/ACTUAL_CAL06_LOADER_CPU_RESULT_01.json:1) 和 [预测实现](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/upload_source_v2/runtime_source_v2/control/prefix_io_control/p4_restore_forecast.py:48)。这是本版本经验输入的适用域缺口，**不是所有 D_R 实验都必须新增一张纯 SSD 成本表的通用资格要求**。
+
+history 记录的是原 owner 的 complete-ready → whole-parent completion；未知或失败排空不产生完成样本，context 改变不会重置起点。预测过期或没有匹配样本时保持无预测，不把 `None` 当零时长。当前 `p4_eta.py` 源锁 SHA 为 `befe3d10e3466be8a34d0b4756f993c0100cf909e712b167ec221c37f9064d50`；可核对 [本地字节相同的 history 源码](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server11_candidates/notification_v5_gpu_entry_path_revision/common_candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_eta.py:136)。
+
+已提交工作、mandatory、STOP 和 H2D continuation 保持原 native 进展。当前 policy 对窗口中任何 `progress` 工作直接走原路；缺少合法 unblock 预测或完整父任务闭包时回退，不改变原 Event/AIO/parent 完成与释放协议。见 [policy](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/upload_source_v2/runtime_source_v2/control/prefix_io_control/p4_policy.py:211)。所以即使后继 H2D 可见，也不能为制造“激活”而延迟、拆分或优先调度它。
+
+U 对照关闭新 controller 和 D_R bridge；方法臂是 **F8+D_R 组合**。F8 的固定签发额度仍会限制阶段开始，可能改变 I/O、拷贝和模型请求的排队时间。因此，若完整对照最终显示 D_R 的预测与实际重排全部为 0，整批耗时差异只能描述“U 与 F8 加未触发 D_R 的路径”的有限差异，不能归因 D_R，也不能据单对推导稳定收益、正式 SLO 或论文级效果。它仍可验证原模型输出与生命周期，以及这个具体入口在冻结自然负载上是否被用到；不能验证全 GPU/staging 释放策略、I/J 联合方法或一般负载的可行性。
+
+历史有限 I 证据继续保留：服务器 11 的受控真实 on 比 off 慢 **7.279%**，出现 **181 次真实延期、180 次复用**；这是一项已测负面结果，本次 D_R 覆盖缺口不把它重置成“从未测过”，也不把它推广到全部方法。见 [历史 I 报告](C:/Users/mamengkui/OneDrive/文档/论文2/artifacts/prefix_io_v1_server11_candidates/feasibility_audit_v1/server_replay/FEASIBILITY_FINAL_REPORT.md:17)。

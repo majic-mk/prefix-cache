@@ -1,0 +1,184 @@
+"""Bind a finite receipt to an already running, original native worker.
+
+No model construction, transfer, synchronization, allocation, or policy action
+occurs here. Invoke once before the measured request inside the existing guard.
+The returned private value prevents accidental attachment to a different runner;
+it is not a security boundary against arbitrary in-process Python code.
+"""
+from dataclasses import dataclass
+import hashlib
+import inspect
+import json
+from pathlib import Path
+import sys
+import uuid
+import weakref
+
+
+_TOKEN = object()
+_KERNEL = "original_execute_sample_eager_triton_attention"
+
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def canonical_hash(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"),
+        allow_nan=False).encode()).hexdigest()
+
+
+def normalized_uuid(value):
+    if type(value) is bytes:
+        require(len(value) == 16, "physical UUID must contain 16 bytes")
+        value = str(uuid.UUID(bytes=value))
+    return "GPU-" + str(uuid.UUID(str(value).removeprefix("GPU-"))).lower()
+
+
+@dataclass(frozen=True, init=False)
+class RuntimeSingleFileIdentity:
+    signature_prefix: tuple
+    source_refs: tuple
+    model_path: str
+    geometry: tuple
+    _runner_ref: object
+
+    def __init__(self, signature_prefix, source_refs, model_path, geometry, runner, *, _token=None):
+        require(_token is _TOKEN, "runtime identity must come from actual native verification")
+        object.__setattr__(self, "signature_prefix", tuple(signature_prefix))
+        object.__setattr__(self, "source_refs", tuple(tuple(sorted(row.items())) for row in source_refs))
+        object.__setattr__(self, "model_path", str(model_path))
+        object.__setattr__(self, "geometry", tuple(sorted(geometry.items())))
+        object.__setattr__(self, "_runner_ref", weakref.ref(runner))
+
+    def matches_runner(self, runner):
+        return runner is not None and self._runner_ref() is runner
+
+
+def _frozen_source(path, project_root, runtime_refs):
+    root, path = Path(project_root).resolve(), Path(path).resolve()
+    require(path.is_relative_to(root), "executed source must remain inside the frozen project")
+    relative = path.relative_to(root).as_posix()
+    record = runtime_refs.get(relative)
+    require(type(record) is dict and set(record) == {"path", "bytes", "sha256"} and
+        record["path"] == relative, "actual executed source missing from runtime lock: " + relative)
+    data = path.read_bytes()
+    require(len(data) == record["bytes"] and hashlib.sha256(data).hexdigest() == record["sha256"],
+        "executed source differs from runtime lock: " + relative)
+    return dict(record)
+
+
+def _geometry(worker, handler, model_config_sha256, torch):
+    """Read existing scalar config and tensor metadata; never materialize data."""
+    runner, config = worker.model_runner, worker.vllm_config
+    require(runner.vllm_config is config and runner.model_config is config.model_config,
+        "actual worker and runner must share the original configuration")
+    model, cache, parallel = config.model_config, config.cache_config, config.parallel_config
+    hf, scheduler, compilation = model.hf_config, config.scheduler_config, config.compilation_config
+    require(model.dtype == torch.bfloat16 and model.quantization is None and model.enforce_eager is True,
+        "actual original model must be unquantized BF16 eager")
+    require(getattr(compilation.mode, "value", compilation.mode) == 0 and
+        getattr(compilation.cudagraph_mode, "value", compilation.cudagraph_mode) == 0,
+        "actual compilation and CUDA graphs must remain disabled")
+    require(parallel.tensor_parallel_size == parallel.pipeline_parallel_size == parallel.data_parallel_size == 1
+        and parallel.distributed_executor_backend == "uni", "actual original Uni single-device domain")
+    require(config.speculative_config is None and scheduler.async_scheduling is False and
+        scheduler.max_num_seqs == 1 and scheduler.max_num_batched_tokens == 1040 and
+        model.max_model_len == 1040, "actual synchronous single-request model domain")
+    require(cache.block_size == 16 and cache.enable_prefix_caching is True and cache.cache_dtype == "auto"
+        and cache.kv_cache_memory_bytes == 268435456, "actual original KV geometry and 256 MiB budget")
+    require(hf.num_hidden_layers == 28 and hf.num_key_value_heads == 4 and hf.hidden_size == 3584
+        and hf.num_attention_heads == 28 and hf.model_type == "qwen2", "actual fixed Qwen architecture")
+    reactor, layout = handler.coordinator.reactor, handler.coordinator.layout
+    require(reactor.layout is layout and reactor.config.iodepth == reactor.iodepth == 4
+        and reactor.open_lookahead == 4 and reactor.file_store.io_size == 917504,
+        "actual unchanged I/O depth, lookahead and physical file quantum")
+    require(reactor.config.staging_mem == 0.125 and reactor.staging_budget_bytes == 134217728
+        and 0 < reactor.actual_staging_bytes <= reactor.staging_budget_bytes,
+        "actual unchanged 128 MiB staging bound")
+    require(reactor.config.io_backend == "linux_aio" and reactor.config.sync_on_store is False and
+        reactor.config.enable_preload is True and reactor.config.preload_share_staging is True and
+        reactor.config.staging_cache == "lru" and reactor.config.load_planner == "off",
+        "actual original shared preload/staging and diagnostic planner configuration")
+    require(layout.storage_block_size_factor == 1 and layout.storage_block_bytes == 917504 and
+        sum(layout.bytes_per_kernel_block) == 917504 and len(layout.gpu_tensors) > 0 and
+        len(layout.gpu_tensors) == len(layout.bytes_per_kernel_block), "actual canonical KV block geometry")
+    for tensor, width in zip(layout.gpu_tensors, layout.bytes_per_kernel_block):
+        # Original ParsedKvLayout stores canonical byte views, not BF16 views.
+        require(tensor.is_cuda and tensor.dtype == torch.int8 and tensor.ndim == 2 and
+            tensor.device == runner.device and tensor.element_size() * tensor.stride(0) == width,
+            "actual original canonical GPU KV byte tensor metadata")
+    geometry = dict(model_config_sha256=model_config_sha256, num_hidden_layers=hf.num_hidden_layers,
+        num_key_value_heads=hf.num_key_value_heads, head_dim=hf.hidden_size // hf.num_attention_heads,
+        dtype="bfloat16", dtype_bytes=2, tokens_per_block=cache.block_size,
+        tensor_parallel_size=parallel.tensor_parallel_size, physical_block_bytes=reactor.file_store.io_size)
+    require(geometry["physical_block_bytes"] == geometry["num_hidden_layers"] * 2 *
+        geometry["num_key_value_heads"] * geometry["head_dim"] * geometry["dtype_bytes"] *
+        geometry["tokens_per_block"], "actual model-derived KV byte geometry")
+    return geometry
+
+
+def verify_actual_single_file_runtime(worker, handler, receipt, project_root, runtime_refs, *, common, base):
+    """Return a private identity only after actual source/model/device checks.
+
+    ``common`` and ``base`` are the already loaded, independently frozen G2
+    helper modules. ``runtime_refs`` is the new complete lock, including this
+    helper, the declared overlay, original author source and existing assets.
+    """
+    root = Path(project_root).resolve()
+    require(type(runtime_refs) is dict, "independently frozen runtime source map required")
+    torch = sys.modules.get("torch")
+    require(torch is not None and "vllm" in sys.modules and "py_kvcache.vllm" in sys.modules,
+        "verify only the already running original model process")
+    rows = {}
+    def frozen(path):
+        row = _frozen_source(path, root, runtime_refs)
+        rows[row["path"]] = row
+        return row
+    for module in (common, base):
+        frozen(module.__file__)
+    self_ref = frozen(__file__)
+    for item in receipt.runtime_common_refs:
+        require(frozen(root / item.path) == dict(path=item.path, bytes=item.bytes, sha256=item.sha256),
+            "declared common runtime source differs from the independently frozen closure")
+    overlay = {item.path: dict(path=item.path, bytes=item.bytes, sha256=item.sha256)
+        for item in receipt.runtime_overlay_refs}
+    require(overlay.get(self_ref["path"]) == self_ref, "runtime verifier must be a declared source overlay")
+    for row in overlay.values():
+        require(frozen(root / row["path"]) == row, "declared overlay differs from runtime closure")
+    runner, reactor = worker.model_runner, handler.coordinator.reactor
+    for owner in (worker, runner, runner.model, handler, handler.coordinator, reactor, reactor.layout):
+        source = inspect.getsourcefile(type(owner))
+        require(source is not None, "actual original runtime type must have frozen Python source")
+        frozen(source)
+    event_source = frozen(inspect.getsourcefile(torch.cuda.Event))
+    require(torch.cuda.Event.__module__ == "torch.cuda.streams" and
+        event_source["sha256"] == receipt.cuda_event_source_sha256,
+        "actual original CUDA Event implementation matches the calibration receipt")
+    plan_ref = frozen(root / common.MODEL_PLAN)
+    model_dir, identity = base.validate_local_model(root / common.MODEL, root / common.MODEL_PLAN)
+    model_dir = Path(model_dir).resolve()
+    require(Path(runner.model_config.model).resolve() == model_dir and
+        identity["manifest_sha256"] == plan_ref["sha256"], "actual runner loads the verified local model")
+    config_ref = frozen(model_dir / "config.json")
+    geometry = _geometry(worker, handler, config_ref["sha256"], torch)
+    groups = runner.attn_groups
+    require(type(groups) is list and len(groups) == 1 and 0 < len(groups[0]) <= 32,
+        "actual original single KV attention group")
+    layers = []
+    for group in groups[0]:
+        backend = group.backend
+        require(backend.get_name() == "TRITON_ATTN", "actual attention implementation must be Triton")
+        frozen(inspect.getsourcefile(backend))
+        layers.extend(group.layer_names)
+    require(len(layers) == len(set(layers)) == geometry["num_hidden_layers"],
+        "actual Triton attention covers every model layer exactly once")
+    require(worker.device == runner.device and runner.device.type == "cuda" and
+        runner.device.index == 0 and torch.cuda.device_count() == 1,
+        "actual single visible physical GPU")
+    actual_gpu = normalized_uuid(torch.cuda.get_device_properties(runner.device).uuid)
+    prefix = (plan_ref["sha256"], actual_gpu, canonical_hash(geometry), _KERNEL)
+    require(prefix == tuple(receipt.signature[:4]), "actual model/GPU/layout/kernel differs from receipt")
+    return RuntimeSingleFileIdentity(prefix, tuple(rows[key] for key in sorted(rows)), model_dir,
+        geometry, runner, _token=_TOKEN)

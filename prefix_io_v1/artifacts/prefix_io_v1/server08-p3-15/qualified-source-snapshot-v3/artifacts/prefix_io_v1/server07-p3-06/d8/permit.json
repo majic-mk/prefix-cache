@@ -1,0 +1,24 @@
+{
+  "status": "PASSED_C2_UNLOADED_POINT_GATE",
+  "engine_delta": {
+    "max_num_seqs": 2
+  },
+  "runtime_scope": "Bounded two-sequence controlled development screen only; loaded prediction, unseen content and formal evaluation unqualified",
+  "maximum_absolute_relative_median_error": 0.25,
+  "cost_plan": "artifacts/prefix_io_v1/server07-p3-06/d8/cost-plan.json",
+  "cost_plan_sha256": "d458c7c604c5ac17d59bed207275380f31ce7d29856a0f7151ba07aefb5516a3",
+  "cost_result": "artifacts/prefix_io_v1/server07-p3-06/d8/cost-result.json",
+  "cost_result_sha256": "bfa506270a58ce5770ffadca71673abf5afb3b4e978ea1763a17d4d8368cf188",
+  "candidate_sha256": "13ea532044c2dcb5cb213ba17e885c274177704f71ac8b9f5ef134a5381f0e86",
+  "manifests": {
+    "mixed_readwrite": {
+      "path": "artifacts/prefix_io_v1/server07-p3-06/d8/mixed_readwrite-manifest.json",
+      "sha256": "6e156f020f63cb29333c6250cb2236dde6dc52ba387754f878c5c70df9357caf"
+    }
+  },
+  "ordinary_quotas_installed": false,
+  "formal_goodput": false,
+  "connector_delta": {
+    "iodepth": 8
+  }
+}

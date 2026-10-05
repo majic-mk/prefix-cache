@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "approved": true,
+  "action": "deduplicate_completed_private_cache_copies_preserving_paths_and_bytes",
+  "audit": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-manifest.json",
+  "audit_sha256": "e692ad4495548d9729423d956ceea405bbcac4202d5b9e50bee2db4ac424e062",
+  "target_files": 10269,
+  "possible_reclaim_bytes": 9421848576,
+  "user_instruction": "继续",
+  "authorization_scope": "本次人类回复针对紧邻上一条已具体呈现的10269份/e692冻结清单及完成P3后续8次验证；只保留全部路径和内容的本批合并，不覆盖其他缓存清单。",
+  "grant_interpretation": "Direct human continue after the concrete reviewable merge action and stated P3 prerequisite.",
+  "preceding_assistant_action": "请回复允许合并这10269份缓存并继续；具体清单预计回收约8.77GiB，保留全部路径和内容。此前8226/8231份不覆盖本批；当前3GiB预留无法满足原8GiB空闲门槛。",
+  "revalidation": "artifacts/prefix_io_v1/server08-p3-16/private-cache-merge-revalidation-after-grant.json",
+  "general_permissions_changed": false,
+  "gpu_budget_changed": false,
+  "created_utc": "2026-09-30T13:47:16.609861+00:00"
+}

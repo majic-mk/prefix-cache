@@ -1,0 +1,33 @@
+{
+  "schema": "raw_cache_semantics_append_only_source_manifest_v1",
+  "files": [
+    {
+      "path": "raw_cache_semantics/test_cache_semantics_cpu.py",
+      "bytes": 10804,
+      "sha256": "39cb89fbc8301c3e4f33dc7098bf7cffc5bf958d4b894b1432259219d76cc59c"
+    },
+    {
+      "path": "raw_cache_semantics/README.md",
+      "bytes": 1705,
+      "sha256": "ce4bcb0ac43b4933df7ab8a415781e26157a0b63580d71d0f4fd79eb2e988899"
+    },
+    {
+      "path": "runner/strong_native_cost_runner_v4.py",
+      "bytes": 32984,
+      "sha256": "3f97053f9638a9e58faf8cfa3f560762e294015111b1c92e8b88a379dbc9193a"
+    }
+  ],
+  "previous_v3_sha256": "d0eca2e77dc1fb2cab5f95fac7f31a41978ea5c560f45f1ead8a8e1b79166240",
+  "modified_functions": [
+    "cell_descriptor",
+    "source_patch"
+  ],
+  "frontend_cached_prompt_tokens": 512,
+  "initial_execution_pre_context": 511,
+  "cached_prompt_tokens_semantics": "initial_execution_pre_context",
+  "measured_offset": 16,
+  "selected_decode_context": 527,
+  "CPU_tests": 5,
+  "actual_GPU_runs": 0,
+  "production_qualified": false
+}

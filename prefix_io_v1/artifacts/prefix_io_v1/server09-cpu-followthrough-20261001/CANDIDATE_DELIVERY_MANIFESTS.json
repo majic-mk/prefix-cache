@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "status": "PASS_ALL_SEVEN_CPU_CANDIDATE_PACKS_EXACT_LOCAL_BYTES_WITH_REMOTE_RECEIPTS",
+  "candidate_count": 7,
+  "protected_delivered_manifest_files": 111,
+  "actual_GPU_runs_in_this_CPU_phase": 0,
+  "production_qualified": false,
+  "effect_verified": false,
+  "candidates": [
+    {
+      "name": "context_v3",
+      "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-context-v3-20261001",
+      "manifest_file": "SERVER09_CONTEXT_V3_SOURCE_ONLY_MANIFEST.json",
+      "manifest_bytes": 1582,
+      "manifest_sha256": "1843d6dc64fd314a13cc1dcd28741b70ec760f50ae38827a2d078eeb93b03885",
+      "file_count": 5,
+      "remote_receipt_bytes": 476,
+      "remote_receipt_sha256": "3c4ad2a4923f9a61204578075282d272e1ae239e5e29fde458558f1fb0fc2e1c",
+      "remote_status": "PASS_REMOTE_FROZEN_DELIVERY_VERIFICATION",
+      "local_file_SHA_verified": true
+    },
+    {
+      "name": "runtime_connector",
+      "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-runtime-connector-20261001",
+      "manifest_file": "DELIVERY_MANIFEST.json",
+      "manifest_bytes": 1375,
+      "manifest_sha256": "5a7e79d5933b1a572f2af90776d50d7af3fe17d67bba96a4b4b8894ffeba8d3a",
+      "file_count": 6,
+      "remote_receipt_bytes": 301,
+      "remote_receipt_sha256": "05cf98b1355f9a7b3c075f447e8d6aa154c0ce85caa1824b66c75a548c527563",
+      "remote_status": "PASS_REMOTE_FROZEN_CPU_DELIVERY_VERIFICATION",
+      "local_file_SHA_verified": true
+    },
+    {
+      "name": "paired_v3",
+      "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-paired-v3-20261001",
+      "manifest_file": "DELIVERY_MANIFEST.json",
+      "manifest_bytes": 1518,
+      "manifest_sha256": "6d7d1925c0305e97e32f9a3318318a8c364a85c30b227a5bcd4ecb8824ae5dee",
+      "file_count": 7,
+      "remote_receipt_bytes": 301,
+      "remote_receipt_sha256": "265a8ad669d82910b989e69c688929f52aed6e10973627bbab0c72bfb095e9cf",
+      "remote_status": "PASS_REMOTE_FROZEN_CPU_DELIVERY_VERIFICATION",
+      "local_file_SHA_verified": true
+    },
+    {
+      "name": "g2_boundary",
+      "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-boundary-20261001",
+      "manifest_file": "DELIVERY_MANIFEST.json",
+      "manifest_bytes": 2645,
+      "manifest_sha256": "9354442b0bc376b3e189724c5e884949af3496ab3bf3d4213c5c798376297b7b",
+      "file_count": 13,
+      "remote_receipt_bytes": 1237,
+      "remote_receipt_sha256": "3983c11f3454ca46e26b038cec47eef79e0b2fd5e959a1d15503758d6f0315ad",
+      "remote_status": "PASS_REMOTE_EXACT_MANIFEST_FILES",
+      "local_file_SHA_verified": true
+    },
+    {
+      "name": "model_payload_readonly",
+      "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-model-payload-20261001",
+      "manifest_file": "DELIVERY_MANIFEST.json",
+      "manifest_bytes": 1167,
+      "manifest_sha256": "bae6d6387fbb5f169186b21b5574c6143fb4f6903ad1373362b9149d137f2ceb",
+      "file_count": 5,
+      "remote_receipt_bytes": 1237,
+      "remote_receipt_sha256": "8dda61ec567517b29ba0e5d964fc11d3f9b550ce3bd9652d8e049b59f63dd1e5",
+      "remote_status": "PASS_REMOTE_EXACT_MANIFEST_FILES",
+      "local_file_SHA_verified": true
+    },
+    {
+      "name": "g2_native_drain",
+      "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-native-drain-20261001",
+      "manifest_file": "DELIVERY_MANIFEST.json",
+      "manifest_bytes": 4202,
+      "manifest_sha256": "1c45c0ce95354ae0dc324bb369db9d5e8626d37076e0ee97e1ffb4d1b6bb340f",
+      "file_count": 21,
+      "remote_receipt_bytes": 1199,
+      "remote_receipt_sha256": "fe0419beddce7a6be85e7035ea43e037babe45a7c8aac2dfb9c5b7f25550377f",
+      "remote_status": "PASS_REMOTE_EXACT_MANIFEST_FILES",
+      "local_file_SHA_verified": true
+    },
+    {
+      "name": "g2_normal_worker",
+      "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-normal-worker-20261001",
+      "manifest_file": "DELIVERY_MANIFEST.json",
+      "manifest_bytes": 10377,
+      "manifest_sha256": "cd8820db76ee93281b0272fccc7e2686b30249bea1f0882b9b6e18629a56d653",
+      "file_count": 54,
+      "remote_receipt_bytes": 1341,
+      "remote_receipt_sha256": "f59ea60d16bc69361ebf1e8ed9b402ef614adb21e1703569ef75d71e00470bb9",
+      "remote_status": "PASS_REMOTE_EXACT_MANIFEST_FILES",
+      "local_file_SHA_verified": true
+    }
+  ]
+}

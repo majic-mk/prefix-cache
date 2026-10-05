@@ -1,0 +1,417 @@
+"""Optional Linux AIO compatibility backend, CPU-qualified separately from CUDA.
+
+The author reactor remains the owner of FDs, staging and CUDA dependencies.
+Callers retain buffers until their completion is polled (or close has drained).
+This adapter owns only bounded I/O request descriptors and worker resources.
+"""
+from __future__ import annotations
+
+import collections
+import ctypes as C
+import errno
+import os
+import platform
+import selectors
+import sys
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+
+
+class _Iocb(C.Structure):
+    _fields_ = [
+        ("data", C.c_uint64), ("key", C.c_uint32), ("rw_flags", C.c_uint32),
+        ("opcode", C.c_uint16), ("priority", C.c_int16), ("fd", C.c_uint32),
+        ("buf", C.c_uint64), ("nbytes", C.c_uint64), ("offset", C.c_int64),
+        ("reserved", C.c_uint64), ("flags", C.c_uint32), ("resfd", C.c_uint32),
+    ]
+
+
+class _Event(C.Structure):
+    _fields_ = [("data", C.c_uint64), ("obj", C.c_uint64),
+                ("res", C.c_int64), ("res2", C.c_int64)]
+
+
+class _Timespec(C.Structure):
+    _fields_ = [("sec", C.c_long), ("nsec", C.c_long)]
+
+
+@dataclass
+class _Request:
+    user_data: int
+    kind: str
+    fd: int = -1
+    ptr: object = None
+    nbytes: int = 0
+    path: bytes = b""
+    flags: int = 0
+    mode: int = 0
+    dirfd: int = -100
+    cb: object = None
+
+
+class _KernelAio:
+    """Linux x86_64 ABI only; fail explicitly on other architectures."""
+    def __init__(self, depth):
+        if (sys.platform != "linux" or platform.machine().lower() not in
+                {"x86_64", "amd64"} or sys.byteorder != "little" or
+                C.sizeof(_Iocb) != 64 or C.sizeof(_Event) != 32):
+            raise RuntimeError("Linux AIO adapter requires Linux x86_64 little-endian")
+        self.libc = C.CDLL(None, use_errno=True)
+        self.libc.syscall.restype = C.c_long
+        self.context = C.c_ulong(0)
+        self.depth = depth
+        self._call(206, C.c_uint(depth), C.byref(self.context))
+        try:
+            self.completion_fd = os.eventfd(0, os.EFD_NONBLOCK | os.EFD_CLOEXEC)
+        except BaseException:
+            self._call(207, self.context)
+            self.context.value = 0
+            raise
+
+    def _call(self, nr, *args):
+        C.set_errno(0)
+        ret = int(self.libc.syscall(C.c_long(nr), *args))
+        if ret < 0:
+            err = C.get_errno()
+            raise OSError(err, os.strerror(err))
+        return ret
+
+    def submit(self, requests):
+        for req in requests:
+            if req.cb is None:
+                req.cb = _Iocb(data=req.user_data,
+                              opcode=1 if req.kind == "write" else 0,
+                              fd=req.fd, buf=int(req.ptr.value), nbytes=req.nbytes,
+                              flags=1, resfd=self.completion_fd)
+        array = (C.POINTER(_Iocb) * len(requests))(
+            *[C.pointer(req.cb) for req in requests])
+        return self._call(209, self.context, C.c_long(len(requests)), array)
+
+    def poll(self):
+        events = (_Event * self.depth)()
+        timeout = _Timespec(0, 0)
+        count = self._call(208, self.context, C.c_long(0), C.c_long(self.depth),
+                           events, C.byref(timeout))
+        return [(int(e.data), int(e.res) if e.res2 == 0 else -errno.EIO)
+                for e in events[:count]]
+
+    def close(self):
+        if self.context.value:
+            self._call(207, self.context)
+            self.context.value = 0
+            os.close(self.completion_fd)
+
+
+class LinuxAioRing:
+    """Bounded asynchronous adapter with explicit submission and completion.
+
+    A dedicated worker isolates potentially blocking io_submit. A bounded
+    metadata pool handles openat/close. No background worker may free staging,
+    advance a cache job, or report CUDA completion.
+    """
+    def __init__(self, depth: int, *, ring_id: int = -1,
+                 metadata_workers: int = 2, _kernel=None):
+        for value, name in [(depth, "depth"), (metadata_workers, "metadata_workers")]:
+            if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+                raise ValueError(name + " must be a positive integer")
+        if metadata_workers > 8:
+            raise ValueError("metadata_workers must not exceed 8")
+        self.depth = depth
+        self.ring_id = ring_id
+        # Match the usual SQ/CQ headroom, but bound *all* accepted descriptors.
+        self.capacity = 2 * depth
+        self._cv = threading.Condition()
+        self._pending = collections.deque()
+        self._ready = collections.deque()
+        self._done = collections.deque()
+        self._ops = {}
+        self._opened = {}
+        self._closing = False
+        self._closed = False
+        self._fatal = None
+        self._drained = False
+        self._stats = dict(accepted=0, completed=0, reaped=0, submit_calls=0,
+                           partial_submits=0, retry_submits=0, max_outstanding=0,
+                           max_kernel_inflight=0, max_submit_ns=0)
+        self._kernel = _KernelAio(depth) if _kernel is None else _kernel
+        self._wake_fd = -1
+        self._selector = None
+        self._meta = None
+        try:
+            self._wake_fd = os.eventfd(0, os.EFD_NONBLOCK | os.EFD_CLOEXEC)
+            self._selector = selectors.DefaultSelector()
+            self._selector.register(self._wake_fd, selectors.EVENT_READ)
+            if getattr(self._kernel, "completion_fd", None) is not None:
+                self._selector.register(self._kernel.completion_fd, selectors.EVENT_READ)
+            self._meta = ThreadPoolExecutor(max_workers=metadata_workers,
+                                           thread_name_prefix="pykvcache-aio-meta")
+            self._worker = threading.Thread(target=self._run,
+                                            name="pykvcache-aio-submit", daemon=False)
+            self._worker.start()
+        except BaseException:
+            if self._meta is not None:
+                self._meta.shutdown(wait=True)
+            if self._selector is not None:
+                self._selector.close()
+            if self._wake_fd >= 0:
+                os.close(self._wake_fd)
+            self._kernel.close()
+            raise
+
+    @property
+    def pending_submit(self):
+        with self._cv:
+            return len(self._pending)
+
+    def snapshot(self):
+        with self._cv:
+            return {**self._stats, "outstanding": len(self._ops),
+                    "pending": len(self._pending), "ready": len(self._ready),
+                    "unreaped": len(self._done), "capacity": self.capacity,
+                    "closed": self._closed, "drained": self._drained,
+                    "fatal": None if self._fatal is None else repr(self._fatal)}
+
+    def _check(self):
+        if self._fatal is not None:
+            raise RuntimeError("Linux AIO worker failed; stop the owning reactor") from self._fatal
+        if self._closing or self._closed:
+            raise RuntimeError("Linux AIO ring is closing or closed")
+
+    def _wake(self, _future=None):
+        try:
+            os.eventfd_write(self._wake_fd, 1)
+        except BlockingIOError:
+            pass
+
+    def _flush_locked(self):
+        self._ready.extend(self._pending)
+        self._pending.clear()
+        self._wake()
+        self._cv.notify_all()
+
+    def _enqueue(self, req):
+        if (isinstance(req.user_data, bool) or not isinstance(req.user_data, int)
+                or not 0 <= req.user_data <= (1 << 64) - 1):
+            raise ValueError("user_data must be uint64")
+        with self._cv:
+            self._check()
+            if req.user_data in self._ops:
+                raise ValueError("user_data is already outstanding")
+            if len(self._ops) >= self.capacity:
+                self._flush_locked()
+                raise BlockingIOError(errno.EAGAIN, "Linux AIO descriptor budget is full")
+            if len(self._pending) >= self.depth:
+                self._flush_locked()
+            self._ops[req.user_data] = req
+            self._pending.append(req)
+            self._stats["accepted"] += 1
+            self._stats["max_outstanding"] = max(
+                self._stats["max_outstanding"], len(self._ops))
+
+    def queue_rw(self, *, user_data, fd, ptr, nbytes, write):
+        if (not isinstance(ptr, C.c_void_p) or not ptr.value or
+                isinstance(nbytes, bool) or not isinstance(nbytes, int) or
+                nbytes <= 0 or nbytes > (1 << 32) - 1):
+            raise ValueError("read/write requires a valid pointer and positive uint32 length")
+        self._enqueue(_Request(user_data, "write" if write else "read",
+                               fd=fd, ptr=ptr, nbytes=nbytes))
+
+    def queue_openat(self, *, user_data, path_ptr, open_flags, mode=0, dirfd=-100):
+        if not path_ptr:
+            raise ValueError("path_ptr must be nonzero")
+        # Own the pathname bytes; never dereference a stale path in a worker.
+        path = C.string_at(path_ptr)
+        self._enqueue(_Request(user_data, "open", path=path, flags=open_flags,
+                               mode=mode, dirfd=dirfd))
+
+    def queue_close(self, *, user_data, fd):
+        self._enqueue(_Request(user_data, "close", fd=fd))
+
+    def submit_pending(self):
+        with self._cv:
+            self._check()
+            # The author reactor calls this every pump, including while only
+            # awaiting completions. Accepted work already has its own wake.
+            if self._pending:
+                self._flush_locked()
+
+    @staticmethod
+    def _metadata(req):
+        try:
+            if req.kind == "open":
+                return os.open(req.path, req.flags, req.mode, dir_fd=req.dirfd)
+            os.close(req.fd)
+            return 0
+        except OSError as exc:
+            return -(exc.errno or errno.EIO)
+
+    def _complete(self, req, result):
+        with self._cv:
+            if req.kind == "open" and result >= 0:
+                self._opened[req.user_data] = result
+            self._done.append((req.user_data, result))
+            self._stats["completed"] += 1
+            self._cv.notify_all()
+
+    def poll_all(self):
+        with self._cv:
+            if self._fatal is not None:
+                raise RuntimeError("Linux AIO worker failed; stop the owning reactor") from self._fatal
+            if self._closing and not self._closed:
+                raise RuntimeError("cannot poll concurrently with close")
+            done = list(self._done)
+            self._done.clear()
+            for user_data, _ in done:
+                del self._ops[user_data]
+                self._opened.pop(user_data, None)  # FD ownership transfers to caller.
+            self._stats["reaped"] += len(done)
+            self._cv.notify_all()
+            return done
+
+    def _run(self):
+        data = collections.deque()
+        inflight = {}
+        metadata = {}
+        retry_count = 0
+        try:
+            while True:
+                made = False
+                with self._cv:
+                    ready = list(self._ready)
+                    self._ready.clear()
+                for req in ready:
+                    if req.kind in {"read", "write"}:
+                        data.append(req)
+                    else:
+                        future = self._meta.submit(self._metadata, req)
+                        metadata[future] = req
+                        future.add_done_callback(self._wake)
+                    made = True
+                for future, req in list(metadata.items()):
+                    if future.done():
+                        self._complete(req, future.result())
+                        del metadata[future]
+                        made = True
+                if inflight:
+                    for token, result in self._kernel.poll():
+                        if token not in inflight:
+                            raise RuntimeError("unknown or duplicate Linux AIO completion")
+                        self._complete(inflight.pop(token), result)
+                        made = True
+                if data and len(inflight) < self.depth:
+                    batch = list(data)[:self.depth - len(inflight)]
+                    start = time.perf_counter_ns()
+                    try:
+                        count = self._kernel.submit(batch)
+                        if not 0 <= count <= len(batch):
+                            raise RuntimeError("invalid Linux AIO submission count")
+                    except OSError as exc:
+                        if exc.errno in {errno.EAGAIN, errno.EINTR}:
+                            count = 0
+                        else:
+                            self._complete(data.popleft(), -(exc.errno or errno.EIO))
+                            count = 0
+                            made = True
+                    elapsed = time.perf_counter_ns() - start
+                    with self._cv:
+                        self._stats["submit_calls"] += 1
+                        self._stats["max_submit_ns"] = max(self._stats["max_submit_ns"], elapsed)
+                        if 0 < count < len(batch):
+                            self._stats["partial_submits"] += 1
+                        if count == 0:
+                            self._stats["retry_submits"] += 1
+                    for _ in range(count):
+                        req = data.popleft()
+                        inflight[req.user_data] = req
+                    with self._cv:
+                        self._stats["max_kernel_inflight"] = max(
+                            self._stats["max_kernel_inflight"], len(inflight))
+                    if count:
+                        retry_count = 0
+                        made = True
+                    elif not made:
+                        retry_count += 1
+                        # Bound persistent resource failure; explicit errno, never fake success.
+                        if retry_count >= 100 and not inflight and data:
+                            self._complete(data.popleft(), -errno.EAGAIN)
+                            retry_count = 0
+                            made = True
+                with self._cv:
+                    if (self._closing and not self._pending and not self._ready
+                            and not data and not inflight and not metadata):
+                        break
+                if not made:
+                    # Kernel completion, metadata completion, submit and close all wake
+                    # this selector. Only transient submission failure (or a test kernel
+                    # without eventfd support) requires a bounded retry timer.
+                    timed_retry = bool(data and len(inflight) < self.depth)
+                    mock_poll = bool(inflight and getattr(self._kernel, "completion_fd", None) is None)
+                    timeout = 0.0001 if timed_retry or mock_poll else None
+                    for key, _ in self._selector.select(timeout):
+                        try:
+                            os.eventfd_read(key.fd)
+                        except BlockingIOError:
+                            pass
+        except BaseException as exc:
+            with self._cv:
+                self._fatal = exc
+        finally:
+            # Always join metadata workers, even if kernel teardown reports failure.
+            # Keep self._ops alive if DMA quiescence cannot be established.
+            destroyed = False
+            try:
+                self._kernel.close()
+                destroyed = True
+            except BaseException as exc:
+                with self._cv:
+                    self._fatal = self._fatal or exc
+            try:
+                self._meta.shutdown(wait=True)
+            except BaseException as exc:
+                with self._cv:
+                    self._fatal = self._fatal or exc
+            for future, req in metadata.items():
+                try:
+                    result = future.result()
+                    if req.kind == "open" and result >= 0:
+                        with self._cv:
+                            self._opened[req.user_data] = result
+                except BaseException as exc:
+                    with self._cv:
+                        self._fatal = self._fatal or exc
+            with self._cv:
+                self._drained = destroyed
+                self._cv.notify_all()
+
+    def close(self):
+        with self._cv:
+            if self._closed:
+                if self._fatal is not None:
+                    raise RuntimeError("Linux AIO close failed") from self._fatal
+                return
+            self._closing = True
+            self._flush_locked()
+        self._worker.join()
+        with self._cv:
+            if self._closed:
+                if self._fatal is not None:
+                    raise RuntimeError("Linux AIO close failed") from self._fatal
+                return
+            self._selector.close()
+            os.close(self._wake_fd)
+            if not self._drained:
+                self._closed = True
+                raise RuntimeError("Linux AIO did not drain; retain buffers and stop process") from self._fatal
+            # Unpolled open completions have not transferred FD ownership.
+            cancelled = set(self._opened)
+            for fd in self._opened.values():
+                os.close(fd)
+            self._opened.clear()
+            self._done = collections.deque(
+                (token, -errno.ECANCELED if token in cancelled else result)
+                for token, result in self._done)
+            self._closed = True
+            if self._fatal is not None:
+                raise RuntimeError("Linux AIO worker failed; resources must not be reused") from self._fatal

@@ -1,0 +1,85 @@
+{
+  "status": "LOCAL_EVIDENCE_ONLY_REMOTE_NOT_APPLIED",
+  "files": [
+    {
+      "path": "ACTUAL_CPU_INPUT_CHECK_COMMAND_RESULT_01.json",
+      "bytes": 1016,
+      "sha256": "a8318595b3e01d723ee735b065a2823057ef8f2e5d84a2adcc21b88615326d0a"
+    },
+    {
+      "path": "check_frozen_inputs_cpu.py",
+      "bytes": 3010,
+      "sha256": "bd22a44e428b369394873f3259a6d2fa5321a81df20012f0ef25bc2c313024fc"
+    },
+    {
+      "path": "COMMON_FRONTEND_WAITING_INPUT_01.patch",
+      "bytes": 949,
+      "sha256": "af76ddba75ff9eaef8ed59abfa83b2ef9c04e56513bdc7c1eceacf785bde4f37"
+    },
+    {
+      "path": "CPU_INPUT_DELIVERY_01.json",
+      "bytes": 2453,
+      "sha256": "88caa86955b3e37c29c47a70df1b9a1f61e508d02f31a7f1ddfb8841c6554361"
+    },
+    {
+      "path": "CPU_INPUT_DELIVERY_02.json",
+      "bytes": 1690,
+      "sha256": "f46b70842f86b3b558584da154d70c2a8d1a613a74395bdc8c321436fd9a3816"
+    },
+    {
+      "path": "CPU_PLANNER_V2_ACTUAL_REPLAY_COMMAND_01.json",
+      "bytes": 4904,
+      "sha256": "8099f62d6d99d1d819c18b61b8e468f4cb71587bb06481a341c1c97894422856"
+    },
+    {
+      "path": "CPU_PLANNER_V2_ACTUAL_REPLAY_RESULT_01.json",
+      "bytes": 1569,
+      "sha256": "275cd7359ae502357afd73dcb3ea911e9be2435f5e36e3b6879a9d4c5d1d5fb2"
+    },
+    {
+      "path": "CPU_PLANNER_V2_ACTUAL_REPLAY_SOURCE_01.py",
+      "bytes": 1913,
+      "sha256": "4e849d06252f808ec402b5c2515ca2d3110c833911257168205494270e0c7dd5"
+    },
+    {
+      "path": "CPU_PLANNER_V2_ACTUAL_REPLAY_STDOUT_01.log",
+      "bytes": 945,
+      "sha256": "c3c0f731529c21e3aa75f0e8ee7cfd07b497e36090658891553ba131233db17d"
+    },
+    {
+      "path": "CPU_PLANNER_V2_FIXTURE_ATTRIBUTION_01.json",
+      "bytes": 4716,
+      "sha256": "3b4bb876e5774f7cb83ea03107967bec703aa14d61c6d7deeedffa6c044e090e"
+    },
+    {
+      "path": "FROZEN_REQUEST_INPUTS_01.json",
+      "bytes": 129617,
+      "sha256": "982f1db47efdcf8ab3946db07c441d664688d64c6f541621ca98afdb25c33f04"
+    },
+    {
+      "path": "FROZEN_REQUEST_INPUTS_02.json",
+      "bytes": 141745,
+      "sha256": "a5cab33912bdd9d0fb58e3a927123bfa9f971b92649b4f3900636af5bfe6e754"
+    },
+    {
+      "path": "ROUND_REPORT_01.txt",
+      "bytes": 3247,
+      "sha256": "de7ab0afb73c79a7372f95ff700ac3603fbebba296db1c20de759e8c36d9693d"
+    },
+    {
+      "path": "ROUND_REPORT_ADDENDUM_01.txt",
+      "bytes": 496,
+      "sha256": "fdc7d80f92ce41a60910be5b948197138933a2b112ed373a3e7a746cd54c951f"
+    },
+    {
+      "path": "ROUND_STATUS_AND_HISTORICAL_I_01.json",
+      "bytes": 4910,
+      "sha256": "5858ba559c7637713648a7f2a5c4fc1dfd09366661552a6f6bcffa2502267f93"
+    }
+  ],
+  "current_GPUTest_count": 0,
+  "server_code_data_changes": 0,
+  "remote_delivery_blocked": true,
+  "input_scope": "one bounded existing I/U round only",
+  "GPU_ready": false
+}

@@ -1,0 +1,57 @@
+{
+  "GPU_operations": 0,
+  "actual_all_prompt_token_count": 7079,
+  "all_declared_context_checks_passed": true,
+  "budget_ledger_sha256": "774847ccdb7ec4c1785c19a87e718b2a91e15fba44248eb949dab559e08fdd6b",
+  "control_window_deadline": null,
+  "controlled_output_tokens": 128,
+  "declaration_ref": {
+    "bytes": 677,
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_REPLAY_DECLARATION_01.json",
+    "sha256": "c94f6fca5868e17c14e31c6cd1de1557251510174f7fbdb58381e4d7ef3ff818"
+  },
+  "family_receipt_ref": {
+    "bytes": 127741,
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_CPU_TOKENIZER_FAMILY_RECEIPT_01.json",
+    "sha256": "2eabff785582b34ffe06a112bb714eb2f655e325b4f3c1700e0b64714e733b50"
+  },
+  "family_result_ref": {
+    "bytes": 116907,
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_CPU_TOKENIZER_FAMILY_RESULT_01.json",
+    "sha256": "4a3aa27137ca64513bf655fc857a4dff89bd75847f94785615ea1b1072ed77cc"
+  },
+  "formal_GPU_configuration_ready": false,
+  "manifest_ref": {
+    "bytes": 113401,
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_PUBLIC_ORIGINAL_MANIFEST_01.json",
+    "sha256": "01bb329d696f61bc9363aaaff553dd380ce457a9f01713f0991562aa92c8d340"
+  },
+  "model_context_limit": 1024,
+  "ordinary_strategy_authorized": false,
+  "partition_counts": {
+    "calibration": 30,
+    "development": 5,
+    "evaluation": 5
+  },
+  "prompt_token_length_max": 190,
+  "prompt_token_length_min": 138,
+  "protocol_source_ref": {
+    "bytes": 34760,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/protocol/prerental_protocol.py",
+    "sha256": "7fbc544597c9abe334122d354e7494b590e810ab0682f1d2d155408cc4f618eb"
+  },
+  "raw_result_ref": {
+    "bytes": 122465,
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/ACTUAL_CPU_RAW_TOKEN_IDS_01.json",
+    "sha256": "7fe9e4476bab999b61ca59b30ce384ef04ac803d4be30661c3ba1fe7d94253e7"
+  },
+  "schema": "actual_original_protocol_public_manifest_replay_CPU_v1",
+  "service_SLO": null,
+  "source_lock_ref": {
+    "bytes": 1158183,
+    "path": "artifacts/prefix_io_v1/server12-natural-source-audit-20261005/PRERENT_SOURCE_LOCK_V13.json",
+    "sha256": "1d1aef9591a8c319668260d56b1cbe55b8775f0f18b39ea89a36ca83952070b1"
+  },
+  "source_refs_in_future_consumption_lock_required": true,
+  "status": "PASS_ALL_40_ORIGINAL_PROTOCOL_CPU_REPLAY"
+}

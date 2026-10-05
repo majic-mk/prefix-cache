@@ -1,0 +1,36 @@
+{
+  "schema": "c5_combined_runtime_cpu_source_lock_v1",
+  "gpu_uuid": null,
+  "files": [
+    {
+      "path": "artifacts/prefix_io_v1_server11_candidates/notification_v5_combined_runtime_resource/resource_preflight.py",
+      "bytes": 11746,
+      "sha256": "a5d73df6e2d1355474faf3d699b439f11b2d7be15f10b03026d0ae8374d16c72"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server11_candidates/notification_v5_combined_runtime_resource/test_resource_preflight.py",
+      "bytes": 7206,
+      "sha256": "a3adaadd8011738cffb81dc7ee8f644f5fd166c918245ed37fa6ff8c43990572"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server11_candidates/notification_v5_combined_runtime_resource/run_cpu_resource.py",
+      "bytes": 3427,
+      "sha256": "325a07af411cbdcc821d5d8b80ab19ae137f0c2fd5181dea49385a4e99f6d863"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server11_candidates/notification_v5_combined_runtime_resource/COMPLETE_ENTRY_CONTRACT.md",
+      "bytes": 6856,
+      "sha256": "b03f14406bea03c9c9372e08bc89fb3190d24a5e207380bbd5710e2a84f023a4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server11_candidates/notification_v5_cpu_delivery/server_replay/benchmark/CPU_COMPARISON_PROTOCOL.json",
+      "bytes": 3541,
+      "sha256": "6c00cf687f4903988a363e18a178ccca413076ced81920271bf9c962abde1218"
+    }
+  ],
+  "gpu_launch_allowed": false,
+  "native_execution_verified": false,
+  "native_cost_qualified": false,
+  "full_runtime_cost_qualified": false,
+  "on_observation_cost_measured": false
+}

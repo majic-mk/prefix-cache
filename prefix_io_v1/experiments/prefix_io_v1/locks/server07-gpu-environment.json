@@ -1,0 +1,48 @@
+{
+  "server": "connect.westd.seetacloud.com:38819",
+  "gpu_uuid": "GPU-f8744916-1693-fa6a-93b6-7f503c03459c",
+  "nvidia_driver": "580.105.08",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "torch": "2.11.0+cu130",
+  "author_vllm": "817a7e3124f817cd6e549581d3e5483207a753a4",
+  "py_kvcache": "3abba7a502d553f6e7e2e58b92086487e3395d7e",
+  "backend": "linux_aio",
+  "author_copy_library_sha256": "e30616d12f903169493f73c28e707540be17916e89794a9214b141d6e4769b94",
+  "qualification": "GPU component/production-KV diagnostic, not full P1",
+  "evidence": "experiments/prefix_io_v1/runs/server07-native-aio-kv-02/details/result.json",
+  "gpu_driver_scripts": {
+    "experiments/prefix_io_v1/scripts/qualify_aio_gpu_reactor.py": "1eca44fb729e77dfbe9468ecb3554081c8f46a2ddae8a60fca10ca0264e8c10e",
+    "experiments/prefix_io_v1/scripts/qualify_native_aio_kv.py": "fb74d41995630b446dda2cca11ab47e20ec895e5b984d3b9fdbb52a7b0eb842b"
+  },
+  "engine": {
+    "dtype": "bfloat16",
+    "kv_cache_dtype": "auto",
+    "quantization": null,
+    "load_format": "safetensors",
+    "trust_remote_code": false,
+    "skip_tokenizer_init": true,
+    "tensor_parallel_size": 1,
+    "distributed_executor_backend": "uni",
+    "max_model_len": 256,
+    "max_num_seqs": 1,
+    "max_num_batched_tokens": 256,
+    "block_size": 16,
+    "kv_cache_memory_bytes": 67108864,
+    "gpu_memory_utilization": 0.7,
+    "enable_prefix_caching": true,
+    "enable_chunked_prefill": true,
+    "cpu_offload_gb": 0,
+    "offload_group_size": 0,
+    "kv_offloading_size": null,
+    "kv_transfer_config": null,
+    "attention_config": {
+      "backend": "TRITON_ATTN"
+    },
+    "enforce_eager": true,
+    "compilation_config": 0,
+    "generation_config": "vllm",
+    "disable_log_stats": true,
+    "seed": 0
+  },
+  "model_revision": "16c174980d8a1492910551634b4969e69cdc2444"
+}

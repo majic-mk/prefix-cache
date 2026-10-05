@@ -1,0 +1,54 @@
+{
+  "schema": "p4-owned-final-cpu-seams-v6",
+  "files": [
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_p4_gpu_next_day.py",
+      "bytes": 17280,
+      "sha256": "3059e689f1dcbedc450c867d84e6ba1d6393c0400d710bbbd5dde5495c871fe3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+      "bytes": 27666,
+      "sha256": "370c40dd5b4bc0bcf91a5ac9402d65ee80ea5426f34762632ebda9e11abd5491"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_next_day/test_next_day_plan.py",
+      "bytes": 9426,
+      "sha256": "66196e175670a9602ea36ea7e6869c1489a44b9603d517dae17d8965b0dc98f4"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_next_day/test_native_gpu_preparation.py",
+      "bytes": 13753,
+      "sha256": "89346c9679b59c4ff5304839428f77d3c4f1cb6bca2365d64ebbade6aca0b55d"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_gpu_step_observation.py",
+      "bytes": 11977,
+      "sha256": "2dbd58eb095413520c5818cf5bb982ae6ca584933fc9b6db567eef41b29ca690"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_native_window_journal.py",
+      "bytes": 9647,
+      "sha256": "3a9ded39846cccf88ee9aceed2e16b86d8a7bbe953adfea3ba1a302b2c5aa8c3"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_observation/test_forward_native_journal.py",
+      "bytes": 14390,
+      "sha256": "bbac64346d09a31382cf94f30ed8119453e5ccb954624356a1488438a8d088dc"
+    }
+  ],
+  "new_GPU_runs": 0,
+  "gpu_verified": false,
+  "production_qualified": false,
+  "ownership": "7 changed files only; prior unchanged owned refs remain in v5; raw_pair CLI now verifier-owned",
+  "cpu_tests": {
+    "binary_path_targeted": 77,
+    "observer_initial": 42,
+    "observer_review_targeted": 3
+  },
+  "observed_imports": [],
+  "ledger_sha256": "31199998369e35fcd40daddd7af340353b0feaf134bbe37d2dd8f1f35391efc1",
+  "review_red": "artifacts/prefix_io_v1/server08-p4-02-cpu/eta/review-integration/observer-counterexamples-02/result.json",
+  "extra_binary_inventory": "artifacts/prefix_io_v1/server08-p4-02-cpu/observation-cpu/source-lock-v1.json#old_binary_inventory",
+  "frozen": true
+}

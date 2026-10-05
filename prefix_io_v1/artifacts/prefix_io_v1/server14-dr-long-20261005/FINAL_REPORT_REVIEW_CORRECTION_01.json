@@ -1,0 +1,9 @@
+{
+  "status": "REVIEWED_CORRECTION",
+  "supersedes": "SERVER14_U_F8_DR_FINAL_REPORT_01.md",
+  "current": "SERVER14_U_F8_DR_FINAL_REPORT_02.md",
+  "changed": "Journal choices count labeled as full guarded-job checks, including one pre-cohort check; no independent candidate window claim",
+  "performance_numbers_changed": false,
+  "additional_GPU_runs": 0,
+  "sha256": "cfce1dff1266276e34c29f1e597728d68fd1073b3f47a6e459337713bb39b5f3"
+}

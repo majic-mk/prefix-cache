@@ -1,0 +1,28 @@
+{
+  "schema": "independent_CAL06_CPU_audit_execution_v1",
+  "command": "python -B -I -S artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/audit_actual_cal06_cpu.py",
+  "tool_chunk_id": "928334",
+  "exit": 0,
+  "stdout": "{\"classification\": \"INDEPENDENT_SINGLE_FAMILY_DEVELOPMENT_CALIBRATION\", \"actual_generated_tokens\": 1280, \"primary_response_seconds\": 11.900263849380462, \"status\": \"VALID_CLOSED_BUT_COVERAGE_MISSING\", \"GPU_operations\": 0}\r\n",
+  "GPU_operations": 0,
+  "SSH_operations": 0,
+  "old_P316_qualification_claim": false,
+  "effect_sample": false,
+  "refs": [
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/audit_actual_cal06_cpu.py",
+      "bytes": 5766,
+      "sha256": "d4e6a1149bd89b020c6945a3853ced27657c4bd066143e3d52fe069c6bdac533"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/ACTUAL_INDEPENDENT_CAL06_CPU_AUDIT_01.json",
+      "bytes": 10380,
+      "sha256": "5bd604b03c8c8fcf06329bafbc23ceadf7041a73e756daabe1fe8cb84e5e64ef"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server14_candidates/dr_long_20261005/analyze_dr_long_results.py",
+      "bytes": 30832,
+      "sha256": "430a6fde7a2e81b4736e47143717e32563e5a3ff4e27a3decd6eb64232c56fbb"
+    }
+  ]
+}

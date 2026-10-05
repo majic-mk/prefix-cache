@@ -1,0 +1,255 @@
+import unittest
+from pathlib import Path
+
+from probekv.cacheblend_patch import (
+    combined_patch_sha256,
+    load_patch_manifest,
+    patch_files_for_mode,
+    validate_unified_diff,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST = ROOT / "patches" / "cacheblend" / "manifest.json"
+
+
+class CacheBlendPatchTests(unittest.TestCase):
+    def test_modes_are_tracked_and_have_distinct_hashes(self):
+        manifest = load_patch_manifest(MANIFEST)
+        self.assertFalse(manifest["innovation_claim"])
+        cb0 = patch_files_for_mode(MANIFEST, "cb0")
+        probekv = patch_files_for_mode(MANIFEST, "probekv")
+        closed_loop = patch_files_for_mode(
+            MANIFEST, "probekv_closed_loop"
+        )
+        multiregion = patch_files_for_mode(
+            MANIFEST, "probekv_v6_multiregion"
+        )
+        staggered = patch_files_for_mode(
+            MANIFEST, "probekv_v6_staggered_runtime"
+        )
+        prefix_hardened = patch_files_for_mode(
+            MANIFEST, "probekv_v6_prefix_hardened_runtime"
+        )
+        v7 = patch_files_for_mode(
+            MANIFEST, "probekv_v7_single_artifact_runtime"
+        )
+        schema6 = patch_files_for_mode(
+            MANIFEST, "probekv_v8_schema6_joint_cfo"
+        )
+        self.assertEqual(len(cb0), 1)
+        self.assertEqual(len(probekv), 2)
+        self.assertEqual(closed_loop, probekv)
+        self.assertEqual(len(multiregion), 3)
+        self.assertEqual(multiregion[:2], probekv)
+        self.assertEqual(len(staggered), 4)
+        self.assertEqual(staggered[:3], multiregion)
+        self.assertEqual(len(prefix_hardened), 5)
+        self.assertEqual(prefix_hardened[:4], staggered)
+        self.assertEqual(len(v7), 6)
+        self.assertEqual(v7[:5], prefix_hardened)
+        self.assertEqual(len(schema6), 8)
+        self.assertEqual(schema6[:6], v7)
+        self.assertIn("probekv_cfo_collector", schema6[-2].read_text(encoding="utf-8"))
+        writeback = schema6[-1].read_text(encoding="utf-8")
+        self.assertIn("status in [2] and resumable_mode", writeback)
+        self.assertIn("key_old[active_positions] = key", writeback)
+        self.assertIn("value_old[active_positions] = value", writeback)
+        self.assertIn("if status in [2] and not resumable_mode", writeback)
+        self.assertNotEqual(
+            combined_patch_sha256(cb0),
+            combined_patch_sha256(probekv),
+        )
+        self.assertNotEqual(
+            combined_patch_sha256(probekv),
+            combined_patch_sha256(multiregion),
+        )
+        self.assertTrue(
+            manifest["runtime_modes"]["closed_loop_v5"][
+                "layer_resumable_prefill"
+            ]
+        )
+        self.assertEqual(
+            manifest["runtime_modes"]["staggered_runtime_v6"]["status"],
+            "concrete_engine_hook_complete_requires_a800_qualification",
+        )
+        self.assertTrue(
+            manifest["runtime_modes"]["closed_loop_v6"][
+                "absolute_union_mask"
+            ]
+        )
+        self.assertEqual(
+            manifest["v7_full_kv_artifact_policy"],
+            "one lossless BF16 Artifact per Source Variant",
+        )
+
+    def test_v7_patch_changes_only_the_protocol_selected_rounding(self):
+        paths = patch_files_for_mode(MANIFEST, "probekv_v7_single_artifact_runtime")
+        additions = "\n".join(
+            line[1:]
+            for line in paths[-1].read_text(encoding="utf-8").splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        )
+        self.assertIn('repair_rounding_policy") == "ceil"', additions)
+        self.assertIn("topk_num += 1", additions)
+        self.assertEqual(additions.count("topk_num += 1"), 2)
+        prepare = (ROOT / "scripts/server/prepare_cacheblend.sh").read_text(
+            encoding="utf-8"
+        )
+        verify = (ROOT / "scripts/server/verify_cacheblend_patch.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("probekv_v7_single_artifact_runtime|", prepare)
+        self.assertIn("probekv_v8_training_free_residual_k)", prepare)
+        self.assertIn('"0006-probekv-v7-conservative-repair-rounding.patch"', prepare)
+        self.assertIn('"probekv_v7_single_artifact_runtime"', verify)
+        self.assertIn('"probekv_v8_training_free_residual_k"', verify)
+
+    def test_runtime_patch_freezes_segment_only_denominator(self):
+        patch = patch_files_for_mode(MANIFEST, "probekv")[1].read_text(
+            encoding="utf-8"
+        )
+        additions = "\n".join(
+            line[1:]
+            for line in patch.splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        )
+        self.assertIn("segment_len * ratio", additions)
+        self.assertIn("mandatory_suffix_tokens", additions)
+        self.assertNotIn(
+            "(total_len-last_len)*cache_fuse_metadata", additions
+        )
+
+    def test_all_tracked_patches_have_valid_hunk_counts(self):
+        for path in patch_files_for_mode(MANIFEST, "probekv_v8_schema6_joint_cfo"):
+            validate_unified_diff(path)
+
+    def test_prefix_hardening_is_explicit_and_does_not_change_legacy_mode(self):
+        legacy = patch_files_for_mode(MANIFEST, "probekv_v6_staggered_runtime")
+        hardened = patch_files_for_mode(
+            MANIFEST, "probekv_v6_prefix_hardened_runtime"
+        )
+        additions = "\n".join(
+            line[1:]
+            for line in hardened[-1].read_text(encoding="utf-8").splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        )
+        self.assertEqual(hardened[:4], legacy)
+        self.assertIn("exact_prefix_tokens", additions)
+        self.assertIn("_make_partial_bias_gqa", additions)
+
+    def test_partial_repair_uses_absolute_query_causal_rows(self):
+        patch = patch_files_for_mode(MANIFEST, "probekv")[1].read_text(
+            encoding="utf-8"
+        )
+        additions = "\n".join(
+            line[1:]
+            for line in patch.splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        )
+        self.assertIn("attn_bias = _make_partial_bias_gqa", additions)
+        self.assertNotIn(
+            "attn_bias = LowerTriangularFromBottomRightMask", additions
+        )
+
+    def test_v6_patch_builds_union_mask_without_changing_v5_mode(self):
+        paths = patch_files_for_mode(MANIFEST, "probekv_v6_multiregion")
+        patch = paths[-1].read_text(encoding="utf-8")
+        additions = "\n".join(
+            line[1:]
+            for line in patch.splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        )
+        self.assertIn('cache_fuse_metadata.get("repair_regions")', additions)
+        self.assertIn("dense_mask[:prefix_len] = False", additions)
+        self.assertIn("torch.unique(top_indices)", additions)
+        self.assertEqual(
+            patch_files_for_mode(MANIFEST, "probekv_closed_loop"),
+            paths[:2],
+        )
+
+    def test_staggered_runtime_patch_ports_qwen_and_preserves_old_mode(self):
+        paths = patch_files_for_mode(MANIFEST, "probekv_v6_staggered_runtime")
+        patch = paths[-1].read_text(encoding="utf-8")
+        for marker in (
+            "class Qwen2Model", "probekv_begin_prefill",
+            "probekv_advance_prefill", "target_active_positions",
+            "local_imp_indices", "BlockDiagonalCausalMask.from_seqlens",
+        ):
+            self.assertIn(marker, patch)
+        self.assertIn(
+            " attn_metadata: AttentionMetadata,\n"
+            "         residual: Optional[torch.Tensor],\n"
+            "+        status: int,",
+            patch,
+        )
+        self.assertNotIn(
+            "return hidden_states\n \n"
+            "+        if self.model.cache_fuse_metadata.get(\"capture_logits\"",
+            patch,
+        )
+        self.assertIn(
+            "+        if self.model.cache_fuse_metadata.get(\"capture_logits\"",
+            patch,
+        )
+        self.assertIn("self.num_queries_per_kv != 1", patch)
+        self.assertIn("partial_bias = partial_bias.view(", patch)
+        self.assertIn("expanded tensors to mathematically equivalent", patch)
+        self.assertIn("Mistral's", patch)
+        self.assertEqual(
+            patch_files_for_mode(MANIFEST, "probekv_v6_multiregion"),
+            paths[:3],
+        )
+
+    def test_schema6_patch_keeps_llama_metadata_dictionary_valid(self):
+        patch = patch_files_for_mode(
+            MANIFEST, "probekv_v8_schema6_joint_cfo"
+        )[-2].read_text(encoding="utf-8")
+        self.assertIn('-                                    "collect": False}', patch)
+        self.assertIn('+                                    "collect": False,', patch)
+        prepare = (ROOT / "scripts/server/prepare_cacheblend.sh").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn('"$python_bin" -m py_compile', prepare)
+
+    def test_prepare_script_accepts_schema9_and_schema10_runtime_modes(self):
+        prepare = (ROOT / "scripts/server/prepare_cacheblend.sh").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("probekv_v8_absolute_residual_variant_admission", prepare)
+        self.assertIn("probekv_v8_variant_growth_counterfactual", prepare)
+
+    def test_patch_verifier_accepts_schema9_and_schema10_runtime_modes(self):
+        verifier = (
+            ROOT / "scripts/server/verify_cacheblend_patch.py"
+        ).read_text(encoding="utf-8")
+        self.assertIn("probekv_v8_absolute_residual_variant_admission", verifier)
+        self.assertIn("probekv_v8_variant_growth_counterfactual", verifier)
+
+    def test_schema6_r1_endpoint_uses_exact_dense_attention_path(self):
+        patch = patch_files_for_mode(
+            MANIFEST, "probekv_v8_schema6_joint_cfo"
+        )[-1].read_text(encoding="utf-8")
+        self.assertIn("dense_equivalent_full_repair = True", patch)
+        self.assertIn(
+            "attention_status = 0 if dense_equivalent_full_repair else status",
+            patch,
+        )
+        self.assertIn("and not dense_equivalent_full_repair", patch)
+        self.assertIn("if status in [2] and not resumable_mode", patch)
+        self.assertIn("key_old[active_positions] = key", patch)
+        self.assertIn("value_old[active_positions] = value", patch)
+        self.assertEqual(
+            patch.count('metadata["dense_full_repair_endpoint"] = dense_full_repair'),
+            2,
+        )
+        self.assertEqual(
+            patch.count("status = 0 if dense_full_repair else ("), 2
+        )
+        self.assertEqual(
+            patch.count("if transition and not dense_full_repair:"), 2
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()

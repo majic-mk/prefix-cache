@@ -1,0 +1,563 @@
+{
+  "schema_version": 1,
+  "status": "P4_NEXT_DAY_DRY_RUN_GPU_BLOCKED_CPU_SCOPE",
+  "user_facing_planned_local_date": "2026-10-02",
+  "current_scope": "CPU_ONLY; tomorrow availability is not current GPU authorization",
+  "authorization": {
+    "path": "artifacts/prefix_io_v1/server08-p4-02-cpu/CPU_ONLY_AUTHORIZATION.json",
+    "bytes": 1151,
+    "sha256": "0cb3aef47685bcb5580f6fbbd51880dc6535419dc7bd487c42e78d7548b47dc5"
+  },
+  "permissions": {
+    "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+    "bytes": 1307,
+    "sha256": "795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50"
+  },
+  "ledger": {
+    "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+    "bytes": 335086,
+    "sha256": "31199998369e35fcd40daddd7af340353b0feaf134bbe37d2dd8f1f35391efc1"
+  },
+  "new_gpu_runs": 0,
+  "gpu_initialized": false,
+  "gpu_availability_probed": false,
+  "budget_reserved_seconds": 0,
+  "commands_executed": 0,
+  "prepared_command_is_authorization": false,
+  "approved_gpu_uuid_from_file": "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+  "gpu_identity_revalidated": false,
+  "gpu_uuid_change_requires_explicit_scope_update": true,
+  "budget": {
+    "max_seconds": 28800.0,
+    "used_seconds": 16520.562886646483,
+    "remaining_seconds": 12279.437113353517,
+    "active_reservation": null,
+    "per_command_termination_reserve_seconds": 20,
+    "preview_total_reserved_seconds": 1100
+  },
+  "storage": {
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+    "free_bytes": 10901200896,
+    "minimum_free_bytes": 8589934592,
+    "bytes_available_above_floor": 2311266304,
+    "standard_model_round_reserve_bytes": 3221225472,
+    "standard_model_round_fit": false,
+    "no_cache_merge_or_deletion_authorized": true,
+    "AUX_writes_not_prepared": true
+  },
+  "workspaces": {
+    "native": "third_party/work/py-kvcache-p4-02-cpu",
+    "control": "third_party/work/prefix-io-p4-02-cpu/src",
+    "author": "third_party/work/vllm-author-p4-02-cpu"
+  },
+  "final_source_lock": null,
+  "source_freeze_pending": true,
+  "cli_inventory": {
+    "run_gpu_stage.py": {
+      "source": {
+        "path": "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "bytes": 10863,
+        "sha256": "0786442f4104f3dc54e2006b0e7b3ed2dd3501dcf6410fa2e2c52201dd05559f"
+      },
+      "argparse_declarations": [
+        "p.add_argument('--label', required=True)",
+        "p.add_argument('--seconds', type=int, required=True)",
+        "p.add_argument('command', nargs=argparse.REMAINDER)"
+      ],
+      "source_selection_checks": []
+    },
+    "qualify_author_copy.py": {
+      "source": {
+        "path": "experiments/prefix_io_v1/scripts/qualify_author_copy.py",
+        "bytes": 10636,
+        "sha256": "a491b7041c8664ad7de887006652573f4eea56858931bfe93e0c87ca35764799"
+      },
+      "argparse_declarations": [
+        "parser.add_argument('--library', required=True, type=Path, help='Exact freshly built author _C*.so to load with torch.ops.load_library')",
+        "mode.add_argument('--abi-only', action='store_true', help='CPU zero-length schema check; no real copy')",
+        "mode.add_argument('--gpu-uuid', help='Full GPU UUID already bound by the external budget runner')",
+        "parser.add_argument('--output', type=Path, help='New JSON evidence file; refuses to overwrite')"
+      ],
+      "source_selection_checks": []
+    },
+    "native_gpu_prefix_smoke.py": {
+      "source": {
+        "path": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+        "bytes": 21990,
+        "sha256": "7d31cce851ca2334fedbe6b66c4e2d9bfff19e8768bafaa52f68e414518d77e2"
+      },
+      "argparse_declarations": [
+        "parser.add_argument('--model-dir', required=True, type=Path)",
+        "parser.add_argument('--model-plan', required=True, type=Path, help='Real official fixed-revision Hugging Face or ModelScope manifest')",
+        "parser.add_argument('--output-dir', required=True, type=Path, help='New subdirectory under experiments/prefix_io_v1/runs')"
+      ],
+      "source_selection_checks": []
+    },
+    "qualify_p4_native_gpu.py": {
+      "source": {
+        "path": "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+        "bytes": 20746,
+        "sha256": "ed30408f9669ed84b5ae9768b6b87e345bf93f3ded6ed75a73c3d79443f96533"
+      },
+      "argparse_declarations": [
+        "ap.add_argument('--project', type=Path, default=ROOT)",
+        "ap.add_argument('--mode', choices=('off', 'shadow'), required=True)",
+        "ap.add_argument('--name', required=True)",
+        "ap.add_argument('--scope-record', default=GPU_SCOPE)",
+        "ap.add_argument('--source-lock')",
+        "actions.add_argument('--dry-run', action='store_true')",
+        "actions.add_argument('--check-launch', action='store_true')",
+        "actions.add_argument('--execute', action='store_true')",
+        "ap.add_argument('--receipt', type=Path)"
+      ],
+      "source_selection_checks": []
+    },
+    "qualify_simple_stage_gpu_p316.py": {
+      "source": {
+        "path": "experiments/prefix_io_v1/scripts/qualify_simple_stage_gpu_p316.py",
+        "bytes": 9865,
+        "sha256": "fc30aa6933e7b7e33a7c280870fdad119c03748218456df64f7be3db0b97a881"
+      },
+      "argparse_declarations": [
+        "ap.add_argument('--output', type=Path, required=True)"
+      ],
+      "source_selection_checks": [
+        {
+          "line": 21,
+          "source": "require(Path(native.__file__).resolve().is_relative_to(ROOT/\"third_party/work/py-kvcache-p3-16-cpu\"), \"wrong qualified worktree\")"
+        }
+      ]
+    },
+    "qualify_native_fault_drain_gpu.py": {
+      "source": {
+        "path": "experiments/prefix_io_v1/scripts/qualify_native_fault_drain_gpu.py",
+        "bytes": 31302,
+        "sha256": "0070a31c788212739d5f7811c7848911705d5d18cb3912704ff4f96c73162470"
+      },
+      "argparse_declarations": [
+        "ap.add_argument('--output', type=Path, required=True)"
+      ],
+      "source_selection_checks": [
+        {
+          "line": 31,
+          "source": "\"third_party/work/py-kvcache-p3-15-cpu/py_kvcache/reactor.py\","
+        },
+        {
+          "line": 32,
+          "source": "\"third_party/work/py-kvcache-p3-15-cpu/py_kvcache/vllm.py\","
+        },
+        {
+          "line": 33,
+          "source": "\"third_party/work/py-kvcache-p3-15-cpu/py_kvcache/linux_aio.py\","
+        },
+        {
+          "line": 88,
+          "source": "ROOT / \"third_party/work/py-kvcache-p3-15-cpu\"), \"wrong native worktree\")"
+        },
+        {
+          "line": 104,
+          "source": "write_new(out / \"sources-before.json\", dict(source_sha256=initial_sources, modules=modules))"
+        },
+        {
+          "line": 518,
+          "source": "write_new(out / \"sources-after.json\", dict(source_sha256=final_sources, unchanged=True))"
+        },
+        {
+          "line": 521,
+          "source": "gpu_uuid=gpu_uuid, source_sha256=initial_sources, modules=modules,"
+        }
+      ]
+    },
+    "run_decode_interference_calibration_p316.py": {
+      "source": {
+        "path": "experiments/prefix_io_v1/scripts/run_decode_interference_calibration_p316.py",
+        "bytes": 19415,
+        "sha256": "aa43af9b2b6a173b66eb2512de86e60a749624cebd47f98e8a6ee43b3aa45db5"
+      },
+      "argparse_declarations": [
+        "ap.add_argument('--' + key, type=Path, required=True)"
+      ],
+      "source_selection_checks": [
+        {
+          "line": 13,
+          "source": "NATIVE_ROOTS = (\"third_party/work/py-kvcache-p3-16-cpu\",)"
+        },
+        {
+          "line": 35,
+          "source": "\"native_worktree\", \"source_sha256\", \"engine\", \"sampling\", \"prompt_token_ids\","
+        },
+        {
+          "line": 64,
+          "source": "def source_names(native_root):"
+        },
+        {
+          "line": 66,
+          "source": "require(native_root == NATIVE_ROOTS[-1], \"only P316 native sources may be frozen\")"
+        },
+        {
+          "line": 85,
+          "source": "native_worktree=NATIVE_ROOTS[-1]):"
+        },
+        {
+          "line": 91,
+          "source": "source_sha256={p: None for p in sorted(source_names(native_worktree))},"
+        },
+        {
+          "line": 115,
+          "source": "require(raw[\"native_worktree\"] in NATIVE_ROOTS, \"unqualified native worktree\")"
+        },
+        {
+          "line": 116,
+          "source": "locks=raw[\"source_sha256\"]"
+        },
+        {
+          "line": 117,
+          "source": "require(type(locks) is dict and set(locks)==source_names(raw[\"native_worktree\"]),"
+        },
+        {
+          "line": 159,
+          "source": "for rel, expected in spec[\"source_sha256\"].items():"
+        },
+        {
+          "line": 170,
+          "source": "for key in (\"engine\",\"sampling\",\"owned\",\"io\",\"cells\",\"sequence\",\"pulse\",\"active_decode_requests\",\"table_domain\",\"gpu_uuid\",\"native_worktree\",\"source_sha256\"):"
+        },
+        {
+          "line": 252,
+          "source": "require(spec[\"native_worktree\"]==NATIVE_ROOTS[-1],\"GPU calibration requires P316 qualified native worktree\")"
+        },
+        {
+          "line": 266,
+          "source": "source_sha256=spec[\"source_sha256\"], storage_before=storage_before, windows=[],"
+        }
+      ]
+    },
+    "run_concurrent_capacity_p316.py": {
+      "source": {
+        "path": "experiments/prefix_io_v1/scripts/run_concurrent_capacity_p316.py",
+        "bytes": 20621,
+        "sha256": "d3c757ee6e209141d800251eda5479eb6f041674f6c974036f53c01e72a1546b"
+      },
+      "argparse_declarations": [
+        "ap.add_argument('--qualification', type=Path, required=True)",
+        "ap.add_argument('--capacity-domain', choices=('cap960-l1', 'cap1024-l2'), required=True)",
+        "ap.add_argument('--storage-registration', type=Path)",
+        "ap.add_argument('--simple-stage-config', type=Path)",
+        "ap.add_argument('--supplemental-manifest-qualification', type=Path)",
+        "ap.add_argument('--native-cpu-probe', action='store_true')",
+        "ap.add_argument('--native-observation', choices=('on', 'off'), default='on')",
+        "ap.add_argument('--flush-cause-probe', action='store_true')",
+        "ap.add_argument('--store-readiness-probe', action='store_true')",
+        "ap.add_argument('--start-budget-config', type=Path)",
+        "ap.add_argument('--' + name, type=Path, required=True)"
+      ],
+      "source_selection_checks": [
+        {
+          "line": 22,
+          "source": "ap.add_argument(\"--simple-stage-config\",type=Path)"
+        }
+      ]
+    }
+  },
+  "command_previews": [
+    {
+      "label": "server08-p4-02-author-copy-01",
+      "seconds_limit": 60,
+      "termination_reserve_seconds": 20,
+      "planned_reserved_seconds": 80,
+      "child_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_author_copy.py",
+        "--library",
+        "third_party/work/vllm-author-build/vllm/_C.abi3.so",
+        "--gpu-uuid",
+        "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+        "--output",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p4-02-author-copy-01/details.json"
+      ],
+      "guard_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "--label",
+        "server08-p4-02-author-copy-01",
+        "--seconds",
+        "60",
+        "--",
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_author_copy.py",
+        "--library",
+        "third_party/work/vllm-author-build/vllm/_C.abi3.so",
+        "--gpu-uuid",
+        "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+        "--output",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p4-02-author-copy-01/details.json"
+      ],
+      "environment_preview": {
+        "PYTHONPATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/prefix-io-p4-02-cpu/src:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1"
+      },
+      "shell_preview": "PYTHONPATH=/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/prefix-io-p4-02-cpu/src:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 .venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server08-p4-02-author-copy-01 --seconds 60 -- .venv/bin/python experiments/prefix_io_v1/scripts/qualify_author_copy.py --library third_party/work/vllm-author-build/vllm/_C.abi3.so --gpu-uuid GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8 --output /root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p4-02-author-copy-01/details.json",
+      "new_storage_reserve_bytes": 16777216,
+      "role": "reusable common CUDA primitive; does not qualify P4",
+      "launch_now_authorized": false,
+      "executed": false
+    },
+    {
+      "label": "server08-p4-02-native-prefix-01",
+      "seconds_limit": 600,
+      "termination_reserve_seconds": 20,
+      "planned_reserved_seconds": 620,
+      "child_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+        "--model-dir",
+        "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p4-02-native-prefix-01/details"
+      ],
+      "guard_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "--label",
+        "server08-p4-02-native-prefix-01",
+        "--seconds",
+        "600",
+        "--",
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+        "--model-dir",
+        "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p4-02-native-prefix-01/details"
+      ],
+      "environment_preview": {
+        "PYTHONPATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-build:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1"
+      },
+      "shell_preview": "PYTHONPATH=/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-build:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 .venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server08-p4-02-native-prefix-01 --seconds 600 -- .venv/bin/python experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py --model-dir models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444 --model-plan artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json --output-dir /root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p4-02-native-prefix-01/details",
+      "new_storage_reserve_bytes": 536870912,
+      "role": "common model sanity using existing compiled author source; no new P4 source qualification",
+      "launch_now_authorized": false,
+      "executed": false
+    },
+    {
+      "label": "server08-p4-02-native-off-01",
+      "seconds_limit": 180,
+      "termination_reserve_seconds": 20,
+      "planned_reserved_seconds": 200,
+      "child_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+        "--mode",
+        "off",
+        "--name",
+        "server08-p4-02-native-off-01",
+        "--execute",
+        "--scope-record",
+        "artifacts/prefix_io_v1/server08-p4-02-cpu/GPU_STAGE_AUTHORIZATION.json",
+        "--source-lock",
+        "artifacts/prefix_io_v1/server08-p4-02-cpu/gpu-next-day/final-source-lock.json"
+      ],
+      "guard_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "--label",
+        "server08-p4-02-native-off-01",
+        "--seconds",
+        "180",
+        "--",
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+        "--mode",
+        "off",
+        "--name",
+        "server08-p4-02-native-off-01",
+        "--execute",
+        "--scope-record",
+        "artifacts/prefix_io_v1/server08-p4-02-cpu/GPU_STAGE_AUTHORIZATION.json",
+        "--source-lock",
+        "artifacts/prefix_io_v1/server08-p4-02-cpu/gpu-next-day/final-source-lock.json"
+      ],
+      "environment_preview": {
+        "PYTHONPATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/prefix-io-p4-02-cpu/src:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1"
+      },
+      "shell_preview": "PYTHONPATH=/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/prefix-io-p4-02-cpu/src:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 .venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server08-p4-02-native-off-01 --seconds 180 -- .venv/bin/python experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py --mode off --name server08-p4-02-native-off-01 --execute --scope-record artifacts/prefix_io_v1/server08-p4-02-cpu/GPU_STAGE_AUTHORIZATION.json --source-lock artifacts/prefix_io_v1/server08-p4-02-cpu/gpu-next-day/final-source-lock.json",
+      "new_storage_reserve_bytes": 134217728,
+      "role": "new P4 native source-bound G1; GPU-unqualified, explicit scope restore required",
+      "launch_now_authorized": false,
+      "executed": false
+    },
+    {
+      "label": "server08-p4-02-native-shadow-01",
+      "seconds_limit": 180,
+      "termination_reserve_seconds": 20,
+      "planned_reserved_seconds": 200,
+      "child_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+        "--mode",
+        "shadow",
+        "--name",
+        "server08-p4-02-native-shadow-01",
+        "--execute",
+        "--scope-record",
+        "artifacts/prefix_io_v1/server08-p4-02-cpu/GPU_STAGE_AUTHORIZATION.json",
+        "--source-lock",
+        "artifacts/prefix_io_v1/server08-p4-02-cpu/gpu-next-day/final-source-lock.json"
+      ],
+      "guard_argv": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+        "--label",
+        "server08-p4-02-native-shadow-01",
+        "--seconds",
+        "180",
+        "--",
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py",
+        "--mode",
+        "shadow",
+        "--name",
+        "server08-p4-02-native-shadow-01",
+        "--execute",
+        "--scope-record",
+        "artifacts/prefix_io_v1/server08-p4-02-cpu/GPU_STAGE_AUTHORIZATION.json",
+        "--source-lock",
+        "artifacts/prefix_io_v1/server08-p4-02-cpu/gpu-next-day/final-source-lock.json"
+      ],
+      "environment_preview": {
+        "PYTHONPATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/prefix-io-p4-02-cpu/src:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1"
+      },
+      "shell_preview": "PYTHONPATH=/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/prefix-io-p4-02-cpu/src:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/vllm-author-p4-02-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 .venv/bin/python experiments/prefix_io_v1/scripts/run_gpu_stage.py --label server08-p4-02-native-shadow-01 --seconds 180 -- .venv/bin/python experiments/prefix_io_v1/scripts/qualify_p4_native_gpu.py --mode shadow --name server08-p4-02-native-shadow-01 --execute --scope-record artifacts/prefix_io_v1/server08-p4-02-cpu/GPU_STAGE_AUTHORIZATION.json --source-lock artifacts/prefix_io_v1/server08-p4-02-cpu/gpu-next-day/final-source-lock.json",
+      "new_storage_reserve_bytes": 134217728,
+      "role": "new P4 native source-bound G1; GPU-unqualified, explicit scope restore required",
+      "launch_now_authorized": false,
+      "executed": false
+    }
+  ],
+  "command_gates": [
+    {
+      "label": "server08-p4-02-author-copy-01",
+      "budget_fit": true,
+      "PRIMARY_storage_fit": true,
+      "reusable_common_command": true,
+      "planned_P4_native_G1": false,
+      "GPU_qualified": false,
+      "qualifies_P4": false
+    },
+    {
+      "label": "server08-p4-02-native-prefix-01",
+      "budget_fit": true,
+      "PRIMARY_storage_fit": true,
+      "reusable_common_command": true,
+      "planned_P4_native_G1": false,
+      "GPU_qualified": false,
+      "qualifies_P4": false
+    },
+    {
+      "label": "server08-p4-02-native-off-01",
+      "budget_fit": true,
+      "PRIMARY_storage_fit": true,
+      "reusable_common_command": false,
+      "planned_P4_native_G1": true,
+      "GPU_qualified": false,
+      "qualifies_P4": false
+    },
+    {
+      "label": "server08-p4-02-native-shadow-01",
+      "budget_fit": true,
+      "PRIMARY_storage_fit": true,
+      "reusable_common_command": false,
+      "planned_P4_native_G1": true,
+      "GPU_qualified": false,
+      "qualifies_P4": false
+    }
+  ],
+  "legacy_cli_compatibility": {
+    "qualify_simple_stage_gpu_p316.py": {
+      "qualifies_P4": false,
+      "direct_P4_launch_allowed": false,
+      "required_new_adapter_changes": [
+        "native.__file__ must be under py-kvcache-p3-16-cpu; no P4 bridge/config"
+      ]
+    },
+    "qualify_native_fault_drain_gpu.py": {
+      "qualifies_P4": false,
+      "direct_P4_launch_allowed": false,
+      "required_new_adapter_changes": [
+        "source list and native.__file__ pin py-kvcache-p3-15-cpu"
+      ]
+    },
+    "run_decode_interference_calibration_p316.py": {
+      "qualifies_P4": false,
+      "direct_P4_launch_allowed": false,
+      "required_new_adapter_changes": [
+        "NATIVE_ROOTS/source_names/main only accept P3-16; control source locks target src/prefix_io_control",
+        "worker probe/control producer lacks P4 load and paired table qualification"
+      ]
+    },
+    "run_concurrent_capacity_p316.py": {
+      "qualifies_P4": false,
+      "direct_P4_launch_allowed": false,
+      "required_new_adapter_changes": [
+        "only --simple-stage-config; no P4 option or qualified cost-table input",
+        "capacity permit and worker probe must be rebound to new P4 source/geometry"
+      ]
+    }
+  },
+  "pending_freeze": [
+    "completed P4-02 native/control/runner source refs",
+    "actual device UUID and CUDA/native ABI under authorized GPU",
+    "new P4 native qualification runner + exact byte/lifecycle receipt",
+    "source/layout/model/kernel/quantum-bound load and ETA qualification",
+    "paired production cost table + independent semantic verifier receipt + heldout uncertainty",
+    "same fixed ordinary caps and parent/KV/staging/preload/fusion/stop-drain configuration",
+    "actual per-stage storage reservation from new runner; 3GiB default may be blocked",
+    "P4-only small pilot source-bound candidate and all mode activation reasons"
+  ],
+  "factorial": {
+    "C00": {
+      "dependency": false,
+      "interference": false
+    },
+    "C01": {
+      "dependency": false,
+      "interference": true
+    },
+    "C10": {
+      "dependency": true,
+      "interference": false
+    },
+    "C11": {
+      "dependency": true,
+      "interference": true
+    },
+    "ordinary_caps": "identical frozen fixed caps",
+    "independent_reference": "U",
+    "SLO": null,
+    "P5_allowed": false
+  },
+  "next_gates": [
+    "authorized GPU scope + approved actual device + storage/budget preflight",
+    "source-locked P4 off/shadow real CUDA/AIO, exact KV/full parent/zero ordinary quota drain",
+    "production load/ETA/table qualification tied to actual source and frozen geometry",
+    "I/D/J real lifecycle/model/live shadow qualification",
+    "bounded P4 pilot including independent U and same-base four-arm evidence"
+  ],
+  "effect_verified": false,
+  "full_P4_complete": false
+}

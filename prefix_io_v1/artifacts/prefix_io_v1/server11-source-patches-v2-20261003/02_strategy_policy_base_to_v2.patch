@@ -1,0 +1,75 @@
+--- a/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_policy.py
++++ b/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_policy.py
+@@ -30,17 +30,17 @@
+     native_order: int
+ 
+ 
+-def make_p4_policy(run_id, config, *, table=None):
++def make_p4_policy(run_id, config, *, table=None, single_file=None):
+     _run_id(run_id)
+     if type(config) is not P4Config:
+         raise TypeError("frozen P4 configuration required")
+     if config.mode == "off":
+         return None
+-    return P4Policy(run_id, config, table=table)
++    return P4Policy(run_id, config, table=table, single_file=single_file)
+ 
+ 
+ class P4Policy:
+-    def __init__(self, run_id, config, *, table=None):
++    def __init__(self, run_id, config, *, table=None, single_file=None):
+         _run_id(run_id)
+         if type(config) is not P4Config or config.mode == "off":
+             raise ValueError("off must create no policy object")
+@@ -49,6 +49,13 @@
+         self.run_id = run_id
+         self.config = config
+         self.table = table
++        if single_file is not None:
++            from .p4_single_file_receipt import ExactSingleFileReceipt
++            if (type(single_file) is not ExactSingleFileReceipt or
++                    config.mode != "interference" or table is not None or
++                    config.internal_step_budget_ns != single_file.step_budget_ns):
++                raise ValueError("verified exact single-file experiment and calibration-only budget required")
++        self.single_file = single_file
+ 
+     @property
+     def production_interference_qualified(self):
+@@ -266,7 +273,7 @@
+                       proposed=proposed, closure=best, target=target)
+ 
+     def issue_preview(self, work, snapshot, *, now_ns, expected_epoch, progress=None,
+-                      execution="production"):
++                      execution="production", _single_file_state=None):
+         """Additional cost constraint only; never grants or charges any allowance."""
+         if type(work) is not WorkDescriptor:
+             raise TypeError("existing native work values required")
+@@ -288,6 +295,28 @@
+             return IssuePreview("native_fallback", "stale_work_generation")
+         if progress is not None or now_ns - work.created_ns >= self.config.max_wait_ns:
+             return IssuePreview("issue", "native_progress_override", True)
++        if self.single_file is not None:
++            # This capability does not open the generic production table, batch
++            # selection, release ETA, or any other load/stage/byte condition.
++            from .dispatch_budget import ZERO
++            receipt = self.single_file
++            state = _single_file_state
++            if (execution != "production" or type(state) is not tuple or len(state) != 7 or
++                    any(type(v) is not int for v in state) or
++                    not 0 < state[1] <= state[2] <= now_ns or
++                    now_ns - state[2] > self.config.sample_max_age_ns or
++                    state[3:] != (1, 1, 0, 144) or
++                    "conditional_single_file_live_step" not in snapshot.capabilities or
++                    snapshot.load_signature != receipt.signature or
++                    snapshot.native_state is None or snapshot.native_state.inflight != ZERO or
++                    not 0 <= now_ns - snapshot.native_state.captured_ns <= self.config.sample_max_age_ns or
++                    work.stage != "ssd_read" or work.nbytes != 917504 or
++                    work.minimum_unit_bytes != 917504 or work.parent_id != 0 or
++                    type(work.child_id) is not str or not work.child_id.startswith("preload:")):
++                return IssuePreview("native_fallback", "outside_verified_single_file_condition")
++            action = "issue" if receipt.cost_upper_ns <= receipt.step_budget_ns else "defer"
++            return IssuePreview(action, "verified_single_file_experimental_condition",
++                                False, receipt.cost_upper_ns, False)
+         if self.config.mode in ("shadow", "dependency_only"):
+             return IssuePreview("issue", "existing_common_budget_only")
+         if self.table is None or snapshot.native_state is None or snapshot.native_state.inflight is None:

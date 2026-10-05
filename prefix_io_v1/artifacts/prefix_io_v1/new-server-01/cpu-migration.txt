@@ -1,0 +1,16 @@
+........................................................................ [ 18%]
+........................................................................ [ 36%]
+................................sssss................................... [ 54%]
+..........................................................sss........... [ 73%]
+........................................................................ [ 91%]
+.................................                                        [100%]
+=========================== short test summary info ============================
+SKIPPED [1] third_party/work/py-kvcache-observer/tests/test_e2e_kvcache.py:179: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/work/py-kvcache-observer/tests/test_e2e_kvcache.py:170: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/work/py-kvcache-observer/tests/test_e2e_kvcache.py:197: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/work/py-kvcache-observer/tests/test_e2e_kvcache.py:331: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/work/py-kvcache-observer/tests/test_e2e_kvcache.py:323: set RUN_E2E_TESTS=1 to run (requires GPU + vLLM)
+SKIPPED [1] third_party/work/py-kvcache-observer/tests/test_py_kvcache_async_open.py:58: io_uring unavailable: [Errno 1] io_uring_setup(depth=16) failed
+SKIPPED [1] third_party/work/py-kvcache-observer/tests/test_py_kvcache_async_open.py:84: io_uring unavailable: [Errno 1] io_uring_setup(depth=8) failed
+SKIPPED [1] third_party/work/py-kvcache-observer/tests/test_py_kvcache_async_open.py:131: io_uring unavailable: [Errno 1] io_uring_setup(depth=16) failed
+385 passed, 8 skipped in 2.50s

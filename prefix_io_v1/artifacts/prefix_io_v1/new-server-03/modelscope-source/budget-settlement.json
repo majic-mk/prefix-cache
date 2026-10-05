@@ -1,0 +1,12 @@
+{
+  "kind": "model_metadata",
+  "id": "e6465afbae3b4f2d9782bd7b6d1f4a5a",
+  "label": "modelscope-official-metadata-03",
+  "reserved_bytes": 67108864,
+  "started_unix": 1790433353.283443,
+  "note": "Includes official-source HTML and all metadata/error response payloads; no weight body. Initial completed requests are included; reservation was installed during bounded audit, not retroactively claimed as prior to every request.",
+  "actual_payload_bytes": 115928,
+  "charged_bytes": 115928,
+  "ended_unix": 1790433634.1837802,
+  "evidence": "artifacts/prefix_io_v1/new-server-03/modelscope-source/metadata-accounting.json"
+}

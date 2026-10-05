@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_ACTUAL_OFF03_FAILURE_AND_READONLY_CPU_AUDIT",
+  "files": [
+    {
+      "path": "ACTUAL_AUTHORIZED_OFF_CPU_PREFLIGHT.json",
+      "bytes": 795,
+      "sha256": "612eeba9d02de19fb1ec136d1502ab7b2bf06f36006f129db2a3e1efaf01fc7c"
+    },
+    {
+      "path": "ACTUAL_NEW_HUMAN_SCOPE_CREATION.json",
+      "bytes": 6407,
+      "sha256": "138a05ca3d10d2d35e41761ace3dc41f5ce088a7fcd5bad7302133cd1f3f84b2"
+    },
+    {
+      "path": "ACTUAL_OFF_LAUNCH_RECEIPT.json",
+      "bytes": 2160,
+      "sha256": "7a39bd9800b3ab0ba01b5b824f0ba4bbb0f35835d84c9871012309410960b1f1"
+    },
+    {
+      "path": "ACTUAL_POST_OFF_CPU_SOURCE_AND_SHADOW_GATE.json",
+      "bytes": 2027,
+      "sha256": "042b9c0a107296de400f4ece324c34ae0750c5d01554ce673fd63b9cf88f80b5"
+    },
+    {
+      "path": "ACTUAL_READONLY_OPTIONAL_ABSENCE_AND_JIT_CACHE.json",
+      "bytes": 5839,
+      "sha256": "97720c042bfec23dc1141afd29084130b0724e312d5f2690327a7f9854c6e856"
+    },
+    {
+      "path": "GPU_STAGE_AUTHORIZATION.json",
+      "bytes": 7635,
+      "sha256": "9fc00fe164a46a84e9144564587ac100159d9a19e7200c8cd79a247e4ecee042"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD_G2.json",
+      "bytes": 2269,
+      "sha256": "321db3c1f8d12b56a82554607ca7fe255cdedfd85229fdc31343555238d142e2"
+    },
+    {
+      "path": "INDEPENDENT_OFF03_FAILURE_REVIEW.json",
+      "bytes": 9025,
+      "sha256": "0d77a3a9dbfc5c2288082d3e88a9475c6f19e31679985069e8bb6d8ca5ba162e"
+    },
+    {
+      "path": "POST_OFF_GPU_BUDGET_LEDGER.json",
+      "bytes": 342596,
+      "sha256": "9a4c7bd1f030ed236d2461b9e3ba3521d4ded139c6a5fc818aa05332cd15f8b1"
+    },
+    {
+      "path": "POST_OFF_READONLY_RESULT.json",
+      "bytes": 25169,
+      "sha256": "09cde8a72e61cbdbdd16a980b8b202fe867436ed30fe5c3b5c357e7d0b8dcd08"
+    },
+    {
+      "path": "RAW_OFF_EVIDENCE_DOWNLOAD_VERIFY.json",
+      "bytes": 4452,
+      "sha256": "e34c5fc30c77c8bab1eca9da4663606638292d1559c330e6b865545b302df480"
+    },
+    {
+      "path": "runs/off/details/normal-model-lifecycle-result.json",
+      "bytes": 8885,
+      "sha256": "b50191a1d9161972f15eb7ca729d32a3f2dd77426335edb3953dc10c68260dd7"
+    },
+    {
+      "path": "runs/off/process.log",
+      "bytes": 9774,
+      "sha256": "ec994b78ebb8db48f98df293d7ac73e42d38fdf77095efad569383c16cb981cc"
+    },
+    {
+      "path": "runs/off/result.json",
+      "bytes": 1394,
+      "sha256": "2be39debcff271f09bf88e7aa4168d22f9aaa105c72df85350ad79cbeef346e8"
+    },
+    {
+      "path": "SERVER09_G2_NINJA_FAILURE_AND_CPU_FOLLOWUP_REPORT.md",
+      "bytes": 5647,
+      "sha256": "6830f155f5246f4ed869ad3e977effbdd8e0f627979ae13d02ee0b90e2bff053"
+    },
+    {
+      "path": "source-readonly/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "source-readonly/ACTUAL_SOURCE_INVENTORY.json",
+      "bytes": 3919,
+      "sha256": "f5543fdec1a4a67ee77ba82758d06a83868572fea2ded626356a4a1cd9aa8a23"
+    },
+    {
+      "path": "source-readonly/deep_gemm.py",
+      "bytes": 19901,
+      "sha256": "99e316620e3cdda2db7d9fd7a4ae5968e9c9ef98d7399d62a2c4a5c506627854"
+    },
+    {
+      "path": "source-readonly/deep_gemm_warmup.py",
+      "bytes": 13044,
+      "sha256": "b05db0127b19fc38da78e96c74df279e2cd53e0c262e9a7cad53486cf21f3414"
+    },
+    {
+      "path": "source-readonly/import_utils.py",
+      "bytes": 14589,
+      "sha256": "f14b07131a4d49955150016dbfa34f7d8d5f586b1545a1173e0d4f904578b18b"
+    },
+    {
+      "path": "source-readonly/qualify_p4_native_gpu.py",
+      "bytes": 29692,
+      "sha256": "5d9604fc07d80495a49febfcd488cb2601f74a2bef107261c8e623a4d0a1c77d"
+    }
+  ],
+  "file_count": 21,
+  "actual_GPU_jobs": 1,
+  "actual_shadow_GPU_jobs": 0,
+  "actual_off_GPU_wall_seconds": 131.6455060718581,
+  "source_count_verified_after_GPU": 4040,
+  "GPU_model_qualification_passed": false,
+  "performance_claim": false,
+  "scope_off03_failed_shadow03_blocked": true
+}

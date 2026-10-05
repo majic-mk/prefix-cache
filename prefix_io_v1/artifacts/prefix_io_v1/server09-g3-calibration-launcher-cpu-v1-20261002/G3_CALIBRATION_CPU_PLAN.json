@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "status": "NOT_AUTHORIZED_CPU_PLAN",
+  "purpose": "CURRENT_CONTEXT_NATIVE_RAW_COST_PILOT_ONLY",
+  "qualification_context": {
+    "purpose": "CURRENT_CONTEXT_NATIVE_RAW_COST_PILOT_ONLY",
+    "project_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "model_relative": "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "model_plan_relative": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "model_alias": "Qwen/Qwen2.5-7B-Instruct",
+    "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+    "acquisition_source": {
+      "path": "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    "engine_source": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "acquisition_domain": 1024,
+    "sizes": [
+      128
+    ],
+    "reps": 3,
+    "max_num_seqs": 1,
+    "iodepth": 4,
+    "prompt_tokens_per_main_request": 129,
+    "reusable_prefix_tokens": 128,
+    "outputs_per_request": 1,
+    "requests_by_mode": {
+      "cold": 3,
+      "populate": 9,
+      "paired": 6
+    },
+    "total_requests": 18,
+    "total_outputs": 18,
+    "warmup_rep": 0,
+    "measured_samples_per_point_per_route": 2,
+    "engine_overrides": {
+      "async_scheduling": false,
+      "max_model_len": 1040,
+      "max_num_batched_tokens": 1040,
+      "kv_cache_memory_bytes": 268435456,
+      "prefix_caching_hash_algo": "sha256",
+      "disable_log_stats": false
+    },
+    "sampling": {
+      "temperature": 0.0,
+      "seed": 0,
+      "max_tokens": 1,
+      "min_tokens": 1,
+      "ignore_eos": true,
+      "detokenize": false
+    },
+    "connector": {
+      "io_backend": "linux_aio",
+      "sync_on_store": false,
+      "staging_mem": 0.125,
+      "enable_preload": true,
+      "preload_share_staging": true,
+      "preload_lookahead_requests": 1,
+      "staging_cache": "lru",
+      "load_planner": "off",
+      "prefix_cache_break_even_path": null
+    },
+    "shared_storage_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-01-private-storage",
+    "strategies": "off",
+    "asynchronous_author_io_preserved": true,
+    "new_executor": false,
+    "reset_scope": "original calibration GPU-only resets; reset_connector=False",
+    "timing_scope": "original metrics.first_token_latency wall-clock TTFT; not GPU event cost",
+    "curve_output": false,
+    "cost_qualified": false,
+    "production_qualified": false,
+    "performance_claim": false,
+    "budget_reset": false,
+    "cumulative_gpu_budget_seconds": 28800,
+    "seconds_limit_per_job": 300,
+    "guard_reserve_seconds_per_job": 20,
+    "total_reserved_seconds": 960,
+    "storage_reserve_bytes_per_job": 1073741824,
+    "total_storage_reserve_bytes": 3221225472,
+    "storage_floor_bytes": 8589934592,
+    "existing_assets_only": true,
+    "no_download": true,
+    "no_system_or_author_changes": true,
+    "no_data_deletion": true
+  },
+  "baseline_source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261002/gpu-source-lock-candidate.json",
+    "bytes": 899396,
+    "sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b"
+  },
+  "new_source_refs": [
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/g3_calibration_plan.py",
+      "bytes": 24475,
+      "sha256": "196700d96733ec07c5a4c08c6104ab31a2a36548cf005fbb8e11b6a769f6f0c0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/g3_calibration_result.py",
+      "bytes": 34174,
+      "sha256": "83ae8bb14181d51e9d4b0e40bca4123d30578cce43f581d851f97033f155eb9e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/g3_calibration_runtime.py",
+      "bytes": 27641,
+      "sha256": "a32842723fb9871696173c257d3276d156545d519a7aefeea449b367bd79a294"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/replay_g3_cpu_support_imports.py",
+      "bytes": 4389,
+      "sha256": "34ac92fe1f77145fc53adfe22d21f90850cef50147d58c15b1935697ea930db2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/run_g3_calibration_pilot.py",
+      "bytes": 17093,
+      "sha256": "feb00143d95e40bcc3691a3f8489e7d32088e3ee7e2342643ddf4885a14f7072"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/run_g3_cpu_checks.py",
+      "bytes": 4421,
+      "sha256": "e7b3b084e54ff8a6b8f3958d58b22df07d3c84c343617af91c71edede92c5b88"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/test_g3_calibration_plan.py",
+      "bytes": 18298,
+      "sha256": "057744cf2f6d66d400a9aa9b7d3ab944a2e032b39b9c9bf07a74e7d18926c159"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/test_g3_calibration_result.py",
+      "bytes": 24052,
+      "sha256": "c67917b61d5d7e4a84f7aaf4648b1383e46a0813218ed4e4a00f5b3600fb3a4c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/test_g3_calibration_runtime.py",
+      "bytes": 19387,
+      "sha256": "ce2ff4039ff66b04df192fe61044e20071d810a6187386ae6130eb24b7b03def"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/test_run_g3_calibration_pilot.py",
+      "bytes": 6087,
+      "sha256": "74d131d72d9979cc400b66672c1c4746d95f4d6885e842fb416caa6b22a73187"
+    }
+  ],
+  "source_bytes_verified": false,
+  "authorizes_gpu": false,
+  "jobs": [
+    {
+      "mode": "cold",
+      "label": "server09-g3-calibration-cold-01",
+      "original_argv": [
+        "--mode",
+        "cold",
+        "--domain",
+        "1024",
+        "--sizes",
+        "128",
+        "--reps",
+        "3",
+        "--max-num-seqs",
+        "1",
+        "--iodepth",
+        "4",
+        "--model-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--storage",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-01-private-storage",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-cold-01/details/acquisition"
+      ],
+      "requests": 3,
+      "output_tokens_per_request": 1,
+      "seconds_limit": 300,
+      "guard_reserve_seconds": 20,
+      "retries": 0,
+      "requires_prior_success_original_shutdown_and_OS_drain": false
+    },
+    {
+      "mode": "populate",
+      "label": "server09-g3-calibration-populate-01",
+      "original_argv": [
+        "--mode",
+        "populate",
+        "--domain",
+        "1024",
+        "--sizes",
+        "128",
+        "--reps",
+        "3",
+        "--max-num-seqs",
+        "1",
+        "--iodepth",
+        "4",
+        "--model-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--storage",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-01-private-storage",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-populate-01/details/acquisition"
+      ],
+      "requests": 9,
+      "output_tokens_per_request": 1,
+      "seconds_limit": 300,
+      "guard_reserve_seconds": 20,
+      "retries": 0,
+      "requires_prior_success_original_shutdown_and_OS_drain": true
+    },
+    {
+      "mode": "paired",
+      "label": "server09-g3-calibration-paired-01",
+      "original_argv": [
+        "--mode",
+        "paired",
+        "--domain",
+        "1024",
+        "--sizes",
+        "128",
+        "--reps",
+        "3",
+        "--max-num-seqs",
+        "1",
+        "--iodepth",
+        "4",
+        "--model-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+        "--model-plan",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+        "--storage",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-01-private-storage",
+        "--output-dir",
+        "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server09-g3-calibration-paired-01/details/acquisition"
+      ],
+      "requests": 6,
+      "output_tokens_per_request": 1,
+      "seconds_limit": 300,
+      "guard_reserve_seconds": 20,
+      "retries": 0,
+      "requires_prior_success_original_shutdown_and_OS_drain": true
+    }
+  ]
+}

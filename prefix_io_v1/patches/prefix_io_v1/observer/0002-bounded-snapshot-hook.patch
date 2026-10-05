@@ -1,0 +1,69 @@
+diff --git a/py_kvcache/reactor.py b/py_kvcache/reactor.py
+--- a/py_kvcache/reactor.py
++++ b/py_kvcache/reactor.py
+@@ -189,11 +189,14 @@
+         break_even: BreakEvenThresholds | None = None,
+         storage_block_tokens: int = 0,
+         progress_run_id: str | None = None,
++        observation_sink: Any = None,
+     ) -> None:
+         if progress_run_id is not None and (
+             type(progress_run_id) is not str or not progress_run_id.strip()
+         ):
+             raise ValueError("progress_run_id must be a nonempty string or None")
++        if observation_sink is not None and not callable(observation_sink):
++            raise TypeError("observation_sink must be callable or None")
+         if not TORCH_COPY_AVAILABLE:
+             raise RuntimeError("vLLM and torch are required for the I/O reactor")
+         self.config = config
+@@ -330,6 +333,8 @@
+         self._prefix_progress = (
+             _ProgressState(progress_run_id) if progress_run_id is not None else None
+         )
++        self._observation_sink = observation_sink
++        self._observation_failures = 0
+         self._worker = threading.Thread(target=self._run, name="py-kvcache-reactor", daemon=True)
+         self._worker.start()
+         logger.info(
+@@ -624,11 +629,25 @@
+                 if self._stop and not self._has_work():
+                     break
+                 self._pump_once()
++                if getattr(self, "_observation_sink", None) is not None:
++                    self._observe_once()
+         except BaseException as exc:
+             # Fail every outstanding Future so vLLM gets errors instead of
+             # blocking forever waiting on this dead thread.
+             logger.exception("py-kvcache reactor thread crashed; failing all outstanding transfers")
+             self._fail_everything(exc)
++
++    def _observe_once(self) -> None:
++        """Optional bounded CPU observer; native work/completion has already run."""
++        sink = self._observation_sink
++        if sink is None:
++            return
++        try:
++            sink(self)
++        except Exception:
++            # A broken observer cannot fail native parent Futures or flood logs.
++            self._observation_failures += 1
++            self._observation_sink = None
+ 
+     def _fail_everything(self, exc: BaseException) -> None:
+         self._stop = True
+@@ -2154,6 +2173,7 @@
+         break_even: BreakEvenThresholds | None = None,
+         storage_block_tokens: int = 0,
+         progress_run_id: str | None = None,
++        observation_sink: Any = None,
+     ) -> None:
+         self.layout = layout
+         self.reactor = IoReactor(
+@@ -2163,6 +2183,7 @@
+             break_even=break_even,
+             storage_block_tokens=storage_block_tokens,
+             progress_run_id=progress_run_id,
++            observation_sink=observation_sink,
+         )
+ 
+     @property

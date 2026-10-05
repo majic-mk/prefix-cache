@@ -1,0 +1,73 @@
+--- /dev/null
++++ b/IDLE_CHANGE_NOTES.md
+@@ -0,0 +1,70 @@
++# V4 common retained-cache idle correction
++
++Scope: common baseline correction, applied identically to off, shadow, and on.
++This correction is not an interference-policy improvement or a GPU result.
++
++## Observed source defect
++
++The original `_has_work()` includes retained `_shared_cached` and
++`_preload_slots`. `_run()` used that ownership predicate to choose whether the
++existing incoming queue may block. Consequently retained cache alone repeatedly
++entered the original pump and its `time.sleep(0)` path, even with no operation
++to poll or advance. The historical GPU timing pattern motivated this correction
++but does not by itself establish its causal performance effect.
++
++## Exact change
++
++Add `_has_poll_work()` and use it only for the existing
++`_drain_incoming(block=...)` argument in `_run()`.
++
++The new predicate remains true for STOP, active parents, ring operations,
++pending CUDA copies, ready copies, pending preload work, and both original
++ready-fd queues. It ignores only retained cache ownership. It does not scan,
++evict, copy, release, or change any resource. In particular, an actively deferred
++ready preload remains polling work; this correction does not resolve its retry
++cost.
++
++`_has_work`, `_pump_once`, `_drain_incoming`, `_intake`, `shutdown`, and the normal
++STOP cleanup are unchanged. The original `Queue.get(timeout=0.5)` and all original
++submission channels remain in use. No new queue, event, sleep parameter, model
++change, or lifecycle protocol is introduced. Arrival between the predicate
++check and `get()` remains safe because the original Queue owns its wakeup.
++
++## CPU evidence and limits
++
++Local isolated Python 3.12 execution on 2026-10-03:
++
++```text
++python -B -I -S test_retained_idle_wait.py
++Ran 15 tests in 0.170s
++OK
++```
++
++The suite extracts actual reactor run/intake/submission/STOP methods by AST,
++uses real `queue.Queue` and Python threads, and checks the old source against
++v3. It covers shared and nonshared retained caches, each polling-work category,
++job/preload/mandatory/owner-snapshot/P4-inspect/P4-publication/admission-control
++wakeups, FIFO job-before-mandatory ordering, check-to-get arrival races, STOP
++wakeup and exactly-once retained-slot release.
++
++The model, CUDA, ring backend, and pump completion work are explicit CPU
++fixtures. Source comparisons prove the original actual pump and STOP code were
++not changed; these tests do not prove real DMA completion or GPU performance.
++The suite asserts Torch/vLLM are not imported. There were no GPU operations,
++remote commands, deletion, or changes to older candidate versions.
++
++For a server artifact directory with a different name, set
++`SERVER11_IDLE_PREVIOUS_CANDIDATE_DIR` to the actual immutable v3 candidate root
++before invoking this test. Old copied structural-regression tests also need
++their explicit allowed-change lists updated by the candidate integrator; this
++task does not edit those tests or the unified candidate manifest.
++
++## Fairness and cost evidence
++
++All comparison arms must share this correction and the same initial cache,
++budgets, engine, lifecycle, and measurements. New-on versus historical-off is
++not a strategy comparison. The correction can change I/O-window CPU competition;
++the previous v5 cost calibration remains historical evidence and must not be
++silently promoted to qualification for the corrected common baseline. A future
++qualification needs source-bound calibration and held-out validation, with no
++widening of prior thresholds to conceal a regression.

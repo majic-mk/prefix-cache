@@ -1,0 +1,111 @@
+{
+  "schema": "independent_CPU_public_input_permission_review_v1",
+  "status": "AUTHORIZED_BOUNDED_PUBLIC_CPU_INPUT_PREPARATION",
+  "review_date": "2026-10-05",
+  "human_requests_considered": [
+    "读取完整实施交接包，按04_CODEX_EXECUTION执行；在现成py-kvcache和作者配套vLLM上增量修改",
+    "没有GPU时完成可安全执行部分，不编造实验结果、不扩大研究范围",
+    "先进行cpu验证；完成无卡阶段可做的所有事情",
+    "授权gpu，只要有gpu就用，以后无需授权",
+    "先完成cpu准备；完成租用gpu的所有前置操作",
+    "持续继续指示，以及根代理转述本轮先完成功能和成本验证范围"
+  ],
+  "authority_distinction": {
+    "attached_document_instruction_is_not_separate_human_grant": true,
+    "user_explicitly_adopted_04_execution_plan_and_permission_limits": true,
+    "human_persistent_authorization_takes_precedence_over_old_per_job_approval_prompts": true,
+    "GPU_standing_grant_does_not_add_budget_or_expand_research_scope": true
+  },
+  "decision": {
+    "read_existing_public_request_and_provenance_sources_on_CPU": true,
+    "obtain_bounded_public_source_bytes_into_new_project_input_paths": true,
+    "inspect_parse_and_tokenize_actual_inputs_on_CPU": true,
+    "prepare_true_source_supported_family_mapping_and_prospective_declarations_on_CPU": true,
+    "need_another_itemized_human_approval_for_these_CPU_steps": false,
+    "GPU_jobs_may_download_inputs_under_this_CPU_decision": false,
+    "existing_gpu_stage_qualification_can_be_bypassed": false,
+    "fabricated_family_or_deadline_allowed": false
+  },
+  "permission_source": {
+    "path": "gpu_prerental_preparation_20261004/source_inputs/permissions.yaml",
+    "bytes": 1307,
+    "sha256": "795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50",
+    "same_as_migration_original": true,
+    "allow_project_local_edits": true,
+    "allow_cpu_tests": true,
+    "allow_public_source_read": true,
+    "relevant_lines": [6, 7, 8],
+    "original_max_GPU_hours": 8,
+    "prohibited_unrelated_operations_unchanged": [
+      "remote_push",
+      "new_cloud_rental_or_payment_by_agent",
+      "general_driver_or_system_changes",
+      "shared_data_deletion"
+    ]
+  },
+  "per_job_vs_project_permission": {
+    "original_GPU_guard_source_SHA": "3527b6218d3e6c5781de550ce1c7cdebfd354e37d80f41693010201a3586929a",
+    "guard_source_lines": [44, 45, 52, 53, 54, 55],
+    "non_base_effective_GPU_permission_requires_allow_model_downloads_false": true,
+    "model_download_flag_is_not_general_public_input_read_flag": true,
+    "old_GPU_job_no_download_language_remains_bound_to_that_job": true,
+    "standing_GPU_amendment_no_expansion_is_not_revocation_of_existing_public_CPU_read": true,
+    "persistent_amendment_SHA": "8acab9a6d1e67d8c5237f2ff1736cff6e9248c7d359c944e80648c7cba5895ec",
+    "old_effective_GPU_permission_SHA": "606d2db538aa61b3a1004dfe16a82bbe35df06677f53c8398988f0a15cc776e4",
+    "CPU_fetch_should_be_separate_from_GPU_child_and_frozen_before_launch": true,
+    "no_base_or_effective_permission_file_needs_modification_for_CPU_public_read": true
+  },
+  "actual_input_gate_review": {
+    "raw_tokenizer_unbound_reason": "Actual dataset_ref is null; the existing producer returns UNBOUND_NO_ACTUAL_DATASET before import",
+    "raw_tokenizer_unbound_is_permission_failure": false,
+    "raw_tokenization_requires_family_or_deadline": false,
+    "raw_tokenizer_source_lines": [315, 316, 351, 352, 369, 370, 396, 406, 407],
+    "formal_family_gate_reason": "Prevent actual session/document/public-prefix families and exact prompt duplicates from crossing calibration/development/evaluation partitions",
+    "family_gate_is_reasonable_for_formal_claims": true,
+    "family_source_must_be_private_user_input": false,
+    "family_can_be_verified_from_actual_public_source_metadata": true,
+    "token_ids_or_arbitrary_per_record_family_labels_alone_are_sufficient": false,
+    "family_producer_is_a_CPU_preparation_task_when_supported_real_metadata_exists": true,
+    "formal_deadline_gate_reason": "Keep the full control deadline independent and prospective; freeze actual development reserve before on/evaluation",
+    "deadline_must_not_be_backsolved_from_A_B_cost_or_Amax": true,
+    "deadline_authority_is_another_human_GPU_permission": false,
+    "authority_contract_requires_human_signature_or_private_external_issuer": false,
+    "authority_contract_checks": ["actual_byte_reference", "schema", "independent_requirement_before_development_origin", "same_positive_deadline", "same_service_SLO"],
+    "source_supported_prospective_service_or_experiment_requirement_can_be_prepared_autonomously": true,
+    "unsupported_claim_of_real_service_SLO_allowed": false,
+    "missing_family_deadline_or_SLO_blocks_public_CPU_acquisition_inspection_or_raw_tokenization": false
+  },
+  "observed_contract_discrepancy": {
+    "severity": "documentation_and_actual_gate_scope",
+    "input_requirements_document_says_development_SLO_may_be_unbound": true,
+    "actual_formal_workload_consumer_requires_service_SLO_for_every_partition": true,
+    "actual_source": "gpu_prerental_preparation_20261004/formal_trace_binding/formal_trace_binding.py",
+    "actual_source_lines": [274, 321, 326, 329, 334],
+    "consequence": "Current formal development entry is narrower than the explanatory document. Keep the real validator closed until its inputs exist; do not describe this as missing CPU/public-data authorization or use the document to bypass the code.",
+    "code_modified_by_this_review": false
+  },
+  "next_authorized_CPU_work": [
+    "Inspect bounded public request sources and their published provenance without changing prompts or adding prefixes.",
+    "Preserve source URLs/version/content bytes and exact complete accepted-record order, with request-to-original-record mapping.",
+    "Choose only a complete source that fits the existing limits: 32 MiB, at most 96 accepted requests, at most 32 per eventual partition and at most 4096 prompt tokens; do not truncate or discard records to meet the gate.",
+    "Freeze actual input and provenance bytes, inspect with the original parser, then run the existing raw CPU tokenizer; family and GPU flags remain false until separately verified.",
+    "Use genuine published session/document/public-prefix relationships to construct and validate the family closure. Report nonpartitionable or unsupported inputs rather than inventing labels.",
+    "Prepare independently justified prospective deadline/SLO declarations before development. An arbitrary value chosen to exceed observed costs is not independent evidence.",
+    "Keep GPU children offline and unchanged; future GPU runs consume the frozen input and original source/resource/budget guards."
+  ],
+  "operations_by_this_reviewer": {
+    "SSH_or_RPC_calls": 0,
+    "downloads": 0,
+    "GPU_operations": 0,
+    "model_or_tokenizer_imports": 0,
+    "old_frozen_code_or_permission_edits": 0,
+    "writes": "Only new permission_review JSON and Markdown audit reports"
+  },
+  "claims": {
+    "new_natural_data_obtained_by_this_review": false,
+    "formal_family_receipt_created": false,
+    "independent_service_target_created": false,
+    "GPU_qualified": false,
+    "strategy_effect_verified": false
+  }
+}

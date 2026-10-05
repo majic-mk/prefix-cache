@@ -1,0 +1,46 @@
+{
+  "status": "PASS_FINAL_CPU_PLAN_TEST_RUN_05",
+  "actual_process_exit": 0,
+  "tests_run": 31,
+  "unique_tests": 31,
+  "failures": 0,
+  "errors": 0,
+  "elapsed_test_s": 1.411,
+  "actual_command": "python -B -I -S artifacts/prefix_io_v1_server09_candidates/g3_calibration_launcher_cpu_v1/test_g3_calibration_plan.py",
+  "source_refs": [
+    {
+      "path": "g3_calibration_plan.py",
+      "bytes": 24475,
+      "sha256": "196700d96733ec07c5a4c08c6104ab31a2a36548cf005fbb8e11b6a769f6f0c0"
+    },
+    {
+      "path": "test_g3_calibration_plan.py",
+      "bytes": 18298,
+      "sha256": "057744cf2f6d66d400a9aa9b7d3ab944a2e032b39b9c9bf07a74e7d18926c159"
+    }
+  ],
+  "log_ref": {
+    "path": "CPU_PLAN_TEST_RUN_05.log",
+    "bytes": 135,
+    "sha256": "df76124a469eb73aa5fbe73c225d9c2c56221e64186632fa9e7df0e6c97be5c4"
+  },
+  "baseline_sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b",
+  "baseline_files": 4050,
+  "backend_import_attempts": 0,
+  "GPU_jobs": 0,
+  "RPC_calls": 0,
+  "author_source_modified": false,
+  "source_mutations_in_verified_files": 0,
+  "full_server_source_bytes_verified": false,
+  "human_authorization_created": false,
+  "qualification_granted": false,
+  "historical_red_receipts": [
+    "CPU_PLAN_TEST_RUN_01_RESULT.json",
+    "CPU_PLAN_TEST_RUN_02_RESULT.json"
+  ],
+  "historical_pass_receipts": [
+    "CPU_PLAN_TEST_RUN_03_RESULT.json",
+    "CPU_PLAN_TEST_RUN_04_RESULT.json"
+  ],
+  "boundary": "Records and snapshots in tests are fixtures/metadata only. No human authority, independent physical byte-source preflight, native I/O or GPU fact follows from caller booleans."
+}

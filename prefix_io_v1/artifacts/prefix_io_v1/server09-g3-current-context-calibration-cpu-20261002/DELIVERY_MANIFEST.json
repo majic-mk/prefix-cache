@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "status": "CPU_PREPARATION_DELIVERY_ONLY",
+  "GPU_operations": 0,
+  "gpu_authorized": false,
+  "production_qualified": false,
+  "files": [
+    {
+      "path": "ACTUAL_OUTPUT_PROCESSOR_CPU_DOWNLOAD.json",
+      "bytes": 498,
+      "sha256": "eb51a60da1ce3d72226f37a5f6f946396a63d18462490a9a1987a983f568ca0c"
+    },
+    {
+      "path": "CURRENT_CALIBRATION_ENTRY_AUDIT.md",
+      "bytes": 17465,
+      "sha256": "c07725c455c53850b26bf1b9b3895c8c98bed248dde129af3394f118b4ecbd7a"
+    },
+    {
+      "path": "OUTPUT_STATS_WIRING_READONLY_ADDENDUM.json",
+      "bytes": 1506,
+      "sha256": "803b5a59f27476b0066ff5bf3fd210c1a6af4f34da5169a4e39f4bfc70e0c60b"
+    },
+    {
+      "path": "READONLY_SOURCE_CHECKS.json",
+      "bytes": 19143,
+      "sha256": "d65673efe09a61a83b78df4562b4941ef157d5c7629ebee315955e37afb5e78f"
+    },
+    {
+      "path": "source_readonly/experiments/prefix_io_v1/scripts/acquire_native_aio_costs_capacity_p316.py",
+      "bytes": 20018,
+      "sha256": "c4f50f7cea3fefa85ce952210c13241ebcb2861fb1abc707a88ddf015f0e6bf3"
+    },
+    {
+      "path": "source_readonly/experiments/prefix_io_v1/scripts/concurrent_pilot_contract.py",
+      "bytes": 3982,
+      "sha256": "645320e10a23795435f8a7eb77b6d7c24def8b58b1c6f82c662fa069482811f8"
+    },
+    {
+      "path": "source_readonly/third_party/work/vllm-author-p4-02-cpu/vllm/v1/engine/output_processor.py",
+      "bytes": 31616,
+      "sha256": "464c3cda347512cf1090f8e6471d0d3f0f65e286eb9a7b97be52efbc1ffd572a"
+    },
+    {
+      "path": "source_readonly/third_party/work/vllm-author-p4-02-cpu/vllm/v1/metrics/stats.py",
+      "bytes": 18538,
+      "sha256": "08eb6bb969ad47e4207ba5568beaec35bdb09192b6db046f046dab4892ac1bf3"
+    }
+  ]
+}

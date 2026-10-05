@@ -1,0 +1,71 @@
+{
+  "scope": "Fresh server08 PRIMARY uniform-budget costs; four fixed knots; no formal performance claim",
+  "reference_plan": "artifacts/prefix_io_v1/server08-p3-14/fit-reference-plan.json",
+  "reference_result": "artifacts/prefix_io_v1/server08-p3-14/fit-reference-result.json",
+  "domain": 16384,
+  "reps": 3,
+  "sizes": [
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "fit_sessions": 2,
+  "measurements_per_point_per_path": 4,
+  "jobs": [
+    {
+      "label": "server08-p3-14-fit-cold-01",
+      "group": "cold",
+      "mode": "cold",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "primary-all-knots"
+    },
+    {
+      "label": "server08-p3-14-fit-paired-01",
+      "group": "primary-all-knots",
+      "mode": "paired",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "primary-all-knots"
+    },
+    {
+      "label": "server08-p3-14-fit-paired-02",
+      "group": "primary-all-knots",
+      "mode": "paired",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "primary-all-knots"
+    },
+    {
+      "label": "server08-p3-14-fit-cold-02",
+      "group": "cold",
+      "mode": "cold",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "primary-all-knots"
+    }
+  ],
+  "run_details": {
+    "server08-p3-14-fit-cold-01": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-fit-cold-01/details",
+    "server08-p3-14-fit-paired-01": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-fit-paired-01/details",
+    "server08-p3-14-fit-paired-02": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-fit-paired-02/details",
+    "server08-p3-14-fit-cold-02": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-fit-cold-02/details"
+  }
+}

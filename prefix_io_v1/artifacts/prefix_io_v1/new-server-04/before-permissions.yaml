@@ -1,0 +1,18 @@
+# Project permission contract; authorization provenance in new-server-02/authorization.json.
+schema_version: 1
+allow_project_local_edits: true
+allow_cpu_tests: true
+allow_public_source_read: true
+allow_remote_push: false
+allow_new_cloud_rental: false
+allow_payment: false
+allow_driver_or_system_changes: false
+allow_shared_data_deletion: false
+allow_gpu_runs: true
+allow_model_downloads: true
+max_gpu_hours: 8
+max_model_download_gib: 20
+approved_gpu_ids:
+- GPU-8b500efe-1a50-0e8e-b21e-716807eebedf
+approved_experiment_root: /root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs
+approved_dependency_root: /root/autodl-tmp/prefix-io-v1-handoff/project

@@ -1,0 +1,19 @@
+{
+  "actual_GPU_layout_read": false,
+  "actual_GPU_runs": 0,
+  "actual_dtype_tensor_or_allocator_qualified": false,
+  "actual_model_or_kernel_loaded": false,
+  "geometry_ref": {
+    "bytes": 264,
+    "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/runner/kv_geometry.json",
+    "sha256": "7bdd32a13b1ba3aec1e3d878ac519b35b0a31a2bd8fe2547cf7bb612718ac3e8"
+  },
+  "model_config_ref": {
+    "bytes": 663,
+    "path": "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444/config.json",
+    "sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c"
+  },
+  "original_running_tensor_layout_match_required_before_strategy": true,
+  "production_qualified": false,
+  "status": "PASS_CPU_MODEL_CONFIG_DERIVED_CANONICAL_GEOMETRY_ONLY"
+}

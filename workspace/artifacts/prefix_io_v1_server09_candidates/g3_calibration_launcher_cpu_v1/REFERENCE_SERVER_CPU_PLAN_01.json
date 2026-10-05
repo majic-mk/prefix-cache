@@ -1,0 +1,22 @@
+{
+  "suite": "plan",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "-I",
+    "-S",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/test_g3_reference_plan.py",
+    "--g2-baseline-path",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261001/gpu-source-lock-candidate.json",
+    "-v"
+  ],
+  "exit": 5,
+  "elapsed_seconds": 0.22029666509479284,
+  "stdout": "",
+  "stderr": "setUpClass (__main__.ReferenceContracts) ... ERROR\n\n======================================================================\nERROR: setUpClass (__main__.ReferenceContracts)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/test_g3_reference_plan.py\", line 47, in setUpClass\n    cls.g2 = ARGS.g2_baseline_path.read_bytes()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/miniconda3/lib/python3.12/pathlib.py\", line 1019, in read_bytes\n    with self.open(mode='rb') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File \"/root/miniconda3/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-normal-worker-site-cache-v4-final-20261001/gpu-source-lock-candidate.json'\n\n----------------------------------------------------------------------\nRan 0 tests in 0.002s\n\nFAILED (errors=1)\n",
+  "ledger_before_sha256": "be14eb7e34ccde501481777340ec3baf62e1f8511436614324ff976585ebf0f3",
+  "ledger_after_sha256": "be14eb7e34ccde501481777340ec3baf62e1f8511436614324ff976585ebf0f3",
+  "GPU_operations": 0,
+  "framework_imports": 0,
+  "fixture_only": true
+}

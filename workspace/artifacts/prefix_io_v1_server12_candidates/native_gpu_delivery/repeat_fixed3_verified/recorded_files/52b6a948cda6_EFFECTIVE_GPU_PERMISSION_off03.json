@@ -1,0 +1,73 @@
+{
+  "allow_cpu_tests": true,
+  "allow_driver_or_system_changes": false,
+  "allow_gpu_runs": true,
+  "allow_model_downloads": false,
+  "allow_new_cloud_rental": false,
+  "allow_payment": false,
+  "allow_project_local_edits": true,
+  "allow_public_source_read": true,
+  "allow_remote_push": false,
+  "allow_shared_data_deletion": false,
+  "approved_auxiliary_storage": null,
+  "approved_dependency_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "approved_experiment_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+  "approved_gpu_ids": [
+    "GPU-a67d2f38-8e1b-29c3-7e5b-375e1410f8ac"
+  ],
+  "max_gpu_hours": 8,
+  "max_model_download_gib": 20,
+  "metadata_helper_ref": {
+    "bytes": 15191,
+    "path": "artifacts/prefix_io_v1/server12-c5-native-gpu-delivery-20261004/repeat_runtime_authority.py",
+    "sha256": "a12df49a5bf820fa394c278d4263eadb35f5c0a152adb600433e4fdc06f7f9dc"
+  },
+  "normal_mode_binding": {
+    "binding_ref": {
+      "bytes": 7542,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-native-cpu-20261004/NORMAL_RUNTIME_BINDING.json",
+      "sha256": "fb2d54f3fbac769051cea5ed1c05a3b3c7901ea4fb6738ea0cee367559cb091e"
+    },
+    "config_ref": {
+      "bytes": 1675,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-repeatability-v1-20261004/CONFIG_off03.json",
+      "sha256": "2aa12b2ababa7139a121a979743eefa556f04869e925119e976d885e0294d09f"
+    },
+    "context_ref": {
+      "bytes": 4023,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-repeatability-v1-20261004/LIVE_CONTEXT_off03.json",
+      "sha256": "6197ad7f113803e7c7d753691d1201fb33e5c5c3b8a364bd15aa450b70f56e73"
+    },
+    "diagnostic_index": 2,
+    "gpu_uuid": "GPU-a67d2f38-8e1b-29c3-7e5b-375e1410f8ac",
+    "human_grant_ref": {
+      "bytes": 2329,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-repeatability-v1-20261004/HUMAN_GPU_GRANT_off03.json",
+      "sha256": "58ec7105d05816c0a77133e950ab95b7aca03bb41eca85978ad1351a5eb6bf8c"
+    },
+    "label": "server12-c5-native-repeat-off03",
+    "max_attempts": 1,
+    "max_processes": 1,
+    "mode": "off",
+    "previous_qualification_ref": null,
+    "protocol_ref": {
+      "bytes": 5756,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-repeatability-v1-20261004/PROTOCOL.json",
+      "sha256": "ddfcacd283cc9f5fc6d2ec5bd75333c34c8dd956fe02487092b5702c7d420dcd"
+    },
+    "reserved_seconds": 320,
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "seconds_limit": 300,
+    "source_lock_ref": {
+      "bytes": 1123442,
+      "path": "artifacts/prefix_io_v1/server12-c5-normal-repeatability-v1-20261004/COMMON_SOURCE_LOCK.json",
+      "sha256": "4aab66888592a8fdf6544513003e9b7382f2194f3da2407b8991073a8e86ffef"
+    }
+  },
+  "project_authorization_amendment_ref": {
+    "bytes": 1114,
+    "path": "artifacts/prefix_io_v1/server12-c5-native-gpu-delivery-20261004/PROJECT_GPU_AUTHORIZATION_AMENDMENT.json",
+    "sha256": "8acab9a6d1e67d8c5237f2ff1736cff6e9248c7d359c944e80648c7cba5895ec"
+  },
+  "schema_version": 1
+}

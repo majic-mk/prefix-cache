@@ -1,0 +1,173 @@
+{
+  "purpose": "CURRENT_CONTEXT_CACHED_NUMERICAL_REFERENCE_ONLY",
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "allowed_modes": [
+    "cold",
+    "paired"
+  ],
+  "permitted_run_names": {
+    "cold": "server09-g3-reference-native-01",
+    "paired": "server09-g3-reference-paired-01"
+  },
+  "maximum_jobs": 2,
+  "maximum_total_planned_reserve_seconds": 640,
+  "seconds_limit_per_job": 300,
+  "guard_reserve_seconds_per_job": 20,
+  "qualification_context": {
+    "purpose": "CURRENT_CONTEXT_CACHED_NUMERICAL_REFERENCE_ONLY",
+    "project_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+    "model_relative": "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "model_plan_relative": "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "model_alias": "Qwen/Qwen2.5-7B-Instruct",
+    "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+    "acquisition_source": {
+      "path": "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py",
+      "bytes": 18995,
+      "sha256": "68b2c045bcc9a7de84771d556b0e01180a592280002a2d4360d1c7500c9c856e"
+    },
+    "engine_source": "experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py",
+    "acquisition_domain": 1024,
+    "sizes": [
+      128
+    ],
+    "reps": 3,
+    "max_num_seqs": 1,
+    "iodepth": 4,
+    "prompt_tokens_per_main_request": 129,
+    "reusable_prefix_tokens": 128,
+    "outputs_per_request": 1,
+    "requests_by_mode": {
+      "cold": 6,
+      "paired": 6
+    },
+    "total_requests": 12,
+    "total_outputs": 12,
+    "warmup_rep": 0,
+    "measured_samples_per_point_per_route": 2,
+    "engine_overrides": {
+      "async_scheduling": false,
+      "max_model_len": 1040,
+      "max_num_batched_tokens": 1040,
+      "kv_cache_memory_bytes": 268435456,
+      "prefix_caching_hash_algo": "sha256",
+      "disable_log_stats": false
+    },
+    "sampling": {
+      "temperature": 0.0,
+      "seed": 0,
+      "max_tokens": 1,
+      "min_tokens": 1,
+      "ignore_eos": true,
+      "detokenize": false,
+      "logprobs": 5
+    },
+    "connector": {
+      "io_backend": "linux_aio",
+      "sync_on_store": false,
+      "staging_mem": 0.125,
+      "enable_preload": true,
+      "preload_share_staging": true,
+      "preload_lookahead_requests": 1,
+      "staging_cache": "lru",
+      "load_planner": "off",
+      "prefix_cache_break_even_path": null
+    },
+    "shared_storage_relative": "experiments/prefix_io_v1/runs/server09-g3-calibration-02-private-storage",
+    "strategies": "off",
+    "common_stats_schema_fix": "original producer dataclass -> lossless dictionary; common to all strategy modes",
+    "asynchronous_author_io_preserved": true,
+    "new_executor": false,
+    "reset_scope": "original calibration GPU-only resets; reset_connector=False",
+    "timing_scope": "original diagnostic TTFT only; excluded from latency fitting",
+    "curve_output": false,
+    "cost_qualified": false,
+    "production_qualified": false,
+    "performance_claim": false,
+    "budget_reset": false,
+    "cumulative_gpu_budget_seconds": 28800,
+    "seconds_limit_per_job": 300,
+    "guard_reserve_seconds_per_job": 20,
+    "total_reserved_seconds": 640,
+    "storage_reserve_bytes_per_job": 1073741824,
+    "total_storage_reserve_bytes": 2147483648,
+    "storage_floor_bytes": 8589934592,
+    "existing_assets_only": true,
+    "no_download": true,
+    "no_system_or_author_changes": true,
+    "no_data_deletion": true,
+    "storage_by_mode": {
+      "cold": "experiments/prefix_io_v1/runs/server09-g3-reference-native-01-unused-storage",
+      "paired": "experiments/prefix_io_v1/runs/server09-g3-calibration-02-private-storage"
+    },
+    "diagnostic_flags": {
+      "cold": [
+        "--native-hot-diagnostic",
+        "--diagnostic-logprobs"
+      ],
+      "paired": [
+        "--cached-reference-logprobs"
+      ]
+    },
+    "reference_routes": {
+      "cold": [
+        "f",
+        "gpu_hot"
+      ],
+      "paired": [
+        "g_ssd",
+        "g_mem"
+      ]
+    },
+    "cold_external_connector_enabled": false,
+    "paired_existing_storage_required": true,
+    "paired_original_writes_permitted": true,
+    "deletes_existing_input": false,
+    "input_contract": "actual pre/post cache byte manifests; no inferred logical KV equivalence",
+    "analysis_contract": "frozen top-5 logprob analyzer plan; no curve or latency-effect qualification"
+  },
+  "source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-reference-v1.json",
+    "bytes": 910072,
+    "sha256": "8443f45dd4dd6c1c64595199051f5e88449268af347bcbd836c927b754eabe30"
+  },
+  "cpu_plan_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/G3_REFERENCE_CPU_PLAN.json",
+    "bytes": 10087,
+    "sha256": "0a2ee806685fb1783e10014c155659598e1fb2820ad78cab0e9cc59bb1569578"
+  },
+  "input_manifest_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/G3_REFERENCE_INPUT_MANIFEST.json",
+    "bytes": 9730,
+    "sha256": "d601114bd93fb99643bc0c9c5be8c5ab2fa83deec95ecc1e366ed48d00b8af24"
+  },
+  "analyzer_plan_ref": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/G3_REFERENCE_ANALYZER_PLAN.json",
+    "bytes": 1088,
+    "sha256": "bb5af64613ceddee50234bdecee23c2c0677a7300d71c6b16f2849c0272a22ea"
+  },
+  "base_permissions": {
+    "path": "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml",
+    "bytes": 671,
+    "sha256": "eebc8ff9b3ca09c844514847e615099cf96c80d0361c7a493e0d5fdfc5a10e20"
+  },
+  "baseline_source_lock": {
+    "path": "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/gpu-source-lock-metrics-v3-final.json",
+    "bytes": 910009,
+    "sha256": "b8ad831c294d978e36a0b1a6343118516af5c55a6e0a9c4380ff6644ec91092b"
+  },
+  "schema_version": 1,
+  "authorization_origin": "direct_human_reply",
+  "question": "既有待执行提议摘要（非原问题逐字转录）：当前服务器只读核验原 GPU UUID 和可用显存，通过后按 server09-g3-reference-native-01 → server09-g3-reference-paired-01 执行最多两次原数值参考验证，每次最多300秒执行加20秒收尾，总预留640秒。沿用原8小时累计GPU预算，使用现有Qwen2.5-7B、domain1024/size128/nseq1/io4，各作业6请求，每请求完整输出1 token与top5 logprobs；PRIMARY总预留2 GiB并保留8 GiB。原源锁8443f45dd4dd6c1c64595199051f5e88449268af347bcbd836c927b754eabe30与冻结计划/输入/原分析器绑定不变。第一次成功、原shutdown正常返回、OS会话排空才可运行第二次。任一次失败即停止，不重试，不下载、不删除现有数据、不改系统/驱动/已安装包/作者文件。这里只验证数值参考，诊断计时不用于成本拟合或性能结论。CPU加速修复与此GPU包分离，原GPU提议范围保持不变。",
+  "question_is_summary_not_verbatim": true,
+  "verbatim_user_answer": "继续",
+  "reply_observed_utc": "2026-10-02 03:56:30 UTC",
+  "observation_timestamp_is_not_user_sent_timestamp": true,
+  "reply_medium": "direct_typed_user_message",
+  "question_item_id": "not_applicable:direct_typed_user_message",
+  "form_response_id_fabricated": false,
+  "allow_gpu_initialization": true,
+  "allow_gpu_runs": true,
+  "interpretation": "Direct human continuation authorizes the unchanged previously proposed two-job numerical reference package. The intervening CPU-only fail-fast fix did not alter GPU source, scope, budget, labels or requests. Original three-job scope stays exhausted; actual GPU availability and original guards must still pass.",
+  "physical_GPU_must_be_present_and_strict_driver_UUID_VRAM_checks_must_pass": true,
+  "CPU_mode_confirmation_answer": "仍是无卡模式，我会切到 GPU 模式开机"
+}

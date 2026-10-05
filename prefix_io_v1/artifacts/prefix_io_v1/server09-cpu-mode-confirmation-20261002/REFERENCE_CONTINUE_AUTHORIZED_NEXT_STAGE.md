@@ -1,0 +1,14 @@
+当前无卡模式已由用户确认；fresh SSH只读环境证据与之相符。CPU准备已完成，无需重复85项参考包测试或16项快速门禁测试。GPU开卡前没有必要增加新夹具或重复全模型哈希。
+
+随后已按用户本轮直接“继续”，将既有未变更的两作业/640秒参考提议绑定为独立的新授权记录和scope。新record只追加到原reference交付目录，原8443f45d…源锁、原GPU入口、原guard、原计划/输入/分析器和预算均未改变；没有复用已耗尽的三作业scope。问题字段明确是既有提议摘要，不伪称原题逐字转录，也不虚构表单回复ID。
+
+服务器以CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S调用原冻结CPU加载函数和g3_reference_plan.validate_scope(root, scope, refs)，已返回CPU_REFERENCE_SCOPE_RECORD_CONSISTENCY_ONLY，human_record_matches=true。CPU合同返回authorizes_gpu=false，表示校验器本身不能授予权限；实际授权来源是本轮直接人类答复。sampling.temperature保留float 0.0，未变为int 0。本轮仍没有GPU运行、CUDA/NVML/nvidia-smi调用或模型导入；无模型全量读取，无活动预算预约。
+
+新scope：artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002/G3_REFERENCE_AUTHORIZED_SCOPE_20261002.json，SHA662addc25fdc883e352360b0742f7d71cfd615f44df6a45c3ef16d9f7ddeffcf。
+人类记录：同目录HUMAN_AUTHORIZATION_RECORD_G3_REFERENCE_CONTINUE_20261002.json，SHA4b862c229fdf6d1f93605e559527a0405c020f4fd0ea62a4ba2267d91cf4724f。
+服务器CPU核验回执：REFERENCE_CONTINUE_AUTHORITY_CPU_VERIFICATION.json，SHA4817dd9969d4c958d442c438136c54e2a8d59ff149c2e84cf97ab48c335408ee。
+
+下一允许动作：用户用GPU模式启动后，重连当前SSH，先运行原快速CPU环境检查；通过后按新scope检查原595.71.05驱动完整SHA、GPU UUID/显存、源锁、预算和存储。仅依次native-01→paired-01，各最多300秒加20秒收尾，任一次失败即停止，不重试。剩余原累计GPU预算10990.859632秒，640秒只是在原额度内的上限预留，不增加8小时预算。此包验证数值参考，尚不证明策略性能或P4完成。
+
+CONTINUATION_CPU_MODE_REPORT.md与初始DELIVERY_MANIFEST.json是写入新授权前的不可变环境快照；本补充文件和最终清单说明随后完成的记录绑定。所有代码、模型、既有缓存与数据保留，系统、驱动、安装包均未修改。
+

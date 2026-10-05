@@ -1,0 +1,33 @@
+{
+  "files": {
+    "experiments/prefix_io_v1/scripts/qualify_author_copy.py": {
+      "sha256": "a491b7041c8664ad7de887006652573f4eea56858931bfe93e0c87ca35764799",
+      "bytes": 10636
+    },
+    "third_party/upstream/vllm-author/csrc/cache_kernels.cu": {
+      "sha256": "a05ff526d241053c9f03de6e82f67d8395ec557898ba69eb7b54d16e0550adc1",
+      "bytes": 68628
+    },
+    "third_party/upstream/vllm-author/csrc/torch_bindings.cpp": {
+      "sha256": "1a7fa085865d4dc1f7a361e685ece3d309cda442063cb7a858d54d494a739f4c",
+      "bytes": 17944
+    },
+    "third_party/upstream/vllm-author/vllm/_custom_ops.py": {
+      "sha256": "f73f227ea1e3be00b13f6a32108ea80c80ca5d5339e8939bfbb9f661bcf99ae2",
+      "bytes": 113328
+    },
+    "third_party/work/py-kvcache-observer/py_kvcache/reactor.py": {
+      "sha256": "92e83085068b51b631f909e664a0ba9484c067ee236b920dd89f6705a89ebf09",
+      "bytes": 89300
+    },
+    "third_party/work/py-kvcache-observer/py_kvcache/transfer.py": {
+      "sha256": "1dcc5f4370e3db694d34924038a8fdd5a2eb12cf7f04ba81072dc969f275c1ba",
+      "bytes": 12061
+    }
+  },
+  "author_commit": "817a7e3124f817cd6e549581d3e5483207a753a4",
+  "gpu_operations": 0,
+  "abi_op_executions": 0,
+  "model_download_bytes": 0,
+  "status": "CPU_SOURCE_REVIEW_ONLY"
+}

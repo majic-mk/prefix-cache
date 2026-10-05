@@ -1,0 +1,33 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_gpu_stage.py",
+    "--label",
+    "server07-cal-planned-01",
+    "--seconds",
+    "240",
+    "--",
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py",
+    "--output-dir",
+    "experiments/prefix_io_v1/runs/server07-cal-planned-01/details",
+    "--storage",
+    "experiments/prefix_io_v1/runs/server07-cal-populate-02/storage",
+    "--model-dir",
+    "models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444",
+    "--model-plan",
+    "artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json",
+    "--mode",
+    "planned",
+    "--sizes",
+    "16,128,512",
+    "--reps",
+    "2",
+    "--curves",
+    "artifacts/prefix_io_v1/server07-calibration-01/curves-paired/curves-v2.json"
+  ],
+  "exit": 1,
+  "stdout": "{\n  \"label\": \"server07-cal-planned-01\",\n  \"command\": [\n    \".venv/bin/python\",\n    \"experiments/prefix_io_v1/scripts/acquire_native_aio_costs.py\",\n    \"--output-dir\",\n    \"experiments/prefix_io_v1/runs/server07-cal-planned-01/details\",\n    \"--storage\",\n    \"experiments/prefix_io_v1/runs/server07-cal-populate-02/storage\",\n    \"--model-dir\",\n    \"models/Qwen2.5-7B-Instruct-ms-16c174980d8a1492910551634b4969e69cdc2444\",\n    \"--model-plan\",\n    \"artifacts/prefix_io_v1/new-server-03/modelscope-source/modelscope-download-plan.json\",\n    \"--mode\",\n    \"planned\",\n    \"--sizes\",\n    \"16,128,512\",\n    \"--reps\",\n    \"2\",\n    \"--curves\",\n    \"artifacts/prefix_io_v1/server07-calibration-01/curves-paired/curves-v2.json\"\n  ],\n  \"gpu_uuid\": \"GPU-f8744916-1693-fa6a-93b6-7f503c03459c\",\n  \"started_unix\": 1790668807.2464879,\n  \"elapsed_seconds\": 68.31590812280774,\n  \"exit\": 1,\n  \"child_exit\": 1,\n  \"timed_out\": false,\n  \"interrupted_signal\": null,\n  \"error\": null,\n  \"evidence\": \"/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server07-cal-planned-01\",\n  \"gpu_job_attempted\": true,\n  \"reservation_id\": \"ea5970d60eb040688130fc9a1e1be844\",\n  \"session_id\": 10933,\n  \"session_members_before_cleanup\": [],\n  \"session_members_after_cleanup\": [],\n  \"session_drained\": true\n}\n",
+  "stderr": "",
+  "elapsed_seconds": 68.60899877548218
+}

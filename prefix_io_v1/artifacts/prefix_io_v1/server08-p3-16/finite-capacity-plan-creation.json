@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_NEW_CAPACITY_PLANS_CREATED_NOT_GPU_QUALIFIED",
+  "files": [
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/reference-plan.json",
+      "sha256": "92d2d386a0875a1295963cc5cc3fab68062d8dc89aa024691bf6303199152c8e",
+      "bytes": 1922
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cost-plan.json",
+      "sha256": "de285a160607de409c4b711ce83427ca94a1ed7608ead4cceeacf52acb21e150",
+      "bytes": 2373
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/native-ref-phase-plan.json",
+      "sha256": "f0693269cbd1b907cad2fc2b9f4890cf5c2dd8f4aac41dcf91724553d17d4003",
+      "bytes": 2328
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cached-ref-phase-plan.json",
+      "sha256": "c6fe26ee2080eedf9f84611a98e6d2b4bfadc1df51728e40769f97019e9bae58",
+      "bytes": 2305
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cold-01-phase-plan.json",
+      "sha256": "a3f761b49fb122ad2d2b3145263c55f641fb25b2bb55737564a83e6caa93d00f",
+      "bytes": 2253
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/paired-01-phase-plan.json",
+      "sha256": "9d442d1b7bfa86ea346f819f41c498ff42a5159405c26ce6cef139325d3c728b",
+      "bytes": 2265
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/paired-02-phase-plan.json",
+      "sha256": "199409aede6c19006711c91c4f0d97616f8ff19726c35e5ffe6c89af1c343eec",
+      "bytes": 2265
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cold-02-phase-plan.json",
+      "sha256": "4eaed9fbcf2d582a74f1d00849d250508f54ce570cb8d5e54c46cd9bb34140ac",
+      "bytes": 2253
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-01-plan.json",
+      "sha256": "6e4a0007b89cd874792dcef82eac6a6ba3da19ae885c22eb5ff7f33df9184e83",
+      "bytes": 3139
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/reference-plan.json",
+      "sha256": "a0ed879d12e467dbfb3ecaa3b1449b752e34a3e2b8360cf0edf5c80ce5a83a36",
+      "bytes": 1924
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cost-plan.json",
+      "sha256": "8a2e68d93e30116ce7583807f97b20cc9bfed05208176c518ee440468c6b31c0",
+      "bytes": 2383
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/native-ref-phase-plan.json",
+      "sha256": "a537781c07939d5e50a0a75c8eb15099c02fd1867ee6d59250f2d2a612330732",
+      "bytes": 2329
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cached-ref-phase-plan.json",
+      "sha256": "110eed8e6466a480df204a291b3b2151e68043886ed444334414d97d182a2a2b",
+      "bytes": 2306
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cold-01-phase-plan.json",
+      "sha256": "c3b96b0f3f3a2869c57ee6c8ec7b0586563657d948596ec7aab58ea8aae8ea1c",
+      "bytes": 2254
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/paired-01-phase-plan.json",
+      "sha256": "9560d401139323c50b9955d683d8161d978ceb65f8b7796b8f7140259ad7c39a",
+      "bytes": 2266
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/paired-02-phase-plan.json",
+      "sha256": "393596156586cecc3eea544fc91ab00cc65809467c3b17e89b4a55b64d63e852",
+      "bytes": 2266
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cold-02-phase-plan.json",
+      "sha256": "9220c46b8efae7eb51caacb9dd8ab12da2677be9ab77c9bb8b0d029ebc1bfa77",
+      "bytes": 2254
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-plan.json",
+      "sha256": "8ad388344bbf14ff4b0a47a67c99989d2eb9439e0a0037721ee1b597634aab97",
+      "bytes": 3146
+    }
+  ],
+  "domain_startup": [
+    {
+      "capacity_domain_id": "cap960-l1",
+      "cpu_manifest_command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/concurrent_capacity_contract_p316.py",
+        "--capacity-domain",
+        "cap960-l1",
+        "--output",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed_readwrite-manifest.json"
+      ],
+      "gpu_reference_plan_files": [
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/native-ref-phase-plan.json",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cached-ref-phase-plan.json"
+      ],
+      "cpu_reference_command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/validate_heldout_costs_capacity_p316.py",
+        "--capacity-domain",
+        "cap960-l1",
+        "--reference-only",
+        "--plan",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/reference-plan.json",
+        "--out",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/reference-result.json"
+      ],
+      "gpu_cost_plan_files": [
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cold-01-phase-plan.json",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/paired-01-phase-plan.json",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/paired-02-phase-plan.json",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cold-02-phase-plan.json"
+      ],
+      "cpu_cost_command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/validate_heldout_costs_capacity_p316.py",
+        "--capacity-domain",
+        "cap960-l1",
+        "--plan",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cost-plan.json",
+        "--out",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cost-result.json"
+      ],
+      "cpu_permit_command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_capacity_p316.py",
+        "--capacity-domain",
+        "cap960-l1",
+        "--plan",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cost-plan.json",
+        "--result",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cost-result.json",
+        "--manifests",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/manifest-index.json",
+        "--output",
+        "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/permit.json"
+      ],
+      "future_manifest_index_path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/manifest-index.json",
+      "future_manifest_index_shape": {
+        "mixed_readwrite": {
+          "path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed_readwrite-manifest.json",
+          "sha256": "ROOT_MUST_INSERT_REAL_GENERATED_MANIFEST_SHA256"
+        }
+      },
+      "gpu_mixed_u_plan_file": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-01-plan.json",
+      "order": [
+        "CPU manifest+real index+source/test freeze",
+        "GPU native-ref",
+        "GPU cached-ref",
+        "CPU reference validator",
+        "GPU cold-01",
+        "GPU paired-01",
+        "GPU paired-02",
+        "GPU cold-02",
+        "CPU cost validator",
+        "CPU permit issuer only after actual six receipts",
+        "GPU mixed-U only after independent resource preflight and domain permit"
+      ],
+      "six_phase_maximum_reserved_bytes": 805306368,
+      "mixed_u_maximum_reserved_bytes": 3221225472,
+      "combined_planning_reservation_bytes": 4026531840
+    },
+    {
+      "capacity_domain_id": "cap1024-l2",
+      "cpu_manifest_command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/concurrent_capacity_contract_p316.py",
+        "--capacity-domain",
+        "cap1024-l2",
+        "--output",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed_readwrite-manifest.json"
+      ],
+      "gpu_reference_plan_files": [
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/native-ref-phase-plan.json",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cached-ref-phase-plan.json"
+      ],
+      "cpu_reference_command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/validate_heldout_costs_capacity_p316.py",
+        "--capacity-domain",
+        "cap1024-l2",
+        "--reference-only",
+        "--plan",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/reference-plan.json",
+        "--out",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/reference-result.json"
+      ],
+      "gpu_cost_plan_files": [
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cold-01-phase-plan.json",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/paired-01-phase-plan.json",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/paired-02-phase-plan.json",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cold-02-phase-plan.json"
+      ],
+      "cpu_cost_command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/validate_heldout_costs_capacity_p316.py",
+        "--capacity-domain",
+        "cap1024-l2",
+        "--plan",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cost-plan.json",
+        "--out",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cost-result.json"
+      ],
+      "cpu_permit_command": [
+        ".venv/bin/python",
+        "experiments/prefix_io_v1/scripts/qualify_capacity_p316.py",
+        "--capacity-domain",
+        "cap1024-l2",
+        "--plan",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cost-plan.json",
+        "--result",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/cost-result.json",
+        "--manifests",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/manifest-index.json",
+        "--output",
+        "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/permit.json"
+      ],
+      "future_manifest_index_path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/manifest-index.json",
+      "future_manifest_index_shape": {
+        "mixed_readwrite": {
+          "path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed_readwrite-manifest.json",
+          "sha256": "ROOT_MUST_INSERT_REAL_GENERATED_MANIFEST_SHA256"
+        }
+      },
+      "gpu_mixed_u_plan_file": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-plan.json",
+      "order": [
+        "CPU manifest+real index+source/test freeze",
+        "GPU native-ref",
+        "GPU cached-ref",
+        "CPU reference validator",
+        "GPU cold-01",
+        "GPU paired-01",
+        "GPU paired-02",
+        "GPU cold-02",
+        "CPU cost validator",
+        "CPU permit issuer only after actual six receipts",
+        "GPU mixed-U only after independent resource preflight and domain permit"
+      ],
+      "six_phase_maximum_reserved_bytes": 805306368,
+      "mixed_u_maximum_reserved_bytes": 3221225472,
+      "combined_planning_reservation_bytes": 4026531840
+    }
+  ],
+  "unchanged_inputs": [
+    "P314 d8 templates",
+    "P315 native/source/config",
+    "P316 native/control/baseline/calibration source graph",
+    "all existing corpus and cache contents"
+  ],
+  "operations": {
+    "native_module_imports": 0,
+    "tests": 0,
+    "gpu_runs": 0,
+    "cache_payload_reads": 0
+  },
+  "notes": [
+    "No manifest/index/reference-result/cost-result/permit issued by this static task.",
+    "Original 25 percent prediction error and g_mem zero SSD-read criteria are retained.",
+    "Root must freeze additional qualifications and actual execution sources before GPU launch.",
+    "The two domains have separate permits; neither original permit nor one domain permit authorizes the other.",
+    "Planning reservations do not substitute for actual PRIMARY authorization/free-floor or GPU-hour checks."
+  ]
+}

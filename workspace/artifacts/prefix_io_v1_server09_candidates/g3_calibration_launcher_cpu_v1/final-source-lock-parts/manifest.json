@@ -1,0 +1,77 @@
+{
+  "target": "gpu-source-lock-final.json",
+  "bytes": 904019,
+  "sha256": "263b3eea9560de916860fb3340e9421ad76a49d3a15d4008857773e342fc152e",
+  "parts": [
+    {
+      "path": "final-source-lock-parts/part-00.bin",
+      "bytes": 65536,
+      "sha256": "48a1176996ea697e429c17491bf94f20418f27dd358fd3056c98af0b6c0a850e"
+    },
+    {
+      "path": "final-source-lock-parts/part-01.bin",
+      "bytes": 65536,
+      "sha256": "f5f93999843bf97396cc661cbd49065fa4458420dfeacfb43323c491b473ae3d"
+    },
+    {
+      "path": "final-source-lock-parts/part-02.bin",
+      "bytes": 65536,
+      "sha256": "c14551c97d64b4b34c845b38c8458f7e77ec8e58acfe18acbc9bf50e46091532"
+    },
+    {
+      "path": "final-source-lock-parts/part-03.bin",
+      "bytes": 65536,
+      "sha256": "324deb24d3d584f62e6b44180f8891f9a084539390c97c9b83322168b6d20250"
+    },
+    {
+      "path": "final-source-lock-parts/part-04.bin",
+      "bytes": 65536,
+      "sha256": "8691b9b32b6bc2b7dfc238290bb0f88d39434e55e9ff8556c03c64e3350415a8"
+    },
+    {
+      "path": "final-source-lock-parts/part-05.bin",
+      "bytes": 65536,
+      "sha256": "dcdb904e8a8476461fc5bea8b592ba8364151fd1391c0d55e6b3792194fc7347"
+    },
+    {
+      "path": "final-source-lock-parts/part-06.bin",
+      "bytes": 65536,
+      "sha256": "3dff2957a7354f10134f63d33a5a32814bb77cf5dc2a3e7cbfb0abb0dddff5cf"
+    },
+    {
+      "path": "final-source-lock-parts/part-07.bin",
+      "bytes": 65536,
+      "sha256": "e8910e82b8f06479e637647403796fa4b1f9cf7dd7498a5d2470a490b3780059"
+    },
+    {
+      "path": "final-source-lock-parts/part-08.bin",
+      "bytes": 65536,
+      "sha256": "806135168ff0086904e20fc842831289cec294b7f52d113dbf48efca3506305c"
+    },
+    {
+      "path": "final-source-lock-parts/part-09.bin",
+      "bytes": 65536,
+      "sha256": "c0735c29c2df1afc3bdd843a780cf9b5a1cc5c2a1d9013a3efa38f85063a973b"
+    },
+    {
+      "path": "final-source-lock-parts/part-10.bin",
+      "bytes": 65536,
+      "sha256": "bccf2201f51d662b8d1f74bef9078863e9b94b2a7740217e41407848eb0b7720"
+    },
+    {
+      "path": "final-source-lock-parts/part-11.bin",
+      "bytes": 65536,
+      "sha256": "edb0b9bb7316fa321c6f854854d2cb3510ea97400937fc79ef183a795c561394"
+    },
+    {
+      "path": "final-source-lock-parts/part-12.bin",
+      "bytes": 65536,
+      "sha256": "6079f32ce1b292f35c5ac528f676dbe37e473a36fded21d350b9c4231e6567b0"
+    },
+    {
+      "path": "final-source-lock-parts/part-13.bin",
+      "bytes": 52051,
+      "sha256": "01356d7bc1d5f5117bc3c2144c9b44984dffcdb7dac7e1ce442c170e45903cc9"
+    }
+  ]
+}

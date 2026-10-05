@@ -1,0 +1,139 @@
+F...FF.............                                                      [100%]
+=================================== FAILURES ===================================
+________ test_wait_publishes_before_blocking_with_zero_ordinary_credits ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f19cfe322a0>
+
+    def test_wait_publishes_before_blocking_with_zero_ordinary_credits(monkeypatch):
+        with running_rig(monkeypatch) as rig:
+            future = rig.submit(files=3)
+            rig.start()
+            waiter = rig.waiter({7})
+            done(waiter)  # No scheduler epochs or credit refreshes are supplied.
+            assert future.result() == 3*4096
+            assert rig.marked.is_set() and rig.ordinary_credits == 0
+            assert rig.issued == rig.writes == 3
+>           rig.r.shutdown()
+
+tests/prefix_io_v1_progress/test_mandatory_bridge.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <py_kvcache.reactor.IoReactor object at 0x7f19cf898080>, wait = True
+
+    def shutdown(self, wait: bool = True) -> None:
+        with self._submit_lock:
+            if self._closed:
+                return
+            self._closed = True
+            self._incoming.put(self._STOP)
+        if wait:
+            self._worker.join()
+            self.staging_pool.close()
+>           self.ring.close()
+            ^^^^^^^^^^^^^^^
+E           AttributeError: 'Ring' object has no attribute 'close'
+
+third_party/work/py-kvcache-progress/py_kvcache/reactor.py:408: AttributeError
+____________ test_failed_future_keeps_signal_until_other_io_drains _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f19cf89ade0>
+
+    def test_failed_future_keeps_signal_until_other_io_drains(monkeypatch):
+        with running_rig(monkeypatch) as rig:
+            rig.r.ring.auto = False
+            rig.r.ring.results[1] = 4095  # Real native short-write failure handling.
+            future = rig.submit(files=2)
+            rig.start()
+            waiter = rig.waiter({7})
+            assert rig.write_queued.wait(2)
+            rig.r.ring.permits.release()
+            done(waiter)
+            with pytest.raises(IOError, match="expected"):
+                future.result()
+            # Second D2H/write is accepted already; failure completion is not drain.
+            assert future in rig.r._prefix_progress.required
+            rig.r.ring.auto = True
+>           rig.r.shutdown()
+
+tests/prefix_io_v1_progress/test_mandatory_bridge.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <py_kvcache.reactor.IoReactor object at 0x7f19cf89b020>, wait = True
+
+    def shutdown(self, wait: bool = True) -> None:
+        with self._submit_lock:
+            if self._closed:
+                return
+            self._closed = True
+            self._incoming.put(self._STOP)
+        if wait:
+            self._worker.join()
+            self.staging_pool.close()
+>           self.ring.close()
+            ^^^^^^^^^^^^^^^
+E           AttributeError: 'Ring' object has no attribute 'close'
+
+third_party/work/py-kvcache-progress/py_kvcache/reactor.py:408: AttributeError
+------------------------------ Captured log call -------------------------------
+ERROR    py_kvcache.reactor:reactor.py:2090 py-kvcache transfer job 7 failed
+Traceback (most recent call last):
+  File "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/py_kvcache/reactor.py", line 1219, in _on_write_complete
+    raise IOError(
+OSError: io_uring write transferred 4095 bytes, expected 4096
+____________ test_duplicate_cqe_does_not_double_release_or_complete ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f19cf89a810>
+
+    def test_duplicate_cqe_does_not_double_release_or_complete(monkeypatch):
+        with running_rig(monkeypatch) as rig:
+            rig.r.ring.duplicate = True
+            future = rig.submit(files=2)
+            callbacks = []
+            future.add_done_callback(lambda f: callbacks.append(f))
+            rig.start()
+            done(rig.waiter({7}))
+>           rig.r.shutdown()
+
+tests/prefix_io_v1_progress/test_mandatory_bridge.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <py_kvcache.reactor.IoReactor object at 0x7f19cf89a5d0>, wait = True
+
+    def shutdown(self, wait: bool = True) -> None:
+        with self._submit_lock:
+            if self._closed:
+                return
+            self._closed = True
+            self._incoming.put(self._STOP)
+        if wait:
+            self._worker.join()
+            self.staging_pool.close()
+>           self.ring.close()
+            ^^^^^^^^^^^^^^^
+E           AttributeError: 'Ring' object has no attribute 'close'
+
+third_party/work/py-kvcache-progress/py_kvcache/reactor.py:408: AttributeError
+=============================== warnings summary ===============================
+tests/prefix_io_v1_progress/test_mandatory_bridge.py::test_shutdown_drains_without_a_handler_wait_or_new_epochs
+  /root/autodl-tmp/prefix-io-v1-handoff/project/.venv-prefix/lib/python3.12/site-packages/_pytest/threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-7 (shutdown)
+  
+  Traceback (most recent call last):
+    File "/root/miniconda3/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+      self.run()
+    File "/root/miniconda3/lib/python3.12/threading.py", line 1010, in run
+      self._target(*self._args, **self._kwargs)
+    File "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-progress/py_kvcache/reactor.py", line 408, in shutdown
+      self.ring.close()
+      ^^^^^^^^^^^^^^^
+  AttributeError: 'Ring' object has no attribute 'close'
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/prefix_io_v1_progress/test_mandatory_bridge.py::test_wait_publishes_before_blocking_with_zero_ordinary_credits
+FAILED tests/prefix_io_v1_progress/test_mandatory_bridge.py::test_failed_future_keeps_signal_until_other_io_drains
+FAILED tests/prefix_io_v1_progress/test_mandatory_bridge.py::test_duplicate_cqe_does_not_double_release_or_complete
+3 failed, 16 passed, 1 warning in 3.00s

@@ -1,0 +1,23 @@
+{
+  "reason": "CPU scratch exceeded primary free-space floor; preserve all test bytes in authorized auxiliary storage",
+  "primary_before": {
+    "total": 53687091200,
+    "used": 45484605440,
+    "free": 8202485760
+  },
+  "aux_preflight": {
+    "used_bytes": 20092203008,
+    "free_bytes": 11244445696,
+    "reserved_new_bytes": 480791926,
+    "max_bytes": 21474836480,
+    "minimum_free_bytes": 8589934592,
+    "root": "/root/prefix-io-v1-validation",
+    "device": 59,
+    "path": "/root/prefix-io-v1-validation/cpu-evidence/server07-p3-08",
+    "unique_files": 22027
+  },
+  "planned_payload_bytes": 464014710,
+  "old_or_shared_data_affected": false,
+  "rows": [],
+  "unix": 1790694544.013258
+}

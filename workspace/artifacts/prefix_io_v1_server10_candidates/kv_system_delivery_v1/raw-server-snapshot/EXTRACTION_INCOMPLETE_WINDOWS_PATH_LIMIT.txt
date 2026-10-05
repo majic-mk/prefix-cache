@@ -1,0 +1,2 @@
+Initial extraction exceeded Windows path limits. Complete verified extraction: C:\Users\mamengkui\OneDrive\нд╣╣\бшнд2\artifacts\server10_kv_raw
+Archive and all 195 source SHA256 checks passed at the shorter destination.

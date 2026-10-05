@@ -1,0 +1,41 @@
+{
+  "status": "PASS_CPU_PLAN_TEST_RUN_03",
+  "actual_process_exit": 0,
+  "tests_run": 31,
+  "failures": 0,
+  "errors": 0,
+  "elapsed_test_s": 1.369,
+  "actual_command": "python -B -I -S artifacts/prefix_io_v1_server09_candidates/g3_calibration_launcher_cpu_v1/test_g3_calibration_plan.py",
+  "source_refs": [
+    {
+      "path": "g3_calibration_plan.py",
+      "bytes": 24340,
+      "sha256": "7868c5ef4a113607320a132a22072fcd9bbb33fb6b367976e81b05065695f21f"
+    },
+    {
+      "path": "test_g3_calibration_plan.py",
+      "bytes": 18041,
+      "sha256": "06ecfaa966d9cd06f9278636340a8d603fee3a809e86ea02594645cc184b4676"
+    }
+  ],
+  "log_ref": {
+    "path": "CPU_PLAN_TEST_RUN_03.log",
+    "bytes": 135,
+    "sha256": "86c81ec5054ab95d2ddd386392c83bbb6409cd33f90ab5abf1c9b7d11a8c84c7"
+  },
+  "baseline_sha256": "0325cb500f74051dedf6aefe6b51fd9d0b817f831ee81fe45e1c3942df13336b",
+  "baseline_files": 4050,
+  "backend_import_attempts": 0,
+  "GPU_jobs": 0,
+  "RPC_calls": 0,
+  "author_source_modified": false,
+  "source_mutations_in_verified_files": 0,
+  "full_server_source_bytes_verified": false,
+  "human_authorization_created": false,
+  "qualification_granted": false,
+  "historical_red_receipts": [
+    "CPU_PLAN_TEST_RUN_01_RESULT.json",
+    "CPU_PLAN_TEST_RUN_02_RESULT.json"
+  ],
+  "boundary": "Simulated scope/guard/free-space receipts only check typed consistency; outer launcher must bind actual direct-human bytes, full source and original ledger/session. No CPU fixture is GPU or independent provenance evidence."
+}

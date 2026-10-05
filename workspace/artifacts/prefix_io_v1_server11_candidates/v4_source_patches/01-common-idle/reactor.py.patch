@@ -1,0 +1,32 @@
+--- a/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
++++ b/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
+@@ -1037,10 +1037,28 @@
+             or self._ready_fds_preload
+         )
+ 
++    def _has_poll_work(self) -> bool:
++        """Owner work that needs pumping, distinct from retained cache ownership.
++
++        Retained preload slots alone need no completion polling. New work and
++        STOP already wake the original incoming Queue; its existing timeout is
++        unchanged. Keep _has_work authoritative for shutdown and cleanup.
++        """
++        return bool(
++            self._stop
++            or self._active
++            or self._inflight
++            or self._pending_copies
++            or self._copy_ready
++            or self._preload_pending
++            or self._ready_fds_load
++            or self._ready_fds_preload
++        )
++
+     def _run(self) -> None:
+         try:
+             while not (self._stop and not self._has_work()):
+-                self._drain_incoming(block=not self._has_work())
++                self._drain_incoming(block=not self._has_poll_work())
+                 if self._stop and not self._has_work():
+                     break
+                 self._pump_once()

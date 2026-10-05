@@ -1,0 +1,56 @@
+{
+  "schema_version": 8,
+  "protocol_version": 8,
+  "purpose": "non-paper dual-model schema-v8 dense-barrier and tiered-LRU sentinel",
+  "paper_evidence": false,
+  "locked_test_accessed": false,
+  "gpu": {
+    "count": 1,
+    "name_regex": "^NVIDIA A800.*80GB$",
+    "minimum_memory_mib": 80000,
+    "compute_capability": "8.0"
+  },
+  "stack": {
+    "pytorch": "2.2.1",
+    "pytorch_cuda": "12.1",
+    "xformers": "0.0.25",
+    "vllm": "0.4.1",
+    "transformers": "4.40.2",
+    "cacheblend_commit": "b72d7945e6d6306f12be66520196e0f081fa2b0c",
+    "cacheblend_patch_mode": "probekv_v8_gradual_barrier_tiered_lru"
+  },
+  "runtime": {
+    "backend": "cacheblend_v8_schema8_gradual_barrier",
+    "source_selection_completed_depths": [1, 2],
+    "selection_execution_policy": "dense_selection_barrier",
+    "gate1_gamma": 1.0,
+    "gate1_cost_scope": "optimistic_segment_marginal_lower_bound",
+    "final_commit_gamma": 0.8,
+    "backing_tier_policy": "cpu_preferred_single_backing",
+    "cpu_eviction_policy": "exclusive_backing_lru",
+    "ssd_eviction_policy": "exclusive_backing_lru",
+    "lru_epoch_semantics": "last_real_request_use_migration_preserves_epoch",
+    "adaptive_repair_timing_equivalence_absolute_ms": 0.02,
+    "adaptive_repair_timing_equivalence_relative": 0.01,
+    "selector_depth_profile_frozen": false,
+    "repair_policy_profile_frozen": false,
+    "runtime_cost_profile_frozen": false,
+    "integrity_mode": "qualification_full",
+    "required_capabilities": [
+      "dense_d1_d2_selection_barrier",
+      "d1_detached_winner_prefetch",
+      "gate1_optimistic_marginal_feasibility",
+      "final_commit_request_joint_timeline",
+      "cpu_preferred_single_backing",
+      "cpu_and_ssd_lru",
+      "repair_ratio_scope_explicit",
+      "request_level_joint_adaptive_ratio",
+      "request_layer_uniform_io_balanced_ratio",
+      "runtime_joint_ratio_plan_execution",
+      "full_kv_transfer_lease_enforced",
+      "legacy_multicheckpoint_three_gate_fallback"
+    ],
+    "run_140_job_qualification": false,
+    "run_h1": false
+  }
+}

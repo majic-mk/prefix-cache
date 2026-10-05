@@ -1,0 +1,16 @@
+{
+  "status": "PASSED_LONG_DIAGNOSTIC_GATE",
+  "runtime_scope": "same-budget independent long validation only",
+  "validated_prefix_tokens": 16256,
+  "curves_sha256": "13ea532044c2dcb5cb213ba17e885c274177704f71ac8b9f5ef134a5381f0e86",
+  "prompt_manifest_sha256": "a8a5f10a7f4596a2cb57fff9ba373c4f6a6c20a9398f44d6fed1ccddb76c0195",
+  "cost_plan": "artifacts/prefix_io_v1/server07-p3-05/long-cost-plan.json",
+  "cost_plan_sha256": "0f696ac4589abbb8dbdfbabfcae2c5d9397a2a53e1fce72df4868a39aaf98832",
+  "cost_result": "artifacts/prefix_io_v1/server07-p3-05/long-cost-result.json",
+  "cost_result_sha256": "8136f77d6f9694ed17f16149d1a432654848c312d885e3ab8dc1afe354fa1b8a",
+  "storage_source": "/root/prefix-io-v1-validation/storage/heldout-long",
+  "ordinary_policy_installed": false,
+  "full_P3_complete": false,
+  "formal_evaluation": false,
+  "qualification_note": "Supplemental permit for one validated prefix length and exact budget; the candidate itself remains unchanged and unqualified for production/full-domain use."
+}

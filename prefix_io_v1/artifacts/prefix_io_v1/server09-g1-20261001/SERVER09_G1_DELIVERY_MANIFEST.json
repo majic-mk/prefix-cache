@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_POST_EXECUTION_EVIDENCE",
+  "utc": "2026-10-01T12:35:02.087277+00:00",
+  "remote_evidence_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g1-20261001",
+  "files": [
+    {
+      "path": "ACTUAL_CPU_LAUNCH_GATES.json",
+      "bytes": 2100,
+      "sha256": "e25acde61d3dbb7928ddb63649a762a863c4a1d7c570ad10ca2ea12d7988ae7e"
+    },
+    {
+      "path": "ACTUAL_REMOTE_COMMANDS_THROUGH_G1_AND_V3.json",
+      "bytes": 238278,
+      "sha256": "00e796c28dcf926a9e41fab707d0c77a3d2993be8f24bc47099bb94deb16b1fd"
+    },
+    {
+      "path": "current-source/qualify_p4_native_gpu.py",
+      "bytes": 29692,
+      "sha256": "5d9604fc07d80495a49febfcd488cb2601f74a2bef107261c8e623a4d0a1c77d"
+    },
+    {
+      "path": "current-source/run_gpu_stage.py",
+      "bytes": 13013,
+      "sha256": "3527b6218d3e6c5781de550ce1c7cdebfd354e37d80f41693010201a3586929a"
+    },
+    {
+      "path": "DEPLOY_CPU_RESULT.json",
+      "bytes": 1959,
+      "sha256": "89036b74817fec8724f81b8914597b1430f0c213c2e4a219347dfb62eb096d9b"
+    },
+    {
+      "path": "EXECUTION_PLAN.json",
+      "bytes": 1952,
+      "sha256": "99b2e884cf0fe7567613944c6126cc1753b60b973bb24814a3198edc49c5721a"
+    },
+    {
+      "path": "G1_COMPLETION_AND_SCOPE_USAGE.json",
+      "bytes": 1730,
+      "sha256": "32645ac37ea9f142283d5ba17ab882ad55c60f41f3711556e9d4b133dba20116"
+    },
+    {
+      "path": "G1_REAL_GPU_SUMMARY.json",
+      "bytes": 22157,
+      "sha256": "5015ab87a2d4c9f2492082c3ab08442f7a763311f2a65d79abb4970564cbff43"
+    },
+    {
+      "path": "gpu-budget-ledger-after-G1.json",
+      "bytes": 337999,
+      "sha256": "32770dbca6f2e37d274f5007d151692e0a4c910a688d352abec79d60318ffaae"
+    },
+    {
+      "path": "gpu-source-lock.json",
+      "bytes": 444671,
+      "sha256": "5b438ebc1ec014c22d1d501915600b4cd9bc777ad9f05da1f7ac9b1a18cc1181"
+    },
+    {
+      "path": "GPU_STAGE_AUTHORIZATION.json",
+      "bytes": 1559,
+      "sha256": "94a015f51a24d87b4e4e35e5256c40293974c8f0e6fb03781c793ca5b1b134e4"
+    },
+    {
+      "path": "historical-before/qualify_p4_native_gpu.py",
+      "bytes": 27666,
+      "sha256": "370c40dd5b4bc0bcf91a5ac9402d65ee80ea5426f34762632ebda9e11abd5491"
+    },
+    {
+      "path": "historical-before/run_gpu_stage.py",
+      "bytes": 10863,
+      "sha256": "0786442f4104f3dc54e2006b0e7b3ed2dd3501dcf6410fa2e2c52201dd05559f"
+    },
+    {
+      "path": "HISTORICAL_SOURCE_PATH_MAP.json",
+      "bytes": 1291,
+      "sha256": "91184f9feb2936a5aaa0d3dea2efff8c1f69584c2ad0ac98337af4bb3b326b40"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD.json",
+      "bytes": 1133,
+      "sha256": "2ec66c3243ddc98ed4c65c79aca927fed171dbb05fc63a838206499b677696a4"
+    },
+    {
+      "path": "INDEPENDENT_ACTUAL_CLOSURE_REVIEW.json",
+      "bytes": 1848,
+      "sha256": "8583710a9ac34c3fe75ea6721d0a368d5a89ac1e74aedd7e1eefe918bcac53cd"
+    },
+    {
+      "path": "INDEPENDENT_SCOPE_REVIEW.json",
+      "bytes": 617,
+      "sha256": "d56b51948e06b6e4d277666bfa64824540f3a2f2f9cd38e0a0302ca5c9349e74"
+    },
+    {
+      "path": "permissions.server09.g1.yaml",
+      "bytes": 671,
+      "sha256": "eebc8ff9b3ca09c844514847e615099cf96c80d0361c7a493e0d5fdfc5a10e20"
+    },
+    {
+      "path": "POST_CPU_SOURCE_AND_BUDGET_CLOSURE.json",
+      "bytes": 2186,
+      "sha256": "d07709dccc9ec20196b0a419816f06b9981b9da2e157a5065bfd16d27d49c57f"
+    },
+    {
+      "path": "runs/off/process.log",
+      "bytes": 15088,
+      "sha256": "104d301fc119b7d1c766a753945fb1a265d1cf19d37a0413ab17df05917976a7"
+    },
+    {
+      "path": "runs/off/result.json",
+      "bytes": 14830,
+      "sha256": "48b2b882f69c21071a421ef9c2fac83347b14af9f030fcb68c5ab8341f9d7037"
+    },
+    {
+      "path": "runs/shadow/process.log",
+      "bytes": 28219,
+      "sha256": "0150b11c138144e21b2e708ab3e7074a6bd408625fdc4af44579b3870a811e6e"
+    },
+    {
+      "path": "runs/shadow/result.json",
+      "bytes": 27961,
+      "sha256": "c8b26e1f879719a95cccff769b350fd43f094ddd3a3afb28cec0277a4665b037"
+    },
+    {
+      "path": "SERVER09_G1_DELIVERY_REPORT.md",
+      "bytes": 9945,
+      "sha256": "e058a2ca3ede3b3e3e8d8f58f7df5cc264f715eb86862f3efcdb93ad9bc9846d"
+    }
+  ],
+  "note": "Manifest excludes itself and subsequent verification receipts. Evidence is not a GPU authorization."
+}

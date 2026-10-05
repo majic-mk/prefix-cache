@@ -1,0 +1,1001 @@
+{
+  "schema_version": 1,
+  "status": "P4_CPU_PACKAGE_SELECTED_BYTES",
+  "created_utc": "2026-09-30T16:49:36.249932+00:00",
+  "file_count": 198,
+  "files": [
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/execution-lock-12-final-p3.json",
+      "bytes": 405157,
+      "sha256": "212b29ded099b4677fabbb2305cf65e035c97ff8de587ab2808f3daa08b28909"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p3-16/p3-final-root-review.json",
+      "bytes": 3154,
+      "sha256": "95bab902ff583f2f76643bb971866a2095d59571d7519da9d162439b9c189f0e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/CAPABILITY_MATRIX_P4_CPU.md",
+      "bytes": 1823,
+      "sha256": "1877b1fa154ed3575596e54a734c853023b2d26cd6bb9f3d303cac8f444efddc"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/CPU_ONLY_AUTHORIZATION.json",
+      "bytes": 1060,
+      "sha256": "1c2dbcd3c959b84e8f275c120702cefe3a669abab68002d3a8c9eb03a6c6080c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/EXECUTED_COMMANDS.json",
+      "bytes": 3161,
+      "sha256": "695f0d094f2a48df1fdba88bcd148e950a425c13e420e8e09a28c70b9b413881"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/P4_CPU_DELIVERY_REPORT.md",
+      "bytes": 7442,
+      "sha256": "090527ae3932f0e0e70d219f7df0b1d83821e78ada21ccb7637d6fa1129f4c08"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/P4_CPU_ROOT_CLOSEOUT.json",
+      "bytes": 4754,
+      "sha256": "731526499f0626aad0e11ccf450c2cd25e2305a81d9cbb888b0d178143d6774a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/P4_DELIVERY_PACKAGE_README.md",
+      "bytes": 1297,
+      "sha256": "137e08b4423dd9be60de7b6d9c871cbfbc08ede2a1151fe0cbeaf84ab7a7e06d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/P4_VERSION_LOCK.json",
+      "bytes": 1152,
+      "sha256": "c36c96992ed96c815210faed9e5ef118b79f1f9240eed9992dfbb2e42e622c1f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/REPRODUCE_P4_CPU.md",
+      "bytes": 2091,
+      "sha256": "fc13397701c1f3ab23e5f99e02afbf74909b538c8a553977ec9e34bca1aaf32f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/assemble-p4-cpu-evidence-executed.py",
+      "bytes": 3196,
+      "sha256": "e09dde6099a79e0392dc7270bfcf9bf5e971907f65670561875a85277065364f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/ast-count-scope-reconciliation.json",
+      "bytes": 359,
+      "sha256": "fc589ab9b0c4a6bb5229195d5c78344f81b5a8f5facf524486c4c7217a92f48f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/P4_CPU_CONTRACT_AUDIT.md",
+      "bytes": 11501,
+      "sha256": "0e924727d2df6eff35d7810d031ff3cd37ac1c0cff13d2419f25eb9c36b62a3d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/P4_CPU_STATIC_REVIEW_V2.md",
+      "bytes": 6373,
+      "sha256": "47568792a87e24e80b2ac40fb7b62e4ccd2fc487f07007c27dc136fb9b5af5e6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-cpu-contract-audit.json",
+      "bytes": 20527,
+      "sha256": "17b495edaa113303604f6eb74576407ee48c938e98731911310f0ef3a30eb3a5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-cpu-static-review-v2.json",
+      "bytes": 13849,
+      "sha256": "44d7b829b5337eddc7d16624a4a86f48da52185bff8af6d41d3cd000a41b0e66"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-counterexamples-01.json",
+      "bytes": 1140,
+      "sha256": "7fcf7c4b94364657934144c521a6944564952f282d17dd01c141f694ff1790e8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-counterexamples-01.py",
+      "bytes": 3764,
+      "sha256": "52cc411899061312e1412424f0d6f05302be5bc704efc3dc1eb75b2fe3e56fa1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-counterexamples-02.json",
+      "bytes": 1490,
+      "sha256": "ef1c076a12d45ed8ec36a29eb84bd61a615dc2c11a54b65230575a606c385c9c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-counterexamples-02.py",
+      "bytes": 3037,
+      "sha256": "f5c12d32dd05afe35eaabb0eec93fc4b6ce55ac087caff8ceb0fc433ef9940ea"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-counterexamples-03.json",
+      "bytes": 1116,
+      "sha256": "59c8791abd9c2d43d1f947abbb9fcd543fcf04233fc03241aaea588e4f6f399a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-counterexamples-03.py",
+      "bytes": 3922,
+      "sha256": "ddf5a40ebbb446fdd25d64b450d3c6e011a1a835015f41b9709b5eec4e381341"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-counterexamples-04.json",
+      "bytes": 1559,
+      "sha256": "cac02f720d2493b27b39bf9a6933355f6ec9c57e249f24439f0b3852f4733026"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-counterexamples-04.py",
+      "bytes": 3237,
+      "sha256": "04976e7b6fa56c2882df42e32dc2331df387db203498932c76579243a2e51775"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-forecast-counterexample-01.json",
+      "bytes": 1246,
+      "sha256": "93ad7cb59178b69cea90a005b2f143e847d8b077af6ff6a80a25bac70f0c9697"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-forecast-counterexample-01.py",
+      "bytes": 3297,
+      "sha256": "68b33e32d9aff90852b59914dc95f9bed87e82fcaa79427445f3afc03e31fd41"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-forecast-counterexample-02.json",
+      "bytes": 1131,
+      "sha256": "a34676c897aec83ee5cc029d80a90bf5cc0536a8ee038bedf560d2d5a6e7c25c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-forecast-counterexample-02.py",
+      "bytes": 3338,
+      "sha256": "19703a0f577d379cbabc366b4512e2cf524c57a1e7db9ffb86a2acd729105a45"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-forecast-counterexample-03.json",
+      "bytes": 1131,
+      "sha256": "31f5f4eeb554e460830986cb3ff6531a2c2016f3e5ab8bfee9beece8be76d38a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/p4-review-forecast-counterexample-03.py",
+      "bytes": 3338,
+      "sha256": "2cc4ba7fbeec4628547fa37496f0091ac1020411e24a88354d14f05aae5d6fe3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/source-preservation-during-review-01.json",
+      "bytes": 13798,
+      "sha256": "1ee56c5d872af95c45d62915707e768edeb49613bdc424a22e2e5be5eeb8987e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/audit-review/source-preservation-during-review-02.json",
+      "bytes": 13899,
+      "sha256": "085a0dbc9bb82e34cf482d810a2c3f305321d5f7ec04deb297520f5618340959"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/cpu-skips.json",
+      "bytes": 4235,
+      "sha256": "405744fc8f133fb7f95dd7e437095959ec0cd6a038e8a81f03dc2b103fd9bdab"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/cpu-workspace-base.json",
+      "bytes": 9534,
+      "sha256": "ff34a0bdf9e7ae84598ee507e06b7f10ad754e5cc15fb5fafb724f0bb7181cb1"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/current-integration-01/cpu.xml",
+      "bytes": 257754,
+      "sha256": "a6028ede5b10a10a59d5b2d25879f699e9a2db77c584b636b46df3795bc5047e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/current-integration-01/cuda-guard.json",
+      "bytes": 77,
+      "sha256": "57ed8c7d039ff0f19c3e19acda2681feaf829caab4aaa06bed47a4dbdaa5b3a9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/current-integration-01/plan.json",
+      "bytes": 5263,
+      "sha256": "fefa3019936b8deb5a483fa84dfee727c073cddd55fb8072aa9183b6ba5a4b1f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/current-integration-01/process.log",
+      "bytes": 1897,
+      "sha256": "d9cebf75a62a251739b4fdfeffa4bb9281e905794a09edced853545b6263251a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/current-integration-01/result.json",
+      "bytes": 1404,
+      "sha256": "63bfc9a999c3d239b90e326df70483b93cffde0a85982d46b84234aa823b5e0e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/current-integration-planned.json",
+      "bytes": 4892,
+      "sha256": "56fe62b692ef73acb6718f915033ab07a9b811e2bf078df2d5d100cae4ccd826"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/entry-audit-interpreter-diagnostic.json",
+      "bytes": 458,
+      "sha256": "b5804026c214719bce25ca2f11e05193e1bac0403d111d9783fc5a9de0803478"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/execution-state-after-p4-cpu-closeout.json",
+      "bytes": 52340,
+      "sha256": "0780ce51768f6770dec94d4f4c73a13c2f5f22a3cd0f56452003d1bb0aa75b53"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/execution-state-before-p4-cpu-closeout.json",
+      "bytes": 45798,
+      "sha256": "501b1937c1dba3b014a08cb750b4664dd5015d8416e5ecde907bcaf421b869d5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/execution-state-p4-cpu-update-receipt.json",
+      "bytes": 659,
+      "sha256": "f4fbe91cd6210d5bad0fd5ae54b4dc3823a6cb271bd28fd4a21e101f2679afc6"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/factorial-label-correction.json",
+      "bytes": 317,
+      "sha256": "527a80e179d8832450ef2a472b74bb002ff7c6e56a62f5061c77264638c11fee"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/final-input-and-P3-preservation.json",
+      "bytes": 986,
+      "sha256": "8cd3dca07d107c37248d130495f359bceb6596bbebb8f36e620fe820d6782c7c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/final-preservation-audit-executed.py",
+      "bytes": 2906,
+      "sha256": "090b4c70f204ffc005771061108536a865498eac46b0feaefa26ea5f666caa3f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/finalize-p4-cpu-closeout-executed.py",
+      "bytes": 5460,
+      "sha256": "ad1fd8876419c8b8bfe3fd4010840e3be9a2734d5b2642714dbd8dcd56289e6c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/gpu-launch-denied-v2.json",
+      "bytes": 3201,
+      "sha256": "d2a99be364cf400010c419662c432adb58e202c20b600630c6f5964683580170"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/gpu-launch-denied-v3.json",
+      "bytes": 3524,
+      "sha256": "57fb3ebed2bac401bd9ffbf73294f6443939e17bbea36ee15d8e3b6bd4c130e9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/gpu-launch-denied.json",
+      "bytes": 3201,
+      "sha256": "1aac5de4268a38ae26367607568a2aac5363f77f5733feed1486f6e8071e8311"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/gpu-stage-preparation-v2.json",
+      "bytes": 3201,
+      "sha256": "ad81213c79e4cff2b628ca6d6679a7407972160423055c90c56610f52c634826"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/gpu-stage-preparation-v3.json",
+      "bytes": 3524,
+      "sha256": "d715c333392aab052c50130279dd4a81276d1f34ea2c63628186807f30520af0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/gpu-stage-preparation.json",
+      "bytes": 3201,
+      "sha256": "9db04c022d451b1a0bbd532389cd67689fbaa63595ee60e53b7bba7bd5565823"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/independent-value-abi-cpu-tests-01-command.json",
+      "bytes": 568,
+      "sha256": "4aa179744ba3219c91622675acac206921fefdcf91fc1c491aa03eb68006f5d5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/independent-value-abi-cpu-tests-01.json",
+      "bytes": 473,
+      "sha256": "96ed7fd1b8a3f8ebfb17efc3dd4659feae5c4d83449846c2653168a8d700a9b3"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/independent-value-abi-cpu-tests-01.log",
+      "bytes": 7075,
+      "sha256": "68bd88adbafd45cf49e68568d07123f342c662c29a968cadf6e89a8e37402353"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/independent-value-abi-cpu-tests-01.xml",
+      "bytes": 6430,
+      "sha256": "e5fda6ffa1891eff43969618ada163469138dce932654d3c8f55dc1ecf0eefd8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/independent-value-abi-cpu-tests-02-command.json",
+      "bytes": 568,
+      "sha256": "013b20de4599c7ef24b7486271b4b24462ffdf322a1ce80899d456d018ff1b0d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/independent-value-abi-cpu-tests-02.json",
+      "bytes": 473,
+      "sha256": "f9937c2474855074c189e74325a4630a8d498370ba15c650a3e7f59b6ad24704"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/independent-value-abi-cpu-tests-02.log",
+      "bytes": 6262,
+      "sha256": "1ba1f9f5ec83925b91d27925b3815a5df6fef6805764d04389fa9fde6e8bf73e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/independent-value-abi-cpu-tests-02.xml",
+      "bytes": 5910,
+      "sha256": "176c9a52ff2b71431145837dc1e9c76754e7ca1961e72481dd420c504851ee4f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/lifecycle-and-modification-map.json",
+      "bytes": 3864,
+      "sha256": "18198ba9ca700bc9061b3a378cac6b129fa9e4bcf08dc53a87c0f77b3bc7c265"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/bridge-options-creation-01.json",
+      "bytes": 545,
+      "sha256": "b415190c22ef8ca023c186c5c6d2bfc48b344e0f876c2ff3a694081e4750a427"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-01/pytest.log",
+      "bytes": 229,
+      "sha256": "886388cfe803319a35721bd4aea579253c6dc508a687e7a5d61f69e08ba140ad"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-02/cuda-guard.json",
+      "bytes": 77,
+      "sha256": "ee7bcc37ee6b3bdbbe6ad3bb342e11a15f1b73c0ea16fe81e5fcaff5c55f7682"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-02/pytest.log",
+      "bytes": 7155,
+      "sha256": "1a147c0f0ec72dca835fb36c49ad6ac586f042fa3e4e3596a631dfbc371bc8b4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-02/results.xml",
+      "bytes": 11289,
+      "sha256": "da61c827012f1da7eed0351a406b93f3b7dbf6055f6425954374dd67ad796243"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-03/cuda-guard.json",
+      "bytes": 77,
+      "sha256": "ee7bcc37ee6b3bdbbe6ad3bb342e11a15f1b73c0ea16fe81e5fcaff5c55f7682"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-03/pytest.log",
+      "bytes": 1953,
+      "sha256": "36edf1afa2be75dd5dbbc1da923ba6951386a2500f36afe094c7f03ce735b00e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-03/results.xml",
+      "bytes": 7114,
+      "sha256": "b5ea47513e5734a49fcbb3831a37dc659511506e9687b2fdd6ba5ecc06e0a2e4"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-04/cuda-guard.json",
+      "bytes": 77,
+      "sha256": "57ed8c7d039ff0f19c3e19acda2681feaf829caab4aaa06bed47a4dbdaa5b3a9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-04/pytest.log",
+      "bytes": 100,
+      "sha256": "0d12a70f74e26dcef8b4781b58eea8185ce587b49a8849826062eb07e589e887"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-04/results.xml",
+      "bytes": 5494,
+      "sha256": "061c9e1a6a41ed33e25b291c22dd9e79f14243b1181465c3a5e2e109436ade4d"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-05/cuda-guard.json",
+      "bytes": 77,
+      "sha256": "57ed8c7d039ff0f19c3e19acda2681feaf829caab4aaa06bed47a4dbdaa5b3a9"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-05/pytest.log",
+      "bytes": 180,
+      "sha256": "4033db6b741477897908ced5adbd98ccfa52f1bd795154a7d373dfdd583b17f5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/guard-05/results.xml",
+      "bytes": 13178,
+      "sha256": "e87bd87b2c2439ba4bcb1dd11ace235fdedc8f48f68f8da9fc306c220839c0c8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/native-bridge-cpu-handoff-01.json",
+      "bytes": 6001,
+      "sha256": "584b7f37b3b5a0e935d9403550518c54e9e3602817ce705a1c6535b86e242f64"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/native-source-change-01.json",
+      "bytes": 1321,
+      "sha256": "d0a1b980abaed510c9d440b4d2051e46631082c3e17d196be4b0b6cd4d312b62"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/native-bridge/native-source-change-02.json",
+      "bytes": 1032,
+      "sha256": "5c9e8e5c3bbda3ebaf00d75518813de1f1d4a9972f0d2be954cdc5ae51f8dee8"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/offline-P3-observation-boundary.json",
+      "bytes": 1834,
+      "sha256": "350bf2fbf24629da7f9ba7fcd7fbf130f8e6dd224b77c84130a713e937dbfa58"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/p4-cpu-entry-audit.json",
+      "bytes": 2817,
+      "sha256": "3df9dea6c9a46e993833476c17190eff06e347d6f80c12fa8379db61faef343e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/patch-roundtrip-01/0001-observer-native-glue.patch",
+      "bytes": 58133,
+      "sha256": "7f1ac99124742885c2c3fe229ecab058dddb400eca568ec455468f6898f7fefe"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/patch-roundtrip-01/0002-bounded-research-policy.patch",
+      "bytes": 43262,
+      "sha256": "8d108942e0f24acafd333753ec05b18b234dfed96ef4b3f6241ed56e57b5ea9c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/patch-roundtrip-01/common-only-off.log",
+      "bytes": 50,
+      "sha256": "5eeb64c3b7b3d1c3c0aa16bffebf967a4e738486b963dd699247b8f660f88a0f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/patch-roundtrip-01/result.json",
+      "bytes": 12828,
+      "sha256": "7a3ee7529e6f44dce8c21551e35ef4b2c17d4a8289672b12e9afbc4a51144b6e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-01.json",
+      "bytes": 284,
+      "sha256": "0e4737c4b1db5bf4cf11755c0a4151aeeb660e7b3a4c2bbc7c1184256be866f5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-01.log",
+      "bytes": 5879,
+      "sha256": "6e69c00ed02a623fa9e2384181b378841e3f5de323a02e762d209dfd6ceb1274"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-02-command.json",
+      "bytes": 801,
+      "sha256": "9ef3b47b629ff9ab4a7a012fea76cb3a3f76c0b0f36488e77a529f4a53047874"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-02.json",
+      "bytes": 284,
+      "sha256": "531b8d32e507a01172d5b64d7058d53798f2f0abc61f9ade303a67e05ab1fe8e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-02.log",
+      "bytes": 7115,
+      "sha256": "06486e87bbc008b03d4c243bcdfaf9a67f5cbca8fc7b31529e7dccde5c025a36"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-02.xml",
+      "bytes": 6876,
+      "sha256": "131216299271057a0d8d030ced56ad898c48cff3fc32caf2079fd2444539914c"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-03-command.json",
+      "bytes": 801,
+      "sha256": "f3dc84644c211fadcaed7af063846d7fd98e72a1e3fc5c1bc9b2eac5395f8637"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-03.json",
+      "bytes": 284,
+      "sha256": "3dc67b30afd994145ce3d724efad239f52a6616d3e522f8d3de04144b072e7f0"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-03.log",
+      "bytes": 7259,
+      "sha256": "91a96d18436b1318b0c386781586c91d17f5d973aecf2cbc312a7d82d238c0ab"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-03.xml",
+      "bytes": 6999,
+      "sha256": "f3b3ed20e37ffe7e2d71f5f81c57ee7158eaacb8cf92cf8a1e68ec8429e763bd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-04-command.json",
+      "bytes": 801,
+      "sha256": "b46e76a8958b5447c12b0d4663cd2debba0341f21846ba2a26c64d5395954249"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-04.json",
+      "bytes": 284,
+      "sha256": "71e88b6e44e2dc3fa58b640e4a2806758772950552f39a16db73eae3c5d3c707"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-04.log",
+      "bytes": 7559,
+      "sha256": "92c3201d4984fbcc00649e45bd4854b940864a2a4d541ae410b2f76f50948ece"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-cpu-tests-04.xml",
+      "bytes": 7268,
+      "sha256": "6d7c47c16ae16eb6e5b9bcac025feadb503b355cdf741b18097fceac269ad689"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-production-contract-cpu-tests-01-command.json",
+      "bytes": 861,
+      "sha256": "fb97411c6dd8b36caab1986d35c757c84fdf104e0f68ba1bf1235876fe1e2e85"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-production-contract-cpu-tests-01.json",
+      "bytes": 284,
+      "sha256": "9b6e6594b012c6a0c8c8868154303cba12fa37a2ff76e0fd03625d43aa0ac573"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-production-contract-cpu-tests-01.log",
+      "bytes": 12468,
+      "sha256": "4ad12e725ec994696fc846927031ab8e66edf780d6a2c52b3a419b233b12fcb2"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-production-contract-cpu-tests-01.xml",
+      "bytes": 11863,
+      "sha256": "05b2f51ae8a2fc54e2f9f387e79ed84669a6f77eb2d36e793933dfd03eb7d388"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-production-contract-cpu-tests-02-command.json",
+      "bytes": 861,
+      "sha256": "cdce39090f7a7cf23e6996f5d7e01bd57bae249032b9b4e1e454d54a426031cd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-production-contract-cpu-tests-02.json",
+      "bytes": 284,
+      "sha256": "63e5a8d9984c15d4d4f4653a226052961e0d659e8fd8480666d6d6148894561f"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-production-contract-cpu-tests-02.log",
+      "bytes": 12669,
+      "sha256": "b5c443e9feb132692209a724fbe16b16260eb8b89c2bab4a3db5b8290290fc15"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/policy-production-contract-cpu-tests-02.xml",
+      "bytes": 12064,
+      "sha256": "3fcf5486854e21329338580f3d7c2d0997ab64d5b17890be0599055c8007c3ba"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/production-table-candidate-contract-schema.json",
+      "bytes": 2787,
+      "sha256": "a1609641d06726a651e90d6369a6bdf86e11ddd7e720c605bea53901d9971376"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/replay-path-correction.json",
+      "bytes": 283,
+      "sha256": "cdb341282f45d2d03e2fd556b1fc8b022578c4fbee7299ffb89eee5f966a0027"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/runner-storage-path-correction.json",
+      "bytes": 536,
+      "sha256": "5517176095b6253f4170cc5f299023da14fdced782dca377ab9d4646a93378d5"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/stage-cpu-guard-01.json",
+      "bytes": 123,
+      "sha256": "ca9185b2f04204303cf060b78aede7aeae2f2c2fc418e74a148ef3a13ad3516e"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/stage-cpu-tests-01.xml",
+      "bytes": 1941,
+      "sha256": "3489f3c017656696b1b0b86afce2a917e19369360d69e3dff3e3d954d98a48bf"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/test-input-lock-v2.json",
+      "bytes": 14338,
+      "sha256": "0709c548cab356d06a0590f2511249ffea7adbab722e378b06e49552ba24bded"
+    },
+    {
+      "path": "artifacts/prefix_io_v1/server08-p4-01-cpu/test-input-lock.json",
+      "bytes": 14318,
+      "sha256": "1e689b52581280707b5b70b2a98b8e875c1f03bc63b7cfaa871b328f8706963c"
+    },
+    {
+      "path": "docs/prefix_io_v1/00_START_HERE.md",
+      "bytes": 3009,
+      "sha256": "6f80fd7e52907d76640b6cc989ee2a75b33ceb7bbfb43e2c9dc984c467328793"
+    },
+    {
+      "path": "docs/prefix_io_v1/01_ARCHITECTURE.md",
+      "bytes": 17528,
+      "sha256": "7a88ab1bfe3ba74766904900a594b99e89e55076d82ce92a81a5810a959ff00a"
+    },
+    {
+      "path": "docs/prefix_io_v1/02_CONTROL_AND_CONTRACTS.md",
+      "bytes": 19725,
+      "sha256": "b016ca08f1ffcfe7f41a322c3a7a5ee6e1dbf5874b2b784045e145774516234c"
+    },
+    {
+      "path": "docs/prefix_io_v1/03_IMPLEMENTATION_AND_EXPERIMENTS.md",
+      "bytes": 19535,
+      "sha256": "6d35bb47d4ec21ceb08aeeca8959cfcc60e79c2091bb2173c414f82cf47cdc17"
+    },
+    {
+      "path": "docs/prefix_io_v1/04_CODEX_EXECUTION.md",
+      "bytes": 4557,
+      "sha256": "49e1ba757c99a8a1e872d56bd519ed10b450d8960f3390a54d1f0c32a5d3e5f2"
+    },
+    {
+      "path": "docs/prefix_io_v1/05_SOURCES_AND_AUDIT.md",
+      "bytes": 7843,
+      "sha256": "ec5d53fe1509bdc04511ed6d2e6d418ec06de815a374d7beba0e3b0de5fb0e7a"
+    },
+    {
+      "path": "docs/prefix_io_v1/SERVER08_P4_CPU_REPORT.md",
+      "bytes": 7442,
+      "sha256": "090527ae3932f0e0e70d219f7df0b1d83821e78ada21ccb7637d6fa1129f4c08"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/controller_spec.yaml",
+      "bytes": 1751,
+      "sha256": "e7893f55761aff905ba595726a420e399567bbda7512db740d275e38a4e767a2"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/dependency_lock.candidate.json",
+      "bytes": 2262,
+      "sha256": "245a0ca4041aeb7401c4382e4fe5a48af71a9e11974052dd68e12f8db00d515d"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/execution_state.initial.json",
+      "bytes": 3286,
+      "sha256": "f19a2c9169b5d2a6c8d9cd0289a218fd5d3353b4961723eaa2437f36a5fb24f1"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/experiment_spec.yaml",
+      "bytes": 1912,
+      "sha256": "040946aa63fd29384c8eb7b32c1753dd8bde9e242a44173977ffcf478ec015a0"
+    },
+    {
+      "path": "docs/prefix_io_v1/templates/permissions.yaml",
+      "bytes": 561,
+      "sha256": "148eb81627a8c862eb549e33e0c05eeeb4b10f50747265c4260356634c5c6452"
+    },
+    {
+      "path": "experiments/prefix_io_v1/configs/permissions.yaml",
+      "bytes": 1307,
+      "sha256": "795d24f9955379653e34ffbbfd7614ad9ef96ad0ac9a208c6b4baefd994fac50"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/prepare_p4_gpu_stage.py",
+      "bytes": 5922,
+      "sha256": "1cc443590d2aa0d8fa78d65ed3c0c6145794c3347c19073aa4d4a5853f2cb70f"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/qualify_p4_patch_roundtrip.py",
+      "bytes": 5292,
+      "sha256": "85ee843dd7c1dbf9604d466849ef8610ca8b0b23613de52ddbcb5bc2a09a8030"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/replay_p4_observation_boundary.py",
+      "bytes": 2517,
+      "sha256": "357306844c81e32b5703bd2d131cc8b321c37257a6a688a050637b466c7e28f3"
+    },
+    {
+      "path": "experiments/prefix_io_v1/scripts/run_p4_cpu_qualification.py",
+      "bytes": 5535,
+      "sha256": "29f95286534ddd496b4bcd1c708870cda98851e675e7698f48fbd64ceb6476a1"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_bridge/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_bridge/test_native_events.py",
+      "bytes": 17677,
+      "sha256": "28c0fd043e582d24595b3be695c489953d97315b9512c78125b72a2e145badf4"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_bridge/test_options.py",
+      "bytes": 3203,
+      "sha256": "1efcb64913e31d5feb473b22c7967a8ea1ef9543caafb6f739859cf51f49671e"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_bridge/test_value_abi_independent.py",
+      "bytes": 19695,
+      "sha256": "2e9fa7888a009f30df6dce6d3129d17a751a9ab43620acd4188da16dc97ef047"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_policy/run_cpu_guard.py",
+      "bytes": 3745,
+      "sha256": "2ba8c4425e2a20297cb6e5e9cee42952a04813a33cef94273459f4b63351386f"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_policy/test_p4_policy.py",
+      "bytes": 26168,
+      "sha256": "8996aa5cd735fbee607db5074d57f4c4007cd5fc7480956d56f1c048fe455e77"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_policy/test_p4_production_table_contract.py",
+      "bytes": 13994,
+      "sha256": "25b0ee8a829cad9e394aa3a8ce7e518204ba053b00e1b5b572d25fb1617f06df"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_stage/test_stage_preparation.py",
+      "bytes": 3948,
+      "sha256": "c9af282b290114e10f1a8bcae7fcb150bb8a165a18d3b0ff6378c55a30150767"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/__init__.py",
+      "bytes": 149,
+      "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/bridge.py",
+      "bytes": 852,
+      "sha256": "c1e1a5454ebeda338f37deebdccf9293374e9e9002c472377ae483438071ecb5"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/config.py",
+      "bytes": 9901,
+      "sha256": "0a659a588947773c8fa071296260ba9ae878787f34beda014fde24fb874164de"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/dependencies.py",
+      "bytes": 5772,
+      "sha256": "41cc50163c51a2f02486230fcfa36c348af95ef687c3f2cb815bdd6797f29481"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/dispatch_budget.py",
+      "bytes": 11021,
+      "sha256": "412c43761cb2f59636240e15c884b25d2a1d0ee708684d496259baf2f34d667c"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/dispatch_shadow.py",
+      "bytes": 16989,
+      "sha256": "c3d502423116f8c3b74f976acba092cb574d58d078c7b34f368e9e5b926b8e1b"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/native_flush_probe.py",
+      "bytes": 11396,
+      "sha256": "b24902ca76aa998c564218738ec02cfc3c96f5b12523a2df80765a489c04ebda"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/native_options.py",
+      "bytes": 1338,
+      "sha256": "25f09f9ef3006553314156cd0795e94cf6a67e7bc1215e6d3bd3d832459722fe"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/native_owner.py",
+      "bytes": 8493,
+      "sha256": "2ef22ba90e6a89890a0a060e81f0cd639f7f04bb8c7bb16635208edf80534a81"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/observation.py",
+      "bytes": 2890,
+      "sha256": "8ddf5634f46b254f9e539187caa964503d44954637edfeb5c385b2b369b706f2"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/order_options.py",
+      "bytes": 2089,
+      "sha256": "8d631e19b40b87604747f3aee2db9031e696f74c3a98147e4e966062220e4aea"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/p4_bridge.py",
+      "bytes": 13238,
+      "sha256": "e5b26a3cce9ad8cbe91d02e516e90f973214375c8ae1bc99e0e5344740592eec"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/p4_cost_table.py",
+      "bytes": 5071,
+      "sha256": "4caae858778182f5575ce2d5807bdc72520ef4c5f32a2c18f02ff2628155d0f8"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/p4_options.py",
+      "bytes": 3096,
+      "sha256": "f435bde302aa7e28bb5c7d386605e8092122c857d09158ffdc584e3294128a75"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/p4_policy.py",
+      "bytes": 22791,
+      "sha256": "204350e421189a28fe9ada9bfd04745dfec9de786f62f3809b008070a55fbe23"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/p4_production_table_contract.py",
+      "bytes": 14365,
+      "sha256": "ae244d09c2fc1eb077e6af8df3ae378b6b3504b4f71ff10eb26f0ada7d2c71fd"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/p4_types.py",
+      "bytes": 11969,
+      "sha256": "07bbcb0a449c349f9c63874728e409180c1c9787f3253723403978e17383094e"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/preflight.py",
+      "bytes": 2140,
+      "sha256": "a4cff5d15308bb3b51b9a1e959851d34f8fbc72e34b697d1a70dfdb71e01a126"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/publication.py",
+      "bytes": 3688,
+      "sha256": "bcaaa49d78f44d692cab89ad86fa5197cbab59491dab85b902d9fe4ef7baa0b7"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/simple_stage_options.py",
+      "bytes": 5445,
+      "sha256": "63fe6a27087ec604e82f47bd15a4e72eb3f475304203006fd9b5718f5a90a8dd"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/simple_stage_policy.py",
+      "bytes": 21557,
+      "sha256": "8a2dc9586f5e1fe5257f988e44466284d10e0e46a8cee46f876a8febe5caf1a5"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/stage_accounting.py",
+      "bytes": 3580,
+      "sha256": "11a736586a9278e2c373d4fc1bfe0faf9cd166b81e9d9c3f658500a51ab954aa"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/start_budget.py",
+      "bytes": 6547,
+      "sha256": "d83fb291e2788366b7453132114534199c72df52634bde226cba3f34eb40c1c8"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/start_options.py",
+      "bytes": 2819,
+      "sha256": "f7e01eff1ffa641bde1b968e7a9a877458e7528601be04d50b7790664fa78866"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/store_order.py",
+      "bytes": 2947,
+      "sha256": "3b06e96e6b5e21fc6c6ca4bbc89be235888948191f12ae69de7ae95f8bc8d8f0"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/store_readiness.py",
+      "bytes": 6549,
+      "sha256": "203f063a418bda608ea19564a1c2dfe308d1291c640ccfe629f78aec1cfb2e98"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-01-cpu/src/prefix_io_control/token_timeline.py",
+      "bytes": 1738,
+      "sha256": "fbcae96ecbc86041d324362fa5b6b2a4c4d51e033b67f1b330cfc2b594c84164"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/__init__.py",
+      "bytes": 986,
+      "sha256": "27a469e4bd7ea7ae62ca91486307a2a3b4bb2906b140917ca63b1e7b5de08813"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/_pchip.py",
+      "bytes": 2681,
+      "sha256": "d3f186b52ae296181ae3e547cb8516ba1538a20062bb76152c6042b13ff5d397"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/break_even.py",
+      "bytes": 9567,
+      "sha256": "2419c9470df0e43558ccc729aa3927ebd4d1381e00276d4caaa57b3cf19c42a6"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/cost_model.py",
+      "bytes": 4014,
+      "sha256": "e85922054fe96dce5c0221f1cc17cc3f1b2d7addd7eae452cabad305fc412397"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/file_mapper.py",
+      "bytes": 1681,
+      "sha256": "165239153b9bf1b475992358683a8d43849d74f0e841326704e1c419abda72dc"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/fs_config.py",
+      "bytes": 9057,
+      "sha256": "7a2429d15f6d6009da5f7965ba6b15279a9ef25b348cadd29927f61b9c488698"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/liburing_file.py",
+      "bytes": 15244,
+      "sha256": "6a8995ca6e5f49ae470e8c49dbf3d98caf2d09dd091cb6f08f9e892c051414f5"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/linux_aio.py",
+      "bytes": 17646,
+      "sha256": "0a987479722c7d6b520b99c9b283febb55c5145fc17c5623b8b1151c4f45a6d7"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/load_planner.py",
+      "bytes": 18325,
+      "sha256": "92581e373d7e5c0903520417fb0ce80141f2f65506bf16c7ecbde94ab1ca5fe2"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/profiling.py",
+      "bytes": 970,
+      "sha256": "b6025d8afb9256be2a2d35df01e4bf96f3926a2948ecc88a32c2c63336b333d3"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/reactor.py",
+      "bytes": 162153,
+      "sha256": "8bc39d81e3549eea6ea30a6b77dcff356d4b1e91c3fd8ed3103588a93f9a2e7a"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/staging.py",
+      "bytes": 2674,
+      "sha256": "18d2b634b894fec32d7abbf767132afbd4fc5ec66fef738ffef724f3e95e615b"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/staging_cache.py",
+      "bytes": 12310,
+      "sha256": "f505da0a942dfded2019fd5b292a986ddb7a29e18bb47c568f9a614eb2a0d928"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/transfer.py",
+      "bytes": 12061,
+      "sha256": "1dcc5f4370e3db694d34924038a8fdd5a2eb12cf7f04ba81072dc969f275c1ba"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/py_kvcache/vllm.py",
+      "bytes": 32008,
+      "sha256": "98807d719e19d852f77646025b1deb4d30930ecf92dee021eea77e92876d552c"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_break_even.py",
+      "bytes": 13372,
+      "sha256": "c94b2dc35ff334fc4d9d2db00131b0758adde2f24730a0a679b5dddb0f9ddae4"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_cost_model.py",
+      "bytes": 10642,
+      "sha256": "87b8c81d9922529d5e8fe009c15e8be59e7b25f26240e7c32733bedfdda7cf8b"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_e2e_kvcache.py",
+      "bytes": 11594,
+      "sha256": "ca398167b82c20267c3836088eb50d5e05ce38999b73414184d92537b412b1d8"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_fs_layout.py",
+      "bytes": 8494,
+      "sha256": "10dd8ead816b59733e40f87238d958d57643332fa065431229596efd6ecf9466"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_load_planner.py",
+      "bytes": 30925,
+      "sha256": "78390041c1d5d2de4f7a8da6d067bf6fca580c0d39e7f0c6a990a0efe6e30c19"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_planner_manager.py",
+      "bytes": 20649,
+      "sha256": "f1cbcdf6a10d40f3b8e91b20f192288b2069852df54f1ba90450dcfb0517116e"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_py_kvcache_async_open.py",
+      "bytes": 6406,
+      "sha256": "d9caf9364f9c2e5425ffcdbcf21ed6bd9910e0056938b8c9e87d6c27483144c3"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_py_kvcache_copy_batch.py",
+      "bytes": 8727,
+      "sha256": "5c78c5458152f06580e06bcc067b564a52cfb95c2c77eeb9dd5e4e15285fa408"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_py_kvcache_lookup_cache.py",
+      "bytes": 8069,
+      "sha256": "e05c4c4c194b2633bcf12da429a66183c91dba4c0f6aa8bf1da2f3dad16e3b20"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_py_kvcache_ntensor.py",
+      "bytes": 7900,
+      "sha256": "f04017c754cd7079a54e4a71c1e6085edb6db7b2d7bc28f7f7cd173b3143d10c"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_py_kvcache_preload_handler.py",
+      "bytes": 4284,
+      "sha256": "3cdc25ae53ded51007a1518db4f753976b7576aceea9de89bc14f0d4afc38927"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_py_kvcache_preload_reactor.py",
+      "bytes": 36131,
+      "sha256": "fac1051cbf47371c29849d1d3e5fcc937531a188783afd2534348bdbaed031e6"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_py_kvcache_shared_preload.py",
+      "bytes": 14188,
+      "sha256": "a24f5059b767325e94e5bcf0558239be930687790f38c8a99c50319b012aa045"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_staging_cache.py",
+      "bytes": 4611,
+      "sha256": "a2574dda4fab661092d05ba9332f93277240a29f8fd21c94fe083f509a264dd4"
+    },
+    {
+      "path": "third_party/work/py-kvcache-p4-01-cpu/tests/test_vllm_compat.py",
+      "bytes": 1636,
+      "sha256": "9a73c5cca1977b8f8f5509fc564fafe469eca7e21bc739eb00158ac01a77e742"
+    }
+  ],
+  "model_or_private_KV_payload_included": false,
+  "ELF_or_venv_included": false,
+  "GPU_runs_added": 0
+}

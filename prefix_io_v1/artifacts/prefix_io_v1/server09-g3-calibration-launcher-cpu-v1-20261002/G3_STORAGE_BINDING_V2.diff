@@ -1,0 +1,83 @@
+--- historical/run_g3_calibration_pilot.py
++++ run_g3_calibration_pilot_v2.py
+@@ -16,17 +16,16 @@
+ import time
+ 
+ DELIVERY = "artifacts/prefix_io_v1/server09-g3-calibration-launcher-cpu-v1-20261002"
+-SCRIPT = DELIVERY + "/run_g3_calibration_pilot.py"
++SCRIPT = DELIVERY + "/run_g3_calibration_pilot_v2.py"
+ PLAN_MODULE = DELIVERY + "/g3_calibration_plan.py"
+ RUNTIME_MODULE = DELIVERY + "/g3_calibration_runtime.py"
+ RESULT_MODULE = DELIVERY + "/g3_calibration_result.py"
+ PLAN = DELIVERY + "/G3_CALIBRATION_CPU_PLAN.json"
+-LOCK = DELIVERY + "/gpu-source-lock-candidate.json"
++LOCK = DELIVERY + "/gpu-source-lock-storage-v2.json"
+ RUNS = "experiments/prefix_io_v1/runs"
+ LEDGER = "experiments/prefix_io_v1/gpu-budget-ledger.json"
+ GUARD = "experiments/prefix_io_v1/scripts/run_gpu_stage.py"
+ PERMISSIONS = "experiments/prefix_io_v1/configs/permissions.server09.g1.yaml"
+-SHARED = RUNS + "/server09-g3-calibration-shared-01/storage"
+ BOOTSTRAP_PLAN_REF = dict(path=PLAN_MODULE, bytes=24475,
+     sha256="196700d96733ec07c5a4c08c6104ab31a2a36548cf005fbb8e11b6a769f6f0c0")
+ BOOTSTRAP_RUNTIME_REF = dict(path=RUNTIME_MODULE, bytes=27641,
+@@ -102,6 +101,11 @@
+     return [".venv/bin/python", "-B", SCRIPT, "--project", str(root),
+             "--mode", mode, "--source-lock", source_lock,
+             "--scope-record", scope_record, "--execute"]
++
++
++def shared_storage(root, plan):
++    """Use the already byte-verified frozen plan for every storage boundary."""
++    return safe(root, plan.STORAGE_RELATIVE)
+ 
+ 
+ def storage_snapshot(root):
+@@ -162,14 +166,14 @@
+         binding = dict(expected_source_lock_sha256=scope["source_lock"]["sha256"],
+             expected_scope_sha256=scope_sha, expected_gpu_uuid=scope["gpu_uuid"],
+             expected_label=label, expected_command=child_command(root, mode, source_lock,
+-                scope["_actual_scope_path"]), expected_storage=str(safe(root, SHARED)),
++                scope["_actual_scope_path"]), expected_storage=str(shared_storage(root, plan)),
+                 prior_process_identities=list(identities))
+         verdict = checker.validate_job_result(mode, report, runtime, event, binding, config=config)
+         require(verdict.get("status") == "PASS_BOUNDED_ORIGINAL_ACQUISITION_PATH_CHECKS",
+                 "previous original path pilot did not qualify: " + mode)
+         if mode == "populate" and verify_publication:
+             publication = read_json(details / "storage-publication.json")
+-            checker.verify_storage_publication(safe(root, SHARED), publication)
++            checker.verify_storage_publication(shared_storage(root, plan), publication)
+         identities.append(runtime["process_identity"])
+         receipts.append(dict(mode=mode, label=label, guard_exit=event["exit"],
+             child_exit=event["child_exit"], timed_out=event["timed_out"], error=event["error"],
+@@ -197,11 +201,11 @@
+     binding = dict(expected_source_lock_sha256=scope["source_lock"]["sha256"],
+         expected_scope_sha256=scope_ref["sha256"], expected_gpu_uuid=scope["gpu_uuid"],
+         expected_label=label, expected_command=child_command(root, mode, source_lock,
+-            scope["_actual_scope_path"]), expected_storage=str(safe(root, SHARED)))
++            scope["_actual_scope_path"]), expected_storage=str(shared_storage(root, plan)))
+     verdict = checker.validate_job_result(mode, report, runtime, events[0], binding, config=config)
+     require(verdict.get("status") == "PASS_BOUNDED_ORIGINAL_ACQUISITION_PATH_CHECKS",
+             "failed populate cannot publish SSD target")
+-    publication = checker.build_storage_publication(safe(root, SHARED))
++    publication = checker.build_storage_publication(shared_storage(root, plan))
+     new_json(details / "storage-publication.json", publication)
+ 
+ 
+@@ -237,7 +241,7 @@
+                                     remaining_jobs=len(plan.MODES) - len(receipts))
+     out = safe(root, RUNS + "/" + plan.JOB_NAMES[args.mode] + "/details")
+     require(not out.exists(), "new result details only; prior jobs cannot be retried")
+-    storage = safe(root, SHARED)
++    storage = shared_storage(root, plan)
+     if args.mode != "paired":
+         require(not storage.exists(), "cold/populate must not consume old SSD data")
+     else:
+@@ -303,8 +307,6 @@
+             return 0
+         require(witness is not None, "actual original guard witness required")
+         out.mkdir(exist_ok=False)
+-        if args.mode == "populate":
+-            storage.parent.mkdir(exist_ok=False)
+         runtime = load_module(root, RUNTIME_MODULE, refs[RUNTIME_MODULE])
+         outcome = runtime.execute_original_acquisition(root, args.mode, out, storage, refs, witness)
+         require(type(outcome) is dict, "bounded original runtime outcome required")

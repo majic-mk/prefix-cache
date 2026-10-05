@@ -1,0 +1,14 @@
+--- a/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py
++++ b/experiments/prefix_io_v1/scripts/native_gpu_prefix_smoke.py
+@@ -283,8 +283,10 @@
+                                    "CUDA_VISIBLE_DEVICES", "VLLM_USE_MODELSCOPE",
+                                    "VLLM_NO_USAGE_STATS", "VLLM_DO_NOT_TRACK",
+                                    *RUNTIME_PATH_ENV_KEYS)},
+-                  "scope": report["scope"]}
++                  "scope": report["scope"], "working_directory": str(output_dir)}
+         write_new_json(output_dir / "frozen-config.json", frozen)
++        # Author profiler paths are relative to cwd; preserve each run separately.
++        os.chdir(output_dir)
+         assert_no_external_cache()
+         import vllm
+         from vllm import LLM, SamplingParams

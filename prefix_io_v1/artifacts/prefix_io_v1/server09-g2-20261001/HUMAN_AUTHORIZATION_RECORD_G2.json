@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "authorization_origin": "direct_human_reply",
+  "question": "是否授权下一轮 G2 正常模型资格验证：在当前新服务器上先 off、通过后再 shadow，最多 2 次，每次执行限时 300 秒并预留 20 秒收尾，总预留 640 秒，沿用原 8 小时累计 GPU 预算（剩余约 3.41 小时）；每次做 cold/repeat 两个请求、各完整生成 128 tokens？只使用已核验的 Qwen2.5-7B 模型和冻结代码，PRIMARY 预留 128 MiB、保留 8 GiB 空间，不下载、不修改系统或驱动、不删除数据。源锁 SHA-256：5e7cc04fe759411800b895169d669f75cade6b2f0adda34d3992ecf2a7dbd760。\n\n需要新的限定授权，是因为上一份 G1 授权只允许 2 次原生 I/O 验证，现已用完；G2 开始加载模型，属于下一阶段。214 项服务器 CPU 测试和全部 2,088 项源/资产核验已经通过。这轮验证运行资格和完整输出，尚不是性能提升实验。",
+  "verbatim_user_answer": "授权这 2 次 G2 验证并继续",
+  "reply_observed_utc": "2026-10-01 13:59:26 UTC",
+  "question_item_id": "[\"request_user_input_async\",\"call_vf5maz0XRZ1SGGVrUhhgPjgW\",0]",
+  "purpose": "NORMAL_MODEL_FULL_OUTPUT_LIFECYCLE_QUALIFICATION_ONLY",
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "allow_gpu_initialization": true,
+  "allow_gpu_runs": true,
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "maximum_jobs": 2,
+  "maximum_total_planned_reserve_seconds": 640,
+  "seconds_limit_per_job": 300,
+  "guard_reserve_seconds_per_job": 20,
+  "source_lock_sha256": "5e7cc04fe759411800b895169d669f75cade6b2f0adda34d3992ecf2a7dbd760",
+  "storage_reserve_bytes": 134217728,
+  "storage_floor_bytes": 8589934592,
+  "cumulative_gpu_budget_seconds": 28800,
+  "budget_reset": false,
+  "off_must_pass_before_shadow": true,
+  "new_executor": false,
+  "allow_model_downloads": false,
+  "allow_system_or_driver_modification": false,
+  "allow_data_deletion": false,
+  "performance_claim": false
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "p4-cpu-observation-seam-lock-v1",
+  "files": [
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_gpu_step_observation.py",
+      "bytes": 11668,
+      "sha256": "6ce4b3a48f81c64dcf0a394dd96a9372749a0ec576df4caca49917e32f85d3f3"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_native_window_journal.py",
+      "bytes": 9119,
+      "sha256": "4bab9245b9134f622c109867b8bbb293164a81951ce2c8c542df340378ce5cbd"
+    },
+    {
+      "path": "tests/prefix_io_v1_p4_observation/test_forward_native_journal.py",
+      "bytes": 12662,
+      "sha256": "ae5baba4da8c59b047c0a4f87dc1b62d7d2ca63571405fb878abd20d3730a4cd"
+    }
+  ],
+  "enabled_in_real_gpu_runtime": false,
+  "GPU_runs": 0,
+  "gpu_verified": false,
+  "production_qualified": false,
+  "actual_cpu_tests": 42,
+  "cpu_receipt": "artifacts/prefix_io_v1/server08-p4-02-cpu/observation-cpu/run-02/CPU_GUARD.json",
+  "old_binary_inventory": [
+    {
+      "path": "third_party/work/vllm-author-build/vllm/_C.abi3.so",
+      "bytes": 30045664,
+      "sha256": "e30616d12f903169493f73c28e707540be17916e89794a9214b141d6e4769b94"
+    },
+    {
+      "path": "third_party/work/vllm-author-build/vllm/_C_stable_libtorch.abi3.so",
+      "bytes": 15574200,
+      "sha256": "3dd529c1ea4443ffc2df319f3fcfa6934fc123fbd9263e6c41f685cc64a2c3ba"
+    },
+    {
+      "path": "third_party/work/vllm-author-build/vllm/_moe_C.abi3.so",
+      "bytes": 27967728,
+      "sha256": "0b2562ae6f633a9f729cc189a843be51b54ff3a543917f8b745e0dcf18b60f65"
+    },
+    {
+      "path": "third_party/work/vllm-author-build/vllm/cumem_allocator.abi3.so",
+      "bytes": 27312,
+      "sha256": "ab5d40d97c7d6e99fba3d1b0b35075caecb2a2d8643cee8305723efb27069824"
+    },
+    {
+      "path": "third_party/work/vllm-author-build/vllm/spinloop.abi3.so",
+      "bytes": 16760,
+      "sha256": "bb933dabe8b4de4a468069ec2f1c026cd2f4d729a1141203fdaa130e5b4e1f60"
+    },
+    {
+      "path": "third_party/work/vllm-author-build/vllm/vllm_flash_attn/_vllm_fa2_C.abi3.so",
+      "bytes": 191414528,
+      "sha256": "d40931675de4d3b9022584114f4f6527b4201de02c9734aa245bed9517cc91e0"
+    },
+    {
+      "path": "third_party/work/vllm-author-build/vllm/vllm_flash_attn/_vllm_fa3_C.abi3.so",
+      "bytes": 44999560,
+      "sha256": "8a4144b0b11bfbeeb957ed5a841c971ae65ad44ba18e5aa0196f85751ed72568"
+    }
+  ],
+  "known_qualification_binary_fallback": [
+    "third_party/work/vllm-author-build/vllm/_C.abi3.so",
+    "third_party/work/vllm-author-build/vllm/_C_stable_libtorch.abi3.so"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "model_metadata",
+  "id": "d9150e77029d4ee38fea650faf68cd71",
+  "label": "modelscope-redirect-header-review-03",
+  "reserved_bytes": 65536,
+  "started_unix": 1790434018.5199134,
+  "note": "8 requests stopped; first-hop redirects closed before body reads; CDN requests HEAD only; accounting covers payload, not HTTP/TLS wire bytes.",
+  "actual_payload_bytes": 0,
+  "charged_bytes": 0,
+  "response_header_bytes": 9680,
+  "ended_unix": 1790434112.517559,
+  "evidence": "artifacts/prefix_io_v1/new-server-03/redirect-review/redirect-review.json"
+}

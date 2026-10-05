@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_G2_OFF_FAILURE_AND_CPU_RECOVERY",
+  "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-20261001",
+  "actual_G2_GPU_jobs": 1,
+  "shadow_launched": false,
+  "CPU_recovery_GPU_jobs": 0,
+  "production_qualified": false,
+  "effect_verified": false,
+  "files": [
+    {
+      "path": "ACTUAL_AUTHORIZED_OFF_CPU_PREFLIGHT.json",
+      "bytes": 971,
+      "sha256": "a2576ebe0966e8dbb7612f8033ebaafb72932a4bc31dfb3ea893d909bf431034"
+    },
+    {
+      "path": "ACTUAL_AUTHORIZED_OFF_CPU_PREFLIGHT_V2.json",
+      "bytes": 830,
+      "sha256": "187436b1920db66b7ae60469f27d74a2b17ad549af1a31aaf715baaa8bce4032"
+    },
+    {
+      "path": "ACTUAL_CPU_CUDA13_COMPILE_LINK_RECEIPT.json",
+      "bytes": 10188,
+      "sha256": "369ebd1a27353b2f4c752feadddee854b6f20eb55980d2077a0f38f28d55eb6f"
+    },
+    {
+      "path": "ACTUAL_CPU_CUDA13_LAYOUT_AND_SOURCE.json",
+      "bytes": 28091,
+      "sha256": "f5d8ccc974df4c87fbb0c419d4bf1010c8b20c083b8b1f88b1b7cce99250c389"
+    },
+    {
+      "path": "ACTUAL_CPU_CUDA_TOOLCHAIN_AUDIT.json",
+      "bytes": 8042,
+      "sha256": "b8c73652794a5d06be0750c455d30cc0cbabd1ae2e840cd4943bf4dcd4b8e760"
+    },
+    {
+      "path": "ACTUAL_OFF_LAUNCH_RECEIPT.json",
+      "bytes": 2106,
+      "sha256": "ffaca1515e5d371fef7b37be975daec596d4075239f84966e0fe7c1b56afa95f"
+    },
+    {
+      "path": "AUTH_SCOPE_TYPE_REPAIR.json",
+      "bytes": 842,
+      "sha256": "b590d702c2cbb4d6da155bea6121bdc10aafcaa65ddd2674cb8ecfdbe80de864"
+    },
+    {
+      "path": "CPU_TOOLCHAIN_DIRECTION_SUMMARY.json",
+      "bytes": 7141,
+      "sha256": "224d765051e3b5ff9a909f5c77700a83199f71a923e9e2fc640dfbad3a8682d7"
+    },
+    {
+      "path": "cuda13-cpu/CPU_COMPILE_LINK_RESULT.json",
+      "bytes": 5589,
+      "sha256": "3c3f9b092aea3ca89e07f31530a2ae3b38ab65cf0a8868821031f1d7f8d14e3f"
+    },
+    {
+      "path": "cuda13-cpu/CUDA13_SOURCE_INVENTORY.json",
+      "bytes": 692329,
+      "sha256": "2ed079701c53d3e37005cf33432937e6c442f06cad16c5aded06efffcc7c36e0"
+    },
+    {
+      "path": "cuda13-cpu/probe.cu",
+      "bytes": 54,
+      "sha256": "16c29eab5fcf6bd63d98acd2145779c8f131c3af1938238d0635414f5d39169a"
+    },
+    {
+      "path": "cuda13-cpu/probe.o",
+      "bytes": 12192,
+      "sha256": "cb033e43d0e186642319c7210a7dbc63bad473e8d01d48925872d53aefc30156"
+    },
+    {
+      "path": "cuda13-cpu/probe.so",
+      "bytes": 22392,
+      "sha256": "7dce44fb4005fd4e406abf3fca0a9c1320c72147556d7e1f5b314d64073c0ee3"
+    },
+    {
+      "path": "EXECUTION_PLAN.json",
+      "bytes": 2615,
+      "sha256": "c64325356eae8c7c56a4aa3f00d1b66990f52f9d6793e29d09e8b1667e8e27b2"
+    },
+    {
+      "path": "GPU_BUDGET_LEDGER_AFTER_OFF.json",
+      "bytes": 339513,
+      "sha256": "1e5b29fbc7fb66f84f3554149e5ac24f5a342b349f02700062d9a1bf53a0679e"
+    },
+    {
+      "path": "GPU_STAGE_AUTHORIZATION.json",
+      "bytes": 4765,
+      "sha256": "bb141de5b0e9addf37246291403d400ccdb9f788e1b370f08f21ca781447226f"
+    },
+    {
+      "path": "GPU_STAGE_AUTHORIZATION_V2.json",
+      "bytes": 4767,
+      "sha256": "ac952fb088f8c59df3d04874f3f8ac66f4513025e9d475ed81b67ea74890bba7"
+    },
+    {
+      "path": "HUMAN_AUTHORIZATION_RECORD_G2.json",
+      "bytes": 1994,
+      "sha256": "742fb528c0dfcee15050d020f9b29e94f8988b0bef359d4b32ec4a849b7a53d4"
+    },
+    {
+      "path": "POST_CPU_RECOVERY_BUDGET_CLOSURE.json",
+      "bytes": 2174,
+      "sha256": "be89077447f9ade42034049caff48791be0ecee940e7a811e2b1c121d85a4f00"
+    },
+    {
+      "path": "POST_OFF_READONLY_RESULT.json",
+      "bytes": 19195,
+      "sha256": "6c737a4f395a3af889af3f1461e9ef9239e2e4580c4ad5c65e27fe56e548883d"
+    },
+    {
+      "path": "runs/off/details/normal-model-lifecycle-result.json",
+      "bytes": 3808,
+      "sha256": "1a7102736973bcb78f5fffee617da5e31f0924fb5a59fe0eb4ab859bdfcbcd8d"
+    },
+    {
+      "path": "runs/off/process.log",
+      "bytes": 9221,
+      "sha256": "1f3d10fb8e60a033db147bdbdb441f6ee0ecb75d921e76f93ca6ddfc045983d7"
+    },
+    {
+      "path": "runs/off/result.json",
+      "bytes": 1357,
+      "sha256": "6e33d95fd602eba9818725052a7661c5f41f28a900d3223902b7454878e9d442"
+    },
+    {
+      "path": "SERVER09_G2_OFF_FAILURE_AND_CPU_RECOVERY_REPORT.md",
+      "bytes": 5203,
+      "sha256": "36adc7da9f8c0145faf1687afecf64ca23028d2ed0addbdcec120c725516c0a4"
+    },
+    {
+      "path": "toolchain-audit-sources-exact/.venv/lib/python3.12/site-packages/flashinfer/compilation_context.py",
+      "bytes": 3909,
+      "sha256": "e55c7f58a83810590e18686954527cc62735a6e91c3fa67286a5e7f00afc9be5"
+    },
+    {
+      "path": "toolchain-audit-sources-exact/.venv/lib/python3.12/site-packages/flashinfer/jit/cpp_ext.py",
+      "bytes": 12445,
+      "sha256": "9d20f28baed969411220456b140a2786a081a2b7195d2433a70daec3c8ae7403"
+    },
+    {
+      "path": "toolchain-audit-sources-exact/.venv/lib/python3.12/site-packages/flashinfer/jit/utils.py",
+      "bytes": 2644,
+      "sha256": "a32b738a91bafbe392c69e10fd11533ff98adbecbba9d769a19f2c5e920f5f31"
+    },
+    {
+      "path": "toolchain-audit-sources-exact/.venv/lib/python3.12/site-packages/torch/version.py",
+      "bytes": 317,
+      "sha256": "323d35171ef1184f1d7db3bbd1f3d3e227e0e826be8fd52200778346e17c873f"
+    },
+    {
+      "path": "TOOLCHAIN_SOURCE_MIRROR_SELECTION.json",
+      "bytes": 1307,
+      "sha256": "93ed3c303ccb159347b0db62328775b2f9e950bca0205669bd5388da2d63828a"
+    }
+  ]
+}

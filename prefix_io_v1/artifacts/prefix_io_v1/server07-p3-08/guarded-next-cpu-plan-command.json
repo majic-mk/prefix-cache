@@ -1,0 +1,26 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/run_start_budget_cpu_qualification.py",
+    "--label",
+    "server07-p3-next-cpu-qualification",
+    "--dry-run"
+  ],
+  "environment_delta": {
+    "CUDA_HOME": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/cuda-toolkit",
+    "TORCH_CUDA_ARCH_LIST": "12.0",
+    "NVCC_THREADS": "1",
+    "MAX_JOBS": "4",
+    "PATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/cuda-toolkit/bin:/root/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+    "FLASHINFER_WORKSPACE_BASE": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runtime-cache/flashinfer",
+    "FLASHINFER_NVCC": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/cuda-toolkit/bin/nvcc",
+    "FLASHINFER_NO_DOWNLOAD": "1",
+    "PYTHONPATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p3-quota-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/src:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "exit": 0,
+  "stdout": "{\n  \"output\": \"/root/prefix-io-v1-validation/cpu-evidence/server07-p3-next-cpu-qualification\",\n  \"disk\": {\n    \"used_bytes\": 20556378112,\n    \"free_bytes\": 10780237824,\n    \"reserved_new_bytes\": 671088640,\n    \"max_bytes\": 21474836480,\n    \"minimum_free_bytes\": 8589934592,\n    \"root\": \"/root/prefix-io-v1-validation\",\n    \"device\": 59,\n    \"path\": \"/root/prefix-io-v1-validation/cpu-evidence/server07-p3-next-cpu-qualification\",\n    \"unique_files\": 22369\n  },\n  \"command\": [\n    \"/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python\",\n    \"/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py\",\n    \"-q\",\n    \"--import-mode=importlib\",\n    \"tests/prefix_io_v1/test_config.py\",\n    \"tests/prefix_io_v1_pilot\",\n    \"tests/prefix_io_v1_native_costs\",\n    \"tests/prefix_io_v1_progress\",\n    \"tests/prefix_io_v1_observer\",\n    \"tests/prefix_io_v1_aio\",\n    \"tests/prefix_io_v1_start_budget\",\n    \"/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p3-quota-cpu/tests\",\n    \"--ignore=/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p3-quota-cpu/tests/test_e2e_kvcache.py\",\n    \"--basetemp\",\n    \"/root/prefix-io-v1-validation/cpu-evidence/server07-p3-next-cpu-qualification/pytest-tmp\",\n    \"--junitxml\",\n    \"/root/prefix-io-v1-validation/cpu-evidence/server07-p3-next-cpu-qualification/cpu.xml\"\n  ],\n  \"environment_delta\": {\n    \"CUDA_VISIBLE_DEVICES\": \"\",\n    \"HF_HUB_OFFLINE\": \"1\",\n    \"TRANSFORMERS_OFFLINE\": \"1\",\n    \"PYTHONDONTWRITEBYTECODE\": \"1\",\n    \"PYTHONPATH\": \"/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p3-quota-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/src:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts\",\n    \"AIO_CPU_GPU_GUARD_PATH\": \"/root/prefix-io-v1-validation/cpu-evidence/server07-p3-next-cpu-qualification/cuda-guard.json\"\n  },\n  \"gpu_runs\": 0,\n  \"maximum_seconds\": 180,\n  \"scope\": \"CPU-only, CUDA initialization forbidden\",\n  \"executed\": false\n}\n",
+  "stderr": "",
+  "elapsed_seconds": 2.9362545013427734
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "LOCK03_ORIGINAL_PLAN_BYTES_RESTORED_NEW_V2_APPENDED",
+  "cause": "Root lock03 notification arrived after comparison-reference correction; both originals restored immediately to exact creation SHA. No source/native/pressure input was modified.",
+  "superseded_correction_receipt": "artifacts/prefix_io_v1/server08-p3-16/finite-capacity-golden-reference-correction.json",
+  "retain_historical_correction_receipt": true,
+  "lock03_sha256": "1b3149249a5a2c3f84993362dbe7ebffe02648c607c719c957de462718a53d1c",
+  "records": [
+    {
+      "locked_original_path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-01-plan.json",
+      "temporary_correction_sha256": "c7ccd2714ee5ae036b442bcad3e2028e334f22d651673430919620fb5517d682",
+      "locked_original_restored_sha256": "6e4a0007b89cd874792dcef82eac6a6ba3da19ae885c22eb5ff7f33df9184e83",
+      "exact_creation_bytes_restored": true,
+      "new_v2_path": "artifacts/prefix_io_v1/server08-p3-16/cap960-l1/mixed-U-01-v2-plan.json",
+      "new_v2_sha256": "101eb562734463ab5f8c5337b2f4bdfd6d97cc1041c24c87fc210095c99f92c9"
+    },
+    {
+      "locked_original_path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-plan.json",
+      "temporary_correction_sha256": "9a07d3e3b9c84abf540479e3c351e408453ffa907b3f3f6d9a4e13a452e5bace",
+      "locked_original_restored_sha256": "8ad388344bbf14ff4b0a47a67c99989d2eb9439e0a0037721ee1b597634aab97",
+      "exact_creation_bytes_restored": true,
+      "new_v2_path": "artifacts/prefix_io_v1/server08-p3-16/cap1024-l2/mixed-U-01-v2-plan.json",
+      "new_v2_sha256": "6e0c6e0d6df28c39662792429039dc8e502615c8f4c025b386a2e429c147a86b"
+    }
+  ],
+  "root_must_freeze_new_v2_and_analyzer_in_append_lock04": true,
+  "operations": {
+    "gpu_runs": 0,
+    "tests": 0,
+    "native_module_imports": 0,
+    "cache_payload_reads": 0
+  }
+}

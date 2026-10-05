@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_CPU_EVIDENCE_ONLY",
+  "remote_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-g2-boundary-20261001",
+  "actual_GPU_runs": 0,
+  "production_qualified": false,
+  "effect_verified": false,
+  "files": [
+    {
+      "path": "g2_full_step_boundary_contract.py",
+      "bytes": 15897,
+      "sha256": "756b5825f851d372985fc2d02a5ec870d079961092ce41005b8a05a24f4a6f13"
+    },
+    {
+      "path": "test_g2_full_step_boundary_contract.py",
+      "bytes": 18104,
+      "sha256": "e7226c7cb0dadac9de87c38ba51ab21814fa9ea54dffe729412065d37f2d6601"
+    },
+    {
+      "path": "run_g2_normal_model_candidate.py",
+      "bytes": 3723,
+      "sha256": "36b4a310c9a9a2048992b3923d7382b53adeb35a8e6f5a734ed1ce589d52fe50"
+    },
+    {
+      "path": "G2_CPU_BOUNDARY_PLAN.json",
+      "bytes": 12607,
+      "sha256": "9b7f18a75a4a26a8a019a55e3799c0d077f6b8128493b9d8c10dd77cf2f50bad"
+    },
+    {
+      "path": "LOCAL_CPU_BOUNDARY_RESULT.json",
+      "bytes": 6783,
+      "sha256": "3216d3f05f28833c3ec79f175324253bf411cf31e88201984131127ee42ca7b7"
+    },
+    {
+      "path": "OWNER_CONSERVATION_REVIEW_REPAIR.json",
+      "bytes": 3209,
+      "sha256": "be07a039ccad8d200140b233e464bf3cfa71dd7f7c53e3710e20a08cac7b7e7a"
+    },
+    {
+      "path": "SERVER_CPU_TEST_RESULT.json",
+      "bytes": 6792,
+      "sha256": "ef2e8dab85910a0bcb5a56fd6fdf87802c43161e6764273f0fdea2fbc4b6dc74"
+    },
+    {
+      "path": "INDEPENDENT_READONLY_REVIEW.json",
+      "bytes": 1892,
+      "sha256": "4b55e24f8a7a538c252d2345287db84a5cc39b3a1428afd8608084a615efb00c"
+    },
+    {
+      "path": "historical-before-owner-conservation/g2_full_step_boundary_contract.py",
+      "bytes": 12935,
+      "sha256": "fa0a503319dba7b49673476f05c9e11b2eee78155f59688ad0ed0ce999409681"
+    },
+    {
+      "path": "historical-before-owner-conservation/test_g2_full_step_boundary_contract.py",
+      "bytes": 14191,
+      "sha256": "569c7acdefbd99e1fb0a2cb4938987388546ad610161e5590e4940e3b00a0911"
+    },
+    {
+      "path": "historical-before-owner-conservation/run_g2_normal_model_candidate.py",
+      "bytes": 3723,
+      "sha256": "36b4a310c9a9a2048992b3923d7382b53adeb35a8e6f5a734ed1ce589d52fe50"
+    },
+    {
+      "path": "historical-before-owner-conservation/G2_CPU_BOUNDARY_PLAN.json",
+      "bytes": 11019,
+      "sha256": "1c16deadf4e976466967d37f68888e6bddfa28643dccbef7c55ee39b45af6f48"
+    },
+    {
+      "path": "historical-before-owner-conservation/LOCAL_CPU_BOUNDARY_RESULT.json",
+      "bytes": 5863,
+      "sha256": "08d94a84fd83d0913429f355c0d817768ed551da9efb809b58435b8b093db8d8"
+    }
+  ]
+}

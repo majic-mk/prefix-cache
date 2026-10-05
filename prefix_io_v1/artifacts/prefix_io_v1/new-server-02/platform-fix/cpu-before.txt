@@ -1,0 +1,348 @@
+.....FFFFFF...FF                                                         [100%]
+=================================== FAILURES ===================================
+_ test_full_uuid_is_resolved_with_balanced_nvml_context[GPU-11111111-1111-1111-1111-111111111111-0-6-GPU-11111111-1111-1111-1111-111111111111-handle-a] _
+
+platform = (<class 'NvmlCudaPlatform'>, <test_gpu_uuid.NvmlDouble object at 0x7f69efc99940>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f69efc98da0>
+visible = 'GPU-11111111-1111-1111-1111-111111111111', index = 0, expected = 6
+uuid = 'GPU-11111111-1111-1111-1111-111111111111', handle = 'handle-a'
+
+    @pytest.mark.parametrize("visible,index,expected,uuid,handle", [
+        (UUID_A, 0, 6, UUID_A, "handle-a"),
+        (f"{UUID_A},{UUID_B}", 1, 2, UUID_B, "handle-b"),
+        (f"3,{UUID_A}", 1, 6, UUID_A, "handle-a"),
+    ])
+    def test_full_uuid_is_resolved_with_balanced_nvml_context(platform, monkeypatch, visible, index, expected, uuid, handle):
+        cls, nvml = platform
+        monkeypatch.setenv("CUDA_VISIBLE_DEVICES", visible)
+>       assert cls.device_id_to_physical_device_id(index) == expected
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'NvmlCudaPlatform'>, device_id = 0
+
+    
+    @classmethod
+    def check_and_update_config(cls, vllm_config: VllmConfig) -> None:
+        parallel_config = vllm_config.parallel_config
+        model_config = vllm_config.model_config
+    
+        if parallel_config.worker_cls == "auto":
+            parallel_config.worker_cls = "vllm.v1.worker.gpu_worker.Worker"
+    
+        scheduler_config = vllm_config.scheduler_config
+        # Note: model_config may be None during testing
+>       if (
+             
+            model_config is not None
+            and model_config.is_mm_prefix_lm
+            and scheduler_config.is_multimodal_model
+            and not scheduler_config.disable_chunked_mm_input
+        ):
+E       ValueError: invalid literal for int() with base 10: 'GPU-11111111-1111-1111-1111-111111111111'
+
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:237: ValueError
+_ test_full_uuid_is_resolved_with_balanced_nvml_context[GPU-11111111-1111-1111-1111-111111111111,GPU-22222222-2222-2222-2222-222222222222-1-2-GPU-22222222-2222-2222-2222-222222222222-handle-b] _
+
+platform = (<class 'NvmlCudaPlatform'>, <test_gpu_uuid.NvmlDouble object at 0x7f69efc4b860>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f69efc4ba40>
+visible = 'GPU-11111111-1111-1111-1111-111111111111,GPU-22222222-2222-2222-2222-222222222222'
+index = 1, expected = 2, uuid = 'GPU-22222222-2222-2222-2222-222222222222'
+handle = 'handle-b'
+
+    @pytest.mark.parametrize("visible,index,expected,uuid,handle", [
+        (UUID_A, 0, 6, UUID_A, "handle-a"),
+        (f"{UUID_A},{UUID_B}", 1, 2, UUID_B, "handle-b"),
+        (f"3,{UUID_A}", 1, 6, UUID_A, "handle-a"),
+    ])
+    def test_full_uuid_is_resolved_with_balanced_nvml_context(platform, monkeypatch, visible, index, expected, uuid, handle):
+        cls, nvml = platform
+        monkeypatch.setenv("CUDA_VISIBLE_DEVICES", visible)
+>       assert cls.device_id_to_physical_device_id(index) == expected
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'NvmlCudaPlatform'>, device_id = 1
+
+    
+    @classmethod
+    def check_and_update_config(cls, vllm_config: VllmConfig) -> None:
+        parallel_config = vllm_config.parallel_config
+        model_config = vllm_config.model_config
+    
+        if parallel_config.worker_cls == "auto":
+            parallel_config.worker_cls = "vllm.v1.worker.gpu_worker.Worker"
+    
+        scheduler_config = vllm_config.scheduler_config
+        # Note: model_config may be None during testing
+>       if (
+             
+            model_config is not None
+            and model_config.is_mm_prefix_lm
+            and scheduler_config.is_multimodal_model
+            and not scheduler_config.disable_chunked_mm_input
+        ):
+E       ValueError: invalid literal for int() with base 10: 'GPU-22222222-2222-2222-2222-222222222222'
+
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:237: ValueError
+_ test_full_uuid_is_resolved_with_balanced_nvml_context[3,GPU-11111111-1111-1111-1111-111111111111-1-6-GPU-11111111-1111-1111-1111-111111111111-handle-a] _
+
+platform = (<class 'NvmlCudaPlatform'>, <test_gpu_uuid.NvmlDouble object at 0x7f69f01dade0>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f69efce4a10>
+visible = '3,GPU-11111111-1111-1111-1111-111111111111', index = 1, expected = 6
+uuid = 'GPU-11111111-1111-1111-1111-111111111111', handle = 'handle-a'
+
+    @pytest.mark.parametrize("visible,index,expected,uuid,handle", [
+        (UUID_A, 0, 6, UUID_A, "handle-a"),
+        (f"{UUID_A},{UUID_B}", 1, 2, UUID_B, "handle-b"),
+        (f"3,{UUID_A}", 1, 6, UUID_A, "handle-a"),
+    ])
+    def test_full_uuid_is_resolved_with_balanced_nvml_context(platform, monkeypatch, visible, index, expected, uuid, handle):
+        cls, nvml = platform
+        monkeypatch.setenv("CUDA_VISIBLE_DEVICES", visible)
+>       assert cls.device_id_to_physical_device_id(index) == expected
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'NvmlCudaPlatform'>, device_id = 1
+
+    
+    @classmethod
+    def check_and_update_config(cls, vllm_config: VllmConfig) -> None:
+        parallel_config = vllm_config.parallel_config
+        model_config = vllm_config.model_config
+    
+        if parallel_config.worker_cls == "auto":
+            parallel_config.worker_cls = "vllm.v1.worker.gpu_worker.Worker"
+    
+        scheduler_config = vllm_config.scheduler_config
+        # Note: model_config may be None during testing
+>       if (
+             
+            model_config is not None
+            and model_config.is_mm_prefix_lm
+            and scheduler_config.is_multimodal_model
+            and not scheduler_config.disable_chunked_mm_input
+        ):
+E       ValueError: invalid literal for int() with base 10: 'GPU-11111111-1111-1111-1111-111111111111'
+
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:237: ValueError
+_______ test_unknown_uuid_propagates_without_fallback_and_shutdown_runs ________
+
+platform = (<class 'NvmlCudaPlatform'>, <test_gpu_uuid.NvmlDouble object at 0x7f69efce6ba0>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f69efce7410>
+
+    def test_unknown_uuid_propagates_without_fallback_and_shutdown_runs(platform, monkeypatch):
+        cls, nvml = platform
+        missing = "GPU-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+        monkeypatch.setenv("CUDA_VISIBLE_DEVICES", missing)
+        with pytest.raises(UnknownUUID, match=missing):
+>           cls.device_id_to_physical_device_id(0)
+
+tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'NvmlCudaPlatform'>, device_id = 0
+
+    
+    @classmethod
+    def check_and_update_config(cls, vllm_config: VllmConfig) -> None:
+        parallel_config = vllm_config.parallel_config
+        model_config = vllm_config.model_config
+    
+        if parallel_config.worker_cls == "auto":
+            parallel_config.worker_cls = "vllm.v1.worker.gpu_worker.Worker"
+    
+        scheduler_config = vllm_config.scheduler_config
+        # Note: model_config may be None during testing
+>       if (
+             
+            model_config is not None
+            and model_config.is_mm_prefix_lm
+            and scheduler_config.is_multimodal_model
+            and not scheduler_config.disable_chunked_mm_input
+        ):
+E       ValueError: invalid literal for int() with base 10: 'GPU-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:237: ValueError
+__________________ test_index_lookup_failure_still_shuts_down __________________
+
+platform = (<class 'NvmlCudaPlatform'>, <test_gpu_uuid.NvmlDouble object at 0x7f69efce81a0>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f69efce8e90>
+
+    def test_index_lookup_failure_still_shuts_down(platform, monkeypatch):
+        cls, nvml = platform
+        nvml.fail_index = True
+        monkeypatch.setenv("CUDA_VISIBLE_DEVICES", UUID_A)
+        with pytest.raises(LookupError, match="index query failed"):
+>           cls.device_id_to_physical_device_id(0)
+
+tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'NvmlCudaPlatform'>, device_id = 0
+
+    
+    @classmethod
+    def check_and_update_config(cls, vllm_config: VllmConfig) -> None:
+        parallel_config = vllm_config.parallel_config
+        model_config = vllm_config.model_config
+    
+        if parallel_config.worker_cls == "auto":
+            parallel_config.worker_cls = "vllm.v1.worker.gpu_worker.Worker"
+    
+        scheduler_config = vllm_config.scheduler_config
+        # Note: model_config may be None during testing
+>       if (
+             
+            model_config is not None
+            and model_config.is_mm_prefix_lm
+            and scheduler_config.is_multimodal_model
+            and not scheduler_config.disable_chunked_mm_input
+        ):
+E       ValueError: invalid literal for int() with base 10: 'GPU-11111111-1111-1111-1111-111111111111'
+
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:237: ValueError
+______ test_initialization_failure_is_not_replaced_with_numeric_fallback _______
+
+platform = (<class 'NvmlCudaPlatform'>, <test_gpu_uuid.NvmlDouble object at 0x7f69f05d4800>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f69efce4830>
+
+    def test_initialization_failure_is_not_replaced_with_numeric_fallback(platform, monkeypatch):
+        cls, nvml = platform
+        nvml.fail_init = True
+        monkeypatch.setenv("CUDA_VISIBLE_DEVICES", UUID_A)
+        with pytest.raises(RuntimeError, match="NVML init failed"):
+>           cls.device_id_to_physical_device_id(0)
+
+tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'NvmlCudaPlatform'>, device_id = 0
+
+    
+    @classmethod
+    def check_and_update_config(cls, vllm_config: VllmConfig) -> None:
+        parallel_config = vllm_config.parallel_config
+        model_config = vllm_config.model_config
+    
+        if parallel_config.worker_cls == "auto":
+            parallel_config.worker_cls = "vllm.v1.worker.gpu_worker.Worker"
+    
+        scheduler_config = vllm_config.scheduler_config
+        # Note: model_config may be None during testing
+>       if (
+             
+            model_config is not None
+            and model_config.is_mm_prefix_lm
+            and scheduler_config.is_multimodal_model
+            and not scheduler_config.disable_chunked_mm_input
+        ):
+E       ValueError: invalid literal for int() with base 10: 'GPU-11111111-1111-1111-1111-111111111111'
+
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:237: ValueError
+_________ test_real_nvml_decorated_caller_has_balanced_nested_lifetime _________
+
+platform = (<class 'NvmlCudaPlatform'>, <test_gpu_uuid.NvmlDouble object at 0x7f69efce6180>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f69efcead50>
+
+    def test_real_nvml_decorated_caller_has_balanced_nested_lifetime(platform, monkeypatch):
+        cls, nvml = platform
+        monkeypatch.setenv("CUDA_VISIBLE_DEVICES", UUID_A)
+>       assert cls.get_device_uuid(0) == UUID_A
+               ^^^^^^^^^^^^^^^^^^^^^^
+
+tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py:174: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:155: in wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:643: in get_device_uuid
+    physical_device_id = cls.device_id_to_physical_device_id(device_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'NvmlCudaPlatform'>, device_id = 0
+
+    
+    @classmethod
+    def check_and_update_config(cls, vllm_config: VllmConfig) -> None:
+        parallel_config = vllm_config.parallel_config
+        model_config = vllm_config.model_config
+    
+        if parallel_config.worker_cls == "auto":
+            parallel_config.worker_cls = "vllm.v1.worker.gpu_worker.Worker"
+    
+        scheduler_config = vllm_config.scheduler_config
+        # Note: model_config may be None during testing
+>       if (
+             
+            model_config is not None
+            and model_config.is_mm_prefix_lm
+            and scheduler_config.is_multimodal_model
+            and not scheduler_config.disable_chunked_mm_input
+        ):
+E       ValueError: invalid literal for int() with base 10: 'GPU-11111111-1111-1111-1111-111111111111'
+
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:237: ValueError
+______________ test_nested_failure_releases_both_nvml_references _______________
+
+platform = (<class 'NvmlCudaPlatform'>, <test_gpu_uuid.NvmlDouble object at 0x7f69f01dae70>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f69efce6a50>
+
+    def test_nested_failure_releases_both_nvml_references(platform, monkeypatch):
+        cls, nvml = platform
+        missing = "GPU-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+        monkeypatch.setenv("CUDA_VISIBLE_DEVICES", missing)
+        with pytest.raises(UnknownUUID):
+>           cls.get_device_uuid(0)
+
+tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:155: in wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:643: in get_device_uuid
+    physical_device_id = cls.device_id_to_physical_device_id(device_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'NvmlCudaPlatform'>, device_id = 0
+
+    
+    @classmethod
+    def check_and_update_config(cls, vllm_config: VllmConfig) -> None:
+        parallel_config = vllm_config.parallel_config
+        model_config = vllm_config.model_config
+    
+        if parallel_config.worker_cls == "auto":
+            parallel_config.worker_cls = "vllm.v1.worker.gpu_worker.Worker"
+    
+        scheduler_config = vllm_config.scheduler_config
+        # Note: model_config may be None during testing
+>       if (
+             
+            model_config is not None
+            and model_config.is_mm_prefix_lm
+            and scheduler_config.is_multimodal_model
+            and not scheduler_config.disable_chunked_mm_input
+        ):
+E       ValueError: invalid literal for int() with base 10: 'GPU-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+
+third_party/work/vllm-author-build/vllm/platforms/cuda.py:237: ValueError
+=========================== short test summary info ============================
+FAILED tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py::test_full_uuid_is_resolved_with_balanced_nvml_context[GPU-11111111-1111-1111-1111-111111111111-0-6-GPU-11111111-1111-1111-1111-111111111111-handle-a]
+FAILED tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py::test_full_uuid_is_resolved_with_balanced_nvml_context[GPU-11111111-1111-1111-1111-111111111111,GPU-22222222-2222-2222-2222-222222222222-1-2-GPU-22222222-2222-2222-2222-222222222222-handle-b]
+FAILED tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py::test_full_uuid_is_resolved_with_balanced_nvml_context[3,GPU-11111111-1111-1111-1111-111111111111-1-6-GPU-11111111-1111-1111-1111-111111111111-handle-a]
+FAILED tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py::test_unknown_uuid_propagates_without_fallback_and_shutdown_runs
+FAILED tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py::test_index_lookup_failure_still_shuts_down
+FAILED tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py::test_initialization_failure_is_not_replaced_with_numeric_fallback
+FAILED tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py::test_real_nvml_decorated_caller_has_balanced_nested_lifetime
+FAILED tests/prefix_io_v1_vllm_platform/test_gpu_uuid.py::test_nested_failure_releases_both_nvml_references
+8 failed, 8 passed in 0.26s

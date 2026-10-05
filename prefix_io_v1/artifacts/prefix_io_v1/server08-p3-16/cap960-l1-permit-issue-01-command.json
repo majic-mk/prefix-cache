@@ -1,0 +1,17 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import os,sys,runpy,json,torch\nfrom pathlib import Path\nassert os.environ.get('CUDA_VISIBLE_DEVICES')=='' and not torch.cuda.is_initialized()\nold=torch.cuda._lazy_init\ndef forbidden(*a,**kw):raise AssertionError('CPU analysis must not initialize CUDA')\ntorch.cuda._lazy_init=forbidden\nsys.argv=[\"experiments/prefix_io_v1/scripts/qualify_capacity_p316.py\",\"--capacity-domain\",\"cap960-l1\",\"--plan\",\"artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cost-plan.json\",\"--result\",\"artifacts/prefix_io_v1/server08-p3-16/cap960-l1/cost-result.json\",\"--manifests\",\"artifacts/prefix_io_v1/server08-p3-16/cap960-l1/manifest-index.json\",\"--output\",\"artifacts/prefix_io_v1/server08-p3-16/cap960-l1/capacity-permit.json\"]\ntry:\n runpy.run_path(sys.argv[0],run_name='__main__')\nfinally:\n torch.cuda._lazy_init=old\n Path(\"/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-permit-issue-01-cuda-guard.json\").write_text(json.dumps(dict(cuda_initialized=torch.cuda.is_initialized(),gpu_workloads_run=0)))\n assert not torch.cuda.is_initialized()\n"
+  ],
+  "environment_delta": {
+    "PYTHONPATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p3-16-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/src:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts",
+    "CUDA_VISIBLE_DEVICES": "",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "AIO_CPU_GPU_GUARD_PATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server08-p3-16/cap960-l1-permit-issue-01-cuda-guard.json"
+  },
+  "exit": 0,
+  "stdout": "WARNING 09-30 19:24:57 [config.py:70] Support for Transformers v4 is deprecated. The Transformers v4 codepath will become unmaintained in vLLM v0.22.0 and will be removed in vLLM v0.24.0. Please upgrade to Transformers v5: pip install --upgrade transformers\n{\"status\": \"PASSED_CAPACITY_UNLOADED_POINT_GATE\", \"capacity_domain\": {\"capacity_domain_id\": \"cap960-l1\", \"staging_bytes\": 1006632960, \"staging_mem_gib\": 0.9375, \"preload_lookahead_requests\": 1, \"io_depth\": 8, \"slot_count\": 1097, \"cache_preload_ceiling_slots\": 1089}}\n",
+  "stderr": "W0930 19:24:59.335000 51661 torch/utils/cpp_extension.py:140] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'\n",
+  "elapsed_seconds": 13.291833881754428
+}

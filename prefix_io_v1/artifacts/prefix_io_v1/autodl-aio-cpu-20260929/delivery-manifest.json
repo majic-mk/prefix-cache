@@ -1,0 +1,234 @@
+{
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/REPORT.md": {
+    "bytes": 7133,
+    "sha256": "6d7098416f04522b7646af8a57f7ec64fed1a95e09f27a084f6be9ddec671cf8"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/REPRODUCE.md": {
+    "bytes": 1920,
+    "sha256": "fb1866caaa52f5927ab406c5669fde7c37e20943e7ec91f02094823d08669c8a"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/author-regression.json": {
+    "bytes": 893,
+    "sha256": "00bf3436823f9b5bb798a1f46078b94304568e14421749831243a947084159ce"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/author-regression.xml": {
+    "bytes": 39271,
+    "sha256": "e2872065f493de3b2f7cb73f5a8e8e35c992550b80853536f405051e2e9fa9bd"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/authorization.json": {
+    "bytes": 426,
+    "sha256": "f00289d76b65c725ece47f960f2d4e7de802640360119d88e699899c46bc6464"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/before.json": {
+    "bytes": 246,
+    "sha256": "004600eaa9142b98a626f34a20deaed6bd2d897bcdbc20abdf2c2ad093b07121"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/common-before.patch": {
+    "bytes": 4744,
+    "sha256": "7f441aac3c6f1915050c3407c3ce03cc4cbf9299509307dddccc3464641a5876"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/compatibility.patch": {
+    "bytes": 20645,
+    "sha256": "4f3945a771bd9798fe6886b62257aec76e03d442e140c0cc97dc19039a5427ce"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-complete.json": {
+    "bytes": 536,
+    "sha256": "2210d6f64b3d08c869cbd1f0e728b043ccf5b45cabc18540de96a2173ad682e3"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-complete.xml": {
+    "bytes": 8445,
+    "sha256": "c4218aee887386d3516d3880798485bf7297abcf2265755cb0f9622bc1267b68"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-eventfd.json": {
+    "bytes": 534,
+    "sha256": "066d2d1ad7f3ce2f43f94d3b4ffeffe7a31e92e78ec7a383973c98d4d6490163"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-eventfd.xml": {
+    "bytes": 7427,
+    "sha256": "3661513e950d19292e521a95115e6c05219e6c28403fcaa6c20e6248575b0a61"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-final.json": {
+    "bytes": 492,
+    "sha256": "df3151bb31f6b15d2461fccb0c2e42959cc8dfb4b0580b535efaac18aa71632c"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-final.xml": {
+    "bytes": 7427,
+    "sha256": "5e06b923059b85aa66229d22c1b9bcae245dd3d7fe18908d12eb0b64a4df77a8"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-first.json": {
+    "bytes": 494,
+    "sha256": "25d0e3e94b3d3cb3acb6ef518969dd5479be0735e174c8220b32b03fabea9a00"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-first.xml": {
+    "bytes": 7017,
+    "sha256": "d9e4c75127fcaba41a5bc3be96ab41cf798d7bb0627a6d98110637efaeecfe25"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-release.json": {
+    "bytes": 534,
+    "sha256": "80557c446b0e100094bbece08916c4a0b703824b49c690eb221a41508087db80"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/cpu-release.xml": {
+    "bytes": 7725,
+    "sha256": "6e42ad7d25ea99162676330ef1c23bd1ad1575f73d8145d3ed94f943d06e5f80"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/environment.json": {
+    "bytes": 524,
+    "sha256": "3de6c21e2c5db79f6a6b33b6e1d09e46a091cf5b5a329193a71415d992e24df7"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/execution_state.after.json": {
+    "bytes": 12645,
+    "sha256": "123167eca9a9b6b96cc5fdd79c50e5e3ec3e32d538e08b997281ae7661ab01d3"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/execution_state.before.json": {
+    "bytes": 12068,
+    "sha256": "6130996b40552cb26235bf2c615766ac478c254a0fd8fecc4b89d39e9a402dd1"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/microbench-eventfd.json": {
+    "bytes": 11895,
+    "sha256": "ac0696af30148d375588df5aa95e12ff84a477d75801f0526a485dc930879782"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/microbench-eventfd/results.json": {
+    "bytes": 60502,
+    "sha256": "1243e557a445db01f126f835f44dd0745f79548aa149b39f53d67661c6e06ec0"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/microbench-preconditioned.json": {
+    "bytes": 11928,
+    "sha256": "72ee3e12e8038cd29eb71cce733b45c05bb28dd2cc0c922ec1bf3bb703d07496"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/microbench-preconditioned/results.json": {
+    "bytes": 60526,
+    "sha256": "60f19f3338559380691b24e9d264374c3829c4fd9212f0cfe912d56605d32f84"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/microbench.json": {
+    "bytes": 11889,
+    "sha256": "4011f539071ddad95e9f13da7699c30dc473f0c8683d3510542203a2a79beab7"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/microbench/results.json": {
+    "bytes": 60490,
+    "sha256": "418465ee1c7ee718e702a8670c680e9c49fd300d3ecb5d9b51fe509f6346f0c1"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/patch-forward-check.json": {
+    "bytes": 318,
+    "sha256": "48e94ebbdc1986275f3772bb608d350072c99174bf4f2228accb6698c9e46552"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/patch-reverse-check.json": {
+    "bytes": 343,
+    "sha256": "93f3c80b50c998e48641d87d821ab18f6ec7082b9ef1cde4c08694c3942dd441"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/performance-summary.json": {
+    "bytes": 5389,
+    "sha256": "ebd8510d9c05ed7be7cd1ed0a706df7707b75ba75ee69944c3b078ba4f1b9e5e"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/qualification-summary.json": {
+    "bytes": 670,
+    "sha256": "0ec8ed5fc2b5948c092fcf2e9a20a0eaf1430d3aa9c4a0a2f143acf5a63b003a"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/release-inputs.json": {
+    "bytes": 1442,
+    "sha256": "7113f82a82fc9fd0d7fc3ae90c54cd297de22ba1b68f5d990244e1082b0ea728"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/release-qualification-gpu-guard.json": {
+    "bytes": 77,
+    "sha256": "c41814c1dbf5c71cd166374abc13c9630903de934be1c1049538ad7815338db1"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/release-qualification-importlib-gpu-guard.json": {
+    "bytes": 77,
+    "sha256": "57ed8c7d039ff0f19c3e19acda2681feaf829caab4aaa06bed47a4dbdaa5b3a9"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/release-qualification-importlib.json": {
+    "bytes": 1061,
+    "sha256": "6102ed5aeb0fe8394bce3ee9c29023d79aedd0e63e3f88000d6ab48ee825319d"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/release-qualification-importlib.xml": {
+    "bytes": 56946,
+    "sha256": "a802526b2027ed86b1eb9458979af85c6983d66305c1da3f5b61b312624d33ad"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/release-qualification.json": {
+    "bytes": 10410,
+    "sha256": "3ddd32efd4bea28dd34e63bc238fe81591faa0e1ef9d545b90245f0f367881c2"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/release-qualification.xml": {
+    "bytes": 9703,
+    "sha256": "8d6b0c88014a2e483cb39de02f4b2d19f483e32aea59c4107b8e855f04d3721c"
+  },
+  "artifacts/prefix_io_v1/autodl-aio-cpu-20260929/skip-reasons.json": {
+    "bytes": 2023,
+    "sha256": "41accea683e149b76501585fbadf2f6b3a3ce1025982d8dd2f0eec38fafaabdf"
+  },
+  "docs/prefix_io_v1/AUTODL_AIO_CPU_REPORT_20260929.md": {
+    "bytes": 7133,
+    "sha256": "6d7098416f04522b7646af8a57f7ec64fed1a95e09f27a084f6be9ddec671cf8"
+  },
+  "docs/prefix_io_v1/CAPABILITY_MATRIX.md": {
+    "bytes": 6213,
+    "sha256": "36ba41fa89cb89b8023b1be54d019d653aaf7a43e4166922790ad3a7a60e533a"
+  },
+  "docs/prefix_io_v1/PATCH_MAP.md": {
+    "bytes": 6750,
+    "sha256": "33970d897279197a3fc22def6aa30e4d6ecb9546b1d83d8446ef02c1ef948898"
+  },
+  "docs/prefix_io_v1/REPRODUCE_AUTODL_AIO_CPU.md": {
+    "bytes": 1920,
+    "sha256": "fb1866caaa52f5927ab406c5669fde7c37e20943e7ec91f02094823d08669c8a"
+  },
+  "experiments/prefix_io_v1/configs/authorizations/linux_aio_cpu_20260929.json": {
+    "bytes": 426,
+    "sha256": "f00289d76b65c725ece47f960f2d4e7de802640360119d88e699899c46bc6464"
+  },
+  "experiments/prefix_io_v1/execution_state.json": {
+    "bytes": 12645,
+    "sha256": "123167eca9a9b6b96cc5fdd79c50e5e3ec3e32d538e08b997281ae7661ab01d3"
+  },
+  "experiments/prefix_io_v1/scripts/aio_cpu_microbench.py": {
+    "bytes": 7462,
+    "sha256": "43d092e7dc721c74ed35cfdb58f18e7e2fd62f298ee2a447a23411aa320bebc6"
+  },
+  "experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py": {
+    "bytes": 657,
+    "sha256": "c38b0a07eee0c7fb17dcbd74d5ed2e6b6adae38ce1596419ae684602aadb8226"
+  },
+  "patches/prefix_io_v1/compatibility/0001-optional-linux-aio-cpu.patch": {
+    "bytes": 20645,
+    "sha256": "4f3945a771bd9798fe6886b62257aec76e03d442e140c0cc97dc19039a5427ce"
+  },
+  "tests/prefix_io_v1_aio/__init__.py": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "tests/prefix_io_v1_aio/conftest.py": {
+    "bytes": 786,
+    "sha256": "b06120c23695148b7cb498f2d1a9848b8ae5de6a9392017e739c6dfcff788646"
+  },
+  "tests/prefix_io_v1_aio/helpers.py": {
+    "bytes": 797,
+    "sha256": "b2de3a1779e04ecd7da2420eb0f2168f43d5161c2b3dbe07ff9224e7a34cb750"
+  },
+  "tests/prefix_io_v1_aio/test_config_integration.py": {
+    "bytes": 2463,
+    "sha256": "23f6918604248135f1c954dc100e7a0aab28e8c33798d4a8ddfe7547b574dd36"
+  },
+  "tests/prefix_io_v1_aio/test_faults.py": {
+    "bytes": 10112,
+    "sha256": "99edaaf84317e0ccaa7a77fa4c456a2ccb4c9e535f7b065cd2e541da55dbbd7c"
+  },
+  "tests/prefix_io_v1_aio/test_reactor_bridge.py": {
+    "bytes": 3911,
+    "sha256": "91a20e76f8015c3d907d03e44aa9573b0cc47ac5501965edc959168527e9c515"
+  },
+  "tests/prefix_io_v1_aio/test_real_io.py": {
+    "bytes": 7685,
+    "sha256": "5d164cd4d0b845331bd5c8c4ee0f9bfd68ccfdbded34db2b523db7a2b72dd07d"
+  },
+  "third_party/work/py-kvcache-aio-cpu/py_kvcache/fs_config.py": {
+    "bytes": 9057,
+    "sha256": "7a2429d15f6d6009da5f7965ba6b15279a9ef25b348cadd29927f61b9c488698"
+  },
+  "third_party/work/py-kvcache-aio-cpu/py_kvcache/linux_aio.py": {
+    "bytes": 17459,
+    "sha256": "45664c945bca786da426afe56e88ffeb215c7d4b58baafcbe6fb2af6c3bb4e74"
+  },
+  "third_party/work/py-kvcache-aio-cpu/py_kvcache/reactor.py": {
+    "bytes": 85214,
+    "sha256": "df715cec7a0cf7b2c8a5a69e8427a27377e48facd85d0e39a21f4f73b4b099c7"
+  }
+}

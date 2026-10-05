@@ -1,0 +1,11 @@
+# Independent paired context v3 CPU candidate
+
+This standalone candidate connects the frozen context v3 complete-trace check to the original paired semantic arithmetic. It verifies wrapper/complete trace schema 3 while observations, analysis and selection plan remain schema 2. It compiles only two locked function ASTs in independent globals with one narrowly matched change in each. Original source, globals, run ABI, selected-window constraints and loader remain unchanged.
+
+The public result contains immutable scalar summaries and byte/source references. It is not a CostCell, CostTable, production candidate or GPU qualification. GPU, production, method-effect and P4-complete properties are always false. Native-looking origins are rejected. No GPU launch method, model import, remote operation or table publication is provided.
+
+The fixture recomputes 101 ns baseline, 12 ns incremental cost and 6 ns empirical residual across two calibration AB/BA pairs and one independent held-out pair. These numbers are artificial CPU data, not performance measurements. The residual preserves the original maximum-positive-residual formula and is neither a confidence interval nor an experimental advantage. All 768 full frames and 768 output tokens remain present, including six exact cold prefill frames; only the preregistered pure decode windows enter costs.
+
+Validation covers byte pinning, role versions, independent analysis, complete output equivalence, selected-window projection, exact physical I/O and drain, source/timer refs, split separation, AB/BA order, frame/order/count retention, unchanged original globals/source, the original production lookup remaining unavailable, and rejection of unauthorized GPU entry. Pinned byte references reject 0-to-1 substitution; consistently re-pinned positive-prefill records are valid by design and do not independently prove real prompt provenance.
+
+Use the exact CPU command in P4_PAIRED_CONTEXT_V3_PLAN.json and inspect P4_PAIRED_CONTEXT_V3_CPU_TEST_RESULT.json. Server replay should use its existing .venv/bin/python -B -I -S with CUDA_VISIBLE_DEVICES empty and both explicit locked source roots. Keep the context_v3 dependency directory unchanged. A real G2 model/timer/I/O collector, runtime provenance, fresh authorization and later authentic paired GPU evidence remain required.

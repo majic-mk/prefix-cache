@@ -1,0 +1,38 @@
+diff --git a/py_kvcache/transfer.py b/py_kvcache/transfer.py
+index ae032f7..78dfa03 100644
+--- a/py_kvcache/transfer.py
++++ b/py_kvcache/transfer.py
+@@ -10,12 +10,17 @@ from .profiling import add_event, now_ns
+ 
+ try:
+     import torch
++    TORCH_AVAILABLE = True
++except ImportError:
++    torch = Any
++    TORCH_AVAILABLE = False
++
++try:
+     from vllm import _custom_ops as ops
+     from vllm.utils.platform_utils import is_pin_memory_available
+ 
+     TORCH_COPY_AVAILABLE = True
+ except Exception:
+-    torch = Any
+     ops = None
+     TORCH_COPY_AVAILABLE = False
+ 
+@@ -153,8 +158,12 @@ class ParsedKvLayout:
+         )
+ 
+     def allocate_staging_buffer(self, slot_count: int) -> Any:
+-        if not TORCH_COPY_AVAILABLE:
+-            raise RuntimeError("vLLM and torch are required for GPU copy support")
++        # CPU storage/alignment tests do not require vLLM copy kernels.
++        # Reactor creation and canonical GPU layout still check TORCH_COPY_AVAILABLE.
++        if not TORCH_AVAILABLE:
++            raise RuntimeError("torch is required for CPU staging allocation")
++        if type(slot_count) is not int or slot_count <= 0:
++            raise ValueError("slot_count must be a positive integer")
+ 
+         slot_bytes = self.storage_block_bytes
+         if slot_bytes % DIRECT_IO_ALIGNMENT != 0:

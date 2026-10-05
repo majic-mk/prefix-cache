@@ -1,0 +1,70 @@
+--- a/experiments/prefix_io_v1/scripts/consolidate_private_cache_copies.py
++++ b/experiments/prefix_io_v1/scripts/consolidate_private_cache_copies.py
+@@ -55,6 +55,15 @@
+         if backup.exists():backup.unlink()
+         raise
+ 
++def evidence_path(path,*,project=ROOT,aux=AUX,fresh=False):
++    """Permit receipts in project evidence or the explicitly granted auxiliary audits."""
++    path=Path(path).absolute()
++    require(path.resolve()==path and not path.is_symlink(),"evidence path redirected")
++    allowed=(project/"artifacts/prefix_io_v1",aux/"audits")
++    require(any(path!=base and path.is_relative_to(base) for base in allowed),"unexpected evidence path")
++    require(not fresh or not path.exists(),"journal must be fresh evidence")
++    return path
++
+ def main():
+     ap=argparse.ArgumentParser()
+     ap.add_argument("--audit",type=Path,required=True)
+@@ -62,9 +71,7 @@
+     ap.add_argument("--journal",type=Path,required=True)
+     ap.add_argument("--apply",action="store_true")
+     a=ap.parse_args()
+-    audit=a.audit.resolve();journal=a.journal.resolve()
+-    require(audit.is_relative_to(ROOT/"artifacts/prefix_io_v1/server07-p3-09"),"unexpected audit")
+-    require(journal.is_relative_to(ROOT/"artifacts/prefix_io_v1") and not journal.exists(),"journal must be fresh project evidence")
++    audit=evidence_path(a.audit);journal=evidence_path(a.journal,fresh=True)
+     ledger=json.loads((ROOT/"experiments/prefix_io_v1/gpu-budget-ledger.json").read_text())
+     require(ledger.get("active_reservation") is None,"no consolidation during an experiment")
+     payload=json.loads(audit.read_text());require(payload["read_only"] and not payload["data_changed"],"wrong audit")
+@@ -95,8 +102,11 @@
+     auth=json.loads(auth_path.read_text())
+     require(auth.get("approved") is True and auth.get("action")==ACTION and
+         auth.get("audit_sha256")==audit_sha and auth.get("user_instruction"),"authorization mismatch")
+-    # Metadata-only receipts have an independent primary-disk reservation.
+-    preflight(ROOT/"experiments/prefix_io_v1/runs/next",16*1024**2)
++    # Reserve the receipt bytes on the filesystem that will actually store them.
++    # Scope approval remains bound to this exact manifest hash, regardless of location.
++    receipt_reserve=max(16*1024**2,len(todo)*2048)
++    receipt_path=journal if journal.is_relative_to(AUX/"audits") else ROOT/"experiments/prefix_io_v1/runs/next"
++    preflight(receipt_path,receipt_reserve)
+     journal.parent.mkdir(parents=True,exist_ok=True)
+     with journal.open("x") as f:
+         def record(data):
+--- a/tests/prefix_io_v1_start_budget/test_archive_consolidation.py
++++ b/tests/prefix_io_v1_start_budget/test_archive_consolidation.py
+@@ -52,3 +52,24 @@
+     with pytest.raises(ValueError):mod.verified_path(r,root,private=True)
+     link=root/"link.bin";link.symlink_to(p);r["path"]=str(link)
+     with pytest.raises(ValueError):mod.verified_path(r,root,private=False)
++
++@pytest.mark.parametrize("location",["project","aux"])
++def test_scoped_evidence_roots_support_receipts(location,tmp_path):
++    project=tmp_path/"project";aux=tmp_path/"aux";project.mkdir();aux.mkdir()
++    base=project/"artifacts/prefix_io_v1" if location=="project" else aux/"audits"
++    base.mkdir(parents=True)
++    path=base/"new.jsonl"
++    assert mod.evidence_path(path,project=project,aux=aux,fresh=True)==path
++    path.write_text("receipt")
++    with pytest.raises(ValueError,match="fresh"):mod.evidence_path(path,project=project,aux=aux,fresh=True)
++
++def test_evidence_redirect_and_unrelated_aux_paths_rejected(tmp_path):
++    project=tmp_path/"project";aux=tmp_path/"aux";project.mkdir();aux.mkdir()
++    (aux/"audits").mkdir();external=tmp_path/"external";external.mkdir()
++    (aux/"audits/link").symlink_to(external,target_is_directory=True)
++    for path in (external/"receipt",aux/"runs/a.json",aux/"audits/link/a.json"):
++        with pytest.raises(ValueError):mod.evidence_path(path,project=project,aux=aux)
++
++def test_no_evidence_root_itself_is_a_receipt(tmp_path):
++    project=tmp_path/"project";aux=tmp_path/"aux";(aux/"audits").mkdir(parents=True)
++    with pytest.raises(ValueError):mod.evidence_path(aux/"audits",project=project,aux=aux)

@@ -1,0 +1,11 @@
+{
+  "status": "AWAITING_USER_APPROVAL_NOT_AUTHORIZATION",
+  "proposed_gpu_uuid": "GPU-8b500efe-1a50-0e8e-b21e-716807eebedf",
+  "proposed_max_gpu_hours": 8,
+  "proposed_max_model_download_gib": 20,
+  "proposed_experiment_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+  "proposed_dependency_root": "/root/autodl-tmp/prefix-io-v1-handoff/project",
+  "no_new_cloud_rental": true,
+  "no_driver_or_system_changes": true,
+  "note": "Actual permissions.yaml remains unchanged; accepted budget must be explicit before GPU/model operations."
+}

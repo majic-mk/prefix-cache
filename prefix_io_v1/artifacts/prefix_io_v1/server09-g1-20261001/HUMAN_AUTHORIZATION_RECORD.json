@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "USER_AUTHORIZED_SERVER09_G1_OFF_SHADOW_ONLY",
+  "human_reply": "\u7ee7\u7eed",
+  "human_reply_context": "Direct human continuation after the explicit new GPU UUID / 400-second G1 proposal and confirmation request.",
+  "created_utc": "2026-10-01T12:19:02.927558+00:00",
+  "proposal": {
+    "path": "artifacts/prefix_io_v1/server09-migration-20261001/G1_GPU_SCOPE_PROPOSAL.json",
+    "bytes": 2640,
+    "sha256": "60463f97b324f6b8219e3fd90ec8f27d200d3b390fa4a636f4d3683f96dc033b"
+  },
+  "gpu_uuid": "GPU-54ace1eb-dc9d-3fee-d720-2051f5d337a2",
+  "allowed_modes": [
+    "off",
+    "shadow"
+  ],
+  "maximum_jobs": 2,
+  "seconds_per_job": 180,
+  "termination_reserve_per_job": 20,
+  "maximum_total_planned_reserve_seconds": 400,
+  "global_max_gpu_hours": 8,
+  "global_ledger_before": {
+    "path": "experiments/prefix_io_v1/gpu-budget-ledger.json",
+    "bytes": 335086,
+    "sha256": "31199998369e35fcd40daddd7af340353b0feaf134bbe37d2dd8f1f35391efc1"
+  },
+  "no_downloads": true,
+  "no_system_driver_changes": true,
+  "no_existing_data_deletion_or_merge": true,
+  "no_new_rental_payment_push": true
+}

@@ -1,0 +1,33 @@
+{
+  "status": "ACTIVE_REMOTE_MANIFEST_IS_SOURCE_ONLY",
+  "active_manifest": {
+    "path": "SERVER09_CONTEXT_V3_SOURCE_ONLY_MANIFEST.json",
+    "bytes": 1582,
+    "sha256": "1843d6dc64fd314a13cc1dcd28741b70ec760f50ae38827a2d078eeb93b03885"
+  },
+  "inactive_local_tree_manifest": {
+    "path": "SERVER09_CONTEXT_V3_DELIVERY_MANIFEST.json",
+    "bytes": 1599,
+    "sha256": "5dc25f25ac03af34d3a7b6b2910665d859d5b2b4c16b4bf07b5d08c5edd2fc3c"
+  },
+  "excluded_generated_caches": [
+    {
+      "path": "__pycache__/p4_complete_trace_context_v3.cpython-312.pyc",
+      "bytes": 20831,
+      "sha256": "bdf56441d74260aaa9f041d1db2558f709d73e46e4a919c73c4741bcd8f369ec"
+    },
+    {
+      "path": "__pycache__/p4_complete_trace_context_v3.cpython-38.pyc",
+      "bytes": 12319,
+      "sha256": "bbc93de69ba750f62bb337abc2a0e27f1d237e87e98f59ae837f60ba614728f5"
+    }
+  ],
+  "excluded_caches_uploaded": false,
+  "excluded_caches_executed_on_server": false,
+  "server_test_python_flags": [
+    "-B",
+    "-I",
+    "-S"
+  ],
+  "old_manifests_deleted_or_overwritten": false
+}

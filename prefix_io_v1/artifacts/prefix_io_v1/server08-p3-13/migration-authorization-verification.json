@@ -1,0 +1,11 @@
+{
+  "primary_next_model_preflight": {
+    "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-next/details",
+    "root": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs",
+    "free_bytes": 62287171584,
+    "reserved_new_bytes": 3221225472
+  },
+  "budget_not_reset": true,
+  "limits_unchanged": true,
+  "old_authorizations_unchanged": true
+}

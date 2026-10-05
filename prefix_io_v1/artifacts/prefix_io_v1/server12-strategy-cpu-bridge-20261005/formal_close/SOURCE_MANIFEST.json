@@ -1,0 +1,75 @@
+{
+  "actual_GPU_operations": 0,
+  "actual_formal_parent_deliveries": 0,
+  "files": [
+    {
+      "bytes": 15177,
+      "path": "close_formal_peer_cpu.py",
+      "sha256": "cf16bc3494757c44367ace71858c4f2d9ffabd4d74cbdecff03369bbeb44d25a"
+    },
+    {
+      "bytes": 656,
+      "path": "LOCAL_CLI_HELP_RESULT.json",
+      "sha256": "7f00575af99021e2a270461603e5db22433940cbd9844ebc9085836c9386d5ba"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CLI_HELP_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1121,
+      "path": "LOCAL_CLI_HELP_STDOUT.log",
+      "sha256": "0d646e3719a5e23994bdc8ab604e107b9c7eded09d636a589ea54deea9a574e9"
+    },
+    {
+      "bytes": 1124,
+      "path": "LOCAL_CLI_UNBOUND_RESULT.json",
+      "sha256": "0af772277cc79d56ec5fc720bfe394b392d16763c57f4f52e1b02a92e784097d"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CLI_UNBOUND_STDERR.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 295,
+      "path": "LOCAL_CLI_UNBOUND_STDOUT.log",
+      "sha256": "269ba8fc4e1ebed8ea2b8ecf4735059b9a9dabf4535eda6053c1992f246394d5"
+    },
+    {
+      "bytes": 645,
+      "path": "LOCAL_CPU_TEST_RESULT.json",
+      "sha256": "35b3c105315fca08b8a5a5cdef1e4863fb4bbc349cd2304e9690ff46792c03b4"
+    },
+    {
+      "bytes": 2691,
+      "path": "LOCAL_CPU_TEST_STDERR.log",
+      "sha256": "097dc6196a46e01f4538c53b51204cf210c0973a5c930197d89168e088b9fa7d"
+    },
+    {
+      "bytes": 0,
+      "path": "LOCAL_CPU_TEST_STDOUT.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2837,
+      "path": "README.md",
+      "sha256": "75cc7a049c64f6a43bb5be0e27b43bf7638a3cf9021d641a9f65e1bc7516cb06"
+    },
+    {
+      "bytes": 2963,
+      "path": "record_formal_close_cpu.py",
+      "sha256": "0a7f090b4beb216d63e8a04b71d429d29c9b3aaab840e5dfebf32d9ecdd520b1"
+    },
+    {
+      "bytes": 16411,
+      "path": "test_close_formal_peer_cpu.py",
+      "sha256": "2c0c75d2572038fb8219ccf11d8f63ce342a8cae45a1dc997c813bb55d582876"
+    }
+  ],
+  "formal_effect_qualified": false,
+  "gpu_eligible": false,
+  "mock_unit_test_receipts_are_not_native_evidence": true,
+  "schema": "formal_close_CPU_source_manifest_v1"
+}

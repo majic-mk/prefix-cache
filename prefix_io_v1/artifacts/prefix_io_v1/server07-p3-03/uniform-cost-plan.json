@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "scope": "calibration candidate only; not independent development/evaluation",
+  "reference_plan": "artifacts/prefix_io_v1/server07-p3-03/cached-reference-plan.json",
+  "reference_result": "artifacts/prefix_io_v1/server07-p3-03/cached-reference-result.json",
+  "jobs": [
+    {
+      "label": "server07-p3-uniform-cold-cost-01",
+      "mode": "cold",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "server07-p3-16k-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-long-cost-01",
+      "mode": "paired",
+      "sizes": [
+        2048,
+        4096
+      ],
+      "storage": "server07-p3-long-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-8k-cost-01",
+      "mode": "paired",
+      "sizes": [
+        8192
+      ],
+      "storage": "server07-p3-8k-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-16k-cost-01",
+      "mode": "paired",
+      "sizes": [
+        16384
+      ],
+      "storage": "server07-p3-16k-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-16k-cost-02",
+      "mode": "paired",
+      "sizes": [
+        16384
+      ],
+      "storage": "server07-p3-16k-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-8k-cost-02",
+      "mode": "paired",
+      "sizes": [
+        8192
+      ],
+      "storage": "server07-p3-8k-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-long-cost-02",
+      "mode": "paired",
+      "sizes": [
+        2048,
+        4096
+      ],
+      "storage": "server07-p3-long-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-cold-cost-02",
+      "mode": "cold",
+      "sizes": [
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "storage": "server07-p3-16k-storage-01"
+    }
+  ],
+  "reps": 3,
+  "fit_sessions": 2,
+  "sizes": [
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "domain": 16384,
+  "kv_budget_bytes": 2147483648,
+  "staging_budget_bytes": 1073741824,
+  "latency_logprobs": false,
+  "measurements_per_point_per_path": 4,
+  "all_samples_including_warmup_kept": true,
+  "correctness": "each cold token equals its frozen cold reference; each SSD/staging token equals the strictly verified native-hot reference; cold-hot differences retained; no tolerance widened",
+  "allow_formal_performance": false,
+  "allowed_consumer": "same-budget calibration integration diagnostic only; no production installation; no out-of-domain requests",
+  "independent_content_validation": false
+}

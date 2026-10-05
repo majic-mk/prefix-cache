@@ -1,0 +1,44 @@
+{
+  "output": "/root/prefix-io-v1-validation/cpu-evidence/server07-p3-09-cpu",
+  "disk": {
+    "used_bytes": 20557832192,
+    "free_bytes": 10778779648,
+    "reserved_new_bytes": 671088640,
+    "max_bytes": 21474836480,
+    "minimum_free_bytes": 8589934592,
+    "root": "/root/prefix-io-v1-validation",
+    "device": 59,
+    "path": "/root/prefix-io-v1-validation/cpu-evidence/server07-p3-09-cpu",
+    "unique_files": 22372
+  },
+  "command": [
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts/run_aio_cpu_tests.py",
+    "-q",
+    "--import-mode=importlib",
+    "tests/prefix_io_v1/test_config.py",
+    "tests/prefix_io_v1_pilot",
+    "tests/prefix_io_v1_native_costs",
+    "tests/prefix_io_v1_progress",
+    "tests/prefix_io_v1_observer",
+    "tests/prefix_io_v1_aio",
+    "tests/prefix_io_v1_start_budget",
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p3-quota-cpu/tests",
+    "--ignore=/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p3-quota-cpu/tests/test_e2e_kvcache.py",
+    "--basetemp",
+    "/root/prefix-io-v1-validation/cpu-evidence/server07-p3-09-cpu/pytest-tmp",
+    "--junitxml",
+    "/root/prefix-io-v1-validation/cpu-evidence/server07-p3-09-cpu/cpu.xml"
+  ],
+  "environment_delta": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/root/autodl-tmp/prefix-io-v1-handoff/project/third_party/work/py-kvcache-p3-quota-cpu:/root/autodl-tmp/prefix-io-v1-handoff/project/src:/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/scripts",
+    "AIO_CPU_GPU_GUARD_PATH": "/root/prefix-io-v1-validation/cpu-evidence/server07-p3-09-cpu/cuda-guard.json"
+  },
+  "gpu_runs": 0,
+  "maximum_seconds": 180,
+  "scope": "CPU-only, CUDA initialization forbidden"
+}

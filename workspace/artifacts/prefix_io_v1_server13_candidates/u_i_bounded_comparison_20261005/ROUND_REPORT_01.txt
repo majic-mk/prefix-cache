@@ -1,0 +1,27 @@
+本轮状态：未完成新的真实 U/I 对照；服务器环境阻塞。
+
+历史 I 的真实退化结果保留：
+off 请求1.664287303秒，请求加原生排空1.678502543秒；
+on 请求1.775296238秒，请求加原生排空1.800676040秒，慢7.279%，实际延期181次。
+完整 guard（含模型启动、warmup、输出、shutdown与OS排空）分别121.171204和123.002687秒。
+这是真模型负结果，包含策略自身开销；范围限于旧单decode/context144、显式一文件SSD-only preload、LoadPlanner关闭。不能替代本轮正常原准入请求流对照，也不能重新标为完全未测。
+
+I 核心已经实现，普通 waiting 请求预加载钩子也存在。当前不应以旧长cohort不适配、缺生产SLO或通用资格表为理由判定核心不存在。需补的是本轮正常入口消费真实限定成本的输入分派，这部分尚未实现，不能把开关开启称为有效I对照。
+
+本轮只生成必要外部流与共同输入校验补丁：
+12条请求：11个已有768-token完整不同前缀，再精确重复最早前缀；每条128输出，共1536。
+前端3个已提交/等待请求，原模型同时1个序列；原lookahead=2，KV256MiB、staging128MiB、io4、LoadPlanner on。
+528个不同完整前缀块共462MiB，超过GPU+staging384MiB；这仅形成驱逐机会，不证明SSD恢复已经发生。原成本准入保留，未注入SSD读取、预加载、缓存文件、手动驱逐或I/O延迟。
+第一个11条/frontend2/lookahead1候选已由CPU代码审计淘汰：单waiting冷SSD768预计被原准入拒绝；保留其文件，不拿它消耗GPU。
+共同补丁只将错误的engine max_num_seqs>=frontend concurrency合同改为两者分别有界。补丁尚未部署；缓存引擎、执行器和既有共同安全修复未改。
+
+检查命令：python.exe -B -I -S check_frozen_inputs_cpu.py（绝对argv及stdout/stderr见ACTUAL_CPU_INPUT_CHECK_COMMAND_RESULT_01.json）。
+实际最终exit=0；验证原prompt字节、固定外生到达、输出长度、块足迹、补丁可编译及原drive_original_engine/main AST不变。不是GPU测试或性能验证。
+首次检查因脚本误查薄runner不存在的execute函数退出1，修正检查目标为其实际main后通过，失败记录保留。未据此改实验结果。
+
+实际连接ssh -p 36526 root@connect.westb.seetacloud.com最初成功，当时无/dev/nvidia*。随后两次只读RPC均遇到连接拒绝。没有启动GPU guard、模型或服务器测试，没有修改服务器代码、权重、缓存或预算。凭据未写入交付。
+累计预算仍剩1845.800933秒；先按两臂各300秒+20秒收尾保护640秒，GPU准备最多1205.800933秒。此为计划预算保护，未伪称已建立两臂ledger reservation。本轮GPU消耗0。
+
+下一允许操作仅为恢复当前服务器可用GPU后完成同一U/I轮：
+部署共同输入接线；让现有I消费与实际prepared frame完全匹配的当前设备少量实测成本，生产资格保持false；再做冻结U/I对照及原排空。
+不要求通用成本表、生产SLO、独立泛化资格，不增加观测系统或其他策略。实际结果可为提升、退化、无法分辨、未触发或失败。

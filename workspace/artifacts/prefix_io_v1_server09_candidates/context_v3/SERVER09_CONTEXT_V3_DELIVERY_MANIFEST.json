@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_POST_EXECUTION_EVIDENCE",
+  "utc": "2026-10-01T12:35:02.090497+00:00",
+  "remote_evidence_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-context-v3-20261001",
+  "files": [
+    {
+      "path": "__pycache__/p4_complete_trace_context_v3.cpython-312.pyc",
+      "bytes": 20831,
+      "sha256": "bdf56441d74260aaa9f041d1db2558f709d73e46e4a919c73c4741bcd8f369ec"
+    },
+    {
+      "path": "__pycache__/p4_complete_trace_context_v3.cpython-38.pyc",
+      "bytes": 12319,
+      "sha256": "bbc93de69ba750f62bb337abc2a0e27f1d237e87e98f59ae837f60ba614728f5"
+    },
+    {
+      "path": "INDEPENDENT_READONLY_REVIEW.json",
+      "bytes": 1438,
+      "sha256": "36cd8beaeb508a7f935b3c92b7be5472b4a2bce968e42363003ac7d2049f718a"
+    },
+    {
+      "path": "p4_complete_trace_context_v3.py",
+      "bytes": 12962,
+      "sha256": "07dd3af5932395dcc07b325b52be53ed624f4b4af8cfc4bf47dd0b7c58bbb477"
+    },
+    {
+      "path": "P4_COMPLETE_TRACE_CONTEXT_V3_PLAN.json",
+      "bytes": 14930,
+      "sha256": "1a2571b6a823c30bae553b66bbbf294993403df7ab02ae025e88b05c00fff8e9"
+    },
+    {
+      "path": "SERVER_CPU_TEST_RESULT.json",
+      "bytes": 5664,
+      "sha256": "344b2ea779017eeb6737714476618492932f4d833451fa859649d3cb38b6ff96"
+    },
+    {
+      "path": "test_p4_complete_trace_context_v3.py",
+      "bytes": 21769,
+      "sha256": "45cb847949b7ece2f9ac3b3ad011e0db5924f98da97853384a0e83427b153d36"
+    }
+  ],
+  "note": "Manifest excludes itself and subsequent verification receipts. Evidence is not a GPU authorization."
+}

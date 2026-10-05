@@ -1,0 +1,102 @@
+diff --git a/py_kvcache/reactor.py b/py_kvcache/reactor.py
+--- a/py_kvcache/reactor.py
++++ b/py_kvcache/reactor.py
+@@ -192,6 +192,7 @@
+         observation_sink: Any = None,
+         start_budget: Any = None,
+         stage_accounting: Any = None,
++        store_order: Any = None,
+     ) -> None:
+         if progress_run_id is not None and (
+             type(progress_run_id) is not str or not progress_run_id.strip()
+@@ -211,6 +212,15 @@
+             if progress_run_id is None:
+                 raise ValueError("ordinary starts require the native mandatory bridge")
+             start_budget.bind()
++        if store_order is not None:
++            from prefix_io_control.store_order import MandatoryStoreOrder
++            if not isinstance(store_order, MandatoryStoreOrder):
++                raise TypeError("store_order must be MandatoryStoreOrder or None")
++            if progress_run_id is None:
++                raise ValueError("store order requires the native mandatory bridge")
++            if start_budget is not None:
++                raise ValueError("P3 order qualification excludes start allowances")
++            store_order.bind()
+         if not TORCH_COPY_AVAILABLE:
+             raise RuntimeError("vLLM and torch are required for the I/O reactor")
+         self.config = config
+@@ -356,6 +366,7 @@
+         )
+         self._prefix_start_budget = start_budget
+         self._prefix_stage_accounting = stage_accounting
++        self._prefix_store_order = store_order
+         self._observation_sink = observation_sink
+         self._observation_failures = 0
+         self._worker = threading.Thread(target=self._run, name="py-kvcache-reactor", daemon=True)
+@@ -1488,6 +1499,16 @@
+         except Exception as exc:
+             budget.fail(type(exc).__name__)
+ 
++    def _prefix_ordered_stores(self):
++        order = getattr(self, "_prefix_store_order", None)
++        if order is None or order.faulted:
++            return self._active
++        try:
++            return order.ordered(self._active, self._prefix_progress.required)
++        except Exception as exc:
++            order.fail(type(exc).__name__ + ": " + str(exc))
++            return self._active  # Optional ordering cannot fail or drop native work.
++
+     def _schedule_work(self) -> bool:
+         made = False
+ 
+@@ -1553,7 +1574,7 @@
+                     made = True
+ 
+         # 2. Store jobs (background relative to loads).
+-        for job in self._active:
++        for job in self._prefix_ordered_stores():
+             if job.failed is not None or not job.is_store:
+                 continue
+             while (
+@@ -2291,6 +2312,7 @@
+         observation_sink: Any = None,
+         start_budget: Any = None,
+         stage_accounting: Any = None,
++        store_order: Any = None,
+     ) -> None:
+         self.layout = layout
+         self.reactor = IoReactor(
+@@ -2303,6 +2325,7 @@
+             observation_sink=observation_sink,
+             start_budget=start_budget,
+             stage_accounting=stage_accounting,
++            store_order=store_order,
+         )
+ 
+     @property
+diff --git a/py_kvcache/vllm.py b/py_kvcache/vllm.py
+--- a/py_kvcache/vllm.py
++++ b/py_kvcache/vllm.py
+@@ -628,8 +628,8 @@
+         # Project-owned optional P2 observer adapter; absent/off keeps native path.
+         self._prefix_io_options = None
+         if any(str(key).startswith("prefix_io_") for key in self.extra_config):
+-            from prefix_io_control.start_options import parse_start_options
+-            self._prefix_io_options = parse_start_options(self.extra_config)
++            from prefix_io_control.order_options import parse_order_options
++            self._prefix_io_options = parse_order_options(self.extra_config)
+         self.shared_file_config = SharedFileConfig.from_extra_config(self.extra_config)
+         self._manager: SharedStorageOffloadingManager | None = None
+         self._handler: NoopSharedStorageOffloadingHandler | None = None
+@@ -771,8 +771,8 @@
+             )
+             observer_kwargs = {}
+             if self._prefix_io_options is not None:
+-                from prefix_io_control.start_options import build_start_kwargs
+-                observer_kwargs = build_start_kwargs(self._prefix_io_options)
++                from prefix_io_control.order_options import build_order_kwargs
++                observer_kwargs = build_order_kwargs(self._prefix_io_options)
+             coordinator = TransferCoordinator(
+                 **observer_kwargs,
+                 config=self.shared_file_config,

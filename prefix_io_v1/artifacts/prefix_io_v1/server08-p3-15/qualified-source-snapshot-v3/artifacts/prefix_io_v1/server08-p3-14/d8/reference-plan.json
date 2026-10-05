@@ -1,0 +1,39 @@
+{
+  "scope": "Previously seen heldout content requalification on new UUID PRIMARY source; no new-content claim",
+  "gpu_uuid": "GPU-83ac724c-6d18-6f08-ab96-fb871fb1f4a8",
+  "domain": 16384,
+  "kv_budget_bytes": 2147483648,
+  "staging_budget_bytes": 1073741824,
+  "reps": 3,
+  "sizes": [
+    16256
+  ],
+  "native_label": "server08-p3-14-d8-native-ref",
+  "external_groups": [
+    {
+      "label": "server08-p3-14-d8-cached-ref",
+      "sizes": [
+        16256
+      ],
+      "storage": "primary-heldout-long",
+      "storage_path": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-source/heldout-long"
+    }
+  ],
+  "prompt_manifest": "artifacts/prefix_io_v1/server07-p3-05/long-heldout-prompts.json",
+  "prompt_manifest_sha256": "a8a5f10a7f4596a2cb57fff9ba373c4f6a6c20a9398f44d6fed1ccddb76c0195",
+  "independent_content_validation": true,
+  "run_details": {
+    "server08-p3-14-d8-native-ref": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-d8-native-ref/details",
+    "server08-p3-14-d8-cached-ref": "/root/autodl-tmp/prefix-io-v1-handoff/project/experiments/prefix_io_v1/runs/server08-p3-14-d8-cached-ref/details"
+  },
+  "acceptance": {
+    "top5_and_selected_output_tolerance": 0,
+    "cold_hot_differences": "retained separately"
+  },
+  "engine_delta": {
+    "max_num_seqs": 2
+  },
+  "connector_delta": {
+    "iodepth": 8
+  }
+}

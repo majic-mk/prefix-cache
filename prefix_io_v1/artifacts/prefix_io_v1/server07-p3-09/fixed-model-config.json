@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "mode": "fixed",
+  "options": {
+    "schema_version": 1,
+    "mode": "fixed",
+    "run_id": "model-qualification",
+    "epoch_ns": 10000000,
+    "starts_per_epoch": 4,
+    "max_wait_ns": 100000000,
+    "reserve_free_slots": 0
+  },
+  "qualification": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server07-p3-09/gpu-details.json",
+  "frozen_sources": {
+    "src/prefix_io_control/start_budget.py": "d83fb291e2788366b7453132114534199c72df52634bde226cba3f34eb40c1c8",
+    "src/prefix_io_control/stage_accounting.py": "11a736586a9278e2c373d4fc1bfe0faf9cd166b81e9d9c3f658500a51ab954aa",
+    "src/prefix_io_control/start_options.py": "f7e01eff1ffa641bde1b968e7a9a877458e7528601be04d50b7790664fa78866",
+    "third_party/work/py-kvcache-p3-quota-cpu/py_kvcache/reactor.py": "d8589727f8c1bc899bbf343e051f687fc609a8d8d5bfc99a45c7f179244327b6",
+    "third_party/work/py-kvcache-p3-quota-cpu/py_kvcache/vllm.py": "ca4b057a2d27381461c1d7d6f822283f190b2964dbff9a9a495e1443106f9d4d"
+  },
+  "scope": "P3_MODEL_START_QUALIFICATION_NOT_RESEARCH_EFFECT"
+}

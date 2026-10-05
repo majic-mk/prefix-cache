@@ -1,0 +1,50 @@
+{
+  "scope": "P3 cached-shape correctness diagnosis, not latency fitting",
+  "gpu_uuid": "GPU-f8744916-1693-fa6a-93b6-7f503c03459c",
+  "domain": 16384,
+  "kv_budget_bytes": 2147483648,
+  "staging_budget_bytes": 1073741824,
+  "reps": 3,
+  "sizes": [
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "native_label": "server07-p3-uniform-native-ref-01",
+  "external_groups": [
+    {
+      "label": "server07-p3-uniform-long-ref-01",
+      "sizes": [
+        2048,
+        4096
+      ],
+      "storage": "server07-p3-long-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-8k-ref-01",
+      "sizes": [
+        8192
+      ],
+      "storage": "server07-p3-8k-storage-01"
+    },
+    {
+      "label": "server07-p3-uniform-16k-ref-01",
+      "sizes": [
+        16384
+      ],
+      "storage": "server07-p3-16k-storage-01"
+    }
+  ],
+  "acceptance": {
+    "output_tokens": "exact equality GPU hot versus SSD and staging, including warmup",
+    "top5": "exact token ID set and float logprob equality; rank recorded but ties may reorder rank",
+    "tolerance": 0,
+    "physical_read_bytes_per_token": 57344,
+    "all_drains_complete": true
+  },
+  "cold_comparison": "all output and top-5 differences retained; no cold/hot tolerance accepted",
+  "failure_action": "preserve mismatches, do not qualify runtime curves",
+  "old_exporter_unchanged": true,
+  "independent_content_validation": false
+}

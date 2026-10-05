@@ -1,0 +1,30 @@
+{
+  "schema": "complete_research_code_snapshot_v1",
+  "repository": "majic-mk/prefix-cache",
+  "visibility": "private",
+  "date": "2026-10-05",
+  "server_code_files": 24698,
+  "local_code_files": 3283,
+  "total_source_files": 27981,
+  "total_source_bytes": 528698580,
+  "sources_unchanged": true,
+  "excluded": [
+    "models_and_weights",
+    "KV_and_staging_caches",
+    "virtual_environments",
+    "private_credentials",
+    "compiled_binaries_and_temporary_builds",
+    "generated_test_scratch_files",
+    "large_raw_runtime_traces"
+  ],
+  "credential_scan": "PASS",
+  "new_GPU_experiments": 0,
+  "latest_real_comparison": {
+    "U_seconds": 28.295357869672625,
+    "F8_DR_seconds": 33.101601665574165,
+    "slowdown_percent": 16.985979884187795,
+    "actual_order_changes": 0,
+    "classification": "NOT_EXERCISED",
+    "complete_outputs_equal": true
+  }
+}

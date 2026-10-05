@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "EXPLICIT_HUMAN_AUTHORIZATION_EXACT_FROZEN_CPU_TEMP_CLEANUP",
+  "human_text": "确定，但是要保证后续后续需要的实验数据和代码不被删除",
+  "approved_manifest_sha256": "b0c347fc4fc50384c088b8539b63ac09d77446a9563f33fba83f7844514c410e",
+  "approved_manifest": "CPU_TEMP_CLEANUP_PROPOSAL.json",
+  "approved_roots": 78,
+  "approved_regular_paths": 8423,
+  "approved_symlinks": 822,
+  "approved_synthetic_FIFOs": 6,
+  "conservative_allocated_regular_bytes": 3221516288,
+  "scope": "Only frozen exact CPU temporary copies and synthetic fixtures; retain all real experiment code, data, caches, environment, models, logs, results, XML, immutable baselines and original source.",
+  "old_authorizations_and_permissions_not_modified": true,
+  "GPU_initializations": 0,
+  "GPU_runs": 0,
+  "AUX_deletions": 0,
+  "required_gates": [
+    "All 2724 P3 map keys (relative and absolute) plus P4 locks verified",
+    "3048 registered KV bytes verified",
+    "Full noncandidate project and AUX metadata before/after",
+    "No live cwd/fd/maps references",
+    "Exact SHA/inode/metadata before unlink; anchored nofollow directory descriptors",
+    "Only empty listed directories rmdir",
+    "Independent boundary and script review"
+  ],
+  "recorded_utc": "2026-10-01T04:28:34.061367+00:00"
+}

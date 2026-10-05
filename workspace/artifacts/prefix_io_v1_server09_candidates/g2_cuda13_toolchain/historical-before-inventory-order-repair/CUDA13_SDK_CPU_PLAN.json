@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "status": "CPU_ONLY_SDK_LAYOUT_CANDIDATE_NOT_GPU_AUTHORIZATION",
+  "purpose": "Select already installed consistent CUDA13 SDK for actual FlashInfer existing compiler/version/architecture checks; no engine or model changes",
+  "source_only_files": [
+    {
+      "path": "cuda13_sdk_overlay.py",
+      "bytes": 16875,
+      "sha256": "5a9151e1220eca08aa736f20be59cd6816bf47beb148a2429741fbe2d6ab177f"
+    },
+    {
+      "path": "test_cuda13_sdk_overlay.py",
+      "bytes": 17142,
+      "sha256": "5a76cb71893b64ae8210f6474ad078b5d90f6a5cd1d79cbd3d1453cf60927c99"
+    }
+  ],
+  "canonical_delivery_directory": "artifacts/prefix_io_v1/server09-cuda13-toolchain-20261001",
+  "actual_gpu_runs_in_this_subtask": 0,
+  "actual_remote_writes_in_this_subtask": 0,
+  "actual_compiler_executions_in_this_subtask": 0,
+  "GPU_collector_verified": false,
+  "production_qualified": false,
+  "effect_verified": false,
+  "actual_root_CPU_evidence": {
+    "inventory_ref": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CUDA13_SOURCE_INVENTORY.json",
+      "bytes": 692329,
+      "sha256": "2ed079701c53d3e37005cf33432937e6c442f06cad16c5aded06efffcc7c36e0"
+    },
+    "compiler_proof_ref": {
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CPU_COMPILE_LINK_RESULT.json",
+      "bytes": 5589,
+      "sha256": "3c3f9b092aea3ca89e07f31530a2ae3b38ab65cf0a8868821031f1d7f8d14e3f"
+    },
+    "toolkit_root": "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/lib/python3.12/site-packages/nvidia/cu13",
+    "trees": {
+      "bin": 10,
+      "include": 1922,
+      "nvvm": 2
+    },
+    "tree_total_regular_files": 1934,
+    "tree_total_bytes": 217111529,
+    "driver_ref": {
+      "path": "/usr/lib/x86_64-linux-gnu/libcuda.so.595.71.05",
+      "bytes": 91501576,
+      "sha256": "76e0d9678d41cf6b6ae71d18549d88a963d3d434f08108baa12457eb53ca88d6"
+    },
+    "cudart_ref": {
+      "bytes": 704288,
+      "sha256": "96c42e418cec19054186b9429c321603cc190bf26a18104e19408117a2a817b0"
+    },
+    "root_cpu_compile": {
+      "nvcc": "13.0.88",
+      "target": "compute_120f,sm_120f",
+      "compile_seconds": 0.7244848487898707,
+      "host_link_seconds": 0.07033972162753344,
+      "all_four_command_exits": 0,
+      "shared_object_loaded": false,
+      "GPU_operations": 0
+    },
+    "meaning": "Actual existing server CPU source/compiler/link evidence supplied by root; not model or GPU/JIT/runtime feasibility proof"
+  },
+  "read_only_preflight": {
+    "api": "load_audited_assets(inventory_ref, compiler_proof_ref)",
+    "cli": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S artifacts/prefix_io_v1/server09-cuda13-toolchain-20261001/cuda13_sdk_overlay.py --inventory /root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CUDA13_SOURCE_INVENTORY.json --inventory-bytes 692329 --inventory-sha256 2ed079701c53d3e37005cf33432937e6c442f06cad16c5aded06efffcc7c36e0 --compiler-proof /root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server09-cuda13-cpu-20261001/CPU_COMPILE_LINK_RESULT.json --compiler-proof-bytes 5589 --compiler-proof-sha256 3c3f9b092aea3ca89e07f31530a2ae3b38ab65cf0a8868821031f1d7f8d14e3f",
+    "result": "PASS_CPU_EXISTING_CUDA13_ASSET_PREFLIGHT_NO_OVERLAY_CREATED",
+    "directory_creation": 0,
+    "framework_imports": 0,
+    "compiler_executions": 0,
+    "GPU_operations": 0,
+    "inputs": "Exact original inventory and compiler-proof SHA/size; original schema consumed without inventing another proof",
+    "asset_checks": "Complete sorted unique bin/include/nvvm inventory, unexpected/symlink/special files rejected; stream SHA and exact bytes all members; driver/cudart/original source/object/.so artifacts hashed without loading; original four compile/version/link/readelf commands success and source/counter binding required"
+  },
+  "overlay_create": {
+    "api": "prepare_overlay(approved_run_root=...,runtime_cache=...,pin=load_audited_assets(...),inherited_environment=dict(os.environ))",
+    "allowed_location": "<approved new run>/details/runtime-cache/cuda13-sdk only",
+    "real_directories": [
+      "cuda13-sdk",
+      "cuda13-sdk/lib64",
+      "cuda13-sdk/lib64/stubs"
+    ],
+    "new_links": {
+      "bin": "existing cu13/bin",
+      "include": "existing cu13/include",
+      "nvvm": "existing cu13/nvvm",
+      "lib64/libcudart.so": "existing cu13/lib/libcudart.so.13",
+      "lib64/libcudart.so.13": "existing cu13/lib/libcudart.so.13",
+      "lib64/stubs/libcuda.so": "actual real /usr/lib/x86_64-linux-gnu/libcuda.so.595.71.05 (linker alias only, never fake driver)"
+    },
+    "new_links_count": 6,
+    "failures": "Exclusive new mkdir; no deletion/rollback or old-directory reuse. On any validation/link/postvalidation fault stop before framework imports; retain partial new evidence. Targets fully rehashed after links.",
+    "process_environment": "Return copied immutable env items only; helper never changes os.environ/global/system. Future guarded child explicitly applies returned env before first framework import.",
+    "keys": [
+      "CUDA_HOME",
+      "CUDA_PATH",
+      "FLASHINFER_NVCC",
+      "CUDACXX",
+      "PATH",
+      "LD_LIBRARY_PATH"
+    ],
+    "fixed_values": "CUDA roots=new overlay; compiler=new overlay/bin/nvcc; PATH prepends new overlay/bin only; LD_LIBRARY_PATH prepends overlay/lib64 only with lawful prior values. stubs is never a runtime search path.",
+    "reject": "Foreign compiler/root overrides; FLASHINFER_EXTRA_* and compiler launchers; any FLASHINFER_CUDA_ARCH_LIST/TORCH_CUDA_ARCH_LIST/FLASHINFER_DISABLE_JIT; non-str env; runtime stubs search path. No fallback toolkit."
+  },
+  "CPU_tests": {
+    "total_defined": 12,
+    "actual_local_passed": 10,
+    "actual_local_skipped": 2,
+    "reason": "Windows lacks actual symlink privilege; Linux creation and containment tests explicitly skipped locally and must be 12/12 with 0 skips on server",
+    "source_replay": "Original byte/SHA pinned FlashInfer compilation_context/cpp_ext and Torch annotated version. AST original get_cuda_path/get_cuda_version/normalization/ninja generation run with CPU-only fixture torch/subprocess metadata. No actual framework/packaging/tvm import, compiler execution, synchronization or model execution.",
+    "initial_harness_failure": "First run 12: 2 Windows path separator assertions failed, 2 Linux tests skipped; expectations changed to original os.path.join semantics, product unchanged for this correction. Also attempted Windows tempfile symlink failed WinError1314. Honest records in local receipt.",
+    "server_command": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S artifacts/prefix_io_v1/server09-cuda13-toolchain-20261001/test_cuda13_sdk_overlay.py --source-root \"$PWD\""
+  },
+  "immutable_boundaries": {
+    "old_normal_worker": "All frozen prior normal source/plan/locks/test receipts and failed off output unchanged",
+    "old_off_failure": "No same-name retry and no old shadow. Any future GPU needs distinct normal clone/source/scope/names02 and new explicit human permission; helper does not grant it.",
+    "forbidden": "No system/driver modification, packages/downloads, arch spoof, JIT bypass, precision/kernel change, executor/cache implementation or research activation"
+  },
+  "next_allowed_phase": "Root append-new deploy helper, actual Linux12 tests and read-only preflight. Only then prepare independent minimal normal clone with fixed SDK hook and names02; do not start GPU without new source/scope/human authorization."
+}

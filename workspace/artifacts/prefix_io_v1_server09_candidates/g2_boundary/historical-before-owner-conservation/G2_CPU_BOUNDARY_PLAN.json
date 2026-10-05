@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "status": "CPU_G2_BOUNDARY_CONTRACT_ONLY_NOT_NATIVE_EXECUTABLE",
+  "runtime_hook_status": "not_installed",
+  "GPU_collector_verified": false,
+  "production_qualified": false,
+  "executable_native_G2": false,
+  "source_only_delivery": true,
+  "new_candidate_source_refs": [
+    {
+      "name": "g2_full_step_boundary_contract.py",
+      "nbytes": 12935,
+      "sha256": "fa0a503319dba7b49673476f05c9e11b2eee78155f59688ad0ed0ce999409681"
+    },
+    {
+      "name": "run_g2_normal_model_candidate.py",
+      "nbytes": 3723,
+      "sha256": "36b4a310c9a9a2048992b3923d7382b53adeb35a8e6f5a734ed1ce589d52fe50"
+    },
+    {
+      "name": "test_g2_full_step_boundary_contract.py",
+      "nbytes": 14191,
+      "sha256": "569c7acdefbd99e1fb0a2cb4938987388546ad610161e5590e4940e3b00a0911"
+    }
+  ],
+  "basis": {
+    "read_only_G1_lock": "artifacts/prefix_io_v1_server09_g1_20261001/gpu-source-lock.json",
+    "read_only_mirror": "../g2_source_readonly",
+    "mirror_manifest": "../g2_source_readonly/SOURCE_REFS_FROM_CURRENT_G1_LOCK.json",
+    "six_actual_source_pins": "run_g2_normal_model_candidate.EXPECTED_REFS; matches current G1 source manifest",
+    "scope_caveat": "G1 scope/budget does not authorize G2. Six mirrored source hashes do not prove native runtime/binary/worker/model authenticity or normal-model execution."
+  },
+  "frozen_dependencies": [
+    {
+      "path": "../runtime_connector/p4_runtime_scalar_connector.py",
+      "bytes": 14795,
+      "sha256": "347fb842989e8e14c73968528396721b546a11d7312206aae2efbb3739b0f3cb"
+    },
+    {
+      "path": "../collector/p4_full_step_frame_adapter.py",
+      "bytes": 16067,
+      "sha256": "bea850fd60831010c2ac0bf88c1f5f121f3ffca50d63ab56759319ed6e512582"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_native_window_journal.py",
+      "bytes": 9647,
+      "sha256": "3a9ded39846cccf88ee9aceed2e16b86d8a7bbe953adfea3ba1a302b2c5aa8c3"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/stage_accounting.py",
+      "bytes": 3580,
+      "sha256": "11a736586a9278e2c373d4fc1bfe0faf9cd166b81e9d9c3f658500a51ab954aa"
+    },
+    {
+      "path": "third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dispatch_budget.py",
+      "bytes": 11021,
+      "sha256": "412c43761cb2f59636240e15c884b25d2a1d0ee708684d496259baf2f34d667c"
+    }
+  ],
+  "normal_runner_minimum_design": {
+    "reuse": "Keep original LLM, SamplingParams, engine.add_request, engine.step, original NativeHandler/Coordinator/Reactor, original shutdown. No executor/cache engine reimplementation or numerics changes.",
+    "original_entry_basis": "P316 run_window uses original add_request and step, complete 128 outputs/ABBA/drain but has old p3-16 native hardpin and frontend host timing; legacy native_gpu_prefix_smoke is 16 output/1request/no SSD connector. Neither can become G2 by PYTHONPATH changes.",
+    "resolved_runtime": "Explicit async_scheduling=False, ordinary generation, speculative_config None, TP/PP/DP1; prove actual worker source/decorators/extensions and source finder propagation into engine child before accepting native frames.",
+    "scalar_wiring": "Use frozen 38-test RuntimeScalarConnection at original execute_model/_prepare_inputs/sample_tokens. Optional event observer must begin before original execute and finish only after actual original sample returned and exact ClosedFrame closed. This batch does not install that native combined hook.",
+    "event_scope": "Two observation-only timing events on the original compute stream, across full execute-to-sample boundary; resolve only query-ready pairs. No observation-induced synchronization/wait or same-stage substitution. Native full-step timer is unimplemented here.",
+    "native_IO": "Original IoReactor constructor already accepts stage_accounting and observation_sink; NativeWindowJournal is existing StageAccounting subclass. New eligible opt-in worker constructor wiring can provide original journal without changing acceptance/completion/queues. Native injection not installed by this batch.",
+    "full_step_attribution": "Read original published scalar copies at tail; four stage existing inflight at mapped start and all actually accepted added operations inside exact mapped step. Do not call old journal.attribute and relabel model_forward as full_decode_step.",
+    "shutdown": "Original handler.shutdown calls coordinator.shutdown, original reactor joins worker and closes staging/ring, then original handler clears active references. Consume actual post-shutdown inspect_snapshot/native fields only after success; never infer from Future.done or clear owner lists in observer.",
+    "outputs": "Independent original frontend complete 128 token list must match every actual scalar sample frame; no trace truncation, keep real cold prefill context0. Pure decode selection/warmup context>=1 remains separate."
+  },
+  "implemented_CPU_interfaces": {
+    "FullStepEventContract": "CPU fake-event boundary lifecycle only; original executor is not called or replaced by this object. Bounded active/pending event pairs; factory only ephemeral parameter; events only belong to observation.",
+    "before_execute": "off returns before ordinal/factory reads; enabled records begin for contiguous native ordinal.",
+    "after_sample": "requires exact frozen closed scalar frame for that ordinal; execute None alone cannot end; records end only here.",
+    "resolve_ready": "start/end.query; read finite positive elapsed only when ready; never synchronize/wait; not-ready stays bounded pending. origin strictly cpu_fixture, event_elapsed_ns is fake event contract scalar; gpu_elapsed_ns always None.",
+    "CPUClockReference": "Fixture-only mapping explicitly separate from real cross-clock qualification. No mapped wall endpoints or IO when unknown/fallback. This does not implement a native anchor calibration.",
+    "attribute_published_full_step": "Only bounded immutable original published tuple; sequential acceptance/completion identities, monotonic owner clocks, same run/native SHA, valid owner coverage, no ambiguous boundary ties or failed/short/missing actual added completion. Returns CPU_ATTRIBUTION_CONTRACT_ONLY for all four stages. No release/bandwidth/cost qualification.",
+    "run_g2_normal_model_candidate": "--preflight CPU reads exactly six fixed source byte/SHA refs, imports none of their source, creates no cache/output, reports all qualification false. --run returns exit2 before source/GPU import because normal-model wiring is intentionally unimplemented/unqualified.",
+    "drain_contract": "Reuse frozen DrainEvidence requiring actual transferred bytes, failed ops and empty original owner fields. CPU short-result test rejects even when accepted==completed_requested. Native snapshot conversion/provider remains unimplemented."
+  },
+  "bounded_state": {
+    "max_pending_event_pairs": 128,
+    "max_steps": 4096,
+    "max_native_events": 4096,
+    "max_native_owner_frames": 4096,
+    "max_source_file_preflight_bytes": 169906,
+    "max_reason_chars": 160,
+    "retains_native_owners": false,
+    "retains_factory": false,
+    "retains_original_executor": false,
+    "original_resource_release": false
+  },
+  "qualification_boundaries": {
+    "event_elapsed_ns": "CPU fake event values for tests only; not real GPU evidence. CompleteStepEventWindow cannot be constructed with gpu_elapsed_ns or native origin; immutable result flags are always false properties.",
+    "runtime_and_ABI": "Source hashes/filenames/qualnames are necessary pins, not complete loaded-code/binary/child-worker proof.",
+    "model": "Model plan known source SHA9b1c79986aa1fd62eb9064ecb8b4e2a03fc235a34ac2d69c33a4fcb531a91017 (7310B), but this preflight neither reads that plan nor rehashes 15.23GB weights; model_bytes_verified remains false. Original offline verifier must validate full actual payload before later loading.",
+    "clock": "No native cross-clock mapping proven. Host boundaries are never used as GPU event costs or called instantaneous DMA/compute overlap.",
+    "IO": "New helper interprets original copied CPU journal events only in fixture-mapped domain. Real native injection, complete owner coverage and runtime source not demonstrated.",
+    "cost": "No production cost table, selected-cell qualification or research effect derived."
+  },
+  "precise_native_blockers": [
+    "Normal-model worker installation source must be an independent new G2 observer entry; P316 worker remains old hard-pinned and is not transplanted.",
+    "Real GPUModelRunner decorator files and all actual child-worker source/extension/model payload identity need frozen actual bytes and independently verified runtime origin.",
+    "Original full execute-to-sample CUDA event timer and cross-clock anchor qualification need a new native implementation and authorized GPU evidence; fake event helper cannot enable it.",
+    "Original NativeWindowJournal injection plus real journal owner coverage on every measured step must be connected without sampling/acceptance/resource changes.",
+    "Real original handler postshutdown worker/ring/accounting/admission snapshot fields and provider source must be bound; current frozen scalar helper is only a contract.",
+    "G2 requires new source/scope freeze and separate user-authorized GPU budget; G1 authorization was used only for its frozen off/shadow runs."
+  ],
+  "validation": {
+    "local_python": "3.12.14",
+    "local_flags": [
+      "-B",
+      "-I",
+      "-S"
+    ],
+    "local_unittest_count": 15,
+    "local_unittest_command": "& \"$env:APPDATA/uv/python/cpython-3.12.14-windows-x86_64-none/python.exe\" -B -I -S \"artifacts/prefix_io_v1_server09_candidates/g2_boundary/test_g2_full_step_boundary_contract.py\"",
+    "local_source_preflight_command": "& \"$env:APPDATA/uv/python/cpython-3.12.14-windows-x86_64-none/python.exe\" -B -I -S \"artifacts/prefix_io_v1_server09_candidates/g2_boundary/run_g2_normal_model_candidate.py\" --preflight --source-root \"artifacts/prefix_io_v1_server09_candidates/g2_source_readonly\"",
+    "server_tests": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S <g2-boundary>/test_g2_full_step_boundary_contract.py --source-root <project-root> --cpu-source-root <project-root>/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control --runtime-source <runtime-connector>/p4_runtime_scalar_connector.py --collector-source <collector-candidate>/p4_full_step_frame_adapter.py",
+    "server_preflight": "CUDA_VISIBLE_DEVICES='' .venv/bin/python -B -I -S <g2-boundary>/run_g2_normal_model_candidate.py --preflight --source-root <project-root>",
+    "remote_operations": 0,
+    "GPU_operations": 0,
+    "all_native_run_result_data": []
+  },
+  "next_allowed": "Parent upload source-only candidate, run stdlib tests/readonly preflight on actual server and independently review. Complete bounded CPU worker/timer/postshutdown provider connection under a separately frozen G2 source scope before any new GPU request."
+}

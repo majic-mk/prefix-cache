@@ -1,0 +1,342 @@
+"""Run real-case H1 labels only after the matching v7 A800 gate passes."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import subprocess
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+from probekv.cacheblend_v6_online_engine import (
+    CacheBlendV7OnlineEngine,
+    CacheBlendV8OnlineEngine,
+)
+from probekv.experiment_jobs import E1Job, E1Result, ResultStatus
+from probekv.io import append_jsonl_fsync, atomic_write_json, sha256_file
+from probekv.manifest import manifest_case_from_row, validate_manifest
+from probekv.model_adapters import MISTRAL_SPEC, QWEN_SPEC
+from probekv.v6_a800_executor import RealCacheBlendA800Executor
+from probekv.v6_h1_runtime import (
+    V6H1CorrectnessError,
+    V7H1CaseRuntime,
+    V8H1CaseRuntime,
+)
+from probekv.v7_runtime_qualification import validate_v7_h1_gate
+from probekv.v8_runtime_qualification import validate_v8_h1_gate
+from probekv.v8_profile import (
+    validate_frozen_selector_profile,
+    validate_profile_freeze_contract,
+    validate_runtime_cost_profile,
+)
+
+
+def _rows(path: Path, loader):
+    return [
+        loader(json.loads(line))
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+
+def _command(*values: str) -> str:
+    return subprocess.check_output(values, text=True).strip()
+
+
+def _provenance(environment: Path, patch: dict, revision: str) -> dict:
+    import torch
+    import vllm
+
+    return {
+        "code_commit": _command("git", "rev-parse", "HEAD"),
+        "environment_hash": sha256_file(environment),
+        "model_revision": revision,
+        "cacheblend_commit": patch["cacheblend_commit"],
+        "cacheblend_patch_sha256": patch["cacheblend_patch_sha256"],
+        "cacheblend_tree": patch["cacheblend_tree"],
+        "vllm_version": str(vllm.__version__),
+        "torch_version": str(torch.__version__),
+        "cuda_version": str(torch.version.cuda),
+        "gpu_uuid": _command(
+            "nvidia-smi", "--query-gpu=uuid", "--format=csv,noheader"
+        ).splitlines()[0],
+    }
+
+
+def _failure(
+    job: E1Job, error: Exception, provenance: dict, protocol_version: int = 7
+) -> E1Result:
+    return E1Result(
+        job_id=job.job_id,
+        attempt=0,
+        status=ResultStatus.DATA_ERROR,
+        error_type=(
+            "V%d_R1_DENSE_EQUIVALENCE" % protocol_version
+            if isinstance(error, V6H1CorrectnessError)
+            else type(error).__name__.upper()
+        ),
+        error_message=("%s: %s" % (type(error).__name__, error))[:2000],
+        code_commit=provenance["code_commit"],
+        environment_hash=provenance["environment_hash"],
+        model_revision=provenance["model_revision"],
+        cacheblend_commit=provenance["cacheblend_commit"],
+        cacheblend_patch_sha256=provenance["cacheblend_patch_sha256"],
+        cacheblend_tree=provenance["cacheblend_tree"],
+        vllm_version=provenance["vllm_version"],
+        torch_version=provenance["torch_version"],
+        cuda_version=provenance["cuda_version"],
+        gpu_uuid=provenance["gpu_uuid"],
+        finished_at_utc=datetime.now(timezone.utc).isoformat(),
+        evidence_class="server_pilot",
+        paper_evidence=False,
+    )
+
+
+def main(protocol_version: int = 7) -> int:
+    if protocol_version not in {7, 8}:
+        raise ValueError("H1 runner supports protocol v7 or v8")
+    protocol_label = "v%d" % protocol_version
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--manifest", required=True)
+    parser.add_argument("--jobs", required=True)
+    parser.add_argument("--handoff", required=True)
+    parser.add_argument("--model-audit", required=True)
+    parser.add_argument("--patch-audit", required=True)
+    parser.add_argument("--environment", required=True)
+    parser.add_argument("--qualification-gate", required=True)
+    parser.add_argument("--selector-profile", default="")
+    parser.add_argument("--runtime-cost-profile", default="")
+    parser.add_argument("--profile-freeze-contract", default="")
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--model-key", choices=("mistral", "qwen"), required=True)
+    parser.add_argument(
+        "--pass", dest="run_pass", choices=("primary", "anchors", "all"), default="primary"
+    )
+    parser.add_argument("--max-hours", type=float, default=8.0)
+    parser.add_argument("--case-limit", type=int, default=0)
+    parser.add_argument("--max-model-len", type=int, default=8192)
+    parser.add_argument("--gpu-memory-utilization", type=float, default=0.60)
+    parser.add_argument("--resume", action="store_true")
+    args = parser.parse_args()
+
+    repo = Path(__file__).resolve().parents[2]
+    manifest_path = Path(args.manifest).resolve()
+    jobs_path = Path(args.jobs).resolve()
+    handoff_path = Path(args.handoff).resolve()
+    model_audit_path = Path(args.model_audit).resolve()
+    patch_audit_path = Path(args.patch_audit).resolve()
+    qualification_path = Path(args.qualification_gate).resolve()
+    environment = Path(args.environment).resolve()
+    handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
+    model_audit = json.loads(model_audit_path.read_text(encoding="utf-8"))
+    patch = json.loads(patch_audit_path.read_text(encoding="utf-8"))
+    qualification = json.loads(qualification_path.read_text(encoding="utf-8"))
+    output = Path(args.output).resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    results_path = output / ("results-%s.jsonl" % args.run_pass)
+    gate_path = output / "gate.json"
+    if results_path.exists() and not args.resume:
+        raise FileExistsError("results exist; pass --resume or select a new output")
+    code_commit = _command("git", "rev-parse", "HEAD")
+    if _command("git", "status", "--porcelain"):
+        raise ValueError("%s H1 requires a clean ProbeKV worktree" % protocol_label)
+    if handoff.get("stage") != "%s_h1_model_data_handoff" % protocol_label:
+        raise ValueError("invalid %s H1 data handoff" % protocol_label)
+    if handoff.get("paper_evidence") is not False or handoff.get("locked_test_accessed") is not False:
+        raise ValueError("%s H1 handoff must remain an unlocked server pilot" % protocol_label)
+    if handoff.get("ready_for_%s_h1_gpu_sentinel" % protocol_label) is not True:
+        raise ValueError("%s H1 handoff is not sentinel-ready" % protocol_label)
+    if handoff.get("code_commit") != code_commit:
+        raise ValueError("%s H1 handoff was built by another commit" % protocol_label)
+    for hash_label, path in (
+        ("pilot_manifest_sha256", manifest_path),
+        ("jobs_sha256", jobs_path),
+        ("model_audit_sha256", model_audit_path),
+        ("patch_audit_sha256", patch_audit_path),
+    ):
+        if handoff.get(hash_label) != sha256_file(path):
+            raise ValueError(
+                "%s H1 %s differs from its handoff"
+                % (protocol_label, hash_label)
+            )
+
+    cases = _rows(manifest_path, manifest_case_from_row)
+    validate_manifest(cases)
+    if any(case.split != "pilot" for case in cases):
+        raise ValueError("%s H1 may only open pilot cases" % protocol_label)
+    case_by_id = {case.case_id: case for case in cases}
+    jobs = _rows(jobs_path, E1Job.from_row)
+    spec = MISTRAL_SPEC if args.model_key == "mistral" else QWEN_SPEC
+    primary_layer = 5 if args.model_key == "mistral" else 4
+    if args.run_pass == "primary":
+        jobs = [job for job in jobs if job.reuse_layer == primary_layer]
+    elif args.run_pass == "anchors":
+        jobs = [job for job in jobs if job.reuse_layer != primary_layer]
+    if any(job.case_id not in case_by_id or job.split != "pilot" for job in jobs):
+        raise ValueError("%s H1 jobs escape the pilot manifest" % protocol_label)
+    if model_audit.get("model_id") != spec.model_id or model_audit.get("revision") != spec.revision:
+        raise ValueError("model audit does not match the selected adapter")
+    if handoff.get("model_id") != spec.model_id or handoff.get("model_revision") != spec.revision:
+        raise ValueError("handoff does not match the selected adapter")
+    if any(
+        case.model_signature != "%s@%s" % (spec.model_id, spec.revision)
+        for case in cases
+    ):
+        raise ValueError("manifest was not tokenized for the selected model")
+
+    current_gpu_uuid = _command(
+        "nvidia-smi", "--query-gpu=uuid", "--format=csv,noheader"
+    ).splitlines()[0]
+    if qualification.get("gpu_uuid") != current_gpu_uuid:
+        raise RuntimeError("%s H1 must use the GPU that produced qualification" % protocol_label)
+    if protocol_version == 7:
+        validate_v7_h1_gate(
+            qualification,
+            code_commit=code_commit,
+            model_id=spec.model_id,
+            model_revision=spec.revision,
+            adapter_name=spec.adapter_name,
+            cacheblend_patch_sha256=patch["cacheblend_patch_sha256"],
+            cacheblend_tree=patch["cacheblend_tree"],
+        )
+    else:
+        if not all((args.selector_profile, args.runtime_cost_profile, args.profile_freeze_contract)):
+            raise ValueError("v8 H1 requires Profile, RuntimeCostProfile and freeze contract")
+        profile = json.loads(Path(args.selector_profile).resolve().read_text(encoding="utf-8"))
+        runtime_profile = json.loads(
+            Path(args.runtime_cost_profile).resolve().read_text(encoding="utf-8")
+        )
+        profile_contract = json.loads(
+            Path(args.profile_freeze_contract).resolve().read_text(encoding="utf-8")
+        )
+        validate_frozen_selector_profile(
+            profile,
+            model_key=args.model_key,
+            code_commit=code_commit,
+            model_revision=spec.revision,
+            tokenizer_hash=model_audit["tokenizer_hash"],
+            cacheblend_patch_sha256=patch["cacheblend_patch_sha256"],
+        )
+        validate_runtime_cost_profile(
+            runtime_profile, model_key=args.model_key,
+            policy=profile["selection_execution_policy"], code_commit=code_commit,
+            cacheblend_patch_sha256=patch["cacheblend_patch_sha256"],
+        )
+        validate_profile_freeze_contract(profile_contract)
+        validate_v8_h1_gate(
+            qualification,
+            code_commit=code_commit,
+            model_id=spec.model_id,
+            model_revision=spec.revision,
+            adapter_name=spec.adapter_name,
+            tokenizer_hash=model_audit["tokenizer_hash"],
+            cacheblend_patch_sha256=patch["cacheblend_patch_sha256"],
+            cacheblend_tree=patch["cacheblend_tree"],
+            selector_profile_sha256=profile["profile_sha256"],
+            profile_freeze_contract_sha256=profile_contract[
+                "profile_freeze_contract_sha256"
+            ],
+            profile_freeze_runtime_cost_profile_sha256=profile[
+                "profile_freeze_runtime_cost_profile_sha256"
+            ],
+            qualification_runtime_cost_profile_sha256=runtime_profile[
+                "runtime_cost_profile_sha256"
+            ],
+            job_digest=qualification["job_digest"],
+        )
+
+    existing = _rows(results_path, E1Result.from_row) if results_path.exists() else []
+    completed_ids = {row.job_id for row in existing if row.status is ResultStatus.COMPLETED}
+    groups = {}
+    for job in jobs:
+        groups.setdefault((job.case_id, job.source_id, job.reuse_layer), []).append(job)
+    pending_by_case = {}
+    for key, members in sorted(groups.items()):
+        if all(job.job_id in completed_ids for job in members):
+            continue
+        pending_by_case.setdefault(key[0], []).append((key, tuple(members)))
+    case_ids = sorted(pending_by_case)
+    if args.case_limit:
+        case_ids = case_ids[: args.case_limit]
+
+    provenance = _provenance(environment, patch, spec.revision)
+    engine_class = CacheBlendV7OnlineEngine if protocol_version == 7 else CacheBlendV8OnlineEngine
+    executor = RealCacheBlendA800Executor(
+        model_path=str(model_audit["snapshot_path"]),
+        model_spec=spec,
+        max_model_len=args.max_model_len,
+        gpu_memory_utilization=args.gpu_memory_utilization,
+        expected_cacheblend_tree=patch["cacheblend_tree"],
+        engine_class=engine_class,
+        protocol_version=protocol_version,
+    )
+    started = time.monotonic()
+    deadline = started + args.max_hours * 3600.0
+    completed_cases = completed_groups = appended = 0
+    hard_failure = None
+    for case_id in case_ids:
+        if time.monotonic() >= deadline:
+            break
+        runtime_class = V7H1CaseRuntime if protocol_version == 7 else V8H1CaseRuntime
+        runtime = runtime_class(executor, case_by_id[case_id], provenance)
+        for (_, source_id, _), members in pending_by_case[case_id]:
+            if time.monotonic() >= deadline:
+                break
+            try:
+                rows = runtime.run_group(source_id, members, {})
+            except Exception as error:
+                r1 = next(job for job in members if job.repair_ratio == 1.0)
+                append_jsonl_fsync(
+                    results_path,
+                    [_failure(r1, error, provenance, protocol_version).to_row()],
+                )
+                hard_failure = error
+                break
+            appended += append_jsonl_fsync(results_path, [row.to_row() for row in rows])
+            completed_groups += 1
+        if hard_failure is not None:
+            break
+        completed_cases += 1
+
+    sentinel_mode = args.run_pass == "primary" and args.case_limit == 1
+    passed = hard_failure is None and (
+        not sentinel_mode
+        or (completed_cases == 1 and completed_groups == 4 and appended == 36)
+    )
+    gate = {
+        "schema_version": 3 if protocol_version == 7 else 5,
+        "protocol_version": protocol_version,
+        "stage": "%s_h1_server_pilot" % protocol_label,
+        "paper_evidence": False,
+        "locked_test_accessed": False,
+        "code_commit": provenance["code_commit"],
+        "model_id": spec.model_id,
+        "model_revision": spec.revision,
+        "primary_reuse_layer": primary_layer,
+        "h1_primary_completed_depth": primary_layer - 1,
+        "first_reused_layer_1based": primary_layer,
+        "repair_rounding_policy": "ceil",
+        "artifact_policy": "single_canonical_lossless",
+        "manifest_sha256": sha256_file(manifest_path),
+        "jobs_sha256": sha256_file(jobs_path),
+        "qualification_gate_sha256": sha256_file(qualification_path),
+        "qualification_gate_schema": qualification["schema_version"],
+        "native_prefix_cache_qualified": qualification["native_prefix_cache_qualified"],
+        "completed_cases_this_run": completed_cases,
+        "completed_groups_this_run": completed_groups,
+        "appended_rows_this_run": appended,
+        "elapsed_seconds_this_run": time.monotonic() - started,
+        "deadline_reached": time.monotonic() >= deadline,
+        "r1_dense_equivalence_passed": hard_failure is None,
+        "h1_scan_allowed": passed,
+        "passed": passed,
+        "failure": None if hard_failure is None else "%s: %s" % (type(hard_failure).__name__, hard_failure),
+    }
+    atomic_write_json(gate_path, gate)
+    print(json.dumps(gate, ensure_ascii=False, indent=2))
+    return 0 if passed else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

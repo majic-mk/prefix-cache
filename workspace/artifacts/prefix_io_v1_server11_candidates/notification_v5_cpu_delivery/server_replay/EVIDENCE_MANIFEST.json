@@ -1,0 +1,2697 @@
+{
+  "schema": 1,
+  "scope": "new_C5_CPU_evidence_only",
+  "GPU_runs": 0,
+  "files": [
+    {
+      "archive_path": "candidate/C5_SEMANTIC_CPU_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/C5_SEMANTIC_CPU_COMMAND.json",
+      "bytes": 879,
+      "sha256": "5820e500beda556d69c7a47de7d554d001ceb478e805ea397a66d544d7f32d16"
+    },
+    {
+      "archive_path": "candidate/C5_SEMANTIC_CPU_EXPLICIT_PROVENANCE_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/C5_SEMANTIC_CPU_EXPLICIT_PROVENANCE_COMMAND.json",
+      "bytes": 1454,
+      "sha256": "963b28eceda57839ffa9ad842e820a1572b230e6b5acd52a42b5bbc795545f63"
+    },
+    {
+      "archive_path": "candidate/C5_SEMANTIC_CPU_EXPLICIT_PROVENANCE_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/C5_SEMANTIC_CPU_EXPLICIT_PROVENANCE_RESULT.json",
+      "bytes": 1258,
+      "sha256": "6964454204d411555ad6c13c7c477a652e2d311760336fc39711fa7d7e189bb0"
+    },
+    {
+      "archive_path": "candidate/C5_SEMANTIC_CPU_EXPLICIT_PROVENANCE_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/C5_SEMANTIC_CPU_EXPLICIT_PROVENANCE_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "candidate/C5_SEMANTIC_CPU_EXPLICIT_PROVENANCE_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/C5_SEMANTIC_CPU_EXPLICIT_PROVENANCE_STDOUT.log",
+      "bytes": 394,
+      "sha256": "e66e9d386c666cce948ad9fc1c20d64a392ac5b4108b182ba9ccd3ac252ccbf0"
+    },
+    {
+      "archive_path": "candidate/C5_SEMANTIC_CPU_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/C5_SEMANTIC_CPU_RESULT.json",
+      "bytes": 1197,
+      "sha256": "cf82ce0503a67124ef4f92591acdff35e4015b31d0f75b578bd3a1239e80185c"
+    },
+    {
+      "archive_path": "candidate/C5_SEMANTIC_CPU_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/C5_SEMANTIC_CPU_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "candidate/C5_SEMANTIC_CPU_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/C5_SEMANTIC_CPU_STDOUT.log",
+      "bytes": 395,
+      "sha256": "4cf8f265d8f4bb1accd63b8844ec63b94ec257ab203d34ebb2a35e6807b3a03c"
+    },
+    {
+      "archive_path": "candidate/CANDIDATE_MANIFEST.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/CANDIDATE_MANIFEST.json",
+      "bytes": 5120,
+      "sha256": "769f4bdbc2a11aea22b231e6db4c4195d7bdeef48c126fa97a9809f976fc3d92"
+    },
+    {
+      "archive_path": "candidate/ENRICHED_CHANGE_NOTES.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/ENRICHED_CHANGE_NOTES.md",
+      "bytes": 1832,
+      "sha256": "2034d706f2e0abc8f0c6d1a80bdc84f1f553f060e628c4fd437e77b3da8b6910"
+    },
+    {
+      "archive_path": "candidate/FROZEN_C4_IDLE_CPU_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/FROZEN_C4_IDLE_CPU_COMMAND.json",
+      "bytes": 900,
+      "sha256": "79fa0bacd5eed6b1d372887b34483f44b8853b8962313f632523ea169e1c703f"
+    },
+    {
+      "archive_path": "candidate/FROZEN_C4_IDLE_CPU_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/FROZEN_C4_IDLE_CPU_RESULT.json",
+      "bytes": 671,
+      "sha256": "1f2e81ac8a9dca2329b215c8586f05dd7a442dbf19504b20b8398491229187ad"
+    },
+    {
+      "archive_path": "candidate/FROZEN_C4_IDLE_CPU_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/FROZEN_C4_IDLE_CPU_STDERR.log",
+      "bytes": 98,
+      "sha256": "3a58d1affd74d04bbdef2684985a54bd4e15302721b75e72609c2021008528da"
+    },
+    {
+      "archive_path": "candidate/FROZEN_C4_IDLE_CPU_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/FROZEN_C4_IDLE_CPU_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "candidate/IDLE_CHANGE_NOTES.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/IDLE_CHANGE_NOTES.md",
+      "bytes": 3485,
+      "sha256": "6a1e212c2d600115dc940e3cca0b3452f441562492540128212dfb4294bc24e2"
+    },
+    {
+      "archive_path": "candidate/LOCAL_CPU_QUALIFICATION.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/LOCAL_CPU_QUALIFICATION.json",
+      "bytes": 10983,
+      "sha256": "f584e6302b1dbc3e0f2357d53b7cd929ce16a539476d5c1ece84397798be26bf"
+    },
+    {
+      "archive_path": "candidate/ORIGINAL_POLICY_ABI_CPU_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/ORIGINAL_POLICY_ABI_CPU_COMMAND.json",
+      "bytes": 421,
+      "sha256": "05f03d59b89f3aa05e9f5f8271a4971478d5bfd3f34cbfcf959e93423c01b634"
+    },
+    {
+      "archive_path": "candidate/ORIGINAL_POLICY_ABI_CPU_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/ORIGINAL_POLICY_ABI_CPU_RESULT.json",
+      "bytes": 756,
+      "sha256": "61917e7d110af7ccf4b9ffcecfc9f4b5a356fc9832f8401d7dc0fa0138730b05"
+    },
+    {
+      "archive_path": "candidate/ORIGINAL_POLICY_ABI_CPU_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/ORIGINAL_POLICY_ABI_CPU_STDERR.log",
+      "bytes": 201,
+      "sha256": "72afe7910c9ed4fb038ccd8dcdc5951f37ecb3b68b9218b8857177b2dfe74382"
+    },
+    {
+      "archive_path": "candidate/ORIGINAL_POLICY_ABI_CPU_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/ORIGINAL_POLICY_ABI_CPU_STDOUT.log",
+      "bytes": 1022,
+      "sha256": "49b73e012d3f65e9351a06775fe9406050d9c2748da5925cbfa83f26082c997b"
+    },
+    {
+      "archive_path": "candidate/README.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/README.md",
+      "bytes": 7193,
+      "sha256": "905723a17a8bc75df905c5be37a9b8d4fc47a76d1ab0b0c88d37956dc0166e9e"
+    },
+    {
+      "archive_path": "candidate/SERVER_CPU_QUALIFICATION.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/SERVER_CPU_QUALIFICATION.json",
+      "bytes": 14339,
+      "sha256": "660ebef39ece2c2f9eba6aed7a0354faad74eff195ddf19ab3a8c19df85049ef"
+    },
+    {
+      "archive_path": "candidate/SERVER_CPU_QUALIFICATION_EXPLICIT_PROVENANCE.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/SERVER_CPU_QUALIFICATION_EXPLICIT_PROVENANCE.json",
+      "bytes": 10212,
+      "sha256": "fe79fdbd07467f5d6bed1400360b3c1144a7e923f94f862af3afe9d018520f3d"
+    },
+    {
+      "archive_path": "candidate/SERVER_INVOCATION_NOTES.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/SERVER_INVOCATION_NOTES.md",
+      "bytes": 7850,
+      "sha256": "2309c04a840d8d425d0a92cf150eb506cc7459b2c5d85e8decbe86db35c66942"
+    },
+    {
+      "archive_path": "candidate/UNCHANGED_C4_SOURCE_INHERITANCE.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/UNCHANGED_C4_SOURCE_INHERITANCE.json",
+      "bytes": 11061,
+      "sha256": "018b4bcd3e82db42814d455669267b5cd1d41d1e29e39de1669638e391bf5344"
+    },
+    {
+      "archive_path": "candidate/V2_CHANGE_NOTES.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/V2_CHANGE_NOTES.md",
+      "bytes": 2028,
+      "sha256": "fddf9432b415eaacabdc9507a486f4c666349aa7c9b0a10a4f57cd41e17b0b46"
+    },
+    {
+      "archive_path": "candidate/V3_CHANGE_NOTES.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/V3_CHANGE_NOTES.md",
+      "bytes": 2740,
+      "sha256": "492d70ba34635237d3893aee15b7795e42734e230d0400da15fa4a000fb85a39"
+    },
+    {
+      "archive_path": "candidate/native_full_step_collector.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/native_full_step_collector.py",
+      "bytes": 24553,
+      "sha256": "bcb58a9c812c2f7dc846013348cdca2de3a641e8c8a0515b4d7307e0fc8676bf"
+    },
+    {
+      "archive_path": "candidate/run_cpu_candidate_qualification.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/run_cpu_candidate_qualification.py",
+      "bytes": 4968,
+      "sha256": "03a4f6d699943e2b522aafb2cb619fc5ce59d71260b1dfebce5b72eb76f7238f"
+    },
+    {
+      "archive_path": "candidate/run_original_cpu_regression.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/run_original_cpu_regression.py",
+      "bytes": 2640,
+      "sha256": "8d85612477f10b59c00621e85f996b6e0622bbea6d4ba0f87769dd49268d40e2"
+    },
+    {
+      "archive_path": "candidate/single_file_runtime_binding.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/single_file_runtime_binding.py",
+      "bytes": 10790,
+      "sha256": "8b66b3aba1c936b85f4d82fe73c568650b712acf250aae454823cd35da060d60"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/__init__.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/__init__.py",
+      "bytes": 149,
+      "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/bridge.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/bridge.py",
+      "bytes": 852,
+      "sha256": "c1e1a5454ebeda338f37deebdccf9293374e9e9002c472377ae483438071ecb5"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/config.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/config.py",
+      "bytes": 9901,
+      "sha256": "0a659a588947773c8fa071296260ba9ae878787f34beda014fde24fb874164de"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dependencies.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dependencies.py",
+      "bytes": 5772,
+      "sha256": "41cc50163c51a2f02486230fcfa36c348af95ef687c3f2cb815bdd6797f29481"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dispatch_budget.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dispatch_budget.py",
+      "bytes": 11021,
+      "sha256": "412c43761cb2f59636240e15c884b25d2a1d0ee708684d496259baf2f34d667c"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dispatch_shadow.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/dispatch_shadow.py",
+      "bytes": 16989,
+      "sha256": "c3d502423116f8c3b74f976acba092cb574d58d078c7b34f368e9e5b926b8e1b"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/native_flush_probe.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/native_flush_probe.py",
+      "bytes": 11396,
+      "sha256": "b24902ca76aa998c564218738ec02cfc3c96f5b12523a2df80765a489c04ebda"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/native_options.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/native_options.py",
+      "bytes": 1338,
+      "sha256": "25f09f9ef3006553314156cd0795e94cf6a67e7bc1215e6d3bd3d832459722fe"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/native_owner.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/native_owner.py",
+      "bytes": 8493,
+      "sha256": "2ef22ba90e6a89890a0a060e81f0cd639f7f04bb8c7bb16635208edf80534a81"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/observation.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/observation.py",
+      "bytes": 2890,
+      "sha256": "8ddf5634f46b254f9e539187caa964503d44954637edfeb5c385b2b369b706f2"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/order_options.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/order_options.py",
+      "bytes": 2089,
+      "sha256": "8d631e19b40b87604747f3aee2db9031e696f74c3a98147e4e966062220e4aea"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py",
+      "bytes": 25553,
+      "sha256": "6bec5dd57e25cfc2c0e62540742a781d656ba528cb6c8057cd2402197db93e1a"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_cost_table.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_cost_table.py",
+      "bytes": 5071,
+      "sha256": "4caae858778182f5575ce2d5807bdc72520ef4c5f32a2c18f02ff2628155d0f8"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_eta.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_eta.py",
+      "bytes": 10679,
+      "sha256": "befe3d10e3466be8a34d0b4756f993c0100cf909e712b167ec221c37f9064d50"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_gpu_step_observation.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_gpu_step_observation.py",
+      "bytes": 11977,
+      "sha256": "2dbd58eb095413520c5818cf5bb982ae6ca584933fc9b6db567eef41b29ca690"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_load_observation.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_load_observation.py",
+      "bytes": 6379,
+      "sha256": "522091deaa6489ad555694475faa34060a9176a4341417c499e4b42d6556db2c"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_native_window_journal.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_native_window_journal.py",
+      "bytes": 9647,
+      "sha256": "3a9ded39846cccf88ee9aceed2e16b86d8a7bbe953adfea3ba1a302b2c5aa8c3"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_options.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_options.py",
+      "bytes": 4629,
+      "sha256": "4dba8237ab94ff8b235e248b253a727822c99e8f1ac40e5b412d91d352a8613c"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_paired_measurement_verifier.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_paired_measurement_verifier.py",
+      "bytes": 48136,
+      "sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_policy.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_policy.py",
+      "bytes": 24976,
+      "sha256": "bce19c96c7651f69ebb91a515ea3e9e3d6855636b4bd4aa84e60fb2fbc10d673"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_production_table_contract.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_production_table_contract.py",
+      "bytes": 14365,
+      "sha256": "ae244d09c2fc1eb077e6af8df3ae378b6b3504b4f71ff10eb26f0ada7d2c71fd"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_raw_pair_recorder.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_raw_pair_recorder.py",
+      "bytes": 12933,
+      "sha256": "8ef2ea06bfe096dbf0c0dbbb585c0b1778a2620113217d2b2a94debd793e1a42"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_single_file_receipt.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_single_file_receipt.py",
+      "bytes": 14761,
+      "sha256": "11312ab7a6f5c7823e77b22cf17c93bd255438af7f886568e693f76fc5b9825d"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_startup_evidence.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_startup_evidence.py",
+      "bytes": 2085,
+      "sha256": "56fc6df03e7fde275ee344bac300acb51de1046dfbf64025c9c035a8f4e1b4dd"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_types.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_types.py",
+      "bytes": 11969,
+      "sha256": "07bbcb0a449c349f9c63874728e409180c1c9787f3253723403978e17383094e"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_verified_cost_loader.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_verified_cost_loader.py",
+      "bytes": 2686,
+      "sha256": "23fddf7c159ff2bdcb98c000ad18f90c804183f0a5af9bf08be24ac3b54d368d"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/preflight.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/preflight.py",
+      "bytes": 2140,
+      "sha256": "a4cff5d15308bb3b51b9a1e959851d34f8fbc72e34b697d1a70dfdb71e01a126"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/publication.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/publication.py",
+      "bytes": 3688,
+      "sha256": "bcaaa49d78f44d692cab89ad86fa5197cbab59491dab85b902d9fe4ef7baa0b7"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/simple_stage_options.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/simple_stage_options.py",
+      "bytes": 5445,
+      "sha256": "63fe6a27087ec604e82f47bd15a4e72eb3f475304203006fd9b5718f5a90a8dd"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/simple_stage_policy.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/simple_stage_policy.py",
+      "bytes": 21557,
+      "sha256": "8a2dc9586f5e1fe5257f988e44466284d10e0e46a8cee46f876a8febe5caf1a5"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/stage_accounting.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/stage_accounting.py",
+      "bytes": 3580,
+      "sha256": "11a736586a9278e2c373d4fc1bfe0faf9cd166b81e9d9c3f658500a51ab954aa"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/start_budget.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/start_budget.py",
+      "bytes": 6547,
+      "sha256": "d83fb291e2788366b7453132114534199c72df52634bde226cba3f34eb40c1c8"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/start_options.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/start_options.py",
+      "bytes": 2819,
+      "sha256": "f7e01eff1ffa641bde1b968e7a9a877458e7528601be04d50b7790664fa78866"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/store_order.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/store_order.py",
+      "bytes": 2947,
+      "sha256": "3b06e96e6b5e21fc6c6ca4bbc89be235888948191f12ae69de7ae95f8bc8d8f0"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/store_readiness.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/store_readiness.py",
+      "bytes": 6549,
+      "sha256": "203f063a418bda608ea19564a1c2dfe308d1291c640ccfe629f78aec1cfb2e98"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/token_timeline.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/token_timeline.py",
+      "bytes": 1738,
+      "sha256": "fbcae96ecbc86041d324362fa5b6b2a4c4d51e033b67f1b330cfc2b594c84164"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/__init__.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/__init__.py",
+      "bytes": 986,
+      "sha256": "27a469e4bd7ea7ae62ca91486307a2a3b4bb2906b140917ca63b1e7b5de08813"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/_pchip.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/_pchip.py",
+      "bytes": 2681,
+      "sha256": "d3f186b52ae296181ae3e547cb8516ba1538a20062bb76152c6042b13ff5d397"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/break_even.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/break_even.py",
+      "bytes": 9567,
+      "sha256": "2419c9470df0e43558ccc729aa3927ebd4d1381e00276d4caaa57b3cf19c42a6"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/cost_model.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/cost_model.py",
+      "bytes": 4014,
+      "sha256": "e85922054fe96dce5c0221f1cc17cc3f1b2d7addd7eae452cabad305fc412397"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/file_mapper.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/file_mapper.py",
+      "bytes": 1681,
+      "sha256": "165239153b9bf1b475992358683a8d43849d74f0e841326704e1c419abda72dc"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/fs_config.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/fs_config.py",
+      "bytes": 9057,
+      "sha256": "7a2429d15f6d6009da5f7965ba6b15279a9ef25b348cadd29927f61b9c488698"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/liburing_file.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/liburing_file.py",
+      "bytes": 15244,
+      "sha256": "6a8995ca6e5f49ae470e8c49dbf3d98caf2d09dd091cb6f08f9e892c051414f5"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/linux_aio.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/linux_aio.py",
+      "bytes": 17646,
+      "sha256": "0a987479722c7d6b520b99c9b283febb55c5145fc17c5623b8b1151c4f45a6d7"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/load_planner.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/load_planner.py",
+      "bytes": 18325,
+      "sha256": "92581e373d7e5c0903520417fb0ce80141f2f65506bf16c7ecbde94ab1ca5fe2"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/profiling.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/profiling.py",
+      "bytes": 970,
+      "sha256": "b6025d8afb9256be2a2d35df01e4bf96f3926a2948ecc88a32c2c63336b333d3"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "bytes": 185744,
+      "sha256": "a2390db63df27366f60dce6b81e0affa0c1272727a3b6b60e86bff367e23db47"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/staging.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/staging.py",
+      "bytes": 2674,
+      "sha256": "18d2b634b894fec32d7abbf767132afbd4fc5ec66fef738ffef724f3e95e615b"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/staging_cache.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/staging_cache.py",
+      "bytes": 12310,
+      "sha256": "f505da0a942dfded2019fd5b292a986ddb7a29e18bb47c568f9a614eb2a0d928"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/transfer.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/transfer.py",
+      "bytes": 12061,
+      "sha256": "1dcc5f4370e3db694d34924038a8fdd5a2eb12cf7f04ba81072dc969f275c1ba"
+    },
+    {
+      "archive_path": "candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/vllm.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/vllm.py",
+      "bytes": 33693,
+      "sha256": "901cc5b9a20245e60d2200ef190979b80adb77ca5a049624c6bc4ec171a712d1"
+    },
+    {
+      "archive_path": "candidate/test_empty_p4_window.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_empty_p4_window.py",
+      "bytes": 8483,
+      "sha256": "c2b12ac9bc42140a9b9033dee26dc11d1c7d0c9fc3f78a28b0f033cc6a63cf1c"
+    },
+    {
+      "archive_path": "candidate/test_enriched_snapshot_reuse.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_enriched_snapshot_reuse.py",
+      "bytes": 10728,
+      "sha256": "68f3c1143bd6d36b7b6b8bfca2792a75b57af2da270b8dc0a33c073806214201"
+    },
+    {
+      "archive_path": "candidate/test_reactor_single_file.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_reactor_single_file.py",
+      "bytes": 12384,
+      "sha256": "d7387e98bcceb5568eae9827fad3ff2dacc7b2d9bf0a5901322a63eb32cf02a8"
+    },
+    {
+      "archive_path": "candidate/test_retained_idle_wait.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_retained_idle_wait.py",
+      "bytes": 15943,
+      "sha256": "aa7c372d70cb5d52bb1a259b9f211d17fc213bcbb382826787915f2eb5773462"
+    },
+    {
+      "archive_path": "candidate/test_single_file_policy.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_single_file_policy.py",
+      "bytes": 10312,
+      "sha256": "ec61e8c381604e1ee9c7d387a8a8006231af92b9520767276f0d82fd0e633d45"
+    },
+    {
+      "archive_path": "candidate/test_single_file_receipt.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_single_file_receipt.py",
+      "bytes": 10389,
+      "sha256": "102f45a1363ae7266fad3f1f72f3c09833b10e839dbfb71797f709ba8cf4735c"
+    },
+    {
+      "archive_path": "candidate/test_single_file_retry_observation.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_single_file_retry_observation.py",
+      "bytes": 12888,
+      "sha256": "a24eb1c3d9aadb6e491ad0bfa3f6b123d349ec58a8fb3952fa06f4806e306c71"
+    },
+    {
+      "archive_path": "candidate/test_single_file_runtime_binding.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_single_file_runtime_binding.py",
+      "bytes": 5226,
+      "sha256": "24c9640f17815b0f5d7f5183e2ff8981902cb1def95e5cbe031e42a88108e47b"
+    },
+    {
+      "archive_path": "candidate/test_single_file_wait.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-candidate-v5-cpu-20261003/test_single_file_wait.py",
+      "bytes": 21605,
+      "sha256": "7ece9dfb6d7542f467ee08a50897a20b4fe068a0d66d85d3bf020f3433c70a94"
+    },
+    {
+      "archive_path": "review/INDEPENDENT_CPU_RACE_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/INDEPENDENT_CPU_RACE_COMMAND.json",
+      "bytes": 1485,
+      "sha256": "b6e775a6715deb7ee1c6c4779b5eba5f3f50081eeb16492e06e0c5c5bcf8de6e"
+    },
+    {
+      "archive_path": "review/INDEPENDENT_CPU_RACE_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/INDEPENDENT_CPU_RACE_RESULT.json",
+      "bytes": 1102,
+      "sha256": "3b1adc9f0f5c9e18036ff0d22205bb4a1d6c0686809e3b50db91360253948681"
+    },
+    {
+      "archive_path": "review/INDEPENDENT_CPU_RACE_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/INDEPENDENT_CPU_RACE_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "review/INDEPENDENT_CPU_RACE_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/INDEPENDENT_CPU_RACE_STDOUT.log",
+      "bytes": 222,
+      "sha256": "bbb78bf27321a82d2dfad41a4c9561531ed536b7622f4dde86aec67208ede261"
+    },
+    {
+      "archive_path": "review/REVIEW_CONTRACT.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/REVIEW_CONTRACT.md",
+      "bytes": 2407,
+      "sha256": "3db2dce156447e428e85da8440dcd650cd261012ac9045771df9ce97ccf7e551"
+    },
+    {
+      "archive_path": "review/REVIEW_FINAL.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/REVIEW_FINAL.md",
+      "bytes": 6723,
+      "sha256": "4e3d2b8a0b1fefb8981cbddb90a8487bf260cf2b1bef5109095536355693c0df"
+    },
+    {
+      "archive_path": "review/REVIEW_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/REVIEW_RESULT.json",
+      "bytes": 3470,
+      "sha256": "58a982f0afd178c73cec73577ec1cd2be72c13873c030c8124690674f4fb75a5"
+    },
+    {
+      "archive_path": "review/SERVER_BOUND_RACE_RECEIPT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/SERVER_BOUND_RACE_RECEIPT.json",
+      "bytes": 857,
+      "sha256": "9b84d6975ef5c3ffc7891416c3ac539d080de63023c06076f633a002545d476f"
+    },
+    {
+      "archive_path": "review/SERVER_REVIEW/STDERR.txt",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/SERVER_REVIEW/STDERR.txt",
+      "bytes": 4737,
+      "sha256": "9ef636da386a5f1d78689f80609ed63de854c34aba96508d52ecfaad42e4b61b"
+    },
+    {
+      "archive_path": "review/SERVER_REVIEW/STDOUT.txt",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/SERVER_REVIEW/STDOUT.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "review/SERVER_REVIEW/TEST_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/SERVER_REVIEW/TEST_RESULT.json",
+      "bytes": 9380,
+      "sha256": "6b9c4b2ca5f8a0b2487db92b6771b7f2afca55e92404ba2a19c339e0e2104e5a"
+    },
+    {
+      "archive_path": "review/SERVER_SOURCE_BOUND_RACE_RECEIPT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/SERVER_SOURCE_BOUND_RACE_RECEIPT.json",
+      "bytes": 957,
+      "sha256": "cf6bafa1560fc6d5f4d6e6989a4b76e752d777a71660e0e0bab3cdd8a17d9b94"
+    },
+    {
+      "archive_path": "review/SESSION_BEFORE_CPU.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/SESSION_BEFORE_CPU.json",
+      "bytes": 25438,
+      "sha256": "cd9f7389b09e59464de3d6766fc483625ec8bc20e80564c1ed5ae06ca8dde703"
+    },
+    {
+      "archive_path": "review/frozen_observer_sources/g2_worker_observation.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/frozen_observer_sources/g2_worker_observation.py",
+      "bytes": 13090,
+      "sha256": "096f2fffe91de7132f45997be51fecceec57d65fdf86caab6f8bbe5c71748f7b"
+    },
+    {
+      "archive_path": "review/frozen_observer_sources/p4_runtime_scalar_connector.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/frozen_observer_sources/p4_runtime_scalar_connector.py",
+      "bytes": 14795,
+      "sha256": "347fb842989e8e14c73968528396721b546a11d7312206aae2efbb3739b0f3cb"
+    },
+    {
+      "archive_path": "review/local_frozen_run01/STDERR.txt",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/local_frozen_run01/STDERR.txt",
+      "bytes": 4774,
+      "sha256": "c95266eb5fa0e8ea16fa40b615144ed2613668c5d1ed9657be29b03322506c51"
+    },
+    {
+      "archive_path": "review/local_frozen_run01/STDOUT.txt",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/local_frozen_run01/STDOUT.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "review/local_frozen_run01/TEST_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/local_frozen_run01/TEST_RESULT.json",
+      "bytes": 9754,
+      "sha256": "6265db96f52fc68c8d100e6ec035cf82b4a93b5d4a82c7bba785884ab840bf32"
+    },
+    {
+      "archive_path": "review/run_review_cpu.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/run_review_cpu.py",
+      "bytes": 4365,
+      "sha256": "1cc4996cf9cb963fe007e2a05f27139e23829677582882eab9da93c4b949ed5d"
+    },
+    {
+      "archive_path": "review/test_notification_adversarial.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-review-v5-cpu-20261003/test_notification_adversarial.py",
+      "bytes": 23653,
+      "sha256": "6c62216f8ab7ee7982b5764c91f6d719a2d1ab8b5fe8140fe9fb35ea90519d96"
+    },
+    {
+      "archive_path": "benchmark/ANALYZER_REJECTION_CPU_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/ANALYZER_REJECTION_CPU_COMMAND.json",
+      "bytes": 1214,
+      "sha256": "364ef02dba1deabe99f687f6e3304366e1765aa329ff99329422dac2eeac6686"
+    },
+    {
+      "archive_path": "benchmark/ANALYZER_REJECTION_CPU_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/ANALYZER_REJECTION_CPU_RESULT.json",
+      "bytes": 673,
+      "sha256": "f6a3b0dae66d4f3818810cff3eb318e5ad8b886294652cc12abc242821a1fe69"
+    },
+    {
+      "archive_path": "benchmark/ANALYZER_REJECTION_CPU_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/ANALYZER_REJECTION_CPU_STDERR.log",
+      "bytes": 98,
+      "sha256": "91abec7f38b0e393f7d8192b58807f9a548b2bf8dd8981e832c0b752948ffa86"
+    },
+    {
+      "archive_path": "benchmark/ANALYZER_REJECTION_CPU_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/ANALYZER_REJECTION_CPU_STDOUT.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "benchmark/CPU_COMPARISON_PROTOCOL.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/CPU_COMPARISON_PROTOCOL.json",
+      "bytes": 3541,
+      "sha256": "6c00cf687f4903988a363e18a178ccca413076ced81920271bf9c962abde1218"
+    },
+    {
+      "archive_path": "benchmark/CPU_COMPARISON_PROTOCOL.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/CPU_COMPARISON_PROTOCOL.md",
+      "bytes": 8394,
+      "sha256": "12519d287e71cafaaa6ed6889160679956c26df88013fa4307953b2b55017dc4"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_ANALYSIS_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_ANALYSIS_COMMAND.json",
+      "bytes": 1561,
+      "sha256": "668df32fd3128e453513b7dda84b5743c33c61ec7b86b6392e5eb98c0ffa041a"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_ANALYSIS_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_ANALYSIS_RESULT.json",
+      "bytes": 1182,
+      "sha256": "73f105dd46afd61c27c3be9fb00e0dfd2224cb3ba326d1c8a326bad8dd0b43fd"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_ANALYSIS_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_ANALYSIS_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_ANALYSIS_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_ANALYSIS_STDOUT.log",
+      "bytes": 170,
+      "sha256": "9f7388b9cf6ecf58ba3582c247030693fcec28511072d1038f6acbb18314d02e"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_COMMAND.json",
+      "bytes": 1837,
+      "sha256": "7f17f29b915bd41148f77262d674dc69cebf771932c32f6618e8661c82c27301"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_LAUNCH_PID.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_LAUNCH_PID.json",
+      "bytes": 79,
+      "sha256": "514a5cc8d5266d8b2ef248cd69fc77bb7e833bfdad30ee39b07a2f619692ab9e"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_PREFLIGHT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_PREFLIGHT.json",
+      "bytes": 302,
+      "sha256": "d28a4faae17f8970f8c64ad46b4eb7d96f00b448eafc4fe048a2b112433a27df"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_RESULT.json",
+      "bytes": 1081,
+      "sha256": "b464c092cc356056498efbaeaaa62be5d414fa7012e95e747619580ae8eac785"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_CPU_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_CPU_STDOUT.log",
+      "bytes": 203,
+      "sha256": "c472eccfd125f3b61f7ec9fbae334145343449bcf59a433ce5f23be764f5ce8e"
+    },
+    {
+      "archive_path": "benchmark/FORMAL_WORKER_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FORMAL_WORKER_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "benchmark/FULL_PUMP_SMOKE_ANALYSIS_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FULL_PUMP_SMOKE_ANALYSIS_COMMAND.json",
+      "bytes": 1561,
+      "sha256": "90ca4224cb994b8ea862caa814be7ea6f9504422a23bc58d052e81131914c92b"
+    },
+    {
+      "archive_path": "benchmark/FULL_PUMP_SMOKE_ANALYSIS_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FULL_PUMP_SMOKE_ANALYSIS_RESULT.json",
+      "bytes": 1192,
+      "sha256": "616c0e9aa64b064e2fb41e1db061d0e6fc9c203a94bb2cc4573e53434ceb9e7f"
+    },
+    {
+      "archive_path": "benchmark/FULL_PUMP_SMOKE_ANALYSIS_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FULL_PUMP_SMOKE_ANALYSIS_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "benchmark/FULL_PUMP_SMOKE_ANALYSIS_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FULL_PUMP_SMOKE_ANALYSIS_STDOUT.log",
+      "bytes": 155,
+      "sha256": "bf849fcb407bfb2aa1e9bf08f4ed94008d37bf8bbb3080d8c266e780e99c7bd2"
+    },
+    {
+      "archive_path": "benchmark/FULL_PUMP_SMOKE_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FULL_PUMP_SMOKE_COMMAND.json",
+      "bytes": 1785,
+      "sha256": "b44399c6418d40a4be29a2333d94f7577451e315d32daf7b4f4a2c3cb2dda157"
+    },
+    {
+      "archive_path": "benchmark/FULL_PUMP_SMOKE_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FULL_PUMP_SMOKE_RESULT.json",
+      "bytes": 1398,
+      "sha256": "06e18391409f0b38f0e40579dae83e41f4dead297784a67d1cf0975da2c0e3a1"
+    },
+    {
+      "archive_path": "benchmark/FULL_PUMP_SMOKE_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FULL_PUMP_SMOKE_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "benchmark/FULL_PUMP_SMOKE_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/FULL_PUMP_SMOKE_STDOUT.log",
+      "bytes": 202,
+      "sha256": "aaf1f7e49ef3e51f13721f3f9cdb7f4be4f6c1a4e4df2d6f651631be9d36de1d"
+    },
+    {
+      "archive_path": "benchmark/README.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/README.md",
+      "bytes": 7220,
+      "sha256": "054781ee27cc3a0763fce129baeb72dd0c60b3a3916abf25fce118c9608f4c61"
+    },
+    {
+      "archive_path": "benchmark/SERVER_SCORE_ANALYSIS.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/SERVER_SCORE_ANALYSIS.json",
+      "bytes": 81002,
+      "sha256": "be79e7b1d9c539804d4b8a141a8e69f3219a6a6fd97cbb41efc6681a69512fe6"
+    },
+    {
+      "archive_path": "benchmark/SERVER_SMOKE_ANALYSIS.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/SERVER_SMOKE_ANALYSIS.json",
+      "bytes": 4274,
+      "sha256": "eba860e07be9c9ae669701971128f59dde1f4380d7fb1c0e29e195e029605274"
+    },
+    {
+      "archive_path": "benchmark/analyze_cpu_comparison.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/analyze_cpu_comparison.py",
+      "bytes": 17297,
+      "sha256": "b448de8aed4a4438fa1f588b1aba010ed73ac91b6674ab5b16678d0e4eadc2b7"
+    },
+    {
+      "archive_path": "benchmark/cpu_full_pump_compare.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/cpu_full_pump_compare.py",
+      "bytes": 31841,
+      "sha256": "5be5bd57cc6fe0521f1ec2d3187765a51858ee67f5d5f83590070ed6feefe6b6"
+    },
+    {
+      "archive_path": "benchmark/server-score01/PLAN.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/PLAN.json",
+      "bytes": 6457,
+      "sha256": "1d91e320b9e5a8ee381fcd0575df35b42228b40e61c0343c28d6701643f9dcb8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/PROTOCOL.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/PROTOCOL.json",
+      "bytes": 3541,
+      "sha256": "6c00cf687f4903988a363e18a178ccca413076ced81920271bf9c962abde1218"
+    },
+    {
+      "archive_path": "benchmark/server-score01/SUITE.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/SUITE.json",
+      "bytes": 165375,
+      "sha256": "11c6e7b83024cb09b12404b2962eff9e49ff0a7dc30cd9f759ca35beae129564"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-00-A-command.json",
+      "bytes": 1131,
+      "sha256": "73d10f42091c7e20236e7ec2468619400ae9a1188d37e2917c1e23789476972f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-00-A.json",
+      "bytes": 17515,
+      "sha256": "01372d63eb3d1113258f0474d0e7301979bd54981d4f59c70cffcccfb89a564d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-00-B-command.json",
+      "bytes": 1136,
+      "sha256": "5b3861a3022f893428553df76cdf1fdf15955b2b6ee24578f20af675d9c33b23"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-00-B.json",
+      "bytes": 17656,
+      "sha256": "4fdee0f31ca3289c9ba66a82d01835f693926fb9fcb5b5c2699e24acdc529907"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-01-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-01-A-command.json",
+      "bytes": 1131,
+      "sha256": "09d284326b3b02fd56be47588232629f54a899b3bd3bf5c01fb7df75d06bdf70"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-01-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-01-A.json",
+      "bytes": 17512,
+      "sha256": "3f46ef21630e81e6872017f30ba2eed7b18b5fb7f4df4956f39725984605763f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-01-B-command.json",
+      "bytes": 1136,
+      "sha256": "0ef61207dc32f4c94b16a30aa437db0a7c5c016959f7334fdd59199b9cb70397"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-01-B.json",
+      "bytes": 17656,
+      "sha256": "c98b6bc1dd54f67ef5fc1c1bb8c12d1033fd27c82688b2934086443b04ea96e8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-02-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-02-A-command.json",
+      "bytes": 1131,
+      "sha256": "694ed54323125fd0bd1c334f8c8d6fd165f309395eacd5540a9ce65391e484bf"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-02-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-02-A.json",
+      "bytes": 17526,
+      "sha256": "6ee7ccb820294005a4aa75bcb8c343c38462210f8761f421da7ab6c441c5f16b"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-02-B-command.json",
+      "bytes": 1136,
+      "sha256": "6774f8e54ab925d9dddb8d1fe3de74602bab2e9333e11613126a242475c06f2a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-02-B.json",
+      "bytes": 17655,
+      "sha256": "6d37b3bbacc168f02b5c3d8d0386c5ce79a52439e8f005f3e0111cc8e22d3a6a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-03-A-command.json",
+      "bytes": 1131,
+      "sha256": "52f2f17e6e37b267bcdd1496ab20ed560b592412d207a49aeafffc2420961b4a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-03-A.json",
+      "bytes": 17514,
+      "sha256": "124b1340da536d924c74d2cbfc5b849bda5dc128b5e9971fe399ccc30fd09187"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-03-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-03-B-command.json",
+      "bytes": 1136,
+      "sha256": "17deb12c6974efc071a169d9a7e0d1e394cef17c5bc0e84042aad6b7a68de0c1"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-03-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-03-B.json",
+      "bytes": 17658,
+      "sha256": "807e9e830d9187aba0e4c36a6404af226dad79890f1307f34f87420e007debe8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-04-A-command.json",
+      "bytes": 1131,
+      "sha256": "53694d6a6c73f0734d6d4b7313b63dfd395b4b854409e7c165f66da545647e33"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-04-A.json",
+      "bytes": 17515,
+      "sha256": "0d48ea1d172252762978816fa24a5f12fdc13f33eef24b0fb200a09941cb23d4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-04-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-04-B-command.json",
+      "bytes": 1136,
+      "sha256": "a0a2d08c283bc40a34c2f4d485afb0606c1ddf6201e2be6dfd7e7e66f8457aec"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-04-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-04-B.json",
+      "bytes": 17656,
+      "sha256": "17e9cb7cbaaedf97307d187f65a790cd9a13cb10f0efaae1f9b6bdaaaff8e631"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-05-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-05-A-command.json",
+      "bytes": 1131,
+      "sha256": "d647c2deef7ac949e2896a0923b3f2cdcb58f34fb9ec92d24d1a07eb2ce1a9a0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-05-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-05-A.json",
+      "bytes": 17514,
+      "sha256": "3e7dbd9dc2102f49fee7726579338b468b8e085963a59803b55e13c85351986b"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-05-B-command.json",
+      "bytes": 1136,
+      "sha256": "3938f01f6a4d6d0a9a7bc06634156dc1e166c46c4d2114f733da1a7a41e3460e"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-score-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-score-05-B.json",
+      "bytes": 17655,
+      "sha256": "5d4398c6744a52d0510adcd3947649f5cebdf869a29241987edc1e77503b8303"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-00-A-command.json",
+      "bytes": 1135,
+      "sha256": "c2f1f9f00d8c6d75ccad227458333a62e2bceee4e81589328d89549f51bcb20c"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-00-A.json",
+      "bytes": 17515,
+      "sha256": "4d278d536b7307ff7ea846566e2e5acc206626049faff3eb67446c551daf5cc0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-01-B-command.json",
+      "bytes": 1140,
+      "sha256": "f70b6fd1d6d4eedb72ef8c62f00109d866bbf3cfd52248093af530db6a69d7cd"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-01-B.json",
+      "bytes": 17657,
+      "sha256": "dcbdb189f73068f2f362802738a96052a4fd84c1e49ab1a133d3e509f0c84a1c"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-02-B-command.json",
+      "bytes": 1140,
+      "sha256": "68ebc8385a874ae4113a712d4ed51c059ee69070869ae5e81cfb4330e32afe90"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-02-B.json",
+      "bytes": 17656,
+      "sha256": "acb6991f8183272d333635b627f22e8fdc01a3faafc3b830b6908b263f70a124"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-03-A-command.json",
+      "bytes": 1135,
+      "sha256": "4c497e8801f1dddf7f47fc18870b825f4bc500284a0ec549284783cb381e9cb5"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-03-A.json",
+      "bytes": 17515,
+      "sha256": "d9315b8c3086804c76a34ed7f4e5f4b08790005e4337db4ec98fe1c0efe4a635"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-04-A-command.json",
+      "bytes": 1135,
+      "sha256": "ed3e749af18e0b27c7ce0e7aea2a4903694fa0eeb21f041032a2c93686821e09"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-04-A.json",
+      "bytes": 17514,
+      "sha256": "16dd7fbeaeb7f261ae800a5a304ca53cf878deb5baef8bcad7a284c8c7a4f420"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-05-B-command.json",
+      "bytes": 1140,
+      "sha256": "4d5fae709c6e00f72c303ffcad66cc285c9dc0e13840ddfccd2bbabc42d9958c"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-05-B.json",
+      "bytes": 17656,
+      "sha256": "5c3756c1581c83e24e13bee5752926a4fcf8691df9430f173bad8d04c93356de"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-06-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-06-B-command.json",
+      "bytes": 1140,
+      "sha256": "a11039329467812a9f32d0d0825fe9ea6228a69d18fe6d05e614bb94a95988e2"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-06-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-06-B.json",
+      "bytes": 17655,
+      "sha256": "f12d5a6ef7319d507a34b3a6f2032d366587e9b9f0539cd799977037b74583b7"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-07-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-07-A-command.json",
+      "bytes": 1135,
+      "sha256": "a410a1214b7e734b01f2ba7f84202342a835b6723f948d1150078c43c6387270"
+    },
+    {
+      "archive_path": "benchmark/server-score01/mandatory_20ms-warmup-07-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/mandatory_20ms-warmup-07-A.json",
+      "bytes": 17515,
+      "sha256": "20a7573bb3c746a23d9e938c185973c01f2b98e91f98901193e1ba480e121211"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-00-A-command.json",
+      "bytes": 1185,
+      "sha256": "c8cf139a8029fb605aeed14613818c807d4106714955df107347241bbc8505c0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-00-A.json",
+      "bytes": 17137,
+      "sha256": "d8a7d41145adefc73a3ad28e039ce7c6b2370ab2a76264e636dfe92bdf5d0448"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-00-B-command.json",
+      "bytes": 1190,
+      "sha256": "1b50219ed94b41e4a39535c9d3632a9ddb140a57ef3026a9377c89632b420ecf"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-00-B.json",
+      "bytes": 17257,
+      "sha256": "822a7823a0c7ba49c7841e516ea561af82bd6e0596bd1ba7ed4cb1d70e305fb4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-01-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-01-A-command.json",
+      "bytes": 1185,
+      "sha256": "9da14bc4ebec69cdf4d0c079537be778b8010f129a715787f01ba7158e3b8e1d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-01-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-01-A.json",
+      "bytes": 17138,
+      "sha256": "2de15fb9504daca94ee55519535bd2afdf54de5ac1d26b1e1bd1af7316bd68c1"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-01-B-command.json",
+      "bytes": 1190,
+      "sha256": "ef05520f2018b6940c48bfd4f55f243fb2e4ddeb86ae62ab5e05ce4e8e8007fe"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-01-B.json",
+      "bytes": 17260,
+      "sha256": "54f705fad7397e455b0e93f9303c518850f6b31a038521bf7813a97ac804950a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-02-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-02-A-command.json",
+      "bytes": 1185,
+      "sha256": "d207fe77422c6e2a942fd0004a9c77d33c38d19a99b74462897f323e96871bd2"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-02-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-02-A.json",
+      "bytes": 17136,
+      "sha256": "98de39fe7dbc3b41ce224a8b9df2cd3133cf786a6f68fb6eb881a207343781d0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-02-B-command.json",
+      "bytes": 1190,
+      "sha256": "fea41bf830f0c8b436d6aa4c46c5f8c6a4c9fdf90d590eb032f5e049e3d1e13e"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-02-B.json",
+      "bytes": 17257,
+      "sha256": "92918e0f948116584a50d63c725ce450ebb189ec9c272c09fc9c0c811c5ba767"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-03-A-command.json",
+      "bytes": 1185,
+      "sha256": "6f98ebbbee4d1c0e0f614198af878ee75a4bde8a7930dd718deb8bff179c49e7"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-03-A.json",
+      "bytes": 17138,
+      "sha256": "dc1e9ea20372e6257b024f3e0d3a95534447fd3f3d68990d7d6ed9339ea2ea6d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-03-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-03-B-command.json",
+      "bytes": 1190,
+      "sha256": "feef963b0614e2f5cd78e1fc1a976f1b479026128db27192a3c1a45640ebb35f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-03-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-03-B.json",
+      "bytes": 17257,
+      "sha256": "75a2e87ad45540c4b6e665b50f66eb9969fba442f6ea9e3e5c37dea64df30f1a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-04-A-command.json",
+      "bytes": 1185,
+      "sha256": "5d721deb337f66ae34d9448c8c076884641fa2f5ed91742c0793dba037f519af"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-04-A.json",
+      "bytes": 17137,
+      "sha256": "2c714147df91f895184aa810a0fab2e2458dcd7e19a3b9173fbc33777df03ba8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-04-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-04-B-command.json",
+      "bytes": 1190,
+      "sha256": "a229eec1c7a40ee711062b3a291424c7ee787a8ddef28b5d159908bbd30522bd"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-04-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-04-B.json",
+      "bytes": 17257,
+      "sha256": "ce2f87c2ff4522d15a2b15dd7972dbc86695e45569144586d4873e254930d4db"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-05-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-05-A-command.json",
+      "bytes": 1185,
+      "sha256": "05f011afc9ee05f1b36b83453b93b0a75ff1f8959d712777d6366492417cf2d8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-05-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-05-A.json",
+      "bytes": 17136,
+      "sha256": "f55b415095851d4aca066a130e3896dab154b57cecaa533f89b08aeba9257414"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-05-B-command.json",
+      "bytes": 1190,
+      "sha256": "3d8ec7f55e45f7f33dfead62a5dea76ed6a79754695165539ff1bf4418c43e57"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-score-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-score-05-B.json",
+      "bytes": 17257,
+      "sha256": "defbe91cab31aa0a6b3dcdf1032539c33272edbbcd927a8c143fbacd7129354f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-00-A-command.json",
+      "bytes": 1189,
+      "sha256": "4368b2151d9abe3fe66b69e7c1927a205ade3f87c5cf037d6474270b4f582af2"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-00-A.json",
+      "bytes": 17137,
+      "sha256": "06b42cf526c49b08fe41f01d8aa7501bde22da64a7261735fdad51e36f029b9a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-01-B-command.json",
+      "bytes": 1194,
+      "sha256": "fe945e005e4ac2b630207dd131b3a214f026989a8b474cb1039c1688428d0de4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-01-B.json",
+      "bytes": 17257,
+      "sha256": "b6ef44847182f3046667eae0982d1ad1d9c941e9c8e4d5bf145b3944951d43ee"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-02-B-command.json",
+      "bytes": 1194,
+      "sha256": "b6f71440d2d2ee45991bb48d7b387d4b23f3cbd51fd11dfd3c545bc834a01c60"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-02-B.json",
+      "bytes": 17257,
+      "sha256": "7b7044988f1be6d6af687e6a5b20b60571f7d0b0dee07716b05267ed2a17b742"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-03-A-command.json",
+      "bytes": 1189,
+      "sha256": "5827144d44994a07c68f57eb0e451d0e545e1d0b90cfb226a29e6311fe6edcc8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-03-A.json",
+      "bytes": 17138,
+      "sha256": "0b0730c5954ea55b1f274ae521d4491a573574fdd45fa849e369c68b7ad6e2d8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-04-A-command.json",
+      "bytes": 1189,
+      "sha256": "444e5a538354f5d453fe956b8221bd2f5657bdf97d8b9cf1d530e32097eb0678"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-04-A.json",
+      "bytes": 17138,
+      "sha256": "f9075fa5738f7cc64533ee76a37c9fa27fa1bd35538db110e6fa2ffb040d6d74"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-05-B-command.json",
+      "bytes": 1194,
+      "sha256": "7a5fe5803eed411e1df4654c2b4b0adf12fe74109a202a35a9070668f09de125"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-05-B.json",
+      "bytes": 17257,
+      "sha256": "31ed52976967e6e9fb3bc67a6b826e4c08adf9ae0778021b148009e28f843dd6"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-06-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-06-B-command.json",
+      "bytes": 1194,
+      "sha256": "a9f205568cfa2c734e3e637d36c56301f9f4bdd278f777a5cd266d9ed04ba5b2"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-06-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-06-B.json",
+      "bytes": 17257,
+      "sha256": "025dd3929ed215ec0461f1bfc2635f4f85d3b49dfce1c317893b4f88f3437b38"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-07-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-07-A-command.json",
+      "bytes": 1189,
+      "sha256": "ae0d79f1f2254683ddf95975572b0b20293e69f5dcec50d11b66c6b391107d79"
+    },
+    {
+      "archive_path": "benchmark/server-score01/original_deadline_100ms-warmup-07-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/original_deadline_100ms-warmup-07-A.json",
+      "bytes": 17138,
+      "sha256": "2a379d9b96437b7043c3660eb57c45bfb9b47403c7db881c0950db2a9ea917ad"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-00-A-command.json",
+      "bytes": 1125,
+      "sha256": "2ffe7242ebcc3a9d4f5c65f0988bc5a007830ad4116b39d1ac97fb22ecb61ab3"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-00-A.json",
+      "bytes": 17128,
+      "sha256": "a230d2c8009928469a2b2d1e63675ee612589e1dca1cd3619aff601d73102058"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-00-B-command.json",
+      "bytes": 1130,
+      "sha256": "aeb383acb3ae228abca592669ba57ef3375cb29f30f328e5cc6cab8233c0fed3"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-00-B.json",
+      "bytes": 17443,
+      "sha256": "a701764fa5fe3217158d2b1c6fceda2dc59dbb9983a99d2cab56955d2bb8b727"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-01-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-01-A-command.json",
+      "bytes": 1125,
+      "sha256": "befbb3a1681168f15e695f356600786e1be0a600a065387315fa8a7ecdc5cf65"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-01-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-01-A.json",
+      "bytes": 17129,
+      "sha256": "327af3f425e2a67c7731565a62fae911abcb8f509c62d8726dbe6c8859f4a6a9"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-01-B-command.json",
+      "bytes": 1130,
+      "sha256": "1531205df8ede7f2ba0207c9cb8dcded5ae99f48dd24dc4a3460f96ca3272394"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-01-B.json",
+      "bytes": 17443,
+      "sha256": "7b09b3a741a9377f505a1b9690fde19d22c7bd4a51776cdc61fc7b0fa1386f9b"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-02-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-02-A-command.json",
+      "bytes": 1125,
+      "sha256": "1fa4d6ea51403dfd293467be585069cf673e63f6b66e7bcdb817b658907e7ff3"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-02-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-02-A.json",
+      "bytes": 17127,
+      "sha256": "1131e084e17c00f6e37f69a4e4b782ea6a24de938f758f828dddac5316fed21a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-02-B-command.json",
+      "bytes": 1130,
+      "sha256": "188c99e95bb60a880c8e39281e3e878f5ab25e04c99003c06b962442ba7e38f1"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-02-B.json",
+      "bytes": 17443,
+      "sha256": "28972d7e4d2a27c202ef679172d315959c8154eb606a4c170c3f39b26c90665a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-03-A-command.json",
+      "bytes": 1125,
+      "sha256": "1bcf96f444805dae593e5752665565931f0f7079ad8b8900629cee6806c95c91"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-03-A.json",
+      "bytes": 17128,
+      "sha256": "951fd19846458baa58b9557e1e096ccd568d06e83bb863a6290c49e1f70a4c42"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-03-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-03-B-command.json",
+      "bytes": 1130,
+      "sha256": "656df745e35606d54c0467c278dc2a25a4b73a58bf8ec3d2f551854642d5479c"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-03-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-03-B.json",
+      "bytes": 17443,
+      "sha256": "417c6d265ca9e35e056d6f150ad0608208a229ff797fd944e0ceb1f2f1d09d20"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-04-A-command.json",
+      "bytes": 1125,
+      "sha256": "ea1136ac910aa24acae18b7508a8d1bb0d4d038346eab734bbbb15d6ebf6eb66"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-04-A.json",
+      "bytes": 17129,
+      "sha256": "d88af8095514abd3b9f199cc630a7581e5efd0cba2061c13064c3001ccc2e5bd"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-04-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-04-B-command.json",
+      "bytes": 1130,
+      "sha256": "ca2f2d13b131681918a1d121adb3e415aed87417179cec2fd5cda75fb6291555"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-04-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-04-B.json",
+      "bytes": 17443,
+      "sha256": "ec0c2c09567646901fdf1f1de955f39fcf9bf2b257f92364b1224d6e54fc3449"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-05-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-05-A-command.json",
+      "bytes": 1125,
+      "sha256": "fcc8fb552c1f7925707a7c3411fa7d89ffe9ce0afebf65bb889e2c4779d218d3"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-05-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-05-A.json",
+      "bytes": 17128,
+      "sha256": "82891c59b72d3d8f57f839c151d22486aae97569411d7fcb37aab607fb102b45"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-05-B-command.json",
+      "bytes": 1130,
+      "sha256": "85f867782aee3d54c8452277d44f2a529dd563ae45aca26c45ce94a28b829d63"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-score-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-score-05-B.json",
+      "bytes": 17443,
+      "sha256": "da15aeb359fab4f2ec7bc38a698cccad3163f94d79db087684c2b92140a8d667"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-00-A-command.json",
+      "bytes": 1129,
+      "sha256": "f7052bd00c686024596e93d0195f17903b04e878ab0173285a67f22576929bfb"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-00-A.json",
+      "bytes": 17127,
+      "sha256": "765885e389467cb1b45535530b950130042f337a88de05155e996c02f6ae67cb"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-01-B-command.json",
+      "bytes": 1134,
+      "sha256": "553d7778ede3ac80283e9cbc10efbc0e935fd5e520eae2839f94ccf0ec85ab69"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-01-B.json",
+      "bytes": 17443,
+      "sha256": "ee38fcdccbad7aa8281aa98ea0172e1a1eff40808a87631f7358b66c4a8988d5"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-02-B-command.json",
+      "bytes": 1134,
+      "sha256": "aa2ae7246ccacc0203824d871fea7059e44964b0666fadd045772c823e58e80e"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-02-B.json",
+      "bytes": 17443,
+      "sha256": "895418fe111c6781ac33dda095efac6017b3791514997db799d9e40b50f6cfeb"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-03-A-command.json",
+      "bytes": 1129,
+      "sha256": "7c140123fd5dcf05e31a4ff07924ae58b08aca831de733399dfb2583d87cf2f3"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-03-A.json",
+      "bytes": 17148,
+      "sha256": "36ff60b3bbb0f60835c19c835d15562f77d194513ecfa47c8e1e59acc95cfdb7"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-04-A-command.json",
+      "bytes": 1129,
+      "sha256": "51e41693c23a4acc5467de795d6fd57d799ce3e45e51f1ad295c5d00cd437714"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-04-A.json",
+      "bytes": 17128,
+      "sha256": "7a1fa57513546deb6359048db58e5f79045e78679e87650d7d1b21885b74e5f9"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-05-B-command.json",
+      "bytes": 1134,
+      "sha256": "30e150048ec337a7124d7f4e7986078d4f34754118593b6b17794d765aea2fb5"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-05-B.json",
+      "bytes": 17442,
+      "sha256": "a0a123a3077b72f908bf0354533815e1824b9ccfc8d6bbf271fdc28e3ac3e146"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-06-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-06-B-command.json",
+      "bytes": 1134,
+      "sha256": "00b143ebe7ad595304ea31309d7ccd1a2fe38ab0d8722860ee0d56ab642c9f9d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-06-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-06-B.json",
+      "bytes": 17443,
+      "sha256": "6aca35dc0f6ef08cb463ad126d77ad43d1b9db2fff0a3541cc249b06d5f44e0c"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-07-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-07-A-command.json",
+      "bytes": 1129,
+      "sha256": "4a9735cfc40eea7259c535f879840704e301a2357ae5ef7de3d4e73c15984aa6"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_20ms-warmup-07-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_20ms-warmup-07-A.json",
+      "bytes": 17128,
+      "sha256": "e90eb9c016d34514480be07fcf0d7b8aa9dba04b825ef247e34cf5b6337883b4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-00-A-command.json",
+      "bytes": 1125,
+      "sha256": "a8e410e17d997ddbaf14ea4646b0bc681f841496bd7b70e793119afda3cc5c9d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-00-A.json",
+      "bytes": 17149,
+      "sha256": "f94d5169af244bf197fd47727c140d84e527a6d676dcf5df20ec0b02e21610fd"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-00-B-command.json",
+      "bytes": 1130,
+      "sha256": "d1fde2625897969c8559ca03bee5b470bda9ff09243c6daa736d607580aba88e"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-00-B.json",
+      "bytes": 17442,
+      "sha256": "00d78d9a2ffbb0ed70ca4df981e7da91c2c352d9bdf813716c15861d09055552"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-01-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-01-A-command.json",
+      "bytes": 1125,
+      "sha256": "9a404a2460893e16e4fae93a39459a771f3bf22f660347453377a4183dac03a0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-01-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-01-A.json",
+      "bytes": 17149,
+      "sha256": "f17e339c7a79b06e701cf5936a4d371a9f090b7380024d7c44a279ce2918e1d5"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-01-B-command.json",
+      "bytes": 1130,
+      "sha256": "eb3db0ef0d11e21c8faf2652d86075e5b72a850cd909a150fc6efd9640e27c7f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-01-B.json",
+      "bytes": 17442,
+      "sha256": "dd0c6377649423b465ed335ffb240d3e40de3ed92c6a4ea61ca9bddc966f12c9"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-02-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-02-A-command.json",
+      "bytes": 1125,
+      "sha256": "da89c8253872ef3bfbc23dcc70a42d37ff299390637145f8c4183ec887783fc0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-02-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-02-A.json",
+      "bytes": 17149,
+      "sha256": "072056c9f210996d25a0130024fe904feab2d40ee1542996c97355540fcac71f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-02-B-command.json",
+      "bytes": 1130,
+      "sha256": "faffacf9e29554f9048372a1d8d9410a5092dc0884847f62f8530f602cc6f788"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-02-B.json",
+      "bytes": 17442,
+      "sha256": "a21c89d3d73ffad61b9e3d5a0c25248b17478c127babad038a28c925c7768709"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-03-A-command.json",
+      "bytes": 1125,
+      "sha256": "d6e925797009fcffaca84aaac327658dea23f741ba77fa38f6e6106b736b259b"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-03-A.json",
+      "bytes": 17149,
+      "sha256": "d1ca447c35d5b28099154a316f05c186134006f6fdf5bc0ab6e80b077364eec4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-03-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-03-B-command.json",
+      "bytes": 1130,
+      "sha256": "e4568d568e2b6ef4eebbaee0e9cab4d1e30c4a54f88e5926276a9df252f7f776"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-03-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-03-B.json",
+      "bytes": 17443,
+      "sha256": "9f9e7783a3d293b2ff2651c62791fde87d409d3094fc5df46707c3562990f80c"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-04-A-command.json",
+      "bytes": 1125,
+      "sha256": "751fdb92a0c3fad384d56420ede1c283dc0689df76e354f6bf2c54072929292a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-04-A.json",
+      "bytes": 17149,
+      "sha256": "18628965e22a87177434c0e0231a8b0d2665e0b60dded22cfc201fbd85d12092"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-04-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-04-B-command.json",
+      "bytes": 1130,
+      "sha256": "3d31ca6a59d36a7149ca0e7fd296eae1d7fba33dd5776cdea8fed3c1b298ed4b"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-04-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-04-B.json",
+      "bytes": 17443,
+      "sha256": "692bdb007922a012001831e8ef1099e64b7e44018819da371029806015a892c5"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-05-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-05-A-command.json",
+      "bytes": 1125,
+      "sha256": "96e60c36c3516d950501375464683ecdc50dd930a1c4796d519f1b2550031052"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-05-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-05-A.json",
+      "bytes": 17149,
+      "sha256": "4aea13db0c53fc6470c2f0d7ac5bdb274a9ea3e567b8c120dae567a73d6e1def"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-05-B-command.json",
+      "bytes": 1130,
+      "sha256": "ec6ecd842d43611e27e2d02f8f7b3ccdf8ba7a869cf1d1b4a89100156d2261b4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-05-B.json",
+      "bytes": 17443,
+      "sha256": "cc48332abfe3c6f98371c0fa3700b4623f2c2dd62b20dabc92cd749e97c1f278"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-06-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-06-A-command.json",
+      "bytes": 1125,
+      "sha256": "8b882e7b9ce1a70129cff0788aae5b44d82bed2688668dde9bb28ad83cafcf91"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-06-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-06-A.json",
+      "bytes": 17149,
+      "sha256": "4bad83cc083fcb565a83a47972c9e62a8fd216f291d60f46a5b7ffc276944c8f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-06-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-06-B-command.json",
+      "bytes": 1130,
+      "sha256": "8c8ccf5f76e0ace11c687ab16d276419ac5d7ac59c22f13fef80673a9ac12023"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-06-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-06-B.json",
+      "bytes": 17443,
+      "sha256": "54fb325b2f263c6394f7093699fccb6bfd50d25e66b7dd1db4e9bda1353e1732"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-07-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-07-A-command.json",
+      "bytes": 1125,
+      "sha256": "6033c8c8c6f485c52e5fb1e7f36d1d5c8308a769eba38f040c001239633990f6"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-07-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-07-A.json",
+      "bytes": 17149,
+      "sha256": "92cfb47e13a053182a436ba3ed4631c94849ac3566692619d35e062112b4c3ff"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-07-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-07-B-command.json",
+      "bytes": 1130,
+      "sha256": "7b8923403e93c66259fed18edb45edba4965a662121fb3faf3d6fd828b8ba1d1"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-07-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-07-B.json",
+      "bytes": 17443,
+      "sha256": "1c9092aa32986a81d4d245c1a621cafb627f92ef15f98e4d18fdf25dced87576"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-08-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-08-A-command.json",
+      "bytes": 1125,
+      "sha256": "1d4eede805fdfa9ce1334cff3427ae0cfe2372cc49fa15e86f33f73d1bcc93b6"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-08-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-08-A.json",
+      "bytes": 17149,
+      "sha256": "3c65ba5d2dc371417fb96711f138e97d531d9ae1799c96c9da02b157b2f7ee11"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-08-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-08-B-command.json",
+      "bytes": 1130,
+      "sha256": "f4889e92f9c65f5f28e545e081f77fe3aaaf4bc01aa0c2da1afed3a0bead7de2"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-08-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-08-B.json",
+      "bytes": 17443,
+      "sha256": "f142a937ac6909d61c56ea325fe2a45f2635378f47537df91bd58c35dc78fc22"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-09-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-09-A-command.json",
+      "bytes": 1125,
+      "sha256": "17d0d59c0bd6f440d83da1b8a52e8445ede86169782c206dd27ceb7c9ecfa99d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-09-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-09-A.json",
+      "bytes": 17149,
+      "sha256": "0445f5494d5ea86a9d26b9e71afffb04b4dadfb250bb81201180020adff49190"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-09-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-09-B-command.json",
+      "bytes": 1130,
+      "sha256": "ff4daf784041a0d12fbef1a1f97156bcd710ca47dc92021a44b982551d506edf"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-09-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-09-B.json",
+      "bytes": 17443,
+      "sha256": "03c0d3a5b4540c39e1eb2e59829f60b1e674c0ff1a967c65c138de987e5b6b29"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-10-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-10-A-command.json",
+      "bytes": 1126,
+      "sha256": "b720d1382332cfb0c5c6657096e51addba4719af1b3035de17eaa8ba23b7f181"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-10-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-10-A.json",
+      "bytes": 17149,
+      "sha256": "49f22b3681553a92445ae0850676cbac09ce47c949f24e11de300510a217a4ec"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-10-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-10-B-command.json",
+      "bytes": 1131,
+      "sha256": "ac0bd79addca0b4da23bb6563981becb8acae2d88a296ccb8e07d3dd2f2e8efe"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-10-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-10-B.json",
+      "bytes": 17443,
+      "sha256": "d3334e6bbd56fffdaea3dd78451ec72b4e7b7103ece15ec6090b6257611acc58"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-11-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-11-A-command.json",
+      "bytes": 1126,
+      "sha256": "a9a36e521739b9a960fbdb63d76115c5d06fc15a939eb532e0e3f2e6047b9e0e"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-11-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-11-A.json",
+      "bytes": 17149,
+      "sha256": "83ab8059f761f5436c9f59e318d4bc871afa68498020a3998a9425fadf5a6aa3"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-11-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-11-B-command.json",
+      "bytes": 1131,
+      "sha256": "dae5837356fb6aa0100ae4dd14ca4dc951dd07a349bbbc6a9add88483bc6adcb"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-score-11-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-score-11-B.json",
+      "bytes": 17442,
+      "sha256": "d6f781fcb963afe61cb1cbdf0ee0fd8f63de0f10ea5a1bea126b2f7d409865a6"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-00-A-command.json",
+      "bytes": 1129,
+      "sha256": "ebaa626b4d5704970b37cf41af9d74eca2536d20cabc2abc6bd677c24396b213"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-00-A.json",
+      "bytes": 17149,
+      "sha256": "d9b58171905a00e177c1cb37d97ac0ed8bea190d830532dcf28f4cce24c1423a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-01-B-command.json",
+      "bytes": 1134,
+      "sha256": "59fd8f98ed7e94b0b10fb27c82f3681553b5e7198ca7fe2113c1d40143a0c34d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-01-B.json",
+      "bytes": 17442,
+      "sha256": "2ba53040c003454f4c729f062cdcc59a50a76267ded809301a63ee526a930865"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-02-B-command.json",
+      "bytes": 1134,
+      "sha256": "343ae79ac6265d6c00d584c1dc9ce78dd7061679b1c6b9a484a88f7844dd8cc8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-02-B.json",
+      "bytes": 17442,
+      "sha256": "b4775cb0673cfdb0650822c1759b4e920ca204637256850b312b6b00280b92ce"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-03-A-command.json",
+      "bytes": 1129,
+      "sha256": "53171e824a14a49c4315a89c89e80a413cf96f22612f258cf8f5c7dd8b06d96f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-03-A.json",
+      "bytes": 17149,
+      "sha256": "189670f2eac15c51faec15792c7f4aeb604178b47f84ff6204b61e9fd60991a3"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-04-A-command.json",
+      "bytes": 1129,
+      "sha256": "0e6c3b543c25f4296c21775b039e14f5c478356fd4424807fdfa64f136c7424a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-04-A.json",
+      "bytes": 17149,
+      "sha256": "babe54e2e72e393e178fb3dc77ab78d29ad9765b1509e49da3371e7b8bd5d293"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-05-B-command.json",
+      "bytes": 1134,
+      "sha256": "03d7db8ebeb40c1a92fa3b63e8dfc6e7b48536af3d7da55c388befc8b8f65af7"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-05-B.json",
+      "bytes": 17442,
+      "sha256": "8db1f048b73bc7f700cdcad16d6ec00665809e7a70f93347ade03b02658b698b"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-06-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-06-B-command.json",
+      "bytes": 1134,
+      "sha256": "c3a5f8ed9e3198068354267ed2e0d727ef4163ae4fb45bd0ae9bf294bccf9af9"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-06-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-06-B.json",
+      "bytes": 17442,
+      "sha256": "7675c177926bfddfc97fc772d7aba9d8cafac8e10abb799fc821403318c16f56"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-07-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-07-A-command.json",
+      "bytes": 1129,
+      "sha256": "081132c134930e196b8cc01031c5bae56ba7ef68eadb49e7ce8fd0c3a9d308d8"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_40ms-warmup-07-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_40ms-warmup-07-A.json",
+      "bytes": 17149,
+      "sha256": "8c38148ab8f1205842da3f3714598f2346223c2c616b4b67d4c0174db9014d60"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-00-A-command.json",
+      "bytes": 1125,
+      "sha256": "61bb26a5b4f4c26d1315c9974dc41533618d772abb91724728ced62c12be7bbf"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-00-A.json",
+      "bytes": 17150,
+      "sha256": "ff3210a3cd434e9f1f81b1a232370a907932796c5f21914c73ff81c5ae9be05f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-00-B-command.json",
+      "bytes": 1130,
+      "sha256": "6675a7a9ed27ec4da73cd43c13e2378f5b90fead60ac19296c91bef8426d37d9"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-00-B.json",
+      "bytes": 17443,
+      "sha256": "ec445fbf625975fe5167c8fac7457bd285cc835a0babd334437c4c0b8f215e0d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-01-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-01-A-command.json",
+      "bytes": 1125,
+      "sha256": "d72b291ee7308891bd736b7930b834184e9e74f142c423b4c2969560ee4d3359"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-01-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-01-A.json",
+      "bytes": 17150,
+      "sha256": "b23e399086a34ec373541597bddc278421128c94a3d48760f258c0cc7dbaf1d1"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-01-B-command.json",
+      "bytes": 1130,
+      "sha256": "9b468f56400f5992a5e2399eea46afd6f6d609939d649bcf3578fdad29dc1b81"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-01-B.json",
+      "bytes": 17443,
+      "sha256": "02a3df1cf758a791b7a65346b205d8c7bea6353b3e0f075d38aa50426ff5a24f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-02-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-02-A-command.json",
+      "bytes": 1125,
+      "sha256": "ae7a1190fd4b383dd8a757606b212803a7cce92c2f08df914d1a9fb6e85a4611"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-02-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-02-A.json",
+      "bytes": 17150,
+      "sha256": "0b043df7d46c772166eca85a1175bca7df31cdeb8401c7f41d6f4fa3aa268d94"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-02-B-command.json",
+      "bytes": 1130,
+      "sha256": "664a531f9642bbce50e6da4f52b13ad6da3d361226f32e7871af0d8f002be0a0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-02-B.json",
+      "bytes": 17443,
+      "sha256": "321622ba039e5a0e16786969da16e3c071d759b01e81732d29889c6d7cabc167"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-03-A-command.json",
+      "bytes": 1125,
+      "sha256": "043fe7503759695f33a628d886c744622be08d385bf70a83032d06f7e550a8c7"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-03-A.json",
+      "bytes": 17150,
+      "sha256": "c8ee11f80ddf9fdcde5f537318a90d38c5f79d5a91e7740f9571172709e8425f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-03-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-03-B-command.json",
+      "bytes": 1130,
+      "sha256": "80d6dc02cc5f2b346d07084a4195c2cb5c19c380a566688cdc68925b8653bd80"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-03-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-03-B.json",
+      "bytes": 17442,
+      "sha256": "c31f91a5520b1b17834ae26d1d03a0ff49ff6eb2b4f6350d7f5aeba185490b5d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-04-A-command.json",
+      "bytes": 1125,
+      "sha256": "c628909c3373b67d57ae6b4731e129189e16a86aff59cbd3a855073bdafe2a17"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-04-A.json",
+      "bytes": 17150,
+      "sha256": "ececbf8337b6c43707e9bc9b91b7ff82076cb180796de440aadc86a5426daf7a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-04-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-04-B-command.json",
+      "bytes": 1130,
+      "sha256": "2817c12f370adb4e8596d04ae171b5a12da86917fdefa7fcd0367ceefcda3fad"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-04-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-04-B.json",
+      "bytes": 17443,
+      "sha256": "bba0311cc4ae6d8d48fd8f7a7ef02525bbbb176cae3a669ae29aee275f92b2b9"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-05-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-05-A-command.json",
+      "bytes": 1125,
+      "sha256": "f25c13a3b1bbbd9afe330825c02b5090999a0d33123dc9a6ce28a6ff374d8ccb"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-05-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-05-A.json",
+      "bytes": 17151,
+      "sha256": "50b4fc43734fb5698d4b622a4b13db06fa42abe885f3e72e5d9fe133f95fcbc4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-05-B-command.json",
+      "bytes": 1130,
+      "sha256": "666a317addb00ed78df56444aed0615f035e95598a75581cdc3e252b5e906bbe"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-score-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-score-05-B.json",
+      "bytes": 17442,
+      "sha256": "9a76cbd85e7c5bd113ad063953129f3b8ea51f3d76d050dd8f684df1d4f5ce88"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-00-A-command.json",
+      "bytes": 1129,
+      "sha256": "e120f772e12e7792f2bdc68a4b6b36bb26eb1624a3859244fece0d3c2f52c451"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-00-A.json",
+      "bytes": 17151,
+      "sha256": "4663522ac13a06924112ef922704bc557ca421d1dd3ed0dac1920351cc79bd83"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-01-B-command.json",
+      "bytes": 1134,
+      "sha256": "93864f2388f8693ff05183883e78c95f0d95ab5cea64b66ec966243e1921c311"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-01-B.json",
+      "bytes": 17442,
+      "sha256": "90eb91ef5dbdf97aec7268a715abb20a5ea6e3436f858d7031b7254a45835482"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-02-B-command.json",
+      "bytes": 1134,
+      "sha256": "b1da2e7ee181baa42b7b4090875f3e902cab4f6530d45ccd7da2c64138555aef"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-02-B.json",
+      "bytes": 17443,
+      "sha256": "e81c5eb35212c83d5d01a0695b24d0093bfae53c44f7258211809c34112c20c4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-03-A-command.json",
+      "bytes": 1129,
+      "sha256": "f13566ca56fea1dbc947d86f0efeed32ab72f0610dcacc9e3036643f84ddbefb"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-03-A.json",
+      "bytes": 17150,
+      "sha256": "224d5388e8f04568d74cca634c4bafea9145904a8edcdb9355282cc73f88b235"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-04-A-command.json",
+      "bytes": 1129,
+      "sha256": "47e918649cd2c114d3299d751b59eb18beb4b0806b11a4710a73ecbe948d180b"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-04-A.json",
+      "bytes": 17150,
+      "sha256": "bacd944a46f7c47430d2f4ad4bcc6ccc25405ac64b0478fd19720301932d0348"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-05-B-command.json",
+      "bytes": 1134,
+      "sha256": "5b2028add7ba99c3aa0feddd7576301a7c8f062707117dad706bc3d43a595c7f"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-05-B.json",
+      "bytes": 17443,
+      "sha256": "841762d7c1c6e0417538079b440d6cc006125ff8042528c13f6738969579b182"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-06-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-06-B-command.json",
+      "bytes": 1134,
+      "sha256": "d7e44b1dd705d23f4ff1752226bb2d2f1e25db3f0dc1e4467753aa237e9fe914"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-06-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-06-B.json",
+      "bytes": 17443,
+      "sha256": "e9513bfc5e286b1690325ea0ef1993a291d7bc96f9c658f38c4fb06c629696ae"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-07-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-07-A-command.json",
+      "bytes": 1129,
+      "sha256": "f6707fcf50dba63228673c1490c31c1f96de27c5e2171905926d70722552c496"
+    },
+    {
+      "archive_path": "benchmark/server-score01/step_end_80ms-warmup-07-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/step_end_80ms-warmup-07-A.json",
+      "bytes": 17149,
+      "sha256": "5377df9154de1abc25515edb07e43df8f6f1eb5ad70f28e10a0ab59ccb8e1163"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-00-A-command.json",
+      "bytes": 1101,
+      "sha256": "31ff4d1e90993fb89763c2cd46c66032ad8fa7714a739e43b4f70defbe3bd58c"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-00-A.json",
+      "bytes": 17116,
+      "sha256": "1230f2d1a7286a101fa9488f0460fd8996e981e09140daac5fb358d3fa742f0a"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-00-B-command.json",
+      "bytes": 1106,
+      "sha256": "c86a468793b724c0a9ec79ada422fc9eea8398330d4a10b44549113c92ceba4d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-00-B.json",
+      "bytes": 17257,
+      "sha256": "cecd95e2de334fe622de653b51b7a6074755def86c250f980949838c7e887470"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-01-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-01-A-command.json",
+      "bytes": 1101,
+      "sha256": "107d5519fa71b46f48a75bf7e83fc03ac6c9cc771dc5304b532ac14cc5fef397"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-01-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-01-A.json",
+      "bytes": 17127,
+      "sha256": "a03b0afaf9bae5b4250d85ede3c381dddd7f3fbbad64247e87ae76a7a6fe817e"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-01-B-command.json",
+      "bytes": 1106,
+      "sha256": "74a42690a441fcb1594485b4636b3397d064c977633244e8f332246220fd2bc4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-01-B.json",
+      "bytes": 17257,
+      "sha256": "186435d916ada1d6517d517f6c5a5c216dc2fb39ebcc6a6d94c25a763881aeb2"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-02-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-02-A-command.json",
+      "bytes": 1101,
+      "sha256": "30112f233f11720005596aaf931a9b1f1943de0b51a06e9e6aad6a62377a4e35"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-02-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-02-A.json",
+      "bytes": 17116,
+      "sha256": "90b179f27abd9c3a296e85b737a32bfab47c6822f10091a2fad3f5a98b61f8e7"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-02-B-command.json",
+      "bytes": 1106,
+      "sha256": "de588a931f4ee78cc4c2c06b9a786e8079e66b116c0532be7e55db33a4685bbe"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-02-B.json",
+      "bytes": 17257,
+      "sha256": "37d128448623485e87b0c3fcdd2320b3756a38d0dbfede825299fa5290680436"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-03-A-command.json",
+      "bytes": 1101,
+      "sha256": "ef6baf3836cd790e61cd09bdceeec7c78f8b5dc1c14c73c113d6878ac7816571"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-03-A.json",
+      "bytes": 17116,
+      "sha256": "aed2ffacf15b628ff4d10fbd4efa23ffff110029eedf614463560e6d18dceb4b"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-03-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-03-B-command.json",
+      "bytes": 1106,
+      "sha256": "3796f39bd437e638852a29216a5725731e157a61a13f659e2af916c216409874"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-03-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-03-B.json",
+      "bytes": 17257,
+      "sha256": "05213e77597be74cc49f701cb60a67d463ed1aa186d0ce9479582b45848cb723"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-04-A-command.json",
+      "bytes": 1101,
+      "sha256": "76803e2eb5f48b26cd12bbbd1997cab73338ec8afd3974b8408e3513f3891a30"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-04-A.json",
+      "bytes": 17116,
+      "sha256": "6c04661f4b95dbb11b4abf6a328b8a5ea4b827b2a66840ac57c705bb702ed605"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-04-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-04-B-command.json",
+      "bytes": 1106,
+      "sha256": "59178df036aece8aaae9005a9212a7b6625aec890f5a1b22eb1446f0643d9eb4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-04-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-04-B.json",
+      "bytes": 17257,
+      "sha256": "fcab63f024b966fded4c2e8ffa30c9ddde24f878eacf8ab582072940ae65e5d9"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-05-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-05-A-command.json",
+      "bytes": 1101,
+      "sha256": "f20b6afeaeefe765a387d3705f77489afc5fb6f822249a6ac1a53ffa64c5a7ee"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-05-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-05-A.json",
+      "bytes": 17116,
+      "sha256": "2129676bb4e17ad4fbc44a38b3e5bd9a5be560b99a46c14f6d5231db54cdc8c3"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-05-B-command.json",
+      "bytes": 1106,
+      "sha256": "b429c245e75493d68c70fd704151e231d1c3eb3dc4e977826e20b846bf7c7821"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-score-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-score-05-B.json",
+      "bytes": 17257,
+      "sha256": "e8d4ff5846c2edb5eefcd34c1178f7b9560b155ffcb64d2b1ecf274d85779ec2"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-00-A-command.json",
+      "bytes": 1105,
+      "sha256": "6e96f4b4583d7c1ca1733894772a9433cf7543c385c966790dc2b4856dda1df1"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-00-A.json",
+      "bytes": 17116,
+      "sha256": "9671e43f8d4f24228957108d6ac92f783311d199ce273f447b5e3b279931b274"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-01-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-01-B-command.json",
+      "bytes": 1110,
+      "sha256": "6c1ff0d8016fed9466774d8b732fde27b9dabe9c50d57785bf39436e41578c1e"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-01-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-01-B.json",
+      "bytes": 17257,
+      "sha256": "d437fc8571ad02a3b26aacd56c0b09cf8503a624e3bd7166114b7e89fba56617"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-02-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-02-B-command.json",
+      "bytes": 1110,
+      "sha256": "47525535fea97731e11c2543d0c7ed8a7ffc7d79b01681fcbcb2d01ced3a1b0e"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-02-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-02-B.json",
+      "bytes": 17257,
+      "sha256": "ea2c033ec04d32805c51acce2a315f7f812fa204557f6694ac4b014b618fcdd4"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-03-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-03-A-command.json",
+      "bytes": 1105,
+      "sha256": "ca2a2f228960dce6eb369791691cd28624c94cc5382db21033d8ae6c24044200"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-03-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-03-A.json",
+      "bytes": 17116,
+      "sha256": "10bdd63c889ef366d58c6466d0b5da6c0166179ed12145bb376df50af4e90792"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-04-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-04-A-command.json",
+      "bytes": 1105,
+      "sha256": "7bca17bde4263bb79d165d8412d9632a873762a8129ca2afdbcb6177896801b0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-04-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-04-A.json",
+      "bytes": 17116,
+      "sha256": "69d46c22549cad7f6d6a3eb0f1a8964882cf9a107393fbe0f1aaa88019bf12ce"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-05-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-05-B-command.json",
+      "bytes": 1110,
+      "sha256": "bc8f6320e5ecaa0a76747907fe0074b889366a957ac77bff31f53aabc9b89202"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-05-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-05-B.json",
+      "bytes": 17257,
+      "sha256": "8fd6beab6f3a9198b4f04d002985c6e7f9d5c7b03ec1860c49b83d505ef8f9c5"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-06-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-06-B-command.json",
+      "bytes": 1110,
+      "sha256": "a8c66ba97e1a0e6663647d56704788fc34c33ad89d92ba39c521d411e6b6eca0"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-06-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-06-B.json",
+      "bytes": 17257,
+      "sha256": "898da1eed30d8e3a30ab538f1e759229ddfc3f35c132c592398402b05dd4a78d"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-07-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-07-A-command.json",
+      "bytes": 1105,
+      "sha256": "94dc4e6869583189d0c6839fb2ea6e961b7e36b817afd3c6cd32c914c4c027dd"
+    },
+    {
+      "archive_path": "benchmark/server-score01/stop_20ms-warmup-07-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-score01/stop_20ms-warmup-07-A.json",
+      "bytes": 17116,
+      "sha256": "83fc283355de7347cd3e1ae32aba17437f88e2ad0f32b4dacdfbcb5e24cbf931"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/PLAN.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/PLAN.json",
+      "bytes": 6458,
+      "sha256": "6a9daaf4bdb1b0075b4cef6ead67e3ecbee614bf382610439f65d5e905c1357c"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/PROTOCOL.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/PROTOCOL.json",
+      "bytes": 3541,
+      "sha256": "6c00cf687f4903988a363e18a178ccca413076ced81920271bf9c962abde1218"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/SUITE.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/SUITE.json",
+      "bytes": 15083,
+      "sha256": "e53c6c18295cd587990256213b1e56ae50a9f576b9fe3c7d1656959308d4c127"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/mandatory_20ms-smoke-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/mandatory_20ms-smoke-00-A-command.json",
+      "bytes": 1131,
+      "sha256": "f69f5ddb37a6c209437e775c00546f74a7df91b9a76b0cb64bb0c8c058956f9b"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/mandatory_20ms-smoke-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/mandatory_20ms-smoke-00-A.json",
+      "bytes": 17513,
+      "sha256": "7b90d5e7123c90240fbc75b73bd67e219c96f5caab8193b1052f571aa329d4d5"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/mandatory_20ms-smoke-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/mandatory_20ms-smoke-00-B-command.json",
+      "bytes": 1136,
+      "sha256": "2a38ae37eaf5354749a1b1a457dc8366c517c8b245d8ace4295249856addead9"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/mandatory_20ms-smoke-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/mandatory_20ms-smoke-00-B.json",
+      "bytes": 17654,
+      "sha256": "efd462788092ad72f20d1763053f7e39b7d67b59707db40da4263c72b67cac7e"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/original_deadline_100ms-smoke-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/original_deadline_100ms-smoke-00-A-command.json",
+      "bytes": 1185,
+      "sha256": "993eba39cf83851bc61607f7e2b2317462cb0c4e340615c86484e93935d613db"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/original_deadline_100ms-smoke-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/original_deadline_100ms-smoke-00-A.json",
+      "bytes": 17136,
+      "sha256": "325ff5eb4571b6519283bf710b30bc2cc9b988202a1028902ee7b841a9f084d1"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/original_deadline_100ms-smoke-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/original_deadline_100ms-smoke-00-B-command.json",
+      "bytes": 1190,
+      "sha256": "cad92b58553fa998912fa5b28d259711a84cb0d1b6e45cf483a33ec1a4e2df53"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/original_deadline_100ms-smoke-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/original_deadline_100ms-smoke-00-B.json",
+      "bytes": 17255,
+      "sha256": "420e3f7cab5775f5d2492da2e40c2a841642259a7323e4b0e7ef7c9507d4e422"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_20ms-smoke-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_20ms-smoke-00-A-command.json",
+      "bytes": 1125,
+      "sha256": "03564177e29ca63cfcd72da09b2eacd81e53db63816e91f70593ede71d77bcc8"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_20ms-smoke-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_20ms-smoke-00-A.json",
+      "bytes": 17127,
+      "sha256": "fa31b6fb178f682b6e16464062775b117785ae454f334f8f5f506dda9840da74"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_20ms-smoke-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_20ms-smoke-00-B-command.json",
+      "bytes": 1130,
+      "sha256": "e48fea61f44875a67140d215be97636bd624da4da46f8a705c9f3d5daf18b5bc"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_20ms-smoke-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_20ms-smoke-00-B.json",
+      "bytes": 17441,
+      "sha256": "90b2818b6af15e5b2a10f993d6096505142479fe559c215de3c6cc349260c3c7"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_40ms-smoke-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_40ms-smoke-00-A-command.json",
+      "bytes": 1125,
+      "sha256": "f6371375f1a67a8a805e694547e6ff1841511a4923447e0b635cf6c54970dda5"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_40ms-smoke-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_40ms-smoke-00-A.json",
+      "bytes": 17147,
+      "sha256": "1b90d25285f91e18f9d8453a76ce32b4e0d72e556b46c309306ea67f67497d67"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_40ms-smoke-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_40ms-smoke-00-B-command.json",
+      "bytes": 1130,
+      "sha256": "1bd7cefe65815fbaeac8d5e2a458ef44b1814cd582e2642c7b8ee93a65c7ca8c"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_40ms-smoke-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_40ms-smoke-00-B.json",
+      "bytes": 17440,
+      "sha256": "50501c9f52f0ad3ba9e1647293833526e263b40f139b40c00646f3043b0b1625"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_80ms-smoke-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_80ms-smoke-00-A-command.json",
+      "bytes": 1125,
+      "sha256": "9b1e6237774ef36c7cf40fc660625816cdb5c2d2d8d010ca6d9f77e2f37ffc83"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_80ms-smoke-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_80ms-smoke-00-A.json",
+      "bytes": 17148,
+      "sha256": "7e05dcf0a2810d079a5eb3a402144035a05927d1e4f489a5aaf0beae627892cc"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_80ms-smoke-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_80ms-smoke-00-B-command.json",
+      "bytes": 1130,
+      "sha256": "923d34ab5f68c16040462f7ca2bc98f5bd71c78e64c29309b47167c2586f04f2"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/step_end_80ms-smoke-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/step_end_80ms-smoke-00-B.json",
+      "bytes": 17440,
+      "sha256": "be523f147765a510a1bcd382c7a409d91e3478dabc59168047d0e830eafaa7d7"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/stop_20ms-smoke-00-A-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/stop_20ms-smoke-00-A-command.json",
+      "bytes": 1101,
+      "sha256": "57891bd3ba4391342ba617dce6e148ee821153dde2971d5b8e6c71839b876407"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/stop_20ms-smoke-00-A.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/stop_20ms-smoke-00-A.json",
+      "bytes": 17114,
+      "sha256": "2743447ed49aecc1997f331eb15b91daaf4a0b66ab90a292e9e936fcdab4982f"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/stop_20ms-smoke-00-B-command.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/stop_20ms-smoke-00-B-command.json",
+      "bytes": 1106,
+      "sha256": "80b8ab0433a0d8d9a3dba6958ad709341b6c72a013c938cfdb81ffe60525a5d0"
+    },
+    {
+      "archive_path": "benchmark/server-smoke01/stop_20ms-smoke-00-B.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/server-smoke01/stop_20ms-smoke-00-B.json",
+      "bytes": 17255,
+      "sha256": "9ffd2c1833298d895f45d4444310db811d513d03ceaa2571968bfaf2f05b1f2f"
+    },
+    {
+      "archive_path": "benchmark/test_analyzer.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-benchmark-v5-cpu-20261003/test_analyzer.py",
+      "bytes": 11242,
+      "sha256": "634b496e6d9dc6e1aebaff6aa5e41eb23694aad7a2669a3150aa4902bd3eb457"
+    },
+    {
+      "archive_path": "delivery/C4_TO_C5_CPU_CANDIDATE.patch",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/C4_TO_C5_CPU_CANDIDATE.patch",
+      "bytes": 21139,
+      "sha256": "07d3918105d42ece431632c9a7465912081b127cb67978764cf3b0227100b3b7"
+    },
+    {
+      "archive_path": "delivery/CPU_DECISION.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/CPU_DECISION.json",
+      "bytes": 6363,
+      "sha256": "b91a34acefbfcdc6af157b62e5b8b893940c61a398d9cd6decdab45f86cd3334"
+    },
+    {
+      "archive_path": "delivery/CPU_RESULT.md",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/CPU_RESULT.md",
+      "bytes": 7133,
+      "sha256": "80ddb743fdefd597a49a9eb36f71529895ff4d63d79679156d5531fd5bd414ee"
+    },
+    {
+      "archive_path": "delivery/FINAL_CPU_AUDIT_COMMAND.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/FINAL_CPU_AUDIT_COMMAND.json",
+      "bytes": 1177,
+      "sha256": "b99d1245c541826ba5c213839aba610d6498302adaf7e1b22874913f6780fb35"
+    },
+    {
+      "archive_path": "delivery/FINAL_CPU_AUDIT_RESULT.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/FINAL_CPU_AUDIT_RESULT.json",
+      "bytes": 1495,
+      "sha256": "8b51f47db2f193149f6dd9ccf6be405796022fb6e9a845381068b683216a522c"
+    },
+    {
+      "archive_path": "delivery/FINAL_CPU_AUDIT_STDERR.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/FINAL_CPU_AUDIT_STDERR.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_path": "delivery/FINAL_CPU_AUDIT_STDOUT.log",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/FINAL_CPU_AUDIT_STDOUT.log",
+      "bytes": 24333,
+      "sha256": "3f968f4b4e645d23c2b88bfa8672b88c5f7669541e320d69dbabc5bbe898c49b"
+    },
+    {
+      "archive_path": "delivery/SESSION_AFTER_CPU.json",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/SESSION_AFTER_CPU.json",
+      "bytes": 27437,
+      "sha256": "f061934ae01b11b588826cac743ade8b0b536c7938d5e17e18b1f78e4a934f29"
+    },
+    {
+      "archive_path": "delivery/audit_and_pack_cpu_delivery.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/audit_and_pack_cpu_delivery.py",
+      "bytes": 7580,
+      "sha256": "d76f024d03af58c75b2b2b32870ae9b8585bc59c1b012f468ff44d4e7d7cf85d"
+    },
+    {
+      "archive_path": "delivery/audit_and_pack_cpu_delivery_v2.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/audit_and_pack_cpu_delivery_v2.py",
+      "bytes": 10528,
+      "sha256": "fdcf20721bfca366162a6d46ae5cf62d9138c70fd7eeae16790caae419f42f56"
+    },
+    {
+      "archive_path": "delivery/verify_cpu_delivery.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/verify_cpu_delivery.py",
+      "bytes": 4142,
+      "sha256": "f7061ed5b1b5256f24af28a7ba79a1cb1c9e55fc5e3b8c05b73c369ea9d6aa19"
+    },
+    {
+      "archive_path": "delivery/verify_cpu_delivery_v2.py",
+      "path": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server11-p4-notification-delivery-v5-cpu-20261003/verify_cpu_delivery_v2.py",
+      "bytes": 7452,
+      "sha256": "bf93c23bf0ade0f93f89b1fc7b23fd9faefa703e842dc27716acf14149d7526d"
+    }
+  ],
+  "raw_bytes": 4179417,
+  "file_count": 448
+}

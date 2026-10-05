@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "mode": "pressure",
+  "candidate_parents": 32,
+  "scope": "P3_MANDATORY_STORE_ORDER_SIMPLE_BASELINE",
+  "qualification": "/root/autodl-tmp/prefix-io-v1-handoff/project/artifacts/prefix_io_v1/server07-p3-12/primitive-result.json",
+  "qualification_sha256": "7919d9b5066e311d2483da115ab4e20d018351e57ce3c53fd0a120614f4fb6b5",
+  "frozen_sources": {
+    "src/prefix_io_control/store_order.py": "3b06e96e6b5e21fc6c6ca4bbc89be235888948191f12ae69de7ae95f8bc8d8f0",
+    "src/prefix_io_control/order_options.py": "8d631e19b40b87604747f3aee2db9031e696f74c3a98147e4e966062220e4aea",
+    "third_party/work/py-kvcache-p3-order-cpu/py_kvcache/reactor.py": "b513edac29a8690cdce5cade503b4fc2c51d9a7b59ca12003bb0c0e342d57be0",
+    "third_party/work/py-kvcache-p3-order-cpu/py_kvcache/vllm.py": "36aa0c3b54664976095ff5949c311fcb8ff85d280038f8aabf8d7e152ead7054"
+  }
+}

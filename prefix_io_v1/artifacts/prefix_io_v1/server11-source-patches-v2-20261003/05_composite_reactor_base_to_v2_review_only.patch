@@ -1,0 +1,97 @@
+--- a/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
++++ b/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
+@@ -2105,7 +2105,7 @@
+             return None
+ 
+     def _prefix_stage_decide(self, stage, nbytes, work_id, job=None, *,
+-                             continuation=False, support=False, reserved_bytes=0):
++                             continuation=False, support=False, reserved_bytes=0, ready=None):
+         controller = getattr(self, "_prefix_dispatch_controller", None)
+         p4 = getattr(self, "_prefix_p4_bridge", None)
+         if controller is None and p4 is None:
+@@ -2146,8 +2146,22 @@
+                 try:
+                     from dataclasses import replace
+                     from prefix_io_control.p4_types import WorkDescriptor
++                    single_preload = None
++                    if (p4.policy.single_file is not None and type(ready) is _ReadyFd and
++                            ready.job is None and ready.file_index == -1 and
++                            type(ready.sequence) is int and ready.sequence > 0 and
++                            type(ready.open_start_ns) is int and 0 < ready.open_start_ns <= now and
++                            type(ready.preload_hash) is bytes and len(ready.preload_hash) == 32 and
++                            type(ready.preload_info) is _PreloadInfo and
++                            ready.preload_info.block_hash == ready.preload_hash and
++                            ready.preload_info.total_files == 1 and ready.preload_info.file_index == 0 and
++                            bool(ready.preload_info.preload_id) and bool(ready.preload_info.req_id)):
++                        # Original immutable open time and owner sequence, never
++                        # a policy-created/restarted age or a synthetic parent.
++                        single_preload = ("preload:" + str(ready.sequence) + ":" +
++                                          ready.preload_hash.hex(), ready.open_start_ns)
+                     view = self._prefix_p4_collect()
+-                    if view is not None and (job is not None or progress is not None):
++                    if view is not None and (job is not None or progress is not None or single_preload is not None):
+                         # Unbound ordinary preload has no native arrival proof:
+                         # keep its original path, rather than reset a policy age.
+                         preview_now = time.monotonic_ns()
+@@ -2155,16 +2169,22 @@
+                         child = work_id[-1] if type(work_id) is tuple else work_id
+                         if type(child) not in (int,str) or type(child) is int and child < 0:
+                             child = str(work_id)[:128]
++                        if single_preload is not None:
++                            child = single_preload[0]
+                         actual = WorkDescriptor(p4.run_id,snapshot.snapshot_epoch,
+                             job.accepted_parent_sequence if job is not None else 0,
+                             child,stage,nbytes,0,
+-                            job.profile.start_ns if job is not None else preview_now,
++                            job.profile.start_ns if job is not None else
++                                single_preload[1] if single_preload is not None else preview_now,
+                             False,True,reserved_bytes,
+                             progress=progress,minimum_unit_bytes=(
+                                 self.file_store.io_size if stage in ("ssd_read","ssd_write") else
+                                 sum(self.layout.bytes_per_kernel_block)))
+                         preview = p4.preview_issue(actual,snapshot,now_ns=preview_now)
+                         if preview.action == "defer" and progress is None:
++                            if (p4.policy.single_file is not None and
++                                    not p4.record_single_file_deferral(actual.work_id, at_ns=time.monotonic_ns())):
++                                return None
+                             return _StageDispatch(_P4Deferred(),work_id)
+                 except Exception as p4_exc:
+                     p4.fail(type(p4_exc).__name__+": "+str(p4_exc))
+@@ -2231,7 +2251,7 @@
+                 support = True  # Conservative progress superset, never release credit.
+         return self._prefix_stage_decide(
+             "ssd_read", self.file_store.io_size, ("ssd_read", ready.sequence), ready.job,
+-            support=support, reserved_bytes=self.file_store.io_size
++            support=support, reserved_bytes=self.file_store.io_size, ready=ready
+         )
+ 
+     def _prefix_shadow_begin(self, stage, nbytes, job=None, *, continuation=False):
+@@ -2432,6 +2452,12 @@
+         if bridge is None:
+             return None
+         try:
++            # Empty native candidate windows need no owner publication. Bound
++            # this precheck; oversized windows retain the original rejection.
++            if len(self._ready_fds_load) <= 64 and not any(
++                    r.job is not None and r.job.failed is None
++                    for r in self._ready_fds_load):
++                return None
+             view = self._prefix_p4_collect()
+             if view is None:
+                 return None
+@@ -2639,6 +2665,15 @@
+         if bridge is None:
+             return entries  # off before clock, snapshot or candidate iteration
+         try:
++            # Retained staging may keep the original reactor pumping after all
++            # ready work drained. Do not rebuild an empty policy publication.
++            # The original collect still checks every nonempty/oversized view.
++            limit = 32 if kind == "stores" else 64
++            if len(entries) <= limit and not any(
++                    (x.is_store and x.failed is None and x.next_file_index < x.total_files)
++                    if kind == "stores" else (x.job is not None and x.job.failed is None)
++                    for x in entries):
++                return entries
+             view = self._prefix_p4_collect()
+             if view is None:
+                 return entries

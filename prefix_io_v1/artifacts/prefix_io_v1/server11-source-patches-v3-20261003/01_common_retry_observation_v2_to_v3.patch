@@ -1,0 +1,125 @@
+--- a/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
++++ b/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py
+@@ -2160,18 +2160,34 @@
+                         # a policy-created/restarted age or a synthetic parent.
+                         single_preload = ("preload:" + str(ready.sequence) + ":" +
+                                           ready.preload_hash.hex(), ready.open_start_ns)
+-                    view = self._prefix_p4_collect()
+-                    if view is not None and (job is not None or progress is not None or single_preload is not None):
++                    retry_probe = getattr(self, "_prefix_single_file_retry_key", None)
++                    retry_eligible = (single_preload is not None and controller is None and job is None and
++                        stage == "ssd_read" and nbytes == self.file_store.io_size and
++                        reserved_bytes == self.file_store.io_size)
++                    retry_key = (retry_probe(ready, p4, sample, now, progress)
++                        if callable(retry_probe) and retry_eligible else None)
++                    cached = getattr(self, "_prefix_single_file_retry", None)
++                    reuse = (retry_key is not None and type(cached) is tuple and
++                        len(cached) == 3 and cached[0] == retry_key and
++                        cached[1].fresh(run_id=p4.run_id, now_ns=now,
++                            expected_epoch=p4._epoch,
++                            max_age_ns=p4.policy.config.sample_max_age_ns) and
++                        0 <= now - cached[1].native_state.captured_ns <=
++                            p4.policy.config.sample_max_age_ns)
++                    if not reuse:
++                        self._prefix_single_file_retry = None
++                    view = None if reuse else self._prefix_p4_collect()
++                    if reuse or view is not None and (job is not None or progress is not None or single_preload is not None):
+                         # Unbound ordinary preload has no native arrival proof:
+                         # keep its original path, rather than reset a policy age.
+                         preview_now = time.monotonic_ns()
+-                        snapshot = replace(view.snapshot,native_state=sample)
++                        snapshot = cached[1] if reuse else replace(view.snapshot,native_state=sample)
+                         child = work_id[-1] if type(work_id) is tuple else work_id
+                         if type(child) not in (int,str) or type(child) is int and child < 0:
+                             child = str(work_id)[:128]
+                         if single_preload is not None:
+                             child = single_preload[0]
+-                        actual = WorkDescriptor(p4.run_id,snapshot.snapshot_epoch,
++                        actual = cached[2] if reuse else WorkDescriptor(p4.run_id,snapshot.snapshot_epoch,
+                             job.accepted_parent_sequence if job is not None else 0,
+                             child,stage,nbytes,0,
+                             job.profile.start_ns if job is not None else
+@@ -2180,12 +2196,29 @@
+                             progress=progress,minimum_unit_bytes=(
+                                 self.file_store.io_size if stage in ("ssd_read","ssd_write") else
+                                 sum(self.layout.bytes_per_kernel_block)))
++                        if reuse:
++                            p4.single_file_observation_reuses += 1
++                        observation_key = (retry_key if reuse else
++                            retry_probe(ready, p4, sample, preview_now, progress)
++                            if callable(retry_probe) and retry_eligible else None)
+                         preview = p4.preview_issue(actual,snapshot,now_ns=preview_now)
+                         if preview.action == "defer" and progress is None:
+                             if (p4.policy.single_file is not None and
+                                     not p4.record_single_file_deferral(actual.work_id, at_ns=time.monotonic_ns())):
++                                self._prefix_single_file_retry = None
+                                 return None
++                            after_key = (retry_probe(ready, p4, sample, time.monotonic_ns(), progress)
++                                if callable(retry_probe) and retry_eligible else None)
++                            if (after_key is not None and after_key == observation_key and
++                                    after_key[0] == p4._last_single_file_step and
++                                    snapshot.snapshot_epoch == p4._epoch):
++                                # Retain original observation times; this does not
++                                # refresh a snapshot or extend its qualification.
++                                self._prefix_single_file_retry = (after_key, snapshot, actual)
++                            else:
++                                self._prefix_single_file_retry = None
+                             return _StageDispatch(_P4Deferred(),work_id)
++                        self._prefix_single_file_retry = None
+                 except Exception as p4_exc:
+                     p4.fail(type(p4_exc).__name__+": "+str(p4_exc))
+             if controller is None:
+@@ -2201,6 +2234,53 @@
+             elif p4 is not None:
+                 p4.fail(type(exc).__name__ + ": " + str(exc))
+             return None  # Failed optional performance control uses original dispatch.
++
++    def _prefix_single_file_retry_key(self, ready, bridge, sample, now_ns, progress):
++        """Fresh narrow owner facts for reusing one immutable I-only observation."""
++        from prefix_io_control.dispatch_budget import ZERO
++        receipt = bridge.policy.single_file
++        accounting = self._prefix_stage_accounting
++        # This capability has no scheduler-publication invalidation protocol.
++        # A concurrently published load frame therefore excludes reuse.
++        with self._submit_lock:
++            if (getattr(self, "_prefix_p4_load_frame", None) is not None or
++                    getattr(self, "_prefix_p4_load_sequence", 0) != 0):
++                return None
++        if (receipt is None or bridge.single_file_shadow or bridge.fault is not None or
++                bridge.mode != "interference" or progress is not None or self._stop or
++                self._worker.ident != threading.get_ident() or
++                getattr(self, "_native_drain_unknown", False) or
++                getattr(self, "_native_fatal_reason", None) is not None or
++                accounting.valid is not True or getattr(accounting, "journal_valid", None) is not True or
++                sample.inflight != ZERO or sample.accepted_parents != 0 or
++                self._active or self._inflight or self._pending_copies or self._copy_ready or
++                self._ready_fds_load or self._preload_pending or self._open_inflight != 0 or
++                self._data_inflight != 0 or len(self._ready_fds_preload) != 1 or
++                self._ready_fds_preload[0] is not ready or
++                self._preload_waiters.get(ready.preload_hash) or self._has_preload_waiter(ready.preload_hash) or
++                not 0 <= now_ns - ready.open_start_ns < bridge.policy.config.max_wait_ns):
++            return None
++        sequence = getattr(accounting, "event_sequence", None)
++        state = bridge._single_file_state()
++        capacity = self._prefix_capacity_components()
++        if (type(sequence) is not int or sequence < 0 or type(state) is not tuple or
++                len(state) != 7 or any(type(x) is not int for x in state) or state[3:] != (1, 1, 0, 144) or
++                not 0 < state[1] <= state[2] <= now_ns or
++                now_ns - state[2] > bridge.policy.config.sample_max_age_ns or
++                type(capacity) is not tuple or len(capacity) != 12 or any(type(x) is not int for x in capacity) or
++                sample.free_staging_bytes != capacity[-1] * self.file_store.io_size + self.file_store.io_size or
++                receipt.cost_upper_ns <= receipt.step_budget_ns):
++            return None
++        info = ready.preload_info
++        if (type(ready.fd) is not int or ready.fd < 0 or
++                type(info.preload_id) is not str or type(info.req_id) is not str or
++                type(info.file_index) is not int or type(info.total_files) is not int):
++            return None
++        return (state, bridge._epoch, sequence, capacity,
++            (ready.sequence, ready.fd, ready.preload_hash, ready.open_start_ns,
++             info.preload_id, info.req_id, info.file_index, info.total_files),
++            (receipt.signature, receipt.cost_upper_ns, receipt.step_budget_ns,
++             bridge.policy.config.sample_max_age_ns, bridge.policy.config.max_wait_ns))
+ 
+     def _prefix_stage_settle(self, dispatch, outcome, exc=None):
+         if dispatch is None or dispatch.attempt is None:

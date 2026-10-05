@@ -1,0 +1,44 @@
+{
+  "schema": "append_only_local_development_gate_CPU_review_source_manifest_v1",
+  "scope": "new review/prototype directory only; no production integration",
+  "files": [
+    {
+      "path": "CPU_TESTS_02.json",
+      "bytes": 1727,
+      "sha256": "c94484fd8b6fc2d5bb3160bbda5ebe8c466b8b480b17fb2c0ffb23c983b036e7"
+    },
+    {
+      "path": "CPU_TESTS_02.stdout.txt",
+      "bytes": 3394,
+      "sha256": "5b5f1203362d52d296082651a6ab10bfcadd7673a6ddd9356f44090c6775ce95"
+    },
+    {
+      "path": "CPU_VERIFY_COMMAND.txt",
+      "bytes": 712,
+      "sha256": "6c20a8f5e1f6bf3baef4efacfe7f69f4c5d0f71f9e7c2bb0b98ecdffc17505a5"
+    },
+    {
+      "path": "development_diagnostic_contract.py",
+      "bytes": 7696,
+      "sha256": "ee57566915dd886f8ef8f6ca20f03ac3f03ae8d2cf1c298a65efb8b5362866d4"
+    },
+    {
+      "path": "DEVELOPMENT_GATE_REVIEW.json",
+      "bytes": 3175,
+      "sha256": "3af35b8b32cafef714e5cdc292a49bb16a169fe820d87b433b0e8b1e4aedd29f"
+    },
+    {
+      "path": "DEVELOPMENT_GATE_REVIEW.md",
+      "bytes": 10933,
+      "sha256": "18c5c237de233724ca2027c05097b820c6f07eb62ded4108b95607eace8939f5"
+    },
+    {
+      "path": "test_development_diagnostic_contract_cpu.py",
+      "bytes": 13240,
+      "sha256": "cd335e721d53fe327e7a6826a671a58e2e6ca3a71f2d7d6edfdcedabc68fd395"
+    }
+  ],
+  "actual_GPU_operations": 0,
+  "actual_network_operations": 0,
+  "backend_imports": 0
+}

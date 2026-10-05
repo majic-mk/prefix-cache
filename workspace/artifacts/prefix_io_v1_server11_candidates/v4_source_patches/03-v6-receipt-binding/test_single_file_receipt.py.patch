@@ -1,0 +1,62 @@
+--- a/test_single_file_receipt.py
++++ b/test_single_file_receipt.py
+@@ -71,17 +71,17 @@
+     def test_eight_file_cell_cannot_be_relabelled_single_file(self):
+         with tempfile.TemporaryDirectory() as directory:
+             root = Path(directory).resolve()
+-            plan = write(root, "plan.json", {"job_id": "server11-native-cost-six-window-05",
++            plan = write(root, "plan.json", {"job_id": "server11-native-cost-six-window-06",
+                 "units": 8, "operations": 8, "transfer_quantum_bytes": 917504})
+             measurements = write(root, "measurements.json", {"origin": "native_gpu_recording"})
+             guard = write(root, "guard.json", {"exit_code": 0})
+             write(root, "binding.json", {"schema_version": 1, "scope": "p4_single_file_native_binding_v1",
+                 "calibration": {"plan_ref": plan, "measurements_ref": measurements, "guard_ref": guard},
+                 "runtime_common_refs": [], "runtime_overlay_refs": [], "kernel_mode": R._KERNEL_MODE})
+-            with self.assertRaisesRegex(ValueError, "actual v5 single-file"):
++            with self.assertRaisesRegex(ValueError, "actual v6 single-file"):
+                 R.load_verified_single_file(root, "binding.json")
+ 
+-    def test_cost_verifier_source_must_match_frozen_v5(self):
++    def test_cost_verifier_source_must_match_frozen_v6(self):
+         with tempfile.TemporaryDirectory() as directory:
+             root = Path(directory).resolve()
+             path = root / R._VERIFIER.path
+@@ -89,6 +89,38 @@
+             path.write_text("# PASS result cannot substitute for the verifier\n", encoding="utf-8")
+             with self.assertRaisesRegex(ValueError, "size changed"):
+                 R._load_frozen_serializer(root)
++
++    def test_old_v5_job_cannot_supply_new_common_base_receipt(self):
++        with tempfile.TemporaryDirectory() as directory:
++            root = Path(directory).resolve()
++            plan = write(root, 'plan.json', dict(job_id='server11-native-cost-six-window-05',
++                units=1,operations=1,transfer_quantum_bytes=917504))
++            value = write(root, 'data.json', dict(native_execution_verified=True))
++            write(root, 'binding.json', dict(schema_version=1,scope='p4_single_file_native_binding_v1',
++                calibration=dict(plan_ref=plan,measurements_ref=value,guard_ref=value),
++                runtime_common_refs=[],runtime_overlay_refs=[],kernel_mode=R._KERNEL_MODE))
++            with self.assertRaisesRegex(ValueError, 'actual v6 single-file'):
++                R.load_verified_single_file(root, 'binding.json')
++
++    def test_actual_c4_reactor_must_be_common_and_other_overlay_bytes_match_calibration(self):
++        with tempfile.TemporaryDirectory() as directory:
++            root = Path(directory).resolve()
++            paths = ('model-plan.json','model-config.json','event.py',R._RUNNER,R._NATIVE)
++            common = [write(root,name,dict(fixture=name)) for name in paths]
++            overlay_path = R._COMMON_OVERLAY+'/third_party/work/prefix-io-p4-02-cpu/src/prefix_io_control/p4_bridge.py'
++            overlay = write(root,overlay_path,dict(cpu_fixture=True))
++            lock = write(root,'source-lock.json',dict(files=common+[overlay]))
++            plan = dict(source_lock_ref=lock,model_plan_ref=common[0],model_config_ref=common[1],
++                cuda_event_source_ref=common[2])
++            binding = dict(runtime_common_refs=common,runtime_overlay_refs=[overlay])
++            self.assertEqual(R._runtime_refs(root,binding,plan)[0][-1].path,R._NATIVE)
++            binding['runtime_common_refs'] = common[:-1]
++            with self.assertRaisesRegex(ValueError,'common pins'):
++                R._runtime_refs(root,binding,plan)
++            binding['runtime_common_refs'] = common
++            binding['runtime_overlay_refs'] = [write(root,overlay_path,dict(changed=True))]
++            with self.assertRaisesRegex(ValueError,'C4 runtime source differs'):
++                R._runtime_refs(root,binding,plan)
+ 
+     @staticmethod
+     def budget_fixture():

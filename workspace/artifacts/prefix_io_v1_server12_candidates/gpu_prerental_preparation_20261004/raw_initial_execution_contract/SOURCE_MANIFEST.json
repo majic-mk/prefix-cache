@@ -1,0 +1,45 @@
+{
+  "schema": "raw_initial_execution_contract_append_only_source_manifest_v1",
+  "files": [
+    {
+      "path": "runner/strong_native_cost_runner_v7.py",
+      "bytes": 41222,
+      "sha256": "d07c54e330b0004a20fc380ab47a7e742f05736ad61180f0a42b38b9c635de55"
+    },
+    {
+      "path": "raw_initial_execution_contract/append_v7_cpu.py",
+      "bytes": 4943,
+      "sha256": "88cddbf74cd504581ebbe3ddf05c13d4fc4ad03bb452b8e1cceb75ea4f1dafa1"
+    },
+    {
+      "path": "raw_initial_execution_contract/test_initial_execution_contract_cpu.py",
+      "bytes": 12825,
+      "sha256": "32b4d08d55cbff1d772fb4a3272caafd36524be4438d0897a0b7288d25486240"
+    },
+    {
+      "path": "raw_initial_execution_contract/probe_actual_cpu.py",
+      "bytes": 2548,
+      "sha256": "96b210a916fcad08819817e1456027548bc0e0df3b6af03e90def17499f960a4"
+    },
+    {
+      "path": "raw_initial_execution_contract/README.md",
+      "bytes": 2682,
+      "sha256": "e9fa31377e7bea9b7cf07baa6b56dcff696f2d66266d719d89415a94371a10b5"
+    }
+  ],
+  "previous_v6_sha256": "be0660712e503cdf496cab6fa7aa48ce206aca78d944803f4862e0f67a540ca7",
+  "modified_functions": [
+    "source_patch",
+    "configure_original"
+  ],
+  "initial_execution_pre_context": 496,
+  "initial_scheduled_tokens": 16,
+  "frontend_cached_prompt_tokens": 512,
+  "first_completed_window_fails_before_next_child": true,
+  "estimator_modified": false,
+  "heldout_modified": false,
+  "historical_cal04_used_to_fit": false,
+  "CPU_tests": 8,
+  "GPU_runs": 0,
+  "production_qualified": false
+}

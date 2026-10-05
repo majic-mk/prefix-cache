@@ -1,0 +1,258 @@
+{
+  "actual_GPU_operations": 0,
+  "files": [
+    {
+      "bytes": 16530,
+      "path": "ACTIVATION_OVERLAY_BUILD.json",
+      "sha256": "4b23e913bb244a3ef76661b5be2dc839c5dcb575f65adb9139242277f647bcdb"
+    },
+    {
+      "bytes": 16834,
+      "path": "ACTIVATION_OVERLAY_FINAL_CORE.json",
+      "sha256": "1e713b5bc2a3d86c9d9ea24cdfa41567d632c2acf99210dd5035b91a54a38062"
+    },
+    {
+      "bytes": 7950,
+      "path": "ACTIVATION_PREPARATION_REPORT.md",
+      "sha256": "d8fe3a40d8bc606e37ace7848ccd2afae3df6783cecdb3f2c575a5bfcfee4b26"
+    },
+    {
+      "bytes": 5820,
+      "path": "build_activation_overlay.py",
+      "sha256": "3633e19294cc9767f1d2f8c8743e0949dbf471e2f7e0966a75c60598c5dd5b18"
+    },
+    {
+      "bytes": 3263,
+      "path": "COST_TABLE_OVERLAY.patch",
+      "sha256": "58dd4ba2b9927401e571e7d0e933b1493a5aacd7bbc68bafabffe79cad8a3ba8"
+    },
+    {
+      "bytes": 25533,
+      "path": "gpu_cell_issuer.py",
+      "sha256": "455abbd6391616fa49be323ba13daa4cdc3eda1b3642152b6f597c6ad681dcfe"
+    },
+    {
+      "bytes": 48003,
+      "path": "LOCAL_ACTIVATION_CPU_RESULT_01.json",
+      "sha256": "f59b4a5b7f4c8b0e60d257ea22665bca97c4df9d02db5478cd7f0dbf81a11994"
+    },
+    {
+      "bytes": 48002,
+      "path": "LOCAL_ACTIVATION_CPU_RESULT_FINAL.json",
+      "sha256": "bdae114bc16402623c77b445ef3868bc36fc0ed428c17025d2fa8adf3805d91f"
+    },
+    {
+      "bytes": 48003,
+      "path": "LOCAL_ACTIVATION_CPU_RESULT_FINAL_V2.json",
+      "sha256": "7532eb0609a5aa4198966916424cd9794a9072a41582947ed19e06e9c06983d5"
+    },
+    {
+      "bytes": 48519,
+      "path": "LOCAL_ACTIVATION_CPU_RESULT_FINAL_V3.json",
+      "sha256": "a88d8af9b3f1d1eb00fe0eba795f5ca26245c03b8edadae7707ad384d46e4e50"
+    },
+    {
+      "bytes": 41753,
+      "path": "native_conditional_cost.py",
+      "sha256": "675be4f91821863e23cc82128aadc040d8a9513c3aaf9b407d6c3fccd978ccb8"
+    },
+    {
+      "bytes": 149,
+      "path": "source/prefix_io_control/__init__.py",
+      "sha256": "0cb5d4febaf3ecb7f77d7dee56ae35f41d01300b33c108ef7f7fcb018020664c"
+    },
+    {
+      "bytes": 852,
+      "path": "source/prefix_io_control/bridge.py",
+      "sha256": "c1e1a5454ebeda338f37deebdccf9293374e9e9002c472377ae483438071ecb5"
+    },
+    {
+      "bytes": 9901,
+      "path": "source/prefix_io_control/config.py",
+      "sha256": "0a659a588947773c8fa071296260ba9ae878787f34beda014fde24fb874164de"
+    },
+    {
+      "bytes": 5772,
+      "path": "source/prefix_io_control/dependencies.py",
+      "sha256": "41cc50163c51a2f02486230fcfa36c348af95ef687c3f2cb815bdd6797f29481"
+    },
+    {
+      "bytes": 11021,
+      "path": "source/prefix_io_control/dispatch_budget.py",
+      "sha256": "412c43761cb2f59636240e15c884b25d2a1d0ee708684d496259baf2f34d667c"
+    },
+    {
+      "bytes": 16989,
+      "path": "source/prefix_io_control/dispatch_shadow.py",
+      "sha256": "c3d502423116f8c3b74f976acba092cb574d58d078c7b34f368e9e5b926b8e1b"
+    },
+    {
+      "bytes": 25533,
+      "path": "source/prefix_io_control/gpu_cell_issuer.py",
+      "sha256": "455abbd6391616fa49be323ba13daa4cdc3eda1b3642152b6f597c6ad681dcfe"
+    },
+    {
+      "bytes": 11396,
+      "path": "source/prefix_io_control/native_flush_probe.py",
+      "sha256": "b24902ca76aa998c564218738ec02cfc3c96f5b12523a2df80765a489c04ebda"
+    },
+    {
+      "bytes": 1338,
+      "path": "source/prefix_io_control/native_options.py",
+      "sha256": "25f09f9ef3006553314156cd0795e94cf6a67e7bc1215e6d3bd3d832459722fe"
+    },
+    {
+      "bytes": 8493,
+      "path": "source/prefix_io_control/native_owner.py",
+      "sha256": "2ef22ba90e6a89890a0a060e81f0cd639f7f04bb8c7bb16635208edf80534a81"
+    },
+    {
+      "bytes": 2890,
+      "path": "source/prefix_io_control/observation.py",
+      "sha256": "8ddf5634f46b254f9e539187caa964503d44954637edfeb5c385b2b369b706f2"
+    },
+    {
+      "bytes": 2089,
+      "path": "source/prefix_io_control/order_options.py",
+      "sha256": "8d631e19b40b87604747f3aee2db9031e696f74c3a98147e4e966062220e4aea"
+    },
+    {
+      "bytes": 25553,
+      "path": "source/prefix_io_control/p4_bridge.py",
+      "sha256": "6bec5dd57e25cfc2c0e62540742a781d656ba528cb6c8057cd2402197db93e1a"
+    },
+    {
+      "bytes": 6267,
+      "path": "source/prefix_io_control/p4_cost_table.py",
+      "sha256": "7e76581c628cead0f02f9cab34164bf7b45a7797b90ce66265394fe0a7bffc47"
+    },
+    {
+      "bytes": 10679,
+      "path": "source/prefix_io_control/p4_eta.py",
+      "sha256": "befe3d10e3466be8a34d0b4756f993c0100cf909e712b167ec221c37f9064d50"
+    },
+    {
+      "bytes": 11977,
+      "path": "source/prefix_io_control/p4_gpu_step_observation.py",
+      "sha256": "2dbd58eb095413520c5818cf5bb982ae6ca584933fc9b6db567eef41b29ca690"
+    },
+    {
+      "bytes": 6379,
+      "path": "source/prefix_io_control/p4_load_observation.py",
+      "sha256": "522091deaa6489ad555694475faa34060a9176a4341417c499e4b42d6556db2c"
+    },
+    {
+      "bytes": 9647,
+      "path": "source/prefix_io_control/p4_native_window_journal.py",
+      "sha256": "3a9ded39846cccf88ee9aceed2e16b86d8a7bbe953adfea3ba1a302b2c5aa8c3"
+    },
+    {
+      "bytes": 4629,
+      "path": "source/prefix_io_control/p4_options.py",
+      "sha256": "4dba8237ab94ff8b235e248b253a727822c99e8f1ac40e5b412d91d352a8613c"
+    },
+    {
+      "bytes": 48136,
+      "path": "source/prefix_io_control/p4_paired_measurement_verifier.py",
+      "sha256": "3cd840c6dd388e3dcf9023e54dd5eb172ab59777c66f731a5d1e3f9afecd99ac"
+    },
+    {
+      "bytes": 24976,
+      "path": "source/prefix_io_control/p4_policy.py",
+      "sha256": "bce19c96c7651f69ebb91a515ea3e9e3d6855636b4bd4aa84e60fb2fbc10d673"
+    },
+    {
+      "bytes": 14365,
+      "path": "source/prefix_io_control/p4_production_table_contract.py",
+      "sha256": "ae244d09c2fc1eb077e6af8df3ae378b6b3504b4f71ff10eb26f0ada7d2c71fd"
+    },
+    {
+      "bytes": 12933,
+      "path": "source/prefix_io_control/p4_raw_pair_recorder.py",
+      "sha256": "8ef2ea06bfe096dbf0c0dbbb585c0b1778a2620113217d2b2a94debd793e1a42"
+    },
+    {
+      "bytes": 16500,
+      "path": "source/prefix_io_control/p4_single_file_receipt.py",
+      "sha256": "50cc763a191a66cb002ad1e6091f35fa2af9d413b37ca251af0487686ab73a82"
+    },
+    {
+      "bytes": 2085,
+      "path": "source/prefix_io_control/p4_startup_evidence.py",
+      "sha256": "56fc6df03e7fde275ee344bac300acb51de1046dfbf64025c9c035a8f4e1b4dd"
+    },
+    {
+      "bytes": 11969,
+      "path": "source/prefix_io_control/p4_types.py",
+      "sha256": "07bbcb0a449c349f9c63874728e409180c1c9787f3253723403978e17383094e"
+    },
+    {
+      "bytes": 2686,
+      "path": "source/prefix_io_control/p4_verified_cost_loader.py",
+      "sha256": "23fddf7c159ff2bdcb98c000ad18f90c804183f0a5af9bf08be24ac3b54d368d"
+    },
+    {
+      "bytes": 2140,
+      "path": "source/prefix_io_control/preflight.py",
+      "sha256": "a4cff5d15308bb3b51b9a1e959851d34f8fbc72e34b697d1a70dfdb71e01a126"
+    },
+    {
+      "bytes": 3688,
+      "path": "source/prefix_io_control/publication.py",
+      "sha256": "bcaaa49d78f44d692cab89ad86fa5197cbab59491dab85b902d9fe4ef7baa0b7"
+    },
+    {
+      "bytes": 5445,
+      "path": "source/prefix_io_control/simple_stage_options.py",
+      "sha256": "63fe6a27087ec604e82f47bd15a4e72eb3f475304203006fd9b5718f5a90a8dd"
+    },
+    {
+      "bytes": 21557,
+      "path": "source/prefix_io_control/simple_stage_policy.py",
+      "sha256": "8a2dc9586f5e1fe5257f988e44466284d10e0e46a8cee46f876a8febe5caf1a5"
+    },
+    {
+      "bytes": 3580,
+      "path": "source/prefix_io_control/stage_accounting.py",
+      "sha256": "11a736586a9278e2c373d4fc1bfe0faf9cd166b81e9d9c3f658500a51ab954aa"
+    },
+    {
+      "bytes": 6547,
+      "path": "source/prefix_io_control/start_budget.py",
+      "sha256": "d83fb291e2788366b7453132114534199c72df52634bde226cba3f34eb40c1c8"
+    },
+    {
+      "bytes": 2819,
+      "path": "source/prefix_io_control/start_options.py",
+      "sha256": "f7e01eff1ffa641bde1b968e7a9a877458e7528601be04d50b7790664fa78866"
+    },
+    {
+      "bytes": 2947,
+      "path": "source/prefix_io_control/store_order.py",
+      "sha256": "3b06e96e6b5e21fc6c6ca4bbc89be235888948191f12ae69de7ae95f8bc8d8f0"
+    },
+    {
+      "bytes": 6549,
+      "path": "source/prefix_io_control/store_readiness.py",
+      "sha256": "203f063a418bda608ea19564a1c2dfe308d1291c640ccfe629f78aec1cfb2e98"
+    },
+    {
+      "bytes": 1738,
+      "path": "source/prefix_io_control/token_timeline.py",
+      "sha256": "fbcae96ecbc86041d324362fa5b6b2a4c4d51e033b67f1b330cfc2b594c84164"
+    },
+    {
+      "bytes": 12907,
+      "path": "test_activation_cpu.py",
+      "sha256": "dc34f5ec112e9794263872c5f4c418fec63755d1000b8ca6b6e1f39fa3b757ba"
+    },
+    {
+      "bytes": 3069,
+      "path": "verify_activation_cpu.py",
+      "sha256": "f62a6778c18beb53a29ce8e39e93a697e6bd52d061cbc2dd1dd385d3c8f41b68"
+    }
+  ],
+  "qualified_GPU_cells": 0,
+  "schema": "finite_GPU_issuer_core_freeze_v1",
+  "source_changes_after_this_record": false
+}

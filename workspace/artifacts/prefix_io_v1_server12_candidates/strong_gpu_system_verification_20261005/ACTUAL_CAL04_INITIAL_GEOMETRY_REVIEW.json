@@ -1,0 +1,309 @@
+{
+  "status": "ACTUAL_CAL04_RAW_GEOMETRY_VERIFIED_NOT_COST_QUALIFIED",
+  "GPU_operations": 0,
+  "RPC_calls": 0,
+  "source_mutations": 0,
+  "GPU_fit_or_heldout_duration_values_inspected": false,
+  "facts": {
+    "window_count": 1,
+    "condition": "A",
+    "frontend_outputs": 128,
+    "warmup_reported_cached_tokens": 512,
+    "formal_reported_cached_tokens": 512,
+    "actual_frame_count": 128,
+    "actual_witness_count": 128,
+    "actual_model_ordinals": [
+      214,
+      341
+    ],
+    "first_prepared": {
+      "native_step_ordinal": 214,
+      "rows": [
+        {
+          "request_id": "server12-strong-exact-cal04-p0-A-9ecc04af",
+          "pre_context": 496,
+          "prompt_tokens": 512,
+          "scheduled_tokens": 16
+        }
+      ],
+      "batch": 1,
+      "active_decode": 0,
+      "prefill_tokens": 16,
+      "context_length": 496,
+      "step_kind": "prefill",
+      "input_seq_lens_from_cpu_inputs": [
+        512
+      ],
+      "context_basis": "pre_computed_tokens"
+    },
+    "selected_offset": 16,
+    "selected_prepared": {
+      "native_step_ordinal": 230,
+      "rows": [
+        {
+          "request_id": "server12-strong-exact-cal04-p0-A-9ecc04af",
+          "pre_context": 527,
+          "prompt_tokens": 512,
+          "scheduled_tokens": 1
+        }
+      ],
+      "batch": 1,
+      "active_decode": 1,
+      "prefill_tokens": 0,
+      "context_length": 527,
+      "step_kind": "decode",
+      "input_seq_lens_from_cpu_inputs": [
+        528
+      ],
+      "context_basis": "pre_computed_tokens"
+    },
+    "initial_no_forward_count": 52,
+    "first_no_forward_metadata": {
+      "source_class_authenticated": true,
+      "pristine": true,
+      "routed_initial_no_forward": true,
+      "total_scheduled_tokens": 0,
+      "total_type": "int",
+      "work_fields": {
+        "num_scheduled_tokens": {
+          "present": true,
+          "type": "dict",
+          "length": 0,
+          "scalar": null
+        },
+        "scheduled_new_reqs": {
+          "present": true,
+          "type": "list",
+          "length": 0,
+          "scalar": null
+        },
+        "scheduled_spec_decode_tokens": {
+          "present": true,
+          "type": "dict",
+          "length": 0,
+          "scalar": null
+        },
+        "scheduled_encoder_inputs": {
+          "present": true,
+          "type": "dict",
+          "length": 0,
+          "scalar": null
+        },
+        "has_structured_output_requests": {
+          "present": true,
+          "type": "bool",
+          "length": null,
+          "scalar": false
+        },
+        "pending_structured_output_tokens": {
+          "present": true,
+          "type": "bool",
+          "length": null,
+          "scalar": false
+        },
+        "ec_connector_metadata": {
+          "present": true,
+          "type": "NoneType",
+          "length": null,
+          "scalar": null
+        },
+        "num_invalid_spec_tokens": {
+          "present": true,
+          "type": "NoneType",
+          "length": null,
+          "scalar": null
+        },
+        "new_block_ids_to_zero": {
+          "present": true,
+          "type": "NoneType",
+          "length": null,
+          "scalar": null
+        }
+      },
+      "cached_fields": {
+        "req_ids": {
+          "present": true,
+          "type": "list",
+          "length": 0,
+          "scalar": null
+        },
+        "resumed_req_ids": {
+          "present": true,
+          "type": "set",
+          "length": 0,
+          "scalar": null
+        },
+        "new_token_ids": {
+          "present": true,
+          "type": "list",
+          "length": 0,
+          "scalar": null
+        },
+        "all_token_ids": {
+          "present": true,
+          "type": "dict",
+          "length": 0,
+          "scalar": null
+        },
+        "new_block_ids": {
+          "present": true,
+          "type": "list",
+          "length": 0,
+          "scalar": null
+        },
+        "num_computed_tokens": {
+          "present": true,
+          "type": "list",
+          "length": 0,
+          "scalar": null
+        },
+        "num_output_tokens": {
+          "present": true,
+          "type": "list",
+          "length": 0,
+          "scalar": null
+        }
+      },
+      "KV_metadata_present": true,
+      "cached_class_authenticated": true
+    },
+    "block_size": 16,
+    "author_load_planner": "on",
+    "new_policy_mode": "off",
+    "original_engine_shutdown_returned": true,
+    "native_tail_assertions": {
+      "handler_shutdown": true,
+      "worker_alive": false,
+      "aio_worker_alive": false,
+      "reactor_closed": true
+    },
+    "original_guard": {
+      "exit": 143,
+      "child_exit": -15,
+      "timed_out": false,
+      "interrupted_signal": 15,
+      "session_drained": true,
+      "session_members_after_cleanup": [],
+      "ledger_active": null
+    },
+    "source_lock": {
+      "path": "artifacts/prefix_io_v1/server12-gpu-prerental-preparation-20261004/PRERENT_SOURCE_LOCK_V8.json",
+      "bytes": 1130004,
+      "sha256": "486c66a16bc92d7f303f4e4337739d1cf6eab63ba386f283fd36b4045a22be23"
+    },
+    "recovery_warning_lines": [
+      {
+        "file": "CAL04_WINDOW_00_ACTUAL_STDOUT.log",
+        "line": 41,
+        "text": "WARNING 10-05 02:29:01 [scheduler.py:2369] Recovered from KV load failure: 1 request(s) rescheduled (16 tokens affected)."
+      },
+      {
+        "file": "CAL04_WINDOW_00_ACTUAL_STDOUT.log",
+        "line": 44,
+        "text": "WARNING 10-05 02:29:03 [scheduler.py:2369] Recovered from KV load failure: 1 request(s) rescheduled (16 tokens affected)."
+      },
+      {
+        "file": "CAL04_WINDOW_01_ACTUAL_STDOUT.log",
+        "line": 41,
+        "text": "WARNING 10-05 02:31:09 [scheduler.py:2369] Recovered from KV load failure: 1 request(s) rescheduled (16 tokens affected)."
+      },
+      {
+        "file": "CAL04_WINDOW_01_ACTUAL_STDOUT.log",
+        "line": 44,
+        "text": "WARNING 10-05 02:31:12 [scheduler.py:2369] Recovered from KV load failure: 1 request(s) rescheduled (16 tokens affected)."
+      }
+    ]
+  },
+  "source_chain": {
+    "statistics": "scheduler629-633 initial matching prefill_stats -> output_processor628-634 frontend report",
+    "actual_prepared": "gpu_model_runner1402 updates original input_batch CPU computed tokens -> frame_adapter182",
+    "invalid_recovery": "scheduler2284 truncates at failed block; scheduler2111-2141 keeps truncated value on failed receive and subtracts one only for normal full external prompt hit",
+    "block_alignment": "kv_cache_manager218-229 local prefix lookup bounds prompt-1 and accepts full blocks",
+    "possible_deliberate_admission": "actual SHA-matching py-kvcache reactor1431-1455 break-even decline -> vllm630-638 success0bytes+declinedIDs -> offloadingworker531-538 get_block_ids_with_load_errors -> scheduler recovery"
+  },
+  "inferences": {
+    "actual496_matches_original_recompute_or_block_alignment": true,
+    "recovery_warning_does_not_identify_underlying_cause": true,
+    "first_invalid_block_index31_is_arithmetic_inference_only": true,
+    "failed_load_root_cause_proven": false,
+    "all_KV_loads_succeeded_proven": false,
+    "strong_U_baseline_globally_broken_proven": false,
+    "CAL03_unknown_frames_inferred": false
+  },
+  "qualification": {
+    "CAL04_cost_cell_qualified": false,
+    "CAL04_reusable_for_new_fit_or_heldout": false,
+    "new_strategy_performance_verified": false,
+    "unchanged_estimators": true,
+    "unchanged_policy_budget": true,
+    "next": "fresh V7 complete six windows with exact initial496/prefill16, existing reported512 and selectedoffset16/context527; early refusal on mismatch; same raw validation and lifecycle gates"
+  },
+  "source_refs": [
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/strong_gpu_system_verification_20261005/CAL04_COMPLETED_FIRST_WINDOW_NATIVE_RESULT.json",
+      "bytes": 3158378,
+      "sha256": "a8e1bba92e987335967760c0384be36dcf5d5e483eaf8c5562aea52512808bdd"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/strong_gpu_system_verification_20261005/CAL04_WINDOW_00_ACTUAL_STDOUT.log",
+      "bytes": 12813,
+      "sha256": "0e031ff276fadeaa0ead6784815a4e655f9d92a98447fddfa04117085c62d490"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/strong_gpu_system_verification_20261005/CAL04_WINDOW_01_ACTUAL_STDOUT.log",
+      "bytes": 12813,
+      "sha256": "f7f8f79f4c28f54134cd1cc7fe4da1b5b9d3fb9d250d04e6982710ae42868090"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/strong_gpu_system_verification_20261005/CAL04_ACTUAL_STOP_DRAIN_RPC_RESULT.json",
+      "bytes": 1764,
+      "sha256": "bf021175e9d9259bff42d4c4eb48b02dcd0c35e607d0039ab3f03448f436791b"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/strong_gpu_system_verification_20261005/SOURCE_CACHE_SEMANTIC_scheduler.py",
+      "bytes": 109005,
+      "sha256": "1dfad7e969d3a689a4e38212c089ef98edf437cd5c1c9f904a2774cd08505698"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/strong_gpu_system_verification_20261005/SOURCE_CACHE_SEMANTIC_kv_cache_manager.py",
+      "bytes": 24661,
+      "sha256": "4946d9567331f4efd6707ac044e78391307d810b8fe89c00de7c5ebff2899dae"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/source_inputs/gpu_model_runner.py",
+      "bytes": 329690,
+      "sha256": "61828af13a5f523c9683df560374d75bc1df93254a9ac4a449c95447100e9075"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/gpu_prerental_preparation_20261004/source_inputs/output_processor.py",
+      "bytes": 31616,
+      "sha256": "464c3cda347512cf1090f8e6471d0d3f0f65e286eb9a7b97be52efbc1ffd572a"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server09_candidates/collector/p4_full_step_frame_adapter.py",
+      "bytes": 16067,
+      "sha256": "bea850fd60831010c2ac0bf88c1f5f121f3ffca50d63ab56759319ed6e512582"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server12_candidates/native_gpu_delivery/recorded_files/adb435d54c88_load_planner.py",
+      "bytes": 18325,
+      "sha256": "92581e373d7e5c0903520417fb0ce80141f2f65506bf16c7ecbde94ab1ca5fe2"
+    },
+    {
+      "path": "artifacts/c5g5/server11-c5-gpu-entry-revision-20261004/common_candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/vllm.py",
+      "bytes": 33693,
+      "sha256": "901cc5b9a20245e60d2200ef190979b80adb77ca5a049624c6bc4ec171a712d1"
+    },
+    {
+      "path": "artifacts/c5g5/server11-c5-gpu-entry-revision-20261004/common_candidate/source/third_party/work/py-kvcache-p4-02-cpu/py_kvcache/reactor.py",
+      "bytes": 185744,
+      "sha256": "a2390db63df27366f60dce6b81e0affa0c1272727a3b6b60e86bff367e23db47"
+    },
+    {
+      "path": "artifacts/prefix_io_v1_server09_candidates/g3_source_readonly/third_party/work/vllm-author-p4-02-cpu/vllm/distributed/kv_transfer/kv_connector/v1/offloading/worker.py",
+      "bytes": 24711,
+      "sha256": "5712de78cf9cd13ca5ec2bc0d9d349964a6d5a7986cbd9a2f46a26078176dc86"
+    }
+  ],
+  "source_refs_unchanged": true
+}

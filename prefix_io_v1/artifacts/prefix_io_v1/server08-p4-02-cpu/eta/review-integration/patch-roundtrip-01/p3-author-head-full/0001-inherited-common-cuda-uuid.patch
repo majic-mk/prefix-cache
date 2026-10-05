@@ -1,0 +1,26 @@
+--- a/author/vllm/platforms/cuda.py
++++ b/author/vllm/platforms/cuda.py
+@@ -608,6 +608,23 @@
+ # the major benefit of using NVML is that it will not initialize CUDA
+ class NvmlCudaPlatform(CudaPlatformBase):
+     @classmethod
++    def device_id_to_physical_device_id(cls, device_id: int) -> int:
++        visible_devices = os.environ.get(cls.device_control_env_var, "")
++        if visible_devices:
++            device = visible_devices.split(",")[device_id]
++            if device.startswith("GPU-"):
++                return cls._device_uuid_to_physical_device_id(device)
++        return super().device_id_to_physical_device_id(device_id)
++
++    @classmethod
++    @with_nvml_context
++    def _device_uuid_to_physical_device_id(cls, device_uuid: str) -> int:
++        # Resolve in NVML's namespace without changing CUDA's UUID binding.
++        # Keep a balanced context even when the caller already initialized NVML.
++        handle = pynvml.nvmlDeviceGetHandleByUUID(device_uuid)
++        return pynvml.nvmlDeviceGetIndex(handle)
++
++    @classmethod
+     @cache
+     @with_nvml_context
+     def get_device_capability(cls, device_id: int = 0) -> DeviceCapability | None:

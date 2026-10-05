@@ -1,0 +1,10 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "experiments/prefix_io_v1/scripts/prepare_concurrent_pilot.py"
+  ],
+  "exit": 0,
+  "stdout": "{\"index\": {\"all_hit\": {\"path\": \"artifacts/prefix_io_v1/server07-p3-06/all_hit-manifest.json\", \"sha256\": \"94920aae8ccd747dfd3affaf9f7f462016a96d702dad9385a00986902bf9ab4e\"}, \"mixed_readwrite\": {\"path\": \"artifacts/prefix_io_v1/server07-p3-06/mixed_readwrite-manifest.json\", \"sha256\": \"026d2d1691572eda2b4228dea6f826daa5f5b61836cc31bbf6cf4e0541fd7273\"}}, \"arrivals\": [0.9213114141346523, 1.0630811602010424, 1.3296495302432327, 1.4249034928136477, 1.5294073208864016, 4.337322779302316, 4.872547126519124, 5.520722027244806, 6.649151013555626, 7.60930992061615], \"initially_absent_families\": [\"development-library-long\", \"development-waterworks-long\"]}\n",
+  "stderr": "",
+  "elapsed_seconds": 7.498415231704712
+}

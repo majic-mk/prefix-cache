@@ -1,0 +1,51 @@
+{
+  "status": "PASS_CPU_PLAN_METRICS_V2_31_CONTRACTS",
+  "utc_observed": "2026-10-02T01:37:29.052263+00:00",
+  "command": [
+    "C:\\Users\\mamengkui\\AppData\\Roaming\\uv\\python\\cpython-3.12.14-windows-x86_64-none\\python.exe",
+    "-X",
+    "utf8",
+    "-B",
+    "-I",
+    "-S",
+    "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server09_candidates\\g3_calibration_launcher_cpu_v1\\test_g3_calibration_plan_metrics_v2.py"
+  ],
+  "cwd": "C:\\Users\\mamengkui\\OneDrive\\文档\\论文2\\artifacts\\prefix_io_v1_server09_candidates\\g3_calibration_launcher_cpu_v1",
+  "environment_overrides": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "PYTHONIOENCODING": "utf-8"
+  },
+  "returncode": 0,
+  "wall_seconds": 1.160306399979163,
+  "defined_tests": 31,
+  "raw_stdout_stderr": {
+    "path": "CPU_PLAN_METRICS_V2_RUN_01.log",
+    "bytes": 135,
+    "sha256": "6745740f011817f27a659dd2fc59684c225707825592d07c2db61f0d789ef6c3"
+  },
+  "source_refs": [
+    {
+      "path": "g3_calibration_plan_metrics_v2.py",
+      "bytes": 24591,
+      "sha256": "96abdd444c187b70c81de82a63f24b990e3fabe65ecd37307909602181648543"
+    },
+    {
+      "path": "test_g3_calibration_plan_metrics_v2.py",
+      "bytes": 18364,
+      "sha256": "616f78953ae703abb6840b6509ddea24e56a9aaa9ec70ff16d224c0f8f2bb1ec"
+    }
+  ],
+  "original_plan_test_hashes_unchanged": {
+    "g3_calibration_plan.py": "196700d96733ec07c5a4c08c6104ab31a2a36548cf005fbb8e11b6a769f6f0c0",
+    "test_g3_calibration_plan.py": "057744cf2f6d66d400a9aa9b7d3ab944a2e032b39b9c9bf07a74e7d18926c159"
+  },
+  "whole_AST_change_boundary": "plan: only JOB_NAMES -02 / STORAGE_RELATIVE -02 / common_stats_schema_fix keyword; test: only module/file binding",
+  "fixed_metadata_checks": "PASS exact new names/storage/fix context; unchanged 18requests/960seconds/28800budget/float0.0; scope template no authority",
+  "framework_imports": 0,
+  "RPCs": 0,
+  "GPU_operations": 0,
+  "authorized_scope_files_created": 0,
+  "production_qualified": false,
+  "cost_qualified": false,
+  "method_effect_verified": false
+}

@@ -1,0 +1,12 @@
+{
+  "CUDA_VISIBLE_DEVICES": "",
+  "argv": [
+    "/root/autodl-tmp/prefix-io-v1-handoff/project/.venv/bin/python",
+    "-B",
+    "-I",
+    "-S",
+    "-c",
+    "\nfrom pathlib import Path\nimport json,sys,importlib.util,hashlib\nroot=Path(\"/root/autodl-tmp/prefix-io-v1-handoff/project\");d=root/\"artifacts/prefix_io_v1/server14-dr-long-20261005\"\nspec=importlib.util.spec_from_file_location(\"_dr_cpu_adapter\",d/\"dr_p316_original_adapter_v2.py\");a=importlib.util.module_from_spec(spec);spec.loader.exec_module(a);R=a.bootstrap(root)\nout=[]\nfor name in [\"CONFIG_CAL01.json\",\"CONFIG_U01.json\",\"METHOD_CONFIG_TEMPLATE_01.json\"]:\n c=json.loads((d/name).read_bytes());refs=R.source_rows(root,c[\"source_lock_ref\"],full=False)\n for p,r in c[\"runtime_refs\"].items():assert p==r[\"path\"] and refs[p]==r;R.check_ref(root,r)\n sys.path[:0]=[str(root/p) for p in c[\"runtime_import_roots\"]]\n from prefix_io_control.p4_options import parse_p4_options,build_p4_kwargs\n opts=parse_p4_options(c[\"engine_controls\"]);kwargs=build_p4_kwargs(opts)\n if c[\"arm\"]==\"U\":assert \"p4_bridge\" not in kwargs and \"dispatch_controller\" not in kwargs\n else:\n  assert kwargs[\"p4_bridge\"].mode==\"dependency_only\" and kwargs[\"dispatch_controller\"].config.mode==\"fixed\"\n  fixed=c[\"engine_controls\"][\"prefix_io_p4_policy\"][\"fixed_stage_policy\"]\n  assert fixed[\"cumulative\"][\"ssd_read\"]=={\"ops\":8,\"bytes\":8*917504}\n  original=json.loads((root/\"artifacts/prefix_io_v1/server08-p3-16/fixed8-control.json\").read_bytes())[\"stage_policy\"]\n  assert {k:v for k,v in fixed.items() if k!=\"run_id\"}==original\n out.append({\"config\":name,\"arm\":c[\"arm\"],\"checked_runtime_sources\":len(c[\"runtime_refs\"]),\"native_parser\":True,\"native_builder\":True,\"no_cost_table\":opts.prepared_cost_request is None})\nprint(json.dumps({\"results\":out,\"GPU_operations\":0,\"qualification_granted\":False}))\n"
+  ],
+  "cwd": "/root/autodl-tmp/prefix-io-v1-handoff/project"
+}
